@@ -1,0 +1,21 @@
+{
+  "name": "CRF-4 MIL",
+  "brand": "Sightmark",
+  "scopes": [
+    "Strikon VMP 1-4x22"
+  ],
+  "unit": "mil",
+  "family": null,
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://www.sightmark.com/products/strikon-vmp-1-4x22-sfp-fiber-riflescope",
+  "notes": "Sightmark ürün sayfası (Strikon VMP 1-4x22, SM23001): 'Reticle type: CRF-4 MIL SFP', 'second focal plane CRF-4 MIL reticle', fiber-tel aydınlatma, '1/10 MIL' tık, 23 MIL ayar -> unit=mil (adda MIL). Spec föyü: 'Reticle Name CRF-4 MIL SFP', 'Focal Plane Second'; 'Reticle Information' bölümünde etiketsiz değerler 4.5 MIL, 1.5 MIL, 9 MIL, 0.32 MIL, 12 MIL, 30 MIL — hangi öğe olduğu yazmıyor, eşlenmedi. Kılavuz PDF'i metin katmanı içermiyor (okunamadı). family ve sayısal alanlar null. (Kılavuz dosyası ürün sayfasında cdn.shopify.com bağlantısıyla veriliyor; aynı dosya üreticinin kendi alan adındaki www.sightmark.com/cdn/shop/files/ yolundan okundu.) Kaynak: https://www.sightmark.com/products/strikon-vmp-1-4x22-sfp-fiber-riflescope (okundu 2026-10-12); https://www.sightmark.com/cdn/shop/files/SM23001_Strikon_VMP_1-4x22_SFP_Fiber_INF_Spec_Sheet_PROOF_USA_Rev2.pdf (okundu 2026-10-12)"
+}

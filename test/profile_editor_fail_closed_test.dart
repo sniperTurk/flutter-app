@@ -119,21 +119,24 @@ void main() {
         ),
         findsOneWidget,
       );
-      expect(selectedValue<double>(tester, 'scope-max-mag'), 36);
+      // Its values come from the record; the boxes are hidden (owner,
+      // 2026-10-13) and the designation shows them.
+      expect(find.byKey(const Key('scope-max-mag')), findsNothing);
       expect(find.text('Dürbün: Gazi Sniper 6-36x56 FFP'), findsOneWidget);
 
       await enterRifleField(tester, 'rifle-twist-rate', '16');
       await chooseTwistDirection(tester, 'Sol');
       // Regülatör basıncı is not asked any more (owner, 2026-10-09).
       expect(find.byKey(const Key('rifle-regulator')), findsNothing);
+      // PCP BC may stay empty now (owner, 2026-10-12).
       expect(
         _updateAction(tester),
-        isNull,
-        reason: 'the old catalog ammo has no BC; it must be entered',
+        isNotNull,
+        reason: 'a PCP pellet without a published BC can be saved',
       );
       expect(text('ammo-grain'), '51');
       await enterRifleField(tester, 'ammo-bc', '0,08');
-      await chooseInSelect(tester, 'ammo-bc-model', 'G1');
+      await chooseBcModel(tester, 'G1');
       expect(_updateAction(tester), isNotNull);
     },
   );
@@ -143,7 +146,7 @@ void main() {
   ) async {
     await _pumpAndOpen(tester, _valid);
     await enterRifleField(tester, 'ammo-bc', '0,08');
-    await chooseInSelect(tester, 'ammo-bc-model', 'G1');
+    await chooseBcModel(tester, 'G1');
     await chooseTwistDirection(tester, 'Sağ');
     await enterRifleField(tester, 'rifle-twist-rate', '200');
     expect(find.text('3–80 arasında bir değer girin.'), findsOneWidget);
@@ -152,11 +155,14 @@ void main() {
     expect(_updateAction(tester), isNull);
     await enterRifleField(tester, 'rifle-twist-rate', '9');
     expect(_updateAction(tester), isNotNull);
-    // Maximum magnification below the minimum is rejected.
+    // Maximum magnification below the minimum is rejected (a typed scope:
+    // a catalog scope's büyütme boxes are hidden).
+    await fillScopeForm(tester);
+    expect(_updateAction(tester), isNotNull);
     await chooseInSelect(tester, 'scope-max-mag', '4x');
     expect(find.text('Minimum büyütmeden küçük olamaz.'), findsOneWidget);
     expect(_updateAction(tester), isNull);
-    await chooseInSelect(tester, 'scope-max-mag', '36x');
+    await chooseInSelect(tester, 'scope-max-mag', '24x');
     expect(_updateAction(tester), isNotNull);
     // Kalibre is a list now: no free (out-of-range) typing.
     expect(
@@ -183,12 +189,8 @@ void main() {
       'Tip',
       'Ağırlık',
       'BC',
+      // BC modeli on PCP too since 2026-10-14 (owner), G1 by default.
       'BC modeli',
-      'Odak düzlemi',
-      'Minimum büyütme',
-      'Maksimum büyütme',
-      'Mercek çapı',
-      'Dürbün birimi',
       'Dürbün ayağı',
       'Üst kule klik sayısı',
       'Sight height',
@@ -202,8 +204,19 @@ void main() {
     ]) {
       expect(find.byTooltip('Bilgi: $label'), findsOneWidget, reason: label);
     }
-    // Not asked any more (owner, 2026-10-09).
-    expect(find.byTooltip('Bilgi: Klik değeri'), findsNothing);
+    // A catalog scope: its values come from the record, the boxes are
+    // hidden (owner, 2026-10-13); Klik değeri is asked only when typed.
+    const scopeLabels = [
+      'Odak düzlemi',
+      'Minimum büyütme',
+      'Maksimum büyütme',
+      'Mercek çapı',
+      'Dürbün birimi',
+      'Klik değeri',
+    ];
+    for (final label in scopeLabels) {
+      expect(find.byTooltip('Bilgi: $label'), findsNothing, reason: label);
+    }
     final bcInfo = find.byTooltip('Bilgi: BC');
     await tester.ensureVisible(bcInfo);
     await tester.tap(bcInfo);
@@ -218,6 +231,11 @@ void main() {
       find.textContaining('havayı ne kadar kolay yardığını'),
       findsNothing,
     );
+    // A typed scope asks each of them, every one with its ⓘ.
+    await openScopeManual(tester);
+    for (final label in scopeLabels) {
+      expect(find.byTooltip('Bilgi: $label'), findsOneWidget, reason: label);
+    }
   });
 }
 
@@ -231,7 +249,7 @@ void _unitsAndFirearmTests() {
     addTearDown(() => CatalogRepository.installUserCatalog(UserCatalog.empty));
     final store = await _pumpAndOpen(tester, _valid);
     await enterRifleField(tester, 'ammo-bc', '0,08');
-    await chooseInSelect(tester, 'ammo-bc-model', 'G1');
+    await chooseBcModel(tester, 'G1');
     await chooseTwistDirection(tester, 'Sağ');
     await enterRifleField(tester, 'rifle-twist-rate', '16');
     String zero() => tester
@@ -247,12 +265,9 @@ void _unitsAndFirearmTests() {
     await chooseInSelect(tester, 'profile-distance-unit', 'Yard');
     // 25 m = 27.3 yd (no unit label next to the field; ⓘ explains it).
     expect(zero(), '27.3');
-    // SMOA is offered as a turret unit.
-    await chooseInSelect(
-      tester,
-      'profile-angular-unit-${_valid.angularUnit.name}',
-      'SMOA',
-    );
+    // SMOA is offered as a turret unit (a typed scope: a catalog scope
+    // brings its own unit and hides the box, owner 2026-10-13).
+    await fillScopeForm(tester, unit: 'SMOA', click: '1/4 SMOA');
     expect(_updateAction(tester), isNotNull);
     final update = find.widgetWithText(MenzilPrimaryButton, 'Güncelle');
     await tester.ensureVisible(update);
@@ -282,7 +297,14 @@ void _unitsAndFirearmTests() {
     await tester.pumpAndSettle();
     await chooseInSelect(tester, 'profile-platform', 'Ateşli Tüfek');
     await chooseInSelect(tester, 'rifle-caliber', '.30-06 Springfield');
-    expect(find.text('.30-06 Springfield'), findsWidgets);
+    // The half-width box (owner, 2026-10-13) may show the short form.
+    expect(
+      find.descendant(
+        of: find.byKey(const Key('rifle-caliber')),
+        matching: find.textContaining('.30-06'),
+      ),
+      findsOneWidget,
+    );
     expect(find.text('Diğer (elle yaz)'), findsNothing);
     expect(find.byKey(const Key('rifle-caliber-other')), findsNothing);
   });
@@ -332,10 +354,12 @@ void _unitsAndFirearmTests() {
     expect(find.text('9.00 mm (.357)'), findsNothing);
     await chooseInSelect(tester, 'rifle-caliber', '.308 Win');
     expect(tester.widget<TextField>(grain).decoration!.hintText, isNull);
-    // Marka is a list of the firearm bullets for this caliber; a typed
-    // name only after "Listede yok", and without a pellet example.
+    // Marka is a list of the firearm rounds for this caliber; a typed
+    // round opens from the "listede yok mu?" link (owner, 2026-10-14), a
+    // typed brand only after "Diğer", without a pellet example.
     expect(find.byKey(const Key('ammo-brand-select')), findsOneWidget);
-    await chooseInSelect(tester, 'ammo-brand-select', 'Listede yok');
+    await openAmmoManual(tester);
+    await chooseInSelect(tester, 'ammo-brand-pick', 'Diğer');
     expect(
       tester
           .widget<TextField>(
@@ -374,17 +398,15 @@ void _unitsAndFirearmTests() {
     await tester.tap(find.byTooltip('Yeni profil'));
     await tester.pumpAndSettle();
     await chooseInSelect(tester, 'profile-platform', 'PCP Tüfek');
-    final brand = find.descendant(
-      of: find.byKey(const Key('ammo-brand')),
-      matching: find.byType(TextField),
-    );
-    await chooseInSelect(tester, 'ammo-brand-select', 'Listede yok');
-    await tester.ensureVisible(brand);
-    await tester.enterText(brand, 'H&N Slug HP');
-    await tester.pump();
+    // PCP asks no Marka (owner, 2026-10-13) and no Uzunluk (owner,
+    // 2026-10-13 23:32: only Pro > Mermi uzunluğu): type a weight.
+    expect(find.byKey(const Key('ammo-brand-select')), findsNothing);
+    expect(find.byKey(const Key('ammo-length')), findsNothing);
+    await enterRifleField(tester, 'ammo-grain', '33,95');
     await chooseInSelect(tester, 'profile-platform', 'Ateşli Tüfek');
-    // The typed PCP name is gone; the firearm lists are offered again.
-    expect(find.text('H&N Slug HP'), findsNothing);
+    // The typed PCP values are gone; the firearm lists are offered again.
+    expect(find.text('33,95'), findsNothing);
+    expect(find.byKey(const Key('ammo-length')), findsNothing);
     expect(find.byKey(const Key('ammo-brand-select')), findsOneWidget);
   });
 }

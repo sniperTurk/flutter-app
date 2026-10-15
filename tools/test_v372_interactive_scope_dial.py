@@ -1,6 +1,7 @@
 import re
 import unittest
 from pathlib import Path
+from dart_library_source import library_text
 
 ROOT = Path(__file__).resolve().parents[1]
 SCREEN = ROOT / 'lib/features/ballistics/ballistics_screen.dart'
@@ -10,8 +11,8 @@ CORE = ROOT / 'lib/core/scope_dial.dart'
 
 class InteractiveScopeDialContract(unittest.TestCase):
     def setUp(self):
-        self.screen = SCREEN.read_text(encoding='utf-8')
-        self.view = VIEW.read_text(encoding='utf-8')
+        self.screen = library_text(SCREEN)
+        self.view = library_text(VIEW)
         self.core = CORE.read_text(encoding='utf-8')
         start = self.screen.index('Widget _scopeDial(')
         self.dial = self.screen[start:self.screen.index('\n  }\n', start)]
@@ -57,13 +58,13 @@ class InteractiveScopeDialContract(unittest.TestCase):
         )
 
     def test_mount_cant_widens_up_travel_only(self):
-        # Dürbün ayağı: up = half travel + mount clicks, capped at the whole
-        # travel; down = half - mount (never below 0). The required correction
-        # itself is never changed by the mount, and an unknown travel is never
-        # guessed (V383).
+        # Dürbün ayağı: up = half travel + mount clicks - zero angle, capped
+        # at the whole travel; down = half - mount + zero angle (never below
+        # 0; denetim F2, 2026-10-14). The required correction itself is never
+        # changed by the mount, and an unknown travel is never guessed (V383).
         compact = ''.join(self.dial.split())
-        self.assertIn('math.min(halfUp+mountClicks,2*halfUp)', compact)
-        self.assertIn('math.max(0,halfUp-mountClicks)', compact)
+        self.assertIn('math.min(halfUp+mountClicks-zeroClicks,2*halfUp)', compact)
+        self.assertIn('math.max(0,halfUp-mountClicks+zeroClicks)', compact)
         self.assertIn('maxElevationClicks:upClicks', compact)
         self.assertIn('ScopeDialMath.mountCantClicks(', self.dial)
         self.assertNotIn(': 30.0;', self.screen)

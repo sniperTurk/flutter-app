@@ -19,10 +19,10 @@ import '../tools/tools_screen.dart';
 import 'empty_states.dart';
 
 /// Application shell: fixed top bar, five tabs (Profil, Hava Durumu, Pro,
-/// Atış, Araçlar) and the active-profile state shared by all of them.
+/// Hedef, Araçlar) and the active-profile state shared by all of them.
 /// The app opens on Profil. Hava Durumu sits next to it so the conditions are
 /// set before shooting; Pro holds the incline, cant and Coriolis settings;
-/// Atış switches between a single shot and the DOPE table, as range-card
+/// Hedef switches between a single shot and the DOPE table, as range-card
 /// apps do.
 class HomeScreen extends StatefulWidget {
   final ProfileStore? profileStore;
@@ -79,13 +79,17 @@ class _HomeScreenState extends State<HomeScreen> {
   static const _tabTools = 4;
 
   /// Page titles in the top bar (owner, 2026-10-08): each page shows its own
-  /// name instead of the Menzil wordmark.
+  /// name instead of the "Sniper Türk" brand.
   static const _titles = {
     _tabEnvironment: 'Hava Durumu',
     _tabPro: 'Pro Ayarlar',
     _tabShot: 'Hedef',
     _tabTools: 'Araçlar',
   };
+
+  /// Every title the top bar can show; the bar sizes its fixed title slot
+  /// from these (owner, 2026-10-13).
+  static final List<String> _topBarTitles = List.unmodifiable(_titles.values);
 
   static const _navItems = [
     MenzilNavItem(MenzilGlyph.profile, 'Profil'),
@@ -101,6 +105,11 @@ class _HomeScreenState extends State<HomeScreen> {
   /// Atış shows either the single shot or the DOPE table; the choice is kept
   /// while visiting other tabs.
   BallisticsView _shotMode = BallisticsView.shot;
+
+  /// "Tek atış | Tablo" above the scope is hidden (owner, 2026-10-12).
+  static const bool _showShotModeSwitch = bool.fromEnvironment(
+    'SHOT_TABLE_SWITCH',
+  );
   bool metric = true;
   int _profilesRevision = 0;
 
@@ -253,7 +262,8 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
-  /// Display-only unit label for the top bar. Fails closed to metric, the
+  /// Unit preference (the top bar has no unit button; it only keys the
+  /// ballistic workspace). Fails closed to metric, the
   /// same default the ballistic screen uses when settings cannot be read.
   Future<void> _loadUnitPreference() async {
     try {
@@ -298,12 +308,11 @@ class _HomeScreenState extends State<HomeScreen> {
         profileSelector: _profileSelector(context),
         themeLabel: MenzilThemeController.labelFor(themeMode),
         onThemeTap: themeController?.cycle,
-        // Each page shows its own name instead of Menzil (owner, 2026-10-08).
-        // The tab is "Hedef"; its single shot is "Hedef Görünümü" (owner,
-        // 2026-10-08).
-        title: tab == _tabShot && _shotMode == BallisticsView.shot
-            ? 'Hedef Görünümü'
-            : _titles[tab],
+        // Each page shows its own name instead of the brand (2026-10-08).
+        // The Hedef tab's page title is "Hedef" (owner, 2026-10-15; it was
+        // "Atış Çözümü").
+        title: _titles[tab],
+        slotTitles: _topBarTitles,
       ),
       bottomNavigationBar: MenzilBottomNavigation(
         items: _navItems,
@@ -383,7 +392,10 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ),
                   ),
-                if (tab == _tabShot && active != null)
+                // Hidden, not removed (owner, 2026-10-12: "gizli yap,
+                // kaldırma"); build with
+                // --dart-define=SHOT_TABLE_SWITCH=true to show it again.
+                if (_showShotModeSwitch && tab == _tabShot && active != null)
                   Padding(
                     padding: const EdgeInsets.fromLTRB(
                       MenzilSpace.gutter,
@@ -458,6 +470,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   padding: const EdgeInsets.symmetric(horizontal: 12),
                   child: Align(
                     alignment: Alignment.centerLeft,
+                    heightFactor: 1,
                     child: Text(
                       loading ? '…' : 'Profil yok',
                       maxLines: 1,
@@ -558,6 +571,8 @@ class _HomeScreenState extends State<HomeScreen> {
       final shot = tab == _tabShot;
       return MenzilPage(
         key: PageStorageKey(shot ? 'empty-shot' : 'empty-pro'),
+        // Only the Hedef page is justified (owner, 2026-10-13).
+        justify: shot,
         children: [
           if (shot)
             ShotPreview(onCreate: _createProfile)

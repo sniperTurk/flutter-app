@@ -1,0 +1,27 @@
+{
+  "name": "30/30 Duplex",
+  "brand": "Hawke",
+  "scopes": [
+    "Vantage 4x32",
+    "Vantage 2-7x32",
+    "Vantage 3-9x40",
+    "Vantage 3-9x50",
+    "Vantage 4-12x40",
+    "Vantage 4-12x40 AO",
+    "Vantage 4-12x50"
+  ],
+  "unit": "moa",
+  "family": "duplex",
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://us.hawkeoptics.com/vantage-2-7x32-3030.html",
+  "notes": "SFP, ölçeksiz duplex. Ürün sayfaları (Vantage 2-7x32 / 4-12x50 30/30 Duplex): Reticle '30/30 Duplex', Reticle Group 'Duplex', Focal Plane 'SFP (Second Focal Plane)', Click Value '1/4 MOA'. Ölçü yok; birim taret birimi (1/4 MOA). family=duplex üreticinin 'Duplex' retikül grubundan; '30/30' için açısal değer verilmiyor. Ölçek alanları (hash_step, major_every, numbers_every, uzanımlar, tree, posts_start, center_dot, floating_center) ve family null: ürün sayfalarında retikül ölçüsü yok; retikül görselleri (us.hawkeoptics.com/hawke/reticles/white/*.svg) robots.txt ile engelli; Reticle Booklet PDF'leri docs.google.com'da (izinli alan dışı); reticles.hawkeoptics.com, reticle.hawkeoptics.com ve docs.hawkeoptics.com 2 denemede CLIENT_ERROR verdi. Kaynak: https://us.hawkeoptics.com/vantage-2-7x32-3030.html (okundu 2026-10-12); https://us.hawkeoptics.com/vantage-4-12x50-3030-duplex.html (okundu 2026-10-12); https://us.hawkeoptics.com/vantage-riflescopes.html (okundu 2026-10-12); https://us.hawkeoptics.com/reticle-information.html (okundu 2026-10-12)"
+}

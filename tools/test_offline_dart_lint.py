@@ -39,7 +39,8 @@ class OfflineDartLintTest(unittest.TestCase):
             self.assertTrue(problems[0].startswith('lib/bad.dart:1:'))
 
     def test_real_source_newline_replacement_is_detected(self):
-        path = lint.ROOT / 'lib' / 'features' / 'profiles' / 'profiles_screen.dart'
+        # The editor state moved to the profile_editor.dart part (2026-10-15).
+        path = lint.ROOT / 'lib' / 'features' / 'profiles' / 'profile_editor.dart'
         text = path.read_text(encoding='utf-8')
         marker = "  final ManualCatalogStore _manualStore = ManualCatalogStore();\n"
         self.assertIn(marker, text)

@@ -1,0 +1,21 @@
+{
+  "name": "M3 MRAD",
+  "brand": "Integrix",
+  "scopes": [
+    "iX8 1-8x28 M3 MRAD FFP"
+  ],
+  "unit": "mil",
+  "family": "hash",
+  "hash_step": 0.2,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": 8,
+  "extent_v_up": null,
+  "extent_v_down": 4,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": true,
+  "source_url": "https://www.leapers.com/products-integrix-ix801fm3.html",
+  "notes": "FFP, cam kazıma ('ETCHED GLASS M3 MRAD RETICLE'). Sayfa: 'a precise .1 Mil floating donut that acts as your aiming point', 'providing 4 Mils of hold-under', 'Your main crosshairs feature 0.2 Mil increments with 0.5 Mil markings at the center of each segment', 'Wind holds are spaced in 1 Mil increments up to 8 Mils' -> hash_step=0.2, extent_v_down=4, extent_h=8, floating_center=true. Merkez nokta değil içi boş halka (donut) -> center_dot null. Üst yarı 'wide-open' (sayı yok) -> extent_v_up null. Döküm tablosu harf eşlemesi görselde. Kaynak: https://www.leapers.com/products-integrix-ix801fm3.html (okundu 2026-10-12)"
+}

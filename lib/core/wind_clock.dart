@@ -1,3 +1,5 @@
+import 'dart:math' as math;
+
 /// Wind direction as a clock face, as used by ChairGun, Strelok and Kestrel:
 /// the target is at 12, and the hour says where the wind COMES FROM.
 /// 12 = from the front (headwind), 3 = from the right, 6 = from behind,
@@ -32,4 +34,10 @@ abstract final class WindClock {
     7 || 8 => 'sol arkadan',
     _ => 'sol önden',
   };
+
+  /// Crosswind component blowing FROM THE RIGHT, in the unit of [speed]:
+  /// −speed · sin(direction). Solver degrees: 90° (from the left) gives
+  /// −speed, 270° (from the right) +speed, head/tailwind 0.
+  static double crosswindFromRight(double speed, double directionDeg) =>
+      -speed * math.sin(directionDeg * math.pi / 180);
 }

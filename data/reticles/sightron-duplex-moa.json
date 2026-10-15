@@ -1,0 +1,27 @@
+{
+  "name": "Duplex",
+  "brand": "Sightron",
+  "scopes": [
+    "S-TAC 4-20x50",
+    "S-TAC 3-16x42",
+    "S1 4-12x40 AO G2",
+    "S1 3.5-10x50 G2",
+    "S1 4-12x40 G2",
+    "S1 3-9x40 G2",
+    "S1 1.75-5x32 G2"
+  ],
+  "unit": "moa",
+  "family": "duplex",
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://sightron.com/products/s-tac-4-20x50",
+  "notes": "SFP (tüm sayfalar). Sayfa: 'thick bars on the vertical and horizontal plane which taper to a thinner section as the near the center' → family=duplex. Ölçüler 'Duplex Measured in MOA' → unit=moa. Tablolar (A, B, C; dürbüne göre değişir): S-TAC 4-20x50 4x 30 | .5 | 2, 20x 6 | .1 | .4; S-TAC 3-16x42 3x 40 | .66 | 2.66; S1 3-9x40 3x 40 | 0.66 | 2.66; S1 3.5-10x50 3.5x 34.28 | 0.57 | 2.28; S1 1.75-5x32 1.75x 68.75 | 1.37 | 4.57. Hangi sütunun direk başlangıcı olduğu yazmadığı için posts_start null. Sütun harfleri (A, B, C...) sayfada tanımlanmadığından tablo değerleri alanlara yazılmadı. Ayrıntılı çizim/PDF cdn.shopify.com üzerinde (izinli alan değil) okunmadı. Kaynak: https://sightron.com/products/s-tac-4-20x50 (okundu 2026-10-12); https://sightron.com/products/s-tac-3-16x42 (okundu 2026-10-12); https://sightron.com/products/s1-4-12x40-g2-ao (okundu 2026-10-12); https://sightron.com/products/s1-3-5-10x50-g2-duplex (okundu 2026-10-12); https://sightron.com/products/s1-4-12x40-g2 (okundu 2026-10-12); https://sightron.com/products/s1-3-9x40mm-g2-1 (okundu 2026-10-12); https://sightron.com/products/s1-1-75-5x32-g2-duplex (okundu 2026-10-12)."
+}

@@ -54,7 +54,22 @@ Typed product names and calibers are mistyped, so a value that can be chosen
 from a list is a `MenzilSelect` (Tüfek Marka | Model | Kalibre and Mühimmat
 Marka | Model come from `lib/data/rifle_library.dart`,
 `factory_ammo_library.dart` and `bullet_library.dart`; typed boxes only after
-"Listede yok"). Keep two boxes per row (Marka | Model side by side); Kalibre
-and similar long single values take a full row. No helper text under a field:
-every explanation goes into its ⓘ. Labels have no parentheses ("Yiv oranı",
+"Listede yok"). Keep two boxes per row (Marka | Model side by side); every
+row holds two boxes, Kalibre included (e.g. Namlu çıkış hızı | Kalibre share a
+row); a long selected value wraps or is shortened inside its box. No helper
+text under a field: every explanation goes into its ⓘ. Labels have no parentheses ("Yiv oranı",
 not "Yiv oranı (1:…)").
+
+## Working preferences (owner, 2026-10-14)
+- Reply to the owner in Turkish, briefly; use Istanbul time.
+- "bekle" means stop and wait. "tamam/evet" alone is not always a go-ahead; act on "başla", "yap", "görev aç", "yükle".
+- Never add anything the owner did not ask for; do only what was said.
+- The owner's main session does not write app code; every code change is a Superpowers task delivering a draft PR with a plain-Turkish report (what, how, why, edge cases, not done, tests, CI links).
+- Removed or unused features are deleted from the code, not hidden behind flags (owner, 2026-10-15; replaces the earlier "hide, never delete" rule). Saved user data is never deleted: old saved values must still load.
+- Product data comes from manufacturers only (maker sites/PDFs/catalogues). No forum, blog or dealer values (dealer sites only as brand/model hint lists). Never use data from other ballistic apps (ChairGun, Strelok, Applied Ballistics, QuickLOAD, GRT, JBM). AI output is a hint list only, except: values Claude finds with a manufacturer source may be saved directly to the user's own profile under the protections in docs/specs/2026-10-15-claude-urun-bul-design.md (owner, 2026-10-15); shared catalogs still take manufacturer data only. Respect robots.txt.
+- Do not add a form field the calculation cannot use (e.g. no "Namlu tipi"; the barrel's effect enters through measured velocity and group size; use one profile per barrel).
+- Text is left-aligned everywhere, popups included; only the Hedef page is justified. An open dropdown list is never wider than its box.
+- Never report CI, Simulator, TestFlight or App Store as passed unless that exact operation ran successfully.
+- Before every TestFlight build, run an end-to-end calculation audit (user input → displayed number) covering all changes merged since the previous TestFlight: compare against independent references (never another ballistic app), check hidden-flag paths, and check interactions between changes (empty fields, defaults, moved fields). It reports only; fixes go to separate tasks. Do not start TestFlight while a high-severity finding is open.
+- The audit findings' tests under test/audit_*/ stay in the suite as regression guards; a fixed finding's `skip:` test is un-skipped and must pass.
+- Use these plugins while writing and developing the app (owner, 2026-10-15): Frontend Design for any UI work; Exa for research (manufacturer sources only, same source rules as above); Code Review and Security review on every PR before it is merged. Also (owner, 2026-10-15 12:27): Firecrawl for reading manufacturer pages/PDFs (respect robots.txt; same source rules); Cowork Memory to recall and save decisions across sessions; Hubcap for browser checks of web pages/builds; Swift LSP and Radar Suite for the native iOS (Swift) parts where they apply; Video Shotcraft for product/App Store videos when the owner asks for one; Linear for task tracking once it is connected.

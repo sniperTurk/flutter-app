@@ -1,0 +1,21 @@
+{
+  "name": "DWLR6",
+  "brand": "Sig Sauer",
+  "scopes": [
+    "TANGO6T 1-6x24mm FFP"
+  ],
+  "unit": "mil",
+  "family": null,
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://www.sigsauer.com/media/sigsauer/resources/tango6t-7401308-R06.pdf",
+  "notes": "TANGO6T 1-6x24 ürün sayfası model tablosu: 'DWLR6' (SOT61239), focal plane 'First', 0.2 MRAD ayar. TANGO6T kılavuzu: 'DWLR-6 RETICLE FEATURES': '100 Meter Zero', '*18\" @ Given Distance', 'Wind dots = 5 & 10mph holds @ Given Distance', mesafe işaretleri 300-1,000 m; 'Subtensions in MRAD' -> unit=mil. Kılavuz çizimindeki sayılar metin katmanında konumsuz geldiği için hiçbir öğeye eşlenmedi; tüm sayısal alanlar null. BDC/rüzgâr noktası deseni şema ailelerine oturmuyor -> family null. Büyütme belirtilmemiş. Kaynak: https://www.sigsauer.com/media/sigsauer/resources/tango6t-7401308-R06.pdf (okundu 2026-10-12); https://www.sigsauer.com/tango6t-1-6x24-mm.html (okundu 2026-10-12)"
+}

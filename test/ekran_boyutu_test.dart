@@ -3,15 +3,19 @@
 // (SE 2/3, 375x667), a normal iPhone (15/16, 393x852) and two iPad sizes.
 // Each screen is scrolled to its end so lazily built rows are laid out too.
 //
-// The app's bundled font (MenzilType.family, read from assets/fonts) is
-// loaded so text is measured as on the phone (the default test font draws
-// every letter as a square and reports cuts that do not happen on a device;
-// see docs/ekran-boyutu/RAPOR.md).
+// The app uses the iPhone system font (San Francisco, owner 2026-10-13),
+// which cannot be bundled and does not exist on Linux CI. Its two proxy
+// names (MenzilType.textFamily / displayFamily) are therefore loaded with
+// the still-bundled Inter files as a width stand-in, so text is measured
+// close to the phone (the default test font draws every letter as a square
+// and reports cuts that do not happen on a device; see
+// docs/ekran-boyutu/RAPOR.md). Inter is about as wide as SF Pro Text, so
+// the check is approximate, not exact.
 //
 // Layout errors (RenderFlex overflow and other render exceptions) are
 // collected per screen instead of stopping at the first one, printed as
 // `EKRAN_BULGU|<cihaz>|<ekran>|<hata>` lines and fail the test at the end.
-// App-font texts cut by maxLines/ellipsis (`EKRAN_KESIK|...`) fail too, except
+// System-font texts cut by maxLines/ellipsis (`EKRAN_KESIK|...`) fail too, except
 // the few that are cut on purpose ([_cutByDesign]). Text in another font
 // (the closed list boxes use the system font) cannot be measured here and is
 // only printed. No golden files are used.
@@ -89,7 +93,7 @@ bool _cutByDesign(String text) =>
     text == _profile.name || text.startsWith('Kaydetmek için eksik:');
 
 /// Open finding waiting for the owner's choice (docs/ekran-boyutu/RAPOR.md
-/// #5): with Inter, "Barut katsayısı" next to its unit and ⓘ is still cut on
+/// #5): with Inter (and SF measured with Inter), "Barut katsayısı" next to its unit and ⓘ is still cut on
 /// a 375 pt phone. Every fix changes how the field looks, so it is listed
 /// here instead of failing; it must not appear at any other size.
 bool _knownOpen(String text, String device) =>
@@ -145,8 +149,14 @@ void _note(String kind, String what, String device) {
   _summary.putIfAbsent('$kind|$short', () => <String>{}).add(device);
 }
 
+/// The app's font names: SF Pro Text / Display proxies on iOS.
+const _appFamilies = {MenzilType.textFamily, MenzilType.displayFamily};
+
+/// Width stand-in for SF (see the file comment).
+const _standIn = 'Inter';
+
 Future<void> _loadAppFont() async {
-  const family = MenzilType.family;
+  const family = _standIn;
   final files = Directory('assets/fonts').listSync().whereType<File>().where((
     f,
   ) {
@@ -155,11 +165,13 @@ Future<void> _loadAppFont() async {
         (name.endsWith('.ttf') || name.endsWith('.otf'));
   }).toList();
   expect(files, isNotEmpty, reason: 'no assets/fonts/$family-* files');
-  final loader = FontLoader(family);
-  for (final f in files) {
-    loader.addFont(Future.value(ByteData.sublistView(f.readAsBytesSync())));
+  for (final name in _appFamilies) {
+    final loader = FontLoader(name);
+    for (final f in files) {
+      loader.addFont(Future.value(ByteData.sublistView(f.readAsBytesSync())));
+    }
+    await loader.load();
   }
-  await loader.load();
 }
 
 void _scanCutTexts(WidgetTester tester, _Collector c) {
@@ -174,7 +186,7 @@ void _scanCutTexts(WidgetTester tester, _Collector c) {
       c.cut.add(line);
       _note('KESIK', '${c.screen}|$text', '${c.device} $have/$need');
       final family = ro.text.style?.fontFamily;
-      if (family == MenzilType.family &&
+      if (_appFamilies.contains(family) &&
           !_cutByDesign(text) &&
           !_knownOpen(text, c.device)) {
         c.cutAppFont.add(line);
@@ -310,16 +322,19 @@ void _scan() {
           // Profil form: new and edit.
           await tester.tap(_tab('Profil'));
           await _settle(tester);
-          final add = find.text('Yeni profil');
+          final add = find.text('Profil ekle');
           await tester.ensureVisible(add.first);
           await tester.tap(add.first);
           await _visit(tester, c, 'Profil formu (yeni)');
           await _popTop(tester);
 
-          final edit = find.byIcon(Icons.edit_outlined);
-          if (edit.evaluate().isNotEmpty) {
-            await tester.ensureVisible(edit.first);
-            await tester.tap(edit.first);
+          // Düzenle is in the row's ⋯ menu (owner, 2026-10-14).
+          final menu = find.byTooltip('Profil işlemleri');
+          if (menu.evaluate().isNotEmpty) {
+            await tester.ensureVisible(menu.first);
+            await tester.tap(menu.first);
+            await tester.pumpAndSettle();
+            await tester.tap(find.text('Düzenle'));
             await _visit(tester, c, 'Profil formu (düzenle)');
             await _popTop(tester);
           }

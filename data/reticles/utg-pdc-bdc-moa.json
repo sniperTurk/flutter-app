@@ -1,0 +1,21 @@
+{
+  "name": "PDC BDC",
+  "brand": "UTG",
+  "scopes": [
+    "True Hunter 2-7x32 LER PDC BDC SFP MOA"
+  ],
+  "unit": "moa",
+  "family": null,
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": 15,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://www.leapers.com/products-utg-scp-27prgw.html",
+  "notes": "SFP, tel (wire) retikül, başlık 'WIRE PDC BDC RETICLE'. Sayfa: 'The descending reference points are 2 MOA, 6 MOA, and 10 MOA' ve alt direğin üst ucu 'at 15 MOA below the center crosshair, at full 7x magnification' -> unit=moa, posts_start=15 (yalnız alt direk için yazılı; yan direkler için değer yok). Ölçüler 7x'te geçerli. Çubuk/daire düzeni düzenli bir ölçek veya ağaç değil, satır genişlikleri yazmıyor -> family null, tree null. Yardaj, çizgi kalınlığı, merkez nokta yok -> null. Kaynak: https://www.leapers.com/products-utg-scp-27prgw.html (okundu 2026-10-12)"
+}

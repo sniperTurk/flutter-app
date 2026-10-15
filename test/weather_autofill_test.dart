@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:sniper_turk/features/ballistics/ballistics_screen.dart';
 import 'package:sniper_turk/models/domain.dart';
-import 'package:sniper_turk/tools/domain/field_calc.dart';
 import 'package:sniper_turk/tools/ports/location_provider.dart';
 import 'package:sniper_turk/tools/ports/weather_provider.dart';
 
@@ -60,9 +59,7 @@ Future<void> _pump(
 }
 
 void main() {
-  testWidgets('fills temperature, humidity, wind, altitude, station pressure', (
-    tester,
-  ) async {
+  testWidgets('fills temperature, humidity and wind only', (tester) async {
     await _pump(
       tester,
       location: const LocationFix(39.9, 32.8, altitudeM: 900),
@@ -70,27 +67,11 @@ void main() {
     expect(_text(tester, BallisticsFieldKeys.temperature), '18.5');
     expect(_text(tester, BallisticsFieldKeys.humidity), '55');
     expect(_text(tester, BallisticsFieldKeys.wind), '5.0');
-    expect(_text(tester, BallisticsFieldKeys.altitude), '900');
-    // 1012.3 hPa at sea level → station pressure at 900 m.
-    expect(
-      _text(tester, BallisticsFieldKeys.pressure),
-      FieldCalc.stationPressureHpa(
-        1012.3,
-        900,
-        temperatureC: 18.5,
-      ).toStringAsFixed(1),
-    );
+    // Pressure and altitude come from "Basıncı telefondan al" only (owner,
+    // 2026-10-12: each box is filled by its own button).
+    expect(_text(tester, BallisticsFieldKeys.altitude), '');
+    expect(_text(tester, BallisticsFieldKeys.pressure), '');
     expect(find.textContaining('konumdan dolduruldu'), findsOneWidget);
-    expect(find.textContaining('900 m irtifaya göre'), findsOneWidget);
-  });
-
-  testWidgets('without altitude the sea-level pressure is NOT used', (
-    tester,
-  ) async {
-    await _pump(tester, location: const LocationFix(39.9, 32.8));
-    expect(_text(tester, BallisticsFieldKeys.temperature), '18.5');
-    expect(_text(tester, BallisticsFieldKeys.pressure), '1013.25');
-    expect(find.textContaining('basınç doldurulmadı'), findsOneWidget);
   });
 
   testWidgets('typed values are kept; "yeniden doldur" replaces them', (
@@ -102,7 +83,7 @@ void main() {
       auto: false,
     );
     // Nothing is fetched without autoWeather.
-    expect(_text(tester, BallisticsFieldKeys.temperature), '15');
+    expect(_text(tester, BallisticsFieldKeys.temperature), '');
     await tester.enterText(
       find.descendant(
         of: find.byKey(BallisticsFieldKeys.temperature),
@@ -123,7 +104,7 @@ void main() {
     tester,
   ) async {
     await _pump(tester, location: const LocationDenied(permanent: false));
-    expect(_text(tester, BallisticsFieldKeys.temperature), '15');
+    expect(_text(tester, BallisticsFieldKeys.temperature), '');
     expect(find.textContaining('Konum izni yok'), findsOneWidget);
   });
 
@@ -133,7 +114,7 @@ void main() {
       location: const LocationFix(39.9, 32.8, altitudeM: 900),
       weather: const WeatherFailure(WeatherFailureKind.offline, 'x'),
     );
-    expect(_text(tester, BallisticsFieldKeys.temperature), '15');
+    expect(_text(tester, BallisticsFieldKeys.temperature), '');
     expect(find.textContaining('ulaşılamadı'), findsOneWidget);
   });
 }

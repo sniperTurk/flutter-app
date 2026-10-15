@@ -57,8 +57,12 @@ void main() {
     tester,
   ) async {
     await _pumpList(tester, metric: true);
-    // 270 m/s = 885.8 fps. Velocity is always fps on Profil.
-    expect(find.textContaining('886 fps • Sıfır 25 m'), findsOneWidget);
+    // 270 m/s = 885.8 fps. Velocity is always fps on Profil. The list row
+    // has no "fps • Sıfır" line any more (owner, 2026-10-14 17:38); the
+    // summary tiles carry the values.
+    expect(find.textContaining('• Sıfır'), findsNothing);
+    expect(find.text('886 fps', findRichText: true), findsOneWidget);
+    expect(find.text('25 m', findRichText: true), findsWidgets);
     expect(find.textContaining('m/s', findRichText: true), findsNothing);
     expect(find.textContaining('Zero'), findsNothing);
   });
@@ -83,7 +87,7 @@ void main() {
       ),
     );
     // 270 m/s = 885.8 fps; 25 m = 27,3 yd. The stored profile stays SI.
-    expect(find.textContaining('886 fps • Sıfır 27,3 yd'), findsOneWidget);
+    expect(find.textContaining('• Sıfır'), findsNothing);
     expect(find.textContaining('m/s', findRichText: true), findsNothing);
     // Summary tiles render value and unit as one rich text.
     expect(find.text('886 fps', findRichText: true), findsOneWidget);
@@ -94,9 +98,9 @@ void main() {
     tester,
   ) async {
     await _pumpList(tester, metric: true, onContinue: () {});
-    // The profile name is not repeated under "Aktif profil" (only the row).
+    // The profile name is not repeated in the summary (only the row).
     expect(find.text('Bir'), findsOneWidget);
-    final summaryY = tester.getTopLeft(find.text('Aktif profil')).dy;
+    final summaryY = tester.getTopLeft(find.text('Namlu çıkış hızı')).dy;
     final listY = tester.getTopLeft(find.text('Profiller')).dy;
     expect(summaryY, lessThan(listY));
   });
@@ -145,13 +149,13 @@ void main() {
       ),
     );
     await tester.pumpAndSettle();
-    expect(find.byKey(const Key('environment-open-weather')), findsNothing);
+    expect(find.byKey(const Key('environment-fill-weather')), findsNothing);
 
     final button = find.byKey(const Key('profile-continue-weather'));
     await tester.ensureVisible(button);
     await tester.tap(button);
     await tester.pumpAndSettle();
-    expect(find.byKey(const Key('environment-open-weather')), findsOneWidget);
+    expect(find.byKey(const Key('environment-fill-weather')), findsOneWidget);
   });
 
   testWidgets('editor takes velocity in fps and stores m/s', (tester) async {
@@ -159,7 +163,10 @@ void main() {
     tester.view.devicePixelRatio = 3;
     addTearDown(tester.view.reset);
     await _pumpList(tester, metric: true, embedded: false);
-    await tester.tap(find.byTooltip('Profili düzenle').first);
+    // Düzenle is in the row's ⋯ menu (owner, 2026-10-14).
+    await tester.tap(find.byTooltip('Profil işlemleri').first);
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Düzenle'));
     await tester.pumpAndSettle();
     final field = find.descendant(
       of: find.byKey(const Key('profile-velocity-fps')),

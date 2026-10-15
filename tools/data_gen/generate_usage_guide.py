@@ -76,14 +76,17 @@ SECTIONS = [
         "\"Konumdan canlı hava verisi al\" sıcaklık, nem ve rüzgâr hızını "
         "doldurur; İrtifa boşsa GPS'ten alır. Senin yazdığın değerlere "
         "dokunmaz. Rüzgâr yönünü her zaman sen seçersin.",
-        "Atmosfer: Sıcaklık, İstasyon basıncı, Bağıl nem ve İrtifa. Basınç, "
+        "Hava Durumu bölümü: Sıcaklık ve Bağıl nem (ateşli tüfekte Mühimmat "
+        "sıcaklığı da).",
+        "Basınç ölçer: İstasyon basıncı ve İrtifa; altındaki \"Basıncı "
+        "telefondan al\" basıncı telefonun sensöründen okur. Basınç, "
         "bulunduğun yerdeki istasyon basıncıdır; deniz seviyesine indirilmiş "
         "QNH değeri değildir.",
         "Rüzgâr: Rüzgâr hızı m/s olarak yazılır. Rüzgâr yönü saat kadranında "
         "seçilir: rüzgârın geldiği saate dokun. Hedef saat 12'dedir; sağdan "
         "gelen rüzgâr 3, arkadan 6, soldan 9.",
-        "Üstteki \"Konumdan canlı hava verisi\" düğmesi servis verisini ayrı "
-        "bir sayfada yalnızca gösterir; hesaba aktarmaz.",
+        "Servis verisini hesaba aktarmadan yalnızca görmek için Araçlar > "
+        "Hava & Rüzgâr sayfasını aç.",
     ]),
     ("Hedef ekranında atış", [
         "Mesafe: büyük sayıya dokunup yaz, −5 / −1 / +1 / +5 düğmelerini ya "
@@ -124,24 +127,21 @@ SECTIONS = [
         "katsayısıdır. Sıfır ofseti, sıfırdaki küçük kaymadır. Spin drift "
         "için Mermi uzunluğu'nu mm olarak yaz; yiv yönü ve yiv oranı "
         "profilden gelir.",
-        "Rüzgâr düzeltmesi kutusu Açı'nın altındadır: En yüksek rüzgâr, Hava "
-        "Durumu'ndaki rüzgâr hızının 1,5 katı olarak kendiliğinden yazılır; "
-        "Hedef ekranı yan düzeltmeyi bu yüzden bir aralık olarak gösterir. "
-        "Silersen aralık gösterilmez, \"Otomatik doldur\" geri getirir. Yol "
+        "Rüzgâr düzeltmesi kutusu Açı'nın altındadır ve boş gelir. "
+        "\"Rüzgâr düzeltmesi al\" Hava Durumu'ndaki rüzgâr hızının 1,5 katını "
+        "yazar; kendi ölçtüğün en sert rüzgârı da yazabilirsin. Kutu doluysa "
+        "Hedef ekranı yan düzeltmeyi bir aralık olarak gösterir. Yol "
         "ortası ve Hedefte kutularına oradaki rüzgârı yaz; boş kalırsa her "
         "yerde aynı rüzgâr kullanılır.",
         "Barut sıcaklığı Profil > Mühimmat'ta girilir; Pro'da yalnızca bugünkü "
         "hız gösterilir.",
     ]),
-    ("Tablo / DOPE", [
-        "Hedef sayfasının üstündeki \"Tek atış | Tablo\" anahtarından Tablo'ya "
-        "geç.",
-        "DOPE mesafeleri kutusuna mesafeleri virgülle yaz (ör. 100, 200, 300) "
-        "ve \"DOPE oluştur\"a dokun. Tablo, Hava Durumu ve Pro'daki değerlerle "
-        "hesaplanır.",
-        "Sütunlar: düşüş (cm), yükseklik düzeltmesi (MOA ve mrad), rüzgâr "
-        "düzeltmesi ve sapması, hız, enerji ve uçuş süresi (TOF). Hava "
-        "değişince tabloyu yeniden oluştur.",
+    ("DOPE kartı", [
+        "Hedef sayfasında dürbün görüntüsünün altındaki \"DOPE kartını paylaş "
+        "(PDF)\" düğmesiyle kart oluşturulur; Hava Durumu ve Pro'daki "
+        "değerlerle hesaplanır.",
+        "Kartta düşüş, yükseklik ve rüzgâr düzeltmesi, hız, enerji ve uçuş "
+        "süresi bulunur. Hava değişince kartı yeniden oluştur.",
     ]),
     ("Araçlar", [
         "Hız Doğrulama: uzak mesafede gözlenen düşümle namlu hızını ya da "

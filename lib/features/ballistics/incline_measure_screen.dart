@@ -6,6 +6,7 @@ import '../../tools/domain/shot_angle_math.dart';
 import '../../tools/ports/camera_service.dart';
 import '../../tools/ports/tilt_provider.dart';
 import '../../tools/tools_services.dart';
+import '../../ui/menzil_theme.dart';
 
 /// Tüfek eğimi ölçümü: the back camera shows the target behind a crosshair
 /// and the accelerometer gives the angle of the camera's line of sight
@@ -95,7 +96,10 @@ class _InclineMeasureScreenState extends State<InclineMeasureScreen> {
       Shadow(color: Colors.white, blurRadius: 10),
       Shadow(color: Colors.white70, blurRadius: 18),
     ];
+    // Live sensor value: equal-width figures so it does not jitter.
     TextStyle style(double size, {FontWeight w = FontWeight.w600}) => TextStyle(
+      fontFamily: MenzilType.familyFor(size),
+      fontFeatures: MenzilType.tabular,
       color: Colors.black,
       fontSize: size,
       fontWeight: w,

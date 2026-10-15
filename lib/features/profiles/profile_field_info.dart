@@ -32,9 +32,6 @@ abstract final class ProfileFieldInfo {
       'Fişeğiniz listede yoksa merminin çapını seçin. Çap mermi kutusunda '
       'veya üreticinin sitesinde inç olarak yazar; örneğin .308 Win için '
       '.308 in · 7,82 mm, .223 Rem için .224 in · 5,69 mm.';
-  static const caliberOther =
-      'Merminin çapı, milimetre olarak. Mühimmat kutusunda ya da üreticinin '
-      'sitesinde yazar (inç verilmişse 25,4 ile çarpın: .308 inç = 7,82 mm).';
   static const twistDirection =
       'Namlunun içindeki yivlerin dönüş yönü. Namluya arkadan bakarken yivler '
       'saat yönünde dönüyorsa Sağ, tersiyse Sol. Namluların çoğu sağdır.';
@@ -55,35 +52,100 @@ abstract final class ProfileFieldInfo {
   static const grain =
       'Bir saçmanın veya merminin ağırlığı, grain olarak (1 grain = 0,0648 g). '
       'Kutunun üstünde yazar. Örnek: 25,39 gr pellet, 33,95 gr slug.';
+  static const ammoLength =
+      'Saçmanın veya slug\'ın boyu, milimetre olarak. Kumpasla ucundan '
+      'arkasına ölçülür ya da üreticinin sitesinde yazar. Boş '
+      'bırakılabilir; girilirse yiv oranıyla dengesi kontrol edilir. '
+      'Örnek: kumpasta 10,5 okunursa 10,5 yazın.';
   static const grainFirearm =
       'Merminin (çekirdeğin) ağırlığı, grain olarak (1 grain = 0,0648 g). '
       'Kutunun üstünde yazar. Örnek: .223 için 55 gr, .308 için 168 gr, '
       '6.5 Creedmoor için 140 gr.';
+  // Elle girilen ateşli mühimmat (owner, 2026-10-14).
+  static const ammoBrandPick =
+      'Fişeğin veya merminin markası. Kutunun üstünde yazar. Listede '
+      'uygulamanın bildiği tüm markalar var. Örnek: Federal, Hornady, Sellier '
+      '& Bellot. Markanız listede yoksa en alttaki "Diğer"i seçip yazın.';
+  static const ammoNothingListed =
+      'Bu kalibre için listede henüz hazır ürün yok; bu yüzden mühimmat elle '
+      'giriliyor. Ağırlık, BC ve hız kutuda veya üreticinin sitesinde yazar. '
+      'Kendi doldurduğunuz fişekse Mühimmat türünde El dolumu seçin.';
+  static const ammoBrandOther =
+      'Listede olmayan markanın adı, kutunun üstünde yazdığı gibi. Örnek: '
+      'kutuda "Atölye Fişek" yazıyorsa Atölye Fişek.';
+  static const ammoModelTyped =
+      'Fişeğin veya merminin model adı, kutunun üstünde yazdığı gibi. Aynı '
+      'markanın başka mühimmatıyla karışmasın diye gerekli. Örnek: Gold '
+      'Medal Sierra MatchKing, ELD Match.';
+  static const grainPick =
+      'Merminin (çekirdeğin) ağırlığı. Kutudaki gr değeridir; gram değil '
+      '(1 gr = 0,0648 g, parantezde gram karşılığı var). Listede bu kalibre '
+      'için üreticilerin verdiği ağırlıklar var. Örnek: .308 için 168 gr '
+      '(10,9 g). Kutudaki değer listede yoksa "Listede yok"u seçip yazın.';
+  static const grainTyped =
+      'Kutudaki gr değeridir; gram değil. Kutunun yanındaki gram karşılığı '
+      'size yardımcı olur: 168 gr = 10,9 g. Bu kalibre için mantıksız bir '
+      'ağırlık kabul edilmez. Örnek: 175.';
   static const bc =
       'Balistik katsayı: merminin havayı ne kadar kolay yardığını gösteren '
       'sayı. Büyük BC = hızı daha iyi korur, daha az düşer, rüzgârdan daha az '
       'etkilenir. Tipik: pellet 0,02–0,04, slug 0,05–0,15 (G1). Kutuda veya '
-      'üreticinin sitesinde yazar. Rüzgâr sapması bu değerle hesaplanır.';
-  static const bcModel =
-      'BC sayısının hangi standart mermi şekline göre verildiği. G1: küt uçlu '
-      'klasik şekil; havalı tüfek saçması ve slug için neredeyse her zaman G1 '
-      'verilir. G7: uzun, sivri uzun menzil mermisi. Aynı mermide G7 değeri '
-      'G1\'in yaklaşık yarısıdır. GS: çelik bilye (BB). Yanlış model hesabı ciddi '
-      'saptırır. Bilmiyorsanız G1 seçin.';
+      'üreticinin sitesinde yazar. Rüzgâr sapması bu değerle hesaplanır. '
+      'Saçma ve slug G1 ile hesaplanır. Bilinmiyorsa boş bırakın; sonuç '
+      'yaklaşık olur.';
+  static const scopeFilterUnit =
+      'Dürbününüzü bulmak için kulenin birimi. MRAD: klik 0,1 mil. MOA: '
+      'klik 1/4 MOA. SMOA: üretici "100 yardada 1/4 inç" diyorsa. Kulede ya '
+      'da kutuda yazar. Listede yalnız bu markada olan birimler çıkar.';
+  static const scopeFilterFocal =
+      'Odak düzlemi. FFP: retikül büyütmeyle büyür. SFP: retikül hep aynı '
+      'boyda kalır. Dürbünün adında ya da kutusunda FFP veya SFP yazar.';
+  static const scopeFilterMag =
+      'Dürbünün üstünde yazan büyütme aralığı. Örnek: 5-30x56 yazıyorsa '
+      '5-30x seçin. Yalnız kalan dürbünlerdeki aralıklar çıkar.';
+  static const scopeFilterTube =
+      'Dürbün gövdesinin çapı, mm; dürbün ayağının ölçüsüdür. Kutuda ya da '
+      'kılavuzda yazar. Örnek: 30, 34 veya 35 mm.';
+
+  /// BC modeli ⓘ, both rifle types (owner, 2026-10-14 11:35/11:38): one
+  /// line per model, the warning last. Firearms add [bcModelCustom] before
+  /// the warning ([bcModelWithCustom]).
+  static const _bcModelLines =
+      'G1: Düz dipli, klasik mermi. Saçma ve slug BC\'leri de çoğunlukla '
+      'buna göre verilir.\n'
+      'G7: Uzun, sivri ve konik dipli (boat-tail) mermi.\n'
+      'G2, G5, G6, G8, GI: Başka mermi şekilleri; az kullanılır.\n'
+      'GS: Küre şekli (yuvarlak bilye).\n'
+      'RA4: .22 LR rimfire.';
+  static const bcModelWarning =
+      'Uyarı: Yanlış eğri seçmek, hiç seçmemekten daha fazla hata yaratır. '
+      'Üretici BC\'yi hangi modele göre veriyorsa onu seçin; bilmiyorsanız '
+      'G1\'de bırakın.';
+  static const bcModel = '$_bcModelLines\n\n$bcModelWarning';
+  static const bcModelWithCustom =
+      '$_bcModelLines\n$bcModelCustom\n\n$bcModelWarning';
   static const bcFirearm =
       'Balistik katsayı: merminin havayı ne kadar kolay yardığını gösteren '
       'sayı. Büyük BC = hızı daha iyi korur, daha az düşer, rüzgârdan daha az '
       'etkilenir. Tipik: G1 0,25–0,60; G7 0,12–0,30. Kutuda veya mermi '
       'üreticisinin sitesinde yazar. Rüzgâr sapması bu değerle hesaplanır.';
-  static const bcModelFirearm =
-      'BC sayısının hangi standart mermi şekline göre verildiği. G1: klasik '
-      'av mermisi şekli. G7: uzun, sivri, arka tarafı daralan (boat-tail) '
-      'uzun menzil mermisi; bu mermilerde G7 daha doğrudur. Aynı mermide G7 '
-      'değeri G1\'in yaklaşık yarısıdır; yanlış model hesabı ciddi saptırır. '
-      'RA4: .22 LR gibi rimfire mermiler için. G2, G5, G6, G8 ve GI daha az '
-      'kullanılan standart şekillerdir. Üretici hangisini veriyorsa onu seçin; '
-      'bilmiyorsanız G1 seçin.';
 
+  /// Added to the BC ⓘ when the listed factory round's BC comes from the
+  /// same NATO standard bullet's official report (owner, 2026-10-12: "ⓘ
+  /// alanında veriyi nasıl eklediğimizi açıkla; kullanıcı isterse
+  /// değiştirsin"). [probable]: the maker does not name the standard; weight
+  /// and type match.
+  static String bcNatoStandard({
+    required String brand,
+    required String standard,
+    required String report,
+    bool probable = false,
+  }) =>
+      "$brand bu fişeğin BC'sini yayımlamıyor. Değer, "
+      '${probable ? 'muhtemel eşdeğeri olan' : 'aynı'} NATO standart '
+      'mermisinin ($standard) resmi test raporundan alındı ($report). Kendi '
+      'tüfeğinizde fark olabilir; kutudaki ya da ölçtüğünüz değeri girebilir, '
+      'Doğrulama ekranıyla düzeltebilirsiniz.';
   static const dragCurve =
       'Merminin kendi sürüklenme eğrisi: her Mach hızında havanın ne kadar '
       'frenlediği (Cd). Tek BC sayısından daha doğrudur; uzun menzilde ve ses '
@@ -91,7 +153,7 @@ abstract final class ProfileFieldInfo {
       'veya iki sütunlu CSV (Mach, Cd) yükleyin; örnek satır: 0,90 0,215. Çap '
       've ağırlık mühimmattan alınır.';
   static const bcModelCustom =
-      ' Özel eğri (Mach–Cd): merminin kendi eğrisi elinizdeyse (Lapua .drg, '
+      'Özel eğri (Mach–Cd): merminin kendi eğrisi elinizdeyse (Lapua .drg, '
       'radar ölçümü) seçin; BC gerekmez.';
 
   static const bandSpeed =
@@ -196,14 +258,16 @@ abstract final class ProfileFieldInfo {
       'bununla düzeltir. Fişek ve barut üreticileri çoğunlukla sayı vermez, '
       'yalnızca "sıcaklığa duyarsız" yazar; en doğrusu aynı fişeği soğuk ve '
       'sıcak bir günde kronografla ölçmektir. Örnek: 10 °C\'de 2600 fps, '
-      '25 °C\'de 2639 fps ölçtüyseniz 1,5 yazın. Fabrika fişeğinde üretici '
-      'sayı veriyorsa kendiliğinden dolar. Bilmiyorsanız boş bırakın. '
+      '25 °C\'de 2639 fps ölçtüyseniz 1,5 seçin. Fabrika fişeğinde üretici '
+      'sayı veriyorsa kendiliğinden dolar. Bilmiyorsanız "Seçiniz"de '
+      'bırakın; hız sıcaklığa göre düzeltilmez. '
       'Yalnızca ateşli tüfek.';
   static const powderTemp =
       'Namlu çıkış hızını kronografla ölçtüğünüz günkü hava sıcaklığı, °C. '
       'Üreticinin hızını kullanıyorsanız üreticinin belirttiği test '
-      'sıcaklığını yazın. Hız bu sıcaklıktan bugünkü sıcaklığa göre '
-      'düzeltilir. Katsayıyla birlikte girilir. Örnek: 20.';
+      'sıcaklığını seçin; çoğu üretici 21 °C kullanır. Hız bu sıcaklıktan '
+      'bugünkü sıcaklığa göre düzeltilir. Katsayıyla birlikte seçilir. '
+      'Örnek: 21.';
   static const zero =
       'Dürbünü sıfırladığınız mesafe: bu mesafede nişan noktası ile vuruş '
       'noktası çakışır. "Mesafe birimi"nde seçtiğiniz birimle (metre veya '
@@ -228,9 +292,9 @@ abstract final class ProfileFieldInfo {
   // PCP tüp ve regülatör basıncı (owner, 2026-10-12). Yalnızca PCP.
   static const tubePressure =
       'Tüpü doldurduğunuz basınç, bar. Dolum sonrası manometreden okuyun ya '
-      'da kılavuzdaki en yüksek dolum basıncını yazın. Sahada kalan basıncı '
-      'Pro > Tüfek düzeltmeleri\'nde girersiniz. Bilmiyorsanız boş bırakın. '
-      'Örnek: 250.';
+      'da kılavuzdaki en yüksek dolum basıncını yazın. Basınca göre hız '
+      'ölçümleri varsa hız bu basınca göre bulunur. Bilmiyorsanız boş '
+      'bırakın. Örnek: 250.';
   static const regulatorPressure =
       'Regülatörün vanaya verdiği sabit basınç, bar. Kılavuzda ya da '
       'regülatör manometresinde yazar. Tüp bu basıncın üstündeyken hız '
@@ -246,4 +310,17 @@ abstract final class ProfileFieldInfo {
   static const pvFps =
       'O basınçta kronografla ölçtüğünüz namlu çıkış hızı, fps. Birkaç '
       'atışın ortalamasını yazın. Basınçla birlikte girilir. Örnek: 870.';
+
+  // Mühimmat → Ek mühimmat bilgileri başlığının ⓘ'si (owner, 2026-10-14
+  // 18:07–18:20: "Nedir?" / "Neden önemli?", uzun metin).
+  static const ammoExtra =
+      'Nedir?\n'
+      'Barut katsayısı, hız ölçüm sıcaklığı ve hıza göre BC; hesabı '
+      'inceltmek için girilen ek mühimmat bilgileridir. Boş bırakılabilir, '
+      'profil yine kaydedilir.\n'
+      '\n'
+      'Neden önemli?\n'
+      'Hava sıcaklığı değişince namlu çıkış hızı da değişir; mermi '
+      'yavaşladıkça BC düşer. Bu bilgileri girerseniz uzak mesafede düşüş ve '
+      'rüzgâr sapması daha doğru hesaplanır.';
 }

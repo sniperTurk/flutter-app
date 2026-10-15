@@ -9,7 +9,8 @@ NASIL ÇALIŞTIRILIR (repo kökünden, önce `git fetch origin`):
     python3 tools/data_gen/generate_scope_library.py \\
         --branch origin/data/scopes --branch origin/data/scopes-element
 
-    # Varsayılan: yalnız origin/data/scopes
+    # Varsayılan: çalışma ağacında data/scopes/ varsa o klasör (SMOA
+    # düzeltmeleri, PR feat/durbun-smoa, burada); yoksa origin/data/scopes
     python3 tools/data_gen/generate_scope_library.py
 
     # Çalışma ağacındaki bir klasörden:
@@ -28,16 +29,21 @@ Vector Optics PR'larındaki üç ayrı sürümün birleşimi); verisi değişmey
 markaların satırları bayt bayt aynı kalır.
 
 Şema (bir kayıt): brand, model, min_mag, max_mag, objective_mm, tube_mm,
-focal ('ffp'|'sfp'|null), click_unit ('mrad'|'mil'|'moa'), click_value,
+focal ('ffp'|'sfp'|null), click_unit ('mrad'|'mil'|'moa'|'smoa'), click_value,
 elevation_travel_<birim>, windage_travel_<birim> (birim = taret birimi,
-mrad veya moa), reticle, parallax_min_m, length_mm, weight_g, zero_stop,
+mrad, moa veya smoa), reticle, parallax_min_m, length_mm, weight_g, zero_stop,
 source_url, notes, isteğe bağlı accessed (sayfanın okunduğu gün).
 Bilinmeyen değer null.
 
 Kurallar (değer asla tahmin edilmez):
   * click_value veya objective_mm null olan kayıt listeye girmez (ScopeOptic
     bunları zorunlu tutar); stderr'e yazılır.
-  * MOA taret aralığı mrad'a çevrilir (× π/10.8, 2 ondalık).
+  * MOA taret aralığı mrad'a çevrilir (× π/10.8, 2 ondalık); SMOA
+    (üretici "1/4 in @ 100 yd" / IPHY yazıyorsa) aralığı × 1000/3600.
+  * click_unit 'smoa' yalnız üretici sayfası klik değerini açıkça inç/100
+    yarda (IPHY, SMOA) olarak verdiğinde yazılır; kayıt 'smoa_source' alanında
+    sayfadan kısa alıntıyı taşır. Katalog eşleşmesinde MOA ve SMOA aynı aile
+    sayılır (el ile doğrulanmış MOA kaydı, SMOA kütüphane kaydını gizler).
   * El ile doğrulanmış katalogda (lib/data/catalog_repository.dart) olan
     dürbün atlanır (PR #83 kuralı): katalog modeli üretici kodu taşıyorsa
     ("(SCFF-72)") kaynak URL'sinde aynı kod geçen kayıt; taşımıyorsa aynı
@@ -68,15 +74,17 @@ REPO = Path(__file__).resolve().parents[2]
 OUT = REPO / 'lib' / 'data' / 'scope_library.dart'
 CATALOG = REPO / 'lib' / 'data' / 'catalog_repository.dart'
 DEFAULT_BRANCHES = ['origin/data/scopes']
+DATA_DIR = REPO / 'data' / 'scopes'
 MOA_TO_MRAD = math.pi / 10.8
+SMOA_TO_MRAD = 1000 / 3600
 # Üretici sayfalarının okunduğu tarih (dosya bazında; yoksa varsayılan).
 READ_DATE_DEFAULT = '2026-10-10'
 # Mevcut çıktıda olmayan yeni kaynak sayfaları (ör. Vector Optics +31).
 NEW_READ_DATE = '2026-10-11'
 READ_DATES = {'element_optics': '2026-10-11'}
 KNOWN_DATE = re.compile(
-    r"sourceDocument:'(\S+) — official manufacturer page, read (\d{4}-\d{2}-\d{2})'")
-UNITS = {'mrad': 'mrad', 'mil': 'mrad', 'moa': 'moa'}
+    r"sourceDocument:'(\S+) — official manufacturer page, read (\d{4}-\d{2}-\d{2})[;']")
+UNITS = {'mrad': 'mrad', 'mil': 'mrad', 'moa': 'moa', 'smoa': 'smoa'}
 
 
 def _git(*args: str) -> str:
@@ -169,17 +177,22 @@ def catalog_keys(text: str) -> tuple[set, set]:
     return codes, keys
 
 
+def unit_family(unit: str | None) -> str | None:
+    """MOA and SMOA (1 in @ 100 yd) are one family for catalog matching."""
+    return 'moa' if unit == 'smoa' else unit
+
+
 def in_catalog(rec: dict, catalog: tuple[set, set]) -> bool:
     codes, keys = catalog
     code = CODE.search(rec['url'] or '')
     if code and code.group(1) in codes:
         return True
     base = (rec['brand'], rec['min'], rec['max'], rec['objective'],
-            rec['ffp'], rec['unit'])
+            rec['ffp'], unit_family(rec['unit']))
     gen = generation(rec.get('model'))
     # Different stated generations (GEN II hand entry vs Gen III record) are
     # different scopes; a missing generation on either side still matches.
-    return any(k[:6] == base and (k[6] is None or gen is None or k[6] == gen)
+    return any(k[:5] == base[:5] and unit_family(k[5]) == base[5] and (k[6] is None or gen is None or k[6] == gen)
                for k in keys)
 
 
@@ -206,7 +219,8 @@ def normalize(stem: str, x: dict, known: dict[str, str] | None = None,
         return None
 
     def travel(axis):
-        for u, k in (('mrad', 1.0), ('mil', 1.0), ('moa', MOA_TO_MRAD)):
+        for u, k in (('mrad', 1.0), ('mil', 1.0), ('moa', MOA_TO_MRAD),
+                     ('smoa', SMOA_TO_MRAD)):
             v = _f(x.get(f'{axis}_travel_{u}'))
             if v is not None:
                 return round(v * k, 2)
@@ -226,6 +240,7 @@ def normalize(stem: str, x: dict, known: dict[str, str] | None = None,
         'reticle': reticle.strip() if isinstance(reticle, str) and reticle.strip() else None,
         'url': x.get('source_url'),
         'date': read_date(stem, x, known, default_date),
+        'smoa_source': (x.get('smoa_source') or '').strip() or None,
     }
 
 
@@ -252,8 +267,10 @@ def render_one(r: dict) -> str:
     if r['reticle'] is not None:
         parts.append(f"reticle:{dart_str(r['reticle'])}")
     parts.append(f"sourceName:{dart_str(r['brand'])}")
-    parts.append('sourceDocument:' + dart_str(
-        f"{r['url']} — official manufacturer page, read {r['date']}"))
+    doc = f"{r['url']} — official manufacturer page, read {r['date']}"
+    if r['unit'] == 'smoa' and r.get('smoa_source'):
+        doc += f'; klik birimi: "{r["smoa_source"]}"'
+    parts.append('sourceDocument:' + dart_str(doc))
     return '    ScopeOptic(' + ', '.join(parts) + '),'
 
 
@@ -313,8 +330,11 @@ def main(argv: list[str] | None = None) -> int:
                     help='atlanan kayıtları yaz')
     a = ap.parse_args(argv)
     raw: dict[str, list] = {}
+    if a.data_dir is None and not a.branch and DATA_DIR.is_dir():
+        a.data_dir = DATA_DIR
     if a.data_dir:
         raw.update(load_dir(a.data_dir))
+        print(f'okundu: {a.data_dir}', file=sys.stderr)
     else:
         for ref in a.branch or DEFAULT_BRANCHES:
             raw.update(load_branch(ref))

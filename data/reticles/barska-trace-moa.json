@@ -1,0 +1,24 @@
+{
+  "name": "Trace MOA",
+  "brand": "Barska",
+  "scopes": [
+    "Tactical 4-16x50 FFP IR",
+    "Varmint 5-20x50 AO IR",
+    "Varmint 10-40x60 AO V2",
+    "Contour 3-9x42 IR"
+  ],
+  "unit": "moa",
+  "family": "hash",
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://shop.barska.com/products/4-16x-50mm-ir-tactical-scope-with-first-focal-plane-trace-moa-reticle",
+  "notes": "Spesifikasyon \"Reticle: Trace MOA\" (adda birim MOA). Tactical 4-16x50: \"Focal Plane: First\", \"Dynamic Focal Positioning (DFP) grid layout\"; Contour 3-9x42: \"Focal Plane: Second\", \"Reticle adjusts in 1/4 MOA increments\" (tık değeri). family=hash \"grid\" ifadesinden. Varmint 5-20x50 ve 10-40x60 V2 sayfaları ayrıca okunmadı (girdi listesindeki ad). Ölçüler yok -> null. Ürün sayfasındaki kullanım kılavuzu PDF'i cdn.shopify.com üzerinde (üçüncü taraf CDN, kaynak kuralı gereği okunmadı); retikül görseli metin içermiyor.  Kaynak: https://shop.barska.com/products/4-16x-50mm-ir-tactical-scope-with-first-focal-plane-trace-moa-reticle (okundu 2026-10-12); https://shop.barska.com/products/3-9x-42-ir-contour-compact-rifle-scope-with-trace-reticle (okundu 2026-10-12)"
+}

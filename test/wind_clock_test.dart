@@ -42,11 +42,15 @@ void main() {
     );
     // No helper text under the field; the instruction lives in the ⓘ.
     expect(find.text(WindClockPicker.instruction), findsNothing);
-    expect(find.byKey(const ValueKey('wind-clock-label')), findsNothing);
+    // The line under the dial is always there; empty before a direction.
+    expect(
+      tester.widget<Text>(find.byKey(const ValueKey('wind-clock-label'))).data,
+      '',
+    );
     await tester.tap(find.byKey(WindClockPicker.hourKey(3)));
     await tester.pump();
     expect(hour, 3);
-    expect(find.text('Saat 3 · sağdan'), findsOneWidget);
+    expect(find.text('Saat 3 yönünde'), findsOneWidget);
     expect(WindDirectionDiagram.labels.length, 8);
   });
 }

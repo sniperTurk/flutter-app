@@ -2,6 +2,8 @@
 // yiv yönü, Yiv oranı). Regülatör basıncı and Namlu uzunluğu are not asked.
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:sniper_turk/models/domain.dart';
+import 'package:sniper_turk/ui/menzil_widgets.dart';
 
 Future<void> enterRifleField(
   WidgetTester tester,
@@ -39,11 +41,15 @@ Future<void> fillRifleForm(
   if (caliber.contains(' mm (') &&
       find.byKey(const Key('profile-platform')).evaluate().isNotEmpty) {
     await chooseInSelect(tester, 'profile-platform', 'PCP Tüfek');
+  } else if (find.byKey(const Key('profile-platform')).evaluate().isNotEmpty &&
+      selectedValue<WeaponPlatform>(tester, 'profile-platform') == null) {
+    // Tür starts on "Seçiniz" and is required to save (owner, 2026-10-15).
+    await chooseInSelect(tester, 'profile-platform', 'Ateşli Tüfek');
   }
-  // Marka / Model come from the lists; typed names need "Listede yok"
-  // first (owner, 2026-10-11).
+  // Marka / Model come from the lists; typed names open from the link
+  // "Aradığın tüfek listede yok mu?" (owner, 2026-10-11, 2026-10-14).
   if (find.byKey(const Key('rifle-brand-select')).evaluate().isNotEmpty) {
-    await chooseInSelect(tester, 'rifle-brand-select', 'Listede yok');
+    await openRifleManual(tester);
   }
   await enterRifleField(tester, 'rifle-brand', brand);
   await enterRifleField(tester, 'rifle-model', model);
@@ -75,16 +81,25 @@ Future<void> chooseInSelect(
   // The menu opens at the selected item, so the wanted one may be above it
   // (a smaller büyütme) or below it: try down first, then up.
   final item = find.text(label);
+  // The open menu's own item, not the closed field that shows the same text
+  // under the menu (a new first brand, Aguila, sat on top of it).
+  final inMenu = find.descendant(
+    of: find.byWidgetPredicate(
+      (w) => w.runtimeType.toString().startsWith('_DropdownMenuItemButton'),
+    ),
+    matching: item,
+  );
   for (final dy in const [-300.0, 300.0]) {
-    for (var i = 0; i < 20 && item.evaluate().isEmpty; i++) {
+    for (var i = 0; i < 20 && inMenu.evaluate().isEmpty; i++) {
       await tester.drag(find.byType(Scrollable).last, Offset(0, dy));
       await tester.pumpAndSettle();
     }
   }
+  final target = inMenu.evaluate().isEmpty ? item.last : inMenu.last;
   // Built but below the menu's visible part: scroll it into view.
-  await tester.ensureVisible(item.last);
+  await tester.ensureVisible(target);
   await tester.pumpAndSettle();
-  await tester.tap(item.last);
+  await tester.tap(target);
   await tester.pumpAndSettle();
 }
 
@@ -102,17 +117,46 @@ Future<void> fillAmmoForm(
   if (find.byKey(const Key('ammo-source')).evaluate().isNotEmpty) {
     await chooseInSelect(tester, 'ammo-source', 'Fabrika fişeği');
   }
-  // Marka and Model are separate boxes again and come from the library
-  // lists; a typed name needs "Listede yok" first (owner, 2026-10-11).
-  if (find.byKey(const Key('ammo-brand-select')).evaluate().isNotEmpty) {
+  // Firearm: a typed round opens from the "listede yok mu?" link (owner,
+  // 2026-10-14); PCP (PCP_AMMO_BRAND on) keeps "Listede yok" in the list.
+  if (find.byKey(const Key('ammo-not-listed')).evaluate().isNotEmpty) {
+    await openAmmoManual(tester);
+  } else if (find.byKey(const Key('ammo-brand-select')).evaluate().isNotEmpty) {
     await chooseInSelect(tester, 'ammo-brand-select', 'Listede yok');
   }
-  await enterRifleField(tester, 'ammo-brand', brand);
-  await enterRifleField(tester, 'ammo-model', model);
+  // Typed firearm round: Marka from the list, "Diğer" types it.
+  if (find.byKey(const Key('ammo-brand-pick')).evaluate().isNotEmpty) {
+    await chooseInSelect(tester, 'ammo-brand-pick', 'Diğer');
+  }
+  // PCP asks no Marka/Model (owner, 2026-10-13).
+  if (find.byKey(const Key('ammo-brand')).evaluate().isNotEmpty) {
+    await enterRifleField(tester, 'ammo-brand', brand);
+    await enterRifleField(tester, 'ammo-model', model);
+  }
   if (type != null) await chooseInSelect(tester, 'ammo-type', type);
+  // Typed firearm Ağırlık is a list; "Listede yok" types the grain.
+  if (find.byKey(const Key('ammo-grain-select')).evaluate().isNotEmpty) {
+    await chooseInSelect(tester, 'ammo-grain-select', 'Listede yok');
+  }
   await enterRifleField(tester, 'ammo-grain', grain);
   await enterRifleField(tester, 'ammo-bc', bc);
-  await chooseInSelect(tester, 'ammo-bc-model', bcModel);
+  await chooseBcModel(tester, bcModel);
+}
+
+/// Taps "Aradığın mühimmat listede yok mu?" under Mühimmat Model: the
+/// typed firearm round (owner, 2026-10-14: no "Listede yok" in the list).
+Future<void> openAmmoManual(WidgetTester tester) async {
+  final link = find.byKey(const Key('ammo-not-listed'));
+  await Scrollable.ensureVisible(tester.element(link), alignment: 0.5);
+  await tester.pumpAndSettle();
+  await tester.tap(link);
+  await tester.pumpAndSettle();
+}
+
+/// Picks the BC modeli (PCP shows it too since 2026-10-14, G1 by default).
+Future<void> chooseBcModel(WidgetTester tester, String label) async {
+  if (find.byKey(const Key('ammo-bc-model')).evaluate().isEmpty) return;
+  await chooseInSelect(tester, 'ammo-bc-model', label);
 }
 
 /// Fills Atış değerleri: muzzle velocity (fps), zero (m) and sight height (mm).
@@ -128,6 +172,28 @@ Future<void> fillShotValues(
   await enterRifleField(tester, 'scope-sight-height', sight);
 }
 
+/// Taps "Aradığın tüfek listede yok mu?" under Tüfek Marka | Model: the
+/// typed rifle entry (owner, 2026-10-14: no "Listede yok" in the list).
+Future<void> openRifleManual(WidgetTester tester) async {
+  final link = find.byKey(const Key('rifle-not-listed'));
+  // Mid-screen: at the bottom edge a save bar can cover it.
+  await Scrollable.ensureVisible(tester.element(link), alignment: 0.5);
+  await tester.pumpAndSettle();
+  await tester.tap(link);
+  await tester.pumpAndSettle();
+}
+
+/// Taps "Aradığın dürbün listede yok mu?" under the Dürbün card: the
+/// typed scope entry (owner, 2026-10-13: no "Listede yok" in the list).
+Future<void> openScopeManual(WidgetTester tester) async {
+  final link = find.byKey(const Key('scope-not-listed'));
+  // Mid-screen: at the bottom edge a save bar can cover it.
+  await Scrollable.ensureVisible(tester.element(link), alignment: 0.5);
+  await tester.pumpAndSettle();
+  await tester.tap(link);
+  await tester.pumpAndSettle();
+}
+
 /// Fills the profile editor's manual scope form.
 Future<void> fillScopeForm(
   WidgetTester tester, {
@@ -140,7 +206,7 @@ Future<void> fillScopeForm(
   String click = '0,1 MRAD',
 }) async {
   if (find.byKey(const Key('scope-brand-select')).evaluate().isNotEmpty) {
-    await chooseInSelect(tester, 'scope-brand-select', 'Listede yok');
+    await openScopeManual(tester);
   }
   await enterRifleField(tester, 'scope-brand', brand);
   // Büyütme and Mercek çapı are picked from lists (owner, 2026-10-11).
@@ -157,10 +223,11 @@ Future<void> fillScopeForm(
 
 /// The value picked in the list box under [key] (null: "Seçiniz").
 T? selectedValue<T>(WidgetTester tester, String key) => tester
-    .widget<DropdownButton<T>>(
+    .state<MenzilSelectState<T>>(
       find.descendant(
         of: find.byKey(Key(key)),
-        matching: find.byType(DropdownButton<T>),
+        matching: find.byType(MenzilSelect<T>),
+        matchRoot: true,
       ),
     )
     .value;

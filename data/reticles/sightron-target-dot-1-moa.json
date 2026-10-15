@@ -1,0 +1,24 @@
+{
+  "name": "Target Dot .1",
+  "brand": "Sightron",
+  "scopes": [
+    "SV 10-50x60 ED Zero Stop",
+    "SV 10-50x60 ED",
+    "SIII Long Range 10-50x60",
+    "SIII Competition 45x45 ED TD .1"
+  ],
+  "unit": "moa",
+  "family": null,
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": true,
+  "floating_center": null,
+  "source_url": "https://sightron.com/products/sv-10-50x60-ed-zero-stop",
+  "notes": "SFP, tık 1/8 MOA (45x45: 1/10 MOA). Sayfa: 'fine crosshair with an extra fine .1 MOA dot in the center' → center_dot=true (yüzen olup olmadığı yazmıyor → floating_center null). Izgara/ölçek yok; şemadaki ailelere uymuyor → family null. Tablolar: '10x at 100 yards' A .5, B .05; '50x' A .1, B .01; 45x45: '45x' A .1, B .01. Sütun harfleri (A, B, C...) sayfada tanımlanmadığından tablo değerleri alanlara yazılmadı. Ayrıntılı çizim/PDF cdn.shopify.com üzerinde (izinli alan değil) okunmadı. Kaynak: https://sightron.com/products/sv-10-50x60-ed-zero-stop (okundu 2026-10-12); https://sightron.com/products/sv-10-50x60-ed (okundu 2026-10-12); https://sightron.com/products/siii-long-range-10-50x60 (okundu 2026-10-12); https://sightron.com/products/siii-competition-45x45-ed (okundu 2026-10-12)."
+}

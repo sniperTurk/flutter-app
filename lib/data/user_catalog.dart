@@ -158,8 +158,10 @@ class UserCatalog {
               type: type!,
               ballisticCoefficient: bc,
               ballisticModel: bc == null ? null : bcModel,
+              modelWithoutBc: bc == null ? bcModel : null,
               bcBands: bc == null ? const [] : _bcBands(e['bcBands']),
               dragCurve: bc == null ? null : DragCurve.fromJson(e['dragCurve']),
+              lengthMm: _positive(e['lengthMm']),
               sourceName: userCatalogSourceName,
               sourceDocument: custom
                   ? 'Özel yapım mühimmat; doğrulanmamış kişisel kayıt'

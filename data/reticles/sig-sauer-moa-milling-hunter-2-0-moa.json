@@ -1,0 +1,26 @@
+{
+  "name": "MOA Milling Hunter 2.0",
+  "brand": "Sig Sauer",
+  "scopes": [
+    "WHISKEY4 6-24X50MM ILLUMINATED (FFP)",
+    "WHISKEY4 6-24X50MM NON-ILLUMINATED (FFP)",
+    "WHISKEY4 5-20X50MM EXPOSED ZERO STOP, ILLUMINATED (FFP)",
+    "WHISKEY4 5-20X50MM EXPOSED ZERO STOP, NON-ILLUMINATED (FFP)",
+    "WHISKEY4 4-16X44MM EXPOSED ZERO STOP, ILLUMINATED (FFP)",
+    "WHISKEY4 4-16X44MM EXPOSED ZERO STOP, NON-ILLUMINATED (FFP)"
+  ],
+  "unit": "moa",
+  "family": null,
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://www.sigsauer.com/media/sigsauer/resources/OPERATORS-MANUAL-WHISKEY4-7404528-01-REV10-WEB-FILE.pdf",
+  "notes": "WHISKEY4 kılavuzu 'FFP MOA MILLING HUNTER 2.0', 'Units are in MOA'; çizim değerleri 10, 31, 20, 30.1, 31, 2, 0.5 ve 'DETAIL A' 0.25, 2, 0.15, 1, 1, 1, 1.4, 2, 0.5, 1 öğeye eşlenmiyor -> sayısal alanlar ve family null. WHISKEY4 6-24x50 aydınlatmalı ürün sayfası: teknik tablo 'MOA Milling Hunter 2.0', 'First', 'First focal plane MOA MILLING HUNTER 2.0 reticle'. Kaynak: https://www.sigsauer.com/media/sigsauer/resources/OPERATORS-MANUAL-WHISKEY4-7404528-01-REV10-WEB-FILE.pdf (okundu 2026-10-12); https://www.sigsauer.com/whiskey4-6-24x50mm-illuminated.html (okundu 2026-10-12)"
+}

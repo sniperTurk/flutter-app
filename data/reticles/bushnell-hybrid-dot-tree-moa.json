@@ -1,0 +1,22 @@
+{
+  "name": "Hybrid Dot Tree",
+  "brand": "Bushnell",
+  "scopes": [
+    "R7 4-20x50 FFP MOA",
+    "R7 3-15x50 FFP MOA"
+  ],
+  "unit": "moa",
+  "family": "tree",
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://www.bushnell.com/products/r7-4-20x50-riflescopes?variant=51896191615272",
+  "notes": "Bushnell R7 ürün sayfaları (FFP, MOA varyantları): retikül adı 'FFP MOA Hybrid Dot Tree Illuminated Reticle @ 4x and 20x'; özellik satırı 'Reticle Type, Scale: Hybrid Dot Tree, MOA'. R7 3-15x50 aynı varyant: 'FFP MOA Hybrid Dot Tree Illuminated Reticle @ 3x and 15x', 'Reticle Type, Scale: Dot-Hash Hyrbrid, MOA'. Üretici retikül adı 'Hybrid Dot Tree'; 'Dot-Hash Hybrid' tip/ölçek satırındaki tanım -> dürbün kayıtlarındaki 'Dot-Hash Hybrid' yazımı için scope_changes.json düzeltmesi önerildi. 'First focal plane reticle provides accurate holds at every magnification'. family=tree yalnız 'Dot Tree' adından ÇIKARIM. Kılavuzlar cdn.shopify.com'da (izinli alan adı değil) -> okunmadı; ölçü sayıları bushnell.com sayfalarında yok -> diğer alanlar null. Kaynak: https://www.bushnell.com/products/r7-4-20x50-riflescopes?variant=51896191615272 (okundu 2026-10-12); https://www.bushnell.com/products/r7-3-15x50-riflescopes?variant=51896205541672 (okundu 2026-10-12)"
+}

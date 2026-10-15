@@ -221,7 +221,8 @@ jobs:
           flutter build ios --release --no-codesign \
             --build-number="${GITHUB_RUN_NUMBER}" \
             --dart-define=METNO_CONTACT="$METNO_CONTACT" \
-            --dart-define=GOOGLE_MAPS_ENABLED="$MAPS"
+            --dart-define=GOOGLE_MAPS_ENABLED="$MAPS" \
+            --dart-define=GOOGLE_MAPS_IOS_API_KEY="${GOOGLE_MAPS_IOS_API_KEY:-}"
 
       # The team has no registered devices, so Xcode cannot create a Development
       # profile. Archive unsigned and let the export step sign with Apple's

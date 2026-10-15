@@ -1,0 +1,21 @@
+{
+  "name": "Tremor 3",
+  "brand": "Steiner",
+  "scopes": [
+    "M7Xi 4-28x56"
+  ],
+  "unit": "mil",
+  "family": "tree",
+  "hash_step": 0.2,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://www.steiner-optics.com/reticles/tremor-3",
+  "notes": "Steiner 'Tremor® 3' sayfası: 'Featuring a 0.2 mil ballistic grid', 'integrated time-of-flight wind dots', 'ranging references and chevron-style aiming points', 'When paired with a first focal plane optic, all subtensions remain accurate' -> unit=mil, hash_step=0.2, family=tree (ızgara). Ürün listesi: M5Xi 3-15x50, M7XI 2.9-20x50, M7Xi 4-28x56, M7Xi IFS 4-28x56. Steiner Reticle Guide (s.16 Horus TReMoR3): 'mil grid that can be used for windage and elevation', rüzgâr noktaları 'on the bottom half of each horizontal mil stadia'. Izgara satırları, uzanım, rakamlar, merkez metinde yok -> null. Kaynak: https://www.steiner-optics.com/reticles/tremor-3 (okundu 2026-10-12); https://www.steiner-optics.com/sites/default/files/content/catalogs/2023-12/reticle_guide_1-8-18.pdf (okundu 2026-10-12)"
+}

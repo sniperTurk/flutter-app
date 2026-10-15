@@ -1,0 +1,23 @@
+{
+  "name": "M1FL",
+  "brand": "Schmidt & Bender",
+  "scopes": [
+    "10-60x56 CM II High Performance 1. FP M1FL 0.1 mrad",
+    "6-36x56 CM II High Performance GR2ID FFP 0.1 mrad",
+    "6-36x56 PM II High Performance P5FL FFP 0.1 mrad"
+  ],
+  "unit": "mil",
+  "family": null,
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://www.schmidtundbender.de/en/10-60x56-CM-II-High-Performance-1.-FP/160-xxx-xxx",
+  "notes": "S&B 10-60x56 CM II High Performance 1. FP ürün sayfası: M1FL 'an illuminated mrad-based reticle in the first focal plane' -> unit=mil. Sayfada ölçü/aralık yok; retikül veri föyleri yalnız ZIP arşivinde ('Data sheets reticle.zip'), WebFetch ile açılamadı -> geometri alanları null. 6-36x56 CM II / PM II sayfaları M1FL'i yalnız görsel adıyla listeliyor. Kaynak: https://www.schmidtundbender.de/en/10-60x56-CM-II-High-Performance-1.-FP/160-xxx-xxx (okundu 2026-10-12); https://www.schmidtundbender.de/6-36x56-CM-II-High-Performance/16A-xxx-xxx (okundu 2026-10-12)"
+}

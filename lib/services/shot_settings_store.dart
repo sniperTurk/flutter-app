@@ -25,8 +25,9 @@ class ShotSettings {
   final String gravityText;
   final String windMaxText;
 
-  /// The shooter cleared En yüksek rüzgâr: no wind bracket, no automatic
-  /// value until "Otomatik doldur" (owner, 2026-10-10).
+  /// En yüksek rüzgâr is empty: no wind bracket. Still written and read so
+  /// older saved settings keep loading; the box has no automatic value since
+  /// 2026-10-12, so nothing reads it back into the screen.
   final bool windMaxOff;
   final String targetSpeedText;
 
@@ -71,6 +72,43 @@ class ShotSettings {
   /// WEZ Atış sayısı for "en az bir isabet" (one of [Wez.shotCounts]).
   final int wezShotCount;
 
+  /// The box was filled by its button (Konumdan al, Pusuladan al, Konumdan
+  /// hesapla, Rüzgâr düzeltmesi al), so it reopens orange "…alındı"
+  /// (owner, 2026-10-12).
+  final bool latitudeFromGps;
+  final bool azimuthFromCompass;
+  final bool gravityFromLocation;
+  final bool windMaxFromWind;
+
+  /// Hava Durumu boxes of this profile in SI (°C, hPa, %, m, m/s, wind
+  /// direction °); a box missing from the map is empty. Kept until Sıfırla
+  /// (owner, 2026-10-12: "kullanıcı sıfırla demedikten sonra aynı kalsın").
+  /// [weatherSaved] false = never saved (older saves): the screen keeps its
+  /// own values.
+  final bool weatherSaved;
+  final Map<String, double> weatherSi;
+  final bool weatherFromLocation;
+  final bool pressureFromPhone;
+
+  /// When the weather / pressure button filled its boxes (UTC epoch ms).
+  /// "…alındı" is orange only for 30 minutes after it (owner, 2026-10-14);
+  /// older saves have no time and reopen as old ("eski").
+  final int? weatherFetchedAtMs;
+  final int? pressureFetchedAtMs;
+
+  /// İrtifa card (owner, 2026-10-14): when "Telefondan" / "Haritadan" wrote
+  /// their box (UTC epoch ms); null = typed, reset or never fetched. The
+  /// boxes themselves are weatherSi 'altitude' (Telefondan irtifa; an older
+  /// single İrtifa migrates there) and 'mapAltitude' (Haritadan irtifa).
+  final int? altitudePhoneAtMs;
+  final int? altitudeMapAtMs;
+
+  /// When the Rüzgâr yönü was set (tap on the dial or typed hour).
+  final int? windDirectionAtMs;
+
+  /// When "Düzeltme al" (or a weather fill) wrote En çok rüzgâr.
+  final int? windMaxAtMs;
+
   const ShotSettings({
     this.inclineDeg = 0,
     this.cantDeg = 0,
@@ -100,7 +138,31 @@ class ShotSettings {
     this.bcErrorText = '',
     this.tubePressureText = '',
     this.wezShotCount = Wez.defaultShotCount,
+    this.latitudeFromGps = false,
+    this.azimuthFromCompass = false,
+    this.gravityFromLocation = false,
+    this.windMaxFromWind = false,
+    this.weatherSaved = false,
+    this.weatherSi = const {},
+    this.weatherFromLocation = false,
+    this.pressureFromPhone = false,
+    this.weatherFetchedAtMs,
+    this.pressureFetchedAtMs,
+    this.altitudePhoneAtMs,
+    this.altitudeMapAtMs,
+    this.windDirectionAtMs,
+    this.windMaxAtMs,
   });
+
+  static const weatherKeys = {
+    'temperature',
+    'pressure',
+    'humidity',
+    'altitude',
+    'mapAltitude',
+    'wind',
+    'windDirection',
+  };
 
   Map<String, dynamic> toJson() => {
     'incline': inclineDeg,
@@ -131,6 +193,19 @@ class ShotSettings {
     'bcError': bcErrorText,
     'tubePressure': tubePressureText,
     'wezShots': wezShotCount,
+    'latGps': latitudeFromGps,
+    'aziCompass': azimuthFromCompass,
+    'gravGps': gravityFromLocation,
+    'windMaxFill': windMaxFromWind,
+    if (weatherSaved) 'weather': weatherSi,
+    'weatherGps': weatherFromLocation,
+    'pressurePhone': pressureFromPhone,
+    if (weatherFetchedAtMs != null) 'weatherGpsAt': weatherFetchedAtMs,
+    if (pressureFetchedAtMs != null) 'pressurePhoneAt': pressureFetchedAtMs,
+    if (altitudePhoneAtMs != null) 'altPhoneAt': altitudePhoneAtMs,
+    if (altitudeMapAtMs != null) 'altMapAt': altitudeMapAtMs,
+    if (windDirectionAtMs != null) 'windDirAt': windDirectionAtMs,
+    if (windMaxAtMs != null) 'windMaxAt': windMaxAtMs,
   };
 
   /// Unknown or damaged values fall back to the neutral default (level,
@@ -143,6 +218,11 @@ class ShotSettings {
     }
 
     String text(Object? v) => v is String && v.length <= 20 ? v : '';
+    // A fetch time: a positive whole number of ms, else none (= old).
+    int? epochMs(Object? v) =>
+        v is num && v.isFinite && v > 0 && v == v.roundToDouble()
+        ? v.toInt()
+        : null;
     return ShotSettings(
       inclineDeg: angle(json['incline']),
       cantDeg: angle(json['cant']),
@@ -179,6 +259,28 @@ class ShotSettings {
       wezShotCount: Wez.shotCounts.contains(json['wezShots'])
           ? json['wezShots'] as int
           : Wez.defaultShotCount,
+      latitudeFromGps: json['latGps'] == true,
+      azimuthFromCompass: json['aziCompass'] == true,
+      gravityFromLocation: json['gravGps'] == true,
+      windMaxFromWind: json['windMaxFill'] == true,
+      weatherSaved: json['weather'] is Map,
+      weatherSi: {
+        if (json['weather'] case final Map w)
+          for (final MapEntry(:key, :value) in w.entries)
+            if (key is String &&
+                weatherKeys.contains(key) &&
+                value is num &&
+                value.isFinite)
+              key: value.toDouble(),
+      },
+      weatherFromLocation: json['weatherGps'] == true,
+      pressureFromPhone: json['pressurePhone'] == true,
+      weatherFetchedAtMs: epochMs(json['weatherGpsAt']),
+      pressureFetchedAtMs: epochMs(json['pressurePhoneAt']),
+      altitudePhoneAtMs: epochMs(json['altPhoneAt']),
+      altitudeMapAtMs: epochMs(json['altMapAt']),
+      windDirectionAtMs: epochMs(json['windDirAt']),
+      windMaxAtMs: epochMs(json['windMaxAt']),
     );
   }
 }

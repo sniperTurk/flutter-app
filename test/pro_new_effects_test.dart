@@ -11,6 +11,7 @@ import 'package:sniper_turk/features/ballistics/ballistics_screen.dart';
 import 'package:sniper_turk/features/ballistics/scope_dial_view.dart';
 import 'package:sniper_turk/models/domain.dart';
 import 'package:sniper_turk/ui/menzil_theme.dart';
+import 'package:sniper_turk/ui/menzil_widgets.dart';
 
 import 'support/pro_sections.dart';
 
@@ -233,16 +234,18 @@ void main() {
       final select = find.byKey(const Key('pro-wez-shots'));
       await tester.ensureVisible(select);
       await tester.pumpAndSettle();
+      // Atış sayısı starts on "Seçiniz" (owner, 2026-10-12): one shot.
       expect(
         tester
-            .widget<DropdownButton<int>>(
+            .state<MenzilSelectState<int>>(
               find.descendant(
                 of: select,
-                matching: find.byType(DropdownButton<int>),
+                matching: find.byType(MenzilSelect<int>),
+                matchRoot: true,
               ),
             )
             .value,
-        1,
+        isNull,
       );
 
       await tester.pumpWidget(app(BallisticsView.shot));
@@ -345,6 +348,18 @@ void main() {
       // A firearm profile sees powder temperature, not the PCP note.
       expect(find.byKey(const Key('pro-powder-source')), findsOneWidget);
       expect(find.byKey(const Key('pro-spin-pcp-note')), findsNothing);
+      // Nor in its ⓘ sheet (owner, 2026-10-13).
+      final info = find.byKey(const Key('pro-info-rifle'));
+      await tester.ensureVisible(info);
+      await tester.pumpAndSettle();
+      await tester.tap(info);
+      await tester.pumpAndSettle();
+      // A bottom sheet since 2026-10-13 (owner: "alttan açılan sayfa").
+      expect(find.byKey(const Key('pro-info-sheet')), findsOneWidget);
+      expect(find.byType(AlertDialog), findsNothing);
+      expect(find.byKey(const Key('pro-spin-pcp-note')), findsNothing);
+      await tester.tap(find.text('Kapat'));
+      await tester.pumpAndSettle();
       await type(tester, const Key('pro-bullet-length'), '31');
 
       await tester.pumpWidget(app(BallisticsView.shot));

@@ -1,8 +1,11 @@
 from pathlib import Path
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from dart_library_source import library_text  # noqa: E402
 import unittest
 ROOT = Path(__file__).resolve().parents[1]
 STORE = (ROOT/'lib/services/manual_catalog_store.dart').read_text()
-PROFILES = (ROOT/'lib/features/profiles/profiles_screen.dart').read_text()
+PROFILES = library_text('lib/features/profiles/profiles_screen.dart')
 
 class ManualCatalogRecoveryRegression(unittest.TestCase):
     def test_missing_primary_falls_back_to_backup(self):

@@ -1,0 +1,24 @@
+{
+  "name": "Fine Cross Hair",
+  "brand": "Sightron",
+  "scopes": [
+    "SIII Long Range 10-50x60",
+    "SIII Long Range 8-32x56",
+    "SIII Competition 36x45 ED",
+    "SIII Competition 45x45 ED FCH"
+  ],
+  "unit": "moa",
+  "family": null,
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://sightron.com/products/siii-long-range-10-50x60",
+  "notes": "SFP. Sayfa: 'very thin horizontal and vertical line that intersects at the scopes optical center'. Ölçek/işaret yok; şemadaki ailelere uymuyor → family null; nokta yazmıyor → center_dot null. Tablolar 'FCH Measured in MOA': 10-50x60 10x A .08, 50x A .017; 8-32x56 8x .1, 32x .025; 36x45 '36x' .025; 45x45 '45x' .02. Sütun harfleri (A, B, C...) sayfada tanımlanmadığından tablo değerleri alanlara yazılmadı. Ayrıntılı çizim/PDF cdn.shopify.com üzerinde (izinli alan değil) okunmadı. Kaynak: https://sightron.com/products/siii-long-range-10-50x60 (okundu 2026-10-12); https://sightron.com/products/siii-long-range-8-32x56 (okundu 2026-10-12); https://sightron.com/products/siii-competition-36x45-ed (okundu 2026-10-12); https://sightron.com/products/siii-competition-45x45-ed (okundu 2026-10-12)."
+}

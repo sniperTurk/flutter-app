@@ -1,0 +1,21 @@
+{
+  "name": "P3TR",
+  "brand": "Steiner",
+  "scopes": [
+    "P4Xi 1-4x24"
+  ],
+  "unit": "moa",
+  "family": null,
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://www.steiner-optics.com/sites/default/files/content/catalogs/2023-12/reticle_guide_1-8-18.pdf",
+  "notes": "Steiner Reticle Guide (s.5-6, 3TR/P3TR): 'stadia lines below the crosshair... out to 600 meters', '200-yard zero'; P3TR yükseliş (MOA): 300 yd 2.625, 400 yd 5.75, 500 yd 9.5, 600 yd 13.75; 'subtentions have been averaged so that it works well with either 5.56 and 7.62' -> unit=moa. P4Xi kılavuzu: 'Reticle P3TR', 'Focal Plane Second' (metinde bir yerde '3PTR' yazımı da var). Retikül sayfası: 'bold, illuminated central aiming point', 'Integrated ballistic holdover references'. BDC deseni şemadaki ailelere oturmuyor ve stadia genişlikleri yok -> family null; değerler yalnız bu nota yazıldı. Referans büyütme belirtilmemiş. Kaynak: https://www.steiner-optics.com/sites/default/files/content/catalogs/2023-12/reticle_guide_1-8-18.pdf (okundu 2026-10-12); https://www.steiner-optics.com/reticles/p3tr (okundu 2026-10-12); https://www.steiner-optics.com/sites/default/files/content/downloads/2024-03/Steiner%20P4xi%201-4x24%20User%20Manuel.pdf (okundu 2026-10-12)"
+}

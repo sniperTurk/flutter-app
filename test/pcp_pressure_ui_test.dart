@@ -1,7 +1,8 @@
 // PCP tüp ve regülatör basıncı on screen (owner, 2026-10-12): Profil shows
 // Tüp basıncı | Regülatör basıncı and the basınca göre hız rows on PCP only;
-// Pro takes the tube pressure left; a firearm sees none of it and its
-// solution does not change; a PCP with nothing entered solves as before.
+// a firearm sees none of it and its solution does not change; a PCP with
+// nothing entered solves as before. Owner, 2026-10-14: no "Kalan tüp
+// basıncı" on Pro any more; the calculation uses the Profil Tüp basıncı.
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
@@ -80,6 +81,40 @@ const _pcpPlain = RifleProfile(
 );
 
 /// Regulated at 150 bar; measured 255 m/s at 120 bar and 270 m/s at 150.
+RifleProfile _regulatedAt(double? tubeBar) => RifleProfile(
+  id: 'p-pcp',
+  name: 'PCP',
+  rifleId: 'manual_rifle_pcp',
+  ammunitionId: 'manual_ammo_pcp',
+  scopeId: 'gazi-6-36',
+  muzzleVelocityMps: 270,
+  zeroRangeM: 30,
+  sightHeightMm: 60,
+  pressureBar: 150,
+  tubePressureBar: tubeBar,
+  pressureVelocityTable: const [
+    PressureVelocityPoint(bar: 120, mps: 255),
+    PressureVelocityPoint(bar: 150, mps: 270),
+  ],
+);
+
+/// Unregulated; measured 255 m/s at 120 bar and 270 m/s at 200.
+RifleProfile _unregulatedAt(double? tubeBar) => RifleProfile(
+  id: 'p-pcp',
+  name: 'PCP',
+  rifleId: 'manual_rifle_pcp',
+  ammunitionId: 'manual_ammo_pcp',
+  scopeId: 'gazi-6-36',
+  muzzleVelocityMps: 270,
+  zeroRangeM: 30,
+  sightHeightMm: 60,
+  tubePressureBar: tubeBar,
+  pressureVelocityTable: const [
+    PressureVelocityPoint(bar: 120, mps: 255),
+    PressureVelocityPoint(bar: 200, mps: 270),
+  ],
+);
+
 const _pcpRegulated = RifleProfile(
   id: 'p-pcp',
   name: 'PCP',
@@ -212,26 +247,11 @@ void main() {
       addTearDown(tester.view.reset);
     }
 
-    Future<double> elevation(
-      WidgetTester tester,
-      RifleProfile profile, {
-      String? tube,
-    }) async {
+    Future<double> elevation(WidgetTester tester, RifleProfile profile) async {
       // A fresh workspace each time (no state carried between profiles).
       await tester.pumpWidget(const SizedBox());
       await tester.pumpWidget(app(profile, BallisticsView.pro));
       await tester.pumpAndSettle();
-      if (tube != null) {
-        const key = Key('pro-tube-pressure');
-        await openProFor(tester, key);
-        final f = find.descendant(
-          of: find.byKey(key),
-          matching: find.byType(TextField),
-        );
-        await tester.ensureVisible(f);
-        await tester.enterText(f, tube);
-        await tester.pump();
-      }
       await tester.pumpWidget(app(profile, BallisticsView.shot));
       await tester.pumpAndSettle();
       return tester
@@ -243,23 +263,22 @@ void main() {
       await big(tester);
       await tester.pumpWidget(app(_fx, BallisticsView.pro));
       await tester.pumpAndSettle();
-      await tester.tap(find.byKey(const Key('pro-section-rifle')));
-      await tester.pumpAndSettle();
+      await tapProHeader(tester, find.byKey(const Key('pro-section-rifle')));
       expect(find.byKey(const Key('pro-turret-scale')), findsOneWidget);
       expect(find.byKey(const Key('pro-tube-pressure')), findsNothing);
     });
 
-    testWidgets('PCP: tube pressure box on Pro with ⓘ', (tester) async {
+    testWidgets('PCP: no tube pressure box on Pro (asked on Profil)', (
+      tester,
+    ) async {
       await big(tester);
-      await tester.pumpWidget(app(_pcpPlain, BallisticsView.pro));
+      await tester.pumpWidget(app(_pcpRegulated, BallisticsView.pro));
       await tester.pumpAndSettle();
-      await openProFor(tester, const Key('pro-tube-pressure'));
-      final box = find.byKey(const Key('pro-tube-pressure'));
-      expect(box, findsOneWidget);
-      expect(
-        find.descendant(of: box, matching: find.byType(MenzilInfoButton)),
-        findsOneWidget,
-      );
+      await tapProHeader(tester, find.byKey(const Key('pro-section-rifle')));
+      expect(find.byKey(const Key('pro-turret-scale')), findsOneWidget);
+      expect(find.byKey(const Key('pro-tube-pressure')), findsNothing);
+      expect(find.text('Kalan tüp basıncı'), findsNothing);
+      expect(find.byKey(const Key('pro-pcp-regulator')), findsNothing);
     });
 
     testWidgets('a saved tube pressure never moves a firearm solution', (
@@ -279,47 +298,57 @@ void main() {
       expect(find.byKey(const Key('shot-pcp-regulator')), findsNothing);
     });
 
-    testWidgets('regulated, tube above the regulator: as before', (
+    testWidgets('regulated, Profil tube above the regulator: as before', (
       tester,
     ) async {
       await big(tester);
       final plain = await elevation(tester, _pcpPlain);
       final fields = await elevation(tester, _pcpRegulated);
       expect(fields, closeTo(plain, 1e-12));
-      final above = await elevation(tester, _pcpRegulated, tube: '200');
+      final above = await elevation(tester, _regulatedAt(200));
       expect(above, closeTo(plain, 1e-12));
       expect(find.byKey(const Key('shot-pcp-regulator')), findsNothing);
     });
 
-    testWidgets('regulated, tube below the regulator: warning and the '
-        'slower measured velocity', (tester) async {
+    testWidgets('regulated, Profil tube below the regulator: warning and '
+        'the slower measured velocity', (tester) async {
+      // The Profil form keeps Regülatör below Tüp basıncı, so this is the
+      // solver path for a stored profile, not a typed one.
       await big(tester);
-      final plain = await elevation(tester, _pcpRegulated);
-      final low = await elevation(tester, _pcpRegulated, tube: '120');
+      final plain = await elevation(tester, _regulatedAt(250));
+      final low = await elevation(tester, _regulatedAt(120));
       expect(find.byKey(const Key('shot-pcp-regulator')), findsOneWidget);
       // 255 m/s against a zero at 270 m/s: the pellet drops more.
       expect(low, isNot(closeTo(plain, 1e-6)));
     });
 
-    testWidgets('Pro shows the warning and the velocity used', (tester) async {
+    testWidgets('unregulated: the velocity follows the Profil tube pressure', (
+      tester,
+    ) async {
       await big(tester);
-      await tester.pumpWidget(app(_pcpRegulated, BallisticsView.pro));
-      await tester.pumpAndSettle();
-      const key = Key('pro-tube-pressure');
-      await openProFor(tester, key);
-      final f = find.descendant(
-        of: find.byKey(key),
-        matching: find.byType(TextField),
-      );
-      await tester.ensureVisible(f);
-      // Comma decimals are accepted.
-      await tester.enterText(f, '120,0');
-      await tester.pump();
-      expect(find.byKey(const Key('pro-pcp-regulator')), findsOneWidget);
-      final used = tester
-          .widget<Text>(find.byKey(const Key('pro-pcp-velocity')))
-          .data!;
-      expect(used, contains('${(255 * 3.280839895).toStringAsFixed(0)} fps'));
+      final none = await elevation(tester, _unregulatedAt(null));
+      final full = await elevation(tester, _unregulatedAt(200));
+      final low = await elevation(tester, _unregulatedAt(120));
+      // 270 m/s measured at 200 bar = the profile velocity. The screen's
+      // velocity goes through the fps box (rounded), so the two agree to
+      // well under a click (0.1 mrad), not to the last bit.
+      expect(full, closeTo(none, 0.005));
+      expect(low, isNot(closeTo(none, 1e-6)));
+    });
+
+    testWidgets('a tube pressure saved on Pro before is ignored', (
+      tester,
+    ) async {
+      await big(tester);
+      final a = await elevation(tester, _regulatedAt(250));
+      SharedPreferences.setMockInitialValues({
+        ShotSettingsStore.keyFor('p-pcp'): jsonEncode(
+          const ShotSettings(tubePressureText: '120').toJson(),
+        ),
+      });
+      final b = await elevation(tester, _regulatedAt(250));
+      expect(b, closeTo(a, 1e-12));
+      expect(find.byKey(const Key('shot-pcp-regulator')), findsNothing);
     });
   });
 }

@@ -1,0 +1,21 @@
+{
+  "name": "Holdover",
+  "brand": "Bushnell",
+  "scopes": [
+    "R7 3-15x50 SFP MRAD"
+  ],
+  "unit": "mil",
+  "family": null,
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://www.bushnell.com/products/r7-3-15x50-riflescopes?variant=51986407031080",
+  "notes": "Bushnell R7 ürün sayfası (SFP varyantı): 'SFP MRAD Holdover Illuminated Reticle', 'Reticle, Scale: Holdover, MRAD', 'Reticle Illumination: Yes, Fiber Dot'; 'Reticle Focal Plane: Second Focal Plane'. Ölçü sayıları bushnell.com sayfalarında yok; kılavuz cdn.shopify.com'da (izinli alan adı değil) -> okunmadı. family ve diğer alanlar null. Kaynak: https://www.bushnell.com/products/r7-3-15x50-riflescopes?variant=51986407031080 (okundu 2026-10-12)"
+}

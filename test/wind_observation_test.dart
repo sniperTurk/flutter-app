@@ -1,6 +1,7 @@
-// Ö2 (docs/yeni-hesaplar-2026-10-11.md): Rüzgâr gözlemi fills Rüzgâr hızı
-// with the Beaufort class middle and En yüksek rüzgâr with its top; Hedef
-// shows how much of the wind drift each third of the path gives.
+// Ö2 (docs/yeni-hesaplar-2026-10-11.md): Rüzgâr gözlemi is hidden behind
+// WIND_OBSERVATION (owner, 2026-10-13: its class middle overwrote a fetched
+// wind; the display-only guide is in wind_guide_test.dart). Hedef shows how
+// much of the wind drift each third of the path gives.
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -10,8 +11,6 @@ import 'package:sniper_turk/features/ballistics/ballistics_screen.dart';
 import 'package:sniper_turk/features/ballistics/environment_field_info.dart';
 import 'package:sniper_turk/models/domain.dart';
 import 'package:sniper_turk/ui/menzil_widgets.dart';
-
-import 'support/pro_sections.dart';
 
 const _profile = RifleProfile(
   id: 'p-obs',
@@ -51,21 +50,6 @@ Widget _app(BallisticsView view) => MaterialApp(
 Finder _field(Key k) =>
     find.descendant(of: find.byKey(k), matching: find.byType(TextField));
 
-String _text(WidgetTester tester, Key k) =>
-    tester.widget<TextField>(_field(k)).controller!.text;
-
-/// En yüksek rüzgâr lives on Pro Ayarlar (owner, 2026-10-12): read it there
-/// and come back to Hava Durumu (same workspace state).
-Future<String> _windMaxOnPro(WidgetTester tester) async {
-  await tester.pumpWidget(_app(BallisticsView.pro));
-  await tester.pumpAndSettle();
-  await openProFor(tester, const Key('pro-wind-max'));
-  final v = _text(tester, const Key('pro-wind-max'));
-  await tester.pumpWidget(_app(BallisticsView.environment));
-  await tester.pumpAndSettle();
-  return v;
-}
-
 Future<void> _sized(WidgetTester tester) async {
   tester.view.physicalSize = const Size(430, 2600) * 3;
   tester.view.devicePixelRatio = 3;
@@ -76,15 +60,6 @@ Finder get _select => find.byWidgetPredicate(
   (w) => w is MenzilSelect<int> && w.label == 'Rüzgâr gözlemi',
 );
 
-Future<void> _pick(WidgetTester tester, String prefix) async {
-  await tester.ensureVisible(_select);
-  await tester.pumpAndSettle();
-  await tester.tap(_select);
-  await tester.pumpAndSettle();
-  await tester.tap(find.textContaining(prefix).last);
-  await tester.pumpAndSettle();
-}
-
 void main() {
   setUp(() {
     SharedPreferences.setMockInitialValues({});
@@ -92,36 +67,27 @@ void main() {
   });
   tearDown(() => CatalogRepository.installUserCatalog(UserCatalog.empty));
 
-  testWidgets('starts at Seçiniz with an ⓘ that warns about the 10 m height', (
+  testWidgets('Rüzgâr gözlemi is hidden by default (WIND_OBSERVATION)', (
     tester,
   ) async {
     await _sized(tester);
     await tester.pumpWidget(_app(BallisticsView.environment));
     await tester.pumpAndSettle();
-    final s = tester.widget<MenzilSelect<int>>(_select);
-    expect(s.hint, 'Seçiniz');
-    expect(s.initialValue, isNull);
-    expect(s.info, EnvironmentFieldInfo.windObservation);
-    expect(s.info, contains('10 m'));
-    expect(s.items, hasLength(8));
-    expect(s.label.contains('('), isFalse);
-  });
-
-  testWidgets('a class fills Rüzgâr hızı and En yüksek rüzgâr', (tester) async {
-    await _sized(tester);
-    await tester.pumpWidget(_app(BallisticsView.environment));
-    await tester.pumpAndSettle();
-    await _pick(tester, 'Hafif: ');
-    expect(_text(tester, BallisticsFieldKeys.wind), '2.5');
-    expect(await _windMaxOnPro(tester), '3.3');
-    expect(find.text('Hafif'), findsOneWidget);
-
-    // Still editable: a typed wind is the shooter's and resets the list.
-    await tester.ensureVisible(_field(BallisticsFieldKeys.wind));
-    await tester.enterText(_field(BallisticsFieldKeys.wind), '4');
-    await tester.pumpAndSettle();
-    expect(tester.widget<MenzilSelect<int>>(_select).initialValue, isNull);
-    expect(await _windMaxOnPro(tester), '3.3');
+    // Owner, 2026-10-13: its class middle overwrote a fetched wind.
+    expect(_select, findsNothing);
+    expect(find.text('Rüzgâr gözlemi'), findsNothing);
+    expect(
+      find.byWidgetPredicate(
+        (w) =>
+            w.key is ValueKey<String> &&
+            (w.key! as ValueKey<String>).value.startsWith('wind-observation-'),
+      ),
+      findsNothing,
+    );
+    // Rüzgâr hızı / Rüzgâr yönü stay; the ⓘ text is kept for the flag.
+    expect(find.byKey(BallisticsFieldKeys.wind), findsOneWidget);
+    expect(find.byKey(BallisticsFieldKeys.windDirection), findsOneWidget);
+    expect(EnvironmentFieldInfo.windObservation, contains('10 m'));
   });
 
   testWidgets('Hedef shows the near / middle / far wind shares', (
@@ -130,7 +96,10 @@ void main() {
     await _sized(tester);
     await tester.pumpWidget(_app(BallisticsView.environment));
     await tester.pumpAndSettle();
-    await _pick(tester, 'Orta: ');
+    // Orta's middle, typed by the shooter (the select is hidden).
+    await tester.ensureVisible(_field(BallisticsFieldKeys.wind));
+    await tester.enterText(_field(BallisticsFieldKeys.wind), '4.4');
+    await tester.pump();
     // From 9 o'clock: a full-value crosswind.
     await tester.ensureVisible(_field(BallisticsFieldKeys.windDirection));
     await tester.enterText(_field(BallisticsFieldKeys.windDirection), '9');

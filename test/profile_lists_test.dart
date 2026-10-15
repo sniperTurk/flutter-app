@@ -92,6 +92,49 @@ void main() {
     );
     expect(tsx.bc, 0.287);
     expect(tsx.bcFromBullet, isTrue);
+    // BC completion round 2 (2026-10-12): Sierra / Hornady bullet BCs for
+    // Black Hills loads that name the bullet.
+    final tmk = FactoryAmmoLibrary.all.firstWhere(
+      (a) =>
+          a.brand == 'Black Hills' &&
+          a.name.contains('69 gr Sierra TMK') &&
+          a.cartridge == '5.56x45 NATO',
+    );
+    expect(tmk.bc, 0.375);
+    expect(tmk.model, BallisticModel.g1);
+    expect(tmk.bcFromBullet, isTrue);
+    expect(tmk.note, contains('G1 kabul edildi'));
+    final cx = FactoryAmmoLibrary.all.firstWhere(
+      (a) =>
+          a.brand == 'Black Hills' &&
+          a.name.contains('165 gr Hornady CX') &&
+          a.cartridge == '.308 Win',
+    );
+    expect(cx.bc, 0.44);
+    expect(cx.bcFromBullet, isTrue);
+    expect(cx.note, isNull);
+    // BC completion round 3 (2026-10-12): Hornady V-MAX for a Black Hills
+    // load (catalog unlabelled -> G1 note) and an Aguila G1-labelled sheet.
+    final vmax = FactoryAmmoLibrary.all.firstWhere(
+      (a) =>
+          a.brand == 'Black Hills' &&
+          a.name.contains('50 gr Hornady V-MAX') &&
+          a.cartridge == '.223 Rem',
+    );
+    expect(vmax.bc, 0.242);
+    expect(vmax.model, BallisticModel.g1);
+    expect(vmax.bcFromBullet, isTrue);
+    expect(vmax.note, contains('G1 kabul edildi'));
+    final aguila = FactoryAmmoLibrary.all.firstWhere(
+      (a) =>
+          a.brand == 'Aguila' &&
+          a.cartridge == '.30-30 Win' &&
+          a.name.contains('150 Grain Round Nose'),
+    );
+    expect(aguila.bc, 0.186);
+    expect(aguila.model, BallisticModel.g1);
+    expect(aguila.bcFromBullet, isFalse);
+    expect(aguila.note, isNull);
     final eld = FactoryAmmoLibrary.all.firstWhere(
       (a) =>
           a.brand == 'Hornady' &&
@@ -119,6 +162,14 @@ void main() {
     expect((brand.width - model.width).abs(), lessThan(1));
     final caliber = tester.getRect(find.byKey(const Key('rifle-caliber')));
     expect(caliber.top, greaterThanOrEqualTo(model.bottom));
+    // Kalibre alone on its full row (owner, 2026-10-14 18:58); Namlu çıkış
+    // hızı moved beside Sıfırlama mesafesi.
+    expect((caliber.width - model.width).abs(), lessThan(1));
+    expect((caliber.left - model.left).abs(), lessThan(1));
+    final v = tester.getRect(find.byKey(const Key('profile-velocity-fps')));
+    final zero = tester.getRect(find.byKey(const Key('profile-zero')));
+    expect((v.top - zero.top).abs(), lessThanOrEqualTo(1));
+    expect(zero.right, lessThan(v.left));
     // Tür | Üretim on one row.
     final tur = tester.getRect(find.byKey(const Key('profile-platform')));
     final origin = tester.getRect(find.byKey(const Key('rifle-origin')));
@@ -146,11 +197,11 @@ void main() {
     expect(_text(tester, 'rifle-twist-rate'), '11');
   });
 
-  testWidgets('"Listede yok" types Marka and Model; Kalibre has no typing', (
+  testWidgets('the rifle link types Marka and Model; Kalibre has no typing', (
     tester,
   ) async {
     await _openNew(tester, firearm: true);
-    await chooseInSelect(tester, 'rifle-brand-select', 'Listede yok');
+    await openRifleManual(tester);
     expect(find.byKey(const Key('rifle-brand')), findsOneWidget);
     expect(find.byKey(const Key('rifle-model')), findsOneWidget);
     // The last item of the long list.
@@ -191,13 +242,17 @@ void main() {
     expect(_text(tester, 'ammo-bc'), '0,263');
     expect(_text(tester, 'profile-velocity-fps'), '2700');
     expect(_in('ammo-bc-model', find.text('G7')), findsOneWidget);
-    // Ağırlık | BC and BC modeli | Namlu çıkış hızı are rows of two.
+    // Ağırlık | BC is a row of two; Namlu çıkış hızı is on the rifle card,
+    // right of Sıfırlama mesafesi (owner, 2026-10-14 18:58), under Kalibre.
     final g = tester.getRect(find.byKey(const Key('ammo-grain')));
     final bc = tester.getRect(find.byKey(const Key('ammo-bc')));
     expect((g.top - bc.top).abs(), lessThan(1));
-    final m = tester.getRect(find.byKey(const Key('ammo-bc-model')));
     final v = tester.getRect(find.byKey(const Key('profile-velocity-fps')));
-    expect((m.top - v.top).abs(), lessThan(1));
+    final caliber = tester.getRect(find.byKey(const Key('rifle-caliber')));
+    final zero = tester.getRect(find.byKey(const Key('profile-zero')));
+    expect(v.top, greaterThanOrEqualTo(caliber.bottom));
+    expect((v.top - zero.top).abs(), lessThanOrEqualTo(1));
+    expect(zero.right, lessThan(v.left));
     // Another caliber empties the listed ammunition.
     await chooseInSelect(tester, 'rifle-caliber', '6.5 Creedmoor');
     expect(_text(tester, 'ammo-grain'), '');
@@ -249,8 +304,13 @@ void main() {
     expect(find.text('MIL çizgili'), findsNothing);
     await tester.tap(find.text('AHMC').last);
     await tester.pumpAndSettle();
-    expect(selectedValue<double>(tester, 'scope-max-mag'), 16);
-    expect(selectedValue<double>(tester, 'scope-objective'), 56);
+    // Hidden boxes (owner, 2026-10-13): the record's values show in the
+    // designation.
+    expect(find.byKey(const Key('scope-max-mag')), findsNothing);
+    expect(
+      tester.widget<Text>(find.byKey(const Key('scope-designation'))).data,
+      contains('4-16x56 SFP'),
+    );
   });
 
   testWidgets('Dürbün: a record of several reticles lists each on Seçiniz', (
@@ -291,23 +351,30 @@ void main() {
     expect(t, contains('birden çok retikül'));
   });
 
-  testWidgets('PCP mühimmat: Marka | Tip, Model on its own row', (
+  testWidgets('PCP mühimmat: Tip | Ağırlık, BC | BC modeli; no Marka', (
     tester,
   ) async {
     await _openNew(tester);
-    final brand = tester.getRect(find.byKey(const Key('ammo-brand-select')));
-    final type = tester.getRect(find.byKey(const Key('ammo-type')));
-    expect((brand.top - type.top).abs(), lessThan(1));
-    expect(brand.right, lessThan(type.left));
-    final model = tester.getRect(find.byKey(const Key('ammo-model-select')));
-    expect(model.top, greaterThanOrEqualTo(brand.bottom));
+    // Owner, 2026-10-13: PCP asks no Marka/Model.
+    expect(find.byKey(const Key('ammo-brand-select')), findsNothing);
+    expect(find.byKey(const Key('ammo-brand')), findsNothing);
+    // Owner, 2026-10-13 23:32: Uzunluk only in Pro > Mermi uzunluğu.
+    expect(find.byKey(const Key('ammo-length')), findsNothing);
+    Rect r(String k) => tester.getRect(find.byKey(Key(k)));
+    // Owner, 2026-10-14: BC | BC modeli share a row, so Tip | Ağırlık.
+    expect((r('ammo-type').top - r('ammo-grain').top).abs(), lessThan(1));
+    expect(r('ammo-type').right, lessThan(r('ammo-grain').left));
+    expect(r('ammo-grain').bottom, lessThanOrEqualTo(r('ammo-bc').top));
+    expect((r('ammo-bc').top - r('ammo-bc-model').top).abs(), lessThan(1));
+    expect(r('ammo-bc').right, lessThan(r('ammo-bc-model').left));
+    expect(find.byKey(const Key('ammo-bands-title')), findsNothing);
   });
 
-  testWidgets('Dürbün "Listede yok": values are picked from lists', (
+  testWidgets('Dürbün typed entry: values are picked from lists', (
     tester,
   ) async {
     await _openNew(tester);
-    await chooseInSelect(tester, 'scope-brand-select', 'Listede yok');
+    await openScopeManual(tester);
     // Büyütme, Mercek çapı, Odak düzlemi, Dürbün birimi and Klik değeri
     // are list boxes on "Seçiniz", each with an ⓘ.
     for (final key in [

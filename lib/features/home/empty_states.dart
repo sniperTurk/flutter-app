@@ -1,9 +1,17 @@
+import 'dart:math' as math;
+
 import 'package:flutter/material.dart';
 
+import '../../core/ballistic_engine.dart';
+import '../../core/ballistic_input.dart';
+import '../../core/reticle_holds.dart';
+import '../../core/scope_dial.dart';
+import '../../models/domain.dart';
 import '../../ui/menzil_theme.dart';
 import '../../ui/menzil_widgets.dart';
 import '../ballistics/environment_field_info.dart';
 import '../ballistics/pro_section_info.dart';
+import '../ballistics/scope_dial_view.dart';
 import '../tools/map_distance_screen.dart';
 
 /// Pages shown before the first profile exists (owner, 2026-10-10): instead
@@ -46,6 +54,12 @@ class WelcomePanel extends StatelessWidget {
 
   const WelcomePanel({super.key, this.onCreate, this.onRestore});
 
+  /// "Yedekten geri yükle" on the welcome page is hidden (owner,
+  /// 2026-10-12); --dart-define=WELCOME_RESTORE=true shows it again.
+  static const bool _showRestoreOnWelcome = bool.fromEnvironment(
+    'WELCOME_RESTORE',
+  );
+
   @override
   Widget build(BuildContext context) {
     final c = MenzilColors.of(context);
@@ -58,13 +72,15 @@ class WelcomePanel extends StatelessWidget {
             width: 34,
             height: 34,
             alignment: Alignment.center,
-            decoration: BoxDecoration(
-              color: c.amberSoft,
-              shape: BoxShape.circle,
-            ),
+            // The "İlk profilimi oluştur" orange with a white number
+            // (owner, 2026-10-12).
+            decoration: BoxDecoration(color: c.amber, shape: BoxShape.circle),
             child: Text(
               n,
-              style: TextStyle(fontWeight: FontWeight.w800, color: c.amberInk),
+              style: const TextStyle(
+                fontWeight: FontWeight.w800,
+                color: Colors.white,
+              ),
             ),
           ),
           const SizedBox(width: MenzilSpace.md),
@@ -149,7 +165,9 @@ class WelcomePanel extends StatelessWidget {
         ),
         const SizedBox(height: MenzilSpace.md),
         _EmptyActions(onCreate: onCreate, createLabel: 'İlk profilimi oluştur'),
-        if (onRestore != null) ...[
+        // Hidden, not removed (owner, 2026-10-12): restore is on Profiller
+        // once a profile exists.
+        if (_showRestoreOnWelcome && onRestore != null) ...[
           const SizedBox(height: MenzilSpace.sm),
           MenzilSecondaryButton(
             label: 'Yedekten geri yükle',
@@ -235,7 +253,9 @@ class _ProPreviewState extends State<ProPreview> {
       children: [
         TextSpan(
           text: '$label ',
-          style: const TextStyle(fontWeight: FontWeight.w400),
+          // The questions stand out as headings (owner, 2026-10-12:
+          // "Ne? Neden? Nasıl? soruları bold olsun").
+          style: const TextStyle(fontWeight: FontWeight.w600),
         ),
         TextSpan(text: '$text\n'),
       ],
@@ -259,6 +279,9 @@ class _ProPreviewState extends State<ProPreview> {
                 part('Nasıl?', e.how),
               ],
             ),
+            // Left-aligned (owner, 2026-10-13: only the Hedef page is
+            // justified).
+            textAlign: TextAlign.start,
             style: MenzilType.caption(c.ink2).copyWith(height: 1.35),
           ),
         ],
@@ -367,16 +390,166 @@ class _ProPreviewState extends State<ProPreview> {
   }
 }
 
-/// Hedef before any profile: only "Tahmin yok, hesap var." and "Profil
-/// oluştur" (owner, 2026-10-11). The example .308 scope with its live
-/// solution was removed so that no numbers show before a profile exists.
-class ShotPreview extends StatelessWidget {
+/// Hedef before any profile.
+///
+/// Owner, 2026-10-13: without a profile the Hedef page computes and shows no
+/// solution — only "Tahmin yok, hesap var." with "Profil oluştur". The
+/// earlier example (distance, a live scope solved for a .308 sample load
+/// that is never saved, hold numbers, Kule / Vuruş noktası, Hesap dökümü)
+/// looked like a real solution. It is hidden, not removed: build with
+/// --dart-define=SHOT_SAMPLE_PREVIEW=true to show it again.
+class ShotPreview extends StatefulWidget {
   final VoidCallback? onCreate;
   const ShotPreview({super.key, this.onCreate});
 
+  /// Off by default: no sample solve without a profile.
+  static const bool showSample = bool.fromEnvironment('SHOT_SAMPLE_PREVIEW');
+
   @override
-  Widget build(BuildContext context) => KeyedSubtree(
-    key: EmptyStateKeys.shotPreview,
-    child: _SloganCard(onCreate: onCreate),
+  State<ShotPreview> createState() => _ShotPreviewState();
+}
+
+class _ShotPreviewState extends State<ShotPreview> {
+  static const _click = 0.1;
+  static const _maxRange = 1000;
+  int _range = 300;
+  int _elev = 0, _wind = 0, _reveal = 0;
+  late final List<CorrectionSample> _samples;
+  double? _mpsPerMil;
+  TrajectoryPoint? _shot;
+
+  static BallisticInput _input(List<double> ranges) => BallisticInput(
+    muzzleVelocityMps: 800,
+    grain: 168,
+    zeroRangeM: 100,
+    sightHeightMm: 45,
+    rangesM: ranges,
+    ballisticCoefficient: 0.462,
+    ballisticModel: BallisticModel.g1,
+    environment: const EnvironmentData(windMps: 3, windDirectionDeg: 90),
   );
+
+  @override
+  void initState() {
+    super.initState();
+    if (!ShotPreview.showSample) {
+      // Nothing is solved without a profile.
+      _samples = const [];
+      return;
+    }
+    _samples = [
+      for (final p in ReticleHolds.sample(_input(const [100])))
+        ScopeDialMath.sampleOf(p, AngularUnit.mrad),
+    ];
+    _solve();
+    // Turrets start at zero (owner, 2026-10-10); the right one is opened
+    // after the first frame (a token change opens the drum).
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) setState(() => _reveal++);
+    });
+  }
+
+  void _solve() {
+    try {
+      _shot = const BallisticEngine().solve(_input([_range.toDouble()])).single;
+      _mpsPerMil = ReticleHolds.crosswindForMil(
+        base: _input([_range.toDouble()]),
+        rangeM: _range.toDouble(),
+        mil: 1,
+      );
+    } on Object {
+      _shot = null;
+    }
+  }
+
+  void _setRange(int v) => setState(() {
+    _range = math.max(1, math.min(_maxRange, v));
+    _solve();
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    if (!ShotPreview.showSample) {
+      return Column(
+        key: EmptyStateKeys.shotPreview,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [_SloganCard(onCreate: widget.onCreate)],
+      );
+    }
+    final c = MenzilColors.of(context);
+    Widget step(String label, int d) => MenzilStepButton(
+      label: label,
+      semanticLabel: 'Mesafe $label',
+      onPressed: () => _setRange(_range + d),
+    );
+    final shot = _shot;
+    return Column(
+      key: EmptyStateKeys.shotPreview,
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Row(
+          children: [
+            step('−5', -5),
+            const SizedBox(width: MenzilSpace.xs),
+            step('−1', -1),
+            Expanded(
+              child: Text.rich(
+                TextSpan(
+                  children: [
+                    TextSpan(
+                      text: '$_range',
+                      style: MenzilType.display(c.ink, size: 52, live: true),
+                    ),
+                    TextSpan(text: ' m', style: MenzilType.unit(c.ink2)),
+                  ],
+                ),
+                key: const Key('empty-shot-range'),
+                textAlign: TextAlign.center,
+              ),
+            ),
+            step('+1', 1),
+            const SizedBox(width: MenzilSpace.xs),
+            step('+5', 5),
+          ],
+        ),
+        Slider(
+          value: _range.toDouble(),
+          min: 1,
+          max: _maxRange.toDouble(),
+          onChanged: (v) => _setRange(v.round()),
+        ),
+        MenzilCard(
+          margin: const EdgeInsets.only(bottom: MenzilSpace.sm),
+          child: ScopeDialView(
+            unit: AngularUnit.mrad,
+            clickValue: _click,
+            elevationClicks: _elev,
+            windageClicks: _wind,
+            maxElevationClicks: 300,
+            maxWindageClicks: 150,
+            onElevationChanged: (v) => setState(() => _elev = v),
+            onWindageChanged: (v) => setState(() => _wind = v),
+            windageRevealToken: _reveal,
+            onSolutionDialed: () => setState(() => _reveal++),
+            requiredUp: shot?.correctionMrad,
+            requiredRight: shot?.windMrad ?? 0,
+            windMpsPerUnit: _mpsPerMil,
+            windText: (mps) => mps.toStringAsFixed(1),
+            firstFocalPlane: true,
+            minMagnification: 5,
+            maxMagnification: 25,
+            magnification: 25,
+            rangeM: _range.toDouble(),
+            samples: _samples,
+            toDisplayRange: (m) => m,
+            distanceUnit: 'm',
+            metric: true,
+            // Owner, 2026-10-10: the card sits between the scope and the
+            // explanations.
+            belowButtons: _SloganCard(onCreate: widget.onCreate),
+          ),
+        ),
+      ],
+    );
+  }
 }

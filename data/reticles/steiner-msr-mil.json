@@ -1,7 +1,10 @@
 {
   "name": "MSR",
   "brand": "Steiner",
-  "scopes": [],
+  "scopes": [
+    "M5Xi 3-15x50",
+    "M5Xi 5-25x56"
+  ],
   "unit": "mil",
   "family": "hash",
   "hash_step": 0.5,
@@ -15,5 +18,5 @@
   "center_dot": null,
   "floating_center": null,
   "source_url": "https://www.steiner-optics.com/sites/default/files/content/catalogs/2023-12/reticle_guide_1-8-18.pdf",
-  "notes": "Steiner Reticle Guide (FFP, 'Located on the first focal plane'): 'a continuous 1mil scale with 1/2-mil division marks'; sol alt kadranda ince milleme ölçeği, sağ altta hızlı mesafe ölçeği; aydınlatmalı merkez artı. Çizim ölçüleri (A-L harfli tablo) geometriye eşlenemediği için uzanımlar, rakamlar, merkez noktası vb. null. Kılavuzda scope modeli belirtilmiyor -> scopes boş."
+  "notes": "Steiner Reticle Guide (FFP, 'Located on the first focal plane'): 'a continuous 1mil scale with 1/2-mil division marks'; sol alt kadranda ince milleme ölçeği, sağ altta hızlı mesafe ölçeği; aydınlatmalı merkez artı. Çizim ölçüleri (A-L harfli tablo) geometriye eşlenemediği için uzanımlar, rakamlar, merkez noktası vb. null. Düzeltme 2026-10-12: scopes, Steiner 'MSR' retikül sayfasındaki 'MSR Products' listesinden (M5Xi 3-15x50, M5Xi 5-25x56) dolduruldu; M5Xi 5-25x56 ürün sayfası: 'MSR' (Item '5550'), focal plane '1st'. Kaynak: https://www.steiner-optics.com/sites/default/files/content/catalogs/2023-12/reticle_guide_1-8-18.pdf (okundu 2026-10-12); https://www.steiner-optics.com/reticles/msr (okundu 2026-10-12); https://www.steiner-optics.com/products/m5xi-5-25x56 (okundu 2026-10-12)"
 }

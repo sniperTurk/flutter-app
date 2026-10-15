@@ -115,6 +115,38 @@ void main() {
       },
     );
 
+    test('a kPa sample (Core Motion unit) is read as hPa', () async {
+      final sensor = SensorsPlusPressureSensor(
+        source: () => Stream.fromIterable([_event(91.24)]),
+      );
+      final r = await sensor.read();
+      expect(r, isA<PressureRead>());
+      expect((r as PressureRead).hpa, closeTo(912.4, 1e-9));
+    });
+
+    test('failures say why: no sample vs. implausible value', () async {
+      final quiet = StreamController<BarometerEvent>();
+      final silent = await SensorsPlusPressureSensor(
+        source: () => quiet.stream,
+        timeout: const Duration(milliseconds: 20),
+      ).read();
+      expect((silent as PressureUnavailable).reason, PressureFailure.noSample);
+      await quiet.close();
+
+      final bad = await SensorsPlusPressureSensor(
+        source: () => Stream.fromIterable([_event(5000)]),
+      ).read();
+      expect((bad as PressureUnavailable).reason, PressureFailure.outOfRange);
+      expect(bad.lastValue, 5000);
+
+      final err = await SensorsPlusPressureSensor(
+        source: () => Stream<BarometerEvent>.error(
+          PlatformException(code: 'UNAVAILABLE'),
+        ),
+      ).read();
+      expect((err as PressureUnavailable).reason, PressureFailure.noSensor);
+    });
+
     test('plugin missing (simulator, tests) is "unavailable"', () async {
       final sensor = SensorsPlusPressureSensor(
         source: () => throw MissingPluginException('no barometer'),
@@ -143,13 +175,13 @@ void main() {
     );
   });
 
-  group('Hava Durumu: Basıncı telefondan al', () {
+  group('Hava Durumu: Basınç al', () {
     testWidgets('opening Hava Durumu (with auto weather) reads nothing', (
       tester,
     ) async {
       final pressure = TestPressure();
       await _pump(tester, pressure);
-      expect(find.text('Basıncı telefondan al'), findsOneWidget);
+      expect(find.text('Basınç al'), findsOneWidget);
       expect(pressure.reads, 0);
     });
 
@@ -161,9 +193,12 @@ void main() {
       await _tapButton(tester);
       expect(pressure.reads, 1);
       expect(_pressureText(tester), '912.4');
+      // No extra line: the orange button and the date row say it (owner,
+      // 2026-10-14).
+      expect(find.text('Basınç alındı'), findsOneWidget);
       expect(
-        find.textContaining('Basınç telefondan alındı: 912,4 hPa'),
-        findsOneWidget,
+        find.byKey(const Key('environment-phone-pressure-status')),
+        findsNothing,
       );
     });
 

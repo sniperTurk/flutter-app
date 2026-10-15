@@ -92,21 +92,15 @@ void main() {
             expect(tester.takeException(), isNull, reason: tab);
           }
 
-          // Table after a solve (horizontal scroll, not squeezed columns);
-          // Tablo is the second mode of the Atış tab.
-          await tester.tap(find.text('Tablo'));
-          await tester.pumpAndSettle();
-          await tester.ensureVisible(find.text('DOPE oluştur'));
-          await tester.tap(find.text('DOPE oluştur'));
-          await tester.pumpAndSettle();
-          expect(find.byType(DataTable), findsOneWidget);
+          // No Tablo mode any more (owner, 2026-10-12): DOPE is made from
+          // the scope view.
           expect(tester.takeException(), isNull);
 
           // Profile editor (two columns or one, depending on width).
           await tester.tap(find.text('Profil'));
           await tester.pumpAndSettle();
-          await tester.ensureVisible(find.text('Yeni profil'));
-          await tester.tap(find.text('Yeni profil'));
+          await tester.ensureVisible(find.text('Profil ekle'));
+          await tester.tap(find.text('Profil ekle'));
           await tester.pumpAndSettle();
           expect(find.text('Profil Oluştur'), findsOneWidget);
           expect(tester.takeException(), isNull);

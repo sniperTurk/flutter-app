@@ -41,13 +41,28 @@ abstract final class EnvironmentFieldInfo {
       'odada değil, açık havada basın. Ya da Kestrel, barometre veya '
       'Araçlar > hesaplayıcılar ile deniz seviyesinden istasyon basıncına '
       'çevirin. Örnek: 1000 m irtifada 900 hPa.';
+
+  /// Basınç Ölçer card: ONE ⓘ right of the title (owner exception,
+  /// 2026-10-14; no ⓘ in the box).
+  static const barometerCard =
+      'İstasyon basıncı: bulunduğunuz yerdeki gerçek hava basıncı, '
+      'telefonun basınç sensöründen alınır. Hava durumu uygulamalarındaki '
+      'deniz seviyesi basıncı değildir. Örnek: 998,4 hPa.';
+
+  /// İrtifa card: ONE ⓘ right of the title (owner exception, 2026-10-14).
+  static const altitudeCard =
+      'Bulunduğunuz yerin deniz seviyesinden yüksekliği. Haritadan: Google '
+      'haritadan zemin yüksekliği, internet ister. Telefondan: GPS ölçümü, '
+      'açık havada daha doğrudur. Telefon irtifası varsa hesap onu kullanır; '
+      'yoksa harita irtifası kullanılır. Örnek: 126 m.';
   static const humidity =
       'Bağıl nem, yüzde olarak (0–100). Etkisi küçüktür: nemli hava biraz '
       'daha hafiftir. Hava durumunda yazar. Örnek: %60.';
   static const altitude =
-      'Atış yerinin deniz seviyesinden yüksekliği. Bilgi amaçlı kaydedilir; '
-      'hesap istasyon basıncını kullanır, irtifa hesaba ayrıca girmez. '
-      'Basıncı doğru girdiyseniz irtifa zaten içindedir.';
+      'Atış yerinin deniz seviyesinden yüksekliği. Basınç boşsa basınç '
+      'irtifadan tahmin edilir (standart atmosfer). Basınç doluysa irtifa '
+      'hesaba ayrıca girmez; ölçülen basınç irtifayı zaten içerir. Telefonda '
+      'veya haritada yazar. Örnek: 1000 m.';
   static const windSpeed =
       'Rüzgârın hızı. Anemometre (ör. Kestrel) ile atış yerinde ölçmek en '
       'doğrusudur. Yan rüzgâr saçmayı yana taşır; sapma BC ile hesaplanır. '
@@ -137,10 +152,11 @@ abstract final class EnvironmentFieldInfo {
       'ölçün; gerçek / yazan oranını girin. Örnek: gerçek 9,8 MRAD ise 0,98. '
       'Boş bırakırsanız 1 (düzeltme yok). Klikler bu katsayıya göre ayarlanır.';
   static const windMax =
-      'Rüzgârın sert estiği (hamle) andaki hızı. Otomatik doldurulur: Hava '
-      'Durumu\'ndaki rüzgâr hızı × 1,5 (karada tipik hamle oranı). Kendi '
-      'ölçtüğünüz değeri yazabilirsiniz. Silerseniz aralık gösterilmez; '
-      '"Otomatik doldur" yeniden otomatik yapar. '
+      'Rüzgârın sert estiği (hamle) andaki hızı. "Düzeltme al" Hava '
+      'Durumu\'ndaki rüzgâr hızı × 1,5 yazar (karada tipik hamle oranı); hava '
+      'verisi yeni rüzgâr getirince kendiliğinden güncellenir. Kendi '
+      'ölçtüğünüz değeri de yazabilirsiniz, o değiştirilmez. Boşsa aralık '
+      'gösterilmez. '
       'Hedef sayfası yan düzeltmeyi bu aralıkta gösterir. Örnek: rüzgâr '
       '2 m/s ise 3.';
   static const windObservation =
@@ -191,14 +207,10 @@ abstract final class EnvironmentFieldInfo {
       'Hedefin yürüyüş/koşu hızı, m/s. Uygulama uçuş süresine göre ne kadar '
       'önüne nişan alınacağını gösterir. Örnek: yürüyen hayvan ~1 m/s, '
       'tırıs ~3 m/s.';
-  static const spinDrift =
-      'Dönen mermi uçarken yivin döndüğü yöne doğru yana kayar (sağ yivde '
-      'sağa). Etki uçuş süresiyle büyür; slug ve ateşli tüfekte uzun '
-      'mesafede önemlidir. Litz formülüyle yaklaşık hesaplanır; diabolo '
-      'pellet için geçerli değildir. Yiv yönü ve yiv oranı profilden alınır.';
   static const bulletLength =
       'Merminin (slug\'ın) burundan tabana uzunluğu, milimetre olarak. '
       'Kumpasla ölçün. Dönüş kararlılığı ve spin drift buna göre hesaplanır. '
+      'Boşsa hesaplanmaz. '
       'Örnek: .25 slug ~10 mm, .308 168 gr ~31 mm.';
   static const targetDirection =
       'Hedefin hangi yöne hareket ettiği: önüne, yani gittiği yöne nişan '

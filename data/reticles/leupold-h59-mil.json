@@ -1,0 +1,24 @@
+{
+  "name": "H59",
+  "brand": "Leupold",
+  "scopes": [
+    "Mark 5HD 3.6-18x44 M5C3 FFP",
+    "Mark 5HD 7-35x56 M5C3 FFP",
+    "Mark 6 3-18x44 M5C2/M5B2 (üretimden kalktı)",
+    "Mark 8 3.5-25x56 M5C2 (üretimden kalktı)"
+  ],
+  "unit": "mil",
+  "family": "tree",
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://www.leupold.com/reticle/h59/",
+  "notes": "Leupold 'H59 Reticle' sayfası: 'Designed by Horus Vision', 'Uses a MIL based system', 'Grid style reticle provides precise aiming points for bullet drop compensation and wind correction', 'Stepped lines above the horizontal post provide measurements in 0.1 MIL increments', 'Centralized dots at crosshair intersections', 'Open upper half of the reticle', 'Numbered lines', 'Front (first) focal plane'. Ürünler: Mark 5HD 3.6-18x44 M5C3 FFP H59, Mark 5HD 7-35x56 M5C3 FFP H59, Mark 6/Mark 8. family=tree, 'grid style' + kesişim noktalarından çıkarım (Tremor 3 kaydıyla tutarlı). 0.1 MIL yalnız üstteki basamaklı ölçüm çizgileri için, ızgara aralığı değil -> hash_step null. Izgara satırları, rakam aralığı, uzanımlar, merkez -> null. Sayfada föy PDF yok (yalnız PNG). Aydınlatmalı 'H59 Illum. FFP' sayfası (https://www.leupold.com/reticle/h59-illum-ffp/) yalnız Mark 8 M5B2 listeliyor. Kaynak: https://www.leupold.com/reticle/h59/ (okundu 2026-10-12)"
+}

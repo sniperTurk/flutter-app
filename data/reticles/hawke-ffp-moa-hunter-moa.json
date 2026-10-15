@@ -1,0 +1,22 @@
+{
+  "name": "FFP MOA Hunter",
+  "brand": "Hawke",
+  "scopes": [
+    "Frontier 30 FFP 4-20x50 (20x)",
+    "Frontier 30 FFP 5-25x56 (25x)"
+  ],
+  "unit": "moa",
+  "family": null,
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://us.hawkeoptics.com/frontier-30-ffp-4-20x50-moa-hunter.html",
+  "notes": "FFP. Ürün sayfaları: Reticle 'FFP MOA Hunter (20x)' / 'FFP MOA Hunter (25x)', Focal Plane 'FFP (First Focal Plane)', Click Value '1/4 MOA'. unit=moa retikül adındaki 'MOA' sözcüğünden. Ölçek alanları (hash_step, major_every, numbers_every, uzanımlar, tree, posts_start, center_dot, floating_center) ve family null: ürün sayfalarında retikül ölçüsü yok; retikül görselleri (us.hawkeoptics.com/hawke/reticles/white/*.svg) robots.txt ile engelli; Reticle Booklet PDF'leri docs.google.com'da (izinli alan dışı); reticles.hawkeoptics.com, reticle.hawkeoptics.com ve docs.hawkeoptics.com 2 denemede CLIENT_ERROR verdi. Kaynak: https://us.hawkeoptics.com/frontier-30-ffp-4-20x50-moa-hunter.html (okundu 2026-10-12); https://us.hawkeoptics.com/frontier-30-ffp-5-25x56-moa-hunter.html (okundu 2026-10-12); https://us.hawkeoptics.com/frontier-riflescopes.html (okundu 2026-10-12); https://us.hawkeoptics.com/reticle-information.html (okundu 2026-10-12)"
+}

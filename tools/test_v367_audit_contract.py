@@ -5,6 +5,7 @@ Source-text checks; they do NOT replace flutter analyze / flutter test.
 from pathlib import Path
 import re
 import unittest
+from dart_library_source import library_text
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -27,7 +28,7 @@ class V367AuditContract(unittest.TestCase):
                     'lib/features/ballistics/ballistics_screen.dart'):
             # Statement-level (split on ';') so the check does not depend on how
             # dart format wraps a long expression across lines.
-            for stmt in read(rel).split(';'):
+            for stmt in library_text(ROOT / rel).split(';'):
                 if '.clamp(' in stmt and 'asin' not in stmt:
                     self.assertIn('.toDouble()', stmt, (rel, ' '.join(stmt.split())[:160]))
 

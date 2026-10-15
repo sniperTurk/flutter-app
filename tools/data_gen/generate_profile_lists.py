@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Generates lib/data/cartridges.dart, rifle_library.dart, factory_ammo_library.dart
-from the data branches (data/rifles, data/mke, data/ammo, data/ammo-military).
+from the data branches (data/rifles, data/mke, data/ammo, data/ammo-military,
+data/nato-bc) and data/muhimmat/ammo (mühimmat tamamlama, 2026-10-12).
 Manufacturer-sourced data only; nothing is guessed. Records whose caliber cannot
 be mapped to a known cartridge (with a known bullet diameter) are skipped and
 listed on stderr.
@@ -80,11 +81,23 @@ CARTRIDGES.update({
     '.470 NE': 12.07, '.500 NE 3"': 12.95, '.404 Jeffery': 10.74, '.450 Rigby': 11.63,
 })
 ALIASES.update({'6mm norma br': '6mm BR Norma', '.223 wylde': '5.56x45 NATO'})
+# Tüfek tamamlama (2026-10-12): calibers named by Henry, Marlin, Nosler and
+# Sabatti official pages; diameters are the SAAMI/C.I.P. nominal bullet size.
+CARTRIDGES.update({
+    '.35 Rem': 9.09, '.360 Buckhammer': 9.09, '.357 Mag': 9.07, '.44 Rem Mag': 10.9,
+    '.45 Colt': 11.48, '.327 Fed Mag': 7.92, '.41 Rem Mag': 10.41, '.26 Nosler': 6.71,
+    '.27 Nosler': 7.04, '.30 Nosler': 7.82, '.33 Nosler': 8.59, '.450 NE': 11.63,
+})
+ALIASES.update({'.500 ne': '.500 NE 3"', '6mm xc': '6XC'})
 PCP = [(4.5, '4.50 mm (.177)'), (5.0, '5.00 mm (.20)'), (5.5, '5.50 mm (.22)'),
        (6.35, '6.35 mm (.25)'), (7.62, '7.62 mm (.30)'), (9.0, '9.00 mm (.357)'),
        (11.43, '11.43 mm (.45)'), (12.7, '12.70 mm (.50)')]
 PCP_ALIASES = {'.177': 4.5, '.20': 5.0, '.22': 5.5, '.25': 6.35, '.30': 7.62, '.35': 9.0,
                '.357': 9.0, '.45': 11.43, '.50': 12.7}
+
+# AEA Zeus / Scarab (.72, aeaairgun.com) — big-bore PCP size, label in the existing pattern.
+PCP.append((18.29, '18.29 mm (.72)'))
+PCP_ALIASES['.72'] = 18.29
 
 skipped = []
 
@@ -258,20 +271,25 @@ def lib_bc(brand, bullet, grain, dia):
 
 
 ammo = []
-for f in sorted(glob.glob(str(HERE / 'ammo/data/ammo/*.json'))):
+# Mühimmat tamamlama (2026-10-12): new makers kept in this repo (data/muhimmat/ammo).
+AMMO_FILES = sorted(glob.glob(str(HERE / 'ammo/data/ammo/*.json'))) + sorted(glob.glob(str(REPO / 'data/muhimmat/ammo/*.json')))
+for f in AMMO_FILES:
     for r in json.load(open(f)):
         # MKE velocities are V23.7 m; data/mke is read below and corrected.
         if r['brand'] == 'MKE':
             continue
         c = cartridge(r['cartridge'])
-        if c is None or not r.get('muzzle_velocity_fps'):
+        # The app takes 600-4500 fps factory rounds (profile_lists_test); a
+        # primer-powered parlour round (Aguila Colibrí, 420 fps) stays out.
+        if c is None or not r.get('muzzle_velocity_fps') or not 600 <= r['muzzle_velocity_fps'] <= 4500:
             skipped.append(('ammo', r['brand'], r['product'], r['cartridge']))
             continue
         dia = CARTRIDGES[c]
         bc, model, bcsrc = None, None, None
         # BC completion (2026-10-11): the cartridge maker names the bullet and the
         # BC is that bullet maker's figure -> shown as a bullet BC.
-        from_bullet = 'BC mermi üreticisinden' in (r.get('notes') or '')
+        # Round 2 (2026-10-12) records also carry an explicit bc_from_bullet flag.
+        from_bullet = bool(r.get('bc_from_bullet')) or 'BC mermi üreticisinden' in (r.get('notes') or '')
         if r.get('g7_bc'):
             bc, model, bcsrc = r['g7_bc'], 'g7', 'mermi' if from_bullet else 'fişek'
         elif r.get('g1_bc'):
@@ -306,6 +324,20 @@ for f in sorted(glob.glob(str(HERE / 'ammo/data/ammo/*.json'))):
                          bc=bc, model=model, bcsrc=bcsrc, mv=r['muzzle_velocity_fps'],
                          barrel=r.get('test_barrel_in'), item=r.get('item_number'), src=r['source_url'],
                          note=note))
+# NATO standart mermi BC'si (owner, 2026-10-12): MKE and military rounds whose
+# maker publishes no BC take the BC of the same NATO standard bullet from an
+# official public report (data/nato-bc branch, worktree tools/data_gen/nato).
+import nato_bc  # noqa: E402
+
+NATO = nato_bc.nato_entries(HERE / 'nato/data/nato-bc/nato_bc.json')
+TABLES = osc.load_tables()
+
+
+def nato_fields(e):
+    return dict(nato=dict(standard=nato_bc.short_standard(e['nato_standard']), report=nato_bc.report_id(e),
+                          url=e['source_url'], probable=e['match'] == 'muhtemel'))
+
+
 for r in json.load(open(HERE / 'mke/data/mke/ammo.json')):
     c = cartridge(r['cartridge'])
     notes = r.get('notes') or ''
@@ -313,19 +345,42 @@ for r in json.load(open(HERE / 'mke/data/mke/ammo.json')):
     if c is None:
         skipped.append(('ammo', 'MKE', r['product'], r['cartridge']))
         continue
-    if measured_far and not r.get('g1_bc'):
+    ne = None if (r.get('g1_bc') or r.get('g7_bc')) else NATO.get(('mke', r['product']))
+    if measured_far and not r.get('g1_bc') and ne is None:
         skipped.append(('ammo-no-bc-for-23.7m', 'MKE', r['product'], r['cartridge']))
         continue
     mv_fps = r['muzzle_velocity_fps']
     note = None
-    if measured_far:
+    if measured_far and ne is None:
         mps = muzzle_from(mv_fps / 3.28084, 23.7, r['g1_bc'])
         note = f"MKE hızı 23,7 m'de ölçülmüş ({mv_fps:.0f} fps); namlu ağzı hızı G1 BC ile hesaplandı."
         mv_fps = round(mps * 3.28084)
-    ammo.append(dict(brand='MKE', name=re.sub(r'\s+', ' ', r['product'].replace(r['cartridge'], ' ').replace('Fişek', 'Fişek')).strip(),
-                     cartridge=c, dia=CARTRIDGES[c], grain=r['weight_gr'], bc=r.get('g1_bc'),
-                     model='g1' if r.get('g1_bc') else None, bcsrc='fişek' if r.get('g1_bc') else None,
-                     mv=mv_fps, barrel=None, item=None, src=r['source_url'], note=note))
+    elif measured_far:
+        mps = nato_bc.muzzle_from(mv_fps / 3.28084, 23.7, ne['bc'], ne['bc_model'], TABLES)
+        note = (f"MKE hızı 23,7 m'de ölçülmüş ({mv_fps:.0f} fps); namlu ağzı hızı "
+                f"{ne['bc_model'].upper()} BC ile hesaplandı.")
+        mv_fps = round(mps * 3.28084)
+    a = dict(brand='MKE', name=re.sub(r'\s+', ' ', r['product'].replace(r['cartridge'], ' ').replace('Fişek', 'Fişek')).strip(),
+             cartridge=c, dia=CARTRIDGES[c], grain=r['weight_gr'], bc=r.get('g1_bc'),
+             model='g1' if r.get('g1_bc') else None, bcsrc='fişek' if r.get('g1_bc') else None,
+             mv=mv_fps, barrel=None, item=None, src=r['source_url'], note=note)
+    if ne is not None:
+        a.update(bc=ne['bc'], model=ne['bc_model'], bcsrc='nato', **nato_fields(ne))
+    ammo.append(a)
+# Military rounds (data/ammo-military) enter only with a NATO standard BC and a
+# real muzzle velocity; the MKE copies there come from data/mke above.
+for r in json.load(open(HERE / 'nato/data/ammo-military/military.json')):
+    ne = NATO.get(('ammo-military', r['designation']))
+    if ne is None or r.get('maker') == 'MKE' or not r.get('muzzle_velocity_fps'):
+        continue
+    c = cartridge(r['cartridge'])
+    if c is None:
+        skipped.append(('ammo', r['maker'], r['designation'], r['cartridge']))
+        continue
+    ammo.append(dict(brand=r['maker'].split(' (')[0], name=r['designation'], cartridge=c, dia=CARTRIDGES[c],
+                     grain=r['weight_gr'], bc=ne['bc'], model=ne['bc_model'], bcsrc='nato',
+                     mv=r['muzzle_velocity_fps'], barrel=r.get('test_barrel_in'), item=None,
+                     src=r['source_url'], note=None, **nato_fields(ne)))
 seen, uniq = set(), []
 for a in ammo:
     k = (a['brand'].lower(), a['name'].lower(), a['cartridge'], a['grain'])
@@ -377,9 +432,15 @@ out = [hdr, "import '../models/domain.dart';\n\n",
        "/// [bcFromBullet]: the BC is the bullet maker's figure for the same bullet.\n",
        "class FactoryAmmo {\n  final String brand, name, cartridge, sourceUrl;\n  final double diameterMm, grain, muzzleVelocityFps;\n",
        "  final double? bc, testBarrelIn;\n  final BallisticModel? model;\n  final bool bcFromBullet;\n  final String? note;\n",
+       "\n  /// 'nato-standard': the maker publishes no BC; [bc] is the BC of the same\n",
+       "  /// NATO standard bullet ([bcStandard], e.g. M855) from the official report\n",
+       "  /// [bcReport] at [bcSourceUrl] (owner, 2026-10-12). [bcProbable]: the maker\n",
+       "  /// does not name the standard; weight and type match.\n",
+       "  final String? bcSource, bcStandard, bcReport, bcSourceUrl;\n  final bool bcProbable;\n",
        "  const FactoryAmmo(this.brand, this.name, this.cartridge, this.diameterMm, this.grain, this.bc,\n"
        "      this.model, this.muzzleVelocityFps, this.testBarrelIn, this.sourceUrl,\n"
-       "      {this.bcFromBullet = false, this.note});\n}\n\n",
+       "      {this.bcFromBullet = false, this.note, this.bcSource, this.bcStandard, this.bcReport,\n"
+       "      this.bcSourceUrl, this.bcProbable = false});\n}\n\n",
        "abstract final class FactoryAmmoLibrary {\n  static const all = <FactoryAmmo>[\n"]
 for a in ammo:
     model = f"BallisticModel.{a['model']}" if a['model'] else 'null'
@@ -388,6 +449,12 @@ for a in ammo:
         extra += ', bcFromBullet: true'
     if a['note']:
         extra += f", note: {dart_str(a['note'])}"
+    if a.get('nato'):
+        n = a['nato']
+        extra += (f", bcSource: 'nato-standard', bcStandard: {dart_str(n['standard'])}, "
+                  f"bcReport: {dart_str(n['report'])}, bcSourceUrl: {dart_str(n['url'])}")
+        if n['probable']:
+            extra += ', bcProbable: true'
     out.append(f"    FactoryAmmo({dart_str(a['brand'])}, {dart_str(a['name'])}, {dart_str(a['cartridge'])}, {num(a['dia'])}, "
                f"{num(a['grain'])}, {num(a['bc'])}, {model}, {num(a['mv'])}, {num(a['barrel'])}, {dart_str(a['src'])}{extra}),\n")
 out.append("  ];\n}\n")

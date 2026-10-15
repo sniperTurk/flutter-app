@@ -1,0 +1,21 @@
+{
+  "name": "CRED-10",
+  "brand": "Sightmark",
+  "scopes": [
+    "Presidio 1-10x26 CRED-10"
+  ],
+  "unit": "mil",
+  "family": null,
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": true,
+  "floating_center": null,
+  "source_url": "https://www.sightmark.com/products/presidio-1-10x26-fiber-cred10-sfp",
+  "notes": "Sightmark ürün sayfası (Presidio 1-10x26 CRED-10): 'Reticle Type: CRED-10 Fiber SFP', 'crisp 3 MOA dot reticle, powered by a hybrid fiber-wire system', 'Focal Plane: 2nd', ayar '1/10 MIL', 35 MIL -> center_dot=true. Retikülde ölçek/bölme tanımlanmıyor; verilen tek ölçü nokta çapı (3 MOA). unit=mil: ölçeksiz SFP retikül, ölçü yok; birim taret birimi (MIL taret). Kılavuz ürün sayfasında yok; support.sightmark.com kılavuz sayfası robots nedeniyle okunamadı. family ve diğer alanlar null. Kaynak: https://www.sightmark.com/products/presidio-1-10x26-fiber-cred10-sfp (okundu 2026-10-12)"
+}

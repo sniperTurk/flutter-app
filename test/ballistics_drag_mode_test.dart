@@ -69,19 +69,18 @@ void main() {
     expect(find.textContaining('Namlu enerjisi'), findsNothing);
   });
 
-  testWidgets('a BC without G1/G7 is not used: vacuum baseline stays', (
+  testWidgets('a PCP BC without G1/G7 is not used: the estimated G1 runs', (
     tester,
   ) async {
+    // Owner, 2026-10-13: a PCP record without a usable BC is solved with
+    // the estimated G1 BC (drag and wind), never the vacuum baseline.
     install(_ammo(bcModel: null));
     await _pump(tester);
-    expect(
-      find.textContaining('Bu mühimmat için doğrulanmış BC/model yok'),
-      findsOneWidget,
-    );
+    expect(find.byKey(const Key('ballistics-bc-estimated')), findsOneWidget);
     await tester.tap(find.text('DOPE oluştur'));
     await tester.pumpAndSettle();
-    expect(find.text('Rüzgâr MRAD'), findsNothing);
-    expect(find.text('Vakum düşüşü cm*'), findsOneWidget);
+    expect(find.text('Rüzgâr MRAD'), findsOneWidget);
+    expect(find.text('Vakum düşüşü cm*'), findsNothing);
   });
 
   testWidgets('editing the grain drops the BC (it belongs to one mass)', (

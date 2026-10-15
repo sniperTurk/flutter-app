@@ -160,6 +160,16 @@ void main() {
       await settle();
     }
 
+    // A "... listede yok mu?" link (owner, 2026-10-14): on the Simulator a
+    // bottom bar can cover it, so its own action is called.
+    Future<void> tapNotListed(String key) async {
+      final link = find.byKey(Key(key));
+      await tester.ensureVisible(link);
+      await settle();
+      tester.widget<TextButton>(link).onPressed!();
+      await settle();
+    }
+
     await wait(3);
 
     await step('profil_olustur_pcp', () async {
@@ -172,7 +182,9 @@ void main() {
     });
     var saved = false;
     await step('profil_kaydet', () async {
-      await choose('rifle-brand-select', 'Listede yok');
+      // Typed rifle from the link under Marka | Model (owner, 2026-10-14:
+      // no "Listede yok" in the rifle Marka list).
+      await tapNotListed('rifle-not-listed');
       await type('rifle-brand', 'Test Marka');
       await type('rifle-model', 'Test Model');
       await tester.ensureVisible(find.byKey(const Key('rifle-caliber')));
@@ -182,12 +194,11 @@ void main() {
       await settle();
       await type('rifle-twist-rate', '16');
       await choose('rifle-twist-direction', 'Sağ');
-      await choose('ammo-brand-select', 'Listede yok');
-      await type('ammo-brand', 'Test Mühimmat Slug');
+      // PCP ammo has no Marka | Model list (hidden 2026-10-13, PCP_AMMO_BRAND).
       await choose('ammo-type', 'Slug');
       await type('ammo-grain', '33,95');
       await type('ammo-bc', '0,08');
-      await choose('ammo-bc-model', 'G1');
+      // PCP has no BC modeli box: always G1 (owner, 2026-10-12).
       await type('profile-velocity-fps', '900');
       await choose('profile-distance-unit', 'Metre');
       await type('profile-zero', '25');

@@ -125,7 +125,7 @@ class _ScopeCantScreenState extends State<ScopeCantScreen> {
             '${ShotAngleMath.degrees(shown)} · ${ShotAngleMath.clock(shown)}'
             '${shown.abs() < 0.5 ? '' : (shown > 0 ? ' · sağa yatık' : ' · sola yatık')}',
             textAlign: TextAlign.center,
-            style: MenzilType.number(c.ink, size: 20),
+            style: MenzilType.number(c.ink, size: 20, live: true),
           ),
           const SizedBox(height: MenzilSpace.md),
           MenzilInput(

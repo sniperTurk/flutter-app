@@ -200,8 +200,6 @@ class GravityFilter {
        assert(still > 0 && still <= moving && moving <= 1),
        assert(stillBand >= 0 && motion > stillBand);
 
-  bool get isAdaptive => stillAlpha != null;
-
   /// Share of the new sample for a given deviation from the estimate.
   double shareFor(double deviationMps2) {
     final still = stillAlpha, moving = movingAlpha;

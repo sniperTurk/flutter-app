@@ -1,0 +1,21 @@
+{
+  "name": "M2F-2MOA",
+  "brand": "Schmidt & Bender",
+  "scopes": [
+    "10-60x56 CM II High Performance M2F-2MOA SFP 1/8 MOA"
+  ],
+  "unit": "moa",
+  "family": null,
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://www.schmidtundbender.de/10-60x56-CM-II-High-Performance",
+  "notes": "S&B 10-60x56 CM II High Performance ürün sayfası: 'ein unbeleuchtetes MOA-Absehen in der 2. Bildebene' (EN sayfa: 'a non-illuminated MOA-based reticle in the second focal plane'); tık 1/8 MOA -> unit=moa. Ölçü/aralık sayfada yok; föyler yalnız ZIP arşivinde, okunamadı -> geometri alanları null. Ad '2MOA' içeriyor ancak bunun işaret aralığı olduğu metinde yazmadığından hash_step null. Kaynak: https://www.schmidtundbender.de/10-60x56-CM-II-High-Performance (okundu 2026-10-12); https://www.schmidtundbender.de/en/10-60x56-CM-II-High-Performance-1.-FP/160-xxx-xxx (okundu 2026-10-12)"
+}

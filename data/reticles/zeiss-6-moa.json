@@ -1,0 +1,23 @@
+{
+  "name": "#6",
+  "brand": "Zeiss",
+  "scopes": [
+    "Conquest V6 3-18x50",
+    "V3 2.5-8x35",
+    "V3 3.5-10x42"
+  ],
+  "unit": "moa",
+  "family": "duplex",
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://www.zeiss.com/content/dam/pno/downloads/riflescopes/datasheets/datasheet-non-illuminated-reticle-6-plex-style.pdf",
+  "notes": "MOA taretli dürbünler için #6 kaydı (mevcut zeiss-6 kaydı 'mil'). Zeiss V3 föyü 'Plex-style #6' (v1, Temmuz 2026, aydınlatmasız, SFP, ölçü birimi MOA): 2.5-8x35 @8x ve 3.5-10x42 @10x için A çizgi 0.30, B kalın balk 1.50, C açıklık 24.00 MOA. V3 sayfası: 'a 24.00 MOA opening'. Conquest V6 3-18x50'deki #6 föyü (10/2021) ölçüleri yalnız inç/100 yd ve cm/100 m verir (ör. 18x'te balk açıklığı 31 in / 78 cm); bu değerler MOA'ya ÇEVRİLMEDİ. V3 ve V6 açıklıkları farklı olduğundan ve kayıt üç dürbünde ortak olduğundan posts_start, line_width, post_width null bırakıldı (V3 değerleri yalnız bu nota yazıldı). family='duplex' kalın balk + ince merkez çizgiden. Merkez noktası yok/verilmemiş -> center_dot null. Kaynak: https://www.zeiss.com/content/dam/pno/downloads/riflescopes/datasheets/datasheet-non-illuminated-reticle-6-plex-style.pdf (okundu 2026-10-12); https://www.zeiss.com/photonics-and-optics/us/hunting/products/riflescopes/v3.html (okundu 2026-10-12); https://www.zeiss.com/content/dam/pno/downloads/riflescopes/datasheets/datasheet-non-illuminated-reticle-6.pdf/_jcr_content/renditions/original.media_file.download_attachment.file/datasheet-non-illuminated-reticle-6.pdf (okundu 2026-10-12); https://www.zeiss.com/photonics-and-optics/en/hunting/products/riflescopes/conquest-v6.html (okundu 2026-10-12)"
+}

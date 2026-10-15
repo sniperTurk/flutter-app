@@ -54,10 +54,11 @@ abstract final class ProSectionInfo {
         'gösterir, örneğin "3–5 klik sağa". Rüzgârın ne yapacağını bilemediğin '
         'anlarda nişanı nereye kaydıracağını görürsün.',
     how:
-        'Senin bir şey girmene gerek yok; uygulama Hava Durumu\'ndaki rüzgârı '
-        '1,5 ile çarpıp kendisi yazar. Rüzgâr ölçerin varsa ölçtüğün en '
-        'yüksek değeri yazabilirsin. Kullanmak istemezsen kutuyu sil; aralık '
-        'gösterilmez. "Otomatik doldur"a dokunursan yeniden otomatik olur.',
+        'Kutu boş gelir. "Rüzgâr düzeltmesi al"a dokunursan Hava '
+        'Durumu\'ndaki rüzgâr hızı 1,5 ile çarpılıp yazılır. Rüzgâr ölçerin '
+        'varsa ölçtüğün en yüksek değeri kendin yaz. "Sıfırla" bu kutuyu ve '
+        'Yol ortası ile Hedefte kutularını boşaltır; kutu boşken aralık '
+        'gösterilmez.',
   );
 
   static const windZones = ProExplain(
@@ -187,13 +188,14 @@ abstract final class ProSectionInfo {
         '300 m\'nin ötesinde birkaç santim fark eder. Kısa mesafede gerek yok.',
     how:
         'Düğmeyi aç ve mermi uzunluğunu yaz; kumpasla ölçebilir ya da '
-        'kutusundan bakabilirsin. Yiv yönü ve yiv oranı profilden alınır.',
+        'kutusundan bakabilirsin. Boşsa hesaplanmaz. Yiv yönü ve yiv oranı '
+        'profilden alınır.',
   );
 
   /// Shown under spin drift only on PCP profiles (owner, 2026-10-09).
   static const spinDriftPcpNote =
       'PCP\'de 200 m\'nin ötesinde, slug ile anlamlıdır; yakın mesafede '
-      'açmana gerek yok.';
+      'açmana gerek yok. Diabolo pellet için hesaplanmaz.';
 
   static const pcpPressure = ProExplain(
     title: 'Tüp basıncı',

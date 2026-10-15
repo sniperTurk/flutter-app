@@ -1,0 +1,26 @@
+{
+  "name": "MOA-2",
+  "brand": "Sightron",
+  "scopes": [
+    "SIII Field Target 10-50x60 IR",
+    "SIII Precision Long Range 10-50x60 Zero Stop",
+    "SIII Precision Long Range 8-32x56 Zero Stop MOA",
+    "SIII Precision Long Range 6-24x50 Zero Stop MOA",
+    "SIII Long Range 8-32x56",
+    "S-TAC 4-20x50"
+  ],
+  "unit": "moa",
+  "family": "hash",
+  "hash_step": 2,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": true,
+  "floating_center": true,
+  "source_url": "https://sightron.com/products/siii-long-range-8-32x56",
+  "notes": "SFP (tüm sayfalar 'Second'). Aydınlatmalı (MOA-2 IR) ve aydınlatmasız (MOA-2) sürümler aynı ad anahtarında. Sayfa: 'fine crosshair reticle with a (illuminated) floating dot in the open center' → center_dot=true, floating_center=true; 'hash marks along all 4 quadrants of the reticle in 2 MOA increments' → family=hash, hash_step=2. SIII LR 8-32x56 spec tablosu 'MOA-2 @24x' (değerlerin geçerli büyütmesi 24x olarak yazılmış; diğer dürbünlerde referans büyütme yazmıyor). Örnek tablo 8-32x56 '24x at 100 yards': 20 | 20 | 10 | .075 | 2 | 4 | 2 | .25. Sütun harfleri (A, B, C...) sayfada tanımlanmadığından tablo değerleri alanlara yazılmadı. Ayrıntılı çizim/PDF cdn.shopify.com üzerinde (izinli alan değil) okunmadı. Kaynak: https://sightron.com/products/siii-field-target-10-50x60-ir (okundu 2026-10-12); https://sightron.com/products/siii-precision-long-range-10-50x60-zero-stop (okundu 2026-10-12); https://sightron.com/products/siii-precision-long-range-8-32x56-zero-stop (okundu 2026-10-12); https://sightron.com/products/siii-precision-long-range-6-24x50-zero-stop (okundu 2026-10-12); https://sightron.com/products/siii-long-range-8-32x56 (okundu 2026-10-12); https://sightron.com/products/s-tac-4-20x50 (okundu 2026-10-12)."
+}

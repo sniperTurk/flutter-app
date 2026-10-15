@@ -19,6 +19,9 @@ ALLOWED_PACKAGE_FILES = {
     'lib/tools/adapters/camera_plugin_service.dart',
     'lib/tools/adapters/geolocator_location_provider.dart',
     'lib/tools/adapters/flutter_compass_heading_provider.dart',
+    # Hava Durumu → İrtifa → "Haritadan" (owner, 2026-10-14): Google Maps
+    # Elevation API, on the button only.
+    'lib/tools/adapters/google_elevation_provider.dart',
 }
 ACCEPTANCE_SHA256 = '1d861282a0ed6bca503ec8fa7c11eb423c2d5d9704b0d383c51cfd1b7c67927d'
 

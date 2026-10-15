@@ -1,0 +1,22 @@
+{
+  "name": "MOA-2FT",
+  "brand": "Sightron",
+  "scopes": [
+    "S6 10-60x56 ED FT Field Target",
+    "S6 10-60x56 ED FT Snap Focus"
+  ],
+  "unit": "moa",
+  "family": null,
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": true,
+  "floating_center": true,
+  "source_url": "https://sightron.com/products/s6-10-60x56-ed-ft-br-field-target",
+  "notes": "SFP, tık '1/8 MOA'. Sayfa: 'The floating center dot makes it easy to set target placement even at 60x' → center_dot=true, floating_center=true; '\"boxed\" reticle design'. family null. Tablolar: '10x at 100 Yards': 100 | 50 | 25 | .625 | 5 | 10 | .625 | .625 | 2.5 | 5 | 0.25; '60x at 100 Yards': 16.67 | 8.33 | 4.17 | 0.1 | 0.83 | 1.67 | 0.1 | 0.1 | 0.42 | 0.83 | 0.04 (iki sayfada aynı). Sütun harfleri (A, B, C...) sayfada tanımlanmadığından tablo değerleri alanlara yazılmadı. Ayrıntılı çizim/PDF cdn.shopify.com üzerinde (izinli alan değil) okunmadı. Kaynak: https://sightron.com/products/s6-10-60x56-ed-ft-br-field-target (okundu 2026-10-12); https://sightron.com/products/s6-10-60x56-ed-ft-br-field-target-copy (okundu 2026-10-12)."
+}

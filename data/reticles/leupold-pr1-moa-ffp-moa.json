@@ -1,0 +1,24 @@
+{
+  "name": "PR1-MOA FFP",
+  "brand": "Leupold",
+  "scopes": [
+    "Mark 5HD 2-10x30 M1C3 FFP",
+    "Mark 5HD 3.6-18x44 M1C3 FFP",
+    "Mark 5HD 5-25x56 M1C3 FFP",
+    "Mark 4HD 2.5-10x42 M1C3 FFP"
+  ],
+  "unit": "moa",
+  "family": null,
+  "hash_step": 1.0,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": 40,
+  "extent_v_up": 40,
+  "extent_v_down": 40,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://www.leupold.com/reticle/pr1-moa-ffp/",
+  "notes": "BİRİM-FARKI KAYDI: marka yalnız PR1-MIL FFP (mil) kaydına sahipti; MOA taretli dürbünler için üreticinin ayrı MOA retikülü var. Leupold 'PR1-MOA FFP Reticle' sayfası: 'MOA based grid', '1 MOA increments', '40 MOA of measurement in each direction', 'Front (first) focal plane'; ürün listesi: Mark 4HD 2.5-10x42 M1C3 FFP PR1-MOA, MARK 5HD 2-10X30 M1C3 FFP PR1-MOA, Mark 5HD 3.6-18x44 / 5-25x56 M1C3 FFP PR1-MOA. hash_step=1.0 '1 MOA increments' metninden; extent_h/extent_v_up/extent_v_down=40 '40 MOA of measurement in each direction' metninden (her yön). Föy 'FFP PR1-MOA Mark 4HD, Mark 5HD': ince çizgi 0.15, orta 0.5, kalın 1.0 MOA; Dot Diameter etiketi; diğer değerler 0.2/0.5/1.0/1.5/2.0/2.5/4.0/5.0/6.0/10.0 MOA; görüş daireleri 10x/18x/25x. Föy metin çıkarımı yerleşimi kaybettiğinden etiketsiz değerler eşlenemedi. 'grid' sözcüğü çizgi mi nokta mı olduğunu söylemediğinden family null (PR1-MIL FFP kaydıyla tutarlı); büyük işaret, rakam, merkez tipi -> null. Kaynak: https://www.leupold.com/reticle/pr1-moa-ffp/ (okundu 2026-10-12); https://www.leupold.com/media/binaryanvil/reticle/FFP_PR1-MOA_1.pdf (okundu 2026-10-12)"
+}

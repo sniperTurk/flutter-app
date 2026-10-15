@@ -2,8 +2,8 @@
   "name": "FFP AMX IR",
   "brand": "Hawke",
   "scopes": [
-    "Airmax 30 FFP SF 4-16x50 (16x)",
-    "Airmax 30 FFP SF 6-24x50 (24x)"
+    "Airmax 30 FFP SF 4-16x50",
+    "Airmax 30 FFP SF 6-24x50"
   ],
   "unit": "mil",
   "family": null,
@@ -18,5 +18,5 @@
   "center_dot": null,
   "floating_center": null,
   "source_url": "https://us.hawkeoptics.com/airmax-30-ffp-sf-4-16x50-amx-ir.html",
-  "notes": "FFP (ürün sayfası: 'FFP (First Focal Plane)', Reticle Group 'AMX'). unit=mil: Hawke 'the AMX reticle, which is based on mil spacing' (https://us.hawkeoptics.com/airmax-riflescopes-std.html) ve 'All Hawke FFP riflescopes are currently designed with Mil spaced reticles' (https://life.hawkeoptics.com/first-focal-plane-riflescope/) metinlerinden. İşaret aralığı, uzanımlar, aile, merkez bilinmiyor (null): görseller ve Reticle Booklet PDF'i (Google Drive) robots.txt ile engelli. Ek kaynak: https://us.hawkeoptics.com/airmax-30-ffp-sf-6-24x50-amx-ir.html"
+  "notes": "FFP (ürün sayfası: 'FFP (First Focal Plane)', Reticle Group 'AMX'). unit=mil: Hawke 'the AMX reticle, which is based on mil spacing' (https://us.hawkeoptics.com/airmax-riflescopes-std.html) ve 'All Hawke FFP riflescopes are currently designed with Mil spaced reticles' (https://life.hawkeoptics.com/first-focal-plane-riflescope/) metinlerinden. İşaret aralığı, uzanımlar, aile, merkez bilinmiyor (null): görseller ve Reticle Booklet PDF'i (Google Drive) robots.txt ile engelli. Ek kaynak: https://us.hawkeoptics.com/airmax-30-ffp-sf-6-24x50-amx-ir.html 2026-10-12 güncelleme: scopes girdileri '(16x)'/'(24x)' eki olmadan model adına çevrildi (ürün sayfaları: 6-24x50: Reticle 'FFP AMX IR (24x)'; 4-16x50 için '(16x)' önceki kayıttan, Focal Plane 'FFP (First Focal Plane)', Click Value '1/10 MRAD'), böylece SFP 'AMX'/'AMX IR' kaydından ayrılır. Kaynak: https://us.hawkeoptics.com/airmax-30-ffp-sf-6-24x50-amx-ir.html (okundu 2026-10-12)"
 }

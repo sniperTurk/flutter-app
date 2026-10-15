@@ -1,0 +1,21 @@
+{
+  "name": "ePredator E3 Illuminated",
+  "brand": "Steiner",
+  "scopes": [
+    "ePredator 8 3-24x50mm"
+  ],
+  "unit": "moa",
+  "family": null,
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://www.steiner-optics.com/reticles/epredator-e3tm-illuminated",
+  "notes": "Steiner 'ePredator E3™ Illuminated' sayfası: 'rear focal plane (RFP) reticle', 100 yd sıfırda alt dikey çizgi işaretleri 200/300/400 yd, 'cascading wind dots ... 10 mph crosswind'; birim ve açısal değer yok. ePredator 8 kılavuzu: 'Reticle E3', '2. focal plane', 'Max. travel ... +/- 30 MOA'; retikül ölçü tablosu yok. unit=moa: üretici retikül ölçüsü vermiyor; birim taret birimi (ePredator 8 kılavuzunda ayar MOA) — 'ölçü yok; birim taret birimi'. BDC deseni şema ailelerine oturmuyor -> family ve sayısal alanlar null. Kaynak: https://www.steiner-optics.com/reticles/epredator-e3tm-illuminated (okundu 2026-10-12); https://www.steiner-optics.com/sites/default/files/content/downloads/2025-10/BA_ePredator8_01_25_EU_v2.pdf (okundu 2026-10-12)"
+}

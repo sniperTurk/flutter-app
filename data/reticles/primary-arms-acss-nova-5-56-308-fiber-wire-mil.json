@@ -1,0 +1,21 @@
+{
+  "name": "ACSS Nova 5.56/.308 Fiber Wire",
+  "brand": "Primary Arms",
+  "scopes": [
+    "SLx 1-6x24 SFP Gen IV"
+  ],
+  "unit": "mil",
+  "family": null,
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://www.primaryarms.com/core/media/media.nl?id=23251498&c=3901023&h=8QIa4_7O7Sv1s1ouBg8XJfFCDolrCruMb0UqeJBFAEuB2ZZT",
+  "notes": "Primary Arms '1-6x24 SECOND FOCAL PLANE ACSS® NOVA®' kılavuzu, varyant 'ACSS NOVA 5.56/.308': 'These BDC stadia are in 50-yard increments, starting at 250 yards'; 'The larger 300-, 400-, 500-, and 600-yard stadia lines are sized to match an 18” cross section'; menzil etiketleri '1st MIL = 300yd 2nd MIL = 400yd', '3rd MIL = 500yd 4th MIL = 600yd' -> unit=mil (çizim etiketlerinde ayrıca '1.5 MOA', '1 MOA' geçiyor, öğe adı yok); 'The tip of the bottom crosshair's taper is a 700-yard hold'; hareketli hedef 3/6/9 mph; 'your autoranging and holds are for MAX MAGNIFICATION ONLY'. BDC stadia açısal değerleri verilmediğinden family ve sayısal alanlar null. Kaynak: https://www.primaryarms.com/core/media/media.nl?id=23251498&c=3901023&h=8QIa4_7O7Sv1s1ouBg8XJfFCDolrCruMb0UqeJBFAEuB2ZZT (okundu 2026-10-12)"
+}

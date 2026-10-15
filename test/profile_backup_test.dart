@@ -156,6 +156,10 @@ void main() {
   });
 
   group('Profiller page', () {
+    // Yedekle / Geri yükle are hidden by default (PROFILE_BACKUP_BUTTONS,
+    // owner 2026-10-14); these tests run with the flag on.
+    setUp(() => ProfilesScreen.debugShowBackupButtons = true);
+    tearDown(() => ProfilesScreen.debugShowBackupButtons = null);
     testWidgets('Yedekle hands the file to the share sheet', (tester) async {
       final store = await _storeWith(const [_one, _two]);
       String? sharedName;

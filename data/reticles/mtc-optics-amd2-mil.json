@@ -1,0 +1,24 @@
+{
+  "name": "AMD2",
+  "brand": "MTC Optics",
+  "scopes": [
+    "Viper Connect 4-16x32",
+    "Copperhead F2 3-12x44",
+    "Copperhead F2 4-16x44",
+    "King Cobra 8-32x50 F1"
+  ],
+  "unit": "mil",
+  "family": null,
+  "hash_step": null,
+  "major_every": null,
+  "numbers_every": null,
+  "extent_h": null,
+  "extent_v_up": null,
+  "extent_v_down": null,
+  "tree": null,
+  "posts_start": null,
+  "center_dot": null,
+  "floating_center": null,
+  "source_url": "https://mtcoptics.com/copperhead-f2/",
+  "notes": "Copperhead F2 sayfası: 'AMD2 (Advanced Mil Dot – second generation) multi-aimpoint reticle, is set to be correct mill dot spacing at 10x magnification', SFP; King Cobra 8-32x50 F1 FFP. 2025 broşürü AMD2'yi bu dört dürbünde listeliyor. unit=mil. Nokta aralığı sayısal yazmıyor; föy JPG (https://mtcoptics.com/wp-content/uploads/2021/11/AMD2.jpg, okunamadı) -> family ve ölçüler null. Kaynak: https://mtcoptics.com/copperhead-f2/ (okundu 2026-10-12); https://mtcoptics.com/king-cobra-8-32-x-50-f1/ (okundu 2026-10-12); https://mtcoptics.com/wp-content/uploads/2025/02/MTC_BROCHURE_2025.v1-Proof-3.pdf (okundu 2026-10-12)"
+}
