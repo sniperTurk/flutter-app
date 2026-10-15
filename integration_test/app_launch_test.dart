@@ -180,7 +180,16 @@ void main() {
     expect(find.text('Kaydet'), findsOneWidget);
     await tester.tap(find.text('Kaydet'));
     await tester.pumpAndSettle();
-    expect(find.text('Yeni Profil'), findsWidgets);
+    // "Profil" is also the tab label; match the saved profile's list row.
+    expect(
+      find.byWidgetPredicate(
+        (w) =>
+            w is Text &&
+            w.key == const Key('profile-row-name') &&
+            w.data == 'Profil',
+      ),
+      findsOneWidget,
+    );
     expect(tester.takeException(), isNull);
 
     // Prove the write reached the platform-backed SharedPreferences store rather
@@ -193,7 +202,7 @@ void main() {
       'sniper_turk.active_profile_id.v1',
     );
     expect(persistedProfiles, isNotNull);
-    expect(persistedProfiles, contains('Yeni Profil'));
+    expect(persistedProfiles, contains('"name":"Profil"'));
     expect(persistedActiveId, isNotNull);
     expect(persistedActiveId, isNotEmpty);
 

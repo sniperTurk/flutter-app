@@ -358,7 +358,7 @@ void main() {
     );
 
     final saved = (await store.all()).single;
-    expect(saved.name, 'Yeni Profil');
+    expect(saved.name, 'Profil');
     // 900 fps entered on Profil reaches the solver as 274.32 m/s.
     expect(saved.muzzleVelocityMps, closeTo(274.32, 1e-9));
     expect(saved.zeroRangeM, 25);
@@ -368,7 +368,12 @@ void main() {
     expect(saved.pressureBar, isNull);
     expect(saved.tubePressureBar, isNull);
     expect(saved.pressureVelocityTable, isEmpty);
-    expect(find.text('Yeni Profil'), findsOneWidget);
+    // "Profil" is also used by other texts; check the saved row's name.
+    expect(find.byKey(const Key('profile-row-name')), findsOneWidget);
+    expect(
+      tester.widget<Text>(find.byKey(const Key('profile-row-name'))).data,
+      'Profil',
+    );
     // The rifle became a personal record with every typed value.
     final rifle = CatalogRepository.allRifles.singleWhere(
       (r) => r.id == saved.rifleId,
