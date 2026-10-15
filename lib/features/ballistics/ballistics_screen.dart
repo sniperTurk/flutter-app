@@ -623,11 +623,18 @@ class _BallisticsScreenState extends State<BallisticsScreen>
     return true;
   }
 
-  /// A weather fill brought a new Rüzgâr hızı (owner, 2026-10-14): En çok
-  /// rüzgâr follows it when the box holds a "Düzeltme al" value; a typed
-  /// value (or an emptied box) is never overwritten.
+  /// Rüzgâr hızı changed (weather fill, typed, Sıfırla; owner, 2026-10-15,
+  /// RUZ-1/RUZ-2): a "Düzeltme al" value belonged to the old wind, so it is
+  /// emptied and loses "Düzeltme alındı"; the user presses "Düzeltme al"
+  /// again. A typed value (or an emptied box) is never touched.
   void _windMaxFollowsWind() {
-    if (_windMaxFilled) _putWindMaxFromWind();
+    if (!_windMaxFilled) return;
+    setState(() {
+      windMaxCtl.text = '';
+      _windMaxFilled = false;
+      _windMaxAtMs = null;
+    });
+    _coriolisChanged();
   }
 
   void _resetWindMax() {
@@ -1370,6 +1377,7 @@ class _BallisticsScreenState extends State<BallisticsScreen>
 
   /// Sıfırla of the weather row: empties the boxes it fills.
   void _resetWeather() {
+    final windBefore = wind.text;
     setState(() {
       // Sıfırla empties the boxes (owner, 2026-10-12); an empty box is
       // calculated with the standard atmosphere (15 °C, 1013,25 hPa, %50,
@@ -1387,6 +1395,7 @@ class _BallisticsScreenState extends State<BallisticsScreen>
       _shotCache.clear();
       _holdSamples = null;
     });
+    if (windBefore.isNotEmpty) _windMaxFollowsWind();
     if (widget.profile != null) _quietSolve();
   }
 
@@ -1571,7 +1580,7 @@ class _BallisticsScreenState extends State<BallisticsScreen>
       // Stored even when the values came back the same (no text change).
       _weatherChanged();
       _scheduleFreshnessCheck();
-      // A new Rüzgâr hızı updates En çok rüzgâr (owner, 2026-10-14).
+      // A new Rüzgâr hızı empties a "Düzeltme al" value (owner, 2026-10-15).
       if (windBefore != null && wind.text != windBefore) _windMaxFollowsWind();
     }
     // Re-solve with the new conditions (quietly: Atış says why if not).
