@@ -198,17 +198,22 @@ static NSString *const kDevicesFileName = @"sniperturk-garmin-devices";
 }
 
 // FlutterSceneLifeCycleDelegate (UIScene kullanan iskelet), soğuk açılış:
-// adres bağlantı seçeneklerinde gelir. NO döner: bağlantı seçenekleri
-// (kısayol, bildirim, diğer adresler) diğer eklentilere de ulaşsın.
-// Protokol bildirilmez (eski Flutter'da yoktur); BOOL dönüş, Flutter void
-// beklese bile ABI açısından zararsızdır.
+// adres bağlantı seçeneklerinde gelir. Eklenti geç kaydolsa da Flutter
+// (3.47) saklı bağlantı seçeneklerini motor sahneye bağlanınca yeniden
+// iletir. Garmin Connect dönüşünü işlediyse YES döner: aksi halde Flutter
+// derin bağlantısı (Info.plist'te kapatılmadıkça açık) `sniperturk-ciq://`
+// adresini sayfa yolu olarak açmaya çalışır ve bulamayınca iOS'a geri
+// atar. Bizden önce kaydolan eklentiler seçenekleri zaten almıştır; başka
+// adres yoksa NO döner, seçenekler sonrakilere de ulaşır.
+// Protokol bildirilmez (eski Flutter'da yoktur); imza Flutter'ınkiyle aynı.
 - (BOOL)scene:(UIScene *)scene
     willConnectToSession:(UISceneSession *)session
                  options:(UISceneConnectionOptions *)connectionOptions {
+  BOOL handled = NO;
   for (UIOpenURLContext *context in connectionOptions.URLContexts) {
-    [self handleURL:context.URL];
+    handled = [self handleURL:context.URL] || handled;
   }
-  return NO;
+  return handled;
 }
 
 // FlutterSceneLifeCycleDelegate (UIScene kullanan iskelet), açıkken dönüş.

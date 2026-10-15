@@ -101,6 +101,43 @@ class GarminBridgeTests(unittest.TestCase):
         self.assertIn("isTransient:YES", source)
         self.assertNotIn("progress:nil", source)
 
+    def test_cold_launch_url_is_claimed_so_flutter_does_not_deep_link_it(self):
+        # Flutter 3.47 sends unclaimed connection-option URLs to the router
+        # (deep linking is on unless Info.plist turns it off); the app has no
+        # route for sniperturk-ciq://, so the bridge must claim its own URL.
+        source = (ROOT / "garmin/ios_runner/SniperTurkGarminBridge.m").read_text(encoding="utf-8")
+        start = source.index("willConnectToSession:(UISceneSession *)session")
+        body = source[start:source.index("\n}\n", start)]
+        self.assertIn("handled = [self handleURL:context.URL] || handled;", body)
+        self.assertIn("return handled;", body)
+        self.assertNotIn("return NO;", body)
+        # handleURL claims every URL of our scheme and nothing else.
+        handle = source[source.index("- (BOOL)handleURL:(NSURL *)url {"):]
+        handle = handle[: handle.index("\n}\n")]
+        self.assertIn("isEqualToString:kURLScheme]) {\n    return NO;", handle)
+        self.assertIn("if (selected == nil) {\n    return YES;", handle)
+
+    def test_ok_goes_to_the_watch_as_1_or_0_and_the_watch_accepts_both(self):
+        source = (ROOT / "garmin/ios_runner/SniperTurkGarminBridge.m").read_text(encoding="utf-8")
+        # Phone: a CFBoolean `ok` becomes NSNumber 1/0; other values pass.
+        self.assertIn("CFBooleanGetTypeID()", source)
+        self.assertIn('copy[@"ok"] = [ok boolValue] ? @1 : @0;', source)
+        self.assertIn("NSDictionary *safe = [self watchSafe:message];", source)
+        # Watch: Boolean, Number/Long (0 = false) and Char are read; anything
+        # else (missing, String) rejects the message.
+        mc = (ROOT / "garmin/source/Solution.mc").read_text(encoding="utf-8")
+        self.assertIn('var ok = Solution.toBool(m.get("ok"));', mc)
+        self.assertIn("if (ok == null || !(profile instanceof String)) {", mc)
+        to_bool = mc[mc.index("static function toBool(v) {"):]
+        to_bool = to_bool[: to_bool.index("\n    }\n")]
+        self.assertIn("if (v instanceof Boolean) {\n            return v;", to_bool)
+        self.assertIn(
+            "if (v instanceof Number || v instanceof Long) {\n            return v != 0;", to_bool
+        )
+        self.assertIn("if (v instanceof Char) {\n            return v.toNumber() != 0;", to_bool)
+        self.assertTrue(to_bool.rstrip().endswith("return null;"))
+        self.assertNotIn("instanceof String", to_bool)
+
     def test_cli_wires_a_scaffold(self):
         with tempfile.TemporaryDirectory() as tmp:
             runner = Path(tmp) / "Runner"

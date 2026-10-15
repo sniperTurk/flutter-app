@@ -7,6 +7,7 @@ import 'package:sniper_turk/features/tools/garmin_pair_tile.dart';
 import 'package:sniper_turk/features/tools/tools_screen.dart';
 import 'package:sniper_turk/services/watch/watch_bridge.dart';
 import 'package:sniper_turk/ui/menzil_theme.dart';
+import 'package:sniper_turk/ui/menzil_widgets.dart';
 
 class _Link implements WatchTransport {
   WatchSendResult result;
@@ -184,6 +185,22 @@ void main() {
       await tester.pumpWidget(_host(GarminPairTile(link: _FakeGarmin(1))));
       await tester.pumpAndSettle();
       expect(find.textContaining('1 saat bağlı'), findsOneWidget);
+    });
+
+    testWidgets('uses the Araçlar tile look: white icon on grey-blue', (
+      tester,
+    ) async {
+      await tester.pumpWidget(_host(GarminPairTile(link: _FakeGarmin(1))));
+      await tester.pumpAndSettle();
+      final tile = tester.widget<MenzilToolTile>(find.byType(MenzilToolTile));
+      expect(tile.plainIcon, isTrue);
+      final icon = tester.widget<Icon>(
+        find.descendant(
+          of: find.byType(MenzilToolTile),
+          matching: find.byIcon(Icons.watch_outlined),
+        ),
+      );
+      expect(icon.color, MenzilToolTile.plainIconColor);
     });
 
     testWidgets('a new count from Garmin Connect updates the subtitle', (

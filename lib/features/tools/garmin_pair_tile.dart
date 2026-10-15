@@ -66,6 +66,8 @@ class _GarminPairTileState extends State<GarminPairTile>
     final n = _count;
     if (n == null) return const SizedBox.shrink();
     return MenzilToolTile(
+      // Araçlar (owner, 2026-10-15): white icon on grey-blue, like every tile.
+      plainIcon: true,
       tileKey: const Key('tool-garmin'),
       icon: Icons.watch_outlined,
       title: 'Garmin saati',
