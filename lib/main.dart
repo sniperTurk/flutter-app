@@ -28,8 +28,10 @@ class SniperTurkApp extends StatefulWidget {
 }
 
 class _SniperTurkAppState extends State<SniperTurkApp> {
-  final MenzilThemeController themeMode = MenzilThemeController();
-  final ThemeData lightTheme = MenzilTheme.light();
+  /// Always dark (owner, 2026-10-15: "tasarımı koyu renk yapalım"). The
+  /// Koyu/Açık button is deleted; the choice may come back on a future
+  /// sign-in screen. A choice saved by an older version (key `theme.dark`)
+  /// is left in storage untouched and no longer read.
   final ThemeData darkTheme = MenzilTheme.dark();
   final AppSettings appSettings = AppSettings();
   final ToolsServices toolsServices = ToolsServices.production();
@@ -38,13 +40,11 @@ class _SniperTurkAppState extends State<SniperTurkApp> {
   void initState() {
     super.initState();
     appSettings.load();
-    themeMode.load();
   }
 
   @override
   void dispose() {
     appSettings.dispose();
-    themeMode.dispose();
     super.dispose();
   }
 
@@ -53,25 +53,19 @@ class _SniperTurkAppState extends State<SniperTurkApp> {
     settings: appSettings,
     child: ToolsServicesScope(
       services: toolsServices,
-      child: MenzilThemeScope(
-        controller: themeMode,
-        child: ValueListenableBuilder<ThemeMode>(
-          valueListenable: themeMode,
-          builder: (context, mode, _) => MaterialApp(
-            debugShowCheckedModeBanner: false,
-            title: 'SNIPER TÜRK',
-            theme: lightTheme,
-            darkTheme: darkTheme,
-            themeMode: mode,
-            // No data is fetched until the user taps a button (owner,
-            // 2026-10-11): Hava Durumu fills only on "Konumdan canlı hava verisi al".
-            home: const HomeScreen(),
-            // Keyboard (owner, 2026-10-12): a tap outside a box closes it,
-            // and a "Bitti" bar sits above the number pad, which has no
-            // return key on iOS.
-            builder: (context, child) => KeyboardDoneBar(child: child!),
-          ),
-        ),
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'SNIPER TÜRK',
+        theme: darkTheme,
+        darkTheme: darkTheme,
+        themeMode: ThemeMode.dark,
+        // No data is fetched until the user taps a button (owner,
+        // 2026-10-11): Hava Durumu fills only on "Konumdan canlı hava verisi al".
+        home: const HomeScreen(),
+        // Keyboard (owner, 2026-10-12): a tap outside a box closes it,
+        // and a "Bitti" bar sits above the number pad, which has no
+        // return key on iOS.
+        builder: (context, child) => KeyboardDoneBar(child: child!),
       ),
     ),
   );
