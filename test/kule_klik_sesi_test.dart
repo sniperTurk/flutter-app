@@ -6,6 +6,7 @@
 // "Kuleleri sıfırla", the Pro → Hedef auto-set) stay silent. The turret
 // values move exactly as before. A fake sound service counts the clicks;
 // no real audio plays in tests. Report: docs/reports/kule_klik_sesi.md.
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
