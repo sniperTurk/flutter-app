@@ -142,7 +142,10 @@ Yalnız gerçekten koşan ve sonucunu gördüğüm işler:
   commit'i `d7993f2` dala eklendi.
   https://github.com/sniperTurk/flutter-app/actions/runs/38699344445
 - Bölme commit'i (`b3a054b`, biçimsiz) üzerinde: analyze run 38698275528
-  başarılı, tüm testler run 38698278287 başarılı.
+  başarılı, tüm testler run 38698278287 başarılı. (Aynı dakikalarda başka bir
+  görev de bu iş akışlarını başlattı; bu iki koşunun bu dala ait olduğunu
+  günlükten doğrulayamadım. Aşağıdakiler, başlatır başlatmaz numarasını
+  aldığım kesin koşular.)
 - Tasarım + biçim (`d7993f2`) üzerinde: analyze run 38699526386 **başarısız**
   (biçimden sonra 4 tek satırlık `if` çok satıra bölündü, süslü parantez
   istendi) → `d553207` ile düzeltildi; tüm testler (`flutter test test`) run
