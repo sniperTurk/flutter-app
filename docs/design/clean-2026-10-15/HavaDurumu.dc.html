@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<title>Hava Durumu</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+body{margin:0;background:#0B1620;font-family:-apple-system,"SF Pro Text","Helvetica Neue",sans-serif;color:#E7EFF3}
+a{color:#4CC3E8}a:hover{color:#8ADCF2}
+.scr{width:390px;height:1980px;background:#0B1620;display:flex;flex-direction:column;position:relative}
+.top{display:flex;align-items:center;gap:8px;padding:14px 16px 12px;border-bottom:1px solid #27425A}
+.top h1{font-size:22px;font-weight:700;margin:0;flex:1}
+.pill{all:unset;height:40px;box-sizing:border-box;border:1px solid #27425A;border-radius:20px;padding:0 12px;display:flex;align-items:center;gap:6px;font-size:14px;background:#122330;color:#E7EFF3}
+.body{padding:16px 16px 100px;display:flex;flex-direction:column;gap:24px}
+.sec{display:flex;flex-direction:column;gap:10px}
+.sh{display:flex;align-items:center;gap:8px;font-size:18px;font-weight:700;margin:0}
+.card{background:#122330;border:1px solid #27425A;border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:14px}
+.row{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;align-items:end}
+.f{display:flex;flex-direction:column;gap:6px;min-width:0}
+.lab{display:flex;align-items:center;justify-content:space-between;font-size:13px;color:#9CB1C0;min-height:24px}
+.box{all:unset;height:48px;box-sizing:border-box;border:1px solid #27425A;border-radius:10px;background:#0B1620;display:flex;align-items:center;justify-content:space-between;padding:0 12px;font-size:16px;color:#E7EFF3;width:100%}
+.box input{all:unset;flex:1;min-width:0;font-size:16px;color:#E7EFF3}
+.u{font-size:13px;color:#9CB1C0;margin-left:6px}
+.i{all:unset;width:24px;height:24px;display:flex;align-items:center;justify-content:center;color:#9CB1C0;font-size:16px}
+.btn{all:unset;height:48px;box-sizing:border-box;border-radius:12px;border:1px solid #3A5A75;color:#E7EFF3;font-weight:600;font-size:15px;display:flex;align-items:center;justify-content:center;gap:6px;padding:0 8px;text-align:center}
+.done{background:#1F5F7A;border-color:#2E7FA0;color:#FFFFFF}
+.meta{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;align-items:center}
+.date{font-size:13px;color:#9CB1C0;white-space:nowrap}
+.dial{position:relative;width:260px;height:260px;margin:4px auto 0;border-radius:130px;border:1px solid #27425A}
+.hr{position:absolute;width:36px;height:36px;border-radius:18px;background:#1B3245;border:1px solid #27425A;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:600;box-sizing:border-box}
+.sel{background:#E8590C;border-color:#E8590C;color:#FFFFFF}
+.t{font-size:14px;color:#E7EFF3;line-height:1.5;margin:0}
+.nav{position:absolute;left:0;right:0;bottom:0;height:76px;border-top:1px solid #27425A;background:#0E1C27;display:grid;grid-template-columns:repeat(5,minmax(0,1fr))}
+.nb{all:unset;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;font-size:11px;color:#9CB1C0}
+.on{color:#F5B031}
+</style>
+</helmet>
+<div class="scr">
+<div class="top">
+<h1>Hava Durumu</h1>
+<button class="pill">Yeni Profil<svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 6l4 4 4-4" fill="none" stroke="#9CB1C0" stroke-width="1.6" stroke-linecap="round"></path></svg></button>
+<button class="pill">Koyu</button>
+</div>
+<div class="body">
+<section class="sec">
+<h2 class="sh">Hava</h2>
+<div class="card">
+<div class="row">
+<div class="f"><div class="lab"><span>Sıcaklık</span><button class="i" aria-label="Sıcaklık bilgisi">ⓘ</button></div><label class="box"><input aria-label="Sıcaklık" value="18,4"><span class="u">°C</span></label></div>
+<div class="f"><div class="lab"><span>Bağıl nem</span><button class="i" aria-label="Bağıl nem bilgisi">ⓘ</button></div><label class="box"><input aria-label="Bağıl nem" value="62"><span class="u">%</span></label></div>
+</div>
+<button class="btn done"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" style="flex: none"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" fill="currentColor"></path></svg>Hava verisi alındı</button>
+<div class="meta"><span class="date">15.10.2026 08:40</span><button class="btn">Sıfırla</button></div>
+</div>
+</section>
+<section class="sec">
+<h2 class="sh">Basınç Ölçer<button class="i" aria-label="Basınç Ölçer hakkında">ⓘ</button></h2>
+<div class="card">
+<div class="row">
+<div class="f"><div class="lab"><span>İstasyon basıncı</span></div><label class="box"><input aria-label="İstasyon basıncı"><span class="u">hPa</span></label></div>
+<button class="btn">Basınç al</button>
+</div>
+<div class="meta"><span class="date">15.10.2026</span><button class="btn">Sıfırla</button></div>
+</div>
+</section>
+<section class="sec">
+<h2 class="sh">İrtifa<button class="i" aria-label="İrtifa hakkında">ⓘ</button></h2>
+<div class="card">
+<div class="row">
+<div class="f"><div class="lab"><span>Haritadan irtifa</span></div><label class="box"><input aria-label="Haritadan irtifa" value="122"><span class="u">m</span></label></div>
+<button class="btn done">Haritadan alındı</button>
+</div>
+<div class="row">
+<div class="f"><div class="lab"><span>Telefondan irtifa</span></div><label class="box"><input aria-label="Telefondan irtifa"><span class="u">m</span></label></div>
+<button class="btn">Telefondan</button>
+</div>
+<div class="meta"><span class="date">15.10.2026 08:41</span><button class="btn">Sıfırla</button></div>
+</div>
+</section>
+<section class="sec">
+<h2 class="sh">Rüzgâr<button class="i" aria-label="Rüzgâr tahmini nasıl yapılır?">ⓘ</button></h2>
+<div class="card">
+<div class="row">
+<div class="f"><div class="lab"><span>Rüzgâr hızı</span><button class="i" aria-label="Rüzgâr hızı bilgisi">ⓘ</button></div><label class="box"><input aria-label="Rüzgâr hızı" value="3,2"><span class="u">m/s</span></label></div>
+<div class="f"><div class="lab"><span>Rüzgâr yönü</span><button class="i" aria-label="Rüzgâr yönü bilgisi">ⓘ</button></div><label class="box"><input aria-label="Rüzgâr yönü" value="3"><span class="u">saat</span></label></div>
+</div>
+<div style="font-size: 14px; font-weight: 600">Rüzgâr yönü</div>
+<div class="dial">
+<svg width="260" height="260" viewBox="0 0 260 260" aria-hidden="true" style="position: absolute; left: 0; top: 0"><line x1="130" y1="130" x2="196" y2="130" stroke="#E8590C" stroke-width="4" stroke-linecap="round"></line><circle cx="130" cy="130" r="5" fill="#E8590C"></circle><text x="130" y="96" text-anchor="middle" font-size="11" fill="#9CB1C0">Hedef ↑</text></svg>
+<div class="hr" style="left: 112px; top: 7px">12</div>
+<div class="hr" style="left: 164px; top: 21px">1</div>
+<div class="hr" style="left: 203px; top: 59px">2</div>
+<div class="hr sel" style="left: 217px; top: 112px">3</div>
+<div class="hr" style="left: 203px; top: 165px">4</div>
+<div class="hr" style="left: 164px; top: 203px">5</div>
+<div class="hr" style="left: 112px; top: 217px">6</div>
+<div class="hr" style="left: 60px; top: 203px">7</div>
+<div class="hr" style="left: 21px; top: 165px">8</div>
+<div class="hr" style="left: 7px; top: 112px">9</div>
+<div class="hr" style="left: 21px; top: 59px">10</div>
+<div class="hr" style="left: 60px; top: 21px">11</div>
+</div>
+<div class="meta"><span style="font-size: 14px; font-weight: 600">Saat 3 yönünde</span><span class="date" style="text-align: right">15.10.2026 08:42</span></div>
+</div>
+</section>
+<button class="btn" style="background: #E7EFF3; color: #0B1620; border-color: #E7EFF3">Pro Ayarlara Geç →</button>
+<section class="sec">
+<h2 class="sh">Hava özeti</h2>
+<div class="card">
+<p class="t">Hava yoğunluğu 1,2071 kg/m³ · yoğunluk oranı 0,985 · ses hızı 342,1 m/s · namlu Mach 0,805</p>
+</div>
+</section>
+</div>
+<nav class="nav" aria-label="Sekmeler">
+<button class="nb"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M10 21h4V8l-2-5-2 5z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"></path></svg>Profil</button>
+<button class="nb on"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 9h11a3 3 0 1 0-3-3M3 14h15a3 3 0 1 1-3 3M3 19h7" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"></path></svg>Hava Durumu</button>
+<button class="nb"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 20h18M3 20L17 6M9 20a6 6 0 0 0-2-4.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"></path></svg>Pro</button>
+<button class="nb"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="7" fill="none" stroke="currentColor" stroke-width="1.6"></circle><path d="M12 2v5M12 17v5M2 12h5M17 12h5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"></path></svg>Hedef</button>
+<button class="nb"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 17h16" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"></path><circle cx="9" cy="7" r="2.2" fill="#0E1C27" stroke="currentColor" stroke-width="1.6"></circle><circle cx="15" cy="17" r="2.2" fill="#0E1C27" stroke="currentColor" stroke-width="1.6"></circle></svg>Araçlar</button>
+</nav>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":1980}}'>
+class Component extends DCLogic {
+renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

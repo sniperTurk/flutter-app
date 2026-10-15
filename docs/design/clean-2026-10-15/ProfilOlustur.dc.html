@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<title>Profil Oluştur</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+body{margin:0;background:#0B1620;font-family:-apple-system,"SF Pro Text","Helvetica Neue",sans-serif;color:#E7EFF3}
+a{color:#4CC3E8}a:hover{color:#8ADCF2}
+.scr{width:390px;height:3140px;background:#0B1620;display:flex;flex-direction:column;position:relative}
+.top{display:flex;align-items:center;gap:12px;padding:14px 16px 12px;border-bottom:1px solid #27425A}
+.top h1{font-size:22px;font-weight:700;margin:0;flex:1}
+.x{all:unset;width:44px;height:44px;display:flex;align-items:center;justify-content:center;font-size:22px;color:#E7EFF3}
+.body{padding:16px 16px 170px;display:flex;flex-direction:column;gap:24px}
+.sec{display:flex;flex-direction:column;gap:10px}
+.sh{display:flex;align-items:center;gap:8px;font-size:18px;font-weight:700;margin:0}
+.sub{display:flex;align-items:center;gap:8px;font-size:16px;font-weight:700;margin:6px 0 0}
+.opt{font-size:13px;font-weight:400;color:#9CB1C0}
+.card{background:#122330;border:1px solid #27425A;border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:14px}
+.row{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;align-items:end}
+.f{display:flex;flex-direction:column;gap:6px;min-width:0}
+.lab{display:flex;align-items:center;justify-content:space-between;font-size:13px;color:#9CB1C0;min-height:24px}
+.box{all:unset;height:48px;box-sizing:border-box;border:1px solid #27425A;border-radius:10px;background:#0B1620;display:flex;align-items:center;justify-content:space-between;padding:0 12px;font-size:16px;color:#E7EFF3;width:100%}
+.box input{all:unset;flex:1;min-width:0;font-size:16px;color:#E7EFF3}
+.ph{color:#6E8496}
+.u{font-size:13px;color:#9CB1C0;margin-left:6px}
+.i{all:unset;width:24px;height:24px;display:flex;align-items:center;justify-content:center;color:#9CB1C0;font-size:16px}
+.chev{color:#9CB1C0;font-size:14px}
+.note{font-size:14px;color:#E7EFF3}
+.bar{position:absolute;left:0;right:0;bottom:0;background:#0E1C27;border-top:1px solid #27425A;padding:10px 16px 18px;display:flex;flex-direction:column;gap:10px}
+.miss{font-size:13px;color:#FF8A80;line-height:1.4;margin:0}
+.btn{all:unset;height:48px;box-sizing:border-box;border-radius:12px;border:1px solid #3A5A75;color:#E7EFF3;font-weight:600;font-size:15px;display:flex;align-items:center;justify-content:center}
+.pri{background:#F5B031;border-color:#F5B031;color:#1B1200}
+.off{background:#3A4B5A;border-color:#3A4B5A;color:#0B1620}
+</style>
+</helmet>
+<div class="scr">
+<div class="top">
+<button class="x" aria-label="Kapat">✕</button>
+<h1>Profil Oluştur</h1>
+</div>
+<div class="body">
+<section class="sec">
+<h2 class="sh">Kimlik</h2>
+<div class="card">
+<div class="f"><div class="lab"><span>Profil adı</span></div><label class="box"><input aria-label="Profil adı"></label></div>
+<div class="row">
+<div class="f"><div class="lab"><span>Tür</span><button class="i" aria-label="Tür bilgisi">ⓘ</button></div><button class="box"><span class="ph">Seçiniz</span><span class="chev">⌄</span></button></div>
+<div class="f"><div class="lab"><span>Üretim</span><button class="i" aria-label="Üretim bilgisi">ⓘ</button></div><button class="box"><span class="ph">Seçiniz</span><span class="chev">⌄</span></button></div>
+</div>
+</div>
+</section>
+<section class="sec">
+<h2 class="sh">Tüfek</h2>
+<div class="card">
+<div class="f"><div class="lab"><span>Marka</span></div><button class="box"><span class="ph">Seçiniz</span><span class="chev">⌄</span></button></div>
+<div class="f"><div class="lab"><span>Model</span></div><button class="box"><span class="ph">Seçiniz</span><span class="chev">⌄</span></button></div>
+<a href="#" style="font-size: 15px; font-weight: 600">Aradığın tüfek listede yok mu?</a>
+<div class="f" style="position: relative; z-index: 2"><div class="lab"><span>Kalibre</span><button class="i" aria-label="Kalibre bilgisi">ⓘ</button></div><button class="box" style="border-color: #4CC3E8">6.5 Creedmoor<span class="chev">⌃</span></button>
+<ul role="listbox" aria-label="Kalibre listesi" style="position: absolute; left: 0; right: 0; top: calc(100% + 4px); margin: 0; padding: 4px 0; list-style: none; background: #1B3245; border: 1px solid #3A5A75; border-radius: 10px; box-shadow: 0 12px 28px rgba(0,0,0,.45)"><li style="height: 44px; display: flex; align-items: center; padding: 0 12px; font-size: 16px; color: #6E8496;">Seçiniz</li><li style="height: 44px; display: flex; align-items: center; padding: 0 12px; font-size: 16px;">.22 LR</li><li style="height: 44px; display: flex; align-items: center; padding: 0 12px; font-size: 16px;">.223 Remington</li><li style="height: 44px; display: flex; align-items: center; padding: 0 12px; font-size: 16px; background: #27425A;">6.5 Creedmoor</li><li style="height: 44px; display: flex; align-items: center; padding: 0 12px; font-size: 16px;">.308 Winchester</li><li style="height: 44px; display: flex; align-items: center; padding: 0 12px; font-size: 16px; border-top: 1px solid #27425A; color: #4CC3E8;">Fişeğim listede yok</li></ul></div>
+<div class="row">
+<div class="f"><div class="lab"><span>Yiv oranı</span><button class="i" aria-label="Yiv oranı bilgisi">ⓘ</button></div><label class="box"><input aria-label="Yiv oranı"><span class="u">inç</span></label></div>
+<div class="f"><div class="lab"><span>Namlu yiv yönü</span><button class="i" aria-label="Yiv yönü bilgisi">ⓘ</button></div><button class="box"><span class="ph">Seçiniz</span><span class="chev">⌄</span></button></div>
+</div>
+<div class="row">
+<div class="f"><div class="lab"><span>Sight height</span><button class="i" aria-label="Sight height bilgisi">ⓘ</button></div><label class="box"><input aria-label="Sight height"><span class="u">mm</span></label></div>
+<div class="f"><div class="lab"><span>Mesafe birimi</span><button class="i" aria-label="Mesafe birimi bilgisi">ⓘ</button></div><button class="box"><span class="ph">Seçiniz</span><span class="chev">⌄</span></button></div>
+</div>
+<div class="row">
+<div class="f"><div class="lab"><span>Sıfırlama mesafesi</span><button class="i" aria-label="Sıfırlama mesafesi bilgisi">ⓘ</button></div><label class="box"><input aria-label="Sıfırlama mesafesi"><span class="u">m</span></label></div>
+<div class="f"><div class="lab"><span>Namlu çıkış hızı</span><button class="i" aria-label="Namlu çıkış hızı bilgisi">ⓘ</button></div><label class="box"><input aria-label="Namlu çıkış hızı"><span class="u">fps</span></label></div>
+</div>
+</div>
+</section>
+<section class="sec">
+<h2 class="sh">Dürbün</h2>
+<div class="card">
+<div class="f"><div class="lab"><span>Marka</span></div><button class="box"><span class="ph">Seçiniz</span><span class="chev">⌄</span></button></div>
+<div class="row">
+<div class="f"><div class="lab"><span>Birim</span><button class="i" aria-label="Birim bilgisi">ⓘ</button></div><button class="box"><span class="ph">Seçiniz</span><span class="chev">⌄</span></button></div>
+<div class="f"><div class="lab"><span>Odak düzlemi</span><button class="i" aria-label="Odak düzlemi bilgisi">ⓘ</button></div><button class="box"><span class="ph">Seçiniz</span><span class="chev">⌄</span></button></div>
+</div>
+<div class="row">
+<div class="f"><div class="lab"><span>Tüp</span><button class="i" aria-label="Tüp bilgisi">ⓘ</button></div><button class="box"><span class="ph">Seçiniz</span><span class="chev">⌄</span></button></div>
+<div class="f"><div class="lab"><span>Büyütme</span><button class="i" aria-label="Büyütme bilgisi">ⓘ</button></div><button class="box"><span class="ph">Seçiniz</span><span class="chev">⌄</span></button></div>
+</div>
+<div class="f"><div class="lab"><span>Model</span></div><button class="box"><span class="ph">Seçiniz</span><span class="chev">⌄</span></button></div>
+<div class="row">
+<div class="f"><div class="lab"><span>Üst kule klik sayısı</span><button class="i" aria-label="Üst kule klik sayısı bilgisi">ⓘ</button></div><label class="box"><input aria-label="Üst kule klik sayısı"></label></div>
+<div class="f"><div class="lab"><span>Dürbün ayağı</span><button class="i" aria-label="Dürbün ayağı bilgisi">ⓘ</button></div><button class="box"><span class="ph">Seçiniz</span><span class="chev">⌄</span></button></div>
+</div>
+<div class="f"><div class="lab"><span>Retikül</span><button class="i" aria-label="Retikül bilgisi">ⓘ</button></div><button class="box"><span class="ph">Seçiniz</span><span class="chev">⌄</span></button></div>
+<div class="note">Dürbün: —</div>
+<a href="#" style="font-size: 15px; font-weight: 600">Aradığın dürbün listede yok mu?</a>
+</div>
+</section>
+<section class="sec">
+<h2 class="sh">Mühimmat</h2>
+<div class="card">
+<div class="row">
+<div class="f"><div class="lab"><span>Mühimmat türü</span><button class="i" aria-label="Mühimmat türü bilgisi">ⓘ</button></div><button class="box"><span class="ph">Seçiniz</span><span class="chev">⌄</span></button></div>
+<div class="f"><div class="lab"><span>Marka</span></div><button class="box"><span class="ph">Seçiniz</span><span class="chev">⌄</span></button></div>
+</div>
+<div class="f"><div class="lab"><span>Model</span></div><button class="box"><span class="ph">Seçiniz</span><span class="chev">⌄</span></button></div>
+<a href="#" style="font-size: 15px; font-weight: 600">Aradığın mühimmat listede yok mu?</a>
+<div class="row">
+<div class="f"><div class="lab"><span>Ağırlık</span><button class="i" aria-label="Ağırlık bilgisi">ⓘ</button></div><label class="box"><input aria-label="Ağırlık"><span class="u">gr</span></label></div>
+<div class="f"><div class="lab"><span>BC</span><button class="i" aria-label="BC bilgisi">ⓘ</button></div><label class="box"><input aria-label="BC"></label></div>
+</div>
+<div class="row">
+<div class="f"><div class="lab"><span>BC modeli</span><button class="i" aria-label="BC modeli bilgisi">ⓘ</button></div><button class="box"><span class="ph">Seçiniz</span><span class="chev">⌄</span></button></div>
+<div></div>
+</div>
+</div>
+</section>
+<section class="sec">
+<h2 class="sh">Ek mühimmat bilgileri <span class="opt" style="margin-left: auto">isteğe bağlı</span><button class="i" aria-label="Ek mühimmat bilgileri hakkında">ⓘ</button></h2>
+<div class="card">
+<div class="row">
+<div class="f"><div class="lab"><span>Barut katsayısı</span><button class="i" aria-label="Barut katsayısı bilgisi">ⓘ</button></div><button class="box"><span class="ph">Seçiniz</span><span class="chev">⌄</span></button></div>
+<div class="f"><div class="lab"><span>Hız ölçüm sıcaklığı</span><button class="i" aria-label="Hız ölçüm sıcaklığı bilgisi">ⓘ</button></div><button class="box"><span class="ph">Seçiniz</span><span class="chev">⌄</span></button></div>
+</div>
+<div style="font-size: 14px; font-weight: 600; margin-top: 4px">Hıza göre BC</div>
+<div class="row">
+<div class="f"><div class="lab"><span>1. eşik hızı</span><button class="i" aria-label="1. eşik hızı bilgisi">ⓘ</button></div><label class="box"><input aria-label="1. eşik hızı"><span class="u">fps</span></label></div>
+<div class="f"><div class="lab"><span>Eşik altı BC</span><button class="i" aria-label="Eşik altı BC bilgisi">ⓘ</button></div><label class="box"><input aria-label="1. eşik altı BC"></label></div>
+</div>
+<div class="row">
+<div class="f"><div class="lab"><span>2. eşik hızı</span><button class="i" aria-label="2. eşik hızı bilgisi">ⓘ</button></div><label class="box"><input aria-label="2. eşik hızı"><span class="u">fps</span></label></div>
+<div class="f"><div class="lab"><span>Eşik altı BC</span><button class="i" aria-label="Eşik altı BC bilgisi">ⓘ</button></div><label class="box"><input aria-label="2. eşik altı BC"></label></div>
+</div>
+</div>
+</section>
+</div>
+<div class="bar">
+<p class="miss">Kaydetmek için eksik: Tüfek: Marka, Model, Kalibre, Yiv oranı, Yiv yönü, Sight height, Mesafe birimi, Sıfırlama mesafesi, Namlu çıkış hızı · Mühimmat: Marka, Ağırlık, BC, BC modeli</p>
+<div style="display: grid; grid-template-columns: 1fr 2fr; gap: 12px">
+<button class="btn">İptal</button>
+<button class="btn off">Kaydet</button>
+</div>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":3140}}'>
+class Component extends DCLogic {
+renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

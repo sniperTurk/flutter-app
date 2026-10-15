@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<title>Profil</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+body{margin:0;background:#0B1620;font-family:-apple-system,"SF Pro Text","Helvetica Neue",sans-serif;color:#E7EFF3}
+a{color:#4CC3E8}a:hover{color:#8ADCF2}
+.scr{width:390px;height:1560px;background:#0B1620;display:flex;flex-direction:column;position:relative}
+.top{display:flex;align-items:center;gap:8px;padding:14px 16px 12px;border-bottom:1px solid #27425A}
+.top h1{font-size:22px;font-weight:700;margin:0;flex:1}
+.pill{all:unset;height:40px;box-sizing:border-box;border:1px solid #27425A;border-radius:20px;padding:0 12px;display:flex;align-items:center;gap:6px;font-size:14px;background:#122330;color:#E7EFF3}
+.body{padding:16px 16px 100px;display:flex;flex-direction:column;gap:24px}
+.sec{display:flex;flex-direction:column;gap:10px}
+.sh{display:flex;align-items:center;gap:8px;font-size:18px;font-weight:700;margin:0}
+.card{background:#122330;border:1px solid #27425A;border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:14px}
+.kv{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px 12px}
+.k{font-size:13px;color:#9CB1C0}
+.v{font-size:17px;font-weight:600;margin-top:2px}
+.v small{font-size:13px;font-weight:400;color:#9CB1C0;margin-left:3px}
+.full{grid-column:1 / span 2}
+.btn{all:unset;height:48px;box-sizing:border-box;border-radius:12px;border:1px solid #3A5A75;color:#E7EFF3;font-weight:600;font-size:15px;display:flex;align-items:center;justify-content:center;gap:8px;padding:0 14px}
+.pri{background:#F5B031;border-color:#F5B031;color:#1B1200}
+.t{font-size:13px;color:#9CB1C0;line-height:1.45;margin:0}
+.lr{display:flex;align-items:center;gap:12px;background:#122330;border:1px solid #27425A;border-radius:14px;padding:0 4px 0 16px;height:56px}
+.act{border:2px solid #E7EFF3}
+.dot{width:12px;height:12px;border-radius:6px;background:#1B3245}
+.more{all:unset;width:44px;height:44px;display:flex;align-items:center;justify-content:center;font-size:22px;color:#E7EFF3}
+.nav{position:absolute;left:0;right:0;bottom:0;height:76px;border-top:1px solid #27425A;background:#0E1C27;display:grid;grid-template-columns:repeat(5,minmax(0,1fr))}
+.nb{all:unset;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;font-size:11px;color:#9CB1C0}
+.on{color:#F5B031}
+</style>
+</helmet>
+<div class="scr">
+<div class="top">
+<h1>Sniper Türk</h1>
+<button class="pill">Yeni Profil<svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 6l4 4 4-4" fill="none" stroke="#9CB1C0" stroke-width="1.6" stroke-linecap="round"></path></svg></button>
+<button class="pill">Koyu</button>
+</div>
+<div class="body">
+<section class="sec">
+<h2 class="sh">Tüfek</h2>
+<div class="card">
+<div class="kv">
+<div class="full"><div class="k">Marka · Model</div><div class="v">Hatsan Hercules</div></div>
+<div class="full"><div class="k">Kalibre</div><div class="v">6,35<small>mm (.25)</small></div></div>
+<div><div class="k">Yiv oranı</div><div class="v">1:16<small>inç</small></div></div>
+<div><div class="k">Yiv yönü</div><div class="v">Sağ</div></div>
+<div><div class="k">Sight height</div><div class="v">60<small>mm</small></div></div>
+<div><div class="k">Mesafe birimi</div><div class="v">Metre</div></div>
+<div><div class="k">Sıfırlama mesafesi</div><div class="v">25<small>m</small></div></div>
+<div><div class="k">Namlu çıkış hızı</div><div class="v">900<small>fps</small></div></div>
+</div>
+</div>
+</section>
+<section class="sec">
+<h2 class="sh">Dürbün</h2>
+<div class="card">
+<div class="kv">
+<div class="full"><div class="k">Marka · Model</div><div class="v">Element Optics Titan 5-25x56 FFP MOA</div></div>
+<div><div class="k">Retikül</div><div class="v">APR-2D MOA</div></div>
+<div><div class="k">Dürbün ayağı</div><div class="v">0<small>MOA</small></div></div>
+<div><div class="k">Üst kule klik sayısı</div><div class="v">360<small>klik</small></div></div>
+</div>
+</div>
+</section>
+<section class="sec">
+<h2 class="sh">Mühimmat</h2>
+<div class="card">
+<div class="kv">
+<div class="full"><div class="k">Marka · Model</div><div class="v">Özel yapım</div></div>
+<div><div class="k">Tip</div><div class="v">Slug</div></div>
+<div><div class="k">Ağırlık</div><div class="v">33,95<small>gr</small></div></div>
+<div><div class="k">BC</div><div class="v">0,08</div></div>
+<div><div class="k">BC modeli</div><div class="v">G1</div></div>
+</div>
+<p class="t">Katalog değerleri bilgi amaçlıdır. Mühimmatın BC ve G1/G7 modeli varsa Atış hesabı sürüklenme çözücüsünü kullanır; yoksa vakum temel hesap çalışır ve bu ekranda belirtilir.</p>
+</div>
+</section>
+<button class="btn" style="background: #E7EFF3; color: #0B1620; border-color: #E7EFF3">Hava Durumu'na geç →</button>
+<section class="sec">
+<div style="display: flex; align-items: center; justify-content: space-between">
+<div><h2 class="sh">Profiller</h2><div class="k" style="margin-top: 2px">2 kayıtlı profil</div></div>
+<button class="btn pri">+ Profil ekle</button>
+</div>
+<div class="lr act"><span class="dot" style="background: #F5B031"></span><span style="flex: 1; font-size: 16px; font-weight: 600">Yeni Profil <span style="color: #F5B031; font-size: 13px; margin-left: 6px">Aktif</span></span><button class="more" aria-label="Profil menüsü">⋯</button></div>
+<div class="lr"><span class="dot"></span><span style="flex: 1; font-size: 16px; font-weight: 600">.22 Tavşan</span><button class="more" aria-label="Profil menüsü">⋯</button></div>
+</section>
+</div>
+<nav class="nav" aria-label="Sekmeler">
+<button class="nb on"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M10 21h4V8l-2-5-2 5z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"></path></svg>Profil</button>
+<button class="nb"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 9h11a3 3 0 1 0-3-3M3 14h15a3 3 0 1 1-3 3M3 19h7" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"></path></svg>Hava Durumu</button>
+<button class="nb"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 20h18M3 20L17 6M9 20a6 6 0 0 0-2-4.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"></path></svg>Pro</button>
+<button class="nb"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="7" fill="none" stroke="currentColor" stroke-width="1.6"></circle><path d="M12 2v5M12 17v5M2 12h5M17 12h5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"></path></svg>Hedef</button>
+<button class="nb"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 17h16" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"></path><circle cx="9" cy="7" r="2.2" fill="#0E1C27" stroke="currentColor" stroke-width="1.6"></circle><circle cx="15" cy="17" r="2.2" fill="#0E1C27" stroke="currentColor" stroke-width="1.6"></circle></svg>Araçlar</button>
+</nav>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":1560}}'>
+class Component extends DCLogic {
+renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

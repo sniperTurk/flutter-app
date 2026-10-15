@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<title>Araçlar</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+body{margin:0;background:#0B1620;font-family:-apple-system,"SF Pro Text","Helvetica Neue",sans-serif;color:#E7EFF3}
+a{color:#4CC3E8}a:hover{color:#8ADCF2}
+.scr{width:390px;height:1560px;background:#0B1620;display:flex;flex-direction:column;position:relative}
+.top{display:flex;align-items:center;gap:8px;padding:14px 16px 12px;border-bottom:1px solid #27425A}
+.top h1{font-size:22px;font-weight:700;margin:0;flex:1}
+.pill{all:unset;height:40px;box-sizing:border-box;border:1px solid #27425A;border-radius:20px;padding:0 12px;display:flex;align-items:center;gap:6px;font-size:14px;background:#122330;color:#E7EFF3}
+.body{padding:16px 16px 100px;display:flex;flex-direction:column;gap:8px}
+.tile{all:unset;box-sizing:border-box;width:100%;min-height:76px;background:#122330;border:1px solid #27425A;border-radius:14px;padding:12px 12px 12px 14px;display:flex;align-items:center;gap:14px}
+.ic{width:40px;height:40px;border-radius:10px;background:#1B3245;color:#E7EFF3;display:flex;align-items:center;justify-content:center;flex:none}
+.tx{flex:1;min-width:0;text-align:left}
+.n{font-size:17px;font-weight:700}
+.d{font-size:13px;color:#9CB1C0;margin-top:2px;line-height:1.35}
+.ar{color:#9CB1C0;font-size:18px}
+.nav{position:absolute;left:0;right:0;bottom:0;height:76px;border-top:1px solid #27425A;background:#0E1C27;display:grid;grid-template-columns:repeat(5,minmax(0,1fr))}
+.nb{all:unset;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;font-size:11px;color:#9CB1C0}
+.on{color:#F5B031}
+</style>
+</helmet>
+<div class="scr">
+<div class="top">
+<h1>Araçlar</h1>
+<button class="pill">Yeni Profil<svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 6l4 4 4-4" fill="none" stroke="#9CB1C0" stroke-width="1.6" stroke-linecap="round"></path></svg></button>
+<button class="pill">Koyu</button>
+</div>
+<div class="body">
+<button class="tile"><span class="ic"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12M20 18h0" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path></svg></span><span class="tx"><span class="n">Hız Doğrulama</span><span class="d" style="display: block">Sahada gözlenen düşüşle namlu hızı doğrulama; profile aktarım</span></span><span class="ar">›</span></button>
+<button class="tile"><span class="ic"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 16a8 8 0 1 1 16 0M12 16l4-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path></svg></span><span class="tx"><span class="n">Kronograf</span><span class="d" style="display: block">Hız serisi: ortalama, SD, ES; profile ve WEZ'e aktarım</span></span><span class="ar">›</span></button>
+<button class="tile"><span class="ic"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v18M8 7l4-4 4 4M8 17l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path></svg></span><span class="tx"><span class="n">Sight Height</span><span class="d" style="display: block">Dürbün eksen yüksekliği: fiziksel ölçüm veya yan fotoğraf</span></span><span class="ar">›</span></button>
+<button class="tile"><span class="ic"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6l6-2 6 2 6-2v14l-6 2-6-2-6 2zM9 4v14M15 6v14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"></path></svg></span><span class="tx"><span class="n">Haritadan mesafe</span><span class="d" style="display: block">Uydu haritasında nişancı ve hedef konumu, mesafe ve yön</span></span><span class="ar">›</span></button>
+<button class="tile"><span class="ic"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 9h11a3 3 0 1 0-3-3M3 14h15a3 3 0 1 1-3 3" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path></svg></span><span class="tx"><span class="n">Hava &amp; Rüzgâr</span><span class="d" style="display: block">Konuma göre servis verisi: rüzgâr, sıcaklık, nem, basınç</span></span><span class="ar">›</span></button>
+<button class="tile"><span class="ic"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.8"></circle><path d="M15 9l-2 5-4 1 2-5z" fill="currentColor"></path></svg></span><span class="tx"><span class="n">Pusula</span><span class="d" style="display: block">360° kadran, derece ve yön</span></span><span class="ar">›</span></button>
+<button class="tile"><span class="ic"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="8" width="18" height="8" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"></rect><circle cx="12" cy="12" r="2" fill="currentColor"></circle></svg></span><span class="tx"><span class="n">Su Terazisi</span><span class="d" style="display: block">Dairesel gösterge, X/Y eğim</span></span><span class="ar">›</span></button>
+<button class="tile"><span class="ic"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="1.8"></circle><circle cx="12" cy="12" r="3" fill="none" stroke="currentColor" stroke-width="1.8"></circle></svg></span><span class="tx"><span class="n">İsabet Olasılığı</span><span class="d" style="display: block">Grup ve hedef çapından tek atış isabet yüzdesi</span></span><span class="ar">›</span></button>
+<button class="tile"><span class="ic"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="6" width="16" height="12" rx="3" fill="none" stroke="currentColor" stroke-width="1.8"></rect><circle cx="12" cy="12" r="2.5" fill="none" stroke="currentColor" stroke-width="1.8"></circle></svg></span><span class="tx"><span class="n">Paralaks Mesafesi</span><span class="d" style="display: block">Paralaks tekerleği işaretinden mesafe; işaret kaydı</span></span><span class="ar">›</span></button>
+<button class="tile"><span class="ic"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 17c4-8 14-8 18 0" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path></svg></span><span class="tx"><span class="n">Avcı Sıfırı</span><span class="d" style="display: block">Hedef bölgede kalan en uzun menzil ve sıfır mesafesi</span></span><span class="ar">›</span></button>
+<button class="tile"><span class="ic"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="3" width="14" height="18" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"></rect><path d="M8 7h8M8 12h2M12 12h2M8 16h2M12 16h2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path></svg></span><span class="tx"><span class="n">Hesaplayıcılar</span><span class="d" style="display: block">Mesafe, MOA, tık doğrulama, BC, hava laboratuvarı, birim dönüştürücüler</span></span><span class="ar">›</span></button>
+<button class="tile"><span class="ic"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7l2 2 4-4M4 15l2 2 4-4M13 7h7M13 15h7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path></svg></span><span class="tx"><span class="n">Atış Öncesi Kontrol</span><span class="d" style="display: block">Profil, kule birimi ve turu, paralaks, su terazisi, büyütme</span></span><span class="ar">›</span></button>
+<button class="tile"><span class="ic"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h16v16H4zM4 12h16M12 4v16" fill="none" stroke="currentColor" stroke-width="1.6"></path></svg></span><span class="tx"><span class="n">Sıfır Grubu</span><span class="d" style="display: block">Vuruşları işaretle: grup merkezi, σ, gereken atış</span></span><span class="ar">›</span></button>
+<button class="tile"><span class="ic"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h10l3 3v15H6zM9 9h7M9 13h7M9 17h4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"></path></svg></span><span class="tx"><span class="n">Atış Günlüğü</span><span class="d" style="display: block">Oturum kaydı ve soğuk namlu ilk atış kaçıklığı</span></span><span class="ar">›</span></button>
+<button class="tile"><span class="ic"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h6a2 2 0 0 1 2 2v13a2 2 0 0 0-2-2H4zM20 5h-6a2 2 0 0 0-2 2v13a2 2 0 0 1 2-2h6z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"></path></svg></span><span class="tx"><span class="n">Kullanım rehberi</span><span class="d" style="display: block">Profil, sıfırlama, hava, Hedef, Pro ve Tablo kısaca</span></span><span class="ar">›</span></button>
+</div>
+<nav class="nav" aria-label="Sekmeler">
+<button class="nb"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M10 21h4V8l-2-5-2 5z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"></path></svg>Profil</button>
+<button class="nb"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 9h11a3 3 0 1 0-3-3M3 14h15a3 3 0 1 1-3 3M3 19h7" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"></path></svg>Hava Durumu</button>
+<button class="nb"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 20h18M3 20L17 6M9 20a6 6 0 0 0-2-4.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"></path></svg>Pro</button>
+<button class="nb"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="7" fill="none" stroke="currentColor" stroke-width="1.6"></circle><path d="M12 2v5M12 17v5M2 12h5M17 12h5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"></path></svg>Hedef</button>
+<button class="nb on"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 17h16" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"></path><circle cx="9" cy="7" r="2.2" fill="#0E1C27" stroke="currentColor" stroke-width="1.6"></circle><circle cx="15" cy="17" r="2.2" fill="#0E1C27" stroke="currentColor" stroke-width="1.6"></circle></svg>Araçlar</button>
+</nav>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":1560}}'>
+class Component extends DCLogic {
+renderVals() { return {}; }
+}
+</script>
+</body>
+</html>
