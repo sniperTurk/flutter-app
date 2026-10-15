@@ -49,7 +49,7 @@ Future<void> _openSideTurret(
           child: c!,
         ),
       ),
-      home: Scaffold(
+      home: const Scaffold(
         body: BallisticsScreen(profile: _profile, view: BallisticsView.shot),
       ),
     ),
