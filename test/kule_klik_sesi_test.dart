@@ -65,9 +65,7 @@ Future<_FakeClickSound> _open(
 }) async {
   final fake = _FakeClickSound();
   TurretClickSound.instance = fake;
-  addTearDown(
-    () => TurretClickSound.instance = const SilentTurretClickSound(),
-  );
+  addTearDown(() => TurretClickSound.instance = const SilentTurretClickSound());
   tester.view.physicalSize = const Size(430, 2400) * 3;
   tester.view.devicePixelRatio = 3;
   addTearDown(tester.view.reset);
@@ -96,22 +94,25 @@ Future<void> _tap(WidgetTester tester, String tooltip) async {
 
 /// Starts a drag on [drum] and moves it past the touch slop; the drum
 /// counts its steps from there (its carry resets on drag start).
-Future<TestGesture> _grab(
-  WidgetTester tester,
-  Finder drum,
-  Axis axis,
-) async {
+Future<TestGesture> _grab(WidgetTester tester, Finder drum, Axis axis) async {
   await tester.ensureVisible(drum);
   await tester.pumpAndSettle();
   final g = await tester.startGesture(tester.getCenter(drum));
-  await g.moveBy(axis == Axis.horizontal
-      ? const Offset(kTouchSlop + 2, 0)
-      : const Offset(0, kTouchSlop + 2));
+  await g.moveBy(
+    axis == Axis.horizontal
+        ? const Offset(kTouchSlop + 2, 0)
+        : const Offset(0, kTouchSlop + 2),
+  );
   await tester.pump();
   return g;
 }
 
-Future<void> _move(TestGesture g, WidgetTester tester, Axis axis, double d) async {
+Future<void> _move(
+  TestGesture g,
+  WidgetTester tester,
+  Axis axis,
+  double d,
+) async {
   await g.moveBy(axis == Axis.horizontal ? Offset(d, 0) : Offset(0, d));
   await tester.pump();
 }
