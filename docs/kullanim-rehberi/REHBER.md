@@ -14,7 +14,7 @@ Hesap bir tahmindir. Uzak mesafeye geçmeden önce sonuçları atış alanında 
 
 ## İlk profil
 
-1. Profil sayfasında "Profil oluştur"a dokun. Sonraki profiller için "Yeni profil" kullanılır.
+1. Profil sayfasında "Profil oluştur"a dokun. Sonraki profiller için Profiller listesinin başındaki "Profil ekle" kullanılır.
 
 2. Profil adını yaz ve Tür seç: Ateşli Tüfek ya da PCP Tüfek. Tür değişirse mühimmat seçimi silinir.
 
