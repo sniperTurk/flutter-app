@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import '../../core/production_limits.dart';
 import '../../core/reticle.dart';
 import '../../core/scope_dial.dart';
+import '../../core/units.dart';
 import '../../models/domain.dart';
 import '../../ui/menzil_theme.dart';
 import '../../ui/menzil_widgets.dart';

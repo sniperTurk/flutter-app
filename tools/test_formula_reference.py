@@ -174,8 +174,17 @@ class SpinDriftSourceContract(unittest.TestCase):
             self.assertIn(piece, self.src)
 
     def test_litz_spin_drift_and_jump(self):
-        self.assertIn("1.25 * (st.sg + 1.2) * math.pow(shot.timeOfFlightS, 1.83)", self.src)
-        self.assertIn("0.01 * st.sg - 0.0024 * st.lCal + 0.032", self.src)
+        # Formüller core'a (2026-10-15): the Litz fits moved to
+        # lib/core/stability.dart; the screen calls them with the shot's
+        # Sg, length in calibres, flight time and range.
+        core = re.sub(r"\s+", " ", STABILITY.read_text(encoding="utf-8"))
+        self.assertIn("1.25 * (sg + 1.2) * math.pow(timeOfFlightS, 1.83)", core)
+        self.assertIn("0.01 * sg - 0.0024 * lCal + 0.032", core)
+        for piece in [
+            "Stability.spinDriftMrad( sg: st.sg, timeOfFlightS: shot.timeOfFlightS, rangeM: _shotRangeM,",
+            "Stability.aeroJumpMrad( sg: st.sg, lCal: st.lCal, windMps: env.windMps, windDirectionDeg: env.windDirectionDeg,",
+        ]:
+            self.assertIn(piece, self.src)
 
     def test_reference_values_for_the_report(self):
         # .308 175 gr, 1.240 in, 1:10 twist, 2600 fps, 59 °F, 29.92 inHg.
