@@ -618,7 +618,7 @@ void main() {
       );
       // Expected: the original still flies with its own BC 0,1.
       expect(_solverInputs(savedOriginal)['bc'], closeTo(0.1, 1e-9));
-    }, skip: true); // PRF-2: copy and original share manual_ammo_pcp
+    }); // PRF-2 fixed in #313: un-skipped (CLAUDE.md).
   });
 
   group('PRF-3: profile unit differs from the old scope unit', () {

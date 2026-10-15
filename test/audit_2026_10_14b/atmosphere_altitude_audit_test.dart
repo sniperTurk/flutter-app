@@ -401,7 +401,7 @@ void main() {
         // No DOPE oluştur: the automatic solve must already use 1500 m.
         expect(_density(tester), closeTo(_rho1500, _rhoTol));
       },
-      skip: true, // ATM-1: shows 1,2211 (standard atmosphere) until re-solved
+      // ATM-1 fixed in #312: un-skipped (CLAUDE.md).
     );
 
     testWidgets(
@@ -411,7 +411,7 @@ void main() {
         await _open(tester, _Rig(), BallisticsView.shot);
         expect(find.byKey(_note), findsOneWidget);
       },
-      skip: true, // ATM-1: the first solve ran before the İrtifa was restored
+      // ATM-1 fixed in #312: un-skipped (CLAUDE.md).
     );
   });
 

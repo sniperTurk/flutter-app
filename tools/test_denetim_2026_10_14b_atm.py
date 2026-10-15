@@ -265,11 +265,9 @@ class CodePathGuards(unittest.TestCase):
         src = SETTINGS.read_text(encoding="utf-8")
         self.assertIn("bool loadMetric() => true;", src)
 
-    @unittest.expectedFailure
     def test_atm1_saved_weather_is_solved_after_it_is_restored(self):
-        # ATM-1: _loadShotSettings puts the saved Hava Durumu back after the
-        # first automatic solve and never solves again. Remove the decorator
-        # once a solve follows the restore.
+        # ATM-1 (fixed in #312, decorator removed per CLAUDE.md): a solve
+        # follows the restore of the saved Hava Durumu in _loadShotSettings.
         body = _method(self.src, "Future<void> _loadShotSettings() async {")
         self.assertRegex(body, r"_quietSolve\(\)|solve\(\)")
 

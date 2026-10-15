@@ -266,12 +266,18 @@ class RepositoryFacts(unittest.TestCase):
         self.assertIn("_halfTravelClicks(click, s.windageRangeMrad) ?? _unknownTravelClicks", balli)
 
     def test_prf2_copy_and_editor_reuse_record_ids(self):
+        # PRF-2 fixed in #313: this test documented the bug (the copy reused
+        # the original's record ids; the editor overwrote a shared personal
+        # record). Flipped to the fixed state (CLAUDE.md: a fixed finding's
+        # test must pass); the Dart PRF-2 tests are the behaviour guards.
         src = SCREEN.read_text(encoding="utf-8")
         i = src.index("Future<void> _duplicate(RifleProfile p)")
         dup = src[i:i + 1500]
         for f in ("rifleId: p.rifleId", "ammunitionId: p.ammunitionId", "scopeId: p.scopeId"):
+            self.assertNotIn(f, dup)
+        for f in ("rifleId: ids.rifleId", "ammunitionId: ids.ammunitionId", "scopeId: ids.scopeId"):
             self.assertIn(f, dup)
-        self.assertEqual(src.count("existing != null && existing.userEntered"), 3)
+        self.assertEqual(src.count("existing != null && existing.userEntered"), 0)
 
     def test_prf3_scope_saved_with_profile_unit(self):
         block = self._scope_entry()
