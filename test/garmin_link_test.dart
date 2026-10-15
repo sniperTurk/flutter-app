@@ -187,9 +187,7 @@ void main() {
       expect(find.textContaining('1 saat seçili'), findsOneWidget);
     });
 
-    testWidgets('keeps the tile look: white icon on grey-blue', (
-      tester,
-    ) async {
+    testWidgets('keeps the tile look: white icon on grey-blue', (tester) async {
       await tester.pumpWidget(_host(GarminPairTile(link: _FakeGarmin(1))));
       await tester.pumpAndSettle();
       final tile = tester.widget<MenzilToolTile>(find.byType(MenzilToolTile));

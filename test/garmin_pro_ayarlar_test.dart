@@ -161,9 +161,15 @@ void main() {
         .widget<MenzilCard>(find.byKey(const Key('pro-box-rifle')))
         .margin;
     expect(tile.margin, rifleMargin);
-    expect(find.descendant(of: row, matching: find.text('Garmin saati')), findsOneWidget);
     expect(
-      find.descendant(of: row, matching: find.byKey(const Key('pro-info-garmin'))),
+      find.descendant(of: row, matching: find.text('Garmin saati')),
+      findsOneWidget,
+    );
+    expect(
+      find.descendant(
+        of: row,
+        matching: find.byKey(const Key('pro-info-garmin')),
+      ),
       findsOneWidget,
     );
     expect(
@@ -176,9 +182,7 @@ void main() {
     expect(tester.takeException(), isNull);
   });
 
-  testWidgets('the ⓘ opens the Pro bottom sheet with the text', (
-    tester,
-  ) async {
+  testWidgets('the ⓘ opens the Pro bottom sheet with the text', (tester) async {
     await _size(tester, 390);
     _bridge(0);
     await tester.pumpWidget(_app());
