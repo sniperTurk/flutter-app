@@ -118,9 +118,8 @@ Color? _fill(WidgetTester tester, Key key) => tester
     ?.backgroundColor
     ?.resolve(<WidgetState>{});
 
-String _readout(WidgetTester tester) => tester
-    .widget<Text>(find.textContaining('Kule: ').first)
-    .data!;
+String _readout(WidgetTester tester) =>
+    tester.widget<Text>(find.textContaining('Kule: ').first).data!;
 
 const _weatherBtn = Key('environment-fill-weather');
 const _pressureBtn = Key('environment-phone-pressure');
@@ -186,7 +185,10 @@ void main() {
       final turret = tester.getRect(find.byKey(ScopeDialKeys.elevationDrum));
       final toggle = tester.getRect(find.byKey(ScopeDialKeys.turretToggle));
       // The drum's zero sits over the reticle's vertical line.
-      expect(turret.center.dx, moreOrLessEquals(reticle.center.dx, epsilon: 0.5));
+      expect(
+        turret.center.dx,
+        moreOrLessEquals(reticle.center.dx, epsilon: 0.5),
+      );
       // L-R: 48 pt, 4 pt right of the turret; an empty 48 pt slot balances
       // it on the left.
       expect(toggle.width, moreOrLessEquals(48, epsilon: 0.01));
@@ -195,7 +197,9 @@ void main() {
       final rowLeft = 2 * reticle.center.dx - toggle.right;
       expect(turret.left - rowLeft, moreOrLessEquals(48 + 4, epsilon: 0.5));
       // ‹ and ›: 28 pt columns at the drum's ends, 78 pt tall.
-      final up = tester.getRect(find.byTooltip('Yükseklik kulesi 1 klik yukarı'));
+      final up = tester.getRect(
+        find.byTooltip('Yükseklik kulesi 1 klik yukarı'),
+      );
       final down = tester.getRect(
         find.byTooltip('Yükseklik kulesi 1 klik aşağı'),
       );
@@ -235,7 +239,10 @@ void main() {
           expect(box.height, moreOrLessEquals(224, epsilon: 4));
         }
         // Zero on the reticle's horizontal line, at the right edge.
-        expect(box.center.dy, moreOrLessEquals(reticle.center.dy, epsilon: 0.5));
+        expect(
+          box.center.dy,
+          moreOrLessEquals(reticle.center.dy, epsilon: 0.5),
+        );
         expect(box.right, moreOrLessEquals(reticle.right, epsilon: 0.5));
         // R up / L down, the arrows above and below the box, not in it.
         final right = find.byTooltip('Rüzgâr kulesi 1 klik sağa');
@@ -380,9 +387,10 @@ void main() {
         ),
       );
       final card = find.byKey(const Key('environment-summary-card'));
-      expect(tester.getRect(ozet).bottom, lessThanOrEqualTo(
-        tester.getRect(card).top,
-      ));
+      expect(
+        tester.getRect(ozet).bottom,
+        lessThanOrEqualTo(tester.getRect(card).top),
+      );
       expect(
         find.descendant(of: card, matching: find.text('Hava')),
         findsNothing,
@@ -488,7 +496,10 @@ void main() {
       final info = find.byKey(const Key('environment-wind-info'));
       expect(
         find.descendant(
-          of: find.ancestor(of: info, matching: find.byType(MenzilSectionHeader)),
+          of: find.ancestor(
+            of: info,
+            matching: find.byType(MenzilSectionHeader),
+          ),
           matching: find.text('Rüzgâr'),
         ),
         findsOneWidget,

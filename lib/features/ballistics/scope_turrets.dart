@@ -17,10 +17,7 @@ extension _ScopeTurretButtons on ScopeDialView {
         final rawElev = req == null
             ? null
             : ScopeDialMath.clicksFor(req, clickValue);
-        final rawWind = ScopeDialMath.clicksFor(
-          requiredRight,
-          clickValue,
-        );
+        final rawWind = ScopeDialMath.clicksFor(requiredRight, clickValue);
         final solElev = rawElev
             ?.clamp(-_downClicks, maxElevationClicks)
             .toInt();
@@ -35,8 +32,7 @@ extension _ScopeTurretButtons on ScopeDialView {
             solElev != null &&
             elevationClicks == solElev &&
             windageClicks == solWind;
-        final atLimit =
-            dialled && (solElev != rawElev || solWind != rawWind);
+        final atLimit = dialled && (solElev != rawElev || solWind != rawWind);
         final atZero = elevationClicks == 0 && windageClicks == 0;
         // Owner, 2026-10-11: at the zero distance the solution is 0
         // clicks, so both states would be true at once. Only the
@@ -375,9 +371,17 @@ class _TurretDrumState extends State<_TurretDrum> {
       // ‹ drum ›, 28 pt arrows 4 pt from the drum (owner, 2026-10-15).
       body = Row(
         children: [
-          step(1, AxisDirection.left, up, width: arrowWidth, height: drumHeight),
+          step(
+            1,
+            AxisDirection.left,
+            up,
+            width: arrowWidth,
+            height: drumHeight,
+          ),
           const SizedBox(width: _TurretBarState.gap),
-          Expanded(child: SizedBox(height: drumHeight, child: drum)),
+          Expanded(
+            child: SizedBox(height: drumHeight, child: drum),
+          ),
           const SizedBox(width: _TurretBarState.gap),
           step(
             -1,

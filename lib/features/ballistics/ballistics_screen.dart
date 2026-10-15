@@ -3790,7 +3790,6 @@ class _BallisticsScreenState extends State<BallisticsScreen>
     if (v0 == null) return false;
     return _pcpVelocity(v0)?.regulatorBypassed ?? false;
   }
-
 }
 
 /// Owns its controller so it is disposed only after the dialog route is gone

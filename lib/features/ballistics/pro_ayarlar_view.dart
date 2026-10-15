@@ -169,7 +169,9 @@ extension _ProAyarlarView on _BallisticsScreenState {
       zero.up != 0 || zero.right != 0,
       _spinDriftOn,
       _isFirearm && _powder.coef != null && _powder.referenceC != null,
-      _isPcp && _BallisticsScreenState._showProTubePressure && tubePressureCtl.text.trim().isNotEmpty,
+      _isPcp &&
+          _BallisticsScreenState._showProTubePressure &&
+          tubePressureCtl.text.trim().isNotEmpty,
     ].where((x) => x).length;
     return n == 0 ? 'kapalı' : '$n ayar açık';
   }
@@ -771,7 +773,8 @@ extension _ProAyarlarView on _BallisticsScreenState {
           ],
           // PCP tüp basıncı (owner, 2026-10-12): never on a firearm; hidden
           // behind PRO_TUBE_PRESSURE (owner, 2026-10-14: asked on Profil).
-          if (_isPcp && _BallisticsScreenState._showProTubePressure) ..._pcpPressureProFields(c),
+          if (_isPcp && _BallisticsScreenState._showProTubePressure)
+            ..._pcpPressureProFields(c),
         ],
       ),
       const SizedBox(height: MenzilSpace.md),
