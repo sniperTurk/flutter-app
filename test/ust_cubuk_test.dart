@@ -89,7 +89,14 @@ void main() {
   testWidgets('profil düğmesi ad + kalibre gösterir, 44 pt, sağda', (
     tester,
   ) async {
-    await _pumpHome(tester, profiles: [_profile('p1', 'Bir')], activeId: 'p1');
+    // The test font draws every letter as a wide square, so a wide screen
+    // leaves room for the whole text (320 pt is covered below).
+    await _pumpHome(
+      tester,
+      profiles: [_profile('p1', 'Bir')],
+      activeId: 'p1',
+      width: 600,
+    );
     expect(_inButton(find.text('Bir')), findsOneWidget);
     expect(_inButton(find.text('6,35 mm')), findsOneWidget);
     expect(_inButton(find.byIcon(Icons.expand_more)), findsOneWidget);
@@ -99,15 +106,20 @@ void main() {
     final caliber = tester.widget<Text>(_inButton(find.text('6,35 mm')));
     expect(caliber.style?.color, MenzilColors.dark.ink2);
 
-    // A short name fits without "…".
-    final paragraph = tester.renderObject<RenderParagraph>(
-      _inButton(find.text('Bir')),
-    );
-    expect(paragraph.didExceedMaxLines, isFalse);
+    // With room, neither the name nor the caliber is shortened and the
+    // button is only as wide as its text.
+    for (final text in const ['Bir', '6,35 mm']) {
+      final paragraph = tester.renderObject<RenderParagraph>(
+        _inButton(find.text(text)),
+      );
+      expect(paragraph.didExceedMaxLines, isFalse, reason: text);
+    }
 
     final rect = tester.getRect(find.byKey(_button));
+    final slot = tester.getRect(find.byKey(const Key('top-bar-profile-slot')));
+    expect(rect.width, lessThan(slot.width));
     expect(rect.height, greaterThanOrEqualTo(44));
-    expect(390 - rect.right, moreOrLessEquals(MenzilSpace.gutter));
+    expect(600 - rect.right, moreOrLessEquals(MenzilSpace.gutter));
   });
 
   testWidgets('profil düğmesine dokununca profil değiştirici açılır', (

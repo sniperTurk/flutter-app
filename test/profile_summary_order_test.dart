@@ -86,13 +86,16 @@ void main() {
     );
     await tester.pumpAndSettle();
 
-    // Top bar: "Sniper Türk" on the left; the selector is short.
+    // Top bar: "Sniper Türk" on the left; the profile button (name +
+    // caliber, owner 2026-10-15) stays inside its slot on the right.
     expect(find.byKey(const Key('top-bar-brand')), findsOneWidget);
     expect(find.text('Sniper Türk'), findsOneWidget);
-    final selector = tester.getSize(
+    final selector = tester.getRect(
       find.byType(DropdownButtonFormField<RifleProfile>),
     );
-    expect(selector.width, lessThanOrEqualTo(170));
+    final slot = tester.getRect(find.byKey(const Key('top-bar-profile-slot')));
+    expect(selector.width, lessThanOrEqualTo(slot.width + 0.01));
+    expect(selector.right, moreOrLessEquals(slot.right));
 
     // Three cards (owner, 2026-10-13): Tüfek, Dürbün and Mühimmat
     // bilgileri, each led by marka and model on one line.
