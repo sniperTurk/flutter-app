@@ -29,6 +29,9 @@ dependencies:
   file_selector: ^1.0.3
   # Profiller → Yedekle: yedek dosyasını iOS paylaşım ekranına vermek.
   share_plus: ^13.3.1
+  # Hedef → kule klik sesi (owner, 2026-10-15 23:30): short asset sound,
+  # iOS ambient audio session (silent switch respected, music keeps playing).
+  audioplayers: 6.4.0
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -76,3 +79,5 @@ flutter:
     # Line logo for the welcome page (light / dark theme).
     - assets/branding/logo_line.png
     - assets/branding/logo_line_dark.png
+    # Turret click (tools/sounds/make_turret_click.py, our own sound).
+    - assets/sounds/turret_click.wav
