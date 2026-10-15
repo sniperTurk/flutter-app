@@ -70,9 +70,7 @@ Finder get _drumPaint => find.descendant(
 void main() {
   setUp(() => SharedPreferences.setMockInitialValues({}));
 
-  testWidgets('390 pt phone: the drum box is 66 × 180 pt (±1)', (
-    tester,
-  ) async {
+  testWidgets('390 pt phone: the drum box is 66 × 180 pt (±1)', (tester) async {
     await _openSideTurret(tester, const Size(390, 844));
     final box = tester.getRect(find.byKey(ScopeDialKeys.windageDrumBox));
     expect(box.width, moreOrLessEquals(66, epsilon: 1));

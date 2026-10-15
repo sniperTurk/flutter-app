@@ -639,12 +639,8 @@ abstract final class SideTurretPointer {
   /// Pointer depth (base to tip) and height, as before.
   static const double depth = 11, height = 14;
 
-  static Rect rect(Size box) => Rect.fromLTWH(
-    inset,
-    box.height / 2 - height / 2,
-    depth,
-    height,
-  );
+  static Rect rect(Size box) =>
+      Rect.fromLTWH(inset, box.height / 2 - height / 2, depth, height);
 }
 
 /// "Kuleleri sıfırla". It is shown as selected only after the user pressed
