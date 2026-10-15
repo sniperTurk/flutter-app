@@ -1429,6 +1429,10 @@ class _BallisticsScreenState extends State<BallisticsScreen>
     }
   }
 
+  /// setState for the page modules (part files): an extension may not call
+  /// the protected setState itself (module split, owner 2026-10-15).
+  void _update(VoidCallback fn) => setState(fn);
+
   /// Solve without snack bars (Atış says why when there is no value).
   void _quietSolve() {
     if (widget.profile == null) return;

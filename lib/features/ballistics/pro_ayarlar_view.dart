@@ -50,7 +50,7 @@ extension _ProAyarlarView on _BallisticsScreenState {
             child: InkWell(
               key: Key('pro-section-$id'),
               borderRadius: BorderRadius.circular(12),
-              onTap: () => setState(() {
+              onTap: () => _update(() {
                 _proOpen = open ? null : id;
               }),
               // 44 pt minimum tap target (VoiceOver / HIG).
@@ -204,7 +204,7 @@ extension _ProAyarlarView on _BallisticsScreenState {
             info: EnvironmentFieldInfo.windMax,
             onChanged: (v) {
               if (_windMaxFilled || _windMaxWasReset) {
-                setState(() => _windMaxFilled = _windMaxWasReset = false);
+                _update(() => _windMaxFilled = _windMaxWasReset = false);
               }
               _windMaxAtMs = null;
               _coriolisChanged();
@@ -280,7 +280,7 @@ extension _ProAyarlarView on _BallisticsScreenState {
                   ? '1 ile ${_displayMaxRange.toStringAsFixed(0)} '
                         '$_distanceUnit arasında olmalı.'
                   : null,
-              onChanged: (_) => setState(() {}),
+              onChanged: (_) => _update(() {}),
             ),
             if (profileResolution?.rifle.platform == WeaponPlatform.pcp)
               Row(
@@ -364,7 +364,7 @@ extension _ProAyarlarView on _BallisticsScreenState {
               keyboardType: signed,
               onChanged: (_) {
                 if (_latFilled || _latWasReset) {
-                  setState(() => _latFilled = _latWasReset = false);
+                  _update(() => _latFilled = _latWasReset = false);
                 }
                 _coriolisChanged();
               },
@@ -397,7 +397,7 @@ extension _ProAyarlarView on _BallisticsScreenState {
                   : null,
               onChanged: (_) {
                 if (_aziFilled || _aziWasReset) {
-                  setState(() => _aziFilled = _aziWasReset = false);
+                  _update(() => _aziFilled = _aziWasReset = false);
                 }
                 _coriolisChanged();
               },
@@ -461,7 +461,7 @@ extension _ProAyarlarView on _BallisticsScreenState {
                   : null,
               onChanged: (_) {
                 if (_gravFilled || _gravWasReset) {
-                  setState(() => _gravFilled = _gravWasReset = false);
+                  _update(() => _gravFilled = _gravWasReset = false);
                 }
                 _gravityChanged();
               },
@@ -620,7 +620,7 @@ extension _ProAyarlarView on _BallisticsScreenState {
                       DropdownMenuItem(value: n, child: Text('$n atış')),
                   ],
                   onChanged: (v) {
-                    setState(() {
+                    _update(() {
                       _wezShotChosen = v != null;
                       _wezShotCount = v ?? Wez.defaultShotCount;
                     });

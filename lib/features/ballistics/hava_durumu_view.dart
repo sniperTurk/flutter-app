@@ -174,7 +174,7 @@ extension _HavaDurumuView on _BallisticsScreenState {
           info: _isFirearm
               ? ProfileFieldInfo.grainFirearm
               : ProfileFieldInfo.grain,
-          onChanged: (_) => setState(() {}),
+          onChanged: (_) => _update(() {}),
         ),
         MenzilInput(
           key: BallisticsFieldKeys.zero,
@@ -221,7 +221,7 @@ extension _HavaDurumuView on _BallisticsScreenState {
                   onChanged: (_) {
                     _userEdited.add(temperature);
                     if (_weatherFilled || _weatherWasReset) {
-                      setState(() => _weatherFilled = _weatherWasReset = false);
+                      _update(() => _weatherFilled = _weatherWasReset = false);
                     }
                   },
                   info: EnvironmentFieldInfo.temperatureFor(
@@ -256,7 +256,7 @@ extension _HavaDurumuView on _BallisticsScreenState {
                   onChanged: (_) {
                     _userEdited.add(humidity);
                     if (_weatherFilled || _weatherWasReset) {
-                      setState(() => _weatherFilled = _weatherWasReset = false);
+                      _update(() => _weatherFilled = _weatherWasReset = false);
                     }
                   },
                   info: EnvironmentFieldInfo.humidity,
@@ -292,7 +292,7 @@ extension _HavaDurumuView on _BallisticsScreenState {
                 controller: pressure,
                 label: 'İstasyon basıncı',
                 // A typed value is the user's: auto fill keeps it.
-                onChanged: (_) => setState(() {
+                onChanged: (_) => _update(() {
                   _userEdited.add(pressure);
                   _pressureFilled = false;
                   _pressureWasReset = false;
@@ -365,7 +365,7 @@ extension _HavaDurumuView on _BallisticsScreenState {
                 controller: mapAltitude,
                 label: 'Haritadan irtifa',
                 // A typed value is the user's (button no longer orange).
-                onChanged: (_) => setState(() {
+                onChanged: (_) => _update(() {
                   _userEdited.add(mapAltitude);
                   _altMapAtMs = null;
                   _altitudeWasReset = false;
@@ -399,7 +399,7 @@ extension _HavaDurumuView on _BallisticsScreenState {
                 controller: altitude,
                 label: 'Telefondan irtifa',
                 // A typed value is the user's (button no longer orange).
-                onChanged: (_) => setState(() {
+                onChanged: (_) => _update(() {
                   _userEdited.add(altitude);
                   _altPhoneAtMs = null;
                   _altitudeWasReset = false;
@@ -509,7 +509,7 @@ extension _HavaDurumuView on _BallisticsScreenState {
                 // a typed Sıcaklık or Bağıl nem means the weather is no
                 // longer the fetched one.
                 if (_windObservation != null) {
-                  setState(() {
+                  _update(() {
                     _windObservation = null;
                     _windObservationToken++;
                   });
@@ -528,7 +528,7 @@ extension _HavaDurumuView on _BallisticsScreenState {
               maxLength: 2,
               // The time it was set shows under the dial (owner,
               // 2026-10-14).
-              onChanged: (_) => setState(_windDirectionSet),
+              onChanged: (_) => _update(_windDirectionSet),
               info: EnvironmentFieldInfo.windDirection,
             ),
             // Clock face: nothing pre-selected; a tapped hour fills the box.
@@ -538,7 +538,7 @@ extension _HavaDurumuView on _BallisticsScreenState {
                 dateText: _whenText(
                   _windHourValue == null ? null : _windDirAtMs,
                 ),
-                onChanged: (h) => setState(() {
+                onChanged: (h) => _update(() {
                   windHour.text = '$h';
                   _windDirectionSet();
                 }),
