@@ -214,9 +214,32 @@ void main() {
       expect(find.textContaining('Basınç okunamadı'), findsOneWidget);
     });
 
-    test('the Basınç ⓘ names the button and gives an example', () {
-      expect(EnvironmentFieldInfo.pressure, contains('Basıncı telefondan al'));
+    test('the Doğrulama Basınç ⓘ names no button and gives an example', () {
+      // ATM-3: Araçlar → Doğrulama has a typed Basınç box only; the old
+      // "Basıncı telefondan al" button is not on that page.
+      expect(
+        EnvironmentFieldInfo.pressure,
+        isNot(contains('Basıncı telefondan al')),
+      );
+      expect(EnvironmentFieldInfo.pressure, isNot(contains('düğme')));
+      expect(EnvironmentFieldInfo.pressure, contains('Hesaplayıcılar'));
       expect(EnvironmentFieldInfo.pressure, contains('Örnek'));
+    });
+
+    test('the İrtifa and Basınç Ölçer ⓘ state the empty-pressure rule', () {
+      // ATM-2: altitude only estimates pressure when İstasyon basıncı is
+      // empty.
+      expect(
+        EnvironmentFieldInfo.altitudeCard,
+        contains(
+          'İrtifa yalnız İstasyon basıncı boşken basınç tahmini için '
+          'kullanılır.',
+        ),
+      );
+      expect(
+        EnvironmentFieldInfo.barometerCard,
+        contains('Boşsa basınç İrtifa kartından tahmin edilir.'),
+      );
     });
   });
 }

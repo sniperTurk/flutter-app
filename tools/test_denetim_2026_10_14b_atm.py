@@ -280,19 +280,41 @@ class InfoTexts(unittest.TestCase):
         cls.info = INFO.read_text(encoding="utf-8")
         cls.screen = library_text(SCREEN)
 
-    def test_atm2_f1_rule_text_is_no_longer_shown(self):
-        # Documents ATM-2: the only text that explains the F1 rule is unused.
-        self.assertIn("static const altitude =", self.info)
+    def _joined(self):
+        return re.sub(r"'\s*\n\s*'", "", self.info)
+
+    def test_atm2_f1_rule_is_in_the_irtifa_and_basinc_info(self):
+        # ATM-2 fixed: the İrtifa card ⓘ and the Basınç Ölçer ⓘ state the F1
+        # rule; the unused EnvironmentFieldInfo.altitude text is deleted.
+        joined = self._joined()
+        self.assertNotIn("static const altitude =", self.info)
+        self.assertIn(
+            "İrtifa yalnız İstasyon basıncı boşken basınç tahmini için "
+            "kullanılır.",
+            _const(joined, "altitudeCard"),
+        )
+        self.assertIn(
+            "Boşsa basınç İrtifa kartından tahmin edilir.",
+            _const(joined, "barometerCard"),
+        )
         self.assertNotIn("EnvironmentFieldInfo.altitude,", self.screen)
         self.assertNotIn("EnvironmentFieldInfo.altitude)", self.screen)
 
-    def test_atm3_pressure_text_names_the_old_button(self):
-        # Documents ATM-3 (the Hava page button is "Basınç al" since #307).
+    def test_atm3_pressure_text_names_no_old_button(self):
+        # ATM-3 fixed: the Hava page button is "Basınç al" since #307 and
+        # the Doğrulama page has no button; the old name is gone.
         self.assertIn("'Basınç al'", self.screen)
         self.assertNotIn("'Basıncı telefondan al'", self.screen)
-        joined = re.sub(r"'\s*\n\s*'", "", self.info)
-        self.assertIn('"Basıncı telefondan al" düğmesi', joined)
+        pressure = _const(self._joined(), "pressure")
+        self.assertNotIn("Basıncı telefondan al", pressure)
+        self.assertNotIn("düğme", pressure)
+        self.assertIn("Araçlar > Hesaplayıcılar", pressure)
 
+
+def _const(joined, name):
+    m = re.search(r"static const " + name + r" =\s*'(.*?)';", joined, re.S)
+    assert m, name
+    return m.group(1)
 
 if __name__ == "__main__":
     unittest.main()
