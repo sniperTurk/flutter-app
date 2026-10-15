@@ -32,8 +32,9 @@ extension _RifleSection on _ProfileDialogState {
     if (platform == WeaponPlatform.firearm) {
       final c = _cartridge;
       if (c != null &&
-          _ProfileDialogState._firearmCartridges.any((e) => e.$1 == c))
+          _ProfileDialogState._firearmCartridges.any((e) => e.$1 == c)) {
         return c;
+      }
       return _ProfileDialogState._cartridgeFor(cal) ??
           'mm:${_ProfileDialogState._trimDot(cal)}';
     }
@@ -92,8 +93,9 @@ extension _RifleSection on _ProfileDialogState {
       header('#popular', 'EN ÇOK KULLANILAN');
       for (final (i, (name, d))
           in _ProfileDialogState._firearmCartridges.indexed) {
-        if (i == _ProfileDialogState._popularCount)
+        if (i == _ProfileDialogState._popularCount) {
           header('#all', 'DİĞERLERİ (A-Z)');
+        }
         add(
           name,
           // The list is as wide as the half box (owner, 2026-10-13): the
@@ -217,8 +219,9 @@ extension _RifleSection on _ProfileDialogState {
     _caliberByDiameter = false;
     rifleCaliber.text = _ProfileDialogState._trimDot(r.diameterMm);
     _cartridge = r.platform == WeaponPlatform.firearm ? r.cartridge : null;
-    if (r.twistRateIn != null)
+    if (r.twistRateIn != null) {
       rifleTwist.text = _ProfileDialogState._trimDot(r.twistRateIn!);
+    }
     if (r.twistDirection != null) twistDirection = r.twistDirection;
   }
 
@@ -504,8 +507,9 @@ extension _RifleSection on _ProfileDialogState {
                   ],
                   onChanged: (v) => _update(() {
                     final before = (rifleCaliber.text, _cartridge);
-                    if (v != null)
+                    if (v != null) {
                       rifleCaliber.text = _ProfileDialogState._trimDot(v);
+                    }
                     _keepAmmoInCaliber(before);
                   }),
                 ),
