@@ -197,19 +197,22 @@ void main() {
       },
     );
 
-    test('old profile with "ga" loads with its BC as G1 (owner, 2026-10-15)', () {
-      final a = UserCatalog.fromManualEntries([
-        _pcpAmmo(bc: 0.11, model: 'ga'),
-      ]).ammunition.single;
-      expect(a.ballisticCoefficient, 0.11);
-      expect(a.ballisticModel, BallisticModel.g1);
-      expect(a.modelWithoutBc, isNull);
-      // The rest of the saved record is unchanged.
-      expect(a.grain, 33.95);
-      expect(a.caliberMm, 6.35);
-      // No estimate replaces the saved BC.
-      expect(identical(EstimatedBc.fill(a), a), isTrue);
-    });
+    test(
+      'old profile with "ga" loads with its BC as G1 (owner, 2026-10-15)',
+      () {
+        final a = UserCatalog.fromManualEntries([
+          _pcpAmmo(bc: 0.11, model: 'ga'),
+        ]).ammunition.single;
+        expect(a.ballisticCoefficient, 0.11);
+        expect(a.ballisticModel, BallisticModel.g1);
+        expect(a.modelWithoutBc, isNull);
+        // The rest of the saved record is unchanged.
+        expect(a.grain, 33.95);
+        expect(a.caliberMm, 6.35);
+        // No estimate replaces the saved BC.
+        expect(identical(EstimatedBc.fill(a), a), isTrue);
+      },
+    );
   });
 
   group('guard: factory BC rows re-checked (#296 / #304)', () {
@@ -320,17 +323,14 @@ void main() {
   });
 
   group('MUH-2: FA007 muzzle velocity', () {
-    test(
-      'FA007 velocity is the maker page figure (1130 fps)',
-      () {
-        final a = _factory(
-          'Aguila',
-          '22 Long Rifle Standard Velocity Lead Solid Point',
-          '.22 LR',
-        );
-        expect(a.muzzleVelocityFps, 1130);
-      },
-    );
+    test('FA007 velocity is the maker page figure (1130 fps)', () {
+      final a = _factory(
+        'Aguila',
+        '22 Long Rifle Standard Velocity Lead Solid Point',
+        '.22 LR',
+      );
+      expect(a.muzzleVelocityFps, 1130);
+    });
   });
 
   group('MUH-4: FA056 velocity vs its BC source', () {
@@ -357,26 +357,25 @@ void main() {
       expect(find.byKey(const Key('ammo-bc-warning')), findsNothing);
     });
 
-    testWidgets(
-      'switching to G7 does not keep the G1 number silently',
-      (tester) async {
-        await _openNew(tester);
-        await _pickX651(tester);
-        await chooseInSelect(tester, 'ammo-bc-model', 'G7');
-        expect(selectedValue<String>(tester, 'ammo-bc-model'), 'g7');
-        final cleared = _text(tester, 'ammo-bc') != '0,324';
-        final warned = find
-            .byKey(const Key('ammo-bc-warning'))
-            .evaluate()
-            .isNotEmpty;
-        expect(cleared || warned, isTrue);
-        // X651 has no maker G7 BC: the box is emptied (owner, 2026-10-15).
-        expect(_text(tester, 'ammo-bc'), '');
-        // Back to G1: the maker's G1 BC again.
-        await chooseInSelect(tester, 'ammo-bc-model', 'G1');
-        expect(_text(tester, 'ammo-bc'), '0,324');
-      },
-    );
+    testWidgets('switching to G7 does not keep the G1 number silently', (
+      tester,
+    ) async {
+      await _openNew(tester);
+      await _pickX651(tester);
+      await chooseInSelect(tester, 'ammo-bc-model', 'G7');
+      expect(selectedValue<String>(tester, 'ammo-bc-model'), 'g7');
+      final cleared = _text(tester, 'ammo-bc') != '0,324';
+      final warned = find
+          .byKey(const Key('ammo-bc-warning'))
+          .evaluate()
+          .isNotEmpty;
+      expect(cleared || warned, isTrue);
+      // X651 has no maker G7 BC: the box is emptied (owner, 2026-10-15).
+      expect(_text(tester, 'ammo-bc'), '');
+      // Back to G1: the maker's G1 BC again.
+      await chooseInSelect(tester, 'ammo-bc-model', 'G1');
+      expect(_text(tester, 'ammo-bc'), '0,324');
+    });
 
     testWidgets('a maker G7 BC is used when the record has one (Lapua)', (
       tester,
@@ -477,28 +476,25 @@ void main() {
   group('MUH-5: BC-less factory load, BC modeli after typing a BC', () {
     // Owner, 2026-10-15: the G1 rule (2026-10-13) stays; the ⓘ now says a
     // typed BC sets G1 and to choose G7 for a maker G7 value.
-    testWidgets(
-      'typing a BC sets G1 and the ⓘ says so',
-      (tester) async {
-        await _openNew(tester);
-        await chooseInSelect(tester, 'rifle-caliber', '.223 Rem');
-        await chooseInSelect(tester, 'ammo-source', 'Fabrika fişeği');
-        await chooseInSelect(tester, 'ammo-brand-select', 'Black Hills');
-        await chooseInSelect(
-          tester,
-          'ammo-model-select',
-          'Black Hills 52 gr Match HP',
-        );
-        expect(selectedValue<String>(tester, 'ammo-bc-model'), isNull);
-        final info = tester
-            .widget<MenzilInput>(find.byKey(const Key('ammo-bc')))
-            .info!;
-        expect(info, contains('kendiliğinden G1'));
-        expect(info, contains('G7'));
-        expect(info, isNot(contains('BC modelini de seçin')));
-        await enterRifleField(tester, 'ammo-bc', '0,25');
-        expect(selectedValue<String>(tester, 'ammo-bc-model'), 'g1');
-      },
-    );
+    testWidgets('typing a BC sets G1 and the ⓘ says so', (tester) async {
+      await _openNew(tester);
+      await chooseInSelect(tester, 'rifle-caliber', '.223 Rem');
+      await chooseInSelect(tester, 'ammo-source', 'Fabrika fişeği');
+      await chooseInSelect(tester, 'ammo-brand-select', 'Black Hills');
+      await chooseInSelect(
+        tester,
+        'ammo-model-select',
+        'Black Hills 52 gr Match HP',
+      );
+      expect(selectedValue<String>(tester, 'ammo-bc-model'), isNull);
+      final info = tester
+          .widget<MenzilInput>(find.byKey(const Key('ammo-bc')))
+          .info!;
+      expect(info, contains('kendiliğinden G1'));
+      expect(info, contains('G7'));
+      expect(info, isNot(contains('BC modelini de seçin')));
+      await enterRifleField(tester, 'ammo-bc', '0,25');
+      expect(selectedValue<String>(tester, 'ammo-bc-model'), 'g1');
+    });
   });
 }
