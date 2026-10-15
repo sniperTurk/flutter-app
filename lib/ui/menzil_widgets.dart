@@ -143,9 +143,10 @@ class MenzilStateMessage extends StatelessWidget {
 /// active-profile selector and the theme button (right). The app is metric
 /// only since V380, so there is no unit button.
 class MenzilTopBar extends StatelessWidget implements PreferredSizeWidget {
+  /// Active-profile button at the right end (owner, 2026-10-15: "üst
+  /// çubuk: solda sayfa başlığı, sağda aktif profil düğmesi"). The theme
+  /// button is gone; the app always uses the dark theme.
   final Widget profileSelector;
-  final String themeLabel;
-  final VoidCallback? onThemeTap;
 
   /// Page title shown instead of the "Sniper Türk" brand (Hava Durumu, Pro, Hedef, …).
   final String? title;
@@ -168,8 +169,6 @@ class MenzilTopBar extends StatelessWidget implements PreferredSizeWidget {
   const MenzilTopBar({
     super.key,
     required this.profileSelector,
-    required this.themeLabel,
-    this.onThemeTap,
     this.title,
     this.slotTitles = const [],
   });
@@ -283,17 +282,17 @@ class MenzilTopBar extends StatelessWidget implements PreferredSizeWidget {
                           ),
                         ),
                         const SizedBox(width: MenzilSpace.md),
+                        // The profile button sits at the right end and is
+                        // only as wide as its text; the slot keeps the same
+                        // place on every tab.
                         Expanded(
                           child: KeyedSubtree(
                             key: const Key('top-bar-profile-slot'),
-                            child: profileSelector,
+                            child: Align(
+                              alignment: Alignment.centerRight,
+                              child: profileSelector,
+                            ),
                           ),
-                        ),
-                        const SizedBox(width: MenzilSpace.sm),
-                        MenzilBarButton(
-                          label: themeLabel,
-                          tooltip: 'Tema',
-                          onPressed: onThemeTap,
                         ),
                       ],
                     ),
@@ -337,63 +336,6 @@ class MenzilBrand extends StatelessWidget {
             key: const Key('top-bar-brand'),
             maxLines: 1,
             style: style(c.ink),
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-/// Small square-ish button used in the top bar (unit system, theme).
-class MenzilBarButton extends StatelessWidget {
-  final String label;
-  final String tooltip;
-  final VoidCallback? onPressed;
-
-  const MenzilBarButton({
-    super.key,
-    required this.label,
-    required this.tooltip,
-    this.onPressed,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    final c = MenzilColors.of(context);
-    return Tooltip(
-      message: tooltip,
-      child: Semantics(
-        container: true,
-        button: true,
-        label: '$tooltip: $label',
-        child: ExcludeSemantics(
-          child: Material(
-            color: c.surface,
-            // Same height and rounding as the profile box beside it, with
-            // room above the bar's bottom line (owner, 2026-10-12).
-            shape: StadiumBorder(side: BorderSide(color: c.line)),
-            child: InkWell(
-              customBorder: const StadiumBorder(),
-              onTap: onPressed,
-              child: ConstrainedBox(
-                constraints: const BoxConstraints(minWidth: 44, minHeight: 44),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 14),
-                  child: Center(
-                    widthFactor: 1,
-                    heightFactor: 1,
-                    child: Text(
-                      label,
-                      style: TextStyle(
-                        fontSize: 13,
-                        fontWeight: FontWeight.w700,
-                        color: c.ink,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ),
           ),
         ),
       ),
