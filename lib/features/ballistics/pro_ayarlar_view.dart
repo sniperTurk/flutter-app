@@ -162,13 +162,14 @@ extension _ProAyarlarView on _BallisticsScreenState {
     return on.isEmpty ? 'kapalı' : on.join(' · ');
   }
 
+  /// Counts only what is entered in this box's own fields (owner,
+  /// 2026-10-15): spin drift has no switch any more and the powder values
+  /// come from Profil > Mühimmat, so neither is counted here.
   String _summaryRifle() {
     final zero = _zeroOffsetMrad;
     final n = [
       turretScaleCtl.text.trim().isNotEmpty,
       zero.up != 0 || zero.right != 0,
-      _spinDriftOn,
-      _isFirearm && _powder.coef != null && _powder.referenceC != null,
       _isPcp &&
           _BallisticsScreenState._showProTubePressure &&
           tubePressureCtl.text.trim().isNotEmpty,
