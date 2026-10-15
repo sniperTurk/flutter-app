@@ -69,10 +69,14 @@ Apple'ın 44 pt en küçük dokunma boyutu (HDF-2). Sahip görünüşün değiş
   - Format: https://github.com/sniperTurk/flutter-app/actions/runs/38799190118 — başarılı, değişiklik yok.
   - Tüm testler (`test`): https://github.com/sniperTurk/flutter-app/actions/runs/38799204798 — başarılı.
   - Analyze: https://github.com/sniperTurk/flutter-app/actions/runs/38799208633 — başarılı.
-- PR kontrolleri (`verify`, `dart-checks`, `wind-acceptance`): PR açıklamasında güncellenir.
+- PR #349 kontrolleri, head `7e3a243` (iOS CI run https://github.com/sniperTurk/flutter-app/actions/runs/38800714752): `verify` başarılı, `dart-checks` başarılı, `wind-acceptance` başarılı (`ios-simulator` atlandı, iş akışı böyle).
+- Code Review ve Security review PR'da çalıştı: bulgu yok (https://github.com/sniperTurk/flutter-app/pull/349#issuecomment-6201444577).
 
-## Ekran görüntüleri
-Sim-screens iş akışı main (önce) ve bu dal (sonra) için çalıştırıldı; sonuç ve görüntüler PR açıklamasında.
+## Ekran görüntüleri (iPhone Simulator)
+- Önce (main): https://github.com/sniperTurk/flutter-app/blob/74e9910f1997319eb1559e4f95040f29ee82d786/latest/41_hedef_atis.png (run https://github.com/sniperTurk/flutter-app/actions/runs/38799030266)
+- Sonra (bu dal): https://github.com/sniperTurk/flutter-app/blob/7bf6896bea6ce23416e9f3cb2db4420d212d7304/latest/41_hedef_atis.png (run https://github.com/sniperTurk/flutter-app/actions/runs/38799039827; commit başlığında görünen `9104632` iş akışının kendi sha'sı, derlenen kod bu dal)
+- Kule kartı + retikül bölgesi iki görüntüde piksel piksel aynı (fark yok) — oklar görünüşte değişmedi.
+- Simulator 402 pt genişlikte (390 değil). Tur yan kuleyi açmıyor: tur `pro_tup_basinci` adımında düşüyor (main'de de aynı, bu PR'dan değil), bu yüzden Pro → Hedef otomatik kurma ve yan kule görüntüsü yok. Yan kulenin hizası widget testleriyle ölçüldü.
 
 ---
 🤖 Generated with [Claude Code](https://claude.com/claude-code)
