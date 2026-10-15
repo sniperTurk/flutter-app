@@ -2,6 +2,7 @@
 // yiv yönü, Yiv oranı). Regülatör basıncı and Namlu uzunluğu are not asked.
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:sniper_turk/models/domain.dart';
 import 'package:sniper_turk/ui/menzil_widgets.dart';
 
 Future<void> enterRifleField(
@@ -40,6 +41,10 @@ Future<void> fillRifleForm(
   if (caliber.contains(' mm (') &&
       find.byKey(const Key('profile-platform')).evaluate().isNotEmpty) {
     await chooseInSelect(tester, 'profile-platform', 'PCP Tüfek');
+  } else if (find.byKey(const Key('profile-platform')).evaluate().isNotEmpty &&
+      selectedValue<WeaponPlatform>(tester, 'profile-platform') == null) {
+    // Tür starts on "Seçiniz" and is required to save (owner, 2026-10-15).
+    await chooseInSelect(tester, 'profile-platform', 'Ateşli Tüfek');
   }
   // Marka / Model come from the lists; typed names open from the link
   // "Aradığın tüfek listede yok mu?" (owner, 2026-10-11, 2026-10-14).
