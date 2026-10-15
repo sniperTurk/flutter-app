@@ -85,6 +85,7 @@ Yerel:
 | dart format (tek seferlik), son | başarılı; değişiklik yok | https://github.com/sniperTurk/flutter-app/actions/runs/38777320738 |
 | `flutter test test` (bütün testler), son (`f065527`) | başarılı | https://github.com/sniperTurk/flutter-app/actions/runs/38777453446 |
 | analyze, son (`f065527`) | başarılı | https://github.com/sniperTurk/flutter-app/actions/runs/38777457041 |
+| PR #333 iOS CI (`59c15e8`): verify, dart-checks, wind-acceptance | başarılı (ios-simulator atlandı) | https://github.com/sniperTurk/flutter-app/actions/runs/38778794506 |
 
 TestFlight, Simulator ve App Store çalıştırılmadı.
 
