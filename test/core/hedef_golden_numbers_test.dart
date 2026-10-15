@@ -209,9 +209,7 @@ void main() {
   for (final s in _samples) {
     testWidgets('Hedef numbers unchanged: ${s.name}', (tester) async {
       SharedPreferences.setMockInitialValues({
-        ShotSettingsStore.keyFor(s.profile.id): jsonEncode(
-          s.settings.toJson(),
-        ),
+        ShotSettingsStore.keyFor(s.profile.id): jsonEncode(s.settings.toJson()),
       });
       CatalogRepository.installUserCatalog(
         UserCatalog.fromManualEntries([s.rifle, s.ammo]),

@@ -1298,7 +1298,11 @@ class _EnergyState extends State<EnergyScreen> {
             columns: 2,
             metrics: [
               MenzilMetric('Gereken hız', _d(need, 1), 'm/s'),
-              MenzilMetric('Gereken hız', _d(UnitSystem.mpsToFps(need), 0), 'fps'),
+              MenzilMetric(
+                'Gereken hız',
+                _d(UnitSystem.mpsToFps(need), 0),
+                'fps',
+              ),
             ],
           ),
         ],

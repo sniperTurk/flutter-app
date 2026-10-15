@@ -9,6 +9,9 @@ abstract final class MovingTarget {
       speedMps * timeOfFlightS;
 
   /// [leadM] as an angle at [rangeM], in mrad (atan(lead / range) · 1000).
-  static double leadMrad(double speedMps, double timeOfFlightS, double rangeM) =>
-      Units.linearToMrad(leadM(speedMps, timeOfFlightS), rangeM);
+  static double leadMrad(
+    double speedMps,
+    double timeOfFlightS,
+    double rangeM,
+  ) => Units.linearToMrad(leadM(speedMps, timeOfFlightS), rangeM);
 }

@@ -109,7 +109,8 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     final out = <double>[];
     final all = [for (final (_, d) in Cartridges.firearm) d]..sort();
     for (final d in all) {
-      if (seen.add(UnitSystem.millimetersToInches(d).toStringAsFixed(3))) out.add(d);
+      if (seen.add(UnitSystem.millimetersToInches(d).toStringAsFixed(3)))
+        out.add(d);
     }
     return out;
   }();

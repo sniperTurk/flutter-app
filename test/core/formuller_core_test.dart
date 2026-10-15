@@ -69,7 +69,10 @@ void main() {
       expect(Units.inchesToMeters(1), 0.0254);
       expect(Units.inchesToMeters(4), closeTo(0.1016, 1e-15));
       // 0,0254 · 39,3700787 = 0,99999999898 (the rounded display factor).
-      expect(Units.metersToInchesDisplay(0.0254), closeTo(0.99999999898, 1e-12));
+      expect(
+        Units.metersToInchesDisplay(0.0254),
+        closeTo(0.99999999898, 1e-12),
+      );
     });
 
     test('bit-identical to the old inline expressions', () {
@@ -214,10 +217,7 @@ void main() {
       }
       for (final len in [5.0, 25.5, 31.0, 35.0]) {
         for (final cal in [4.5, 5.7, 6.71, 7.62, 8.59]) {
-          expect(
-            Stability.lengthCalibers(len, cal),
-            len / 25.4 / (cal / 25.4),
-          );
+          expect(Stability.lengthCalibers(len, cal), len / 25.4 / (cal / 25.4));
         }
       }
     });
