@@ -50,15 +50,18 @@ const _imperialLines = [
 const _weatherButton = Key('environment-fill-weather');
 const _proButton = Key('environment-continue-pro');
 const _link = Key('wind-guide-link');
+// Owner, 2026-10-15: the Rüzgâr heading's ⓘ opens the guide; the link is
+// hidden behind WIND_GUIDE_LINK.
+const _windInfo = Key('environment-wind-info');
 const _title = Key('wind-guide-title');
 const _close = Key('wind-guide-close');
 
 Finder _line(int i) => find.byKey(Key('wind-guide-line-$i'));
 
 Future<void> _openGuide(WidgetTester tester) async {
-  await tester.ensureVisible(find.byKey(_link));
+  await tester.ensureVisible(find.byKey(_windInfo));
   await tester.pumpAndSettle();
-  await tester.tap(find.byKey(_link));
+  await tester.tap(find.byKey(_windInfo));
   await tester.pumpAndSettle();
 }
 
@@ -135,32 +138,56 @@ void main() {
     expect(WindGuide.lines(metric: false), _imperialLines);
   });
 
-  testWidgets('only the link sits between the Rüzgâr card and Pro', (
+  testWidgets('the Rüzgâr ⓘ holds the guide; the link is hidden', (
     tester,
   ) async {
     await _screen(tester);
     // Hidden by default (WIND_OBSERVATION).
     expect(find.text('Rüzgâr gözlemi'), findsNothing);
-    // No inline guide any more: only the link.
+    // No inline guide and no link (WIND_GUIDE_LINK, owner 2026-10-15).
     expect(find.byKey(_title), findsNothing);
     expect(_line(0), findsNothing);
-    expect(find.text('Rüzgâr tahmini nasıl yapılır?'), findsOneWidget);
+    expect(find.byKey(_link), findsNothing);
+    expect(find.text('Rüzgâr tahmini nasıl yapılır?'), findsNothing);
+    // The link text is kept for the flag and the ⓘ's VoiceOver label.
+    expect(WindGuide.linkLabel, 'Rüzgâr tahmini nasıl yapılır?');
 
+    // The ⓘ sits in the Rüzgâr heading, above the Rüzgâr card.
+    final info = find.byKey(_windInfo);
+    expect(info, findsOneWidget);
+    expect(
+      find.ancestor(of: info, matching: find.byType(MenzilSectionHeader)),
+      findsOneWidget,
+    );
+    expect(
+      find.descendant(
+        of: find.ancestor(of: info, matching: find.byType(MenzilSectionHeader)),
+        matching: find.text('Rüzgâr'),
+      ),
+      findsOneWidget,
+    );
+    expect(find.byTooltip(WindGuide.linkLabel), findsOneWidget);
     final windCard = find
         .ancestor(
           of: find.byKey(BallisticsFieldKeys.wind),
           matching: find.byType(MenzilCard),
         )
         .first;
-    final cardRect = tester.getRect(windCard);
-    final linkRect = tester.getRect(find.byKey(_link));
-    final proRect = tester.getRect(find.byKey(_proButton));
-    expect(linkRect.top, greaterThanOrEqualTo(cardRect.bottom));
-    expect(linkRect.bottom, lessThanOrEqualTo(proRect.top));
-    expect(linkRect.height, greaterThanOrEqualTo(44));
+    expect(
+      tester.getRect(info).bottom,
+      lessThanOrEqualTo(tester.getRect(windCard).top),
+    );
+    // Nothing between the Rüzgâr card and Pro Ayarlara Geç any more.
+    expect(
+      tester.getRect(find.byKey(_proButton)).top,
+      greaterThanOrEqualTo(tester.getRect(windCard).bottom),
+    );
+    final size = tester.getSize(info);
+    expect(size.width, greaterThanOrEqualTo(44));
+    expect(size.height, greaterThanOrEqualTo(44));
   });
 
-  testWidgets('the link opens the popup with 6 lines; Kapat closes it', (
+  testWidgets('the Rüzgâr ⓘ opens the popup with 6 lines; Kapat closes it', (
     tester,
   ) async {
     await _screen(tester);

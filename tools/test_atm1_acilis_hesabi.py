@@ -11,6 +11,7 @@ from __future__ import annotations
 import re
 import unittest
 from pathlib import Path
+from dart_library_source import library_text
 
 ROOT = Path(__file__).resolve().parents[1]
 SCREEN = ROOT / "lib/features/ballistics/ballistics_screen.dart"
@@ -35,7 +36,7 @@ def _method(src: str, signature: str) -> str:
 class Atm1(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        cls.src = SCREEN.read_text(encoding="utf-8")
+        cls.src = library_text(SCREEN)
         cls.body = _method(cls.src, "Future<void> _loadShotSettings() async {")
 
     def test_atm1_saved_weather_is_solved_after_it_is_restored(self):

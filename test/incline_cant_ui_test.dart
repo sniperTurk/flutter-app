@@ -93,7 +93,7 @@ Future<_Workspace> _pumpShot(WidgetTester tester, TestTilt tilt) async {
 String _impact(WidgetTester tester) =>
     tester.widget<Text>(find.byKey(ScopeDialKeys.impactText)).data!;
 
-/// Taps "Çözümü kulelere kur" and returns the "Kule: …" readout.
+/// Taps "Kuleleri kur" and returns the "Kule: …" readout.
 Future<String> _dialSolution(WidgetTester tester) async {
   final button = find.byKey(ScopeDialKeys.dialSolution);
   await tester.ensureVisible(button);
@@ -252,6 +252,10 @@ void main() {
     await ws.show(BallisticsView.shot);
     final inclined = _impact(tester);
     expect(inclined, isNot(level));
+    // "Hesap dökümü" is closed by default (owner, 2026-10-15): open it.
+    await tester.ensureVisible(find.byKey(ScopeDialKeys.workingsToggle));
+    await tester.tap(find.byKey(ScopeDialKeys.workingsToggle));
+    await tester.pumpAndSettle();
     expect(find.textContaining('Tüfek eğimi ∠-35°'), findsOneWidget);
   });
 

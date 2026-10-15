@@ -32,6 +32,10 @@ class WindClockPicker extends StatelessWidget {
   static ValueKey<String> hourKey(int h) => ValueKey('wind-clock-$h');
 
   /// Shown in the Rüzgâr yönü ⓘ (no helper text under fields).
+  /// The selected hour and its arrow (owner, 2026-10-15): orange #E8590C
+  /// stays only here, whatever colour the "…alındı" buttons take.
+  static const Color orange = MenzilColors.stateOrange;
+
   static const instruction =
       'Rüzgâr hangi yönden geliyorsa kadranda o saate dokunun; değer Rüzgâr '
       'yönü kutusuna girilir. Hedef saat 12 yönünde.';
@@ -82,15 +86,15 @@ class WindClockPicker extends StatelessWidget {
                           child: ExcludeSemantics(
                             child: Material(
                               key: hourKey(i),
-                              // The same orange as the "…alındı" buttons
-                              // (owner, 2026-10-14).
+                              // Orange #E8590C stays only on the wind clock
+                              // (owner, 2026-10-15).
                               color: i == h
-                                  ? MenzilColors.stateOrange
+                                  ? WindClockPicker.orange
                                   : c.surface2,
                               shape: CircleBorder(
                                 side: BorderSide(
                                   color: i == h
-                                      ? MenzilColors.stateOrange
+                                      ? WindClockPicker.orange
                                       : c.line,
                                 ),
                               ),
@@ -202,7 +206,7 @@ class _ClockPainter extends CustomPainter {
     final tail = center + dir * (r - 30);
     final tip = center + dir * 16;
     final arrow = Paint()
-      ..color = MenzilColors.stateOrange
+      ..color = WindClockPicker.orange
       ..strokeWidth = 4
       ..strokeCap = StrokeCap.round;
     canvas.drawLine(tail, tip, arrow);
@@ -214,7 +218,7 @@ class _ClockPainter extends CustomPainter {
       ..lineTo(left.dx, left.dy)
       ..lineTo(right.dx, right.dy)
       ..close();
-    canvas.drawPath(head, Paint()..color = MenzilColors.stateOrange);
+    canvas.drawPath(head, Paint()..color = WindClockPicker.orange);
   }
 
   @override

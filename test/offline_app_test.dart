@@ -212,7 +212,7 @@ void main() {
 
     // Hedef: the shot is solved on the device.
     await _tapKey(tester, 'pro-continue-shot');
-    expect(_title(tester), 'Atış Çözümü');
+    expect(_title(tester), 'Hedef');
     expect(find.byKey(ScopeDialKeys.impactText), findsOneWidget);
     expect(find.textContaining('klik'), findsWidgets);
 

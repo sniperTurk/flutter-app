@@ -7,6 +7,7 @@ import re
 import sys
 import unittest
 from pathlib import Path
+from dart_library_source import library_text
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
@@ -103,7 +104,7 @@ class SpinDriftWiring(unittest.TestCase):
     def test_pellet_excluded_and_only_pro_length_used(self):
         # Owner, 2026-10-13 23:32: the Profil length fallback (#264) was
         # withdrawn; Sg / spin drift read only the Pro "Mermi uzunluğu" box.
-        src = re.sub(r"\s+", " ", SCREEN.read_text(encoding="utf-8"))
+        src = re.sub(r"\s+", " ", library_text(SCREEN))
         self.assertIn("if (ammunition?.type == AmmunitionType.pellet) return null;", src)
         self.assertIn("final v = _parsed(bulletLengthCtl);", src)
         self.assertNotIn("ammunition?.lengthMm", src)

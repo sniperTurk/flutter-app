@@ -108,7 +108,7 @@ void main() {
         tester.widget<MenzilSecondaryButton>(find.byKey(k)).label;
     bool active(Key k) =>
         tester.widget<MenzilSecondaryButton>(find.byKey(k)).active;
-    expect(label(ScopeDialKeys.dialSolution), 'Çözümü kulelere kur');
+    expect(label(ScopeDialKeys.dialSolution), 'Kuleleri kur');
     // Owner, 2026-10-11: a freshly opened page has neither button selected.
     expect(label(ScopeDialKeys.reset), 'Kuleleri sıfırla');
     expect(active(ScopeDialKeys.reset), isFalse);
@@ -124,7 +124,7 @@ void main() {
 
     await tester.tap(find.byKey(ScopeDialKeys.reset));
     await tester.pumpAndSettle();
-    expect(label(ScopeDialKeys.dialSolution), 'Çözümü kulelere kur');
+    expect(label(ScopeDialKeys.dialSolution), 'Kuleleri kur');
     expect(active(ScopeDialKeys.dialSolution), isFalse);
     expect(label(ScopeDialKeys.reset), 'Kuleler sıfırlandı');
   });
@@ -135,7 +135,7 @@ void main() {
     await tester.tap(find.byKey(ScopeDialKeys.dialSolution));
     await tester.pumpAndSettle();
 
-    // "Çözümü kulelere kur" already slid the windage turret open.
+    // "Kuleleri kur" already slid the windage turret open.
     expect(find.byKey(const ValueKey('windage-open')), findsOneWidget);
     await tester.tap(find.byTooltip('Rüzgâr kulesi 1 klik sağa'));
     await tester.pumpAndSettle();
@@ -205,6 +205,10 @@ void main() {
       contains('MOA)'),
     );
     expect(find.byKey(ScopeDialKeys.workings), findsOneWidget);
+    // "Hesap dökümü" opens on tap (closed by default, owner 2026-10-15).
+    await tester.ensureVisible(find.byKey(ScopeDialKeys.workingsToggle));
+    await tester.tap(find.byKey(ScopeDialKeys.workingsToggle));
+    await tester.pumpAndSettle();
     expect(find.textContaining('/ 0,25 ='), findsOneWidget);
   });
 
@@ -241,6 +245,10 @@ void main() {
       ),
     );
     await tester.pumpWidget(view(12));
+    // "Hesap dökümü" is closed by default (owner, 2026-10-15): open it.
+    await tester.ensureVisible(find.byKey(ScopeDialKeys.workingsToggle));
+    await tester.tap(find.byKey(ScopeDialKeys.workingsToggle));
+    await tester.pumpAndSettle();
     expect(
       find.textContaining('1 çizgi = 24 / 12 = 2,000 MRAD'),
       findsOneWidget,
