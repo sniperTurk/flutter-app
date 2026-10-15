@@ -181,10 +181,10 @@ void main() {
       expect(g.selects, 1);
     });
 
-    testWidgets('shows how many watches are shared', (tester) async {
+    testWidgets('shows the chosen count, not connected', (tester) async {
       await tester.pumpWidget(_host(GarminPairTile(link: _FakeGarmin(1))));
       await tester.pumpAndSettle();
-      expect(find.textContaining('1 saat bağlı'), findsOneWidget);
+      expect(find.textContaining('1 saat seçili'), findsOneWidget);
     });
 
     testWidgets('uses the Araçlar tile look: white icon on grey-blue', (
@@ -212,7 +212,7 @@ void main() {
       expect(find.textContaining('Saat seçilmedi'), findsOneWidget);
       g.changes.add(2);
       await tester.pumpAndSettle();
-      expect(find.textContaining('2 saat bağlı'), findsOneWidget);
+      expect(find.textContaining('2 saat seçili'), findsOneWidget);
       expect(find.textContaining('Saat seçilmedi'), findsNothing);
     });
 

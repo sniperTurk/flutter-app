@@ -39,6 +39,11 @@ static NSString *const kURLScheme = @"sniperturk-ciq";
 // garmin/manifest.xml içindeki uygulama kimliği (tireli biçim).
 static NSString *const kWatchAppUUID = @"4dde1aef-12b6-4a15-b5a6-209c2c5944b0";
 static NSString *const kDevicesFileName = @"sniperturk-garmin-devices";
+// `selectDevice` zamanı (NSUserDefaults). Garmin Connect dönüşü yalnızca bu
+// süre içinde kabul edilir; istenmemiş `sniperturk-ciq://` adresi saat
+// listesini silemez ve Bluetooth iznini sordurmaz.
+static NSString *const kSelectionRequestedAtKey = @"sniperturk.garmin.selectionRequestedAt";
+static const NSTimeInterval kSelectionWindowSeconds = 15 * 60;
 
 @interface SniperTurkGarminBridge () <IQDeviceEventDelegate, IQAppMessageDelegate,
                                       FlutterStreamHandler>
@@ -113,6 +118,11 @@ static NSString *const kDevicesFileName = @"sniperturk-garmin-devices";
     }
     result(@([self publish:call.arguments]));
   } else if ([call.method isEqualToString:@"selectDevice"]) {
+    // Yalnızca bizim istediğimiz seçimin dönüşü kabul edilir (handleURL).
+    // Kalıcı: Garmin Connect açıkken uygulama kapanırsa soğuk açılış da bilir.
+    [[NSUserDefaults standardUserDefaults]
+        setDouble:[NSDate date].timeIntervalSince1970
+           forKey:kSelectionRequestedAtKey];
     [self ensureStarted];
     [[ConnectIQ sharedInstance] showConnectIQDeviceSelection];
     result(@YES);
@@ -231,6 +241,15 @@ static NSString *const kDevicesFileName = @"sniperturk-garmin-devices";
   if (![url.scheme.lowercaseString isEqualToString:kURLScheme]) {
     return NO;
   }
+  // İstenmemiş adres (başka uygulama veya bağlantı): saat listesi değişmez,
+  // SDK ve Bluetooth izni başlatılmaz. İstek bir kez kullanılır.
+  NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+  NSTimeInterval requestedAt = [defaults doubleForKey:kSelectionRequestedAtKey];
+  NSTimeInterval age = [NSDate date].timeIntervalSince1970 - requestedAt;
+  if (requestedAt <= 0 || age < 0 || age > kSelectionWindowSeconds) {
+    return YES;
+  }
+  [defaults removeObjectForKey:kSelectionRequestedAtKey];
   // Ayrıştırmadan önce SDK başlatılmış olmalı.
   [self ensureStarted];
   NSArray *selected = [[ConnectIQ sharedInstance] parseDeviceSelectionResponseFromURL:url];

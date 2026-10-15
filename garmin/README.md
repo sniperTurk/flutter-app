@@ -66,7 +66,10 @@ sabit commit; SDK'yı indirmek Garmin lisansını kabul etmektir).
   uygulamayı geri açınca sorulur. Garmin kullanmayan hiç sorulmaz.
 - Garmin Connect dönüşü uygulama kapalıyken de (soğuk açılış, UIScene veya
   klasik iskelet) işlenir. Seçili saat sayısı `sniper_turk/garmin/devices`
-  olay kanalıyla Araçlar'daki satıra hemen yansır.
+  olay kanalıyla Araçlar'daki satıra hemen yansır. Yalnızca "Garmin saati"
+  satırına dokunduktan sonraki 15 dakika içinde gelen dönüş kabul edilir;
+  başka bir uygulamanın açtığı `sniperturk-ciq://` adresi saat listesini
+  değiştirmez.
 - `publish` YES: çözüm en az bir bağlı saate gönderilmek üzere verildi
   (ulaştı demek değil). Mesaj geçicidir (`isTransient`), saatte birikmez;
   `ok` saate 1/0 sayı olarak gider.

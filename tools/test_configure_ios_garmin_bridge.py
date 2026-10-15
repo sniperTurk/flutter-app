@@ -117,6 +117,23 @@ class GarminBridgeTests(unittest.TestCase):
         self.assertIn("isEqualToString:kURLScheme]) {\n    return NO;", handle)
         self.assertIn("if (selected == nil) {\n    return YES;", handle)
 
+    def test_unsolicited_url_cannot_replace_the_saved_watches(self):
+        # Security review (2026-10-15): another app or a link could open
+        # sniperturk-ciq:// and wipe the saved list (and trigger the
+        # Bluetooth prompt). Only a reply to our own selectDevice, within the
+        # window, is parsed; the request is used once.
+        source = (ROOT / "garmin/ios_runner/SniperTurkGarminBridge.m").read_text(encoding="utf-8")
+        select = source[source.index('isEqualToString:@"selectDevice"]'):]
+        select = select[: select.index("result(@YES);")]
+        self.assertIn("forKey:kSelectionRequestedAtKey]", select)
+        handle = source[source.index("- (BOOL)handleURL:(NSURL *)url {"):]
+        handle = handle[: handle.index("\n}\n")]
+        guard = handle.index("age > kSelectionWindowSeconds")
+        self.assertLess(guard, handle.index("[self ensureStarted];"))
+        self.assertLess(guard, handle.index("removeAllObjects"))
+        self.assertIn("removeObjectForKey:kSelectionRequestedAtKey]", handle)
+        self.assertIn("kSelectionWindowSeconds = 15 * 60;", source)
+
     def test_ok_goes_to_the_watch_as_1_or_0_and_the_watch_accepts_both(self):
         source = (ROOT / "garmin/ios_runner/SniperTurkGarminBridge.m").read_text(encoding="utf-8")
         # Phone: a CFBoolean `ok` becomes NSNumber 1/0; other values pass.

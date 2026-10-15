@@ -73,7 +73,7 @@ class _GarminPairTileState extends State<GarminPairTile>
       title: 'Garmin saati',
       subtitle: n == 0
           ? 'Saat seçilmedi: Garmin Connect\'te saatinizi seçin'
-          : '$n saat bağlı; değiştirmek için dokunun',
+          : '$n saat seçili; değiştirmek için dokunun',
       onTap: () => _link.selectDevice(),
     );
   }
