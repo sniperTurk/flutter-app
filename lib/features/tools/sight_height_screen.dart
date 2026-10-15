@@ -1460,7 +1460,6 @@ class _MarkPageState extends State<_MarkPage> {
             child: MenzilPrimaryButton(
               key: const Key('sight-mark-compute'),
               label: 'Hesapla',
-              icon: Icons.calculate_outlined,
               onPressed: _marks.length == 3 ? _finish : null,
             ),
           ),

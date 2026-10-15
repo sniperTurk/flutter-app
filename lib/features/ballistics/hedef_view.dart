@@ -16,7 +16,9 @@ extension _HedefView on _BallisticsScreenState {
     );
   }
 
-  Widget _referenceShotPanel(TrajectoryPoint? shot) {
+  /// [dial] is `_scopeDial(shot)`, built once per frame (it publishes to
+  /// the watch and arms the auto-dial) and shared with the result row.
+  Widget _referenceShotPanel(TrajectoryPoint? shot, Widget dial) {
     // "Atış Çözümü" is the page title in the top bar (owner, 2026-10-08);
     // the Yukarı/Aşağı and Rüzgâr boxes were removed: the scope below shows
     // the clicks and the point of impact.
@@ -24,7 +26,7 @@ extension _HedefView on _BallisticsScreenState {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          _scopeDial(shot),
+          dial,
           ..._extraShotNotes(shot),
           // Ö9: an approved cold-bore suggestion, shown only (not dialled).
           if (widget.profile != null)
@@ -38,6 +40,7 @@ extension _HedefView on _BallisticsScreenState {
     final c = MenzilColors.of(context);
     final shot = _shotPoint();
     final display = _shotDisplay;
+    final dial = _scopeDial(shot);
     // The shot range may be anything up to the production limit; it is not
     // tied to the last range of the DOPE table (that made the dial stop at
     // the default table's 400 m).
@@ -148,6 +151,21 @@ extension _HedefView on _BallisticsScreenState {
           );
         },
       ),
+      // Sonuç en üstte (owner, 2026-10-15 12:50): the required turret
+      // solution, big, right under the slider and above the reticle card.
+      // Same numbers as "Kuleleri kur" (the scope view's requiredUp /
+      // requiredRight); nothing is computed here.
+      if (dial is ScopeDialView && dial.requiredUp != null)
+        Padding(
+          padding: const EdgeInsets.only(top: MenzilSpace.xs),
+          child: TurretSolutionRow(
+            requiredUp: dial.requiredUp!,
+            requiredRight: dial.requiredRight,
+            clickValue: dial.clickValue,
+            unit: dial.unit,
+            windCalm: (_basis?.environment.windMps ?? 0) == 0,
+          ),
+        ),
       const SizedBox(height: MenzilSpace.sm),
       if (_pcpRegulatorBypassed)
         const Padding(
@@ -188,7 +206,7 @@ extension _HedefView on _BallisticsScreenState {
       // gives both.
       Padding(
         padding: const EdgeInsets.only(bottom: MenzilSpace.md),
-        child: _referenceShotPanel(shot),
+        child: _referenceShotPanel(shot, dial),
       ),
       if (_basis != null)
         Padding(

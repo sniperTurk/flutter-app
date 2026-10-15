@@ -266,7 +266,9 @@ void main() {
       );
     });
 
-    test('#195: an old GA record loses its BC and gets the estimated G1', () {
+    // MUH-3 (owner, 2026-10-15): an old GA record now keeps its BC as G1
+    // (before: the BC was dropped and the estimated G1 used).
+    test('#195: an old GA record keeps its BC as G1', () {
       final catalog = UserCatalog.fromManualEntries([
         {
           'id': 'manual_ammo_ga',
@@ -282,11 +284,11 @@ void main() {
         },
       ]);
       final a = catalog.ammunition.single;
-      expect(a.ballisticCoefficient, isNull);
-      expect(a.ballisticModel, isNull);
+      expect(a.ballisticCoefficient, 0.03);
+      expect(a.ballisticModel, BallisticModel.g1);
       final filled = EstimatedBc.fill(a);
       expect(filled.ballisticModel, BallisticModel.g1);
-      expect(filled.ballisticCoefficient, closeTo(0.027, 0.0005));
+      expect(filled.ballisticCoefficient, 0.03);
       expect([
         for (final m in BallisticModel.values) m.name,
       ], isNot(contains('ga')));

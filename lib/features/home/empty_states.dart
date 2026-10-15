@@ -38,7 +38,6 @@ class _EmptyActions extends StatelessWidget {
   Widget build(BuildContext context) => MenzilPrimaryButton(
     key: EmptyStateKeys.create,
     label: createLabel,
-    icon: Icons.add,
     amber: true,
     onPressed: onCreate,
   );
