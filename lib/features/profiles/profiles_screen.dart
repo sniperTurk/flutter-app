@@ -543,18 +543,9 @@ class _ProfilesScreenState extends State<ProfilesScreen> {
     }
     return MenzilPage(
       children: [
-        // The app opens here: the profile in use comes first, with the next
-        // step one tap away; the list for switching or managing follows.
-        if (selected != null) ...[
-          _ActiveProfileDetails(
-            profile: selected,
-            onEdit: () => _edit(selected),
-            onContinue: widget.embedded ? widget.onContinue : null,
-          ),
-          const SizedBox(height: MenzilSpace.lg),
-        ],
-        // "Profiller" left, Profil ekle right on the same row (owner,
-        // 2026-10-14 17:39, mockup B); the button row under the list is gone.
+        // The Profiller list is the top of the page (owner, 2026-10-15
+        // 12:49 "profilleri yukarı al"): "Profiller" left, Profil ekle right
+        // (amber, text only: no icon, no "+"); no "N kayıtlı profil" line.
         Padding(
           key: const Key('profiles-list-header'),
           padding: const EdgeInsets.only(bottom: MenzilSpace.sm),
@@ -563,9 +554,6 @@ class _ProfilesScreenState extends State<ProfilesScreen> {
               Expanded(
                 child: MenzilSectionHeader(
                   'Profiller',
-                  subtitle: items.isEmpty
-                      ? null
-                      : '${items.length} kayıtlı profil',
                   padding: EdgeInsets.zero,
                 ),
               ),
@@ -575,12 +563,8 @@ class _ProfilesScreenState extends State<ProfilesScreen> {
                 child: MenzilPrimaryButton(
                   key: const Key('profiles-add'),
                   label: 'Profil ekle',
-                  icon: Icons.add,
                   amber: true,
                   oneLine: true,
-                  // + one character right, label right after it (owner,
-                  // 2026-10-14).
-                  iconLead: 8,
                   onPressed: _add,
                 ),
               ),
@@ -619,6 +603,7 @@ class _ProfilesScreenState extends State<ProfilesScreen> {
               },
               child: _ProfileRow(
                 profile: p,
+                summary: profileListSummary(p),
                 active: p.id == widget.activeProfileId,
                 onTap: widget.embedded && widget.onActivate != null
                     ? () => widget.onActivate!(p)
@@ -669,6 +654,16 @@ class _ProfilesScreenState extends State<ProfilesScreen> {
             ],
           ),
         ],
+        // The active profile's Tüfek / Dürbün / Mühimmat summaries follow
+        // the list, with the next step one tap away.
+        if (selected != null) ...[
+          const SizedBox(height: MenzilSpace.lg),
+          _ActiveProfileDetails(
+            profile: selected,
+            onEdit: () => _edit(selected),
+            onContinue: widget.embedded ? widget.onContinue : null,
+          ),
+        ],
       ],
     );
   }
@@ -683,6 +678,9 @@ enum _ProfileAction { edit, copy, delete }
 
 class _ProfileRow extends StatelessWidget {
   final RifleProfile profile;
+
+  /// "6,35 mm, sıfır 25 m, 900 fps, BC 0,08 G1" ([profileListSummary]).
+  final String summary;
   final bool active;
   final VoidCallback onTap;
   final VoidCallback onEdit;
@@ -691,12 +689,16 @@ class _ProfileRow extends StatelessWidget {
 
   const _ProfileRow({
     required this.profile,
+    required this.summary,
     required this.active,
     required this.onTap,
     required this.onEdit,
     required this.onCopy,
     required this.onDelete,
   });
+
+  /// Width of the amber left edge of the active card (owner, 2026-10-15).
+  static const double activeBarWidth = 4;
 
   @override
   Widget build(BuildContext context) {
@@ -711,73 +713,110 @@ class _ProfileRow extends StatelessWidget {
         label: active
             ? 'Aktif profil ${profile.name}'
             : 'Profil ${profile.name}',
+        value: summary.isEmpty ? null : summary,
         child: Material(
           color: c.surface,
+          clipBehavior: Clip.antiAlias,
           shape: RoundedRectangleBorder(
             borderRadius: shape,
-            side: BorderSide(
-              color: active ? c.ink : c.line,
-              width: active ? 2 : 1,
-            ),
+            side: BorderSide(color: c.line),
           ),
           child: InkWell(
             borderRadius: shape,
             onTap: onTap,
-            child: ConstrainedBox(
-              constraints: const BoxConstraints(minHeight: 60),
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(12, 8, 4, 8),
-                // Dot, name (+ Aktif) and one "⋯" (owner, 2026-10-14
-                // 17:38–17:44, mockup B): no velocity · Sıfır line.
-                child: Row(
-                  children: [
-                    Container(
-                      width: 12,
-                      height: 12,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: active ? c.amber : c.surface2,
-                      ),
+            // Name (+ Aktif), the summary line under it and one "⋯"; the
+            // active card has a 4 pt amber left edge (owner, 2026-10-15
+            // 12:49, Profil.png). Every card keeps the same text inset.
+            child: Stack(
+              children: [
+                if (active)
+                  Positioned(
+                    left: 0,
+                    top: 0,
+                    bottom: 0,
+                    width: activeBarWidth,
+                    child: ColoredBox(
+                      key: const Key('profile-active-bar'),
+                      color: c.amber,
                     ),
-                    const SizedBox(width: MenzilSpace.md),
-                    Expanded(
-                      child: ExcludeSemantics(
-                        child: Text(
-                          profile.name,
-                          key: const Key('profile-row-name'),
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
-                          textAlign: TextAlign.start,
-                          style: TextStyle(
-                            fontSize: 15,
-                            fontWeight: FontWeight.w700,
-                            color: c.ink,
-                          ),
-                        ),
-                      ),
+                  ),
+                ConstrainedBox(
+                  constraints: const BoxConstraints(minHeight: 60),
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(
+                      activeBarWidth + 12,
+                      10,
+                      4,
+                      10,
                     ),
-                    if (active)
-                      Padding(
-                        padding: const EdgeInsets.only(left: MenzilSpace.xs),
-                        child: Text(
-                          'Aktif',
-                          style: TextStyle(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w700,
-                            color: c.amberInk,
-                          ),
-                        ),
-                      ),
-                    _menu(context, c),
-                  ],
+                    child: Row(
+                      children: [
+                        Expanded(child: _texts(c)),
+                        _menu(context, c),
+                      ],
+                    ),
+                  ),
                 ),
-              ),
+              ],
             ),
           ),
         ),
       ),
     );
   }
+
+  Widget _texts(MenzilColors c) => ExcludeSemantics(
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.baseline,
+          textBaseline: TextBaseline.alphabetic,
+          children: [
+            Flexible(
+              child: Text(
+                profile.name,
+                key: const Key('profile-row-name'),
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+                textAlign: TextAlign.start,
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
+                  color: c.ink,
+                ),
+              ),
+            ),
+            if (active)
+              Padding(
+                padding: const EdgeInsets.only(left: MenzilSpace.sm),
+                child: Text(
+                  'Aktif',
+                  style: TextStyle(
+                    fontSize: 13,
+                    fontWeight: FontWeight.w600,
+                    color: c.amberInk,
+                  ),
+                ),
+              ),
+          ],
+        ),
+        if (summary.isNotEmpty)
+          Padding(
+            padding: const EdgeInsets.only(top: 3),
+            child: Text(
+              summary,
+              key: const Key('profile-row-summary'),
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+              textAlign: TextAlign.start,
+              style: MenzilType.caption(c.ink2),
+            ),
+          ),
+      ],
+    ),
+  );
 
   /// Düzenle, Kopyala, Sil in a popup anchored under "⋯": an overlay, so
   /// the rows never move (owner, 2026-10-14 17:36, 17:43).
@@ -832,6 +871,32 @@ class _ProfileRow extends StatelessWidget {
       ],
     );
   }
+}
+
+/// One-line summary of a saved profile for its card in the Profiller list
+/// (owner, 2026-10-15): "kalibre, sıfır N m|yd, hız, BC x G1|G7", e.g.
+/// "6,35 mm, sıfır 25 m, 900 fps, BC 0,08 G1". The zero is in the
+/// profile's own distance unit, the velocity in the Profil page's unit
+/// ([_ProfileUnits]); a part whose value is missing is left out. Read only:
+/// nothing here is saved or feeds the solver.
+String profileListSummary(RifleProfile p) {
+  final rifle = CatalogRepository.allRifles
+      .where((r) => r.id == p.rifleId)
+      .firstOrNull;
+  final ammo = CatalogRepository.allAmmunition
+      .where((a) => a.id == p.ammunitionId)
+      .firstOrNull;
+  bool ok(double? v) => v != null && v.isFinite && v > 0;
+  const units = _ProfileUnits();
+  final bc = ammo?.ballisticCoefficient;
+  return [
+    if (ok(rifle?.caliberMm))
+      '${rifle!.caliberMm.toStringAsFixed(2).replaceAll('.', ',')} mm',
+    if (ok(p.zeroRangeM)) 'sıfır ${_zeroValue(p)} ${p.distanceUnit.symbol}',
+    if (ok(p.muzzleVelocityMps)) units.velocity(p.muzzleVelocityMps),
+    if (ok(bc))
+      _joinSummary(['BC', _trimNum(bc!), ammo!.ballisticModel?.label ?? '']),
+  ].join(', ');
 }
 
 /// Profil summary tile for Dürbün ayağı: "0 MOA", "15 MOA", "30 MOA" —

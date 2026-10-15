@@ -1,9 +1,12 @@
 // Profil → "Profiller" listesi (owner, 2026-10-14 17:33–17:44, mockup B):
-// "Profil ekle" right of the "Profiller" title, each row only a dot, the
-// name (+ Aktif) and one "⋯" whose popup holds Düzenle, Kopyala, Sil; no
-// velocity · Sıfır line, no button row under the list; Yedekle / Geri yükle
-// hidden behind PROFILE_BACKUP_BUTTONS (not removed).
+// "Profil ekle" right of the "Profiller" title, each row the name (+ Aktif)
+// and one "⋯" whose popup holds Düzenle, Kopyala, Sil; no velocity · Sıfır
+// line, no button row under the list; Yedekle / Geri yükle hidden behind
+// PROFILE_BACKUP_BUTTONS (not removed).
 // See docs/reports/profiller_listesi.md.
+// Owner, 2026-10-15 12:49: Profil ekle has no "+" and the "N kayıtlı
+// profil" line is gone; the summary line and amber edge are covered by
+// test/profiller_ustte_test.dart (docs/reports/profiller_ustte.md).
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -137,10 +140,8 @@ void main() {
       find.descendant(of: add, matching: find.text('Profil ekle')),
       findsOneWidget,
     );
-    expect(
-      find.descendant(of: add, matching: find.byIcon(Icons.add)),
-      findsOneWidget,
-    );
+    // Text only (owner, 2026-10-15: no icon, no "+").
+    expect(find.descendant(of: add, matching: find.byType(Icon)), findsNothing);
     expect(tester.widget<MenzilPrimaryButton>(add).amber, isTrue);
     final b = tester.getRect(add);
     expect(b.left, greaterThan(title.right));
@@ -148,10 +149,8 @@ void main() {
     expect(b.top, lessThan(title.bottom));
     expect(b.bottom, greaterThan(title.top));
     expect(b.height, greaterThanOrEqualTo(44));
-    // "N kayıtlı profil" stays under the title.
-    final count = tester.getRect(find.text('3 kayıtlı profil'));
-    expect(count.top, greaterThanOrEqualTo(title.bottom - 0.5));
-    expect((count.left - title.left).abs(), lessThan(1));
+    // No "N kayıtlı profil" line (owner, 2026-10-15).
+    expect(find.textContaining('kayıtlı profil'), findsNothing);
     // Only one Profil ekle on the page (the button row under the list is
     // gone).
     expect(find.text('Profil ekle'), findsOneWidget);
@@ -161,7 +160,7 @@ void main() {
     expect(find.text('Profil Oluştur'), findsOneWidget);
   });
 
-  testWidgets('rows: name and one ⋯ only, no velocity · Sıfır line', (
+  testWidgets('rows: name and one ⋯, no velocity · Sıfır line', (
     tester,
   ) async {
     await _pump(tester);
@@ -312,7 +311,8 @@ void main() {
     await tester.pumpAndSettle();
     expect((await store.all()).map((p) => p.id), ['p1', 'p2']);
     expect(find.text('Üç'), findsNothing);
-    expect(find.text('2 kayıtlı profil'), findsOneWidget);
+    expect(find.byKey(const Key('profile-menu-p3')), findsNothing);
+    expect(find.byKey(const Key('profile-menu-p2')), findsOneWidget);
   });
 
   testWidgets('no button row under the list; backup hidden by default', (
