@@ -93,8 +93,9 @@ Future<void> _tap(WidgetTester tester, String tooltip) async {
   await tester.pump();
 }
 
-/// Starts a drag on [drum] and moves it past the touch slop; the drum
-/// counts its steps from there (its carry resets on drag start).
+/// Starts a drag on [drum] and moves it past the touch slop. That first
+/// move may already turn the drum (as before); callers read the values and
+/// the click count after it and measure the following 9 pt steps.
 Future<TestGesture> _grab(WidgetTester tester, Finder drum, Axis axis) async {
   await tester.ensureVisible(drum);
   await tester.pumpAndSettle();
@@ -210,12 +211,14 @@ void main() {
       (ScopeDialKeys.elevationDrum, Axis.horizontal),
       (ScopeDialKeys.windageDrum, Axis.vertical),
     ]) {
-      final e = _elev(tester), w = _wind(tester);
+      // The grab itself (past the touch slop) may already turn a click or
+      // two, as before; count from there.
       final g = await _grab(tester, find.byKey(key), axis);
+      final e = _elev(tester), w = _wind(tester), n = fake.clicks;
       await _move(g, tester, axis, _px - 3);
       await g.up();
       await tester.pumpAndSettle();
-      expect(fake.clicks, 0, reason: '$key');
+      expect(fake.clicks, n, reason: '$key');
       expect(_elev(tester), e);
       expect(_wind(tester), w);
     }
