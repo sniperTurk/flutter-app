@@ -31,7 +31,7 @@ The following plugins do not support Swift Package Manager for ios:
   - google_maps_flutter_ios
 This will become an error in a future version of Flutter. Please contact the plugin maintainers to request Swift Package Manager adoption.
 Running Xcode build...                                          
-Xcode build done.                                           127.4s
+Xcode build done.                                           109.1s
 00:00 +0: screenshot tour of the main pages
 SIMSCREEN:01_profil_karsilama
 SIMSCREEN:02_hava_durumu_bos
@@ -99,12 +99,12 @@ This was caught by the test expectation on the following line:
 The test description was:
   screenshot tour of the main pages
 ════════════════════════════════════════════════════════════════════════════════════════════════════
-04:14 +0 -1: screenshot tour of the main pages [E]
+04:11 +0 -1: screenshot tour of the main pages [E]
   Test failed. See exception logs above.
   The test description was: screenshot tour of the main pages
   
-04:14 +0 -1: (tearDownAll)
-04:22 +0 -1: Some tests failed.
+04:11 +0 -1: (tearDownAll)
+04:18 +0 -1: Some tests failed.
 
 Failing tests:
   /Users/runner/work/flutter-app/flutter-app/integration_test/sim_screens_test.dart: screenshot tour of the main pages
