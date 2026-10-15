@@ -6,9 +6,11 @@ part of 'profiles_screen.dart';
 // profiles_screen.dart, behaviour unchanged).
 
 /// Default name for a new profile that does not repeat an existing one:
-/// "Yeni Profil", then "Yeni Profil 2", "Yeni Profil 3", ...
+/// "Profil", then "Profil 2", "Profil 3", ... (first free number). Saved
+/// profiles keep their names, an old "Yeni Profil" included (owner,
+/// 2026-10-15; replaces the 2026-10-12 "Yeni Profil" default).
 String defaultProfileName(Set<String> taken) {
-  const base = 'Yeni Profil';
+  const base = 'Profil';
   if (!taken.contains(base)) return base;
   var n = 2;
   while (taken.contains('$base $n')) {

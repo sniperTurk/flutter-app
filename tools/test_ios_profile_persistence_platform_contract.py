@@ -14,7 +14,7 @@ class IosProfilePersistencePlatformContractTest(unittest.TestCase):
             "SharedPreferences.getInstance()",
             "sniper_turk.rifle_profiles.v1",
             "sniper_turk.active_profile_id.v1",
-            "expect(persistedProfiles, contains('Yeni Profil'))",
+            "expect(persistedProfiles, contains('\"name\":\"Profil\"'))",
             "expect(persistedActiveId, isNotEmpty)",
         )
         for marker in required:
@@ -25,8 +25,8 @@ class IosProfilePersistencePlatformContractTest(unittest.TestCase):
         text = SMOKE.read_text(encoding="utf-8")
         save = text.index("tester.tap(find.text('Kaydet'))")
         # The shell reloads profiles after the save; the new profile is then
-        # visible in the list and the top-bar selector.
-        home = text.index("expect(find.text('Yeni Profil'), findsWidgets);", save)
+        # visible as a row in the profile list ("Profil" is also the tab label).
+        home = text.index("w.key == const Key('profile-row-name') &&", save)
         prefs = text.index("SharedPreferences.getInstance()", home)
         dope = text.index("tester.tap(find.text('Hedef').first)", prefs)
         self.assertLess(save, home)
