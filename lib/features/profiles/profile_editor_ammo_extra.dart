@@ -4,6 +4,14 @@ part of 'profiles_screen.dart';
 /// ölçüm sıcaklığı and Hıza göre BC, its own section and card after
 /// Mühimmat (owner, 2026-10-15).
 extension _AmmoExtraSection on _ProfileDialogState {
+  // The editor's static members under their own names, so the moved
+  // code reads exactly as it did inside the class (an extension does
+  // not see the static members of its type unqualified).
+  static const _parse = _ProfileDialogState._parse;
+  static const _powderCoefOptions = _ProfileDialogState._powderCoefOptions;
+  static const _powderTempOptions = _ProfileDialogState._powderTempOptions;
+  static const _showTypedBands = _ProfileDialogState._showTypedBands;
+
   /// Ek mühimmat bilgileri has something to show: Barut katsayısı | Hız
   /// ölçüm sıcaklığı (firearms) or the Hıza göre BC rows (same conditions
   /// as before the move).
@@ -11,7 +19,7 @@ extension _AmmoExtraSection on _ProfileDialogState {
       platform == WeaponPlatform.firearm ||
       (!_customCurve &&
           platform != WeaponPlatform.pcp &&
-          (!_typedFirearmAmmo || _ProfileDialogState._showTypedBands));
+          (!_typedFirearmAmmo || _showTypedBands));
 
   /// Heading row of the section (owner, 2026-10-15): "Ek mühimmat
   /// bilgileri" at the left in the size of the other section headings,
@@ -82,7 +90,7 @@ extension _AmmoExtraSection on _ProfileDialogState {
     required List<double> options,
     required String? error,
   }) {
-    final cur = _ProfileDialogState._parse(controller);
+    final cur = _parse(controller);
     final extra = cur != null && !options.contains(cur);
     final values = [...options, if (cur != null && extra) cur]..sort();
     final tag = _powderAutoFilled ? 'üretici' : 'kayıtlı';
@@ -136,7 +144,7 @@ extension _AmmoExtraSection on _ProfileDialogState {
               // is in the ⓘ; the label stays on one line.
               label: 'Barut katsayısı',
               info: ProfileFieldInfo.powderCoef,
-              options: _ProfileDialogState._powderCoefOptions,
+              options: _powderCoefOptions,
               error: _powderCoefError,
             ),
             _powderSelect(
@@ -145,7 +153,7 @@ extension _AmmoExtraSection on _ProfileDialogState {
               label: 'Hız ölçüm sıcaklığı',
               unit: '°C',
               info: ProfileFieldInfo.powderTemp,
-              options: _ProfileDialogState._powderTempOptions,
+              options: _powderTempOptions,
               error: _powderTempError,
             ),
           ],
@@ -157,7 +165,7 @@ extension _AmmoExtraSection on _ProfileDialogState {
     // (owner, 2026-10-14); saved bands stay in the record.
     if (!_customCurve &&
         platform != WeaponPlatform.pcp &&
-        (!_typedFirearmAmmo || _ProfileDialogState._showTypedBands)) ...[
+        (!_typedFirearmAmmo || _showTypedBands)) ...[
       MenzilFullWidth(
         child: Text(
           'Hıza göre BC',

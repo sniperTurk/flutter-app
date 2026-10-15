@@ -4,6 +4,26 @@ part of 'profiles_screen.dart';
 /// lists, the scope fields and the Dürbün card (moved out of
 /// profiles_screen.dart, behaviour unchanged).
 extension _ScopeSection on _ProfileDialogState {
+  // The editor's static members under their own names, so the moved
+  // code reads exactly as it did inside the class (an extension does
+  // not see the static members of its type unqualified).
+  static const _byName = _ProfileDialogState._byName;
+  static const _clickOptions = _ProfileDialogState._clickOptions;
+  static const _defaultClick = _ProfileDialogState._defaultClick;
+  static const _fromMrad = _ProfileDialogState._fromMrad;
+  static const _magRange = _ProfileDialogState._magRange;
+  static const _manualKey = _ProfileDialogState._manualKey;
+  static const _maxMagOptions = _ProfileDialogState._maxMagOptions;
+  static const _minMagOptions = _ProfileDialogState._minMagOptions;
+  static const _num = _ProfileDialogState._num;
+  static const _objectiveOptions = _ProfileDialogState._objectiveOptions;
+  static const _parse = _ProfileDialogState._parse;
+  static const _reticlesOf = _ProfileDialogState._reticlesOf;
+  static List<ScopeOptic> get _scopeLib => _ProfileDialogState._scopeLib;
+  static const _scopeModelOf = _ProfileDialogState._scopeModelOf;
+  static const _showScopeListedeYok = _ProfileDialogState._showScopeListedeYok;
+  static const _unitName = _ProfileDialogState._unitName;
+
   /// A catalog scope (picked from the lists): Minimum / Maksimum büyütme,
   /// Mercek çapı, Odak düzlemi and Dürbün birimi come from the record and
   /// are hidden (owner, 2026-10-13: "gizle, silme"). Only a value the
@@ -57,14 +77,14 @@ extension _ScopeSection on _ProfileDialogState {
   }
 
   List<String> get _scopeBrands =>
-      {for (final s in _ProfileDialogState._scopeLib) s.brand}.toList()
-        ..sort(_ProfileDialogState._byName);
+      {for (final s in _scopeLib) s.brand}.toList()
+        ..sort(_byName);
 
   List<String> _scopeModels(String brand) => {
-    for (final s in _ProfileDialogState._scopeLib)
+    for (final s in _scopeLib)
       if (s.brand == brand && _scopeFilterAccepts(s))
-        _ProfileDialogState._scopeModelOf(s),
-  }.toList()..sort(_ProfileDialogState._byName);
+        _scopeModelOf(s),
+  }.toList()..sort(_byName);
 
   /// [level]: how many filters apply (1 Birim, 2 Odak, 3 Tüp, 4 Büyütme).
   bool _scopeFilterAccepts(ScopeOptic s, [int level = 4]) {
@@ -85,7 +105,7 @@ extension _ScopeSection on _ProfileDialogState {
     }
     if (level >= 4 &&
         _scopeMagFilter != null &&
-        _ProfileDialogState._magRange(s) != _scopeMagFilter) {
+        _magRange(s) != _scopeMagFilter) {
       return false;
     }
     return true;
@@ -93,7 +113,7 @@ extension _ScopeSection on _ProfileDialogState {
 
   /// Scopes of the chosen brand that pass the filters before [level].
   Iterable<ScopeOptic> _scopesBefore(int level) =>
-      _ProfileDialogState._scopeLib.where(
+      _scopeLib.where(
         (s) => s.brand == _scopeBrandSel && _scopeFilterAccepts(s, level - 1),
       );
 
@@ -119,7 +139,7 @@ extension _ScopeSection on _ProfileDialogState {
   List<String> get _scopeMagChoices {
     final byLow = <String, (double, double)>{};
     for (final s in _scopesBefore(4)) {
-      final r = _ProfileDialogState._magRange(s);
+      final r = _magRange(s);
       if (r != null) {
         byLow[r] = (s.minMagnification ?? 0, s.maxMagnification ?? 0);
       }
@@ -160,11 +180,11 @@ extension _ScopeSection on _ProfileDialogState {
   /// One line per model with its data (owner, 2026-10-13), e.g.
   /// "Continental x6 5-30x56i Fiber SFP · MOA".
   String _scopeModelLine(String brand, String model) {
-    final s = _ProfileDialogState._scopeLib
+    final s = _scopeLib
         .where(
           (x) =>
               x.brand == brand &&
-              _ProfileDialogState._scopeModelOf(x) == model &&
+              _scopeModelOf(x) == model &&
               _scopeFilterAccepts(x),
         )
         .firstOrNull;
@@ -173,7 +193,7 @@ extension _ScopeSection on _ProfileDialogState {
     // 2026-10-13: "CONTINENTAL X6 4-24X56 MBR FFP 34MM").
     final name = model.toLowerCase().replaceAll(' ', '');
     bool said(String t) => name.contains(t.toLowerCase().replaceAll(' ', ''));
-    final unit = _ProfileDialogState._unitName(s.clickUnit);
+    final unit = _unitName(s.clickUnit);
     final focal = s.firstFocalPlane == null
         ? null
         : s.firstFocalPlane!
@@ -215,7 +235,7 @@ extension _ScopeSection on _ProfileDialogState {
           for (final u in _scopeUnitChoices)
             DropdownMenuItem(
               value: u,
-              child: Text(_ProfileDialogState._unitName(u)),
+              child: Text(_unitName(u)),
             ),
         ],
         onChanged: (v) => changed(() => _scopeUnitFilter = v),
@@ -244,7 +264,7 @@ extension _ScopeSection on _ProfileDialogState {
           for (final d in _scopeTubeChoices)
             DropdownMenuItem(
               value: d,
-              child: Text('${_ProfileDialogState._num(d)} mm'),
+              child: Text('${_num(d)} mm'),
             ),
         ],
         onChanged: (v) => changed(() => _scopeTubeFilter = v),
@@ -266,9 +286,9 @@ extension _ScopeSection on _ProfileDialogState {
   }
 
   List<ScopeOptic> get _scopeGroup => [
-    for (final s in _ProfileDialogState._scopeLib)
+    for (final s in _scopeLib)
       if (s.brand == _scopeBrandSel &&
-          _ProfileDialogState._scopeModelOf(s) == _scopeModelKey)
+          _scopeModelOf(s) == _scopeModelKey)
         s,
   ];
 
@@ -276,7 +296,7 @@ extension _ScopeSection on _ProfileDialogState {
   List<(String, ScopeOptic)> get _scopeReticleChoices {
     final out = <(String, ScopeOptic)>[];
     for (final s in _scopeGroup) {
-      for (final r in _ProfileDialogState._reticlesOf(s)) {
+      for (final r in _reticlesOf(s)) {
         if (!out.any((e) => e.$1 == r)) out.add((r, s));
       }
     }
@@ -306,7 +326,7 @@ extension _ScopeSection on _ProfileDialogState {
     String suffix = '',
     String? errorText,
   }) {
-    final current = _ProfileDialogState._parse(controller);
+    final current = _parse(controller);
     final values = [
       ...options,
       if (current != null && !options.contains(current)) current,
@@ -335,9 +355,9 @@ extension _ScopeSection on _ProfileDialogState {
   /// scope brings its own. Empty until Dürbün birimi is chosen.
   Widget _clickSelect() {
     final options = _angularUnitSet
-        ? _ProfileDialogState._clickOptions(angularUnit)
+        ? _clickOptions(angularUnit)
         : const <(double, String)>[];
-    final current = _ProfileDialogState._parse(scopeClick);
+    final current = _parse(scopeClick);
     return KeyedSubtree(
       key: const Key('scope-click'),
       child: MenzilSelect<double>(
@@ -361,7 +381,7 @@ extension _ScopeSection on _ProfileDialogState {
   void _applyScope(ScopeOptic s, {String? reticle}) {
     _angularUnitSet = true; // the catalog scope tells its unit
     final series = ScopePickerScreen.seriesOf(
-      _ProfileDialogState._scopeModelOf(s),
+      _scopeModelOf(s),
     );
     _scopeRecord = s;
     scopeBrand.text = series.isEmpty ? s.brand : '${s.brand} $series';
@@ -382,7 +402,7 @@ extension _ScopeSection on _ProfileDialogState {
     final travel = s.elevationRangeMrad;
     scopeTravelElevation.text = travel == null || travel <= 0
         ? ''
-        : (_ProfileDialogState._fromMrad(travel, angularUnit) / s.clickValue)
+        : (_fromMrad(travel, angularUnit) / s.clickValue)
               .round()
               .toString();
     scopeReticle = reticle;
@@ -418,7 +438,7 @@ extension _ScopeSection on _ProfileDialogState {
                   _scopeRecord = null;
                   scopeBrand.text = '';
                   scopeClick.text = _trimNum(
-                    _ProfileDialogState._defaultClick(angularUnit),
+                    _defaultClick(angularUnit),
                   );
                   scopeReticle = null;
                   _scopePickToken++;
@@ -445,14 +465,14 @@ extension _ScopeSection on _ProfileDialogState {
             items: [
               for (final b in brands)
                 DropdownMenuItem(value: b, child: Text(b)),
-              if (_ProfileDialogState._showScopeListedeYok)
+              if (_showScopeListedeYok)
                 const DropdownMenuItem(
-                  value: _ProfileDialogState._manualKey,
+                  value: _manualKey,
                   child: Text('Listede yok'),
                 ),
             ],
             onChanged: (v) => _update(() {
-              if (v == _ProfileDialogState._manualKey) {
+              if (v == _manualKey) {
                 _openScopeManual();
                 return;
               }
@@ -521,7 +541,7 @@ extension _ScopeSection on _ProfileDialogState {
   String _mountLabel(double moa) {
     if (moa == 0) return 'Normal (0 MOA)';
     final name = '${_trimNum(moa)} MOA';
-    final click = _ProfileDialogState._parse(scopeClick);
+    final click = _parse(scopeClick);
     if (click == null || !click.isFinite || click <= 0) return name;
     final clicks = ScopeDialMath.mountCantClicks(moa, click, angularUnit);
     return '$name · +$clicks klik';
@@ -530,7 +550,7 @@ extension _ScopeSection on _ProfileDialogState {
   /// One-line designation, e.g. "6-24x56 FFP" (empty parts are skipped).
   String get _scopeDesignation {
     String part(TextEditingController c) {
-      final v = _ProfileDialogState._parse(c);
+      final v = _parse(c);
       return v == null ? '' : _trimNum(v);
     }
 
@@ -579,7 +599,7 @@ extension _ScopeSection on _ProfileDialogState {
               label: 'Minimum büyütme',
               info: ProfileFieldInfo.minMag,
               controller: scopeMinMag,
-              options: _ProfileDialogState._minMagOptions,
+              options: _minMagOptions,
               suffix: 'x',
               errorText: _shownSelect(_minMagError),
             ),
@@ -589,7 +609,7 @@ extension _ScopeSection on _ProfileDialogState {
               label: 'Maksimum büyütme',
               info: ProfileFieldInfo.maxMag,
               controller: scopeMaxMag,
-              options: _ProfileDialogState._maxMagOptions,
+              options: _maxMagOptions,
               suffix: 'x',
               errorText: _shownSelect(_maxMagError, scopeMaxMag),
             ),
@@ -599,7 +619,7 @@ extension _ScopeSection on _ProfileDialogState {
               label: 'Mercek çapı',
               info: ProfileFieldInfo.objective,
               controller: scopeObjective,
-              options: _ProfileDialogState._objectiveOptions,
+              options: _objectiveOptions,
               suffix: ' mm',
               errorText: _shownSelect(_objectiveError),
             ),
@@ -649,15 +669,15 @@ extension _ScopeSection on _ProfileDialogState {
                   if (_scopeManual) {
                     // A typed scope picks its Klik değeri from the
                     // new unit's list; one that does not fit is cleared.
-                    final click = _ProfileDialogState._parse(scopeClick);
-                    if (!_ProfileDialogState._clickOptions(
+                    final click = _parse(scopeClick);
+                    if (!_clickOptions(
                       next,
                     ).any((o) => o.$1 == click)) {
                       scopeClick.clear();
                     }
                   } else if (next != angularUnit) {
                     scopeClick.text = _trimNum(
-                      _ProfileDialogState._defaultClick(next),
+                      _defaultClick(next),
                     );
                   }
                   angularUnit = next;

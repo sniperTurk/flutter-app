@@ -4,10 +4,31 @@ part of 'profiles_screen.dart';
 /// the rifle fields and the Tüfek card (moved out of profiles_screen.dart,
 /// behaviour unchanged).
 extension _RifleSection on _ProfileDialogState {
+  // The editor's static members under their own names, so the moved
+  // code reads exactly as it did inside the class (an extension does
+  // not see the static members of its type unqualified).
+  static List<double> get _bulletDiameters => _ProfileDialogState._bulletDiameters;
+  static const _byName = _ProfileDialogState._byName;
+  static const _cartridgeFor = _ProfileDialogState._cartridgeFor;
+  static const _diameterLabel = _ProfileDialogState._diameterLabel;
+  static const _domesticBrands = _ProfileDialogState._domesticBrands;
+  static const _firearmCartridges = _ProfileDialogState._firearmCartridges;
+  static const _manualKey = _ProfileDialogState._manualKey;
+  static const _noCartridgeKey = _ProfileDialogState._noCartridgeKey;
+  static const _otherCaliberKey = _ProfileDialogState._otherCaliberKey;
+  static const _parse = _ProfileDialogState._parse;
+  static const _pcpCalibers = _ProfileDialogState._pcpCalibers;
+  static const _popularCount = _ProfileDialogState._popularCount;
+  static const _round1 = _ProfileDialogState._round1;
+  static const _shortCartridge = _ProfileDialogState._shortCartridge;
+  static const _showRifleListedeYok = _ProfileDialogState._showRifleListedeYok;
+  static const _trimDot = _ProfileDialogState._trimDot;
+  static const _variantLabel = _ProfileDialogState._variantLabel;
+
   double? _caliberItem(double mm) {
     final list = platform == WeaponPlatform.firearm
-        ? [for (final (_, d) in _ProfileDialogState._firearmCartridges) (d, '')]
-        : _ProfileDialogState._pcpCalibers;
+        ? [for (final (_, d) in _firearmCartridges) (d, '')]
+        : _pcpCalibers;
     for (final (v, _) in list) {
       if ((v - mm).abs() < 0.005) return v;
     }
@@ -25,20 +46,20 @@ extension _RifleSection on _ProfileDialogState {
       return i < 0 ? null : 'v:$i';
     }
     if (platform == WeaponPlatform.firearm && _caliberByDiameter) {
-      return _ProfileDialogState._noCartridgeKey;
+      return _noCartridgeKey;
     }
-    final cal = _ProfileDialogState._parse(rifleCaliber);
+    final cal = _parse(rifleCaliber);
     if (cal == null) return null;
     if (platform == WeaponPlatform.firearm) {
       final c = _cartridge;
       if (c != null &&
-          _ProfileDialogState._firearmCartridges.any((e) => e.$1 == c)) {
+          _firearmCartridges.any((e) => e.$1 == c)) {
         return c;
       }
-      return _ProfileDialogState._cartridgeFor(cal) ??
-          'mm:${_ProfileDialogState._trimDot(cal)}';
+      return _cartridgeFor(cal) ??
+          'mm:${_trimDot(cal)}';
     }
-    return 'mm:${_ProfileDialogState._trimDot(_caliberItem(cal) ?? cal)}';
+    return 'mm:${_trimDot(_caliberItem(cal) ?? cal)}';
   }
 
   /// Kalibre shows the chosen model's calibers (owner, 2026-10-11) until
@@ -51,7 +72,7 @@ extension _RifleSection on _ProfileDialogState {
   /// (owner, 2026-10-13: Namlu çıkış hızı | Kalibre on one row).
   List<({DropdownMenuItem<String> item, String full, String short})>
   get _caliberChoices {
-    final cal = _ProfileDialogState._parse(rifleCaliber);
+    final cal = _parse(rifleCaliber);
     final out =
         <({DropdownMenuItem<String> item, String full, String short})>[];
     void add(
@@ -68,16 +89,16 @@ extension _RifleSection on _ProfileDialogState {
     if (_caliberFromModel) {
       final variants = _rifleVariants;
       for (final (i, r) in variants.indexed) {
-        final label = _ProfileDialogState._variantLabel(r, variants);
+        final label = _variantLabel(r, variants);
         add(
           'v:$i',
           Text(label, maxLines: 2),
           label,
-          short: _ProfileDialogState._shortCartridge(r.cartridge),
+          short: _shortCartridge(r.cartridge),
         );
       }
       add(
-        _ProfileDialogState._otherCaliberKey,
+        _otherCaliberKey,
         const Text('Diğer kalibre'),
         'Diğer kalibre',
       );
@@ -92,8 +113,8 @@ extension _RifleSection on _ProfileDialogState {
       );
       header('#popular', 'EN ÇOK KULLANILAN');
       for (final (i, (name, d))
-          in _ProfileDialogState._firearmCartridges.indexed) {
-        if (i == _ProfileDialogState._popularCount) {
+          in _firearmCartridges.indexed) {
+        if (i == _popularCount) {
           header('#all', 'DİĞERLERİ (A-Z)');
         }
         add(
@@ -117,13 +138,13 @@ extension _RifleSection on _ProfileDialogState {
             ),
           ),
           name,
-          short: _ProfileDialogState._shortCartridge(name),
+          short: _shortCartridge(name),
         );
       }
       if (cal != null &&
           !_caliberByDiameter &&
-          _ProfileDialogState._cartridgeFor(cal) == null) {
-        final mm = _ProfileDialogState._trimDot(cal);
+          _cartridgeFor(cal) == null) {
+        final mm = _trimDot(cal);
         add(
           'mm:$mm',
           Text('$mm mm (kayıtlı)'),
@@ -132,18 +153,18 @@ extension _RifleSection on _ProfileDialogState {
         );
       }
       add(
-        _ProfileDialogState._noCartridgeKey,
+        _noCartridgeKey,
         const Text('Fişeğim listede yok'),
         'Fişeğim listede yok',
         short: 'Listede yok',
       );
       return out;
     }
-    for (final (mm, name) in _ProfileDialogState._pcpCalibers) {
-      add('mm:${_ProfileDialogState._trimDot(mm)}', Text(name), name);
+    for (final (mm, name) in _pcpCalibers) {
+      add('mm:${_trimDot(mm)}', Text(name), name);
     }
     if (cal != null && _caliberItem(cal) == null) {
-      final mm = _ProfileDialogState._trimDot(cal);
+      final mm = _trimDot(cal);
       add(
         'mm:$mm',
         Text('$mm mm (kayıtlı)'),
@@ -156,7 +177,7 @@ extension _RifleSection on _ProfileDialogState {
 
   void _onCaliberKey(String? key) {
     if (key == null || key.startsWith('#')) return;
-    if (key == _ProfileDialogState._otherCaliberKey) {
+    if (key == _otherCaliberKey) {
       _caliberAll = true;
       _rifleVariant = null;
       return;
@@ -165,12 +186,12 @@ extension _RifleSection on _ProfileDialogState {
       _applyRifleVariant(_rifleVariants[int.parse(key.substring(2))]);
       return;
     }
-    if (key == _ProfileDialogState._noCartridgeKey) {
+    if (key == _noCartridgeKey) {
       _caliberByDiameter = true;
       _cartridge = null;
-      final cal = _ProfileDialogState._parse(rifleCaliber);
+      final cal = _parse(rifleCaliber);
       if (cal != null &&
-          !_ProfileDialogState._bulletDiameters.any(
+          !_bulletDiameters.any(
             (d) => (d - cal).abs() < 0.005,
           )) {
         rifleCaliber.text = '';
@@ -184,29 +205,29 @@ extension _RifleSection on _ProfileDialogState {
       return;
     }
     _cartridge = key;
-    final mm = _ProfileDialogState._firearmCartridges
+    final mm = _firearmCartridges
         .firstWhere((e) => e.$1 == key)
         .$2;
-    rifleCaliber.text = _ProfileDialogState._trimDot(mm);
+    rifleCaliber.text = _trimDot(mm);
   }
 
   List<LibraryRifle> get _rifleLib => [
     for (final r in RifleLibrary.all)
       if (r.platform == platform &&
           (_domestic == null ||
-              _ProfileDialogState._domesticBrands.contains(r.brand) ==
+              _domesticBrands.contains(r.brand) ==
                   _domestic))
         r,
   ];
 
   List<String> get _rifleBrands =>
       {for (final r in _rifleLib) r.brand}.toList()
-        ..sort(_ProfileDialogState._byName);
+        ..sort(_byName);
 
   List<String> _rifleModels(String brand) => {
     for (final r in _rifleLib)
       if (r.brand == brand) r.model,
-  }.toList()..sort(_ProfileDialogState._byName);
+  }.toList()..sort(_byName);
 
   List<LibraryRifle> get _rifleVariants => [
     for (final r in _rifleLib)
@@ -217,10 +238,10 @@ extension _RifleSection on _ProfileDialogState {
     _rifleVariant = r;
     _caliberAll = false;
     _caliberByDiameter = false;
-    rifleCaliber.text = _ProfileDialogState._trimDot(r.diameterMm);
+    rifleCaliber.text = _trimDot(r.diameterMm);
     _cartridge = r.platform == WeaponPlatform.firearm ? r.cartridge : null;
     if (r.twistRateIn != null) {
-      rifleTwist.text = _ProfileDialogState._trimDot(r.twistRateIn!);
+      rifleTwist.text = _trimDot(r.twistRateIn!);
     }
     if (r.twistDirection != null) twistDirection = r.twistDirection;
   }
@@ -240,7 +261,7 @@ extension _RifleSection on _ProfileDialogState {
                   (r.diameterMm - cal).abs() < 0.005 &&
                   (c == null || r.cartridge == c) &&
                   (r.twistRateIn == null ||
-                      r.twistRateIn == _ProfileDialogState._parse(rifleTwist)),
+                      r.twistRateIn == _parse(rifleTwist)),
             )
             .firstOrNull ??
         list.where((r) => (r.diameterMm - cal).abs() < 0.005).firstOrNull;
@@ -394,14 +415,14 @@ extension _RifleSection on _ProfileDialogState {
             items: [
               for (final b in brands)
                 DropdownMenuItem(value: b, child: Text(b)),
-              if (_ProfileDialogState._showRifleListedeYok)
+              if (_showRifleListedeYok)
                 const DropdownMenuItem(
-                  value: _ProfileDialogState._manualKey,
+                  value: _manualKey,
                   child: Text('Listede yok'),
                 ),
             ],
             onChanged: (v) => _update(() {
-              if (v == _ProfileDialogState._manualKey) {
+              if (v == _manualKey) {
                 _openRifleManual();
                 return;
               }
@@ -488,27 +509,27 @@ extension _RifleSection on _ProfileDialogState {
                   info: ProfileFieldInfo.bulletDiameter,
                   label: 'Mermi çapı',
                   hint: 'Seçiniz',
-                  initialValue: _ProfileDialogState._bulletDiameters
+                  initialValue: _bulletDiameters
                       .where(
                         (d) =>
                             (d -
-                                    (_ProfileDialogState._parse(rifleCaliber) ??
+                                    (_parse(rifleCaliber) ??
                                         -1))
                                 .abs() <
                             0.005,
                       )
                       .firstOrNull,
                   items: [
-                    for (final d in _ProfileDialogState._bulletDiameters)
+                    for (final d in _bulletDiameters)
                       DropdownMenuItem(
                         value: d,
-                        child: Text(_ProfileDialogState._diameterLabel(d)),
+                        child: Text(_diameterLabel(d)),
                       ),
                   ],
                   onChanged: (v) => _update(() {
                     final before = (rifleCaliber.text, _cartridge);
                     if (v != null) {
-                      rifleCaliber.text = _ProfileDialogState._trimDot(v);
+                      rifleCaliber.text = _trimDot(v);
                     }
                     _keepAmmoInCaliber(before);
                   }),
@@ -576,9 +597,9 @@ extension _RifleSection on _ProfileDialogState {
               _distanceUnitSet = v != null;
               final next = v ?? DistanceUnit.meter;
               // The typed zero keeps its real distance.
-              final typed = _ProfileDialogState._parse(zero);
+              final typed = _parse(zero);
               if (typed != null && next != distanceUnit) {
-                final v = _ProfileDialogState._round1(
+                final v = _round1(
                   next.fromMeters(distanceUnit.toMeters(typed)),
                 );
                 // Same style as the prefilled value ("27.3").
