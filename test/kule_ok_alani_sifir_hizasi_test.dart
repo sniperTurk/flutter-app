@@ -279,6 +279,9 @@ void main() {
             'Rüzgâr kulesi-step-minus',
           ),
         ]) {
+          // At ×1.3 the page is taller than the view: bring the area in.
+          await tester.ensureVisible(find.byTooltip(tip));
+          await tester.pumpAndSettle();
           final r = _rect(tester, tip);
           for (final p in [
             _glyph(tester, glyphKey).center,
@@ -300,6 +303,8 @@ void main() {
         }
 
         // L-R's left edge + 1 pt toggles the side turret; no turret steps.
+        await tester.ensureVisible(find.byKey(ScopeDialKeys.turretToggle));
+        await tester.pumpAndSettle();
         final toggle = tester.getRect(find.byKey(ScopeDialKeys.turretToggle));
         final elev = _clicks(tester, ScopeDialKeys.elevationDrum);
         expect(find.byKey(ScopeDialKeys.windageDrum), findsOneWidget);
