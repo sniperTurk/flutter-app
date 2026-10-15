@@ -61,7 +61,11 @@ bc-info-ornek dahil):
 - Biçim düzeltme (iş akışı 375209577): başarılı, değişiklik gerekmedi —
   https://github.com/sniperTurk/flutter-app/actions/runs/38807676296
 
-Bu raporu ekleyen commit yalnızca `docs/` değiştirir; CI onu atlar.
+Raporu ekleyen commit `c6caa4ef` (yalnız `docs/`) üzerinde de iOS CI
+yeniden çalıştı (PR'da CI tüm farka bakıyor) ve yeşil:
+https://github.com/sniperTurk/flutter-app/actions/runs/38821652082
+(`verify`, `dart-checks`, `wind-acceptance` başarılı). Bu düzeltme
+commit'i de yalnız raporu değiştirir; onun CI sonucu PR sayfasındadır.
 Simulator, TestFlight ve App Store çalıştırılmadı. PR taslak; birleştirme
 ana oturumda.
 
