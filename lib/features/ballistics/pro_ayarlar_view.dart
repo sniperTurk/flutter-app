@@ -782,7 +782,6 @@ extension _ProAyarlarView on _BallisticsScreenState {
         MenzilPrimaryButton(
           key: const Key('pro-continue-shot'),
           label: 'Hedef\'e geç',
-          icon: Icons.arrow_forward,
           onPressed: widget.onContinueToShot,
         ),
     ];
