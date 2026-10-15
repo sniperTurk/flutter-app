@@ -6,9 +6,11 @@ part of 'profiles_screen.dart';
 // profiles_screen.dart, behaviour unchanged).
 
 /// Default name for a new profile that does not repeat an existing one:
-/// "Yeni Profil", then "Yeni Profil 2", "Yeni Profil 3", ...
+/// "Profil", then "Profil 2", "Profil 3", ... (first free number). Saved
+/// profiles keep their names, an old "Yeni Profil" included (owner,
+/// 2026-10-15; replaces the 2026-10-12 "Yeni Profil" default).
 String defaultProfileName(Set<String> taken) {
-  const base = 'Yeni Profil';
+  const base = 'Profil';
   if (!taken.contains(base)) return base;
   var n = 2;
   while (taken.contains('$base $n')) {
@@ -1549,13 +1551,20 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                       _rifleVariant = null;
                       _caliberAll = false;
                       _caliberByDiameter = false;
+                      // A caliber of the other list does not carry over:
+                      // a firearm cartridge is not a PCP caliber and no
+                      // PCP mm is a firearm cartridge.
+                      final cal = _parse(rifleCaliber);
+                      if (cal != null && _caliberItem(cal) == null) {
+                        rifleCaliber.text = '';
+                      }
+                      _cartridge = null;
                     }
-                    // A caliber of the other list does not carry over.
-                    final cal = _parse(rifleCaliber);
-                    if (cal != null && _caliberItem(cal) == null) {
-                      rifleCaliber.text = '';
-                    }
-                    _cartridge = null;
+                    // The same Tür (a new profile starts on Ateşli
+                    // Tüfek): Kalibre stays exactly as chosen. Matching
+                    // it again by diameter turned .300 Win Mag into
+                    // .308 Win and emptied an El dolumu 8,15 mm
+                    // (PRF-7, PRF-8, 2026-10-15).
                   }),
                 ),
                 KeyedSubtree(

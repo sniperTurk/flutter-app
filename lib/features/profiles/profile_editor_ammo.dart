@@ -346,8 +346,7 @@ extension _AmmoSection on _ProfileDialogState {
       // A listed factory round whose maker publishes no BC (2026-10-14).
       final noBc =
           a.bc == null && platform == WeaponPlatform.firearm && _factoryAmmo
-          ? '\n\nBu fişek: Üretici BC yayımlamıyor. Kendi atışlarınızdan '
-                'bulduğunuz BC\'yi girin; BC modelini de seçin.'
+          ? '\n\n${ProfileFieldInfo.bcFactoryNoBc}'
           : '';
       if (nato.isNotEmpty || note.isNotEmpty || noBc.isNotEmpty) {
         return nato + note + noBc;
@@ -365,6 +364,27 @@ extension _AmmoSection on _ProfileDialogState {
       }
     }
     return '';
+  }
+
+  /// MUH-1 (owner, 2026-10-15): BC modeli changed on a listed factory
+  /// round with a maker BC: the maker's BC for the new model when the
+  /// record has one, otherwise an empty box; never the other curve's number.
+  void _factoryBcForModel() {
+    if (platform != WeaponPlatform.firearm || !_factoryAmmo || _ammoManual) {
+      return;
+    }
+    for (final a in _factoryHere) {
+      if (a.brand != ammoBrand.text || a.name != ammoModel.text) continue;
+      if (a.bc == null) return;
+      final m = ammoBcModel;
+      final bc = m == a.model
+          ? a.bc
+          : m == BallisticModel.g7
+          ? a.bcG7
+          : null;
+      ammoBc.text = bc == null ? '' : _trimNum(bc);
+      return;
+    }
   }
 
   /// Fills the ammunition (and the velocity) from a factory cartridge.
@@ -976,9 +996,11 @@ extension _AmmoSection on _ProfileDialogState {
               onChanged: (v) => _update(() {
                 _customCurve = v == _customKey;
                 if (!_customCurve) {
+                  final was = ammoBcModel;
                   ammoBcModel = BallisticModel.values
                       .where((m) => m.name == v)
                       .firstOrNull;
+                  if (ammoBcModel != was) _factoryBcForModel();
                 }
               }),
             ),

@@ -1,4 +1,5 @@
-// Profil is the start tab: the active profile comes first, values follow the
+// Profil is the start tab: the Profiller list comes first (owner,
+// 2026-10-15 12:49), the active profile's summary follows, values follow the
 // user's unit system, and the next step (Hava Durumu) is one tap away.
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -94,15 +95,18 @@ void main() {
     expect(find.text('27,3 yd', findRichText: true), findsOneWidget);
   });
 
-  testWidgets('active profile summary comes before the profile list', (
+  testWidgets('the profile list comes before the active profile summary', (
     tester,
   ) async {
+    // Owner, 2026-10-15 12:49 "profilleri yukarı al" (before: summary first).
     await _pumpList(tester, metric: true, onContinue: () {});
     // The profile name is not repeated in the summary (only the row).
     expect(find.text('Bir'), findsOneWidget);
     final summaryY = tester.getTopLeft(find.text('Namlu çıkış hızı')).dy;
     final listY = tester.getTopLeft(find.text('Profiller')).dy;
-    expect(summaryY, lessThan(listY));
+    final rowY = tester.getBottomLeft(find.text('Bir')).dy;
+    expect(listY, lessThan(summaryY));
+    expect(rowY, lessThan(summaryY));
   });
 
   testWidgets('BC note no longer claims BC is unused', (tester) async {
@@ -224,20 +228,17 @@ void main() {
   });
 
   test('new-profile default names never repeat', () {
-    expect(defaultProfileName({}), 'Yeni Profil');
-    expect(defaultProfileName({'Yeni Profil'}), 'Yeni Profil 2');
-    expect(
-      defaultProfileName({'Yeni Profil', 'Yeni Profil 2', 'Avcı'}),
-      'Yeni Profil 3',
-    );
+    expect(defaultProfileName({}), 'Profil');
+    expect(defaultProfileName({'Profil'}), 'Profil 2');
+    expect(defaultProfileName({'Profil', 'Profil 2', 'Avcı'}), 'Profil 3');
     // A gap is reused: only taken names are skipped.
-    expect(
-      defaultProfileName({'Yeni Profil', 'Yeni Profil 3'}),
-      'Yeni Profil 2',
-    );
+    expect(defaultProfileName({'Profil', 'Profil 3'}), 'Profil 2');
+    // An old saved "Yeni Profil" (default until 2026-10-15) does not take
+    // the new default name.
+    expect(defaultProfileName({'Yeni Profil'}), 'Profil');
   });
 
-  testWidgets('second new profile opens as "Yeni Profil 2"', (tester) async {
+  testWidgets('second new profile opens as "Profil 2"', (tester) async {
     tester.view.physicalSize = const Size(390 * 3, 2600 * 3);
     tester.view.devicePixelRatio = 3;
     addTearDown(tester.view.reset);
@@ -245,7 +246,7 @@ void main() {
     await store.save(
       const RifleProfile(
         id: 'p0',
-        name: 'Yeni Profil',
+        name: 'Profil',
         rifleId: 'hatsan-hercules-635',
         ammunitionId: 'gmaz-51',
         scopeId: 'gazi-6-36',
@@ -270,6 +271,47 @@ void main() {
         matching: find.byType(TextField),
       ),
     );
-    expect(nameField.controller!.text, 'Yeni Profil 2');
+    expect(nameField.controller!.text, 'Profil 2');
   });
+
+  testWidgets(
+    'a saved "Yeni Profil" keeps its name; a new profile opens as "Profil"',
+    (tester) async {
+      tester.view.physicalSize = const Size(390 * 3, 2600 * 3);
+      tester.view.devicePixelRatio = 3;
+      addTearDown(tester.view.reset);
+      final store = MemoryProfileStore();
+      await store.save(
+        const RifleProfile(
+          id: 'p0',
+          name: 'Yeni Profil',
+          rifleId: 'hatsan-hercules-635',
+          ammunitionId: 'gmaz-51',
+          scopeId: 'gazi-6-36',
+          muzzleVelocityMps: 270,
+          zeroRangeM: 25,
+          sightHeightMm: 60,
+          pressureBar: 200,
+        ),
+      );
+      await tester.pumpWidget(
+        MaterialApp(
+          theme: MenzilTheme.light(),
+          home: ProfilesScreen(store: store),
+        ),
+      );
+      await tester.pumpAndSettle();
+      await tester.tap(find.byTooltip('Yeni profil'));
+      await tester.pumpAndSettle();
+      final nameField = tester.widget<TextField>(
+        find.descendant(
+          of: find.byKey(const Key('profile-name')),
+          matching: find.byType(TextField),
+        ),
+      );
+      expect(nameField.controller!.text, 'Profil');
+      // The old profile is neither renamed nor migrated.
+      expect((await store.all()).single.name, 'Yeni Profil');
+    },
+  );
 }

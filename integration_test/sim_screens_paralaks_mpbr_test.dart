@@ -219,7 +219,16 @@ void main() {
       await settle();
       await tester.tap(find.text('Kaydet'));
       await settle();
-      expect(find.text('Yeni Profil'), findsWidgets);
+      // "Profil" is also the tab label; match the saved profile's row.
+      expect(
+        find.byWidgetPredicate(
+          (w) =>
+              w is Text &&
+              w.key == const Key('profile-row-name') &&
+              w.data == 'Profil',
+        ),
+        findsOneWidget,
+      );
       saved = true;
       await settle();
     });

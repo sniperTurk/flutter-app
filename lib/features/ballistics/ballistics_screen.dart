@@ -3101,13 +3101,15 @@ class _BallisticsScreenState extends State<BallisticsScreen>
     // and adds to the DOWN travel. Limits only; the required clicks stay.
     final zeroClicks = basis == null ? 0 : _zeroAngleClicks(basis, click, unit);
     // Known travel: the mount moves the zero down inside the SAME travel,
-    // so UP can never exceed the whole travel and DOWN never goes below 0.
+    // so neither UP nor DOWN ever leaves 0 … the whole travel and together
+    // they never exceed it (denetim KUL-1: a zero angle beyond half of the
+    // travel used to give DOWN more than the whole turret).
     final upClicks = halfUp == null
         ? _unknownTravelClicks
         : math.max(0, math.min(halfUp + mountClicks - zeroClicks, 2 * halfUp));
     final downClicks = halfUp == null
         ? _unknownTravelClicks
-        : math.max(0, halfUp - mountClicks + zeroClicks);
+        : math.max(0, math.min(halfUp - mountClicks + zeroClicks, 2 * halfUp));
     final maxWindage =
         _halfTravelClicks(click, s.windageRangeMrad) ?? _unknownTravelClicks;
     if (_autoDialArmed && requiredUp != null) {
