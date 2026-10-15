@@ -12,6 +12,9 @@ import re
 import subprocess
 import unittest
 from pathlib import Path
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from dart_library_source import library_text  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[1]
 SCREEN = ROOT / "lib/features/ballistics/ballistics_screen.dart"
@@ -126,14 +129,14 @@ class Prf2Fix(unittest.TestCase):
                       src.replace("\\'", "'"))
 
     def test_editor_never_overwrites_a_shared_record(self):
-        src = PROFILES.read_text(encoding="utf-8")
+        src = library_text("lib/features/profiles/profiles_screen.dart")
         for entry in ("Map<String, dynamic> _rifleEntry()",
                       "Map<String, dynamic> _ammoEntry()",
                       "Map<String, dynamic> _scopeEntry()"):
             self.assertIn("_ownsRecord(", _method(src, entry), entry)
 
     def test_kopyala_keeps_catalog_ids(self):
-        src = PROFILES.read_text(encoding="utf-8")
+        src = library_text("lib/features/profiles/profiles_screen.dart")
         body = _method(src, "_copyPersonalRecords(RifleProfile p) async {")
         # Not in the personal store (catalog or missing): the id is kept.
         self.assertRegex(body, r"if \(found == null\) return id;")

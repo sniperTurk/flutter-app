@@ -280,7 +280,8 @@ List<String> _rifleLayout(WidgetTester t) => _layout(t, _rifleParts);
 const _scopeNewLayout = [
   'Marka',
   'Model',
-  'Dürbün ayağı | Üst kule klik sayısı',
+  // Owner, 2026-10-15: Üst kule klik sayısı | Dürbün ayağı (ayak sağda).
+  'Üst kule klik sayısı | Dürbün ayağı',
   'Retikül',
   'Dürbün: …',
   'Aradığın dürbün listede yok mu?',
@@ -292,7 +293,8 @@ const _scopeFilterLayout = [
   'Birim | Odak',
   'Tüp | Büyütme',
   'Model',
-  'Dürbün ayağı | Üst kule klik sayısı',
+  // Owner, 2026-10-15: Üst kule klik sayısı | Dürbün ayağı (ayak sağda).
+  'Üst kule klik sayısı | Dürbün ayağı',
   'Retikül',
   'Dürbün: …',
   'Aradığın dürbün listede yok mu?',
@@ -309,7 +311,8 @@ const _scopeTypedLayout = [
   'Minimum büyütme | Maksimum büyütme',
   'Mercek çapı | Odak düzlemi',
   'Dürbün birimi | Klik değeri',
-  'Dürbün ayağı | Üst kule klik sayısı',
+  // Owner, 2026-10-15: Üst kule klik sayısı | Dürbün ayağı (ayak sağda).
+  'Üst kule klik sayısı | Dürbün ayağı',
   'Retikül',
   'Dürbün: …',
 ];
@@ -1264,7 +1267,8 @@ void main() {
   });
   // Ek mühimmat bilgileri (owner, 2026-10-14 18:07–18:20): Barut katsayısı |
   // Hız ölçüm sıcaklığı and Hıza göre BC as an always-open, optional
-  // sub-section at the end of Mühimmat with one ⓘ.
+  // section after Mühimmat with one ⓘ; its own heading and card since
+  // 2026-10-15 (temiz tasarım).
   group('Mühimmat: Ek mühimmat bilgileri', () {
     const info =
         'Nedir?\nBarut katsayısı, hız ölçüm sıcaklığı ve hıza göre BC; '
@@ -1293,8 +1297,12 @@ void main() {
       expect(coef.top, greaterThanOrEqualTo(h.bottom - 0.5));
       expect((coef.top - temp.top).abs(), lessThan(1));
       expect(coef.right, lessThan(temp.left));
-      // Left-aligned with the boxes.
-      expect((h.left - coef.left).abs(), lessThan(1));
+      // Own card since 2026-10-15 (owner: "Ek mühimmat bilgileri" is its
+      // own section): the heading is left-aligned with that card, the
+      // boxes are inside it.
+      final card = r(tester, 'profile-ammo-extra-form');
+      expect((h.left - card.left).abs(), lessThan(1));
+      expect(coef.left, greaterThan(card.left));
       if (!bands) {
         expect(find.byKey(const Key('ammo-bands-title')), findsNothing);
         return;
@@ -1355,7 +1363,8 @@ void main() {
           findsNothing,
         );
       }
-      // The title and the ⓘ sit at the left, the ⓘ right of the title.
+      // The title at the left, the ⓘ right of it (at the right end since
+      // 2026-10-15); the title is left-aligned with the section's own card.
       final title = tester.getRect(
         find.descendant(
           of: h,
@@ -1364,7 +1373,7 @@ void main() {
       );
       expect(tester.getRect(infos).left, greaterThanOrEqualTo(title.right - 1));
       expect(
-        (title.left - r(tester, 'profile-powder-coef').left).abs(),
+        (title.left - r(tester, 'profile-ammo-extra-form').left).abs(),
         lessThan(1),
       );
       // The popup shows the text left-aligned.

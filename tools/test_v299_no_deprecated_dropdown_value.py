@@ -1,6 +1,9 @@
 import re
 import unittest
 from pathlib import Path
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from dart_library_source import library_text  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -18,7 +21,7 @@ class DropdownValuePolicyTest(unittest.TestCase):
         self.assertEqual([], offenders, 'deprecated DropdownButtonFormField(value:) usage: ' + ', '.join(offenders))
 
     def test_dependent_dropdowns_are_keyed_because_initial_value_is_not_live(self):
-        profiles = (ROOT / 'lib/features/profiles/profiles_screen.dart').read_text(encoding='utf-8')
+        profiles = library_text('lib/features/profiles/profiles_screen.dart')
         # V375: the rifle is typed in (no rifle dropdown). The ammunition list
         # depends on the typed caliber and the platform, so it is keyed on both.
         self.assertNotIn("MenzilSelect<Rifle>(", profiles)

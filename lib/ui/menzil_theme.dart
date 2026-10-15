@@ -20,6 +20,15 @@ class MenzilColors extends ThemeExtension<MenzilColors> {
   /// on it, both brightnesses; owner, 2026-10-10).
   static const Color stateOrange = Color(0xFFE8590C);
 
+  /// A button whose data is taken / whose step is done ("Haritadan alındı";
+  /// owner, 2026-10-15): dark blue fill, lighter blue border, white text.
+  static const Color doneFill = Color(0xFF1F5F7A);
+  static const Color doneBorder = Color(0xFF2E7FA0);
+
+  /// Araçlar tool icons (owner, 2026-10-15): white on grey-blue, not amber.
+  static const Color toolIcon = Color(0xFFE7EFF3);
+  static const Color toolIconBackground = Color(0xFF1B3245);
+
   /// Off-white scope field used in Koyu: the scope inside stays light in
   /// both themes, a little dimmer at night (owner, 2026-10-12).
   static const Color scopeBgDim = Color(0xFFE9EDF0);

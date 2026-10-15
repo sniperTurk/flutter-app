@@ -1,5 +1,8 @@
 """V368: source-text guards for the fail-closed profile editor. NOT a substitute for flutter test."""
 from pathlib import Path
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from dart_library_source import library_text  # noqa: E402
 import unittest
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -11,7 +14,7 @@ def read(rel):
 
 class V368ProfileIntegrity(unittest.TestCase):
     def test_editor_never_autofills_catalog_ids_when_editing(self):
-        t = read('lib/features/profiles/profiles_screen.dart')
+        t = library_text('lib/features/profiles/profiles_screen.dart')
         # V375: no rifle is ever preselected; the user types the rifle in.
         self.assertNotIn('rifle ??=', t)
         # V376: the scope is typed in too; nothing is preselected.
@@ -23,14 +26,14 @@ class V368ProfileIntegrity(unittest.TestCase):
         self.assertNotIn('\n    scope ??= CatalogRepository.scopes.first;', t)
 
     def test_save_requires_explicit_rifle_ammo_scope(self):
-        t = read('lib/features/profiles/profiles_screen.dart')
+        t = library_text('lib/features/profiles/profiles_screen.dart')
         # V375: the typed rifle must be complete and valid (incl. twist).
         # Whitespace-insensitive: dart format decides the line breaks.
         flat = ' '.join(t.split())
         self.assertIn('!_saving && _rifleValid && _ammoValid && _scopeValid && _validSight && missing.isEmpty', flat)
 
     def test_no_fabricated_pressure_for_existing_profile(self):
-        t = read('lib/features/profiles/profiles_screen.dart')
+        t = library_text('lib/features/profiles/profiles_screen.dart')
         # Owner, 2026-10-09: new profiles start with no invented values.
         # Owner, 2026-10-12: PCP Tüp basıncı | Regülatör basıncı are back,
         # optional, and filled only from the stored profile (never a

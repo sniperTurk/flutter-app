@@ -28,6 +28,9 @@ import math
 import re
 import unittest
 from pathlib import Path
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from dart_library_source import library_text  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[1]
 G0 = 9.80665
@@ -231,7 +234,7 @@ class GaText(unittest.TestCase):
 
 class RifleListedeYokFlag(unittest.TestCase):
     def test_flag_default_off_item_kept(self):
-        src = (ROOT / "lib/features/profiles/profiles_screen.dart").read_text(encoding="utf-8")
+        src = library_text("lib/features/profiles/profiles_screen.dart")
         self.assertIn("bool.fromEnvironment(\n    'RIFLE_LISTEDE_YOK',\n  )", src)
         self.assertIn("if (_showRifleListedeYok)", src)
         self.assertIn("Key('rifle-not-listed')", src)

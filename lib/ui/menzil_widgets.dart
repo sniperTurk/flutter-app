@@ -1482,14 +1482,47 @@ class MenzilSelect<T> extends StatefulWidget {
         )
       : w;
 
+  /// Space between the box and its open list (owner, 2026-10-15).
+  static const double menuGap = 4;
+
+  /// Highest the open list gets (owner, 2026-10-11: "menüler çok büyük
+  /// açılıyor"); a longer list scrolls.
+  static const double menuMaxHeight = 300;
+
   @override
   State<MenzilSelect<T>> createState() => MenzilSelectState<T>();
 }
 
 /// A [DropdownButton] in the field decoration (a form field cannot narrow
 /// its menu): the value lives here, as it did in the form field.
-class MenzilSelectState<T> extends State<MenzilSelect<T>> {
+class MenzilSelectState<T> extends State<MenzilSelect<T>>
+    with WidgetsBindingObserver {
   late T? _value = widget.initialValue;
+
+  /// The closed box (the list button); the open list hangs under it.
+  final GlobalKey _boxKey = GlobalKey();
+
+  /// The open list, while it is open.
+  _MenzilMenuRoute<T>? _menu;
+
+  /// True while [_open] waits for the keyboard to go away.
+  bool _opening = false;
+
+  /// A tap on the box ends typing in another box, as Flutter's own list
+  /// button did by taking the focus: the keyboard closes first and the list
+  /// is placed once it is gone (at most about half a second), so it is
+  /// never laid out against a keyboard that is about to disappear.
+  Future<void> _closeKeyboard() async {
+    FocusManager.instance.primaryFocus?.unfocus();
+    // The window's own insets: a Scaffold hides the keyboard from the
+    // MediaQuery of its body.
+    for (var i = 0; i < 60; i++) {
+      if (!mounted) return;
+      if (View.of(context).viewInsets.bottom == 0) return;
+      WidgetsBinding.instance.scheduleFrame();
+      await WidgetsBinding.instance.endOfFrame;
+    }
+  }
 
   /// The value currently picked (null: "Seçiniz"); read by tests.
   T? get value => _value;
@@ -1500,11 +1533,136 @@ class MenzilSelectState<T> extends State<MenzilSelect<T>> {
       b is OutlineInputBorder ? b.copyWith(gapPadding: 0) : b;
 
   @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    _closeMenu();
+    super.dispose();
+  }
+
+  /// Window width when the list opened.
+  double? _openWidth;
+
+  /// A rotation or a resized window moves the box: the list closes. The
+  /// keyboard coming or going changes the metrics too, but not the width;
+  /// that keeps the list open (it closed the list under the user's finger
+  /// on the iOS Simulator).
+  @override
+  void didChangeMetrics() {
+    if (_menu == null || !mounted) return;
+    if (View.of(context).physicalSize.width != _openWidth) _closeMenu();
+  }
+
+  void _closeMenu() {
+    final menu = _menu;
+    _menu = null;
+    if (menu != null && menu.isActive) menu.navigator?.removeRoute(menu);
+  }
+
+  @override
   void didUpdateWidget(covariant MenzilSelect<T> oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (widget.initialValue != oldWidget.initialValue) {
       _value = widget.initialValue;
     }
+  }
+
+  /// Opens the list UNDER the box, [MenzilSelect.menuGap] below it and
+  /// exactly as wide as the box (owner, 2026-10-15). When the screen has
+  /// too little room below, the page scrolls up first so the list still
+  /// opens downward (before, Flutter laid the list over the box and opened
+  /// it upward near the bottom of the screen).
+  Future<void> _open() async {
+    final w = widget;
+    if (w.onChanged == null || w.items.isEmpty || _menu != null || _opening) {
+      return;
+    }
+    _opening = true;
+    try {
+      await _closeKeyboard();
+    } finally {
+      _opening = false;
+    }
+    if (!mounted) return;
+    if (_menu != null) return;
+    final navigator = Navigator.of(context);
+    final box = _boxKey.currentContext?.findRenderObject();
+    final navBox = navigator.context.findRenderObject();
+    if (box is! RenderBox || navBox is! RenderBox || !box.hasSize) return;
+    var rect = box.localToGlobal(Offset.zero, ancestor: navBox) & box.size;
+    final mq = MediaQuery.of(context);
+    final bottom =
+        navBox.size.height -
+        math.max(mq.padding.bottom, mq.viewInsets.bottom) -
+        MenzilSpace.sm;
+    final itemH = w.itemHeight ?? kMinInteractiveDimension;
+    final want = math.min(
+      MenzilSelect.menuMaxHeight,
+      w.items.length * itemH + _DropdownMenu.listPadding * 2,
+    );
+    var room = bottom - rect.bottom - MenzilSelect.menuGap;
+    if (room < want) {
+      final position = Scrollable.maybeOf(context)?.position;
+      if (position != null &&
+          position.axis == Axis.vertical &&
+          !axisDirectionIsReversed(position.axisDirection)) {
+        final target = math.min(
+          position.maxScrollExtent,
+          position.pixels + (want - room),
+        );
+        final moved = target - position.pixels;
+        if (moved > 0) {
+          position.jumpTo(target);
+          rect = rect.shift(Offset(0, -moved));
+          room += moved;
+        }
+      }
+    }
+    final c = MenzilColors.of(context);
+    final menu = _MenzilMenuRoute<T>(
+      anchor: rect,
+      maxHeight: room.clamp(
+        kMinInteractiveDimension,
+        MenzilSelect.menuMaxHeight,
+      ),
+      items: [
+        for (final it in w.items)
+          DropdownMenuItem<T>(
+            key: it.key,
+            value: it.value,
+            enabled: it.enabled,
+            onTap: it.onTap,
+            alignment: it.alignment,
+            // List entries in regular weight (owner, 2026-10-11).
+            child: DefaultTextStyle.merge(
+              style: const TextStyle(fontWeight: FontWeight.w400),
+              child: it.child,
+            ),
+          ),
+      ],
+      itemHeight: w.itemHeight,
+      // Entries a bit smaller and not bold (owner, 2026-10-11).
+      style: TextStyle(fontSize: 15, fontWeight: FontWeight.w400, color: c.ink),
+      color: c.surface,
+      borderColor: c.line,
+      capturedThemes: InheritedTheme.capture(
+        from: context,
+        to: navigator.context,
+      ),
+      barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
+    );
+    _menu = menu;
+    _openWidth = View.of(context).physicalSize.width;
+    final result = await navigator.push(menu);
+    if (identical(_menu, menu)) _menu = null;
+    if (!mounted || result == null) return;
+    setState(() => _value = result.value);
+    widget.onChanged?.call(result.value);
   }
 
   /// [MenzilSelect.wrapSelected]: the choice [text] wraps at the list's own
@@ -1638,130 +1796,129 @@ class MenzilSelectState<T> extends State<MenzilSelect<T>> {
                       data: ButtonTheme.of(
                         context,
                       ).copyWith(alignedDropdown: true),
-                      child: DropdownButton<T>(
-                        // Always opens DOWNWARD (owner, 2026-10-12): Flutter
-                        // places the list so the selected entry covers the box,
-                        // which opened it upward for a later entry. The box
-                        // therefore shows the choice as its hint and the list
-                        // starts at its first entry.
-                        value: null,
-                        // Every list box says "Seçiniz" until something is
-                        // picked (owner, 2026-10-11).
-                        hint: wrapped != null
-                            ? const SizedBox.shrink()
-                            : selectedIndex == null
-                            ? (w.fitSelected
-                                  ? DefaultTextStyle.merge(
-                                      style: TextStyle(color: c.ink2),
-                                      child: MenzilFitText(w.hint ?? 'Seçiniz'),
-                                    )
-                                  : Text(
-                                      w.hint ?? 'Seçiniz',
-                                      style: TextStyle(color: c.ink2),
-                                    ))
-                            : DefaultTextStyle.merge(
-                                maxLines: 1,
-                                softWrap: false,
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyle(color: c.ink),
-                                child: _closed(selectedIndex, items),
-                              ),
-                        // List entries in regular weight (owner, 2026-10-11).
-                        items: [
-                          for (final it in items)
-                            DropdownMenuItem<T>(
-                              key: it.key,
-                              value: it.value,
-                              enabled: it.enabled,
-                              onTap: it.onTap,
-                              alignment: it.alignment,
-                              child: DefaultTextStyle.merge(
-                                style: const TextStyle(
-                                  fontWeight: FontWeight.w400,
+                      child: GestureDetector(
+                        // The list is opened here, under the box ([_open]);
+                        // Flutter's own list (onChanged null below) would lie
+                        // over the box. The ⓘ inside a compact box keeps its
+                        // own tap.
+                        behavior: HitTestBehavior.opaque,
+                        onTap: w.onChanged == null ? null : _open,
+                        child: DropdownButton<T>(
+                          key: _boxKey,
+                          // The box shows the choice as its hint; the button
+                          // itself only draws the closed box.
+                          value: null,
+                          // Every list box says "Seçiniz" until something is
+                          // picked (owner, 2026-10-11).
+                          hint: wrapped != null
+                              ? const SizedBox.shrink()
+                              : selectedIndex == null
+                              ? (w.fitSelected
+                                    ? DefaultTextStyle.merge(
+                                        style: TextStyle(color: c.ink2),
+                                        child: MenzilFitText(
+                                          w.hint ?? 'Seçiniz',
+                                        ),
+                                      )
+                                    : Text(
+                                        w.hint ?? 'Seçiniz',
+                                        style: TextStyle(color: c.ink2),
+                                      ))
+                              : DefaultTextStyle.merge(
+                                  maxLines: 1,
+                                  softWrap: false,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: TextStyle(color: c.ink),
+                                  child: _closed(selectedIndex, items),
                                 ),
-                                child: it.child,
-                              ),
-                            ),
-                        ],
-                        onChanged: w.onChanged == null
-                            ? null
-                            : (v) {
-                                setState(() => _value = v);
-                                w.onChanged!(v);
-                              },
-                        // The closed box always shows ONE line (owner,
-                        // 2026-10-09: "Normal (0 MOA)" wrapped and was cut off).
-                        // With value null Flutter shows the entry whose value is
-                        // null ("Seçiniz" in lists that offer it): that slot
-                        // shows the current choice instead.
-                        selectedItemBuilder: (context) => [
-                          for (var i = 0; i < items.length; i++)
-                            Align(
-                              alignment: Alignment.centerLeft,
-                              child: DefaultTextStyle.merge(
-                                maxLines: 1,
-                                softWrap: false,
-                                overflow: TextOverflow.ellipsis,
-                                child: () {
-                                  final k = items[i].value == null
-                                      ? selectedIndex
-                                      : i;
-                                  if (wrapped != null) {
-                                    return const SizedBox.shrink();
-                                  }
-                                  if (k == null) {
-                                    return Text(
-                                      w.hint ?? 'Seçiniz',
-                                      style: TextStyle(color: c.ink2),
-                                    );
-                                  }
-                                  return _closed(k, items);
-                                }(),
-                              ),
-                            ),
-                        ],
-                        isExpanded: true,
-                        isDense: true,
-                        // Aligned, Flutter adds 16 pt before the text and 4 pt
-                        // after the arrow, so the text still starts 16 pt and
-                        // the arrow ends 16 pt inside the box, as before.
-                        // Compact (Fikir 4): no vertical padding; the 44 pt
-                        // trailing part (unit, ⓘ, arrow) sets the box height.
-                        padding: compact
-                            ? const EdgeInsetsDirectional.only(end: 4)
-                            : const EdgeInsetsDirectional.fromSTEB(
-                                0,
-                                13,
-                                12,
-                                13,
-                              ),
-                        // A compact list, not a full-screen sheet (owner,
-                        // 2026-10-11: "menüler çok büyük açılıyor").
-                        menuMaxHeight: 300,
-                        itemHeight: w.itemHeight,
-                        borderRadius: BorderRadius.circular(MenzilRadius.input),
-                        dropdownColor: c.surface,
-                        // Compact: the ⓘ sits left of the arrow, inside the
-                        // box. Its own button takes the tap, so it opens the
-                        // explanation and never the list. A dense button is as tall
-                        // as its icon size: 44 pt.
-                        icon: compact
-                            ? _CompactTrailing(
-                                title: w.label,
-                                unit: w.unit,
-                                info: w.info,
-                                after: IconTheme.merge(
-                                  data: const IconThemeData(size: 24),
-                                  child: arrow,
+                          // List entries in regular weight (owner, 2026-10-11).
+                          items: [
+                            for (final it in items)
+                              DropdownMenuItem<T>(
+                                key: it.key,
+                                value: it.value,
+                                enabled: it.enabled,
+                                onTap: it.onTap,
+                                alignment: it.alignment,
+                                child: DefaultTextStyle.merge(
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                  child: it.child,
                                 ),
-                              )
-                            : arrow,
-                        iconSize: compact ? MenzilSpace.compactControl : 24,
-                        // Entries a bit smaller and not bold (owner, 2026-10-11).
-                        style: TextStyle(
-                          fontSize: 15,
-                          fontWeight: FontWeight.w400,
-                          color: c.ink,
+                              ),
+                          ],
+                          // Never Flutter's list: [_open] shows ours.
+                          onChanged: null,
+                          // The closed box always shows ONE line (owner,
+                          // 2026-10-09: "Normal (0 MOA)" wrapped and was cut off).
+                          // With value null Flutter shows the entry whose value is
+                          // null ("Seçiniz" in lists that offer it): that slot
+                          // shows the current choice instead.
+                          selectedItemBuilder: (context) => [
+                            for (var i = 0; i < items.length; i++)
+                              Align(
+                                alignment: Alignment.centerLeft,
+                                child: DefaultTextStyle.merge(
+                                  maxLines: 1,
+                                  softWrap: false,
+                                  overflow: TextOverflow.ellipsis,
+                                  child: () {
+                                    final k = items[i].value == null
+                                        ? selectedIndex
+                                        : i;
+                                    if (wrapped != null) {
+                                      return const SizedBox.shrink();
+                                    }
+                                    if (k == null) {
+                                      return Text(
+                                        w.hint ?? 'Seçiniz',
+                                        style: TextStyle(color: c.ink2),
+                                      );
+                                    }
+                                    return _closed(k, items);
+                                  }(),
+                                ),
+                              ),
+                          ],
+                          isExpanded: true,
+                          isDense: true,
+                          // Aligned, Flutter adds 16 pt before the text and 4 pt
+                          // after the arrow, so the text still starts 16 pt and
+                          // the arrow ends 16 pt inside the box, as before.
+                          // Compact (Fikir 4): no vertical padding; the 44 pt
+                          // trailing part (unit, ⓘ, arrow) sets the box height.
+                          padding: compact
+                              ? const EdgeInsetsDirectional.only(end: 4)
+                              : const EdgeInsetsDirectional.fromSTEB(
+                                  0,
+                                  13,
+                                  12,
+                                  13,
+                                ),
+                          // Compact: the ⓘ sits left of the arrow, inside the
+                          // box. Its own button takes the tap, so it opens the
+                          // explanation and never the list. A dense button is as tall
+                          // as its icon size: 44 pt.
+                          icon: compact
+                              ? _CompactTrailing(
+                                  title: w.label,
+                                  unit: w.unit,
+                                  info: w.info,
+                                  after: IconTheme.merge(
+                                    data: const IconThemeData(size: 24),
+                                    child: arrow,
+                                  ),
+                                )
+                              : arrow,
+                          iconSize: compact ? MenzilSpace.compactControl : 24,
+                          // The closed box's text: 15 pt, regular (owner,
+                          // 2026-10-11).
+                          style: TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.w400,
+                            color: c.ink,
+                          ),
                         ),
                       ),
                     ),
@@ -1772,6 +1929,191 @@ class MenzilSelectState<T> extends State<MenzilSelect<T>> {
           ),
         ],
       ),
+    );
+  }
+}
+
+/// The pick of an open [MenzilSelect] list (null: closed without a pick).
+class _MenzilMenuResult<T> {
+  final T? value;
+  const _MenzilMenuResult(this.value);
+}
+
+/// The open list of a [MenzilSelect]: under its box, [MenzilSelect.menuGap]
+/// below it and exactly as wide (owner, 2026-10-15).
+class _MenzilMenuRoute<T> extends PopupRoute<_MenzilMenuResult<T>> {
+  _MenzilMenuRoute({
+    required this.anchor,
+    required this.maxHeight,
+    required this.items,
+    required this.itemHeight,
+    required this.style,
+    required this.color,
+    required this.borderColor,
+    required this.capturedThemes,
+    required this.barrierLabel,
+  });
+
+  /// The closed box, in the navigator's coordinates.
+  final Rect anchor;
+  final double maxHeight;
+  final List<DropdownMenuItem<T>> items;
+  final double? itemHeight;
+  final TextStyle style;
+  final Color color;
+  final Color borderColor;
+  final CapturedThemes capturedThemes;
+
+  @override
+  final String barrierLabel;
+
+  @override
+  Color? get barrierColor => null;
+
+  @override
+  bool get barrierDismissible => true;
+
+  @override
+  Duration get transitionDuration => const Duration(milliseconds: 200);
+
+  @override
+  Widget buildPage(
+    BuildContext context,
+    Animation<double> animation,
+    Animation<double> secondaryAnimation,
+  ) {
+    return MediaQuery.removePadding(
+      context: context,
+      removeTop: true,
+      removeBottom: true,
+      removeLeft: true,
+      removeRight: true,
+      child: CustomSingleChildLayout(
+        delegate: _MenzilMenuLayout(anchor: anchor, maxHeight: maxHeight),
+        child: capturedThemes.wrap(
+          _DropdownMenu<T>(route: this, animation: animation),
+        ),
+      ),
+    );
+  }
+}
+
+/// Puts the list [MenzilSelect.menuGap] under the box, box wide.
+class _MenzilMenuLayout extends SingleChildLayoutDelegate {
+  final Rect anchor;
+  final double maxHeight;
+
+  const _MenzilMenuLayout({required this.anchor, required this.maxHeight});
+
+  @override
+  BoxConstraints getConstraintsForChild(BoxConstraints constraints) =>
+      BoxConstraints(
+        minWidth: anchor.width,
+        maxWidth: anchor.width,
+        maxHeight: maxHeight,
+      );
+
+  @override
+  Offset getPositionForChild(Size size, Size childSize) =>
+      Offset(anchor.left, anchor.bottom + MenzilSelect.menuGap);
+
+  @override
+  bool shouldRelayout(_MenzilMenuLayout old) =>
+      anchor != old.anchor || maxHeight != old.maxHeight;
+}
+
+// The two widgets below carry the names of Flutter's own dropdown list
+// widgets on purpose: widget tests find "the open list" and "an entry of the
+// open list" by these type names (_DropdownMenu<…>, _DropdownMenuItemButton).
+
+/// The open list: a scrolling column of entries in a bordered surface.
+class _DropdownMenu<T> extends StatefulWidget {
+  final _MenzilMenuRoute<T> route;
+  final Animation<double> animation;
+
+  /// Space above the first and below the last entry.
+  static const double listPadding = 8;
+
+  const _DropdownMenu({required this.route, required this.animation});
+
+  @override
+  State<_DropdownMenu<T>> createState() => _DropdownMenuState<T>();
+}
+
+class _DropdownMenuState<T> extends State<_DropdownMenu<T>> {
+  final ScrollController _scroll = ScrollController();
+
+  @override
+  void dispose() {
+    _scroll.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final route = widget.route;
+    return FadeTransition(
+      opacity: CurvedAnimation(parent: widget.animation, curve: Curves.easeOut),
+      child: Material(
+        color: route.color,
+        elevation: 8,
+        clipBehavior: Clip.antiAlias,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(MenzilRadius.input),
+          side: BorderSide(color: route.borderColor),
+        ),
+        child: DefaultTextStyle(
+          style: route.style,
+          child: Semantics(
+            scopesRoute: true,
+            namesRoute: true,
+            explicitChildNodes: true,
+            label: MaterialLocalizations.of(context).popupMenuLabel,
+            child: Scrollbar(
+              controller: _scroll,
+              child: ListView(
+                controller: _scroll,
+                padding: const EdgeInsets.symmetric(
+                  vertical: _DropdownMenu.listPadding,
+                ),
+                shrinkWrap: true,
+                children: [
+                  for (var i = 0; i < route.items.length; i++)
+                    _DropdownMenuItemButton<T>(route: route, index: i),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+/// One entry of the open list; a tap picks it and closes the list.
+class _DropdownMenuItemButton<T> extends StatelessWidget {
+  final _MenzilMenuRoute<T> route;
+  final int index;
+
+  const _DropdownMenuItemButton({required this.route, required this.index});
+
+  @override
+  Widget build(BuildContext context) {
+    final item = route.items[index];
+    // Same box as Flutter's entry: 16 pt in on both sides; a null
+    // [MenzilSelect.itemHeight] lets the entry grow with wrapped text.
+    final Widget entry = Container(
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      height: route.itemHeight,
+      child: item,
+    );
+    if (!item.enabled) return entry;
+    return InkWell(
+      onTap: () {
+        item.onTap?.call();
+        Navigator.pop(context, _MenzilMenuResult<T>(item.value));
+      },
+      child: entry,
     );
   }
 }
@@ -2016,7 +2358,19 @@ class MenzilPrimaryButton extends StatelessWidget {
   }
 }
 
-/// Secondary action (outlined).
+/// Colours of a button whose data is taken / whose step is done ("Haritadan
+/// alındı", "Düzeltme alındı"; owner, 2026-10-15): dark blue fill, lighter
+/// blue border, white text. Never orange.
+abstract final class MenzilDoneColors {
+  static const Color fill = MenzilColors.doneFill;
+  static const Color border = MenzilColors.doneBorder;
+  static const Color text = Colors.white;
+}
+
+/// Secondary action (outlined). No icon is drawn (owner, 2026-10-15:
+/// "Düğmeler turuncu olmaz ve simgesizdir"); the one exception is the ✓
+/// ([Icons.check]) of a done button ([active]), which only "Hava verisi
+/// alındı" carries.
 class MenzilSecondaryButton extends StatelessWidget {
   final String label;
   final VoidCallback? onPressed;
@@ -2024,8 +2378,10 @@ class MenzilSecondaryButton extends StatelessWidget {
   final bool expand;
   final bool destructive;
 
-  /// Filled orange with white text: the control's state is the current one
-  /// (e.g. "Çözüm kuleye kurulu"). Stays orange when disabled.
+  /// Done / taken state (e.g. "Haritadan alındı", "Çözüm kuleye kurulu"):
+  /// [MenzilDoneColors] fill and border with white text (owner, 2026-10-15;
+  /// before: orange). Stays so when disabled. The caller keeps the state,
+  /// so the button is still "… alındı" when the page is opened again.
   final bool active;
 
   /// The label takes at most two lines; a longer one is set smaller until it
@@ -2112,11 +2468,11 @@ class MenzilSecondaryButton extends StatelessWidget {
     final c = MenzilColors.of(context);
     final style = active
         ? OutlinedButton.styleFrom(
-            backgroundColor: MenzilColors.stateOrange,
-            foregroundColor: Colors.white,
-            disabledBackgroundColor: MenzilColors.stateOrange,
-            disabledForegroundColor: Colors.white,
-            side: const BorderSide(color: MenzilColors.stateOrange),
+            backgroundColor: MenzilDoneColors.fill,
+            foregroundColor: MenzilDoneColors.text,
+            disabledBackgroundColor: MenzilDoneColors.fill,
+            disabledForegroundColor: MenzilDoneColors.text,
+            side: const BorderSide(color: MenzilDoneColors.border),
           )
         : destructive
         ? OutlinedButton.styleFrom(
@@ -2124,7 +2480,9 @@ class MenzilSecondaryButton extends StatelessWidget {
             side: BorderSide(color: c.danger.withValues(alpha: 0.6)),
           )
         : null;
-    final button = icon == null
+    // Only the ✓ of a done button is drawn; other icons are left out.
+    final shown = active && icon == Icons.check ? icon : null;
+    final button = shown == null
         ? OutlinedButton(style: style, onPressed: onPressed, child: _label())
         : OutlinedButton.icon(
             // Equal space left and right of icon + label (owner,
@@ -2135,7 +2493,7 @@ class MenzilSecondaryButton extends StatelessWidget {
               ),
             ),
             onPressed: onPressed,
-            icon: Icon(icon, size: 20),
+            icon: Icon(shown, size: 20),
             label: _label(),
           );
     return expand ? SizedBox(width: double.infinity, child: button) : button;
@@ -2437,6 +2795,14 @@ class MenzilToolTile extends StatelessWidget {
   final bool enabled;
   final Key? tileKey;
 
+  /// Araçlar (owner, 2026-10-15): white icon (#E7EFF3) on grey-blue
+  /// (#1B3245) instead of amber.
+  final bool plainIcon;
+
+  /// [plainIcon] colours.
+  static const Color plainIconColor = MenzilColors.toolIcon;
+  static const Color plainIconBackground = MenzilColors.toolIconBackground;
+
   const MenzilToolTile({
     super.key,
     required this.icon,
@@ -2445,6 +2811,7 @@ class MenzilToolTile extends StatelessWidget {
     required this.onTap,
     this.enabled = true,
     this.tileKey,
+    this.plainIcon = false,
   });
 
   @override
@@ -2466,10 +2833,21 @@ class MenzilToolTile extends StatelessWidget {
             width: 44,
             height: 44,
             decoration: BoxDecoration(
-              color: enabled ? c.amberSoft : c.surface2,
+              color: !enabled
+                  ? c.surface2
+                  : plainIcon
+                  ? plainIconBackground
+                  : c.amberSoft,
               borderRadius: BorderRadius.circular(MenzilRadius.button),
             ),
-            child: Icon(icon, color: enabled ? c.amberInk : c.ink2),
+            child: Icon(
+              icon,
+              color: !enabled
+                  ? c.ink2
+                  : plainIcon
+                  ? plainIconColor
+                  : c.amberInk,
+            ),
           ),
           title: Text(
             title,
