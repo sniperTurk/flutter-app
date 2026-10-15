@@ -12,9 +12,10 @@
 //   KUL-1 zero angle larger than half of the turret travel: DOWN travel
 //         longer than the whole turret, UP silently 0, no "cannot zero"
 //         note (skip).
-//   KUL-2 Doğrulama (truing) writes Namlu çıkış hızı, which an
+//   KUL-2 Doğrulama (truing) wrote Namlu çıkış hızı, which an
 //         unregulated PCP with a usable Profil table no longer uses for
-//         zero or shot after F3 (skip).
+//         zero or shot after F3. Fixed 2026-10-15: not written there, the
+//         page says the speed comes from the pressure table.
 //   KUL-3 PRO_TUBE_PRESSURE on, Pro box empty: the Profil Tüp basıncı and
 //         table are ignored (skip, hidden flag).
 // The other tests are passing guards.
@@ -29,10 +30,15 @@ import 'package:sniper_turk/data/catalog_repository.dart';
 import 'package:sniper_turk/data/user_catalog.dart';
 import 'package:sniper_turk/features/ballistics/ballistics_screen.dart';
 import 'package:sniper_turk/features/ballistics/scope_dial_view.dart';
+import 'package:sniper_turk/features/tools/truing_screen.dart';
 import 'package:sniper_turk/models/domain.dart';
+import 'package:sniper_turk/services/active_profile_store.dart';
+import 'package:sniper_turk/services/profile_store.dart';
 import 'package:sniper_turk/ui/menzil_theme.dart';
+import 'package:sniper_turk/ui/menzil_widgets.dart';
 
 import '../support/library_source.dart';
+import '../support/tool_fakes.dart';
 
 // ---- Manual ("Listede yok") records, as a typed rifle is stored ----------
 
@@ -370,18 +376,111 @@ void main() {
   });
 
   group('KUL-2 Doğrulama vs the F3 table velocity', () {
-    test('truing knows the PCP table (or says it does not apply)', () {
-      final src = File(
-        'lib/features/tools/truing_screen.dart',
-      ).readAsStringSync();
-      // Truing writes Namlu çıkış hızı; an unregulated PCP with a usable
-      // Profil table is zeroed and shot with the table velocity (F3), so
-      // the "Doğrulanmış hız profile uygulandı" result changes nothing.
-      expect(
-        src.contains('pressureVelocityTable') || src.contains('PcpPressure'),
-        isTrue,
+    // Fixed (owner, 2026-10-15): with a usable table the trued velocity is
+    // not written; the page says the speed comes from the pressure table.
+    Future<MemoryProfileStore> pumpTruing(
+      WidgetTester tester,
+      RifleProfile p,
+    ) async {
+      tester.view.physicalSize = const Size(430, 2400);
+      tester.view.devicePixelRatio = 1.0;
+      addTearDown(tester.view.reset);
+      final store = MemoryProfileStore();
+      await store.save(p);
+      final active = MemoryActiveProfileStore()..value = p.id;
+      await tester.pumpWidget(
+        host(TruingScreen(profileStore: store, activeProfileStore: active)),
       );
-    }, skip: 'KUL-2: truing ignores the PCP table velocity');
+      await tester.pumpAndSettle();
+      return store;
+    }
+
+    Future<void> computeAt100(WidgetTester tester) async {
+      // Observation of a 240 m/s shot at 100 m (zero 30 m, 50 mm).
+      final observed = const BallisticEngine()
+          .solve(
+            BallisticInput(
+              muzzleVelocityMps: 240,
+              grain: 18,
+              zeroRangeM: 30,
+              sightHeightMm: 50,
+              rangesM: const [100],
+              ballisticCoefficient: 0.031,
+              ballisticModel: BallisticModel.g1,
+            ),
+          )
+          .single
+          .correctionMrad;
+      await tester.enterText(find.byKey(const Key('truing-range')), '100');
+      await tester.enterText(
+        find.byKey(const Key('truing-observed')),
+        observed.toStringAsFixed(4).replaceAll('.', ','),
+      );
+      await tester.ensureVisible(find.byKey(const Key('truing-compute')));
+      await tester.tap(find.byKey(const Key('truing-compute')));
+      await tester.pumpAndSettle();
+    }
+
+    testWidgets('truing knows the PCP table: message, apply disabled with '
+        'its ⓘ, no "uygulandı", profile untouched', (tester) async {
+      final store = await pumpTruing(
+        tester,
+        _pcp(profileMps: 270, zeroM: 30, tubeBar: 120),
+      );
+      expect(find.byKey(const Key('truing-pcp-table')), findsOneWidget);
+      expect(find.textContaining('Basınca göre hız'), findsOneWidget);
+      await computeAt100(tester);
+      expect(find.byKey(const Key('truing-result')), findsOneWidget);
+      final apply = find.byKey(const Key('truing-apply'));
+      await tester.ensureVisible(apply);
+      expect(tester.widget<MenzilSecondaryButton>(apply).onPressed, isNull);
+      expect(find.byKey(const Key('truing-apply-info')), findsOneWidget);
+      await tester.tap(apply, warnIfMissed: false);
+      await tester.pumpAndSettle();
+      expect(find.byKey(const Key('truing-confirm')), findsNothing);
+      expect(find.text('Doğrulanmış hız profile uygulandı.'), findsNothing);
+      final saved = (await store.all()).single;
+      expect(saved.muzzleVelocityMps, 270);
+      expect(saved.pressureVelocityTable, hasLength(2));
+      // The ⓘ explains why the button is off.
+      await tester.tap(find.byKey(const Key('truing-apply-info')));
+      await tester.pumpAndSettle();
+      expect(find.textContaining('düğme kapalı'), findsOneWidget);
+    });
+
+    testWidgets('one-point table (not usable): velocity is applied as '
+        'before', (tester) async {
+      final store = await pumpTruing(
+        tester,
+        _pcp(profileMps: 270, zeroM: 30, tubeBar: 120, onePoint: true),
+      );
+      expect(find.byKey(const Key('truing-pcp-table')), findsNothing);
+      await computeAt100(tester);
+      final apply = find.byKey(const Key('truing-apply'));
+      await tester.ensureVisible(apply);
+      expect(tester.widget<MenzilSecondaryButton>(apply).onPressed, isNotNull);
+      await tester.tap(apply);
+      await tester.pumpAndSettle();
+      await tester.tap(find.byKey(const Key('truing-confirm')));
+      await tester.pumpAndSettle();
+      expect(
+        (await store.all()).single.muzzleVelocityMps,
+        closeTo(240, 0.5),
+      );
+    });
+
+    testWidgets('regulated PCP above the regulator: velocity is applied as '
+        'before', (tester) async {
+      await pumpTruing(
+        tester,
+        _pcp(profileMps: 270, zeroM: 30, tubeBar: 200, regulatorBar: 150),
+      );
+      expect(find.byKey(const Key('truing-pcp-table')), findsNothing);
+      await computeAt100(tester);
+      final apply = find.byKey(const Key('truing-apply'));
+      await tester.ensureVisible(apply);
+      expect(tester.widget<MenzilSecondaryButton>(apply).onPressed, isNotNull);
+    });
   });
 
   group('KUL-3 hidden PRO_TUBE_PRESSURE with an empty Pro box', () {
