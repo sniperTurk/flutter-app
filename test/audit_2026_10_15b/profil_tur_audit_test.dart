@@ -53,6 +53,41 @@ Future<void> _newProfile(WidgetTester tester) async {
   expect(find.text('Profil Oluştur'), findsOneWidget);
 }
 
+/// Like chooseInSelect, for a list longer than its scroll budget (Hornady
+/// has hundreds of bullets): scrolls the open menu down until the item is
+/// built, from the top.
+Future<void> _chooseInLongSelect(
+  WidgetTester tester,
+  String key,
+  String label,
+) async {
+  final select = find.byKey(Key(key));
+  await tester.ensureVisible(select);
+  await tester.tap(select);
+  await tester.pumpAndSettle();
+  final inMenu = find.descendant(
+    of: find.byWidgetPredicate(
+      (w) => w.runtimeType.toString().startsWith('_DropdownMenuItemButton'),
+    ),
+    matching: find.text(label),
+  );
+  final menu = find.byType(Scrollable).last;
+  for (var i = 0; i < 400 && inMenu.evaluate().isEmpty; i++) {
+    await tester.drag(menu, const Offset(0, 300));
+    await tester.pump();
+  }
+  for (var i = 0; i < 800 && inMenu.evaluate().isEmpty; i++) {
+    await tester.drag(menu, const Offset(0, -150));
+    await tester.pump();
+  }
+  await tester.pumpAndSettle();
+  expect(inMenu, findsWidgets, reason: '"$label" not in the open list');
+  await tester.ensureVisible(inMenu.last);
+  await tester.pumpAndSettle();
+  await tester.tap(inMenu.last);
+  await tester.pumpAndSettle();
+}
+
 String _missingText(WidgetTester tester) {
   final f = find.byKey(const Key('profile-missing'));
   return f.evaluate().isEmpty ? '' : tester.widget<Text>(f).data!;
@@ -137,7 +172,7 @@ void main() {
     await _newProfile(tester);
     await chooseInSelect(tester, 'ammo-source', 'El dolumu');
     await chooseInSelect(tester, 'ammo-brand-select', 'Hornady');
-    await chooseInSelect(
+    await _chooseInLongSelect(
       tester,
       'ammo-model-select',
       '.321 170 gr InterLock FP',
