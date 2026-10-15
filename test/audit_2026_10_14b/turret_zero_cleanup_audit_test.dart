@@ -11,7 +11,7 @@
 // fails it):
 //   KUL-1 zero angle larger than half of the turret travel: DOWN travel
 //         longer than the whole turret, UP silently 0, no "cannot zero"
-//         note (skip).
+//         note (fixed 2026-10-15, un-skipped).
 //   KUL-2 Doğrulama (truing) writes Namlu çıkış hızı, which an
 //         unregulated PCP with a usable Profil table no longer uses for
 //         zero or shot after F3 (skip).
@@ -19,6 +19,7 @@
 //         table are ignored (skip, hidden flag).
 // The other tests are passing guards.
 import 'dart:io';
+import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -31,6 +32,7 @@ import 'package:sniper_turk/features/ballistics/ballistics_screen.dart';
 import 'package:sniper_turk/features/ballistics/scope_dial_view.dart';
 import 'package:sniper_turk/models/domain.dart';
 import 'package:sniper_turk/ui/menzil_theme.dart';
+import 'package:sniper_turk/ui/menzil_widgets.dart';
 
 import '../support/library_source.dart';
 
@@ -101,7 +103,7 @@ RifleProfile _fx({AngularUnit unit = AngularUnit.mrad, double mount = 0}) =>
 
 /// Catalog PCP without BC (vacuum): 270 m/s, zero 25 m, 60 mm.
 /// Hand calc: zero angle 4,0815 mrad = 41 clicks of 0,1 mrad.
-RifleProfile _vacuumPcp(String scopeId) => RifleProfile(
+RifleProfile _vacuumPcp(String scopeId, {double mount = 0}) => RifleProfile(
   id: 'kul-vac',
   name: 'Vakum',
   rifleId: 'hatsan-hercules-635',
@@ -110,6 +112,7 @@ RifleProfile _vacuumPcp(String scopeId) => RifleProfile(
   muzzleVelocityMps: 270,
   zeroRangeM: 25,
   sightHeightMm: 60,
+  mountCantMoa: mount,
 );
 
 /// PCP pellet G1 0,031, 50 mm, Profil table 120 bar → 255 m/s, 200 bar →
@@ -301,14 +304,98 @@ void main() {
         final half = v.halfElevationClicks!;
         expect(half, 36);
         expect(v.zeroAngleClicks, 41);
-        // Today: up 0, down 36 + 41 = 77 > 72 (the whole turret).
+        // Before the fix: up 0, down 36 + 41 = 77 > 72 (the whole turret).
         expect(
           v.maxElevationClicks + v.maxElevationDownClicks!,
           lessThanOrEqualTo(2 * half),
         );
       },
-      skip: true, // KUL-1: down = half + zero is not clamped to 2·half
     );
+
+    testWidgets(
+      'repro Hatsan Hercules 635 + Steiner Ranger 4: up 0, down 72, '
+      '"sıfırlanamaz" note, mount suggestion from the unclamped travel',
+      (tester) async {
+        final v = await _shotView(
+          tester,
+          _vacuumPcp('lib-steiner-ranger-4-4-16x56-4a-i'),
+        );
+        expect(v.maxElevationClicks, 0);
+        expect(v.maxElevationDownClicks, 72);
+        expect(v.zeroAngleBlocksZero, isTrue);
+        expect(v.mountBlocksZero, isFalse);
+        final note = tester.widget<MenzilNotice>(
+          find.byKey(ScopeDialKeys.zeroAngleNote),
+        );
+        expect(note.message, contains('sıfırlanamaz'));
+        // 41 − 0 clicks up are needed to zero, the UP half is 36 clicks.
+        expect(note.message, contains('yaklaşık 41 klik'));
+        expect(note.message, contains('yukarı yolu 36 klik'));
+        expect(find.byKey(ScopeDialKeys.mountZeroNote), findsNothing);
+
+        // The required clicks on Hedef are not limited by the travel.
+        final need = (v.requiredUp! / 0.1).round();
+        expect(need, greaterThan(0));
+        // Hand calc: a mount of m clicks gives UP 36 + m − 41, so the
+        // mount must cover need − 36 + 41 clicks; 1 mrad = 10,8/π MOA.
+        final needMoa = (need - 36 + 41) * 0.1 * 10.8 / math.pi;
+        final travel = tester.widget<MenzilNotice>(
+          find.byKey(ScopeDialKeys.travelNote),
+        );
+        expect(travel.message, contains('${needMoa.ceil()} MOA'));
+        // Before the fix the suggestion was 5 clicks (0,5 mrad) short.
+        final oldMoa = need * 0.1 * 10.8 / math.pi;
+        if (oldMoa.ceil() != needMoa.ceil()) {
+          expect(travel.message, isNot(contains('${oldMoa.ceil()} MOA')));
+        }
+      },
+    );
+
+    testWidgets(
+      'normal: Ranger 4 with a 20 MOA mount: no note, up 53, down 19',
+      (tester) async {
+        final v = await _shotView(
+          tester,
+          _vacuumPcp('lib-steiner-ranger-4-4-16x56-4a-i', mount: 20),
+        );
+        // 20 MOA = 5,818 mrad → 58 clicks (rounded down).
+        expect(v.mountCantClicks, 58);
+        expect(v.maxElevationClicks, 36 + 58 - 41);
+        expect(v.maxElevationDownClicks, 36 - 58 + 41);
+        expect(
+          v.maxElevationClicks + v.maxElevationDownClicks!,
+          2 * v.halfElevationClicks!,
+        );
+        expect(v.zeroAngleBlocksZero, isFalse);
+        expect(find.byKey(ScopeDialKeys.zeroAngleNote), findsNothing);
+        expect(find.byKey(ScopeDialKeys.mountZeroNote), findsNothing);
+      },
+    );
+
+    testWidgets('normal: Gazi 6-36, zero inside half: no note, full travel', (
+      tester,
+    ) async {
+      final v = await _shotView(tester, _vacuumPcp('gazi-6-36'));
+      expect(v.zeroAngleBlocksZero, isFalse);
+      expect(find.byKey(ScopeDialKeys.zeroAngleNote), findsNothing);
+      expect(
+        v.maxElevationClicks + v.maxElevationDownClicks!,
+        2 * v.halfElevationClicks!,
+      );
+    });
+
+    testWidgets('required clicks do not depend on the travel clamp', (
+      tester,
+    ) async {
+      final ranger = await _shotView(
+        tester,
+        _vacuumPcp('lib-steiner-ranger-4-4-16x56-4a-i'),
+      );
+      final upRanger = ranger.requiredUp!;
+      final gazi = await _shotView(tester, _vacuumPcp('gazi-6-36'));
+      // Same rifle, ammo, zero and range: same required angle in mrad.
+      expect(upRanger, closeTo(gazi.requiredUp!, 1e-9));
+    });
   });
 
   group('F3 regulator-less PCP zero velocity', () {
