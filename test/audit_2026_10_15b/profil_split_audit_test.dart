@@ -27,7 +27,7 @@
 //                                                             [skipped test]
 // Passing guards: listed factory round with saved BC bands in the moved Ek
 // mühimmat card, yard + MOA + travel; typed SMOA scope + decimal twist;
-// unresolved (platform-less) rifle record: Tür filled from the ammunition,
+// unresolved (missing) rifle record: Tür filled from the ammunition,
 // never listed missing; Kopyala of an old profile then Güncelle; new profile
 // with Tür picked last keeps every typed value (Ek mühimmat, yard zero).
 import 'dart:convert';
@@ -152,18 +152,12 @@ const _typedScopeSmoa = <String, dynamic>{
   'elevationRangeMrad': _smoaTravelMrad,
 };
 
-/// A rifle record without its Tür (platform): UserCatalog blocks it, so the
-/// profile's rifle is unresolved and the editor takes the Tür from the
-/// ammunition.
-const _platformlessRifle = <String, dynamic>{
-  'id': 'manual_rifle_a15b_np',
-  'kind': 'rifle',
-  'brand': 'Eski',
-  'model': 'Platformsuz',
-  'caliberMm': 7.82,
-  'twistDirection': 'right',
-  'twistRateIn': 11,
-};
+/// The rifle id of an old profile whose rifle record is gone (unresolved):
+/// the editor takes the Tür from the ammunition. A record without a Tür
+/// (platform) cannot be in the personal store at all: ManualCatalogStore
+/// rejects it on write and on read (_validateEntry), so the unresolved rifle
+/// is modelled by a missing record.
+const _missingRifleId = 'manual_rifle_a15b_np';
 
 const _oldFireAmmo = <String, dynamic>{
   'id': 'manual_ammo_a15b_old',
@@ -394,6 +388,10 @@ Future<void> _press(WidgetTester tester, String label) async {
   await tester.tap(button);
   await tester.pumpAndSettle();
   expect(tester.takeException(), isNull);
+  // A save error notice (store write / read back) names the cause.
+  for (final t in ['kaydedilemedi', 'okunamadı', 'eksik veya hatalı']) {
+    expect(find.textContaining(t), findsNothing, reason: t);
+  }
   expect(find.text('Profili Düzenle'), findsNothing);
   expect(find.text('Profil Oluştur'), findsNothing);
 }
@@ -565,19 +563,19 @@ void main() {
   });
 
   group('#323 Tür zorunlu: old profiles are never blocked by Tür', () {
-    testWidgets('rifle record without Tür (unresolved): Tür comes from the '
+    testWidgets('rifle record missing (unresolved): Tür comes from the '
         'ammunition, is never listed missing; after typing the rifle '
         'Güncelle saves and keeps the other values', (tester) async {
-      _seed([_platformlessRifle, _oldFireAmmo, _oldFireScope]);
+      _seed([_oldFireAmmo, _oldFireScope]);
       expect(
-        CatalogRepository.allRifles.any((r) => r.id == 'manual_rifle_a15b_np'),
+        CatalogRepository.allRifles.any((r) => r.id == _missingRifleId),
         isFalse,
       );
       final p = _decode(
         _profileJson(
           id: 'a15b-np',
           name: 'Türsüz Profil',
-          rifleId: 'manual_rifle_a15b_np',
+          rifleId: _missingRifleId,
           ammoId: 'manual_ammo_a15b_old',
           scopeId: 'manual_scope_a15b_old',
           velocityMps: 800,
