@@ -280,6 +280,9 @@ class _TurretDrumState extends State<_TurretDrum> {
   /// The top drum is 78 pt tall (U/D header, values, ticks) and its arrows
   /// 28 pt wide (owner, 2026-10-15).
   static const double drumHeight = 78, arrowWidth = 28;
+
+  /// Smallest tap area of a step arrow (HDF-2, owner 2026-10-15 22:29).
+  static const double minTap = 44;
   double _carry = 0;
 
   void _set(int value) {
@@ -339,22 +342,10 @@ class _TurretDrumState extends State<_TurretDrum> {
     // Step arrows (owner, 2026-10-15): only the chevron, no box, white with
     // a thin dark edge so it shows on the light reticle and the dark card.
     // VoiceOver steps the drum through its slider actions below.
-    Widget step(
-      int delta,
-      AxisDirection direction,
-      String label, {
-      double? width,
-      double? height,
-    }) => Tooltip(
-      message: label,
-      excludeFromSemantics: true,
-      child: GestureDetector(
-        behavior: HitTestBehavior.opaque,
-        excludeFromSemantics: true,
-        onTap: () => _set(widget.clicks + delta),
-        child: SizedBox(
-          width: width,
-          height: height,
+    Widget glyph(int delta, AxisDirection direction, double w, double h) =>
+        SizedBox(
+          width: w,
+          height: h,
           child: Center(
             child: CustomPaint(
               key: ValueKey(
@@ -364,37 +355,102 @@ class _TurretDrumState extends State<_TurretDrum> {
               painter: TurretChevronPainter(direction),
             ),
           ),
+        );
+
+    // HDF-2 (owner, 2026-10-15 22:29 "görünüş aynı, alan büyük"; 22:31):
+    // each arrow's invisible tap area is at least [minTap] pt, laid over
+    // the unchanged chevron. It keeps the arrow's own [core] cell and grows
+    // only toward the drum ([coreFirst]: the core comes first along
+    // [axis]), never toward L-R or another control. Where it lies over the
+    // top drum the drum still drags ([dragStrip]).
+    Widget hit(
+      int delta,
+      String label, {
+      required Axis axis,
+      required double core,
+      required bool coreFirst,
+      bool dragStrip = false,
+    }) {
+      Widget area({bool drag = false}) => GestureDetector(
+        behavior: HitTestBehavior.opaque,
+        excludeFromSemantics: true,
+        onTap: () => _set(widget.clicks + delta),
+        onHorizontalDragStart: drag ? (_) => _carry = 0 : null,
+        onHorizontalDragUpdate: drag ? (d) => _drag(d.delta.dx) : null,
+        child: const SizedBox.expand(),
+      );
+      final coreCell = axis == Axis.horizontal
+          ? SizedBox(width: core, child: area())
+          : SizedBox(height: core, child: area());
+      final strip = Expanded(child: area(drag: dragStrip));
+      return Tooltip(
+        message: label,
+        excludeFromSemantics: true,
+        child: Flex(
+          direction: axis,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: coreFirst ? [coreCell, strip] : [strip, coreCell],
         ),
-      ),
-    );
+      );
+    }
 
     final up = '${widget.semanticName} 1 klik ${widget.positiveWord}';
     final down = '${widget.semanticName} 1 klik ${widget.negativeWord}';
     final Widget body;
     if (horizontal) {
       // ‹ drum ›, 28 pt arrows 4 pt from the drum (owner, 2026-10-15).
-      body = Row(
-        children: [
-          step(
-            1,
-            AxisDirection.left,
-            up,
-            width: arrowWidth,
-            height: drumHeight,
-          ),
-          const SizedBox(width: _TurretBarState.gap),
-          Expanded(
-            child: SizedBox(height: drumHeight, child: drum),
-          ),
-          const SizedBox(width: _TurretBarState.gap),
-          step(
-            -1,
-            AxisDirection.right,
-            down,
-            width: arrowWidth,
-            height: drumHeight,
-          ),
-        ],
+      body = LayoutBuilder(
+        builder: (context, box) {
+          // Tap areas grow from the arrow's 28 pt column toward the drum,
+          // so the right one ends 4 pt before L-R.
+          final w = math.max(
+            arrowWidth,
+            math.min(minTap, box.maxWidth / 2),
+          );
+          return Stack(
+            children: [
+              Row(
+                children: [
+                  glyph(1, AxisDirection.left, arrowWidth, drumHeight),
+                  const SizedBox(width: _TurretBarState.gap),
+                  Expanded(
+                    child: SizedBox(height: drumHeight, child: drum),
+                  ),
+                  const SizedBox(width: _TurretBarState.gap),
+                  glyph(-1, AxisDirection.right, arrowWidth, drumHeight),
+                ],
+              ),
+              Positioned(
+                left: 0,
+                top: 0,
+                bottom: 0,
+                width: w,
+                child: hit(
+                  1,
+                  up,
+                  axis: Axis.horizontal,
+                  core: arrowWidth,
+                  coreFirst: true,
+                  dragStrip: true,
+                ),
+              ),
+              Positioned(
+                right: 0,
+                top: 0,
+                bottom: 0,
+                width: w,
+                child: hit(
+                  -1,
+                  down,
+                  axis: Axis.horizontal,
+                  core: arrowWidth,
+                  coreFirst: false,
+                  dragStrip: true,
+                ),
+              ),
+            ],
+          );
+        },
       );
     } else {
       // Long, slim drum box; the arrows sit outside it, above and below,
@@ -404,36 +460,63 @@ class _TurretDrumState extends State<_TurretDrum> {
           final k = box.maxWidth / _TurretBarState.sideColumnWidth;
           final arrow = _TurretBarState.sideArrowHeight * k;
           final gap = _TurretBarState.sideArrowGap * k;
-          return Column(
+          // Tap areas grow from the arrow toward the box, never into it:
+          // 44 pt fits in arrow + gap down to a 254 pt reticle.
+          final h = math.max(arrow, math.min(minTap, arrow + gap));
+          return Stack(
             children: [
-              step(1, AxisDirection.up, up, width: box.maxWidth, height: arrow),
-              SizedBox(height: gap),
-              Expanded(
-                child: Center(
-                  child: SizedBox(
-                    width: _TurretBarState.sideBoxWidth * k,
-                    child: DecoratedBox(
-                      key: ScopeDialKeys.windageDrumBox,
-                      decoration: BoxDecoration(
-                        color: c.surface2,
-                        borderRadius: BorderRadius.circular(14),
-                        border: Border.all(color: c.line),
-                      ),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(14),
-                        child: drum,
+              Column(
+                children: [
+                  glyph(1, AxisDirection.up, box.maxWidth, arrow),
+                  SizedBox(height: gap),
+                  Expanded(
+                    child: Center(
+                      child: SizedBox(
+                        width: _TurretBarState.sideBoxWidth * k,
+                        child: DecoratedBox(
+                          key: ScopeDialKeys.windageDrumBox,
+                          decoration: BoxDecoration(
+                            color: c.surface2,
+                            borderRadius: BorderRadius.circular(14),
+                            border: Border.all(color: c.line),
+                          ),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(14),
+                            child: drum,
+                          ),
+                        ),
                       ),
                     ),
                   ),
+                  SizedBox(height: gap),
+                  glyph(-1, AxisDirection.down, box.maxWidth, arrow),
+                ],
+              ),
+              Positioned(
+                left: 0,
+                right: 0,
+                top: 0,
+                height: h,
+                child: hit(
+                  1,
+                  up,
+                  axis: Axis.vertical,
+                  core: arrow,
+                  coreFirst: true,
                 ),
               ),
-              SizedBox(height: gap),
-              step(
-                -1,
-                AxisDirection.down,
-                down,
-                width: box.maxWidth,
-                height: arrow,
+              Positioned(
+                left: 0,
+                right: 0,
+                bottom: 0,
+                height: h,
+                child: hit(
+                  -1,
+                  down,
+                  axis: Axis.vertical,
+                  core: arrow,
+                  coreFirst: false,
+                ),
               ),
             ],
           );

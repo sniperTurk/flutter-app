@@ -1,9 +1,9 @@
 // Yan kule okları yerinde kalır (owner, 2026-10-15 12:52: "sağ kuleyi biraz
 // küçültsek oklar yine aynı yerinde kalsa"). The side turret's ↑ / ↓ step
-// arrows are measured against main's geometry: 74 × 30 pt hit areas whose
+// arrows are measured against main's geometry: chevrons whose
 // centres sit 37 pt left of the reticle's right edge and 133 pt above /
 // below its centre on the 334 pt reticle of a 390 pt phone, scaling with the
-// reticle. This file passes on main and on design/yan-kule-kucuk alike.
+// reticle. Since HDF-2 the tap areas are 74 × 44 pt (chevrons unmoved).
 // Report: docs/reports/yan_kule_kucuk.md.
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -81,18 +81,24 @@ void main() {
       final k = reticle.width / 334;
       final up = tester.getRect(find.byTooltip('Rüzgâr kulesi 1 klik sağa'));
       final down = tester.getRect(find.byTooltip('Rüzgâr kulesi 1 klik sola'));
-      for (final (arrow, dy) in [(up, -133.0), (down, 133.0)]) {
-        // Hit area unchanged: 74 × 30 pt at the design size.
+      // HDF-2 (owner, 2026-10-15 22:29): the tap areas grew from 74 × 30 pt
+      // to 74 × 44 pt toward the drum box, anchored at the column's ends;
+      // the chevrons themselves did not move.
+      for (final (arrow, glyphKey, dy) in [
+        (up, 'Rüzgâr kulesi-step-plus', -133.0),
+        (down, 'Rüzgâr kulesi-step-minus', 133.0),
+      ]) {
         expect(arrow.width, moreOrLessEquals(74 * k, epsilon: 0.5));
-        expect(arrow.height, moreOrLessEquals(30 * k, epsilon: 0.5));
-        // Centre unchanged: 37 pt in from the right edge, ±133 pt from the
-        // reticle's horizontal line.
+        expect(arrow.height, moreOrLessEquals(44, epsilon: 0.5));
+        // Chevron centre unchanged: 37 pt in from the right edge, ±133 pt
+        // from the reticle's horizontal line.
+        final glyph = tester.getRect(find.byKey(ValueKey(glyphKey)));
         expect(
-          arrow.center.dx,
+          glyph.center.dx,
           moreOrLessEquals(reticle.right - 37 * k, epsilon: 0.5),
         );
         expect(
-          arrow.center.dy,
+          glyph.center.dy,
           moreOrLessEquals(reticle.center.dy + dy * k, epsilon: 0.5),
         );
       }

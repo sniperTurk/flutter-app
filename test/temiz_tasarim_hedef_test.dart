@@ -196,21 +196,34 @@ void main() {
       expect(toggle.left - turret.right, moreOrLessEquals(4, epsilon: 0.5));
       final rowLeft = 2 * reticle.center.dx - toggle.right;
       expect(turret.left - rowLeft, moreOrLessEquals(48 + 4, epsilon: 0.5));
-      // ‹ and ›: 28 pt columns at the drum's ends, 78 pt tall.
+      // ‹ and ›: chevrons centred in 28 pt columns at the drum's ends; their
+      // tap areas are 44 pt wide (HDF-2, owner 2026-10-15 22:29), 78 pt
+      // tall, and grow toward the drum.
       final up = tester.getRect(
         find.byTooltip('Yükseklik kulesi 1 klik yukarı'),
       );
       final down = tester.getRect(
         find.byTooltip('Yükseklik kulesi 1 klik aşağı'),
       );
-      expect(up.width, moreOrLessEquals(28, epsilon: 0.01));
-      expect(down.width, moreOrLessEquals(28, epsilon: 0.01));
+      expect(up.width, moreOrLessEquals(44, epsilon: 0.01));
+      expect(down.width, moreOrLessEquals(44, epsilon: 0.01));
       expect(up.height, moreOrLessEquals(78, epsilon: 0.01));
       expect(up.left, moreOrLessEquals(turret.left, epsilon: 0.5));
       expect(down.right, moreOrLessEquals(turret.right, epsilon: 0.5));
-      // The drum between them is wide enough for 2U · 0 · 2D (2 MOA labels
-      // 72 pt either side of the zero).
-      expect(down.left - up.right - 2 * 4, greaterThan(2 * 72 + 16));
+      final upGlyph = tester.getRect(
+        find.byKey(const ValueKey('Yükseklik kulesi-step-plus')),
+      );
+      final downGlyph = tester.getRect(
+        find.byKey(const ValueKey('Yükseklik kulesi-step-minus')),
+      );
+      expect(upGlyph.center.dx, moreOrLessEquals(turret.left + 14, epsilon: 0.5));
+      expect(
+        downGlyph.center.dx,
+        moreOrLessEquals(turret.right - 14, epsilon: 0.5),
+      );
+      // The drum between the 28 pt arrow columns is wide enough for
+      // 2U · 0 · 2D (2 MOA labels 72 pt either side of the zero).
+      expect(turret.width - 2 * (28 + 4), greaterThan(2 * 72 + 16));
       // Directions unchanged: ‹ dials U (up), › dials D (down).
       expect(_readout(tester), startsWith('Kule: 0 klik yukarı'));
       await _tap(tester, find.byTooltip('Yükseklik kulesi 1 klik yukarı'));
