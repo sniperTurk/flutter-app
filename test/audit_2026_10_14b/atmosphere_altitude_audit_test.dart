@@ -19,10 +19,11 @@
 //    back AFTER the first automatic solve and nothing solves again, so a
 //    workspace that opens on Hedef (the shell's default view) shows the
 //    standard-atmosphere solution next to the restored boxes.
-//  * ATM-2 (low): no visible ⓘ says that İrtifa is used only when
-//    İstasyon basıncı is empty (EnvironmentFieldInfo.altitude is unused).
-//  * ATM-3 (low): EnvironmentFieldInfo.pressure still names the button
-//    "Basıncı telefondan al", renamed "Basınç al" by #307.
+//  * ATM-2 (low, fixed in fix/atm-metinler): the İrtifa and Basınç Ölçer
+//    ⓘ now say İrtifa is used only when İstasyon basıncı is empty; the
+//    unused EnvironmentFieldInfo.altitude was deleted.
+//  * ATM-3 (low, fixed in fix/atm-metinler): EnvironmentFieldInfo.pressure
+//    no longer names the old "Basıncı telefondan al" button.
 //
 // Independent references (tools/test_denetim_2026_10_14b_atm.py):
 // ICAO/US-1976 standard atmosphere from its base constants, dry-air ideal
@@ -423,7 +424,7 @@ void main() {
         expect(t, contains('basınç'));
         expect(t, contains('boş'));
       },
-      skip: true, // ATM-2: owner text dropped the F1 rule; .altitude unused
+      // ATM-2 fixed in fix/atm-metinler: un-skipped (CLAUDE.md).
     );
   });
 
@@ -436,7 +437,7 @@ void main() {
           isNot(contains('Basıncı telefondan al')),
         );
       },
-      skip: true, // ATM-3: still the old name; phone_pressure_test locks it
+      // ATM-3 fixed in fix/atm-metinler: un-skipped (CLAUDE.md).
     );
   });
 }

@@ -124,20 +124,24 @@ class _TurretBarState extends State<_TurretBar> {
   static const double slot = 48, gap = 4, rowHeight = 84;
 
   /// The side turret on the 334 pt reticle of the approved design (390 pt
-  /// phone): a long, slim 74 × 224 pt drum box with its arrows outside it,
-  /// 30 pt tall, 6 pt away. Everything scales with the reticle size.
+  /// phone). Owner, 2026-10-15 12:52: the drum box is smaller, 66 × 180 pt,
+  /// while its arrows stay exactly where they were: a 74 pt wide column, the
+  /// arrows 30 pt tall (74 × 30 pt hit areas) at its ends, 296 pt apart
+  /// outside to outside. The box is centred between them, 28 pt from each.
+  /// Everything scales with the reticle size.
   static const double designSide = 334,
-      sideBoxWidth = 74,
-      sideBoxHeight = 224,
+      sideColumnWidth = 74,
+      sideBoxWidth = 66,
+      sideBoxHeight = 180,
       sideArrowHeight = 30,
-      sideArrowGap = 6;
+      sideArrowGap = 28;
 
   @override
   Widget build(BuildContext context) {
     final c = MenzilColors.of(context);
     final side = widget.side;
     final k = side / designSide;
-    final boxWidth = sideBoxWidth * k;
+    final columnWidth = sideColumnWidth * k;
     final columnHeight =
         (sideBoxHeight + 2 * (sideArrowHeight + sideArrowGap)) * k;
     return Column(
@@ -200,7 +204,7 @@ class _TurretBarState extends State<_TurretBar> {
                   right: 0,
                   top: (side - columnHeight) / 2,
                   height: columnHeight,
-                  width: boxWidth,
+                  width: columnWidth,
                   child: ClipRect(
                     child: AnimatedSwitcher(
                       duration: const Duration(milliseconds: 260),
@@ -393,10 +397,11 @@ class _TurretDrumState extends State<_TurretDrum> {
         ],
       );
     } else {
-      // Long, slim drum box; the arrows sit outside it, above and below.
+      // Long, slim drum box; the arrows sit outside it, above and below,
+      // as wide as the column. The narrower box is centred under them.
       body = LayoutBuilder(
         builder: (context, box) {
-          final k = box.maxWidth / _TurretBarState.sideBoxWidth;
+          final k = box.maxWidth / _TurretBarState.sideColumnWidth;
           final arrow = _TurretBarState.sideArrowHeight * k;
           final gap = _TurretBarState.sideArrowGap * k;
           return Column(
@@ -404,16 +409,21 @@ class _TurretDrumState extends State<_TurretDrum> {
               step(1, AxisDirection.up, up, width: box.maxWidth, height: arrow),
               SizedBox(height: gap),
               Expanded(
-                child: DecoratedBox(
-                  key: ScopeDialKeys.windageDrumBox,
-                  decoration: BoxDecoration(
-                    color: c.surface2,
-                    borderRadius: BorderRadius.circular(14),
-                    border: Border.all(color: c.line),
-                  ),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(14),
-                    child: drum,
+                child: Center(
+                  child: SizedBox(
+                    width: _TurretBarState.sideBoxWidth * k,
+                    child: DecoratedBox(
+                      key: ScopeDialKeys.windageDrumBox,
+                      decoration: BoxDecoration(
+                        color: c.surface2,
+                        borderRadius: BorderRadius.circular(14),
+                        border: Border.all(color: c.line),
+                      ),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(14),
+                        child: drum,
+                      ),
+                    ),
                   ),
                 ),
               ),
@@ -590,10 +600,12 @@ class _DrumPainter extends CustomPainter {
         10,
       );
     } else {
+      // Inside the box, clear of its edge (owner, 2026-10-15 12:53).
+      final r = SideTurretPointer.rect(size);
       path
-        ..moveTo(0, mid - 7)
-        ..lineTo(0, mid + 7)
-        ..lineTo(11, mid)
+        ..moveTo(r.left, r.top)
+        ..lineTo(r.left, r.bottom)
+        ..lineTo(r.right, mid)
         ..close();
       _text(canvas, '↑$positiveLetter', Offset(size.width / 2, 10), label, 11);
       _text(
@@ -613,6 +625,22 @@ class _DrumPainter extends CustomPainter {
       old.clickValue != clickValue ||
       old.colors != colors ||
       old.unitLabel != unitLabel;
+}
+
+/// The side turret's red pointer, in the drum box's own coordinates
+/// (owner, 2026-10-15 12:53: the pointer sits fully inside the box). It
+/// points at the drum's centre line, the reticle's horizontal line, from
+/// [inset] pt inside the box's edge.
+abstract final class SideTurretPointer {
+  /// Clear space between the box's outer edge (1 pt border included) and
+  /// the pointer.
+  static const double inset = 5;
+
+  /// Pointer depth (base to tip) and height, as before.
+  static const double depth = 11, height = 14;
+
+  static Rect rect(Size box) =>
+      Rect.fromLTWH(inset, box.height / 2 - height / 2, depth, height);
 }
 
 /// "Kuleleri sıfırla". It is shown as selected only after the user pressed
