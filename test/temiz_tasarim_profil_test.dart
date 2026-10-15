@@ -184,6 +184,35 @@ void main() {
       }
     });
 
+    testWidgets('a tap on the box ends typing in another box first', (
+      tester,
+    ) async {
+      _view(tester, width: 390, height: 844);
+      final focus = FocusNode();
+      addTearDown(focus.dispose);
+      await tester.pumpWidget(
+        MaterialApp(
+          theme: MenzilTheme.dark(),
+          home: Scaffold(
+            body: Column(
+              children: [
+                TextField(focusNode: focus),
+                select('after-typing'),
+              ],
+            ),
+          ),
+        ),
+      );
+      await tester.pumpAndSettle();
+      await tester.tap(find.byType(TextField));
+      await tester.pumpAndSettle();
+      expect(focus.hasFocus, isTrue);
+      await tester.tap(find.byKey(const Key('after-typing')));
+      await tester.pumpAndSettle();
+      expect(focus.hasFocus, isFalse);
+      expect(_menu, findsOneWidget);
+    });
+
     testWidgets('a box near the bottom: the page scrolls, list still below', (
       tester,
     ) async {

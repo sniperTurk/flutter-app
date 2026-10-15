@@ -1505,6 +1505,23 @@ class MenzilSelectState<T> extends State<MenzilSelect<T>>
   /// The open list, while it is open.
   _MenzilMenuRoute<T>? _menu;
 
+  /// True while [_open] waits for the keyboard to go away.
+  bool _opening = false;
+
+  /// A tap on the box ends typing in another box, as Flutter's own list
+  /// button did by taking the focus: the keyboard closes first and the list
+  /// is placed once it is gone (at most about half a second), so it is
+  /// never laid out against a keyboard that is about to disappear.
+  Future<void> _closeKeyboard() async {
+    FocusManager.instance.primaryFocus?.unfocus();
+    for (var i = 0; i < 40; i++) {
+      if (!mounted) return;
+      if (MediaQuery.viewInsetsOf(context).bottom == 0) return;
+      WidgetsBinding.instance.scheduleFrame();
+      await WidgetsBinding.instance.endOfFrame;
+    }
+  }
+
   /// The value currently picked (null: "Seçiniz"); read by tests.
   T? get value => _value;
 
@@ -1552,7 +1569,17 @@ class MenzilSelectState<T> extends State<MenzilSelect<T>>
   /// it upward near the bottom of the screen).
   Future<void> _open() async {
     final w = widget;
-    if (w.onChanged == null || w.items.isEmpty || _menu != null) return;
+    if (w.onChanged == null || w.items.isEmpty || _menu != null || _opening) {
+      return;
+    }
+    _opening = true;
+    try {
+      await _closeKeyboard();
+    } finally {
+      _opening = false;
+    }
+    if (!mounted) return;
+    if (_menu != null) return;
     final navigator = Navigator.of(context);
     final box = _boxKey.currentContext?.findRenderObject();
     final navBox = navigator.context.findRenderObject();
