@@ -547,12 +547,14 @@ class _HomeScreenState extends State<HomeScreen> {
         final width = constraints.maxWidth.isFinite
             ? math.min(natural.ceilToDouble(), constraints.maxWidth)
             : natural.ceilToDouble();
-        // The caliber may take at most 45 % of the text room; the name
-        // gives way first. With almost no room only the name is shown.
+        // The name gives way first ("…"); the caliber keeps its full width
+        // and is shortened only when not even a few letters of the name
+        // would fit beside it. With almost no room only the name is shown.
         final textRoom = width - chrome;
-        final caliberMax = textRoom >= 40
-            ? (textRoom - _ProfileButtonLabel.gap) * 0.45
-            : 0.0;
+        final caliberMax = math.max(
+          0.0,
+          textRoom - _ProfileButtonLabel.gap - _ProfileButtonLabel.minName,
+        );
         return SizedBox(
           key: const Key('top-bar-profile-button'),
           width: width,
@@ -810,6 +812,9 @@ class _ShotModeSwitch extends StatelessWidget {
 class _ProfileButtonLabel extends StatelessWidget {
   static const double gap = 8;
 
+  /// Room always left for the name (a letter or two and "…").
+  static const double minName = 24;
+
   final String name;
   final String? caliber;
   final TextStyle nameStyle;
@@ -838,7 +843,7 @@ class _ProfileButtonLabel extends StatelessWidget {
             style: nameStyle,
           ),
         ),
-        if (cal != null && caliberMaxWidth > 0) ...[
+        if (cal != null && caliberMaxWidth >= 16) ...[
           const SizedBox(width: gap),
           ConstrainedBox(
             constraints: BoxConstraints(maxWidth: caliberMaxWidth),
