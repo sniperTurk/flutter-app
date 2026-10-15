@@ -72,3 +72,4 @@ not "Yiv oranı (1:…)").
 - Never report CI, Simulator, TestFlight or App Store as passed unless that exact operation ran successfully.
 - Before every TestFlight build, run an end-to-end calculation audit (user input → displayed number) covering all changes merged since the previous TestFlight: compare against independent references (never another ballistic app), check hidden-flag paths, and check interactions between changes (empty fields, defaults, moved fields). It reports only; fixes go to separate tasks. Do not start TestFlight while a high-severity finding is open.
 - The audit findings' tests under test/audit_*/ stay in the suite as regression guards; a fixed finding's `skip:` test is un-skipped and must pass.
+- Use these plugins while writing and developing the app (owner, 2026-10-15): Frontend Design for any UI work; Exa for research (manufacturer sources only, same source rules as above); Code Review and Security review on every PR before it is merged.
