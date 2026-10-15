@@ -74,7 +74,21 @@ aynı olsun diye.
 
 ## CI linkleri
 
-CI_LINKS
+- **iOS CI** (pull_request, commit 45132e2) — başarılı:
+  https://github.com/sniperTurk/flutter-app/actions/runs/38800301975
+  - `verify` (macOS: Python takımı, G1/G7 kapısı, iOS iskeleti + ikon
+    kopyalama, App Store ön denetimi, Simulator derleme ve açılış testi,
+    imzasız arşiv) — başarılı:
+    https://github.com/sniperTurk/flutter-app/actions/runs/38800301975/job/116653375927
+  - `dart-checks` (biçim, analiz, birim/widget testleri) — başarılı:
+    https://github.com/sniperTurk/flutter-app/actions/runs/38800301975/job/116647280965
+  - `wind-acceptance` — başarılı:
+    https://github.com/sniperTurk/flutter-app/actions/runs/38800301975/job/116647280623
+- **Biçim düzeltme (format-fix)** — başarılı, değişiklik yok (push olmadı):
+  https://github.com/sniperTurk/flutter-app/actions/runs/38800299020
+- Bu rapor güncellemesi yalnız belge değişikliği; iOS CI `docs/**` için
+  yeniden çalışmaz.
+- TestFlight / App Store: çalıştırılmadı.
 
 ---
 🤖 Generated with [Claude Code](https://claude.com/claude-code)
