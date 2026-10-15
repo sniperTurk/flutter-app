@@ -133,26 +133,27 @@ void main() {
     expect(_inButton(find.text('6,35 mm')), findsOneWidget);
   });
 
-  testWidgets('profil yokken düğme "Profil seç" der ve Profil sekmesine gider', (
-    tester,
-  ) async {
-    await _pumpHome(tester);
-    expect(_inButton(find.text('Profil seç')), findsOneWidget);
-    final rect = tester.getRect(find.byKey(_button));
-    expect(rect.height, greaterThanOrEqualTo(44));
-    expect(rect.width, greaterThanOrEqualTo(44));
+  testWidgets(
+    'profil yokken düğme "Profil seç" der ve Profil sekmesine gider',
+    (tester) async {
+      await _pumpHome(tester);
+      expect(_inButton(find.text('Profil seç')), findsOneWidget);
+      final rect = tester.getRect(find.byKey(_button));
+      expect(rect.height, greaterThanOrEqualTo(44));
+      expect(rect.width, greaterThanOrEqualTo(44));
 
-    await tester.tap(_tab('Hava Durumu'));
-    await tester.pumpAndSettle();
-    expect(find.byKey(const Key('top-bar-title')), findsOneWidget);
+      await tester.tap(_tab('Hava Durumu'));
+      await tester.pumpAndSettle();
+      expect(find.byKey(const Key('top-bar-title')), findsOneWidget);
 
-    await tester.tap(find.byKey(_button));
-    await tester.pumpAndSettle();
-    // Back on Profil: the brand replaces the page title.
-    expect(find.byKey(const Key('top-bar-brand')), findsOneWidget);
-    expect(find.byKey(const Key('top-bar-title')), findsNothing);
-    expect(tester.takeException(), isNull);
-  });
+      await tester.tap(find.byKey(_button));
+      await tester.pumpAndSettle();
+      // Back on Profil: the brand replaces the page title.
+      expect(find.byKey(const Key('top-bar-brand')), findsOneWidget);
+      expect(find.byKey(const Key('top-bar-title')), findsNothing);
+      expect(tester.takeException(), isNull);
+    },
+  );
 
   for (final scale in const [1.0, 1.3]) {
     testWidgets('320 pt dar ekran, uzun ad, yazı ${scale}x: taşma yok', (
@@ -186,25 +187,26 @@ void main() {
     });
   }
 
-  testWidgets('eski kayıt "Açık" dese de uygulama koyu açılır, kayıt silinmez', (
-    tester,
-  ) async {
-    SharedPreferences.setMockInitialValues({'theme.dark': false});
-    await tester.pumpWidget(const SniperTurkApp());
-    for (var i = 0; i < 10; i++) {
-      await tester.pump(const Duration(milliseconds: 100));
-    }
-    final app = tester.widget<MaterialApp>(find.byType(MaterialApp));
-    expect(app.themeMode, ThemeMode.dark);
-    final home = tester.element(find.byType(HomeScreen));
-    expect(Theme.of(home).brightness, Brightness.dark);
-    expect(
-      Theme.of(home).extension<MenzilColors>()?.bg,
-      MenzilColors.dark.bg,
-    );
-    expect(find.byTooltip('Tema'), findsNothing);
-    // The old choice stays in storage untouched.
-    final prefs = await SharedPreferences.getInstance();
-    expect(prefs.getBool('theme.dark'), isFalse);
-  });
+  testWidgets(
+    'eski kayıt "Açık" dese de uygulama koyu açılır, kayıt silinmez',
+    (tester) async {
+      SharedPreferences.setMockInitialValues({'theme.dark': false});
+      await tester.pumpWidget(const SniperTurkApp());
+      for (var i = 0; i < 10; i++) {
+        await tester.pump(const Duration(milliseconds: 100));
+      }
+      final app = tester.widget<MaterialApp>(find.byType(MaterialApp));
+      expect(app.themeMode, ThemeMode.dark);
+      final home = tester.element(find.byType(HomeScreen));
+      expect(Theme.of(home).brightness, Brightness.dark);
+      expect(
+        Theme.of(home).extension<MenzilColors>()?.bg,
+        MenzilColors.dark.bg,
+      );
+      expect(find.byTooltip('Tema'), findsNothing);
+      // The old choice stays in storage untouched.
+      final prefs = await SharedPreferences.getInstance();
+      expect(prefs.getBool('theme.dark'), isFalse);
+    },
+  );
 }
