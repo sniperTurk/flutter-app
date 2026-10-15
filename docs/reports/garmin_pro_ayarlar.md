@@ -121,7 +121,36 @@ bitmeden bu cümle kullanıcı için henüz doğru değil.
 
 ## CI
 
-CI_PLACEHOLDER
+Kod commit'i `c83ff173` üzerinde (bu rapor commit'inden önceki son kod):
+
+- iOS CI (pull_request), run 38817331446:
+  https://github.com/sniperTurk/flutter-app/actions/runs/38817331446
+  - `verify`: başarılı
+  - `dart-checks`: başarılı
+  - `wind-acceptance`: başarılı
+  - `ios-simulator`: atlandı (bu iş akışında çalışmadı; Simulator geçti
+    denemez)
+- analyze-diag, run 38817340143: başarılı
+  https://github.com/sniperTurk/flutter-app/actions/runs/38817340143
+- test-diag (`files=test`), run 38817207804: başarılı (çıkış kodu 0), commit
+  `25273186` üzerinde; `c83ff173` yalnız testteki kullanılmayan bir import'u
+  siler, tam test takımı yukarıdaki `verify` içinde yeniden koştu.
+  https://github.com/sniperTurk/flutter-app/actions/runs/38817207804
+- format-fix (375209577): run 38816275237 bir biçim commit'i ekledi
+  (`152a94dc`); run 38816934403 değişiklik bulmadı.
+- İlk deneme (`152a94dc`) kırmızıydı: `dart-checks` ve analyze, yeni testte
+  kullanılmayan import uyarısı verdi (`--fatal-warnings`); `c83ff173` ile
+  düzeltildi.
+- garmin-sim.yml çalıştırılmadı (Garmin lisansı). TestFlight yok.
+
+İncelemeler:
+
+- Code Review: tek gerçek bulgu "isteğe bağlı" yazısının satırın sağ ucuna
+  dayanmamasıydı (2:1 esnek bölme sağda boşluk bırakıyordu); `25273186` ile
+  `titleEnd` ve `spaceBetween` kullanılarak düzeltildi, testlere sağ uç
+  denetimi eklendi. Başka bulgu yok.
+- Security review: güvenlik sorunu yok (saate giden veri ve kanal çağrıları
+  değişmedi; ⓘ yalnız sabit metni gösterir).
 
 ---
 🤖 Generated with [Claude Code](https://claude.com/claude-code)
