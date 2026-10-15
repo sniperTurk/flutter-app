@@ -92,9 +92,9 @@ abstract final class UsageGuideContent {
           'kaydırıcıyı kullan. "Haritadan" ile mesafeyi haritada ölçebilirsin. '
           'Hesap kendiliğinden yenilenir.',
       'Kuleler: Yükseklik kulesi (U/D) ve Rüzgâr kulesi (R/L) gereken klik '
-          'sayısını gösterir. "Çözümü kulelere kur"a dokun, sonra dürbündeki '
-          'kuleleri aynı yönde aynı sayıda klik çevir. "Kule sınırına kuruldu" '
-          'yazıyorsa kule yetmiyor demektir; kalan kısmı retikülle tut.',
+          'sayısını gösterir. "Kuleleri kur"a dokun, sonra dürbündeki kuleleri '
+          'aynı yönde aynı sayıda klik çevir. "Kule sınırına kuruldu" yazıyorsa '
+          'kule yetmiyor demektir; kalan kısmı retikülle tut.',
       'Retikül: vuruş noktası retikülün üzerinde gösterilir, "1 çizgi = …" '
           'çizgi aralığını söyler. SFP dürbünde Büyütme kaydırıcısını dürbündeki '
           'büyütmeye getir; tutuş değerleri ona göre hesaplanır. FFP dürbünde '
