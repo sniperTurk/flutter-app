@@ -216,7 +216,10 @@ void main() {
       final downGlyph = tester.getRect(
         find.byKey(const ValueKey('Yükseklik kulesi-step-minus')),
       );
-      expect(upGlyph.center.dx, moreOrLessEquals(turret.left + 14, epsilon: 0.5));
+      expect(
+        upGlyph.center.dx,
+        moreOrLessEquals(turret.left + 14, epsilon: 0.5),
+      );
       expect(
         downGlyph.center.dx,
         moreOrLessEquals(turret.right - 14, epsilon: 0.5),

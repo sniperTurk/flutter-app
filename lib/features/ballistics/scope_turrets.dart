@@ -403,10 +403,7 @@ class _TurretDrumState extends State<_TurretDrum> {
         builder: (context, box) {
           // Tap areas grow from the arrow's 28 pt column toward the drum,
           // so the right one ends 4 pt before L-R.
-          final w = math.max(
-            arrowWidth,
-            math.min(minTap, box.maxWidth / 2),
-          );
+          final w = math.max(arrowWidth, math.min(minTap, box.maxWidth / 2));
           return Stack(
             children: [
               Row(

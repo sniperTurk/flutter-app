@@ -98,8 +98,9 @@ Finder _drumPaint(Key of) => find.descendant(
 );
 
 /// Canvas calls of [finder]'s painter, in its own coordinates.
-({List<Rect> labels, List<(Offset, Offset)> lines, List<Rect> paths})
-_record(Finder finder) {
+({List<Rect> labels, List<(Offset, Offset)> lines, List<Rect> paths}) _record(
+  Finder finder,
+) {
   final labels = <Rect>[];
   final lines = <(Offset, Offset)>[];
   final paths = <Rect>[];
@@ -203,8 +204,14 @@ void main() {
         // (c) glyphs: 24 pt chevrons exactly where main draws them.
         Rect at(Offset c) => Rect.fromCenter(center: c, width: 24, height: 24);
         for (final (key, want) in [
-          ('Yükseklik kulesi-step-plus', at(Offset(turret.left + 14, turret.center.dy))),
-          ('Yükseklik kulesi-step-minus', at(Offset(turret.right - 14, turret.center.dy))),
+          (
+            'Yükseklik kulesi-step-plus',
+            at(Offset(turret.left + 14, turret.center.dy)),
+          ),
+          (
+            'Yükseklik kulesi-step-minus',
+            at(Offset(turret.right - 14, turret.center.dy)),
+          ),
           (
             'Rüzgâr kulesi-step-plus',
             at(Offset(reticle.right - 37 * k, reticle.center.dy - 133 * k)),
@@ -215,7 +222,11 @@ void main() {
           ),
         ]) {
           final g = _glyph(tester, key);
-          expect(g.left, moreOrLessEquals(want.left, epsilon: 0.5), reason: key);
+          expect(
+            g.left,
+            moreOrLessEquals(want.left, epsilon: 0.5),
+            reason: key,
+          );
           expect(g.top, moreOrLessEquals(want.top, epsilon: 0.5), reason: key);
           expect(g.width, moreOrLessEquals(24, epsilon: 0.01), reason: key);
           expect(g.height, moreOrLessEquals(24, epsilon: 0.01), reason: key);
@@ -233,7 +244,12 @@ void main() {
           'step the turret; L-R left edge + 1 pt goes to L-R', (tester) async {
         await _open(tester, Size(width, 2400), textScale: scale);
         for (final (tip, drum, delta, glyphKey) in [
-          (_elevUp, ScopeDialKeys.elevationDrum, 1, 'Yükseklik kulesi-step-plus'),
+          (
+            _elevUp,
+            ScopeDialKeys.elevationDrum,
+            1,
+            'Yükseklik kulesi-step-plus',
+          ),
           (
             _elevDown,
             ScopeDialKeys.elevationDrum,
@@ -241,7 +257,12 @@ void main() {
             'Yükseklik kulesi-step-minus',
           ),
           (_windRight, ScopeDialKeys.windageDrum, 1, 'Rüzgâr kulesi-step-plus'),
-          (_windLeft, ScopeDialKeys.windageDrum, -1, 'Rüzgâr kulesi-step-minus'),
+          (
+            _windLeft,
+            ScopeDialKeys.windageDrum,
+            -1,
+            'Rüzgâr kulesi-step-minus',
+          ),
         ]) {
           final r = _rect(tester, tip);
           for (final p in [
@@ -296,7 +317,8 @@ void main() {
             if ((l.center.dx - side.width * 0.62).abs() < 0.5) l,
         ]..sort((a, b) => a.center.dy.compareTo(b.center.dy));
         final zero = values.reduce(
-          (a, b) => (a.center.dy - side.height / 2).abs() <
+          (a, b) =>
+              (a.center.dy - side.height / 2).abs() <
                   (b.center.dy - side.height / 2).abs()
               ? a
               : b,
@@ -320,7 +342,8 @@ void main() {
         final zeroTick = s.lines
             .where((l) => (l.$1.dy - l.$2.dy).abs() < 0.01)
             .reduce(
-              (a, b) => (a.$1.dy - side.height / 2).abs() <
+              (a, b) =>
+                  (a.$1.dy - side.height / 2).abs() <
                       (b.$1.dy - side.height / 2).abs()
                   ? a
                   : b,
@@ -348,7 +371,8 @@ void main() {
             if ((l.center.dy - top.height * 0.40).abs() < 0.5) l,
         ];
         final topZero = topValues.reduce(
-          (a, b) => (a.center.dx - top.width / 2).abs() <
+          (a, b) =>
+              (a.center.dx - top.width / 2).abs() <
                   (b.center.dx - top.width / 2).abs()
               ? a
               : b,
