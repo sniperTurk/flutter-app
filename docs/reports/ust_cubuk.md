@@ -45,20 +45,31 @@ Yeni `test/ust_cubuk_test.dart`:
 - 320 pt dar ekran, uzun ad, yazı 1.0x ve 1.3x: beş sekmede taşma yok, düğme yuvasının içinde, ad "…" ile kısalır.
 - Eski kayıt `theme.dark = false` ("Açık") olsa da uygulama koyu açılır ve kayıt yerinde kalır.
 
-Güncellenen eski test (yalnız kaldırılan düğmeyi soran satırlar):
-- `test/top_bar_fixed_slot_test.dart`: "Tema" düğmesinin sağ kenarını ölçen satır, profil düğmesinin sağ kenarını ölçecek şekilde değişti ve "Tema" düğmesinin olmadığı da denetleniyor. Başka test değişmedi.
+Güncellenen eski testler (yalnız kaldırılan düğmeleri soran satırlar):
+- `test/top_bar_fixed_slot_test.dart`: "Tema" düğmesinin sağ kenarını ölçen satır artık profil düğmesinin sağ kenarını ölçüyor; "Tema" düğmesinin olmadığı da denetleniyor.
+- `test/profile_summary_order_test.dart`: eski "Yeni Profil" kutusunun "en fazla 170 pt" sınırı kaldırıldı (kutu artık kalibreyi de taşıyor); yerine düğmenin kendi yuvasından taşmadığı ve sağa yaslı olduğu denetleniyor.
+Başka test değişmedi.
 
 Yerel (Flutter SDK bu ortamda indirilemedi; yalnız çevrimdışı araçlar):
 - `python3 tools/offline_dart_lint.py`: PASS (380 Dart dosyası, 0 sorun)
 - `python3 -m unittest discover -s tools -p 'test_*.py'`: 842 test, OK
 
 ## CI
-- Format (one-off format-fix): https://github.com/sniperTurk/flutter-app/actions/runs/38778139542 — değişiklik gerekmedi.
-- Test tanılama (`files=test`): https://github.com/sniperTurk/flutter-app/actions/runs/38778378826
-- Analiz tanılama: https://github.com/sniperTurk/flutter-app/actions/runs/38778381959
-- iOS CI (`verify`, `dart-checks`, `wind-acceptance`): PR #331 kontrolleri.
-- İlk turda `ekran_boyutu_test` 375/393 pt, 1.3x yazıda kalibrenin "6,35 mm" kesildiğini buldu (https://github.com/sniperTurk/flutter-app/actions/runs/38775692455). Düzeltildi: artık önce ad kısalır, kalibre tam kalır.
-- Kesin sonuçlar (yeşil/kırmızı) PR açıklamasında; yalnız gerçekten yeşil biten iş "geçti" yazılır.
+Kod commit'i `ec919b4e` üzerinde (bu raporun commit'inden önceki son kod hâli):
+- iOS CI `verify`: **başarılı** — https://github.com/sniperTurk/flutter-app/actions/runs/38781880197/job/116589623539
+- iOS CI `dart-checks` (format, analyze, tüm testler): **başarılı** — https://github.com/sniperTurk/flutter-app/actions/runs/38781880197/job/116583910636
+- iOS CI `wind-acceptance`: **başarılı** — https://github.com/sniperTurk/flutter-app/actions/runs/38781880197/job/116583911299
+- iOS CI `ios-simulator`: atlandı (iş akışının kendi koşulu; çalışmadı, geçti denmez).
+- Test tanılama (`files=test`): **başarılı** — https://github.com/sniperTurk/flutter-app/actions/runs/38782145074
+- Analiz tanılama: **başarılı** — https://github.com/sniperTurk/flutter-app/actions/runs/38782148941
+- Format (one-off format-fix): başarılı, değişiklik gerekmedi — https://github.com/sniperTurk/flutter-app/actions/runs/38779984841
+
+Yol boyunca bulunan ve düzeltilen hatalar:
+1. `ekran_boyutu_test` 375/393 pt, 1.3x yazıda "6,35 mm" kesiliyordu (https://github.com/sniperTurk/flutter-app/actions/runs/38775692455). Düzeltme: önce ad kısalır, kalibre tam kalır.
+2. Düğme genişliği hesabı Flutter açılır kutusunun iç boşluklarını (çerçeve boşluğu 4, ikon kutusu 24 + 12) eksik sayıyordu; kısa ad bile "…" oluyordu (https://github.com/sniperTurk/flutter-app/actions/runs/38780343073). Düzeltme: boşluklar Flutter 3.47.2 kaynağına göre sayıldı.
+3. `profile_summary_order_test` eski kutunun 170 pt sınırını soruyordu; yukarıda anlatıldığı gibi güncellendi.
+
+Bu rapor commit'i yalnız belge değiştirir; onun CI sonucu PR #331 kontrollerinde görünür.
 
 🤖 Generated with [Claude Code](https://claude.com/claude-code)
 
