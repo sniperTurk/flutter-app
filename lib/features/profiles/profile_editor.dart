@@ -205,6 +205,11 @@ class _ProfileDialogState extends State<_ProfileDialog> {
   /// typed scope). Its missing values decide which hidden boxes show.
   ScopeOptic? _scopeRecord;
 
+  /// List mode: the scope whose own Birim, Klik değeri, side turret travel
+  /// and source the saved record keeps (PRF-1, PRF-3): the saved scope when
+  /// Profili Düzenle opens it in the lists, else the picked list record.
+  ScopeOptic? _scopeOwn;
+
   /// Profili Düzenle of a catalog scope: Birim / Odak / Tüp / Büyütme stay
   /// hidden until Marka changes (owner, 2026-10-13).
   bool _scopeFiltersHidden = false;
@@ -508,6 +513,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
         _scopeBrandSel = hit.brand;
         _scopeModelKey = _scopeModelOf(hit);
         _scopeRecord = hit;
+        _scopeOwn = s0;
         // Profili Düzenle of a catalog scope: no filter boxes (owner,
         // 2026-10-13); they come back when Marka changes.
         _scopeFiltersHidden = true;
@@ -1236,6 +1242,30 @@ class _ProfileDialogState extends State<_ProfileDialog> {
   Map<String, dynamic> _scopeEntry() {
     final existing = scope;
     final lo = _parse(scopeMinMag)!, hi = _parse(scopeMaxMag)!;
+    // List mode keeps the scope's own unit, click, side travel and source,
+    // whatever the profile unit (PRF-1, PRF-3; saved data is kept, #308).
+    // A value the opened scope lacks comes from its list record, except
+    // after a tolerant match, which keeps only the saved values.
+    final rec = _scopeManual ? null : _scopeRecord;
+    final own = rec == null ? null : (_scopeOwn ?? rec);
+    final fill = _scopeTolerant ? null : rec;
+    final elevation = _travelMrad(scopeTravelElevation);
+    final click = _parse(scopeClick);
+    // A ">17,5 MIL" lower bound stays one while the travel is unchanged.
+    bool lowerBound(ScopeOptic? s) =>
+        s != null &&
+        s.elevationRangeIsLowerBound &&
+        s.elevationRangeMrad != null &&
+        elevation != null &&
+        click != null &&
+        (elevation - s.elevationRangeMrad!).abs() <=
+            _toMrad(click / 2, angularUnit);
+    final windage = own?.windageRangeMrad ?? fill?.windageRangeMrad;
+    // A list scope keeps its manufacturer source (reticle lookup).
+    String? source(ScopeOptic? s) => switch (s?.sourceDocument) {
+      final d? when d != userCatalogSourceDocument => d,
+      _ => null,
+    };
     return <String, dynamic>{
       'id':
           _ownsRecord(existing?.id, userEntered: existing?.userEntered == true)
@@ -1246,8 +1276,8 @@ class _ProfileDialogState extends State<_ProfileDialog> {
       'brand': scopeBrand.text.trim(),
       'model': _scopeDesignation,
       'objectiveMm': _parse(scopeObjective),
-      'click': _parse(scopeClick),
-      'clickUnit': angularUnit.name,
+      'click': own?.clickValue ?? _parse(scopeClick),
+      'clickUnit': (own?.clickUnit ?? angularUnit).name,
       'focal': firstFocalPlane! ? 'ffp' : 'sfp',
       'minMag': lo,
       'maxMag': hi,
@@ -1256,9 +1286,18 @@ class _ProfileDialogState extends State<_ProfileDialog> {
           : '${_trimNum(lo)}-${_trimNum(hi)}x',
       // Total turret travel in mrad (optional). Windage defaults to the
       // elevation travel, as on most spec sheets.
-      'elevationRangeMrad': _travelMrad(scopeTravelElevation),
+      'elevationRangeMrad': elevation,
+      if (lowerBound(own) || lowerBound(fill))
+        'elevationRangeIsLowerBound': true,
+      if (windage != null) 'windageRangeMrad': windage,
+      if (windage != null &&
+          (own?.windageRangeMrad != null
+              ? own!.windageRangeIsLowerBound
+              : fill!.windageRangeIsLowerBound))
+        'windageRangeIsLowerBound': true,
       if (scopeReticle != null) 'reticle': scopeReticle,
       'sourceName': userCatalogSourceName,
+      if (source(own) ?? source(fill) case final d?) 'sourceDocument': d,
     };
   }
 

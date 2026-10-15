@@ -11,7 +11,8 @@
 // (fps shown with one decimal, band thresholds as whole fps, zero to 0.1 of
 // the distance unit, turret travel as whole clicks).
 //
-// Findings (see the audit report):
+// Findings (see the audit report). PRF-1, PRF-3, PRF-4 and PRF-5 were fixed
+// in fix/prf-durbun-eslestirme; their tests are un-skipped and must pass.
 //   PRF-1 (medium) catalog scope -> Güncelle drops windageRangeMrad (and the
 //         turret travel lower-bound flags): the Hedef windage drum limit
 //         and "Kule yetmez" for windage disappear.            [skipped test]
@@ -574,7 +575,54 @@ void main() {
       // manual copy written by _scopeEntry has no windageRangeMrad, so the
       // limit becomes "unknown" (100000 clicks).
       expect(r.after['windageRangeMrad'], 10.0);
-    }, skip: true); // PRF-1: _scopeEntry does not write windageRangeMrad
+    }); // PRF-1 fixed (fix/prf-durbun-eslestirme): un-skipped (CLAUDE.md).
+
+    testWidgets('catalog scope keeps its manufacturer source after Güncelle', (
+      tester,
+    ) async {
+      _seed([_oldRifle, _oldAmmo]);
+      final p = _decode(_profileJson(scopeId: _arkenCatalogId));
+      final catalog = CatalogRepository.allScopes.singleWhere(
+        (s) => s.id == _arkenCatalogId,
+      );
+      final r = await _roundTrip(tester, p);
+      final scope = CatalogRepository.allScopes.singleWhere(
+        (s) => s.id == r.saved.scopeId,
+      );
+      // The reticle is looked up with the scope's source document.
+      expect(scope.sourceDocument, catalog.sourceDocument);
+      expect(scope.sourceDocument, isNot(userCatalogSourceDocument));
+      // Saved again: still the manufacturer's source and travel.
+      await _openEdit(tester, p.name);
+      await _update(tester);
+      final savedAgain = (await r.store.all()).single;
+      final again = CatalogRepository.allScopes.singleWhere(
+        (s) => s.id == savedAgain.scopeId,
+      );
+      expect(again.sourceDocument, catalog.sourceDocument);
+      expect(again.windageRangeMrad, 10.0);
+    });
+
+    testWidgets('a typed (personal) scope keeps the personal source', (
+      tester,
+    ) async {
+      _seed([_typedRifle, _typedAmmo, _typedScopeMoa]);
+      final p = _decode(
+        _profileJson(
+          rifleId: 'manual_rifle_typed',
+          ammoId: 'manual_ammo_typed',
+          scopeId: 'manual_scope_typed',
+          angularUnit: 'moa',
+          distanceUnit: 'meter',
+        ),
+      );
+      final r = await _roundTrip(tester, p);
+      final scope = CatalogRepository.allScopes.singleWhere(
+        (s) => s.id == r.saved.scopeId,
+      );
+      expect(scope.sourceDocument, userCatalogSourceDocument);
+      expect(scope.windageRangeMrad, isNull);
+    });
   });
 
   group('PRF-2: Kopyala is an independent copy', () {
@@ -639,7 +687,26 @@ void main() {
         selectedValue<String>(tester, 'scope-model-select'),
         'SH-4 GENII 4-16x50 FFP',
       );
-    }, skip: true); // PRF-3: saved as MOA 0.25, reopens as the MOA model
+    }); // PRF-3 fixed (fix/prf-durbun-eslestirme): un-skipped (CLAUDE.md).
+
+    testWidgets('MOA profile on the MRAD catalog scope: scope stays MRAD 0,1', (
+      tester,
+    ) async {
+      _seed([_oldRifle, _oldAmmo]);
+      final p = _decode(
+        _profileJson(scopeId: _arkenCatalogId, angularUnit: 'moa'),
+      );
+      final r = await _roundTrip(tester, p);
+      final scope = CatalogRepository.allScopes.singleWhere(
+        (s) => s.id == r.saved.scopeId,
+      );
+      expect(scope.clickUnit, AngularUnit.mrad);
+      expect(scope.clickValue, 0.1);
+      expect(scope.windageRangeMrad, 10.0);
+      // The profile keeps its own unit; the Hedef click is unchanged.
+      expect(r.saved.angularUnit, AngularUnit.moa);
+      expect(r.after['effectiveClick'], r.before['effectiveClick']);
+    });
   });
 
   group('deleted catalog id is never substituted', () {
@@ -733,7 +800,24 @@ void main() {
         isTrue,
         reason: 'matched ${hit?.brand} / ${hit?.model}',
       );
-    }, skip: 'PRF-4: caliber preference beats the exact model name');
+    }); // PRF-4 fixed (fix/prf-durbun-eslestirme): un-skipped (CLAUDE.md).
+
+    test('PRF-4: the exact name wins over the caliber; none, no match', () {
+      final pcp = _rifles(WeaponPlatform.pcp);
+      // Exact name, caliber not in the list: still that model.
+      final bully = ProfileCatalogMatch.rifle(
+        'HATSAN',
+        'Hercules Bully',
+        7.62,
+        pcp,
+      );
+      expect(bully?.model, 'Hercules Bully');
+      // No exact name: no match (opens typed, values kept).
+      expect(
+        ProfileCatalogMatch.rifle('Hatsan', 'Hercules Bully X', 6.35, pcp),
+        isNull,
+      );
+    });
 
     test('PRF-5: upper-case Turkish brand "SARSILMAZ" is "Sarsılmaz"', () {
       final hit = ProfileCatalogMatch.rifle(
@@ -743,7 +827,22 @@ void main() {
         _rifles(WeaponPlatform.firearm),
       );
       expect(hit?.brand, 'Sarsılmaz');
-    }, skip: 'PRF-5: toLowerCase maps I to i, not ı');
+      expect(hit?.model, 'SAR 308 Versiyon 2');
+    }); // PRF-5 fixed (fix/prf-durbun-eslestirme): un-skipped (CLAUDE.md).
+
+    test('PRF-5: Turkish case folding (İ/i, I/ı) in the matcher', () {
+      expect(
+        ProfileCatalogMatch.squash('SARSILMAZ'),
+        ProfileCatalogMatch.squash('Sarsılmaz'),
+      );
+      expect(
+        ProfileCatalogMatch.squash('İSTANBUL SİLAH'),
+        ProfileCatalogMatch.squash('istanbul silah'),
+      );
+      expect(ProfileCatalogMatch.brandMatches('TIKKA', 'Tikka'), isTrue);
+      expect(ProfileCatalogMatch.brandMatches('sarsilmaz', 'Sarsılmaz'), isTrue);
+      expect(ProfileCatalogMatch.brandMatches('Hatsan', 'Sarsılmaz'), isFalse);
+    });
   });
 
   group('Barut katsayısı semantics (%/15 °C, unchanged by #308)', () {
