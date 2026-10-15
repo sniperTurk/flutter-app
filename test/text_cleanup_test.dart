@@ -117,6 +117,11 @@ void main() {
       addTearDown(tester.view.reset);
       await tester.pumpWidget(dial(firearm: true));
       await tester.pumpAndSettle();
+      // "Hesap dökümü" is closed by default (owner, 2026-10-15): open it; it
+      // stays open when the same view is rebuilt below.
+      await tester.ensureVisible(find.byKey(ScopeDialKeys.workingsToggle));
+      await tester.tap(find.byKey(ScopeDialKeys.workingsToggle));
+      await tester.pumpAndSettle();
       expect(find.textContaining('mermi yatık tarafa'), findsOneWidget);
       expect(find.textContaining('saçma yatık tarafa'), findsNothing);
 

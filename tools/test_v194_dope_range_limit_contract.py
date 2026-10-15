@@ -1,5 +1,6 @@
 import pathlib
 import unittest
+from dart_library_source import library_text
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 
@@ -11,7 +12,7 @@ class V194DopeRangeLimitContractTest(unittest.TestCase):
         self.assertNotIn("maxRangeM = 2000", text)
 
     def test_ui_converts_canonical_limit_for_imperial_display(self):
-        text = (ROOT / "lib/features/ballistics/ballistics_screen.dart").read_text()
+        text = library_text(ROOT / "lib/features/ballistics/ballistics_screen.dart")
         self.assertIn("UnitSystem.metersToYards(ProductionLimits.maxRangeM)", text)
         self.assertIn("maxRangeM: displayMaxRange", text)
 

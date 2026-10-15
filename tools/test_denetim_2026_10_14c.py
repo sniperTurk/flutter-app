@@ -16,6 +16,8 @@ import sys
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from dart_library_source import library_text  # noqa: E402
 
+from dart_library_source import library_text
+
 ROOT = Path(__file__).resolve().parents[1]
 SCREEN = ROOT / "lib/features/ballistics/ballistics_screen.dart"
 PROFILES = ROOT / "lib/features/profiles/profiles_screen.dart"
@@ -90,7 +92,7 @@ class Atm1Fix(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.body = _method(
-            SCREEN.read_text(encoding="utf-8"),
+            library_text(SCREEN),
             "Future<void> _loadShotSettings() async {",
         )
 

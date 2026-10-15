@@ -1,6 +1,7 @@
 import re
 import unittest
 from pathlib import Path
+from dart_library_source import library_text
 
 ROOT = Path(__file__).resolve().parents[1]
 SCREEN = ROOT / 'lib/features/ballistics/ballistics_screen.dart'
@@ -10,8 +11,8 @@ CORE = ROOT / 'lib/core/scope_dial.dart'
 
 class InteractiveScopeDialContract(unittest.TestCase):
     def setUp(self):
-        self.screen = SCREEN.read_text(encoding='utf-8')
-        self.view = VIEW.read_text(encoding='utf-8')
+        self.screen = library_text(SCREEN)
+        self.view = library_text(VIEW)
         self.core = CORE.read_text(encoding='utf-8')
         start = self.screen.index('Widget _scopeDial(')
         self.dial = self.screen[start:self.screen.index('\n  }\n', start)]

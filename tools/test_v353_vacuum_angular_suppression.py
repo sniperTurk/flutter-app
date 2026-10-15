@@ -1,5 +1,6 @@
 import unittest
 from pathlib import Path
+from dart_library_source import library_text
 
 ROOT = Path(__file__).resolve().parents[1]
 SCREEN = ROOT / 'lib/features/ballistics/ballistics_screen.dart'
@@ -14,7 +15,7 @@ class VacuumAngularSuppressionTest(unittest.TestCase):
     """
 
     def setUp(self):
-        self.text = SCREEN.read_text(encoding='utf-8')
+        self.text = library_text(SCREEN)
 
     def test_wind_mrad_is_rendered_only_in_drag_mode(self):
         # Gate opened in V355: wind comes only from the validated drag solver.

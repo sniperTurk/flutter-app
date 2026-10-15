@@ -164,7 +164,7 @@ void main() {
     expect(effect, contains('Kule klikleri bunu içerir'));
 
     await _tapKey(tester, 'pro-continue-shot');
-    expect(_title(tester), 'Atış Çözümü');
+    expect(_title(tester), 'Hedef');
     expect(find.text('Hesapla'), findsNothing);
     expect(find.byKey(const Key('shot-incline')), findsNothing);
     expect(find.byKey(ScopeDialKeys.impactText), findsOneWidget);
