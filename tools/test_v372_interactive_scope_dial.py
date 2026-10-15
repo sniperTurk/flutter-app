@@ -59,12 +59,13 @@ class InteractiveScopeDialContract(unittest.TestCase):
 
     def test_mount_cant_widens_up_travel_only(self):
         # Dürbün ayağı: up = half travel + mount clicks - zero angle, capped
-        # at the whole travel; down = half - mount + zero angle (never below
-        # 0; denetim F2, 2026-10-14). The required correction itself is never
+        # at the whole travel; down = half - mount + zero angle, kept within
+        # 0 … the whole travel (denetim F2 2026-10-14, KUL-1 2026-10-15). The
+        # required correction itself is never
         # changed by the mount, and an unknown travel is never guessed (V383).
         compact = ''.join(self.dial.split())
         self.assertIn('math.min(halfUp+mountClicks-zeroClicks,2*halfUp)', compact)
-        self.assertIn('math.max(0,halfUp-mountClicks+zeroClicks)', compact)
+        self.assertIn('math.max(0,math.min(halfUp-mountClicks+zeroClicks,2*halfUp))', compact)
         self.assertIn('maxElevationClicks:upClicks', compact)
         self.assertIn('ScopeDialMath.mountCantClicks(', self.dial)
         self.assertNotIn(': 30.0;', self.screen)

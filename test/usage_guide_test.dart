@@ -104,4 +104,24 @@ void main() {
       ]),
     );
   });
+
+  // Owner design 2026-10-15 ("Ek kararlar"): the top-bar "Yeni Profil"
+  // and theme buttons are gone; later profiles come from "Profil ekle" in
+  // the Profiller list header.
+  test('guide names Profil ekle, not the removed Yeni profil or theme', () {
+    final all = [
+      UsageGuideContent.intro,
+      for (final s in UsageGuideContent.sections) ...[s.title, ...s.paragraphs],
+    ].join('\n');
+    final lower = all.toLowerCase();
+    expect(lower, isNot(contains('yeni profil')));
+    expect(all, isNot(contains('Koyu')));
+    expect(lower, isNot(contains('tema')));
+    final first = UsageGuideContent.sections
+        .firstWhere((s) => s.title == 'İlk profil')
+        .paragraphs
+        .first;
+    expect(first, contains('"Profil oluştur"'));
+    expect(first, contains('"Profil ekle"'));
+  });
 }
