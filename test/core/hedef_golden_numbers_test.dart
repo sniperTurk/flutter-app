@@ -189,7 +189,17 @@ const _samples = <_Sample>[
 ];
 
 /// Recorded on main cb9ffee before the move (see the header comment).
-const _golden = <String, String>{'g308': '', 'g65': '', 'g223': ''};
+const _golden = <String, String>{
+  'g308':
+      'R400.0|U2.710497842933387|W-1.0263591063727064|T0.2|I10.0|S4,3 4,7'
+      '|L2,0 119 30 0,60|B4,0 6,0 10 15|H66 20 400|D',
+  'g65':
+      'R800.0|U7.203701645523648|W1.0335538627918501|T0.3|I-15.0|S14,2 4,9'
+      '|L1,5 191 24 1,27|B3,0 5,0 10 17|H30 30 800|D',
+  'g223':
+      'R300.0|U0.7896208886008387|W-0.07377618246746716|T0.1|I0.0|S2,2'
+      '|L3,0 126 42 0,42|B-|H96 10 300|D',
+};
 
 String _numbers(String text) => RegExp(
   r'-?\d+(?:[.,]\d+)?',
