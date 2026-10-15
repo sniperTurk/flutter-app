@@ -151,8 +151,9 @@ void main() {
   setUp(() => SharedPreferences.setMockInitialValues({}));
   tearDown(() => CatalogRepository.installUserCatalog(UserCatalog.empty));
 
-  testWidgets('PRF-7: picking Tür (unchanged) keeps the chosen .300 Win Mag',
-      (tester) async {
+  testWidgets('PRF-7: picking Tür (unchanged) keeps the chosen .300 Win Mag', (
+    tester,
+  ) async {
     await _pumpList(tester);
     await _newProfile(tester);
     await openRifleManual(tester);
