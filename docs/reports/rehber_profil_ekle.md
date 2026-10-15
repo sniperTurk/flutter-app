@@ -26,6 +26,14 @@ Başka metin, kod ya da ekran değişikliği yok. Birleştirme ve TestFlight yok
 - Yerel: `python3 tools/offline_dart_lint.py` → PASS (387 dosya, 0 sorun); `python3 -m unittest discover -s tools -p 'test_*.py'` → 843 test OK. Bu ortamda Flutter SDK yok; Dart testleri yalnız CI'da koşar.
 
 ## CI
-CI_SECTION
+Commit `0771d03` üzerinde (gerçekten çalıştı, sonuçlar check-run'lardan okundu):
+- iOS CI / `verify`: success — https://github.com/sniperTurk/flutter-app/actions/runs/38794233410/job/116631525068
+- iOS CI / `dart-checks`: success — https://github.com/sniperTurk/flutter-app/actions/runs/38794233410/job/116626320960
+- iOS CI / `wind-acceptance`: success — https://github.com/sniperTurk/flutter-app/actions/runs/38794233410/job/116626321261
+- iOS CI / `ios-simulator`: skipped (iş akışı bu PR'da çalıştırmadı; Simulator derlemesi geçti denemez)
+- One-off dart format fix: success, format değişikliği gerekmedi (dal başı değişmedi) — https://github.com/sniperTurk/flutter-app/actions/runs/38794204276
+- One-off test diagnostic (`files=test`): success — https://github.com/sniperTurk/flutter-app/actions/runs/38794207058
+
+TestFlight, App Store ve cihaz testi çalıştırılmadı.
 
 🤖 Generated with [Claude Code](https://claude.com/claude-code)
