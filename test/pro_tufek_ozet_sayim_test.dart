@@ -67,9 +67,7 @@ void main() {
       await tester.pumpAndSettle();
       await tapProHeader(tester, header);
     }
-    return tester
-        .widget<Text>(find.byKey(const Key('pro-summary-rifle')))
-        .data;
+    return tester.widget<Text>(find.byKey(const Key('pro-summary-rifle'))).data;
   }
 
   Future<void> type(WidgetTester tester, Key key, String v) async {
