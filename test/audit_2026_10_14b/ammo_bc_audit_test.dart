@@ -36,6 +36,7 @@ import 'package:sniper_turk/features/profiles/profiles_screen.dart';
 import 'package:sniper_turk/models/domain.dart';
 import 'package:sniper_turk/services/profile_store.dart';
 import 'package:sniper_turk/ui/menzil_theme.dart';
+import 'package:sniper_turk/ui/menzil_widgets.dart';
 
 import '../support/rifle_form.dart';
 
@@ -194,10 +195,21 @@ void main() {
         final kept = cat.ammunition.any((a) => a.ballisticCoefficient == 0.11);
         expect(kept || cat.blocked.isNotEmpty, isTrue);
       },
-      skip:
-          'MUH-3: bcModel "ga" (removed 2026-10-12) drops the BC; '
-          'PCP then uses the G1 estimate as if no BC was entered',
     );
+
+    test('old profile with "ga" loads with its BC as G1 (owner, 2026-10-15)', () {
+      final a = UserCatalog.fromManualEntries([
+        _pcpAmmo(bc: 0.11, model: 'ga'),
+      ]).ammunition.single;
+      expect(a.ballisticCoefficient, 0.11);
+      expect(a.ballisticModel, BallisticModel.g1);
+      expect(a.modelWithoutBc, isNull);
+      // The rest of the saved record is unchanged.
+      expect(a.grain, 33.95);
+      expect(a.caliberMm, 6.35);
+      // No estimate replaces the saved BC.
+      expect(identical(EstimatedBc.fill(a), a), isTrue);
+    });
   });
 
   group('guard: factory BC rows re-checked (#296 / #304)', () {
@@ -318,7 +330,6 @@ void main() {
         );
         expect(a.muzzleVelocityFps, 1130);
       },
-      skip: 'MUH-2: still 1095 fps (.22 Short); owner decision pending (#304)',
     );
   });
 
@@ -359,11 +370,32 @@ void main() {
             .evaluate()
             .isNotEmpty;
         expect(cleared || warned, isTrue);
+        // X651 has no maker G7 BC: the box is emptied (owner, 2026-10-15).
+        expect(_text(tester, 'ammo-bc'), '');
+        // Back to G1: the maker's G1 BC again.
+        await chooseInSelect(tester, 'ammo-bc-model', 'G1');
+        expect(_text(tester, 'ammo-bc'), '0,324');
       },
-      // MUH-1: BC 0,324 (maker G1) stays and is saved as G7; i = 0.816 is
-      // inside the G7 band, so no warning.
-      skip: true,
     );
+
+    testWidgets('a maker G7 BC is used when the record has one (Lapua)', (
+      tester,
+    ) async {
+      await _openNew(tester);
+      await chooseInSelect(tester, 'rifle-caliber', '.223 Rem');
+      await chooseInSelect(tester, 'ammo-source', 'Fabrika fişeği');
+      await chooseInSelect(tester, 'ammo-brand-select', 'Lapua');
+      await chooseInSelect(
+        tester,
+        'ammo-model-select',
+        'Lapua 4.5 g (69 gr) Scenar',
+      );
+      expect(_text(tester, 'ammo-bc'), '0,341');
+      await chooseInSelect(tester, 'ammo-bc-model', 'G7');
+      expect(_text(tester, 'ammo-bc'), '0,171');
+      await chooseInSelect(tester, 'ammo-bc-model', 'G1');
+      expect(_text(tester, 'ammo-bc'), '0,341');
+    });
 
     testWidgets('guard: typed round G1 -> G7 with a G1-sized BC is warned', (
       tester,
@@ -443,8 +475,10 @@ void main() {
   });
 
   group('MUH-5: BC-less factory load, BC modeli after typing a BC', () {
+    // Owner, 2026-10-15: the G1 rule (2026-10-13) stays; the ⓘ now says a
+    // typed BC sets G1 and to choose G7 for a maker G7 value.
     testWidgets(
-      'BC modeli stays "Seçiniz" until the user chooses (as the ⓘ asks)',
+      'typing a BC sets G1 and the ⓘ says so',
       (tester) async {
         await _openNew(tester);
         await chooseInSelect(tester, 'rifle-caliber', '.223 Rem');
@@ -456,12 +490,15 @@ void main() {
           'Black Hills 52 gr Match HP',
         );
         expect(selectedValue<String>(tester, 'ammo-bc-model'), isNull);
+        final info = tester
+            .widget<MenzilInput>(find.byKey(const Key('ammo-bc')))
+            .info!;
+        expect(info, contains('kendiliğinden G1'));
+        expect(info, contains('G7'));
+        expect(info, isNot(contains('BC modelini de seçin')));
         await enterRifleField(tester, 'ammo-bc', '0,25');
-        expect(selectedValue<String>(tester, 'ammo-bc-model'), isNull);
+        expect(selectedValue<String>(tester, 'ammo-bc-model'), 'g1');
       },
-      // MUH-5: typing a BC picks G1 (owner rule 2026-10-13) while the #305
-      // note says "BC modelini de seçin".
-      skip: true,
     );
   });
 }
