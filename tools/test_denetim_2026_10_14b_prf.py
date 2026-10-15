@@ -24,6 +24,8 @@ import re
 import unittest
 from pathlib import Path
 
+from dart_library_source import library_text
+
 ROOT = Path(__file__).resolve().parents[1]
 SCREEN = ROOT / "lib/features/profiles/profiles_screen.dart"
 MATCH = ROOT / "lib/features/profiles/profile_catalog_match.dart"
@@ -262,7 +264,7 @@ class RepositoryFacts(unittest.TestCase):
         block = self._scope_entry()
         self.assertIn("'elevationRangeMrad'", block)
         self.assertNotIn("windageRangeMrad", block)  # finding PRF-1
-        balli = BALLISTICS.read_text(encoding="utf-8")
+        balli = library_text(BALLISTICS)
         self.assertIn("_halfTravelClicks(click, s.windageRangeMrad) ?? _unknownTravelClicks", balli)
 
     def test_prf2_copy_and_editor_reuse_record_ids(self):
@@ -289,7 +291,7 @@ class RepositoryFacts(unittest.TestCase):
         self.assertIn("if (saved.clickUnit != r.clickUnit) continue;", match)
 
     def test_ammo_length_hidden_and_not_in_calculation(self):
-        balli = BALLISTICS.read_text(encoding="utf-8")
+        balli = library_text(BALLISTICS)
         self.assertIn("double? get _bulletLengthMm {", balli)
         i = balli.index("double? get _bulletLengthMm {")
         self.assertIn("bulletLengthCtl", balli[i:i + 300])
@@ -297,7 +299,7 @@ class RepositoryFacts(unittest.TestCase):
         self.assertIn("_showProfileAmmoLength ? _parse(ammoLength) : ammo?.lengthMm", src)
 
     def test_pro_tube_pressure_off_uses_profile_value(self):
-        balli = BALLISTICS.read_text(encoding="utf-8")
+        balli = library_text(BALLISTICS)
         self.assertRegex(
             balli,
             r"final tube = _showProTubePressure\s*\?\s*_parsed\(tubePressureCtl\)\s*:\s*p\?\.tubePressureBar;",

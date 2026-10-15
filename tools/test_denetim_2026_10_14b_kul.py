@@ -29,6 +29,8 @@ import re
 import unittest
 from pathlib import Path
 
+from dart_library_source import library_text
+
 ROOT = Path(__file__).resolve().parents[1]
 G0 = 9.80665
 FOOT_M = 0.3048
@@ -188,7 +190,7 @@ class CleanupEquivalence(unittest.TestCase):
     """#291: the merged formatters have one body each (source guard)."""
 
     def test_two_decimals_body(self):
-        src = (ROOT / "lib/features/ballistics/ballistics_screen.dart").read_text(encoding="utf-8")
+        src = library_text(ROOT / "lib/features/ballistics/ballistics_screen.dart")
         m = re.search(r"String _twoDecimals\(double v\) => (.*?);\n", src, re.S)
         self.assertIsNotNone(m)
         body = re.sub(r"\s+", "", m.group(1))
@@ -198,7 +200,7 @@ class CleanupEquivalence(unittest.TestCase):
         )
 
     def test_scope_trim_body(self):
-        src = (ROOT / "lib/features/ballistics/scope_dial_view.dart").read_text(encoding="utf-8")
+        src = library_text(ROOT / "lib/features/ballistics/scope_dial_view.dart")
         m = re.search(r"static String _trim\(double v\) => (.*?);\n", src, re.S)
         self.assertIsNotNone(m)
         body = re.sub(r"\s+", "", m.group(1))
