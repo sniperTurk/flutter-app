@@ -59,7 +59,11 @@ Yerel:
 ## CI
 
 - Format (format-fix): https://github.com/sniperTurk/flutter-app/actions/runs/38798320662 — başarılı, format commit'i dala eklendi.
-- CI_SONUCLARI
+- iOS CI, `b818387` (ilk hâli): verify başarılı https://github.com/sniperTurk/flutter-app/actions/runs/38798998250/job/116648976972 , dart-checks (format, `flutter analyze --fatal-infos --fatal-warnings`, tüm `flutter test`) başarılı https://github.com/sniperTurk/flutter-app/actions/runs/38798998250/job/116642802422 , wind-acceptance başarılı https://github.com/sniperTurk/flutter-app/actions/runs/38798998250/job/116642801719
+- iOS CI, `662c23a` (main'e ilk rebase sonrası): verify başarılı https://github.com/sniperTurk/flutter-app/actions/runs/38805427569/job/116671731854 , dart-checks ve wind-acceptance başarılı https://github.com/sniperTurk/flutter-app/actions/runs/38805427569
+- Main yeniden ilerlediği için dal bir kez daha main'e rebase edildi (bu commit). Son başın CI sonuçları PR açıklamasında.
+- test-diag / analyze-diag: dispatch edildi, ancak aynı anda başka dallar da bu iş akışlarını çalıştırdığı ve günlükler bu ortamdan indirilemediği için hangi çalıştırmanın bu dala ait olduğu kesin doğrulanamadı. Bu yüzden onlar kanıt olarak sayılmadı; aynı denetimleri dart-checks yapıyor.
+- Code Review ve Security review: bulgu yok.
 
 ---
 🤖 Generated with [Claude Code](https://claude.com/claude-code)
