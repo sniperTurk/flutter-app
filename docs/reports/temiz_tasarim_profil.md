@@ -48,9 +48,9 @@ yalnız örnek alındı. Dal: `design/clean-profil`, PR #318.
 
 - Bölme işi elle değil, bir betikle yapıldı: her metot/alan olduğu gibi
   taşındı. Taşınan bölümler `_ProfileDialogState` üzerine `extension` oldu.
-  Dart kuralı gereği yalnız iki mekanik değişiklik var: sınıfın statik
-  üyeleri `_ProfileDialogState.` ön ekiyle yazıldı ve `setState` yerine
-  `_update` çağrılıyor (extension'ın `setState` çağırması analizde uyarı
+  Dart kuralı gereği yalnız iki mekanik değişiklik var: her bölümün başında
+  sınıfın statik üyeleri için takma adlar var (kod sınıf içindeki hâliyle
+  aynı okunsun diye) ve `setState` yerine `_update` çağrılıyor (extension'ın `setState` çağırması analizde uyarı
   veriyor; `_update` sınıfın içinde `setState`'i çağırıyor). Betik, eski ve
   yeni dosyaların satırlarını karşılaştırdı: kaybolan satır yok.
 - Kayıt anahtarları, kayıt biçimi, test anahtarları (Key/ValueKey) ve gizli
@@ -130,7 +130,9 @@ yalnız örnek alındı. Dal: `design/clean-profil`, PR #318.
     sayısı | Dürbün ayağı"; Ek mühimmat başlığı kutularla değil kendi kartıyla
     hizalı.
 - Bölme için: Python kaynak denetimleri (`tools/test_v223…`, `test_v299…`,
-  `test_v368…`, `test_v371…`) artık kütüphanenin tamamını (ana dosya + part
+  `test_v368…`, `test_v371…`, main'den gelen `test_denetim_2026_10_14b_kul`,
+  `…_prf`, `test_denetim_2026_10_14c`) ve
+  `test/audit_2026_10_14b/turret_zero_cleanup_audit_test.dart` artık kütüphanenin tamamını (ana dosya + part
   dosyaları) okuyor (`tools/dart_library_source.py`); denetimler aynı, metin
   başka dosyaya taşındı diye geçmiş sayılmıyor. `test_offline_dart_lint` aynı
   satırı `profile_editor.dart` içinde arıyor.
@@ -171,6 +173,23 @@ Yalnız gerçekten koşan ve sonucunu gördüğüm işler:
   https://github.com/sniperTurk/flutter-app/actions/runs/38701349479
 - Biçim denetimi `a16136a` üzerinde: run 38705865248 başarılı (değişiklik
   gerekmedi).
+- PR iOS CI (`71a6e99`): run 38706145330 — dart-checks, wind-acceptance
+  başarılı; **verify yine başarısız** (aynı satır). Asıl sebep: liste açıkken
+  klavye kayınca ekran ölçüleri değişiyor ve liste "ölçü değişti" diye
+  kendini kapatıyordu. Düzeltme `a68ff62`: liste yalnız pencere genişliği
+  değişince (döndürme) kapanır; klavyenin kapanması pencerenin kendi
+  boşluğundan beklenir. Widget testi: klavye gelip giderken liste açık kalır.
+  https://github.com/sniperTurk/flutter-app/actions/runs/38706145330
+- `a68ff62` PR koşusu (38709570373): dart-checks'in Python adımı düştü; PR,
+  main ile birleştirilmiş hâlde denendiği için main'e yeni gelen denetim
+  testleri (#319) `profiles_screen.dart` metninde, bölme sonrası başka
+  dosyaya geçen satırları arıyordu. main dala birleştirildi (`579b6f7`);
+  bölüm dosyalarında statik üyeler yeniden kendi adlarıyla yazıldı (takma
+  ad), dört denetim testi kütüphanenin tamamını okuyacak şekilde ayarlandı
+  (`208c3a7`); biçim `413f548`.
+  https://github.com/sniperTurk/flutter-app/actions/runs/38709570373
+- `413f548` üzerinde analyze run 38712093149 başarılı.
+  https://github.com/sniperTurk/flutter-app/actions/runs/38712093149
 - PR iOS CI her yeni commit'te kendiliğinden koşuyor (belge commit'lerinde
   de, PR'ın tamamı kod içerdiği için). Elle başlattığım iki fazla iOS CI
   koşusu (38700970028, 38701049307) gereksiz olduğu için iptal edildi. Son
