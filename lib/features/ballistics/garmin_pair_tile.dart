@@ -81,29 +81,25 @@ class _GarminPairTileState extends State<GarminPairTile>
       margin: const EdgeInsets.only(bottom: MenzilSpace.sm),
       icon: Icons.watch_outlined,
       title: 'Garmin saati',
-      titleTrailing: [
-        // Its own tap target: opens the explanation, not Garmin Connect.
-        MenzilInfoButton(
-          key: const Key('pro-info-garmin'),
+      // Its own tap target: opens the explanation, not Garmin Connect.
+      titleTrailing: MenzilInfoButton(
+        key: const Key('pro-info-garmin'),
+        title: 'Garmin saati',
+        tooltip: 'Açıklama: Garmin saati',
+        onPressed: () => showProInfoSheet(
+          context,
           title: 'Garmin saati',
-          tooltip: 'Açıklama: Garmin saati',
-          onPressed: () => showProInfoSheet(
-            context,
-            title: 'Garmin saati',
-            entries: const [],
-            text: ProSectionInfo.garmin,
-          ),
+          entries: const [],
+          text: ProSectionInfo.garmin,
         ),
-        // Right end, like "Ek mühimmat bilgileri" (owner, 2026-10-15).
-        Expanded(
-          child: Text(
-            'isteğe bağlı',
-            key: const Key('pro-garmin-optional'),
-            textAlign: TextAlign.end,
-            style: MenzilType.caption(c.ink2),
-          ),
-        ),
-      ],
+      ),
+      // Right end, like "Ek mühimmat bilgileri" (owner, 2026-10-15).
+      titleEnd: Text(
+        'isteğe bağlı',
+        key: const Key('pro-garmin-optional'),
+        textAlign: TextAlign.end,
+        style: MenzilType.caption(c.ink2),
+      ),
       subtitle: n == 0
           ? 'Saat seçilmedi: Garmin Connect\'te saatinizi seçin'
           : '$n saat seçili; değiştirmek için dokunun',

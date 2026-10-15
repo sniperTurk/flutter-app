@@ -31,9 +31,10 @@ ayarlarınızda hiçbir değişiklik olmadığı yazsın".
 - `pro_info_sheet.dart`: alttan sayfaya isteğe bağlı `text` (tek paragraf)
   eklendi; öteki Pro kutularında değişiklik yok (Ne? / Neden önemli? /
   Nasıl? aynı).
-- `menzil_widgets.dart` `MenzilToolTile`: iki isteğe bağlı parametre:
-  `titleTrailing` (başlık satırına eklenen parçalar) ve `margin` (varsayılan
-  eskisi gibi 10 pt). Araçlar'daki öteki satırlar değişmedi.
+- `menzil_widgets.dart` `MenzilToolTile`: üç isteğe bağlı parametre:
+  `titleTrailing` (başlığın hemen yanı: ⓘ), `titleEnd` (satırın sağ ucu:
+  "isteğe bağlı") ve `margin` (varsayılan eskisi gibi 10 pt). Araçlar'daki
+  öteki satırlar değişmedi.
 - `tools/test_v271_removed_feature_scope.py`: Garmin satırının artık
   Araçlar'da olmadığını ve Pro Ayarlar'da olduğunu denetler.
 
@@ -88,7 +89,9 @@ bitmeden bu cümle kullanıcı için henüz doğru değil.
   saatinizi seçin".
 - ⓘ'ye dokunmak Garmin Connect'i açmaz; yalnız açıklamayı açar.
 - Dar ekran (320 pt) ve yazı ölçeği 1.3: başlık ve "isteğe bağlı" gerekirse
-  alt satıra kayar, taşma olmaz. Başlık boş alanın üçte ikisini alır.
+  alt satıra kayar, taşma olmaz. Başlık ile ⓘ satırın en çok dörtte üçünü
+  alır; "isteğe bağlı" her zaman sağ uçta durur. 390 pt'lik telefonda yer
+  dar olduğundan "isteğe bağlı" iki satıra bölünebilir (isteğe / bağlı).
 - Kaydedilmiş veri yok; silinen veri yok.
 
 ## Bilerek yapılmayan
@@ -107,7 +110,8 @@ bitmeden bu cümle kullanıcı için henüz doğru değil.
   kutuların konumu köprülü/köprüsüz aynı (±0,5 pt), özet yazıları aynı;
   320 ve 390 pt, yazı ölçeği 1.0 ve 1.3'te taşma yok.
 - `test/garmin_link_test.dart`: yeni dosya yolu; başlık satırında sırasıyla
-  başlık, ⓘ, "isteğe bağlı" (#9CB1C0, sağa yaslı); ⓘ eşleştirme yapmaz;
+  başlık, ⓘ, "isteğe bağlı" (#9CB1C0, sağ uçta, oktan önce); ⓘ eşleştirme
+  yapmaz;
   Araçlar'da köprü olsa da olmasa da satır yok.
 - Yerel: `python3 tools/offline_dart_lint.py` → PASS (395 Dart dosyası,
   0 sorun); `python3 -m unittest discover -s tools -p 'test_*.py'` → 861

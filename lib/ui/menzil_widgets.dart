@@ -2741,11 +2741,15 @@ class MenzilToolTile extends StatelessWidget {
   /// (#1B3245) instead of amber.
   final bool plainIcon;
 
-  /// Widgets after the title on its line (Pro Ayarlar > Garmin saati: ⓘ
-  /// and "isteğe bağlı", owner 2026-10-16). Empty: the title alone. The
-  /// title then gets two thirds of the free width (an `Expanded` in here
-  /// the rest), so on a narrow phone both wrap instead of overflowing.
-  final List<Widget> titleTrailing;
+  /// Right after the title (Pro Ayarlar > Garmin saati: its ⓘ, owner
+  /// 2026-10-16), like [MenzilSectionHeader.titleTrailing].
+  final Widget? titleTrailing;
+
+  /// At the right end of the title line ("isteğe bağlı"). The title with
+  /// [titleTrailing] may take up to three quarters of the line, this the
+  /// rest; on a narrow phone or large text both wrap instead of
+  /// overflowing.
+  final Widget? titleEnd;
 
   /// Space under the card (Pro Ayarlar uses its boxes' smaller gap).
   final EdgeInsetsGeometry margin;
@@ -2763,7 +2767,8 @@ class MenzilToolTile extends StatelessWidget {
     this.enabled = true,
     this.tileKey,
     this.plainIcon = false,
-    this.titleTrailing = const [],
+    this.titleTrailing,
+    this.titleEnd,
     this.margin = const EdgeInsets.only(bottom: MenzilSpace.md),
   });
 
@@ -2807,12 +2812,22 @@ class MenzilToolTile extends StatelessWidget {
                   : c.amberInk,
             ),
           ),
-          title: titleTrailing.isEmpty
+          title: titleTrailing == null && titleEnd == null
               ? titleText
               : Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Flexible(flex: 2, child: titleText),
-                    ...titleTrailing,
+                    Flexible(
+                      flex: 3,
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Flexible(child: titleText),
+                          if (titleTrailing case final t?) t,
+                        ],
+                      ),
+                    ),
+                    if (titleEnd case final end?) Flexible(child: end),
                   ],
                 ),
           subtitle: Text(

@@ -234,6 +234,10 @@ void main() {
       // Garmin saati, then ⓘ, then "isteğe bağlı" on the right, one line.
       expect(info.left, greaterThanOrEqualTo(title.right - 0.5));
       expect(optional.left, greaterThanOrEqualTo(info.right - 0.5));
+      // "isteğe bağlı" ends at the right end of the title line, just
+      // before the chevron (ListTile's 16 pt gap).
+      final chevron = tester.getRect(find.byIcon(Icons.chevron_right));
+      expect(chevron.left - optional.right, inInclusiveRange(0, 24));
       expect((info.center.dy - title.center.dy).abs(), lessThan(12));
       final text = tester.widget<Text>(
         find.byKey(const Key('pro-garmin-optional')),

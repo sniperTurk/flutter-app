@@ -262,6 +262,14 @@ void main() {
         }
         final title = tester.getRect(find.text('Garmin saati'));
         expect(title.left, greaterThanOrEqualTo(card.left));
+        // "isteğe bağlı" stays at the right end, before the chevron.
+        final optional = tester.getRect(
+          find.byKey(const Key('pro-garmin-optional')),
+        );
+        final chevron = tester.getRect(
+          find.descendant(of: row, matching: find.byIcon(Icons.chevron_right)),
+        );
+        expect(chevron.left - optional.right, inInclusiveRange(0, 24));
         expect(card.right, lessThanOrEqualTo(width + 0.5));
       });
     }
