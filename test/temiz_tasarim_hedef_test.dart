@@ -450,6 +450,9 @@ void main() {
       );
       final shared = _fill(tester, const Key('reference'));
       expect(shared, isNotNull);
+      // #318 (design/clean-profil) made the shared done fill dark blue.
+      expect(shared, const Color(0xFF1F5F7A));
+      expect(shared, isNot(WindClockPicker.orange));
 
       await _show(tester, BallisticsView.environment, rig: rig);
       await _tap(tester, find.byKey(_weatherBtn));

@@ -52,7 +52,7 @@ Dal: `design/clean-hedef`, PR #317.
 - **Renk**
   - "Alındı" düğmelerinin rengi `menzil_widgets.dart`'taki ortak stilden gelir. O dosya paralel görevin
     (`design/clean-profil`) olduğu için dokunulmadı; koyu mavi (#1F5F7A, çerçeve #2E7FA0, beyaz yazı)
-    o görevle gelir. Hedef/Hava/Pro dosyalarında yerel bir "alındı" stili yok.
+    o görevle geldi (#318 birleşti, testle bağlandı: dolgu #1F5F7A). Hedef/Hava/Pro dosyalarında yerel bir "alındı" stili yok.
   - Turuncu #E8590C yalnız rüzgâr saatinde kalır; saat bunu kendi sabitinden (`WindClockPicker.orange`) okur.
 
 ## Nasıl
