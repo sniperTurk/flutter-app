@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import '../../core/drag_curve.dart';
 import '../../core/drag_table.dart';
+import '../../core/estimated_bc.dart';
 import '../../core/pcp_pressure.dart';
 import '../../core/powder_temperature.dart';
 import '../../core/production_limits.dart';

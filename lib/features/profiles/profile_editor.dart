@@ -109,13 +109,13 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     final out = <double>[];
     final all = [for (final (_, d) in Cartridges.firearm) d]..sort();
     for (final d in all) {
-      if (seen.add((d / 25.4).toStringAsFixed(3))) out.add(d);
+      if (seen.add(UnitSystem.millimetersToInches(d).toStringAsFixed(3))) out.add(d);
     }
     return out;
   }();
 
   static String _diameterLabel(double mm) =>
-      '.${(mm / 25.4).toStringAsFixed(3).split('.').last} in · '
+      '.${UnitSystem.millimetersToInches(mm).toStringAsFixed(3).split('.').last} in · '
       '${mm.toStringAsFixed(2).replaceAll('.', ',')} mm';
 
   // ---- Tüfek Marka / Model / Kalibre lists (owner, 2026-10-11) ----
@@ -170,7 +170,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     final parts = <String>[r.cartridge];
     final b = r.barrelLengthMm;
     if (b != null) {
-      final inch = b / 25.4;
+      final inch = UnitSystem.millimetersToInches(b);
       parts.add(
         '${inch.toStringAsFixed((inch - inch.round()).abs() < 0.05 ? 0 : 1)} in namlu',
       );
