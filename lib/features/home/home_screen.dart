@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 
@@ -297,8 +298,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final themeController = MenzilThemeScope.maybeOf(context);
-    final themeMode = themeController?.value ?? ThemeMode.system;
     // Full-screen progress only until the first successful load; later
     // reloads keep every tab (and its in-progress input) mounted.
     final firstLoad = loading && _profilesRevision == 0;
@@ -306,8 +305,6 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: MenzilTopBar(
         profileSelector: _profileSelector(context),
-        themeLabel: MenzilThemeController.labelFor(themeMode),
-        onThemeTap: themeController?.cycle,
         // Each page shows its own name instead of the brand (2026-10-08).
         // The Hedef tab's page title is "Hedef" (owner, 2026-10-15; it was
         // "Atış Çözümü").
@@ -442,6 +439,21 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
+  /// Caliber of [profile]'s rifle as shown in the top bar ("6,35 mm"), or
+  /// null when the profile does not resolve against the catalog yet.
+  static String? _caliberLabel(RifleProfile profile) {
+    final mm = const ProfileCatalogIntegrity()
+        .resolve(profile)
+        ?.rifle
+        .caliberMm;
+    if (mm == null) return null;
+    return '${mm.toStringAsFixed(2).replaceAll('.', ',')} mm';
+  }
+
+  /// Active-profile button at the right of the top bar (owner, 2026-10-15):
+  /// profile name (bold) + caliber (grey) + ⌄. Tapping it opens the same
+  /// profile list as before. It is only as wide as its text and shortens
+  /// long names with "…"; the tap target is at least 44 pt high.
   Widget _profileSelector(BuildContext context) {
     final c = MenzilColors.of(context);
     final pill = OutlineInputBorder(
@@ -449,34 +461,60 @@ class _HomeScreenState extends State<HomeScreen> {
       borderSide: BorderSide(color: c.line),
     );
     final nameStyle = TextStyle(
-      fontSize: 13.5,
-      fontWeight: FontWeight.w600,
+      fontSize: 15,
+      fontWeight: FontWeight.w700,
       color: c.ink,
     );
+    final caliberStyle = TextStyle(
+      fontSize: 14,
+      fontWeight: FontWeight.w400,
+      color: c.ink2,
+    );
+    const padLeft = 14.0;
+    const padRight = 14.0;
+    const iconGap = 6.0;
+    const iconSize = 20.0;
+    // Room the dropdown keeps beside its text (Flutter's InputDecorator):
+    // contentPadding start + the outline's 4 pt gap, then a 4 pt gap to the
+    // suffix icon, which is 24 pt wide plus a 12 pt end margin.
+    const chrome = padLeft + 4 + 4 + 24 + 12;
     if (saved.isEmpty) {
+      // No profile yet: "Profil seç" goes to the Profil tab, where the
+      // empty page offers "Profil oluştur" (unchanged behaviour).
       return Semantics(
         button: true,
-        label: 'Profil oluştur',
+        label: 'Profil seç',
         child: ExcludeSemantics(
           child: Material(
+            key: const Key('top-bar-profile-button'),
             color: c.surface,
             shape: StadiumBorder(side: BorderSide(color: c.line)),
             child: InkWell(
               customBorder: const StadiumBorder(),
               onTap: loading ? null : () => _selectTab(_tabProfile),
               child: ConstrainedBox(
-                constraints: const BoxConstraints(minHeight: 44),
+                constraints: const BoxConstraints(minHeight: 44, minWidth: 44),
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 12),
-                  child: Align(
-                    alignment: Alignment.centerLeft,
-                    heightFactor: 1,
-                    child: Text(
-                      loading ? '…' : 'Profil yok',
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: nameStyle.copyWith(color: c.ink2),
-                    ),
+                  padding: const EdgeInsets.fromLTRB(
+                    padLeft + 4,
+                    0,
+                    padRight,
+                    0,
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Flexible(
+                        child: Text(
+                          loading ? '…' : 'Profil seç',
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: nameStyle,
+                        ),
+                      ),
+                      const SizedBox(width: iconGap),
+                      Icon(Icons.expand_more, color: c.ink2, size: iconSize),
+                    ],
                   ),
                 ),
               ),
@@ -485,54 +523,107 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       );
     }
-    return Semantics(
-      container: true,
-      label: 'Aktif tüfek profili',
-      button: true,
-      child: DropdownButtonFormField<RifleProfile>(
-        key: ValueKey(('active-profile', active?.id, _selectorEpoch)),
-        initialValue: active,
-        isExpanded: true,
-        isDense: true,
-        borderRadius: BorderRadius.circular(MenzilRadius.input),
-        dropdownColor: c.surface,
-        icon: Icon(Icons.expand_more, color: c.ink2, size: 20),
-        decoration: InputDecoration(
-          filled: true,
-          fillColor: c.surface,
-          contentPadding: const EdgeInsets.fromLTRB(12, 11, 8, 11),
-          border: pill,
-          enabledBorder: pill,
-          focusedBorder: pill,
-          disabledBorder: pill,
-        ),
-        selectedItemBuilder: (context) => saved
-            .map(
-              (profile) => Align(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  profile.name,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: nameStyle,
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        // The dropdown paints its text on top of the theme's titleMedium;
+        // measure with the same merged styles and the clamped text scale.
+        final base =
+            Theme.of(context).textTheme.titleMedium ?? const TextStyle();
+        final scaler = MediaQuery.textScalerOf(context);
+        double measure(String text, TextStyle style) {
+          final painter = TextPainter(
+            text: TextSpan(text: text, style: base.merge(style)),
+            textDirection: Directionality.of(context),
+            textScaler: scaler,
+            locale: Localizations.maybeLocaleOf(context),
+            maxLines: 1,
+          )..layout();
+          final w = painter.width;
+          painter.dispose();
+          return w;
+        }
+
+        final shown = active ?? saved.first;
+        final caliber = _caliberLabel(shown);
+        final natural =
+            chrome +
+            measure(shown.name, nameStyle) +
+            (caliber == null
+                ? 0
+                : _ProfileButtonLabel.gap + measure(caliber, caliberStyle)) +
+            2;
+        final width = constraints.maxWidth.isFinite
+            ? math.min(natural.ceilToDouble(), constraints.maxWidth)
+            : natural.ceilToDouble();
+        // The name gives way first ("…"); the caliber keeps its full width
+        // and is shortened only when not even a few letters of the name
+        // would fit beside it. With almost no room only the name is shown.
+        final textRoom = width - chrome;
+        final caliberMax = math.max(
+          0.0,
+          textRoom - _ProfileButtonLabel.gap - _ProfileButtonLabel.minName,
+        );
+        return SizedBox(
+          key: const Key('top-bar-profile-button'),
+          width: width,
+          child: Semantics(
+            container: true,
+            label: 'Aktif tüfek profili',
+            button: true,
+            child: DropdownButtonFormField<RifleProfile>(
+              key: ValueKey(('active-profile', active?.id, _selectorEpoch)),
+              initialValue: active,
+              isExpanded: true,
+              isDense: true,
+              borderRadius: BorderRadius.circular(MenzilRadius.input),
+              dropdownColor: c.surface,
+              icon: Icon(Icons.expand_more, color: c.ink2, size: iconSize),
+              decoration: InputDecoration(
+                filled: true,
+                fillColor: c.surface,
+                constraints: const BoxConstraints(minHeight: 44),
+                contentPadding: const EdgeInsets.fromLTRB(
+                  padLeft,
+                  11,
+                  padRight,
+                  11,
                 ),
+                border: pill,
+                enabledBorder: pill,
+                focusedBorder: pill,
+                disabledBorder: pill,
               ),
-            )
-            .toList(),
-        items: saved
-            .map(
-              (profile) => DropdownMenuItem(
-                value: profile,
-                child: Text(
-                  profile.name,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                ),
-              ),
-            )
-            .toList(),
-        onChanged: choosingProfile ? null : _choose,
-      ),
+              selectedItemBuilder: (context) => saved
+                  .map(
+                    (profile) => Align(
+                      alignment: Alignment.centerLeft,
+                      child: _ProfileButtonLabel(
+                        name: profile.name,
+                        caliber: _caliberLabel(profile),
+                        nameStyle: nameStyle,
+                        caliberStyle: caliberStyle,
+                        caliberMaxWidth: caliberMax,
+                      ),
+                    ),
+                  )
+                  .toList(),
+              items: saved
+                  .map(
+                    (profile) => DropdownMenuItem(
+                      value: profile,
+                      child: Text(
+                        profile.name,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                  )
+                  .toList(),
+              onChanged: choosingProfile ? null : _choose,
+            ),
+          ),
+        );
+      },
     );
   }
 
@@ -717,6 +808,60 @@ class _ShotModeSwitch extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+}
+
+/// Profile name (bold) and caliber (grey) inside the top-bar button. The
+/// name shortens with "…" first; the caliber keeps up to [caliberMaxWidth].
+class _ProfileButtonLabel extends StatelessWidget {
+  static const double gap = 8;
+
+  /// Room always left for the name (a letter or two and "…").
+  static const double minName = 24;
+
+  final String name;
+  final String? caliber;
+  final TextStyle nameStyle;
+  final TextStyle caliberStyle;
+  final double caliberMaxWidth;
+
+  const _ProfileButtonLabel({
+    required this.name,
+    required this.caliber,
+    required this.nameStyle,
+    required this.caliberStyle,
+    required this.caliberMaxWidth,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final cal = caliber;
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Flexible(
+          child: Text(
+            name,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            style: nameStyle,
+          ),
+        ),
+        if (cal != null && caliberMaxWidth >= 16) ...[
+          const SizedBox(width: gap),
+          ConstrainedBox(
+            constraints: BoxConstraints(maxWidth: caliberMaxWidth),
+            child: Text(
+              cal,
+              key: const Key('top-bar-profile-caliber'),
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: caliberStyle,
+            ),
+          ),
+        ],
+      ],
     );
   }
 }
