@@ -263,7 +263,7 @@ class FactoryBcRecheck(unittest.TestCase):
         # MUH-3: the maker page the weight was taken from gives 1130 fps.
         t = tables()["FA007"]
         self.assertEqual(t["velocities"][0], 1130)
-        self.assertEqual(fa007["mv"], 1095.0)  # still the .22 Short figure
+        self.assertEqual(fa007["mv"], 1130.0)  # fixed (owner, 2026-10-15)
 
 
 class G1vsG7Meaning(unittest.TestCase):

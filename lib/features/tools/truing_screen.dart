@@ -6,7 +6,9 @@ import '../../core/ballistic_input.dart';
 import '../../core/drag_band_truing.dart';
 import '../../core/drag_curve.dart';
 import '../../core/gravity.dart';
+import '../../core/pcp_pressure.dart';
 import '../../core/powder_temperature.dart';
+import '../../core/production_limits.dart';
 import '../../core/scope_dial.dart';
 import '../../core/unit_system.dart';
 import '../../core/velocity_truing.dart';
@@ -55,6 +57,20 @@ abstract final class TruingFieldInfo {
       'düzeltmesi (sıfırdan itibaren, yukarı pozitif). Tık sayısını tık '
       'değeriyle çarpın: 0,1 MRAD dürbünde 42 tık = 4,2 MRAD. Tek atışla '
       'değil, en az 3–5 atışlık grubun ortasıyla ölçün.';
+
+  /// KUL-2 (owner, 2026-10-15): regulator-less PCP with a usable
+  /// "Basınca göre hız" table; the velocity comes from the table.
+  static const pcpTable =
+      'Bu tüfekte hız, Profil > Mühimmat\'taki "Basınca göre hız" '
+      'tablosundan, Tüp basıncına göre geliyor; Namlu çıkış hızı hesaba '
+      'girmiyor. Bu yüzden doğrulanan hız profile yazılmaz. Hızı düzeltmek '
+      'için tablodaki hızları kronografla ölçüp Profil\'de güncelleyin.';
+  static const pcpTableApply =
+      'Regülatörsüz PCP\'de Hedef, Profil > Mühimmat\'taki Tüp basıncına '
+      'karşılık gelen tablo hızını kullanır; Namlu çıkış hızı kullanılmaz. '
+      'Doğrulanan hızı yazmak hiçbir sonucu değiştirmezdi; bu yüzden düğme '
+      'kapalı. Kronografla birkaç basınçta hızı ölçüp "Basınca göre hız" '
+      'tablosuna girin. Örnek: 200 bar 886 fps, 120 bar 837 fps.';
 }
 
 /// Hız Doğrulama (truing): the shooter fires at a known range beyond the
@@ -182,6 +198,33 @@ class _TruingScreenState extends State<TruingScreen> {
     } catch (_) {
       // No storage: powder temperature is simply not applied.
     }
+  }
+
+  /// Same switch as Hedef (`BallisticsScreen`): the hidden Pro "Kalan tüp
+  /// basıncı" box.
+  static const bool _proTubePressure = bool.fromEnvironment(
+    'PRO_TUBE_PRESSURE',
+  );
+
+  /// KUL-2 (owner, 2026-10-15): true for a regulator-less PCP whose Profil
+  /// "Basınca göre hız" table gives the velocity at its Tüp basıncı. Hedef
+  /// zeroes and shoots with that table velocity there (Denetim F3), so a
+  /// trued Namlu çıkış hızı would change nothing; it is not written. Same
+  /// rule as Hedef's `pcpTableAtProfilePressure`.
+  bool get _velocityFromPcpTable {
+    final p = _profile, res = _resolution;
+    if (_proTubePressure || p == null || res == null) return false;
+    if (res.rifle.platform != WeaponPlatform.pcp) return false;
+    final tube = p.tubePressureBar;
+    final pcp = PcpPressure.velocity(
+      profileMps: p.muzzleVelocityMps,
+      regulatorBar: p.pressureBar,
+      tubeBar: tube != null && tube <= ProductionLimits.maxPcpPressureBar
+          ? tube
+          : null,
+      table: p.pressureVelocityTable,
+    );
+    return pcp.fromTable && !pcp.regulatorBypassed;
   }
 
   /// Namlu çıkış hızı is always shown in fps, as on Profil (owner rule).
@@ -604,7 +647,7 @@ class _TruingScreenState extends State<TruingScreen> {
 
   Future<void> _apply(TruingResult r, bool metric) async {
     final p = _profile;
-    if (p == null) return;
+    if (p == null || _velocityFromPcpTable) return;
     final ok = await showDialog<bool>(
       context: context,
       builder: (ctx) => AlertDialog(
@@ -739,6 +782,12 @@ class _TruingScreenState extends State<TruingScreen> {
                   _error = null;
                 }),
               ),
+              if (_mode == _TruingMode.velocity && _velocityFromPcpTable)
+                const MenzilNotice(
+                  key: Key('truing-pcp-table'),
+                  tone: MenzilNoticeTone.warning,
+                  message: TruingFieldInfo.pcpTable,
+                ),
               const MenzilSectionHeader(
                 '1 · Gözlem',
                 padding: EdgeInsets.only(bottom: MenzilSpace.sm),
@@ -998,12 +1047,31 @@ class _TruingScreenState extends State<TruingScreen> {
               '%5’ten büyük bir değişim. Kronografla hızı ölçmek, sıfırı ve '
               'sight height değerini kontrol etmek iyi olur.',
         ),
-      MenzilSecondaryButton(
-        key: const Key('truing-apply'),
-        label: 'Doğrulanmış hızı profile uygula',
-        icon: Icons.save_alt,
-        onPressed: () => _apply(r, metric),
-      ),
+      if (_velocityFromPcpTable)
+        const Row(
+          children: [
+            Expanded(
+              child: MenzilSecondaryButton(
+                key: Key('truing-apply'),
+                label: 'Doğrulanmış hızı profile uygula',
+                icon: Icons.save_alt,
+                onPressed: null,
+              ),
+            ),
+            MenzilInfoButton(
+              key: Key('truing-apply-info'),
+              title: 'Hız profile yazılmaz',
+              text: TruingFieldInfo.pcpTableApply,
+            ),
+          ],
+        )
+      else
+        MenzilSecondaryButton(
+          key: const Key('truing-apply'),
+          label: 'Doğrulanmış hızı profile uygula',
+          icon: Icons.save_alt,
+          onPressed: () => _apply(r, metric),
+        ),
     ];
   }
 }
