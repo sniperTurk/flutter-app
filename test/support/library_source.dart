@@ -6,8 +6,9 @@ import 'dart:io';
 String librarySource(String path) {
   final main = File(path).readAsStringSync();
   final dir = File(path).parent.path;
-  final parts = RegExp(r"^part '([^']+)';", multiLine: true)
-      .allMatches(main)
-      .map((m) => File('$dir/${m.group(1)}').readAsStringSync());
+  final parts = RegExp(
+    r"^part '([^']+)';",
+    multiLine: true,
+  ).allMatches(main).map((m) => File('$dir/${m.group(1)}').readAsStringSync());
   return [main, ...parts].join('\n');
 }

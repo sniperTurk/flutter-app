@@ -7,7 +7,8 @@ extension _RifleSection on _ProfileDialogState {
   // The editor's static members under their own names, so the moved
   // code reads exactly as it did inside the class (an extension does
   // not see the static members of its type unqualified).
-  static List<double> get _bulletDiameters => _ProfileDialogState._bulletDiameters;
+  static List<double> get _bulletDiameters =>
+      _ProfileDialogState._bulletDiameters;
   static const _byName = _ProfileDialogState._byName;
   static const _cartridgeFor = _ProfileDialogState._cartridgeFor;
   static const _diameterLabel = _ProfileDialogState._diameterLabel;
@@ -52,12 +53,10 @@ extension _RifleSection on _ProfileDialogState {
     if (cal == null) return null;
     if (platform == WeaponPlatform.firearm) {
       final c = _cartridge;
-      if (c != null &&
-          _firearmCartridges.any((e) => e.$1 == c)) {
+      if (c != null && _firearmCartridges.any((e) => e.$1 == c)) {
         return c;
       }
-      return _cartridgeFor(cal) ??
-          'mm:${_trimDot(cal)}';
+      return _cartridgeFor(cal) ?? 'mm:${_trimDot(cal)}';
     }
     return 'mm:${_trimDot(_caliberItem(cal) ?? cal)}';
   }
@@ -97,11 +96,7 @@ extension _RifleSection on _ProfileDialogState {
           short: _shortCartridge(r.cartridge),
         );
       }
-      add(
-        _otherCaliberKey,
-        const Text('Diğer kalibre'),
-        'Diğer kalibre',
-      );
+      add(_otherCaliberKey, const Text('Diğer kalibre'), 'Diğer kalibre');
       return out;
     }
     if (platform == WeaponPlatform.firearm) {
@@ -112,8 +107,7 @@ extension _RifleSection on _ProfileDialogState {
         enabled: false,
       );
       header('#popular', 'EN ÇOK KULLANILAN');
-      for (final (i, (name, d))
-          in _firearmCartridges.indexed) {
+      for (final (i, (name, d)) in _firearmCartridges.indexed) {
         if (i == _popularCount) {
           header('#all', 'DİĞERLERİ (A-Z)');
         }
@@ -141,9 +135,7 @@ extension _RifleSection on _ProfileDialogState {
           short: _shortCartridge(name),
         );
       }
-      if (cal != null &&
-          !_caliberByDiameter &&
-          _cartridgeFor(cal) == null) {
+      if (cal != null && !_caliberByDiameter && _cartridgeFor(cal) == null) {
         final mm = _trimDot(cal);
         add(
           'mm:$mm',
@@ -191,9 +183,7 @@ extension _RifleSection on _ProfileDialogState {
       _cartridge = null;
       final cal = _parse(rifleCaliber);
       if (cal != null &&
-          !_bulletDiameters.any(
-            (d) => (d - cal).abs() < 0.005,
-          )) {
+          !_bulletDiameters.any((d) => (d - cal).abs() < 0.005)) {
         rifleCaliber.text = '';
       }
       return;
@@ -205,24 +195,19 @@ extension _RifleSection on _ProfileDialogState {
       return;
     }
     _cartridge = key;
-    final mm = _firearmCartridges
-        .firstWhere((e) => e.$1 == key)
-        .$2;
+    final mm = _firearmCartridges.firstWhere((e) => e.$1 == key).$2;
     rifleCaliber.text = _trimDot(mm);
   }
 
   List<LibraryRifle> get _rifleLib => [
     for (final r in RifleLibrary.all)
       if (r.platform == platform &&
-          (_domestic == null ||
-              _domesticBrands.contains(r.brand) ==
-                  _domestic))
+          (_domestic == null || _domesticBrands.contains(r.brand) == _domestic))
         r,
   ];
 
   List<String> get _rifleBrands =>
-      {for (final r in _rifleLib) r.brand}.toList()
-        ..sort(_byName);
+      {for (final r in _rifleLib) r.brand}.toList()..sort(_byName);
 
   List<String> _rifleModels(String brand) => {
     for (final r in _rifleLib)
@@ -511,12 +496,7 @@ extension _RifleSection on _ProfileDialogState {
                   hint: 'Seçiniz',
                   initialValue: _bulletDiameters
                       .where(
-                        (d) =>
-                            (d -
-                                    (_parse(rifleCaliber) ??
-                                        -1))
-                                .abs() <
-                            0.005,
+                        (d) => (d - (_parse(rifleCaliber) ?? -1)).abs() < 0.005,
                       )
                       .firstOrNull,
                   items: [

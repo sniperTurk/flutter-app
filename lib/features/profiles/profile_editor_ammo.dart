@@ -7,7 +7,8 @@ extension _AmmoSection on _ProfileDialogState {
   // The editor's static members under their own names, so the moved
   // code reads exactly as it did inside the class (an extension does
   // not see the static members of its type unqualified).
-  static List<String> get _allFirearmAmmoBrands => _ProfileDialogState._allFirearmAmmoBrands;
+  static List<String> get _allFirearmAmmoBrands =>
+      _ProfileDialogState._allFirearmAmmoBrands;
   static const _byName = _ProfileDialogState._byName;
   static const _customKey = _ProfileDialogState._customKey;
   static const _factoryLabel = _ProfileDialogState._factoryLabel;
@@ -20,7 +21,8 @@ extension _AmmoSection on _ProfileDialogState {
   static const _parse = _ProfileDialogState._parse;
   static const _showAmmoListedeYok = _ProfileDialogState._showAmmoListedeYok;
   static const _showPcpAmmoBrand = _ProfileDialogState._showPcpAmmoBrand;
-  static const _showProfileAmmoLength = _ProfileDialogState._showProfileAmmoLength;
+  static const _showProfileAmmoLength =
+      _ProfileDialogState._showProfileAmmoLength;
   static const _trimDot = _ProfileDialogState._trimDot;
 
   /// BC model choices per rifle type (owner, 2026-10-10: the other public
@@ -66,8 +68,7 @@ extension _AmmoSection on _ProfileDialogState {
   bool get _ammoListEmpty {
     if (platform != WeaponPlatform.firearm) return false;
     if (_factoryAmmo) {
-      return _parse(rifleCaliber) != null &&
-          _factoryHere.isEmpty;
+      return _parse(rifleCaliber) != null && _factoryHere.isEmpty;
     }
     return _libraryHere.isEmpty;
   }
@@ -112,8 +113,7 @@ extension _AmmoSection on _ProfileDialogState {
   String? get _typedAmmoSummary {
     if (!_typedFirearmAmmo || _customCurve) return null;
     final model = _bcModelForSave;
-    final bc = _parse(ammoBc),
-        g = _parse(ammoGrain);
+    final bc = _parse(ammoBc), g = _parse(ammoGrain);
     if (_ammoBrandError != null ||
         _ammoModelError != null ||
         _grainError != null ||
@@ -144,8 +144,7 @@ extension _AmmoSection on _ProfileDialogState {
   /// never a block.
   String? get _bcPlausibilityWarning {
     if (_customCurve) return null;
-    final bc = _parse(ammoBc),
-        grain = _parse(ammoGrain);
+    final bc = _parse(ammoBc), grain = _parse(ammoGrain);
     final cal = _parse(rifleCaliber);
     if (bc == null || bc <= 0 || grain == null || cal == null || cal <= 0) {
       return null;
@@ -415,11 +414,7 @@ extension _AmmoSection on _ProfileDialogState {
     // PCP rows (owner, 2026-10-14: BC | BC modeli): Tip | Ağırlık, BC |
     // BC modeli; with Uzunluk, Tip takes its row and Ağırlık | Uzunluk.
     if (!firearm && !_showPcpAmmoBrand) {
-      return [
-        _showProfileAmmoLength
-            ? MenzilFullWidth(child: type)
-            : type,
-      ];
+      return [_showProfileAmmoLength ? MenzilFullWidth(child: type) : type];
     }
     // PCP: Marka | Tip; firearm: Mühimmat türü | Marka. Model gets a row.
     List<Widget> arrange(Widget brand, Widget model) => [
@@ -431,8 +426,7 @@ extension _AmmoSection on _ProfileDialogState {
     final lHere = factory ? const <LibraryBullet>[] : _libraryHere;
     // Without a Kalibre the factory list shows every round (picking one
     // fills the Kalibre), so it is never treated as empty.
-    final noCaliber =
-        factory && _parse(rifleCaliber) == null;
+    final noCaliber = factory && _parse(rifleCaliber) == null;
     final empty = !noCaliber && (factory ? fHere.isEmpty : lHere.isEmpty);
     if (firearm && (_ammoManual || empty)) {
       // Typed firearm round (owner, 2026-10-14): Marka from the list of
@@ -451,18 +445,13 @@ extension _AmmoSection on _ProfileDialogState {
               : ProfileFieldInfo.ammoBrandPick,
           initialValue: _ammoBrandOther
               ? _otherKey
-              : (_allFirearmAmmoBrands.contains(
-                      ammoBrand.text,
-                    )
+              : (_allFirearmAmmoBrands.contains(ammoBrand.text)
                     ? ammoBrand.text
                     : null),
           items: [
             for (final b in _allFirearmAmmoBrands)
               DropdownMenuItem(value: b, child: Text(b)),
-            const DropdownMenuItem(
-              value: _otherKey,
-              child: Text('Diğer'),
-            ),
+            const DropdownMenuItem(value: _otherKey, child: Text('Diğer')),
           ],
           errorText: _ammoBrandOther
               ? null
@@ -530,8 +519,7 @@ extension _AmmoSection on _ProfileDialogState {
     if (factory) {
       for (final a in fHere) {
         if (a.brand != brand) continue;
-        if (a.name == ammoModel.text &&
-            _parse(ammoGrain) == a.grain) {
+        if (a.name == ammoModel.text && _parse(ammoGrain) == a.grain) {
           modelIndex = labels.length;
         }
         labels.add(_factoryLabel(a));
@@ -540,16 +528,13 @@ extension _AmmoSection on _ProfileDialogState {
     } else {
       for (final b in lHere) {
         if (b.brand != brand) continue;
-        if (_modelOf(b) == ammoModel.text &&
-            _parse(ammoGrain) == b.grain) {
+        if (_modelOf(b) == ammoModel.text && _parse(ammoGrain) == b.grain) {
           modelIndex = labels.length;
         }
         final m = _modelOf(b);
         final g = '${_trimDot(b.grain)} gr';
         labels.add(m.contains(g) ? m : '$m · $g');
-        picks.add(
-          () => _applyBullet(b, _parse(rifleCaliber)),
-        );
+        picks.add(() => _applyBullet(b, _parse(rifleCaliber)));
       }
     }
     final brandSelect = KeyedSubtree(
@@ -656,10 +641,7 @@ extension _AmmoSection on _ProfileDialogState {
             : (g != null && weights.contains(g) ? g : null),
         items: [
           for (final w in weights)
-            DropdownMenuItem(
-              value: w,
-              child: Text(_grainLabel(w)),
-            ),
+            DropdownMenuItem(value: w, child: Text(_grainLabel(w))),
           const DropdownMenuItem(
             value: _grainOtherKey,
             child: Text('Listede yok'),
@@ -690,9 +672,7 @@ extension _AmmoSection on _ProfileDialogState {
           label: 'Kutudaki ağırlık',
           // The gram equivalent in the unit area, so a gram value typed as
           // grain stands out (owner: "Ağırlığın doğru yazılması çok önemli").
-          unit: g == null || g <= 0
-              ? 'gr'
-              : 'gr = ${_gramText(g)} g',
+          unit: g == null || g <= 0 ? 'gr' : 'gr = ${_gramText(g)} g',
           info: ProfileFieldInfo.grainTyped,
           onChanged: (_) => _update(() {}),
           errorText: _shown(_grainError, ammoGrain),
@@ -920,8 +900,7 @@ extension _AmmoSection on _ProfileDialogState {
             ),
           // Uzunluk | BC on PCP (owner, 2026-10-13); hidden behind
           // PROFILE_AMMO_LENGTH (owner, 2026-10-13 23:32).
-          if (platform == WeaponPlatform.pcp &&
-              _showProfileAmmoLength)
+          if (platform == WeaponPlatform.pcp && _showProfileAmmoLength)
             MenzilInput(
               key: const Key('ammo-length'),
               controller: ammoLength,
