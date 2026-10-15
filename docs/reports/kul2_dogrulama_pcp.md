@@ -51,14 +51,17 @@ Hedef bu tüfekte tablo hızını kullandığı için, doğrulanan hızı Namlu 
 
 ## CI
 
-Kod commit'i `fee4107` (format iş akışının commit'i dahil). Bu rapor commit'i yalnız `docs/` içinde olduğu için iOS CI'yı yeniden başlatmaz (`paths-ignore`).
+Kod `fee4107` commit'inde (format iş akışının commit'i dahil); sonraki commit'ler yalnız bu rapor.
 
 - Format (`format-fix.yml`): başarılı, bir format commit'i ekledi. https://github.com/sniperTurk/flutter-app/actions/runs/38781335527
 - Test tanısı (`test-diag.yml`, `files=test`): başarılı. https://github.com/sniperTurk/flutter-app/actions/runs/38781823969
 - Analiz tanısı (`analyze-diag.yml`): başarılı. https://github.com/sniperTurk/flutter-app/actions/runs/38781827199
-- iOS CI `dart-checks` (format, analyze, tüm testler, Python takımı, G1/G7): başarılı. https://github.com/sniperTurk/flutter-app/actions/runs/38781908031/job/116584011322
-- iOS CI `wind-acceptance`: başarılı. https://github.com/sniperTurk/flutter-app/actions/runs/38781908031/job/116584010426
-- iOS CI `verify` (macOS): SÜRÜYOR; bitince burada güncellenecek. https://github.com/sniperTurk/flutter-app/actions/runs/38781908031
+- iOS CI, `0a8bda6` (kod + rapor), run https://github.com/sniperTurk/flutter-app/actions/runs/38784326768 :
+  - `dart-checks` (format, analyze, tüm testler, Python takımı, G1/G7): başarılı. https://github.com/sniperTurk/flutter-app/actions/runs/38784326768/job/116592457264
+  - `wind-acceptance`: başarılı. https://github.com/sniperTurk/flutter-app/actions/runs/38784326768/job/116592456993
+  - `verify` (macOS): başarılı. https://github.com/sniperTurk/flutter-app/actions/runs/38784326768/job/116598545466
+  - `ios-simulator`: atlandı (yalnız elle istenince koşar).
+- Not: `fee4107` üzerindeki ilk iOS CI koşusu, rapor commit'i yeni koşu başlatınca iptal oldu (aynı PR, `cancel-in-progress`). Bu son rapor güncellemesi de yeni bir koşu başlatır; sonucu PR'daki kontrollerde görünür.
 
 Draft PR; birleştirme ve TestFlight yok.
 
