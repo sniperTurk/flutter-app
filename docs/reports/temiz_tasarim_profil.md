@@ -78,6 +78,9 @@ yalnız örnek alındı. Dal: `design/clean-profil`, PR #318.
   (Ateşli listeleri, "Mühimmat türü"). Tür seçilmeden kaydedilirse profil
   Ateşli kaydedilir; bu, önceki varsayılanla aynı. Tür seçimi kaydetmek için
   zorunlu yapılmadı (yeni kural eklememek için).
+- **Başka kutuya yazarken listeye dokunmak:** klavye önce kapanır (en çok
+  yarım saniye beklenir), liste sonra açılır; Flutter'ın eski davranışı da
+  odağı alıp klavyeyi kapatmaktı.
 - **Ekranın en altındaki kutu:** sayfa kaydırılabiliyorsa yukarı kayar ve
   liste aşağı açılır. Sayfa artık kayamıyorsa liste yine aşağı açılır ama
   kısalır (en az bir satır), içinde kaydırılır.
@@ -157,6 +160,17 @@ Yalnız gerçekten koşan ve sonucunu gördüğüm işler:
   ios-simulator atlandı (varsayılan), dart-checks ve verify bu rapor
   yazılırken sürüyordu.
   https://github.com/sniperTurk/flutter-app/actions/runs/38699768186
+- PR iOS CI (`59a9606`): run 38701349479 — dart-checks ve wind-acceptance
+  başarılı; **verify başarısız**: iOS Simulator açılış testi
+  (`integration_test/app_launch_test.dart:128`) Kalibre listesinde
+  "6.35 mm (.25)" satırını bulamadı. Sebep: yeni liste, önceki yazı
+  kutusunun klavyesi açıkken açılıyordu ve listeye yer kalmıyordu (eski
+  Flutter liste düğmesi dokununca odağı alıp klavyeyi kapatıyordu).
+  Düzeltme `a16136a`: kutuya dokununca önce klavye kapanır, liste sonra
+  yerleşir; bunun için bir widget testi eklendi.
+  https://github.com/sniperTurk/flutter-app/actions/runs/38701349479
+- Biçim denetimi `a16136a` üzerinde: run 38705865248 başarılı (değişiklik
+  gerekmedi).
 - PR iOS CI her yeni commit'te kendiliğinden koşuyor (belge commit'lerinde
   de, PR'ın tamamı kod içerdiği için). Elle başlattığım iki fazla iOS CI
   koşusu (38700970028, 38701049307) gereksiz olduğu için iptal edildi. Son
