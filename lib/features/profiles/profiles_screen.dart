@@ -551,7 +551,7 @@ class _ProfilesScreenState extends State<ProfilesScreen> {
           padding: const EdgeInsets.only(bottom: MenzilSpace.sm),
           child: Row(
             children: [
-              Expanded(
+              const Expanded(
                 child: MenzilSectionHeader(
                   'Profiller',
                   padding: EdgeInsets.zero,

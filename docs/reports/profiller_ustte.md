@@ -54,6 +54,7 @@ Sahip, profiller sayfanın en üstünde olsun ve her kartta profilin özeti yazs
   - 320 pt'de, 1× ve 1,3× yazı boyutunda taşma yok.
 - Güncellenen eski testler (sahibin yeni kararıyla çelişen beklentiler değişti, hiçbir kontrol gevşetilmedi):
   - `test/profiller_listesi_test.dart`: "+" ikonu ve "N kayıtlı profil" yerine, ikonun ve bu satırın olmadığı kontrol ediliyor. Silme testi sayaç yerine kartın kalktığını kontrol ediyor.
+  - `test/profile_page_test.dart`: "özet listeden önce" testi ters çevrildi: artık liste özetten önce olmalı.
   - `test/profil_ekle_arti_test.dart`: Profil sayfasında "Profil ekle" ikonsuz; hiçbir sayfa `iconLead` kullanmıyor. Düğmenin kendi `iconLead` düzeni testleri aynen duruyor.
 - Yerel:
   - `python3 tools/offline_dart_lint.py`: PASS (380 dosya, 0 sorun).
