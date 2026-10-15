@@ -1,10 +1,8 @@
-import 'dart:async' show unawaited;
 // FontFeature lives in dart:ui; the ignore keeps analyze green if material ever re-exports it.
 // ignore: unnecessary_import
 import 'dart:ui' show FontFeature;
 
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 /// Menzil design tokens.
 ///
@@ -728,47 +726,6 @@ abstract final class MenzilTheme {
       ),
     );
   }
-}
-
-/// Koyu / Açık choice behind the top bar's theme button (owner,
-/// 2026-10-12: no "Oto", two options, Koyu first). The choice is kept.
-class MenzilThemeController extends ValueNotifier<ThemeMode> {
-  MenzilThemeController([super.value = ThemeMode.dark]);
-
-  static const storageKey = 'theme.dark';
-
-  /// Reads the kept choice; no storage (tests) keeps Koyu.
-  Future<void> load() async {
-    try {
-      final prefs = await SharedPreferences.getInstance();
-      final dark = prefs.getBool(storageKey);
-      if (dark != null) value = dark ? ThemeMode.dark : ThemeMode.light;
-    } catch (_) {}
-  }
-
-  void cycle() {
-    value = value == ThemeMode.dark ? ThemeMode.light : ThemeMode.dark;
-    final dark = value == ThemeMode.dark;
-    unawaited(
-      SharedPreferences.getInstance()
-          .then((p) => p.setBool(storageKey, dark))
-          .catchError((Object _) => false),
-    );
-  }
-
-  static String labelFor(ThemeMode mode) =>
-      mode == ThemeMode.light ? 'Açık' : 'Koyu';
-}
-
-class MenzilThemeScope extends InheritedNotifier<MenzilThemeController> {
-  const MenzilThemeScope({
-    super.key,
-    required MenzilThemeController controller,
-    required super.child,
-  }) : super(notifier: controller);
-
-  static MenzilThemeController? maybeOf(BuildContext context) =>
-      context.dependOnInheritedWidgetOfExactType<MenzilThemeScope>()?.notifier;
 }
 
 /// Equipment-illustration colours (rifle / scope artwork on the Sight Height

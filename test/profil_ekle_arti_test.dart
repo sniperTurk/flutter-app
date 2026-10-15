@@ -245,7 +245,10 @@ void main() {
     }
   }
 
-  test('only Profil ekle uses iconLead', () {
+  // Owner, 2026-10-15 12:49: the Profil page's Profil ekle is text only
+  // (no "+"), so nothing in the app passes iconLead any more; the button's
+  // own iconLead layout is still covered above.
+  test('no page passes iconLead (Profil ekle has no +)', () {
     final src = Directory('lib')
         .listSync(recursive: true)
         .whereType<File>()
@@ -254,11 +257,7 @@ void main() {
       for (final f in src)
         if (f.readAsStringSync().contains('iconLead:')) f.path,
     ];
-    expect(users, ['lib/features/profiles/profiles_screen.dart']);
-    final screen = File(
-      'lib/features/profiles/profiles_screen.dart',
-    ).readAsStringSync();
-    expect(RegExp('iconLead:').allMatches(screen).length, 1);
+    expect(users, isEmpty);
   });
 
   for (final scale in scales) {
@@ -289,20 +288,20 @@ void main() {
       expect(tester.takeException(), isNull);
       final ekle = find.widgetWithText(MenzilPrimaryButton, 'Profil ekle');
       expect(ekle, findsOneWidget);
-      expect(tester.widget<MenzilPrimaryButton>(ekle).iconLead, _lead);
+      // Text only since 2026-10-15 (owner): no icon, label inside the
+      // button on one line.
       final button = tester.getRect(ekle);
-      final icon = tester.getRect(
-        find.descendant(of: ekle, matching: find.byIcon(Icons.add)),
+      expect(
+        find.descendant(of: ekle, matching: find.byType(Icon)),
+        findsNothing,
       );
       final text = tester.getRect(
         find.descendant(of: ekle, matching: find.text('Profil ekle')),
       );
-      expect(icon.left, greaterThanOrEqualTo(button.left));
+      expect(text.left, greaterThanOrEqualTo(button.left - 0.5));
       expect(text.right, lessThanOrEqualTo(button.right + 0.5));
-      expect(icon.left, closeTo(button.left + 2 + _lead, 0.5));
-      final gap = text.left - icon.right;
-      expect(gap, greaterThanOrEqualTo(4 - 0.01));
-      expect(gap, lessThanOrEqualTo(6 + 0.01));
+      expect(text.height, lessThan(button.height));
+      expect(button.right, lessThanOrEqualTo(320));
     });
   }
 }

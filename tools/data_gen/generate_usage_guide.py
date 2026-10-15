@@ -29,7 +29,7 @@ SECTIONS = [
     ]),
     ("İlk profil", [
         "1. Profil sayfasında \"Profil oluştur\"a dokun. Sonraki profiller "
-        "için \"Yeni profil\" kullanılır.",
+        "için Profiller listesinin başındaki \"Profil ekle\" kullanılır.",
         "2. Profil adını yaz ve Tür seç: Ateşli Tüfek ya da PCP Tüfek. Tür "
         "değişirse mühimmat seçimi silinir.",
         "3. Tüfek: Marka, Model ve Kalibre listeden seçilir. Listede yoksa "
@@ -93,7 +93,7 @@ SECTIONS = [
         "da kaydırıcıyı kullan. \"Haritadan\" ile mesafeyi haritada ölçebilirsin. "
         "Hesap kendiliğinden yenilenir.",
         "Kuleler: Yükseklik kulesi (U/D) ve Rüzgâr kulesi (R/L) gereken klik "
-        "sayısını gösterir. \"Çözümü kulelere kur\"a dokun, sonra "
+        "sayısını gösterir. \"Kuleleri kur\"a dokun, sonra "
         "dürbündeki kuleleri aynı yönde aynı sayıda klik çevir. \"Kule "
         "sınırına kuruldu\" yazıyorsa kule yetmiyor demektir; kalan kısmı "
         "retikülle tut.",
