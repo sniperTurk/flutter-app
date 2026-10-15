@@ -77,15 +77,13 @@ Future<void> _pcp(WidgetTester tester) async {
 /// width stand-in (as test/ekran_boyutu_test.dart does): the default test
 /// font draws every letter as a square and reports cuts a phone never has.
 Future<void> _loadAppFont() async {
-  final files = Directory('assets/fonts')
-      .listSync()
-      .whereType<File>()
-      .where((f) {
-        final name = f.uri.pathSegments.last;
-        return name.startsWith('Inter-') &&
-            (name.endsWith('.ttf') || name.endsWith('.otf'));
-      })
-      .toList();
+  final files = Directory('assets/fonts').listSync().whereType<File>().where((
+    f,
+  ) {
+    final name = f.uri.pathSegments.last;
+    return name.startsWith('Inter-') &&
+        (name.endsWith('.ttf') || name.endsWith('.otf'));
+  }).toList();
   expect(files, isNotEmpty);
   for (final name in {MenzilType.textFamily, MenzilType.displayFamily}) {
     final loader = FontLoader(name);
@@ -170,10 +168,7 @@ void main() {
     expect(_unitText(tester, 'profile-velocity-fps'), 'fps');
     // Labels unchanged.
     expect(_in('scope-sight-height', find.text('Sight height')), findsWidgets);
-    expect(
-      _in('profile-zero', find.text('Sıfırlama mesafesi')),
-      findsWidgets,
-    );
+    expect(_in('profile-zero', find.text('Sıfırlama mesafesi')), findsWidgets);
     expect(
       _in('profile-velocity-fps', find.text('Namlu çıkış hızı')),
       findsWidgets,
@@ -186,7 +181,10 @@ void main() {
     await _openNew(tester);
     await _firearm308(tester);
     // Nothing chosen yet: "m".
-    expect(selectedValue<DistanceUnit>(tester, 'profile-distance-unit'), isNull);
+    expect(
+      selectedValue<DistanceUnit>(tester, 'profile-distance-unit'),
+      isNull,
+    );
     expect(_unitText(tester, 'profile-zero'), 'm');
     await enterRifleField(tester, 'profile-zero', '100');
     await chooseInSelect(tester, 'profile-distance-unit', 'Yard');
