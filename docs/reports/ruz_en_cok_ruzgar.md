@@ -52,6 +52,16 @@ Bulgular: `docs/reports/denetim_testflight_2026_10_14b.md` içindeki RUZ-1 ve RU
 
 ## CI
 
-CI_SONUCLARI
+Hepsi dalın son hâli `baa568e` (main ile birleştirilmiş) üzerinde çalıştı:
+
+- iOS CI `verify`: başarılı — https://github.com/sniperTurk/flutter-app/actions/runs/38790166223/job/116619087139
+- iOS CI `dart-checks`: başarılı (aynı çalıştırma: https://github.com/sniperTurk/flutter-app/actions/runs/38790166223)
+- iOS CI `wind-acceptance`: başarılı (aynı çalıştırma)
+- iOS CI `ios-simulator`: atlandı (iş akışı bu olayda çalıştırmıyor); Simulator derlemesi yapılmadı.
+- Test tanılama (tüm `test/`, `flutter test` çıkış kodu 0): başarılı — https://github.com/sniperTurk/flutter-app/actions/runs/38791424325
+- Analiz tanılama: başarılı — https://github.com/sniperTurk/flutter-app/actions/runs/38791428707
+- Biçim (dart format) iş akışı ilk commit'te test dosyasını biçimledi; bu değişiklik commit'e katıldı: https://github.com/sniperTurk/flutter-app/actions/runs/38781183508
+
+TestFlight çalıştırılmadı. PR taslak; birleştirilmedi.
 
 🤖 Generated with [Claude Code](https://claude.com/claude-code)
