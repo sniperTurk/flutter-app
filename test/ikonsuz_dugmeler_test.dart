@@ -103,35 +103,36 @@ void main() {
   );
   tearDown(() => CatalogRepository.installUserCatalog(UserCatalog.empty));
 
-  testWidgets('Profil → Hava Durumu → Pro Ayarlar: next buttons are text only', (
-    tester,
-  ) async {
-    await _pumpHome(tester, profile: _profile);
+  testWidgets(
+    'Profil → Hava Durumu → Pro Ayarlar: next buttons are text only',
+    (tester) async {
+      await _pumpHome(tester, profile: _profile);
 
-    final toWeather = find.byKey(const Key('profile-continue-weather'));
-    await tester.ensureVisible(toWeather);
-    await tester.pumpAndSettle();
-    _expectTextOnly(tester, toWeather, 'Hava Durumu\'na geç');
-    await _tap(tester, toWeather);
+      final toWeather = find.byKey(const Key('profile-continue-weather'));
+      await tester.ensureVisible(toWeather);
+      await tester.pumpAndSettle();
+      _expectTextOnly(tester, toWeather, 'Hava Durumu\'na geç');
+      await _tap(tester, toWeather);
 
-    final toPro = find.byKey(const Key('environment-continue-pro'));
-    await tester.ensureVisible(toPro);
-    await tester.pumpAndSettle();
-    _expectTextOnly(tester, toPro, 'Pro Ayarlar\'a geç');
-    expect(find.text('Pro Ayarlara Geç'), findsNothing);
-    await _tap(tester, toPro);
+      final toPro = find.byKey(const Key('environment-continue-pro'));
+      await tester.ensureVisible(toPro);
+      await tester.pumpAndSettle();
+      _expectTextOnly(tester, toPro, 'Pro Ayarlar\'a geç');
+      expect(find.text('Pro Ayarlara Geç'), findsNothing);
+      await _tap(tester, toPro);
 
-    final toShot = find.byKey(const Key('pro-continue-shot'));
-    await tester.ensureVisible(toShot);
-    await tester.pumpAndSettle();
-    _expectTextOnly(tester, toShot, 'Hedef\'e geç');
-    // Behaviour unchanged: it still leads to Hedef.
-    await _tap(tester, toShot);
-    expect(
-      tester.widget<Text>(find.byKey(const Key('top-bar-title'))).data,
-      'Hedef',
-    );
-  });
+      final toShot = find.byKey(const Key('pro-continue-shot'));
+      await tester.ensureVisible(toShot);
+      await tester.pumpAndSettle();
+      _expectTextOnly(tester, toShot, 'Hedef\'e geç');
+      // Behaviour unchanged: it still leads to Hedef.
+      await _tap(tester, toShot);
+      expect(
+        tester.widget<Text>(find.byKey(const Key('top-bar-title'))).data,
+        'Hedef',
+      );
+    },
+  );
 
   testWidgets('without a profile "Profil oluştur" is text only', (
     tester,

@@ -35,10 +35,7 @@ extension _HavaDurumuView on _BallisticsScreenState {
               },
             )
           else
-            MenzilPrimaryButton(
-              label: 'Hesapla',
-              onPressed: solve,
-            ),
+            MenzilPrimaryButton(label: 'Hesapla', onPressed: solve),
           const SizedBox(height: MenzilSpace.md),
           _atmosphereResult(context),
         ],
