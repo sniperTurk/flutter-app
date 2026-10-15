@@ -1,4 +1,5 @@
-// Profil is the start tab: the active profile comes first, values follow the
+// Profil is the start tab: the Profiller list comes first (owner,
+// 2026-10-15 12:49), the active profile's summary follows, values follow the
 // user's unit system, and the next step (Hava Durumu) is one tap away.
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -94,15 +95,18 @@ void main() {
     expect(find.text('27,3 yd', findRichText: true), findsOneWidget);
   });
 
-  testWidgets('active profile summary comes before the profile list', (
+  testWidgets('the profile list comes before the active profile summary', (
     tester,
   ) async {
+    // Owner, 2026-10-15 12:49 "profilleri yukarı al" (before: summary first).
     await _pumpList(tester, metric: true, onContinue: () {});
     // The profile name is not repeated in the summary (only the row).
     expect(find.text('Bir'), findsOneWidget);
     final summaryY = tester.getTopLeft(find.text('Namlu çıkış hızı')).dy;
     final listY = tester.getTopLeft(find.text('Profiller')).dy;
-    expect(summaryY, lessThan(listY));
+    final rowY = tester.getBottomLeft(find.text('Bir')).dy;
+    expect(listY, lessThan(summaryY));
+    expect(rowY, lessThan(summaryY));
   });
 
   testWidgets('BC note no longer claims BC is unused', (tester) async {
