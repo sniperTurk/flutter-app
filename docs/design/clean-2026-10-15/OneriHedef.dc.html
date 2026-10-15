@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<title>Hedef (öneri)</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+body{margin:0;background:#0B1620;font-family:-apple-system,"SF Pro Text","Helvetica Neue",sans-serif;color:#E7EFF3}
+a{color:#4CC3E8}
+.scr{width:390px;background:#0B1620;display:flex;flex-direction:column;position:relative}
+.top{display:flex;align-items:center;gap:10px;padding:12px 16px;border-bottom:1px solid #27425A;background:#0B1620}
+.top h1{font-size:22px;font-weight:700;margin:0;flex:1;letter-spacing:-.01em}
+.chip{all:unset;height:40px;box-sizing:border-box;border:1px solid #27425A;border-radius:20px;padding:0 10px 0 12px;display:flex;align-items:center;gap:8px;background:#122330;max-width:190px}
+.chip b{font-size:14px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.chip span{font-size:13px;color:#9CB1C0;white-space:nowrap}
+.body{padding:16px 16px 24px;display:flex;flex-direction:column;gap:24px}
+.sec{display:flex;flex-direction:column;gap:10px}
+.sh{display:flex;align-items:center;gap:8px;font-size:18px;font-weight:700;margin:0}
+.sh .i{margin-left:auto}
+.card{background:#122330;border:1px solid #27425A;border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:14px}
+.row{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;align-items:end}
+.f{display:flex;flex-direction:column;gap:6px;min-width:0}
+.lab{display:flex;align-items:center;justify-content:space-between;font-size:13px;color:#9CB1C0;min-height:24px}
+.box{all:unset;height:48px;box-sizing:border-box;border:1px solid #27425A;border-radius:10px;background:#0B1620;display:flex;align-items:center;justify-content:space-between;padding:0 12px;font-size:16px;width:100%}
+.u{font-size:13px;color:#9CB1C0}
+.i{all:unset;width:24px;height:24px;display:flex;align-items:center;justify-content:center;color:#9CB1C0}
+.btn{all:unset;height:48px;box-sizing:border-box;border-radius:12px;border:1px solid #3A5A75;font-weight:600;font-size:15px;display:flex;align-items:center;justify-content:center;padding:0 12px;text-align:center}
+.done{background:#1F5F7A;border-color:#2E7FA0;color:#fff}
+.pri{background:#F5B031;border-color:#F5B031;color:#1B1200}
+.next{background:#E7EFF3;border-color:#E7EFF3;color:#0B1620}
+.meta{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;align-items:center}
+.date{font-size:13px;color:#9CB1C0}
+.k{font-size:13px;color:#9CB1C0}
+.num{font-variant-numeric:tabular-nums}
+.strip{position:sticky;bottom:76px;margin-top:auto;display:flex;align-items:center;gap:12px;padding:10px 16px;background:#102A3A;border-top:1px solid #2E7FA0}
+.strip .t{flex:1;min-width:0}
+.strip .l{font-size:12px;color:#9CB1C0}
+.strip .v{font-size:17px;font-weight:700;font-variant-numeric:tabular-nums;white-space:nowrap}
+.strip .go{all:unset;font-size:14px;font-weight:600;color:#E7EFF3;border:1px solid #3A5A75;border-radius:10px;height:40px;padding:0 12px;display:flex;align-items:center}
+.nav{height:76px;border-top:1px solid #27425A;background:#0E1C27;display:grid;grid-template-columns:repeat(5,minmax(0,1fr))}
+.nb{all:unset;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-size:11px;color:#9CB1C0}
+.nb.on{color:#F5B031}
+.nb.on::before{content:"";position:absolute;top:-1px;left:22%;right:22%;height:2px;border-radius:2px;background:#F5B031}
+.st{width:6px;height:6px;border-radius:3px;background:transparent}
+.st.ok{background:#6FB6D3}
+</style>
+</helmet>
+<div class="scr" style="min-height:844px">
+<div class="top"><h1>Hedef</h1><button class="chip" aria-label="Aktif profil: Hercules, 6,35 mm. Profil değiştir"><b>Hercules</b><span>6,35 mm</span><svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 6l4 4 4-4" fill="none" stroke="#9CB1C0" stroke-width="1.6" stroke-linecap="round"></path></svg></button></div>
+<div class="body">
+
+<div style="display:grid;grid-template-columns:48px 48px minmax(0,1fr) 48px 48px;gap:6px;align-items:center">
+<button class="btn" style="padding:0">−5</button><button class="btn" style="padding:0">−1</button>
+<div style="text-align:center"><span class="num" style="font-size:40px;font-weight:800;letter-spacing:-.02em">300</span><span class="u" style="margin-left:4px">m</span></div>
+<button class="btn" style="padding:0">+1</button><button class="btn" style="padding:0">+5</button>
+</div>
+<section aria-label="Kule çözümü" style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px">
+<div style="border-left:3px solid #F5B031;padding:2px 0 2px 12px"><div class="k">Üst kule</div><div class="num" style="font-size:34px;font-weight:800;line-height:1.1;letter-spacing:-.02em">12 klik</div><div class="k num">3,0 MOA yukarı</div></div>
+<div style="border-left:3px solid #4CC3E8;padding:2px 0 2px 12px"><div class="k">Yan kule</div><div class="num" style="font-size:34px;font-weight:800;line-height:1.1;letter-spacing:-.02em">3 klik</div><div class="k num">0,75 MOA sağ</div></div>
+</section>
+<div class="card" style="padding:12px">
+<div style="display:grid;grid-template-columns:48px 28px minmax(0,1fr) 28px 48px;column-gap:4px;align-items:center">
+<span></span><span style="font-size:26px;text-align:center">‹</span>
+<div style="height:78px;border-radius:14px;background:#22394E;padding:6px 10px 0;box-sizing:border-box;display:flex;flex-direction:column">
+<div style="text-align:center;font-size:11px;color:#9CB1C0">← U   MOA   D →</div>
+<div class="num" style="display:flex;justify-content:space-between;font-size:19px;font-weight:700"><span>14U</span><span>12U</span><span>10U</span></div>
+<svg width="100%" height="34" viewBox="0 0 212 36" preserveAspectRatio="none" aria-hidden="true"><line x1="8" y1="34" x2="8" y2="28" stroke="#E7EFF3" stroke-width="1.5"></line><line x1="22" y1="34" x2="22" y2="28" stroke="#E7EFF3" stroke-width="1.5"></line><line x1="36" y1="34" x2="36" y2="28" stroke="#E7EFF3" stroke-width="1.5"></line><line x1="50" y1="34" x2="50" y2="28" stroke="#E7EFF3" stroke-width="1.5"></line><line x1="64" y1="34" x2="64" y2="28" stroke="#E7EFF3" stroke-width="1.5"></line><line x1="78" y1="34" x2="78" y2="28" stroke="#E7EFF3" stroke-width="1.5"></line><line x1="92" y1="34" x2="92" y2="28" stroke="#E7EFF3" stroke-width="1.5"></line><line x1="106" y1="34" x2="106" y2="24" stroke="#E7EFF3" stroke-width="1.5"></line><line x1="120" y1="34" x2="120" y2="28" stroke="#E7EFF3" stroke-width="1.5"></line><line x1="134" y1="34" x2="134" y2="28" stroke="#E7EFF3" stroke-width="1.5"></line><line x1="148" y1="34" x2="148" y2="28" stroke="#E7EFF3" stroke-width="1.5"></line><line x1="162" y1="34" x2="162" y2="28" stroke="#E7EFF3" stroke-width="1.5"></line><line x1="176" y1="34" x2="176" y2="28" stroke="#E7EFF3" stroke-width="1.5"></line><line x1="190" y1="34" x2="190" y2="28" stroke="#E7EFF3" stroke-width="1.5"></line><line x1="204" y1="34" x2="204" y2="28" stroke="#E7EFF3" stroke-width="1.5"></line><path d="M106 22 L98 36 L114 36 Z" fill="#FF8A80"></path></svg></div>
+<span style="font-size:26px;text-align:center">›</span>
+<button class="btn" style="width:48px;height:48px;border-radius:24px;padding:0">L-R</button>
+</div>
+<svg viewBox="0 0 300 300" width="100%" role="img" aria-label="Retikül, hedef 300 m">
+<circle cx="150" cy="150" r="146" fill="#E9EDF0"></circle>
+<line x1="10" y1="150" x2="290" y2="150" stroke="#0F2230" stroke-width="1.5"></line>
+<line x1="150" y1="10" x2="150" y2="290" stroke="#0F2230" stroke-width="1.5"></line>
+<circle cx="150" cy="150" r="9" fill="none" stroke="#1C8FB5" stroke-width="2"></circle>
+<text x="40" y="92" font-size="12" font-weight="600" fill="#09617F">FFP, MOA, 21x</text>
+<text x="40" y="215" font-size="14" font-weight="700" fill="#09617F">Hedef: 300 m</text><text x="40" y="233" font-size="11" font-weight="600" fill="#09617F">kuleler kurulu</text>
+</svg>
+</div>
+<div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px"><button class="btn done">Kuleler kuruldu</button><button class="btn">Kuleleri sıfırla</button></div>
+<div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:#27425A;border:1px solid #27425A;border-radius:14px;overflow:hidden">
+<div style="background:#122330;padding:10px 12px"><div class="k">Düşüş</div><div class="num" style="font-size:18px;font-weight:700">−24,8<small style="font-size:12px;color:#9CB1C0;font-weight:400"> cm</small></div></div>
+<div style="background:#122330;padding:10px 12px"><div class="k">Uçuş süresi</div><div class="num" style="font-size:18px;font-weight:700">0,41<small style="font-size:12px;color:#9CB1C0;font-weight:400"> s</small></div></div>
+<div style="background:#122330;padding:10px 12px"><div class="k">Hız</div><div class="num" style="font-size:18px;font-weight:700">612<small style="font-size:12px;color:#9CB1C0;font-weight:400"> m/s</small></div></div>
+<div style="background:#122330;padding:10px 12px"><div class="k">Enerji</div><div class="num" style="font-size:18px;font-weight:700">2240<small style="font-size:12px;color:#9CB1C0;font-weight:400"> J</small></div></div>
+<div style="background:#122330;padding:10px 12px"><div class="k">Yan kayma</div><div class="num" style="font-size:18px;font-weight:700">6,1<small style="font-size:12px;color:#9CB1C0;font-weight:400"> cm</small></div></div>
+<div style="background:#122330;padding:10px 12px"><div class="k">Mach</div><div class="num" style="font-size:18px;font-weight:700">1,79</div></div>
+</div>
+<button class="btn" style="justify-content:space-between;padding:0 16px;background:#122330;border-color:#27425A"><span>Hesap dökümü</span><svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 6l4 4 4-4" fill="none" stroke="#9CB1C0" stroke-width="1.6" stroke-linecap="round"></path></svg></button>
+<button class="btn">DOPE kartını paylaş</button>
+
+</div>
+
+<div style="position:sticky;bottom:0"><nav class="nav" aria-label="Sekmeler">
+<button class="nb"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M10 21h4V8l-2-5-2 5z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"></path></svg>Profil<span class="st ok" aria-hidden="true"></span></button>
+<button class="nb"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 9h11a3 3 0 1 0-3-3M3 14h15a3 3 0 1 1-3 3M3 19h7" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"></path></svg>Hava<span class="st ok" aria-hidden="true"></span></button>
+<button class="nb"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 20h18M3 20L17 6M9 20a6 6 0 0 0-2-4.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"></path></svg>Pro<span class="st ok" aria-hidden="true"></span></button>
+<button class="nb on" aria-current="page"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="7" fill="none" stroke="currentColor" stroke-width="1.6"></circle><path d="M12 2v5M12 17v5M2 12h5M17 12h5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"></path></svg>Hedef<span class="st" aria-hidden="true"></span></button>
+<button class="nb"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 17h16" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"></path><circle cx="9" cy="7" r="2.2" fill="#0E1C27" stroke="currentColor" stroke-width="1.6"></circle><circle cx="15" cy="17" r="2.2" fill="#0E1C27" stroke="currentColor" stroke-width="1.6"></circle></svg>Araçlar<span class="st" aria-hidden="true"></span></button>
+</nav></div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":1160}}'>
+class Component extends DCLogic {
+renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

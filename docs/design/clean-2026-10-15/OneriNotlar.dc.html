@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<title>Öneri notları</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+body{margin:0;background:#0B1620;font-family:-apple-system,"SF Pro Text","Helvetica Neue",sans-serif;color:#E7EFF3}
+.sheet{width:880px;box-sizing:border-box;padding:44px 48px;display:flex;flex-direction:column;gap:22px}
+h1{margin:0;font-size:30px;font-weight:800}
+.lead{margin:0;font-size:15px;color:#9CB1C0;line-height:1.5;max-width:70ch}
+ol{margin:0;padding-left:22px;display:flex;flex-direction:column;gap:14px}
+li{font-size:15px;line-height:1.5;max-width:74ch}
+li b{display:block;font-size:16px;margin-bottom:2px}
+li span{color:#9CB1C0}
+.keep{border-top:1px solid #27425A;padding-top:18px;font-size:14px;color:#9CB1C0;line-height:1.5;max-width:74ch}
+</style>
+</helmet>
+<div class="sheet">
+<h1>Öneri: menü, içerik ve genel görünüm</h1>
+<p class="lead">Onaylı tasarım olduğu gibi duruyor; bu dört sayfa yalnız öneri. Renkler, kutular, düğme kuralları ve sola dayalı yazı aynı kaldı. Değişen şey sayfaların düzeni ve menü. Beğendiğin maddeleri seçersen yalnız onlar koda geçer.</p>
+<ol>
+<li><b>Üst çubukta aktif profil</b><span>"Yeni Profil ⌄" ve "Koyu" yerine tek düğme: profil adı ve kalibre (Hercules, 6,35 mm). Hangi profille hesap yaptığın her sayfada görünür. Koyu/Açık seçimi Araçlar › Ayarlar'a taşındı.</span></li>
+<li><b>Alt menüde durum noktası</b><span>Profil, Hava ve Pro sekmelerinin altında küçük mavi nokta: o sayfanın verisi tamam. Seçili sekmede üstte ince amber çizgi. "Hava Durumu" kısaldı: "Hava".</span></li>
+<li><b>Hava ve Pro'da canlı çözüm şeridi</b><span>Menünün hemen üstünde "Hedef 100 m için kule: 0,4 MOA yukarı, 0,2 sağ". Sıcaklık ya da rüzgâr değişince sonucun nasıl değiştiğini sayfadan çıkmadan görürsün. Dokununca Hedef açılır.</span></li>
+<li><b>Hedef'te sonuç en üstte</b><span>Mesafenin hemen altında iki büyük sayı: Üst kule 12 klik, Yan kule 3 klik (MOA karşılığı altında). Retikül ve kuleler ardından gelir. Uçuş süresi, düşüş, hız, enerji, yan kayma ve Mach tek tabloda.</span></li>
+<li><b>Hava sayfası sadeleşti</b><span>Hava özeti en üste üç sayı olarak çıktı (yoğunluk oranı, ses hızı, namlu Mach). Basınç ve irtifa tek kartta birleşti; "Telefondan" düğmesi "Telefondan al" oldu.</span></li>
+<li><b>Araçlar gruplandı</b><span>15 araç dört başlık altında: Sahada ölç, Profili doğrula, Hesapla, Kayıt ve rehber. Açıklamalar tek satıra indi; her grup tek kart, satırlar arasında ince çizgi.</span></li>
+<li><b>Profil listesi en üstte ve bilgili</b><span>Profil kartında özet satırı: kalibre, sıfır mesafesi, hız, BC. Aktif profil solda amber çizgiyle işaretli.</span></li>
+<li><b>Düğme yazıları</b><span>Ok ve simge yok: "Hava'ya geç", "Pro Ayarlar'a geç", "DOPE kartını paylaş". Etiketlerde ara nokta (·) yerine "ve" ya da virgül.</span></li>
+</ol>
+<p class="keep">Değişmeyenler: renkler, koyu mavi "alındı" düğmesi, turuncu yalnız rüzgâr saatinde, her satırda iki kutu, ⓘ açıklamaları, "Seçiniz", Hedef'in iki yana yaslı yazısı, kule ve retikül düzeni, hesap ve veriler.</p>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":880,"height":1011}}'>
+class Component extends DCLogic {
+renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

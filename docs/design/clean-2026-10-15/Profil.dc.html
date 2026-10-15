@@ -39,10 +39,14 @@ a{color:#4CC3E8}a:hover{color:#8ADCF2}
 <div class="scr">
 <div class="top">
 <h1>Sniper Türk</h1>
-<button class="pill">Yeni Profil<svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 6l4 4 4-4" fill="none" stroke="#9CB1C0" stroke-width="1.6" stroke-linecap="round"></path></svg></button>
-<button class="pill">Koyu</button>
+<button class="pill" aria-label="Aktif profil: Hercules, 6,35 mm. Profil değiştir" style="gap: 8px; padding: 0 10px 0 12px"><b style="font-size: 14px; font-weight: 600">Hercules</b><span style="font-size: 13px; color: #9CB1C0">6,35 mm</span><svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 6l4 4 4-4" fill="none" stroke="#9CB1C0" stroke-width="1.6" stroke-linecap="round"></path></svg></button>
 </div>
 <div class="body">
+<section class="sec">
+<div style="display: flex; align-items: center; gap: 12px"><h2 class="sh" style="flex: 1">Profiller</h2><button class="btn pri" style="height: 40px">Profil ekle</button></div>
+<div style="display: flex; align-items: center; gap: 12px; background: #122330; border: 1px solid #27425A; border-left: 4px solid #F5B031; border-radius: 14px; padding: 12px 4px 12px 14px"><div style="flex: 1; min-width: 0"><div style="display: flex; gap: 8px; align-items: baseline"><span style="font-size: 16px; font-weight: 600">Hercules</span><span style="font-size: 13px; color: #F5B031; font-weight: 600">Aktif</span></div><div class="k" style="margin-top: 3px">6,35 mm, sıfır 25 m, 900 fps, BC 0,08 G1</div></div><button class="more" aria-label="Profil menüsü">⋯</button></div>
+<div style="display: flex; align-items: center; gap: 12px; background: #122330; border: 1px solid #27425A; border-left: 4px solid transparent; border-radius: 14px; padding: 12px 4px 12px 14px"><div style="flex: 1; min-width: 0"><div style="display: flex; gap: 8px; align-items: baseline"><span style="font-size: 16px; font-weight: 600">.22 Tavşan</span></div><div class="k" style="margin-top: 3px">.22 LR, sıfır 50 m, 1070 fps, BC 0,12 G1</div></div><button class="more" aria-label="Profil menüsü">⋯</button></div>
+</section>
 <section class="sec">
 <h2 class="sh">Tüfek</h2>
 <div class="card">
@@ -82,15 +86,8 @@ a{color:#4CC3E8}a:hover{color:#8ADCF2}
 <p class="t">Katalog değerleri bilgi amaçlıdır. Mühimmatın BC ve G1/G7 modeli varsa Atış hesabı sürüklenme çözücüsünü kullanır; yoksa vakum temel hesap çalışır ve bu ekranda belirtilir.</p>
 </div>
 </section>
-<button class="btn" style="background: #E7EFF3; color: #0B1620; border-color: #E7EFF3">Hava Durumu'na geç →</button>
-<section class="sec">
-<div style="display: flex; align-items: center; justify-content: space-between">
-<div><h2 class="sh">Profiller</h2><div class="k" style="margin-top: 2px">2 kayıtlı profil</div></div>
-<button class="btn pri">+ Profil ekle</button>
-</div>
-<div class="lr act"><span class="dot" style="background: #F5B031"></span><span style="flex: 1; font-size: 16px; font-weight: 600">Yeni Profil <span style="color: #F5B031; font-size: 13px; margin-left: 6px">Aktif</span></span><button class="more" aria-label="Profil menüsü">⋯</button></div>
-<div class="lr"><span class="dot"></span><span style="flex: 1; font-size: 16px; font-weight: 600">.22 Tavşan</span><button class="more" aria-label="Profil menüsü">⋯</button></div>
-</section>
+<button class="btn" style="background: #E7EFF3; color: #0B1620; border-color: #E7EFF3">Hava Durumu'na geç</button>
+
 </div>
 <nav class="nav" aria-label="Sekmeler">
 <button class="nb on"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M10 21h4V8l-2-5-2 5z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"></path></svg>Profil</button>

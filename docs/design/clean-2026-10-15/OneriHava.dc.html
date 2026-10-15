@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<title>Hava (öneri)</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+body{margin:0;background:#0B1620;font-family:-apple-system,"SF Pro Text","Helvetica Neue",sans-serif;color:#E7EFF3}
+a{color:#4CC3E8}
+.scr{width:390px;background:#0B1620;display:flex;flex-direction:column;position:relative}
+.top{display:flex;align-items:center;gap:10px;padding:12px 16px;border-bottom:1px solid #27425A;background:#0B1620}
+.top h1{font-size:22px;font-weight:700;margin:0;flex:1;letter-spacing:-.01em}
+.chip{all:unset;height:40px;box-sizing:border-box;border:1px solid #27425A;border-radius:20px;padding:0 10px 0 12px;display:flex;align-items:center;gap:8px;background:#122330;max-width:190px}
+.chip b{font-size:14px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.chip span{font-size:13px;color:#9CB1C0;white-space:nowrap}
+.body{padding:16px 16px 24px;display:flex;flex-direction:column;gap:24px}
+.sec{display:flex;flex-direction:column;gap:10px}
+.sh{display:flex;align-items:center;gap:8px;font-size:18px;font-weight:700;margin:0}
+.sh .i{margin-left:auto}
+.card{background:#122330;border:1px solid #27425A;border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:14px}
+.row{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;align-items:end}
+.f{display:flex;flex-direction:column;gap:6px;min-width:0}
+.lab{display:flex;align-items:center;justify-content:space-between;font-size:13px;color:#9CB1C0;min-height:24px}
+.box{all:unset;height:48px;box-sizing:border-box;border:1px solid #27425A;border-radius:10px;background:#0B1620;display:flex;align-items:center;justify-content:space-between;padding:0 12px;font-size:16px;width:100%}
+.u{font-size:13px;color:#9CB1C0}
+.i{all:unset;width:24px;height:24px;display:flex;align-items:center;justify-content:center;color:#9CB1C0}
+.btn{all:unset;height:48px;box-sizing:border-box;border-radius:12px;border:1px solid #3A5A75;font-weight:600;font-size:15px;display:flex;align-items:center;justify-content:center;padding:0 12px;text-align:center}
+.done{background:#1F5F7A;border-color:#2E7FA0;color:#fff}
+.pri{background:#F5B031;border-color:#F5B031;color:#1B1200}
+.next{background:#E7EFF3;border-color:#E7EFF3;color:#0B1620}
+.meta{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;align-items:center}
+.date{font-size:13px;color:#9CB1C0}
+.k{font-size:13px;color:#9CB1C0}
+.num{font-variant-numeric:tabular-nums}
+.strip{position:sticky;bottom:76px;margin-top:auto;display:flex;align-items:center;gap:12px;padding:10px 16px;background:#102A3A;border-top:1px solid #2E7FA0}
+.strip .t{flex:1;min-width:0}
+.strip .l{font-size:12px;color:#9CB1C0}
+.strip .v{font-size:17px;font-weight:700;font-variant-numeric:tabular-nums;white-space:nowrap}
+.strip .go{all:unset;font-size:14px;font-weight:600;color:#E7EFF3;border:1px solid #3A5A75;border-radius:10px;height:40px;padding:0 12px;display:flex;align-items:center}
+.nav{height:76px;border-top:1px solid #27425A;background:#0E1C27;display:grid;grid-template-columns:repeat(5,minmax(0,1fr))}
+.nb{all:unset;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-size:11px;color:#9CB1C0}
+.nb.on{color:#F5B031}
+.nb.on::before{content:"";position:absolute;top:-1px;left:22%;right:22%;height:2px;border-radius:2px;background:#F5B031}
+.st{width:6px;height:6px;border-radius:3px;background:transparent}
+.st.ok{background:#6FB6D3}
+</style>
+</helmet>
+<div class="scr" style="min-height:844px">
+<div class="top"><h1>Hava</h1><button class="chip" aria-label="Aktif profil: Hercules, 6,35 mm. Profil değiştir"><b>Hercules</b><span>6,35 mm</span><svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 6l4 4 4-4" fill="none" stroke="#9CB1C0" stroke-width="1.6" stroke-linecap="round"></path></svg></button></div>
+<div class="body">
+
+<div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:#27425A;border:1px solid #27425A;border-radius:14px;overflow:hidden">
+<div style="background:#122330;padding:10px 12px"><div class="k">Yoğunluk oranı</div><div class="num" style="font-size:18px;font-weight:700;margin-top:2px">0,985</div></div>
+<div style="background:#122330;padding:10px 12px"><div class="k">Ses hızı</div><div class="num" style="font-size:18px;font-weight:700;margin-top:2px">342<small style="font-size:12px;color:#9CB1C0;font-weight:400"> m/s</small></div></div>
+<div style="background:#122330;padding:10px 12px"><div class="k">Namlu Mach</div><div class="num" style="font-size:18px;font-weight:700;margin-top:2px">0,805</div></div>
+</div>
+<section class="sec">
+<h2 class="sh">Sıcaklık ve nem</h2>
+<div class="card">
+<div class="row"><div class="f"><div class="lab"><span>Sıcaklık</span><button class="i" aria-label="Sıcaklık bilgisi"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="7" fill="none" stroke="currentColor" stroke-width="1.3"></circle><path d="M8 7.2v4M8 4.8h.01" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"></path></svg></button></div><div class="box"><span class="num">18,4</span><span class="u">°C</span></div></div><div class="f"><div class="lab"><span>Bağıl nem</span><button class="i" aria-label="Bağıl nem bilgisi"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="7" fill="none" stroke="currentColor" stroke-width="1.3"></circle><path d="M8 7.2v4M8 4.8h.01" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"></path></svg></button></div><div class="box"><span class="num">62</span><span class="u">%</span></div></div></div>
+<button class="btn done"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" style="margin-right:6px"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" fill="currentColor"></path></svg>Hava verisi alındı</button>
+<div class="meta"><span class="date num">15.10.2026 08:40</span><button class="btn">Sıfırla</button></div>
+</div>
+</section>
+<section class="sec">
+<h2 class="sh">Basınç ve irtifa<button class="i" aria-label="Basınç ve irtifa hakkında"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="7" fill="none" stroke="currentColor" stroke-width="1.3"></circle><path d="M8 7.2v4M8 4.8h.01" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"></path></svg></button></h2>
+<div class="card">
+<div class="row"><div class="f"><div class="lab"><span>İstasyon basıncı</span></div><div class="box"><span class="num">1012</span><span class="u">hPa</span></div></div><button class="btn">Basınç al</button></div>
+<div class="row"><div class="f"><div class="lab"><span>Haritadan irtifa</span></div><div class="box"><span class="num">122</span><span class="u">m</span></div></div><button class="btn done">Haritadan alındı</button></div>
+<div class="row"><div class="f"><div class="lab"><span>Telefondan irtifa</span></div><div class="box"><span style="color:#6E8496">—</span><span class="u">m</span></div></div><button class="btn">Telefondan al</button></div>
+<div class="meta"><span class="date num">15.10.2026 08:41</span><button class="btn">Sıfırla</button></div>
+</div>
+</section>
+<section class="sec">
+<h2 class="sh">Rüzgâr<button class="i" aria-label="Rüzgâr tahmini nasıl yapılır?"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="7" fill="none" stroke="currentColor" stroke-width="1.3"></circle><path d="M8 7.2v4M8 4.8h.01" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"></path></svg></button></h2>
+<div class="card">
+<div class="row"><div class="f"><div class="lab"><span>Rüzgâr hızı</span><button class="i" aria-label="Rüzgâr hızı bilgisi"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="7" fill="none" stroke="currentColor" stroke-width="1.3"></circle><path d="M8 7.2v4M8 4.8h.01" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"></path></svg></button></div><div class="box"><span class="num">3,2</span><span class="u">m/s</span></div></div><div class="f"><div class="lab"><span>Rüzgâr yönü</span><button class="i" aria-label="Rüzgâr yönü bilgisi"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="7" fill="none" stroke="currentColor" stroke-width="1.3"></circle><path d="M8 7.2v4M8 4.8h.01" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"></path></svg></button></div><div class="box"><span class="num">3</span><span class="u">saat</span></div></div></div>
+<div style="display:flex;justify-content:center"><svg width="220" height="220" viewBox="0 0 220 220" role="img" aria-label="Rüzgâr saati, saat 3 seçili"><circle cx="110" cy="110" r="104" fill="none" stroke="#27425A"></circle>
+<circle cx="110.0" cy="24.0" r="15" fill="#1B3245" stroke="#27425A"></circle><text x="110.0" y="29.0" text-anchor="middle" font-size="13" font-weight="600" fill="#E7EFF3">12</text><circle cx="153.0" cy="35.5" r="15" fill="#1B3245" stroke="#27425A"></circle><text x="153.0" y="40.5" text-anchor="middle" font-size="13" font-weight="600" fill="#E7EFF3">1</text><circle cx="184.5" cy="67.0" r="15" fill="#1B3245" stroke="#27425A"></circle><text x="184.5" y="72.0" text-anchor="middle" font-size="13" font-weight="600" fill="#E7EFF3">2</text><circle cx="196.0" cy="110.0" r="15" fill="#E8590C" stroke="#E8590C"></circle><text x="196.0" y="115.0" text-anchor="middle" font-size="13" font-weight="600" fill="#E7EFF3">3</text><circle cx="184.5" cy="153.0" r="15" fill="#1B3245" stroke="#27425A"></circle><text x="184.5" y="158.0" text-anchor="middle" font-size="13" font-weight="600" fill="#E7EFF3">4</text><circle cx="153.0" cy="184.5" r="15" fill="#1B3245" stroke="#27425A"></circle><text x="153.0" y="189.5" text-anchor="middle" font-size="13" font-weight="600" fill="#E7EFF3">5</text><circle cx="110.0" cy="196.0" r="15" fill="#1B3245" stroke="#27425A"></circle><text x="110.0" y="201.0" text-anchor="middle" font-size="13" font-weight="600" fill="#E7EFF3">6</text><circle cx="67.0" cy="184.5" r="15" fill="#1B3245" stroke="#27425A"></circle><text x="67.0" y="189.5" text-anchor="middle" font-size="13" font-weight="600" fill="#E7EFF3">7</text><circle cx="35.5" cy="153.0" r="15" fill="#1B3245" stroke="#27425A"></circle><text x="35.5" y="158.0" text-anchor="middle" font-size="13" font-weight="600" fill="#E7EFF3">8</text><circle cx="24.0" cy="110.0" r="15" fill="#1B3245" stroke="#27425A"></circle><text x="24.0" y="115.0" text-anchor="middle" font-size="13" font-weight="600" fill="#E7EFF3">9</text><circle cx="35.5" cy="67.0" r="15" fill="#1B3245" stroke="#27425A"></circle><text x="35.5" y="72.0" text-anchor="middle" font-size="13" font-weight="600" fill="#E7EFF3">10</text><circle cx="67.0" cy="35.5" r="15" fill="#1B3245" stroke="#27425A"></circle><text x="67.0" y="40.5" text-anchor="middle" font-size="13" font-weight="600" fill="#E7EFF3">11</text>
+<line x1="110" y1="110" x2="160" y2="110" stroke="#E8590C" stroke-width="4" stroke-linecap="round"></line><circle cx="110" cy="110" r="5" fill="#E8590C"></circle><text x="110" y="82" text-anchor="middle" font-size="11" fill="#9CB1C0">Hedef yönü yukarı</text></svg></div>
+<div class="meta"><span style="font-size:14px;font-weight:600">Saat 3 yönünden</span><span class="date num" style="text-align:right">15.10.2026 08:42</span></div>
+</div>
+</section>
+<button class="btn next">Pro Ayarlar'a geç</button>
+
+</div>
+<div class="strip"><div class="t"><div class="l">Hedef 100 m için kule</div><div class="v">0,4 MOA yukarı, 0,2 sağ</div></div><button class="go">Hedef'e git</button></div>
+<div style="position:sticky;bottom:0"><nav class="nav" aria-label="Sekmeler">
+<button class="nb"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M10 21h4V8l-2-5-2 5z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"></path></svg>Profil<span class="st ok" aria-hidden="true"></span></button>
+<button class="nb on" aria-current="page"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 9h11a3 3 0 1 0-3-3M3 14h15a3 3 0 1 1-3 3M3 19h7" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"></path></svg>Hava<span class="st ok" aria-hidden="true"></span></button>
+<button class="nb"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 20h18M3 20L17 6M9 20a6 6 0 0 0-2-4.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"></path></svg>Pro<span class="st ok" aria-hidden="true"></span></button>
+<button class="nb"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="7" fill="none" stroke="currentColor" stroke-width="1.6"></circle><path d="M12 2v5M12 17v5M2 12h5M17 12h5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"></path></svg>Hedef<span class="st" aria-hidden="true"></span></button>
+<button class="nb"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 17h16" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"></path><circle cx="9" cy="7" r="2.2" fill="#0E1C27" stroke="currentColor" stroke-width="1.6"></circle><circle cx="15" cy="17" r="2.2" fill="#0E1C27" stroke="currentColor" stroke-width="1.6"></circle></svg>Araçlar<span class="st" aria-hidden="true"></span></button>
+</nav></div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":1520}}'>
+class Component extends DCLogic {
+renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

@@ -52,3 +52,10 @@ uygulamanın hesap ve davranışı değişmez.
 
 ## Araçlar
 - Araç ikonları beyaz (#E7EFF3) gri-mavi zemin (#1B3245) üzerinde; amber değil.
+
+## Ek kararlar (owner, 2026-10-15 öğleden sonra)
+- Profil sayfası: "Profiller" listesi sayfanın EN ÜSTÜNDE; başlık satırında "Profil ekle" (amber, ikonsuz, "+" yok). Her profil kartında ad + "Aktif" etiketi (amber) ve altında özet satırı: "kalibre, sıfır N m, hız fps, BC x Gy" (ör. "6,35 mm, sıfır 25 m, 900 fps, BC 0,08 G1"). Aktif profil solda 4 pt amber çizgi; ⋯ menüsü sağda.
+- Üst çubuk (tüm sekmeler): solda sayfa başlığı, sağda aktif profil düğmesi (profil adı kalın + kalibre gri + ⌄), dokununca profil değiştirme. "Yeni Profil" ve "Koyu" düğmeleri kaldırılır. Tema düğmesi tamamen kalkar (silinir, gizlenmez); uygulama koyu temayla açılır; kayıtlı tema verisi silinmez. Koyu/Açık seçimi ileride giriş ekranına gelecek.
+- Hedef: mesafe kaydırıcısının hemen altında, retikül kartından önce iki büyük sonuç: "Üst kule N klik" (altında "X MOA/MRAD yukarı/aşağı") ve "Yan kule N klik" (altında "X sağ/sol" ya da "rüzgâr yok"); solda amber / mavi 3 pt çizgi, 34 pt kalın, tabular rakam. Gereken çözümü gösterir (kurulu değeri değil).
+- Yan kule: kutu ≈ 66 × 180 pt (390 pt telefonda; retikülle ölçeklenir), okların yeri DEĞİŞMEZ (eskisi gibi, toplam yükseklik aynı; kutu ortada); kırmızı işaret kutunun içinde, kenara değmez.
+- Ana düğmelerde ok ve ikon yok: "Hava Durumu'na geç", "Pro Ayarlar'a geç", "Hedef'e geç", "Hesapla", "Profil oluştur" — yalnız yazı.
