@@ -38,8 +38,18 @@ Sahibin kararı (15.10.2026 20:53, İstanbul): PR #128 "Yazı karakteri: sistem 
 - Yerel: `python3 tools/offline_dart_lint.py` geçti (380 Dart dosyası, 0 sorun). `python3 -m unittest discover -s tools -p 'test_*.py'` geçti (842 test).
 - Yerel `flutter test` / `flutter analyze` çalıştırılamadı (BLOCKED): Flutter 3.47.2'nin Dart SDK indirmesi proxy'de 403 aldı. Sonuç için aşağıdaki CI işleri esas alınır.
 
+- İlk analyze çalışması bir uyarı buldu: yeni testte kullanılmayan `material.dart` importu. Import kaldırıldı ve analyze yeniden çalıştırıldı.
+- Code Review: CLAUDE.md uyumu, hata, yorumlar ve kapsam açısından bakıldı. 80 puan ve üstü bulgu yok. Security review'da bulgu yok. Not: inceleme yorumu PR'a yazılamadı, bu oturumda GitHub'a yorum yazma izni verilmedi. Sonuç bu raporda.
+
 ## CI bağlantıları
 
-(CI sonuçları PR açıklamasında güncellenir.)
+- Format (değişiklik gerekmedi): https://github.com/sniperTurk/flutter-app/actions/runs/38782980329 başarılı
+- Test (tüm `test/`): https://github.com/sniperTurk/flutter-app/actions/runs/38782984554 başarılı
+- Analyze: https://github.com/sniperTurk/flutter-app/actions/runs/38782988764 başarılı
+- iOS CI: https://github.com/sniperTurk/flutter-app/actions/runs/38782987644
+  - `dart-checks` başarılı
+  - `wind-acceptance` başarılı
+  - `ios-simulator` atlandı (iş akışı bu PR'da çalıştırmıyor)
+  - `verify`: aşağıdaki son çalışmaya bakın
 
 🤖 Generated with [Claude Code](https://claude.com/claude-code)
