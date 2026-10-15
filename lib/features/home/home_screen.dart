@@ -471,10 +471,13 @@ class _HomeScreenState extends State<HomeScreen> {
       color: c.ink2,
     );
     const padLeft = 14.0;
-    const padRight = 8.0;
-    const iconGap = 4.0;
+    const padRight = 14.0;
+    const iconGap = 6.0;
     const iconSize = 20.0;
-    const chrome = padLeft + padRight + iconGap + iconSize;
+    // Room the dropdown keeps beside its text (Flutter's InputDecorator):
+    // contentPadding start + the outline's 4 pt gap, then a 4 pt gap to the
+    // suffix icon, which is 24 pt wide plus a 12 pt end margin.
+    const chrome = padLeft + 4 + 4 + 24 + 12;
     if (saved.isEmpty) {
       // No profile yet: "Profil seç" goes to the Profil tab, where the
       // empty page offers "Profil oluştur" (unchanged behaviour).
@@ -492,7 +495,12 @@ class _HomeScreenState extends State<HomeScreen> {
               child: ConstrainedBox(
                 constraints: const BoxConstraints(minHeight: 44, minWidth: 44),
                 child: Padding(
-                  padding: const EdgeInsets.fromLTRB(padLeft, 0, padRight, 0),
+                  padding: const EdgeInsets.fromLTRB(
+                    padLeft + 4,
+                    0,
+                    padRight,
+                    0,
+                  ),
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
@@ -569,10 +577,7 @@ class _HomeScreenState extends State<HomeScreen> {
               isDense: true,
               borderRadius: BorderRadius.circular(MenzilRadius.input),
               dropdownColor: c.surface,
-              icon: Padding(
-                padding: const EdgeInsets.only(left: iconGap),
-                child: Icon(Icons.expand_more, color: c.ink2, size: iconSize),
-              ),
+              icon: Icon(Icons.expand_more, color: c.ink2, size: iconSize),
               decoration: InputDecoration(
                 filled: true,
                 fillColor: c.surface,
