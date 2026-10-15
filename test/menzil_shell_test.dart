@@ -198,6 +198,10 @@ void main() {
         find.textContaining('Rüzgâr düzeltmesi hiç modellenmez (KİLİTLİ)'),
         findsOneWidget,
       );
+      // "Hesap dökümü" is closed by default (owner, 2026-10-15): open it.
+      await tester.ensureVisible(find.byKey(ScopeDialKeys.workingsToggle));
+      await tester.tap(find.byKey(ScopeDialKeys.workingsToggle));
+      await tester.pumpAndSettle();
       expect(find.textContaining('MOA'), findsWidgets);
       expect(find.textContaining('MRAD'), findsWidgets);
       expect(find.textContaining('klik'), findsWidgets);
