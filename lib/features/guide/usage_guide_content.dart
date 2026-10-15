@@ -30,7 +30,7 @@ abstract final class UsageGuideContent {
     ]),
     UsageGuideSection('İlk profil', [
       '1. Profil sayfasında "Profil oluştur"a dokun. Sonraki profiller için '
-          '"Yeni profil" kullanılır.',
+          'Profiller listesinin başındaki "Profil ekle" kullanılır.',
       '2. Profil adını yaz ve Tür seç: Ateşli Tüfek ya da PCP Tüfek. Tür '
           'değişirse mühimmat seçimi silinir.',
       '3. Tüfek: Marka, Model ve Kalibre listeden seçilir. Listede yoksa '
