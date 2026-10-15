@@ -90,9 +90,8 @@ String _fmt(double v) => v.abs().toStringAsFixed(1).replaceAll('.', ',');
   final upClicks = (d.requiredUp! / d.clickValue).round();
   final rightClicks = (d.requiredRight / d.clickValue).round();
   final unit = d.unit.label;
-  String detail(double a, String pos, String neg) => _fmt(a) == '0,0'
-      ? '0,0 $unit'
-      : '${_fmt(a)} $unit ${a > 0 ? pos : neg}';
+  String detail(double a, String pos, String neg) =>
+      _fmt(a) == '0,0' ? '0,0 $unit' : '${_fmt(a)} $unit ${a > 0 ? pos : neg}';
   return (
     up: [
       'Üst kule',
@@ -134,7 +133,9 @@ void main() {
     );
     expect(
       tester.getBottomLeft(row).dy,
-      lessThanOrEqualTo(tester.getTopLeft(find.byKey(ScopeDialKeys.reticle)).dy),
+      lessThanOrEqualTo(
+        tester.getTopLeft(find.byKey(ScopeDialKeys.reticle)).dy,
+      ),
     );
     // Two columns side by side: Üst kule left, Yan kule right.
     final up = tester.getRect(find.byKey(TurretSolutionRow.elevationKey));
@@ -145,9 +146,7 @@ void main() {
   });
 
   for (final p in [_moaMetric, _mradMetric, _moaYard]) {
-    testWidgets('numbers equal the solver solution: ${p.name}', (
-      tester,
-    ) async {
+    testWidgets('numbers equal the solver solution: ${p.name}', (tester) async {
       await _show(tester, p);
       final d = _dial(tester);
       expect(d.unit, p.angularUnit);
@@ -155,9 +154,10 @@ void main() {
       final e = _expected(d, windCalm: true);
       expect(_texts(tester, TurretSolutionRow.elevationKey), e.up);
       expect(_texts(tester, TurretSolutionRow.windageKey), e.right);
-      expect(_texts(tester, TurretSolutionRow.elevationKey)[2], contains(
-        p.angularUnit.label,
-      ));
+      expect(
+        _texts(tester, TurretSolutionRow.elevationKey)[2],
+        contains(p.angularUnit.label),
+      );
 
       // "Kuleleri kur" dials the same clicks the row shows.
       final kur = find.byKey(ScopeDialKeys.dialSolution);
@@ -243,7 +243,10 @@ void main() {
     Color accent(Key key) {
       final box = tester.widget<DecoratedBox>(
         find
-            .descendant(of: find.byKey(key), matching: find.byType(DecoratedBox))
+            .descendant(
+              of: find.byKey(key),
+              matching: find.byType(DecoratedBox),
+            )
             .first,
       );
       final border = (box.decoration as BoxDecoration).border! as Border;
@@ -261,7 +264,10 @@ void main() {
       ),
     );
     expect(big.style!.fontSize, 34);
-    expect(big.style!.fontFeatures, contains(const FontFeature.tabularFigures()));
+    expect(
+      big.style!.fontFeatures,
+      contains(const FontFeature.tabularFigures()),
+    );
   });
 
   testWidgets('no overflow at 320 pt and text scale 1.3', (tester) async {
@@ -278,7 +284,10 @@ void main() {
           child: c!,
         ),
         home: Scaffold(
-          body: BallisticsScreen(profile: _mradMetric, view: BallisticsView.shot),
+          body: BallisticsScreen(
+            profile: _mradMetric,
+            view: BallisticsView.shot,
+          ),
         ),
       ),
     );
