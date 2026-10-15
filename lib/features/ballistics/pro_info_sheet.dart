@@ -23,13 +23,15 @@ class ProInfoField {
 /// 2026-10-13: "alttan açılan sayfa"; one information source per box: the
 /// box ⓘ and every field ⓘ in it open this same sheet). [highlight] is the
 /// index in [fields] of the field whose ⓘ was tapped; it is tinted and
-/// scrolled into view.
+/// scrolled into view. [text] is a single plain paragraph shown before the
+/// entries (Garmin saati, owner 2026-10-16: one paragraph, no Ne? / Nasıl?).
 Future<void> showProInfoSheet(
   BuildContext context, {
   required String title,
   required List<ProInfoEntry> entries,
   List<ProInfoField> fields = const [],
   int? highlight,
+  String? text,
 }) {
   final c = MenzilColors.of(context);
   final height = MediaQuery.sizeOf(context).height;
@@ -50,6 +52,7 @@ Future<void> showProInfoSheet(
       entries: entries,
       fields: fields,
       highlight: highlight,
+      text: text,
     ),
   );
 }
@@ -61,6 +64,7 @@ class ProInfoSheet extends StatefulWidget {
   final List<ProInfoEntry> entries;
   final List<ProInfoField> fields;
   final int? highlight;
+  final String? text;
 
   const ProInfoSheet({
     super.key = const Key('pro-info-sheet'),
@@ -68,6 +72,7 @@ class ProInfoSheet extends StatefulWidget {
     required this.entries,
     this.fields = const [],
     this.highlight,
+    this.text,
   });
 
   @override
@@ -133,6 +138,16 @@ class _ProInfoSheetState extends State<ProInfoSheet> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
+                  if (widget.text case final text?)
+                    Padding(
+                      padding: const EdgeInsets.only(top: MenzilSpace.sm),
+                      child: Text(
+                        text,
+                        key: const Key('pro-info-text'),
+                        textAlign: TextAlign.start,
+                        style: body,
+                      ),
+                    ),
                   for (final e in widget.entries)
                     _Explanation(
                       entry: e,

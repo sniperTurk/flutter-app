@@ -3,13 +3,20 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 
 import '../../services/watch/watch_bridge.dart';
+import '../../ui/menzil_theme.dart';
 import '../../ui/menzil_widgets.dart';
+import 'pro_info_sheet.dart';
+import 'pro_section_info.dart';
 
-/// Araçlar entry for choosing the Garmin watch in Garmin Connect.
+/// Pro Ayarlar row for choosing the Garmin watch in Garmin Connect: the
+/// last item after Tüfek düzeltmeleri (owner, 2026-10-16: moved here from
+/// Araçlar, "Garmin isteğe bağlı"). Title, ⓘ (bottom sheet like the other
+/// Pro ⓘ) and "isteğe bağlı" on the right. Not a setting: no Pro summary
+/// counts it and no calculation reads it.
 ///
 /// Shown only when this build carries the iOS Garmin bridge
 /// (garmin/ios_runner, wired by tools/configure_ios_garmin_bridge.py). The
-/// TestFlight build has no bridge, so the tile is not there at all. The
+/// TestFlight build has no bridge, so the row is not there at all. The
 /// count follows the bridge's device events and is also re-read whenever
 /// the app resumes.
 class GarminPairTile extends StatefulWidget {
@@ -65,12 +72,38 @@ class _GarminPairTileState extends State<GarminPairTile>
   Widget build(BuildContext context) {
     final n = _count;
     if (n == null) return const SizedBox.shrink();
+    final c = MenzilColors.of(context);
     return MenzilToolTile(
-      // Araçlar (owner, 2026-10-15): white icon on grey-blue, like every tile.
+      // White icon on grey-blue, the look it had on Araçlar.
       plainIcon: true,
       tileKey: const Key('tool-garmin'),
+      // The same gap as the Pro boxes above it.
+      margin: const EdgeInsets.only(bottom: MenzilSpace.sm),
       icon: Icons.watch_outlined,
       title: 'Garmin saati',
+      titleTrailing: [
+        // Its own tap target: opens the explanation, not Garmin Connect.
+        MenzilInfoButton(
+          key: const Key('pro-info-garmin'),
+          title: 'Garmin saati',
+          tooltip: 'Açıklama: Garmin saati',
+          onPressed: () => showProInfoSheet(
+            context,
+            title: 'Garmin saati',
+            entries: const [],
+            text: ProSectionInfo.garmin,
+          ),
+        ),
+        // Right end, like "Ek mühimmat bilgileri" (owner, 2026-10-15).
+        Expanded(
+          child: Text(
+            'isteğe bağlı',
+            key: const Key('pro-garmin-optional'),
+            textAlign: TextAlign.end,
+            style: MenzilType.caption(c.ink2),
+          ),
+        ),
+      ],
       subtitle: n == 0
           ? 'Saat seçilmedi: Garmin Connect\'te saatinizi seçin'
           : '$n saat seçili; değiştirmek için dokunun',

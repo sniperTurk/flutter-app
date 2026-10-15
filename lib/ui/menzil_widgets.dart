@@ -2741,6 +2741,15 @@ class MenzilToolTile extends StatelessWidget {
   /// (#1B3245) instead of amber.
   final bool plainIcon;
 
+  /// Widgets after the title on its line (Pro Ayarlar > Garmin saati: ⓘ
+  /// and "isteğe bağlı", owner 2026-10-16). Empty: the title alone. The
+  /// title then gets two thirds of the free width (an `Expanded` in here
+  /// the rest), so on a narrow phone both wrap instead of overflowing.
+  final List<Widget> titleTrailing;
+
+  /// Space under the card (Pro Ayarlar uses its boxes' smaller gap).
+  final EdgeInsetsGeometry margin;
+
   /// [plainIcon] colours.
   static const Color plainIconColor = MenzilColors.toolIcon;
   static const Color plainIconBackground = MenzilColors.toolIconBackground;
@@ -2754,12 +2763,19 @@ class MenzilToolTile extends StatelessWidget {
     this.enabled = true,
     this.tileKey,
     this.plainIcon = false,
+    this.titleTrailing = const [],
+    this.margin = const EdgeInsets.only(bottom: MenzilSpace.md),
   });
 
   @override
   Widget build(BuildContext context) {
     final c = MenzilColors.of(context);
+    final titleText = Text(
+      title,
+      style: MenzilType.heading(enabled ? c.ink : c.ink2, size: 20),
+    );
     return MenzilCard(
+      margin: margin,
       padding: EdgeInsets.zero,
       child: Material(
         type: MaterialType.transparency,
@@ -2791,10 +2807,14 @@ class MenzilToolTile extends StatelessWidget {
                   : c.amberInk,
             ),
           ),
-          title: Text(
-            title,
-            style: MenzilType.heading(enabled ? c.ink : c.ink2, size: 20),
-          ),
+          title: titleTrailing.isEmpty
+              ? titleText
+              : Row(
+                  children: [
+                    Flexible(flex: 2, child: titleText),
+                    ...titleTrailing,
+                  ],
+                ),
           subtitle: Text(
             subtitle,
             style: MenzilType.caption(c.ink2).copyWith(fontSize: 13),
