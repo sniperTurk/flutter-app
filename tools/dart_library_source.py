@@ -1,25 +1,23 @@
-"""Source text of a Dart library: the file followed by its `part` files.
+"""Source text of a Dart library: the main file followed by its part files.
 
-Module split (owner, 2026-10-15): ballistics_screen.dart and
-scope_dial_view.dart keep their state and calculations, their page pieces
-moved verbatim into `part` files. Source-text guards read the whole library
-so every assertIn / assertNotIn still covers all of the code it covered
-before the split.
+profiles_screen.dart was split into part files (Tüfek, Dürbün, Mühimmat, Ek
+mühimmat bilgileri, summary, editor; owner, 2026-10-15). It is still ONE
+Dart library, so the offline source guards read all of it: an assertNotIn
+cannot pass just because the text moved to a part file.
 """
 from __future__ import annotations
 
-import re
 from pathlib import Path
+import re
 
-_PART = re.compile(r"^part\s+'([^']+)';", re.MULTILINE)
+ROOT = Path(__file__).resolve().parents[1]
+_PART = re.compile(r"^part\s+'([^']+)';", re.M)
 
 
-def library_text(path: Path | str) -> str:
-    """The library file's text plus each of its parts, in directive order."""
-    path = Path(path)
-    text = path.read_text(encoding="utf-8")
+def library_text(rel: str) -> str:
+    main = ROOT / rel
+    text = main.read_text(encoding='utf-8')
     parts = [
-        (path.parent / rel).read_text(encoding="utf-8")
-        for rel in _PART.findall(text)
+        (main.parent / p).read_text(encoding='utf-8') for p in _PART.findall(text)
     ]
-    return "\n".join([text, *parts])
+    return '\n'.join([text, *parts])
