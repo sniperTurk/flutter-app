@@ -245,6 +245,10 @@ void main() {
       ),
     );
     await tester.pumpWidget(view(12));
+    // "Hesap dökümü" is closed by default (owner, 2026-10-15): open it.
+    await tester.ensureVisible(find.byKey(ScopeDialKeys.workingsToggle));
+    await tester.tap(find.byKey(ScopeDialKeys.workingsToggle));
+    await tester.pumpAndSettle();
     expect(
       find.textContaining('1 çizgi = 24 / 12 = 2,000 MRAD'),
       findsOneWidget,
