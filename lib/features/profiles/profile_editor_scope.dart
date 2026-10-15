@@ -57,11 +57,13 @@ extension _ScopeSection on _ProfileDialogState {
   }
 
   List<String> get _scopeBrands =>
-      {for (final s in _ProfileDialogState._scopeLib) s.brand}.toList()..sort(_ProfileDialogState._byName);
+      {for (final s in _ProfileDialogState._scopeLib) s.brand}.toList()
+        ..sort(_ProfileDialogState._byName);
 
   List<String> _scopeModels(String brand) => {
     for (final s in _ProfileDialogState._scopeLib)
-      if (s.brand == brand && _scopeFilterAccepts(s)) _ProfileDialogState._scopeModelOf(s),
+      if (s.brand == brand && _scopeFilterAccepts(s))
+        _ProfileDialogState._scopeModelOf(s),
   }.toList()..sort(_ProfileDialogState._byName);
 
   /// [level]: how many filters apply (1 Birim, 2 Odak, 3 Tüp, 4 Büyütme).
@@ -90,9 +92,10 @@ extension _ScopeSection on _ProfileDialogState {
   }
 
   /// Scopes of the chosen brand that pass the filters before [level].
-  Iterable<ScopeOptic> _scopesBefore(int level) => _ProfileDialogState._scopeLib.where(
-    (s) => s.brand == _scopeBrandSel && _scopeFilterAccepts(s, level - 1),
-  );
+  Iterable<ScopeOptic> _scopesBefore(int level) =>
+      _ProfileDialogState._scopeLib.where(
+        (s) => s.brand == _scopeBrandSel && _scopeFilterAccepts(s, level - 1),
+      );
 
   List<AngularUnit> get _scopeUnitChoices {
     final have = {for (final s in _scopesBefore(1)) s.clickUnit};
@@ -210,7 +213,10 @@ extension _ScopeSection on _ProfileDialogState {
         items: [
           const DropdownMenuItem<AngularUnit>(child: Text('Seçiniz')),
           for (final u in _scopeUnitChoices)
-            DropdownMenuItem(value: u, child: Text(_ProfileDialogState._unitName(u))),
+            DropdownMenuItem(
+              value: u,
+              child: Text(_ProfileDialogState._unitName(u)),
+            ),
         ],
         onChanged: (v) => changed(() => _scopeUnitFilter = v),
       ),
@@ -236,7 +242,10 @@ extension _ScopeSection on _ProfileDialogState {
         items: [
           const DropdownMenuItem<double>(child: Text('Seçiniz')),
           for (final d in _scopeTubeChoices)
-            DropdownMenuItem(value: d, child: Text('${_ProfileDialogState._num(d)} mm')),
+            DropdownMenuItem(
+              value: d,
+              child: Text('${_ProfileDialogState._num(d)} mm'),
+            ),
         ],
         onChanged: (v) => changed(() => _scopeTubeFilter = v),
       ),
@@ -258,7 +267,9 @@ extension _ScopeSection on _ProfileDialogState {
 
   List<ScopeOptic> get _scopeGroup => [
     for (final s in _ProfileDialogState._scopeLib)
-      if (s.brand == _scopeBrandSel && _ProfileDialogState._scopeModelOf(s) == _scopeModelKey) s,
+      if (s.brand == _scopeBrandSel &&
+          _ProfileDialogState._scopeModelOf(s) == _scopeModelKey)
+        s,
   ];
 
   /// Retikül choices of the chosen model and the record each one belongs to.
@@ -349,7 +360,9 @@ extension _ScopeSection on _ProfileDialogState {
   /// Fills the scope form from a catalog record.
   void _applyScope(ScopeOptic s, {String? reticle}) {
     _angularUnitSet = true; // the catalog scope tells its unit
-    final series = ScopePickerScreen.seriesOf(_ProfileDialogState._scopeModelOf(s));
+    final series = ScopePickerScreen.seriesOf(
+      _ProfileDialogState._scopeModelOf(s),
+    );
     _scopeRecord = s;
     scopeBrand.text = series.isEmpty ? s.brand : '${s.brand} $series';
     // A value the record lacks is emptied (not kept from an earlier model)
@@ -369,7 +382,9 @@ extension _ScopeSection on _ProfileDialogState {
     final travel = s.elevationRangeMrad;
     scopeTravelElevation.text = travel == null || travel <= 0
         ? ''
-        : (_ProfileDialogState._fromMrad(travel, angularUnit) / s.clickValue).round().toString();
+        : (_ProfileDialogState._fromMrad(travel, angularUnit) / s.clickValue)
+              .round()
+              .toString();
     scopeReticle = reticle;
     _scopePickToken++;
   }
@@ -402,7 +417,9 @@ extension _ScopeSection on _ProfileDialogState {
                   _scopeModelKey = null;
                   _scopeRecord = null;
                   scopeBrand.text = '';
-                  scopeClick.text = _trimNum(_ProfileDialogState._defaultClick(angularUnit));
+                  scopeClick.text = _trimNum(
+                    _ProfileDialogState._defaultClick(angularUnit),
+                  );
                   scopeReticle = null;
                   _scopePickToken++;
                 }),
@@ -539,10 +556,7 @@ extension _ScopeSection on _ProfileDialogState {
   List<Widget> _scopeSection(MenzilColors c) => [
     const MenzilSectionHeader(
       'Dürbün',
-      padding: EdgeInsets.only(
-        top: MenzilSpace.xxs,
-        bottom: MenzilSpace.sm,
-      ),
+      padding: EdgeInsets.only(top: MenzilSpace.xxs, bottom: MenzilSpace.sm),
     ),
     MenzilCard(
       key: const Key('profile-scope-form'),
@@ -620,10 +634,7 @@ extension _ScopeSection on _ProfileDialogState {
                     value: AngularUnit.mrad,
                     child: Text('MRAD'),
                   ),
-                  DropdownMenuItem(
-                    value: AngularUnit.moa,
-                    child: Text('MOA'),
-                  ),
+                  DropdownMenuItem(value: AngularUnit.moa, child: Text('MOA')),
                   // "1/4 IN @ 100 YDS" turrets (owner, 2026-10-09).
                   DropdownMenuItem(
                     value: AngularUnit.smoa,
@@ -639,11 +650,15 @@ extension _ScopeSection on _ProfileDialogState {
                     // A typed scope picks its Klik değeri from the
                     // new unit's list; one that does not fit is cleared.
                     final click = _ProfileDialogState._parse(scopeClick);
-                    if (!_ProfileDialogState._clickOptions(next).any((o) => o.$1 == click)) {
+                    if (!_ProfileDialogState._clickOptions(
+                      next,
+                    ).any((o) => o.$1 == click)) {
                       scopeClick.clear();
                     }
                   } else if (next != angularUnit) {
-                    scopeClick.text = _trimNum(_ProfileDialogState._defaultClick(next));
+                    scopeClick.text = _trimNum(
+                      _ProfileDialogState._defaultClick(next),
+                    );
                   }
                   angularUnit = next;
                 }),
@@ -711,8 +726,7 @@ extension _ScopeSection on _ProfileDialogState {
                       info: ProfileFieldInfo.reticle,
                       label: 'Retikül',
                       hint: 'Seçiniz',
-                      initialValue:
-                          choices.any((e) => e.$1 == scopeReticle)
+                      initialValue: choices.any((e) => e.$1 == scopeReticle)
                           ? scopeReticle
                           : null,
                       items: [
@@ -720,9 +734,7 @@ extension _ScopeSection on _ProfileDialogState {
                           DropdownMenuItem(value: r, child: Text(r)),
                       ],
                       onChanged: (v) => _update(() {
-                        final hit = choices
-                            .where((e) => e.$1 == v)
-                            .firstOrNull;
+                        final hit = choices.where((e) => e.$1 == v).firstOrNull;
                         if (hit != null) {
                           _applyScope(hit.$2, reticle: hit.$1);
                         }

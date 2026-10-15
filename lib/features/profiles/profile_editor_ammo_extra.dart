@@ -19,7 +19,10 @@ extension _AmmoExtraSection on _ProfileDialogState {
   /// right end. Always open: no chevron.
   Widget _ammoExtraHeader(MenzilColors c) => Padding(
     key: const Key('ammo-extra-header'),
-    padding: const EdgeInsets.only(top: MenzilSpace.xxs, bottom: MenzilSpace.xs),
+    padding: const EdgeInsets.only(
+      top: MenzilSpace.xxs,
+      bottom: MenzilSpace.xs,
+    ),
     child: Row(
       children: [
         Expanded(

@@ -166,7 +166,11 @@ void main() {
         await tester.tap(find.byKey(Key(key)));
         await tester.pumpAndSettle();
         final m = tester.getRect(_menu);
-        expect(m.top - b.bottom, moreOrLessEquals(4, epsilon: 0.5), reason: key);
+        expect(
+          m.top - b.bottom,
+          moreOrLessEquals(4, epsilon: 0.5),
+          reason: key,
+        );
         expect(m.left, moreOrLessEquals(b.left, epsilon: 0.5), reason: key);
         expect(m.width, moreOrLessEquals(b.width, epsilon: 0.5), reason: key);
         // A pick closes the list and shows the choice in the box.

@@ -1589,7 +1589,10 @@ class MenzilSelectState<T> extends State<MenzilSelect<T>>
     final c = MenzilColors.of(context);
     final menu = _MenzilMenuRoute<T>(
       anchor: rect,
-      maxHeight: room.clamp(kMinInteractiveDimension, MenzilSelect.menuMaxHeight),
+      maxHeight: room.clamp(
+        kMinInteractiveDimension,
+        MenzilSelect.menuMaxHeight,
+      ),
       items: [
         for (final it in w.items)
           DropdownMenuItem<T>(
@@ -1763,120 +1766,122 @@ class MenzilSelectState<T> extends State<MenzilSelect<T>>
                         behavior: HitTestBehavior.opaque,
                         onTap: w.onChanged == null ? null : _open,
                         child: DropdownButton<T>(
-                        key: _boxKey,
-                        // The box shows the choice as its hint; the button
-                        // itself only draws the closed box.
-                        value: null,
-                        // Every list box says "Seçiniz" until something is
-                        // picked (owner, 2026-10-11).
-                        hint: wrapped != null
-                            ? const SizedBox.shrink()
-                            : selectedIndex == null
-                            ? (w.fitSelected
-                                  ? DefaultTextStyle.merge(
-                                      style: TextStyle(color: c.ink2),
-                                      child: MenzilFitText(w.hint ?? 'Seçiniz'),
-                                    )
-                                  : Text(
-                                      w.hint ?? 'Seçiniz',
-                                      style: TextStyle(color: c.ink2),
-                                    ))
-                            : DefaultTextStyle.merge(
-                                maxLines: 1,
-                                softWrap: false,
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyle(color: c.ink),
-                                child: _closed(selectedIndex, items),
-                              ),
-                        // List entries in regular weight (owner, 2026-10-11).
-                        items: [
-                          for (final it in items)
-                            DropdownMenuItem<T>(
-                              key: it.key,
-                              value: it.value,
-                              enabled: it.enabled,
-                              onTap: it.onTap,
-                              alignment: it.alignment,
-                              child: DefaultTextStyle.merge(
-                                style: const TextStyle(
-                                  fontWeight: FontWeight.w400,
+                          key: _boxKey,
+                          // The box shows the choice as its hint; the button
+                          // itself only draws the closed box.
+                          value: null,
+                          // Every list box says "Seçiniz" until something is
+                          // picked (owner, 2026-10-11).
+                          hint: wrapped != null
+                              ? const SizedBox.shrink()
+                              : selectedIndex == null
+                              ? (w.fitSelected
+                                    ? DefaultTextStyle.merge(
+                                        style: TextStyle(color: c.ink2),
+                                        child: MenzilFitText(
+                                          w.hint ?? 'Seçiniz',
+                                        ),
+                                      )
+                                    : Text(
+                                        w.hint ?? 'Seçiniz',
+                                        style: TextStyle(color: c.ink2),
+                                      ))
+                              : DefaultTextStyle.merge(
+                                  maxLines: 1,
+                                  softWrap: false,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: TextStyle(color: c.ink),
+                                  child: _closed(selectedIndex, items),
                                 ),
-                                child: it.child,
-                              ),
-                            ),
-                        ],
-                        // Never Flutter's list: [_open] shows ours.
-                        onChanged: null,
-                        // The closed box always shows ONE line (owner,
-                        // 2026-10-09: "Normal (0 MOA)" wrapped and was cut off).
-                        // With value null Flutter shows the entry whose value is
-                        // null ("Seçiniz" in lists that offer it): that slot
-                        // shows the current choice instead.
-                        selectedItemBuilder: (context) => [
-                          for (var i = 0; i < items.length; i++)
-                            Align(
-                              alignment: Alignment.centerLeft,
-                              child: DefaultTextStyle.merge(
-                                maxLines: 1,
-                                softWrap: false,
-                                overflow: TextOverflow.ellipsis,
-                                child: () {
-                                  final k = items[i].value == null
-                                      ? selectedIndex
-                                      : i;
-                                  if (wrapped != null) {
-                                    return const SizedBox.shrink();
-                                  }
-                                  if (k == null) {
-                                    return Text(
-                                      w.hint ?? 'Seçiniz',
-                                      style: TextStyle(color: c.ink2),
-                                    );
-                                  }
-                                  return _closed(k, items);
-                                }(),
-                              ),
-                            ),
-                        ],
-                        isExpanded: true,
-                        isDense: true,
-                        // Aligned, Flutter adds 16 pt before the text and 4 pt
-                        // after the arrow, so the text still starts 16 pt and
-                        // the arrow ends 16 pt inside the box, as before.
-                        // Compact (Fikir 4): no vertical padding; the 44 pt
-                        // trailing part (unit, ⓘ, arrow) sets the box height.
-                        padding: compact
-                            ? const EdgeInsetsDirectional.only(end: 4)
-                            : const EdgeInsetsDirectional.fromSTEB(
-                                0,
-                                13,
-                                12,
-                                13,
-                              ),
-                        // Compact: the ⓘ sits left of the arrow, inside the
-                        // box. Its own button takes the tap, so it opens the
-                        // explanation and never the list. A dense button is as tall
-                        // as its icon size: 44 pt.
-                        icon: compact
-                            ? _CompactTrailing(
-                                title: w.label,
-                                unit: w.unit,
-                                info: w.info,
-                                after: IconTheme.merge(
-                                  data: const IconThemeData(size: 24),
-                                  child: arrow,
+                          // List entries in regular weight (owner, 2026-10-11).
+                          items: [
+                            for (final it in items)
+                              DropdownMenuItem<T>(
+                                key: it.key,
+                                value: it.value,
+                                enabled: it.enabled,
+                                onTap: it.onTap,
+                                alignment: it.alignment,
+                                child: DefaultTextStyle.merge(
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                  child: it.child,
                                 ),
-                              )
-                            : arrow,
-                        iconSize: compact ? MenzilSpace.compactControl : 24,
-                        // The closed box's text: 15 pt, regular (owner,
-                        // 2026-10-11).
-                        style: TextStyle(
-                          fontSize: 15,
-                          fontWeight: FontWeight.w400,
-                          color: c.ink,
+                              ),
+                          ],
+                          // Never Flutter's list: [_open] shows ours.
+                          onChanged: null,
+                          // The closed box always shows ONE line (owner,
+                          // 2026-10-09: "Normal (0 MOA)" wrapped and was cut off).
+                          // With value null Flutter shows the entry whose value is
+                          // null ("Seçiniz" in lists that offer it): that slot
+                          // shows the current choice instead.
+                          selectedItemBuilder: (context) => [
+                            for (var i = 0; i < items.length; i++)
+                              Align(
+                                alignment: Alignment.centerLeft,
+                                child: DefaultTextStyle.merge(
+                                  maxLines: 1,
+                                  softWrap: false,
+                                  overflow: TextOverflow.ellipsis,
+                                  child: () {
+                                    final k = items[i].value == null
+                                        ? selectedIndex
+                                        : i;
+                                    if (wrapped != null) {
+                                      return const SizedBox.shrink();
+                                    }
+                                    if (k == null) {
+                                      return Text(
+                                        w.hint ?? 'Seçiniz',
+                                        style: TextStyle(color: c.ink2),
+                                      );
+                                    }
+                                    return _closed(k, items);
+                                  }(),
+                                ),
+                              ),
+                          ],
+                          isExpanded: true,
+                          isDense: true,
+                          // Aligned, Flutter adds 16 pt before the text and 4 pt
+                          // after the arrow, so the text still starts 16 pt and
+                          // the arrow ends 16 pt inside the box, as before.
+                          // Compact (Fikir 4): no vertical padding; the 44 pt
+                          // trailing part (unit, ⓘ, arrow) sets the box height.
+                          padding: compact
+                              ? const EdgeInsetsDirectional.only(end: 4)
+                              : const EdgeInsetsDirectional.fromSTEB(
+                                  0,
+                                  13,
+                                  12,
+                                  13,
+                                ),
+                          // Compact: the ⓘ sits left of the arrow, inside the
+                          // box. Its own button takes the tap, so it opens the
+                          // explanation and never the list. A dense button is as tall
+                          // as its icon size: 44 pt.
+                          icon: compact
+                              ? _CompactTrailing(
+                                  title: w.label,
+                                  unit: w.unit,
+                                  info: w.info,
+                                  after: IconTheme.merge(
+                                    data: const IconThemeData(size: 24),
+                                    child: arrow,
+                                  ),
+                                )
+                              : arrow,
+                          iconSize: compact ? MenzilSpace.compactControl : 24,
+                          // The closed box's text: 15 pt, regular (owner,
+                          // 2026-10-11).
+                          style: TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.w400,
+                            color: c.ink,
+                          ),
                         ),
-                      ),
                       ),
                     ),
                   ),
@@ -2052,10 +2057,7 @@ class _DropdownMenuItemButton<T> extends StatelessWidget {
   final _MenzilMenuRoute<T> route;
   final int index;
 
-  const _DropdownMenuItemButton({
-    required this.route,
-    required this.index,
-  });
+  const _DropdownMenuItemButton({required this.route, required this.index});
 
   @override
   Widget build(BuildContext context) {

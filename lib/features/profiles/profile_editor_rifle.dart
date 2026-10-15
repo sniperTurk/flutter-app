@@ -31,8 +31,11 @@ extension _RifleSection on _ProfileDialogState {
     if (cal == null) return null;
     if (platform == WeaponPlatform.firearm) {
       final c = _cartridge;
-      if (c != null && _ProfileDialogState._firearmCartridges.any((e) => e.$1 == c)) return c;
-      return _ProfileDialogState._cartridgeFor(cal) ?? 'mm:${_ProfileDialogState._trimDot(cal)}';
+      if (c != null &&
+          _ProfileDialogState._firearmCartridges.any((e) => e.$1 == c))
+        return c;
+      return _ProfileDialogState._cartridgeFor(cal) ??
+          'mm:${_ProfileDialogState._trimDot(cal)}';
     }
     return 'mm:${_ProfileDialogState._trimDot(_caliberItem(cal) ?? cal)}';
   }
@@ -72,7 +75,11 @@ extension _RifleSection on _ProfileDialogState {
           short: _ProfileDialogState._shortCartridge(r.cartridge),
         );
       }
-      add(_ProfileDialogState._otherCaliberKey, const Text('Diğer kalibre'), 'Diğer kalibre');
+      add(
+        _ProfileDialogState._otherCaliberKey,
+        const Text('Diğer kalibre'),
+        'Diğer kalibre',
+      );
       return out;
     }
     if (platform == WeaponPlatform.firearm) {
@@ -83,8 +90,10 @@ extension _RifleSection on _ProfileDialogState {
         enabled: false,
       );
       header('#popular', 'EN ÇOK KULLANILAN');
-      for (final (i, (name, d)) in _ProfileDialogState._firearmCartridges.indexed) {
-        if (i == _ProfileDialogState._popularCount) header('#all', 'DİĞERLERİ (A-Z)');
+      for (final (i, (name, d))
+          in _ProfileDialogState._firearmCartridges.indexed) {
+        if (i == _ProfileDialogState._popularCount)
+          header('#all', 'DİĞERLERİ (A-Z)');
         add(
           name,
           // The list is as wide as the half box (owner, 2026-10-13): the
@@ -109,7 +118,9 @@ extension _RifleSection on _ProfileDialogState {
           short: _ProfileDialogState._shortCartridge(name),
         );
       }
-      if (cal != null && !_caliberByDiameter && _ProfileDialogState._cartridgeFor(cal) == null) {
+      if (cal != null &&
+          !_caliberByDiameter &&
+          _ProfileDialogState._cartridgeFor(cal) == null) {
         final mm = _ProfileDialogState._trimDot(cal);
         add(
           'mm:$mm',
@@ -157,7 +168,9 @@ extension _RifleSection on _ProfileDialogState {
       _cartridge = null;
       final cal = _ProfileDialogState._parse(rifleCaliber);
       if (cal != null &&
-          !_ProfileDialogState._bulletDiameters.any((d) => (d - cal).abs() < 0.005)) {
+          !_ProfileDialogState._bulletDiameters.any(
+            (d) => (d - cal).abs() < 0.005,
+          )) {
         rifleCaliber.text = '';
       }
       return;
@@ -169,19 +182,24 @@ extension _RifleSection on _ProfileDialogState {
       return;
     }
     _cartridge = key;
-    final mm = _ProfileDialogState._firearmCartridges.firstWhere((e) => e.$1 == key).$2;
+    final mm = _ProfileDialogState._firearmCartridges
+        .firstWhere((e) => e.$1 == key)
+        .$2;
     rifleCaliber.text = _ProfileDialogState._trimDot(mm);
   }
 
   List<LibraryRifle> get _rifleLib => [
     for (final r in RifleLibrary.all)
       if (r.platform == platform &&
-          (_domestic == null || _ProfileDialogState._domesticBrands.contains(r.brand) == _domestic))
+          (_domestic == null ||
+              _ProfileDialogState._domesticBrands.contains(r.brand) ==
+                  _domestic))
         r,
   ];
 
   List<String> get _rifleBrands =>
-      {for (final r in _rifleLib) r.brand}.toList()..sort(_ProfileDialogState._byName);
+      {for (final r in _rifleLib) r.brand}.toList()
+        ..sort(_ProfileDialogState._byName);
 
   List<String> _rifleModels(String brand) => {
     for (final r in _rifleLib)
@@ -199,7 +217,8 @@ extension _RifleSection on _ProfileDialogState {
     _caliberByDiameter = false;
     rifleCaliber.text = _ProfileDialogState._trimDot(r.diameterMm);
     _cartridge = r.platform == WeaponPlatform.firearm ? r.cartridge : null;
-    if (r.twistRateIn != null) rifleTwist.text = _ProfileDialogState._trimDot(r.twistRateIn!);
+    if (r.twistRateIn != null)
+      rifleTwist.text = _ProfileDialogState._trimDot(r.twistRateIn!);
     if (r.twistDirection != null) twistDirection = r.twistDirection;
   }
 
@@ -438,10 +457,7 @@ extension _RifleSection on _ProfileDialogState {
   List<Widget> _rifleSection() => [
     const MenzilSectionHeader(
       'Tüfek',
-      padding: EdgeInsets.only(
-        top: MenzilSpace.xxs,
-        bottom: MenzilSpace.sm,
-      ),
+      padding: EdgeInsets.only(top: MenzilSpace.xxs, bottom: MenzilSpace.sm),
     ),
     MenzilCard(
       key: const Key('profile-rifle-form'),
@@ -472,7 +488,10 @@ extension _RifleSection on _ProfileDialogState {
                   initialValue: _ProfileDialogState._bulletDiameters
                       .where(
                         (d) =>
-                            (d - (_ProfileDialogState._parse(rifleCaliber) ?? -1)).abs() <
+                            (d -
+                                    (_ProfileDialogState._parse(rifleCaliber) ??
+                                        -1))
+                                .abs() <
                             0.005,
                       )
                       .firstOrNull,
@@ -485,7 +504,8 @@ extension _RifleSection on _ProfileDialogState {
                   ],
                   onChanged: (v) => _update(() {
                     final before = (rifleCaliber.text, _cartridge);
-                    if (v != null) rifleCaliber.text = _ProfileDialogState._trimDot(v);
+                    if (v != null)
+                      rifleCaliber.text = _ProfileDialogState._trimDot(v);
                     _keepAmmoInCaliber(before);
                   }),
                 ),
@@ -545,14 +565,8 @@ extension _RifleSection on _ProfileDialogState {
             label: 'Mesafe birimi',
             initialValue: _distanceUnitSet ? distanceUnit : null,
             items: const [
-              DropdownMenuItem(
-                value: DistanceUnit.meter,
-                child: Text('Metre'),
-              ),
-              DropdownMenuItem(
-                value: DistanceUnit.yard,
-                child: Text('Yard'),
-              ),
+              DropdownMenuItem(value: DistanceUnit.meter, child: Text('Metre')),
+              DropdownMenuItem(value: DistanceUnit.yard, child: Text('Yard')),
             ],
             onChanged: (v) => _update(() {
               _distanceUnitSet = v != null;
@@ -564,9 +578,7 @@ extension _RifleSection on _ProfileDialogState {
                   next.fromMeters(distanceUnit.toMeters(typed)),
                 );
                 // Same style as the prefilled value ("27.3").
-                zero.text = v % 1 == 0
-                    ? v.toStringAsFixed(0)
-                    : v.toString();
+                zero.text = v % 1 == 0 ? v.toStringAsFixed(0) : v.toString();
               }
               distanceUnit = next;
             }),
