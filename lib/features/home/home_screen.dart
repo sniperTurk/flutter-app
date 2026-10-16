@@ -581,6 +581,8 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
             child: GestureDetector(
               key: _profileButtonKey,
               behavior: HitTestBehavior.opaque,
+              // VoiceOver uses the Semantics tap above (one labelled node).
+              excludeFromSemantics: true,
               onTap: open,
               child: ExcludeSemantics(
                 child: AbsorbPointer(
