@@ -5,7 +5,6 @@
 //     -f test=integration_test/sim_screens_pro_kutu_test.dart
 // Same SIMSCREEN marker protocol as sim_screens_test.dart. Uses only keys
 // that exist before and after the change, so it photographs both.
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
