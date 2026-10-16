@@ -3,9 +3,10 @@
 // Hedef page title, "Kuleleri kur" | "Kuleleri sıfırla" on one line, the
 // top turret row [48][‹ 28][drum][› 28][L-R 48] centred over the reticle,
 // the long slim side turret with its arrows outside the drum box, the
-// collapsible "Hesap dökümü", Hava Durumu "Hava" / "Hava özeti", no icons in
-// buttons, done buttons in the shared done style (also after reopening),
-// the Rüzgâr ⓘ guide and the wind clock's orange.
+// collapsible "Hesap dökümü", Hava Durumu "Hava özeti" (the "Hava" title over
+// the top card was deleted, owner 2026-10-16), no icons in buttons, done
+// buttons in the shared done style (also after reopening), the Rüzgâr ⓘ
+// guide and the wind clock's orange.
 // Report: docs/reports/temiz_tasarim_hedef.md.
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
