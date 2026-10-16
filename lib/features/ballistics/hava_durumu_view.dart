@@ -234,21 +234,6 @@ extension _HavaDurumuView on _BallisticsScreenState {
                     signed: true,
                   ),
                 ),
-                // Mühimmat sıcaklığı (Ö1, 2026-10-12): firearms only, on the
-                // Sıcaklık row; it matters only with a powder coefficient.
-                if (_isFirearm)
-                  MenzilInput(
-                    key: const Key('env-ammo-temp'),
-                    controller: ammoTempCtl,
-                    label: 'Mühimmat sıcaklığı',
-                    onChanged: (_) => _coriolisChanged(),
-                    info: EnvironmentFieldInfo.ammoTemperature,
-                    unit: metric ? '°C' : '°F',
-                    keyboardType: const TextInputType.numberWithOptions(
-                      decimal: true,
-                      signed: true,
-                    ),
-                  ),
                 MenzilInput(
                   key: BallisticsFieldKeys.humidity,
                   controller: humidity,
@@ -269,6 +254,58 @@ extension _HavaDurumuView on _BallisticsScreenState {
           ],
         ),
       ),
+      // Mühimmat sıcaklığı (owner, 2026-10-16): its own section under the
+      // Hava card, firearms only as before, so it is not read as a required
+      // weather value. Title with its ⓘ, "isteğe bağlı" at the right end
+      // (the "Ek mühimmat bilgileri" pattern). Box, key, saving and the
+      // powder correction unchanged (Ö1, 2026-10-12).
+      if (_isFirearm) ...[
+        MenzilSectionHeader(
+          'Mühimmat sıcaklığı',
+          key: const Key('environment-ammo-temp-header'),
+          size: 18,
+          padding: const EdgeInsets.only(
+            top: MenzilSpace.xxs,
+            bottom: MenzilSpace.sm,
+          ),
+          titleTrailing: const MenzilInfoButton(
+            key: Key('environment-ammo-temp-info'),
+            title: 'Mühimmat sıcaklığı',
+            text: EnvironmentFieldInfo.ammoTemperature,
+          ),
+          trailing: Text(
+            'isteğe bağlı',
+            key: const Key('environment-ammo-temp-optional'),
+            textAlign: TextAlign.start,
+            style: MenzilType.caption(MenzilColors.of(context).ink2),
+          ),
+        ),
+        MenzilCard(
+          key: const Key('environment-ammo-temp-card'),
+          padding: const EdgeInsets.fromLTRB(
+            MenzilSpace.lg,
+            MenzilSpace.lg,
+            MenzilSpace.lg,
+            MenzilSpace.lg,
+          ),
+          child: MenzilFieldGrid(
+            children: [
+              MenzilInput(
+                key: const Key('env-ammo-temp'),
+                controller: ammoTempCtl,
+                label: 'Mühimmat sıcaklığı',
+                onChanged: (_) => _coriolisChanged(),
+                info: EnvironmentFieldInfo.ammoTemperature,
+                unit: metric ? '°C' : '°F',
+                keyboardType: const TextInputType.numberWithOptions(
+                  decimal: true,
+                  signed: true,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
       // Basınç Ölçer (owner, 2026-10-14): one ⓘ right of the title (none in
       // the box), İstasyon basıncı | Basınç al, then date | Sıfırla.
       _headerWithInfo(
