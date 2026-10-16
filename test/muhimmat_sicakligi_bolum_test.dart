@@ -98,8 +98,14 @@ Finder _textField(Key key) =>
     find.descendant(of: find.byKey(key), matching: find.byType(TextField));
 
 /// Pro Ayarlar with Tüfek düzeltmeleri open.
-Future<void> _pro(WidgetTester tester, RifleProfile p, {double scale = 1}) async {
-  await tester.pumpWidget(_app(p, BallisticsView.pro, scale: scale, dark: true));
+Future<void> _pro(
+  WidgetTester tester,
+  RifleProfile p, {
+  double scale = 1,
+}) async {
+  await tester.pumpWidget(
+    _app(p, BallisticsView.pro, scale: scale, dark: true),
+  );
   await tester.pumpAndSettle();
   final header = find.byKey(const Key('pro-section-rifle'));
   await tester.ensureVisible(header);
@@ -142,7 +148,9 @@ void main() {
     expect(
       tester.getRect(find.byKey(const Key('environment-barometer-card'))).top,
       greaterThan(
-        tester.getRect(find.byKey(const Key('environment-fill-weather'))).bottom,
+        tester
+            .getRect(find.byKey(const Key('environment-fill-weather')))
+            .bottom,
       ),
     );
   });

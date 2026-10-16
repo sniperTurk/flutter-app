@@ -246,10 +246,7 @@ void main() {
         final row = find.byKey(const Key('pro-ammo-temp-row'));
         await tester.ensureVisible(row);
         await settle();
-        await Scrollable.ensureVisible(
-          tester.element(row),
-          alignment: 0.6,
-        );
+        await Scrollable.ensureVisible(tester.element(row), alignment: 0.6);
         await settle();
         rect('pro_$size:muhimmat_satiri', row);
         await shot('pro_$size');

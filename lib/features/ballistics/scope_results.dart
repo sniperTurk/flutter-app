@@ -135,7 +135,9 @@ class TurretSolutionRow extends StatelessWidget {
     final rightClicks = ScopeDialMath.clicksFor(requiredRight, clickValue);
     final upDetail = _detail(requiredUp, 'yukarı', 'aşağı');
     final calm = rightClicks == 0 && windCalm;
-    final rightDetail = calm ? 'rüzgâr yok' : _detail(requiredRight, 'sağ', 'sol');
+    final rightDetail = calm
+        ? 'rüzgâr yok'
+        : _detail(requiredRight, 'sağ', 'sol');
     // Labels 12,5 pt grey, the clicks 15 pt semibold with equal-width
     // figures (they change live with the distance).
     final word = MenzilType.label(c.ink2);

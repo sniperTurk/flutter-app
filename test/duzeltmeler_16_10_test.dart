@@ -115,9 +115,8 @@ String _routeName(WidgetTester tester, Finder f) =>
     ModalRoute.of(tester.element(f))!.runtimeType.toString();
 
 /// The open list's surface (the Material that draws the list).
-Finder _listSurface(Finder row) => find
-    .ancestor(of: row, matching: find.byType(Material))
-    .first;
+Finder _listSurface(Finder row) =>
+    find.ancestor(of: row, matching: find.byType(Material)).first;
 
 void main() {
   setUpAll(_loadStandIn);
@@ -358,7 +357,10 @@ void main() {
           TurretSolutionRow.windageKey,
         ]) {
           final p = tester.renderObject<RenderParagraph>(
-            find.descendant(of: find.byKey(key), matching: find.byType(RichText)),
+            find.descendant(
+              of: find.byKey(key),
+              matching: find.byType(RichText),
+            ),
           );
           expect(p.didExceedMaxLines, isFalse);
           final r = tester.getRect(find.byKey(key));
@@ -405,9 +407,7 @@ void main() {
       final refStyle = DefaultTextStyle.of(tester.element(refRow)).style;
       final refRowHeight = tester
           .getSize(
-            find
-                .ancestor(of: refRow, matching: find.byType(InkWell))
-                .first,
+            find.ancestor(of: refRow, matching: find.byType(InkWell)).first,
           )
           .height;
       expect(refRoute, startsWith('_MenzilMenuRoute<'));
@@ -427,9 +427,7 @@ void main() {
       expect(style.fontWeight, refStyle.fontWeight);
       expect(style.color, refStyle.color);
       final rowHeight = tester
-          .getSize(
-            find.ancestor(of: row, matching: find.byType(InkWell)).first,
-          )
+          .getSize(find.ancestor(of: row, matching: find.byType(InkWell)).first)
           .height;
       expect(rowHeight, refRowHeight);
       // No Flutter dropdown route any more.
@@ -440,7 +438,9 @@ void main() {
         'changes the active profile', (tester) async {
       _phone(tester);
       await _home(tester, [_pcp('p1', 'Bir'), _pcp('p2', 'İki')]);
-      final pill = tester.getRect(find.byKey(const Key('top-bar-profile-button')));
+      final pill = tester.getRect(
+        find.byKey(const Key('top-bar-profile-button')),
+      );
       await tester.tap(find.byKey(const Key('top-bar-profile-button')));
       await tester.pumpAndSettle();
       final row = find.text('İki').last;
@@ -469,7 +469,11 @@ void main() {
       expect(tester.takeException(), isNull);
     });
 
-    for (final (width, scale) in const [(390.0, 1.0), (320.0, 1.0), (320.0, 1.3)]) {
+    for (final (width, scale) in const [
+      (390.0, 1.0),
+      (320.0, 1.0),
+      (320.0, 1.3),
+    ]) {
       testWidgets('long names stay distinguishable: ${width.toInt()} pt, '
           '×$scale (UST-1)', (tester) async {
         _phone(tester, width: width, textScale: scale);

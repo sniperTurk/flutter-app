@@ -49,8 +49,7 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen>
-    with WidgetsBindingObserver {
+class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
   late final ProfileStore profiles =
       widget.profileStore ?? PersistentProfileStore();
   late final ActiveProfileStore activeStore =
@@ -586,56 +585,64 @@ class _HomeScreenState extends State<HomeScreen>
               child: ExcludeSemantics(
                 child: AbsorbPointer(
                   child: DropdownButtonFormField<RifleProfile>(
-              key: ValueKey(('active-profile', active?.id, _selectorEpoch)),
-              initialValue: active,
-              isExpanded: true,
-              isDense: true,
-              borderRadius: BorderRadius.circular(MenzilRadius.input),
-              dropdownColor: c.surface,
-              icon: Icon(Icons.expand_more, color: c.ink2, size: iconSize),
-              decoration: InputDecoration(
-                filled: true,
-                fillColor: c.surface,
-                constraints: const BoxConstraints(minHeight: 44),
-                contentPadding: const EdgeInsets.fromLTRB(
-                  padLeft,
-                  11,
-                  padRight,
-                  11,
-                ),
-                border: pill,
-                enabledBorder: pill,
-                focusedBorder: pill,
-                disabledBorder: pill,
-              ),
-              selectedItemBuilder: (context) => saved
-                  .map(
-                    (profile) => Align(
-                      alignment: Alignment.centerLeft,
-                      child: _ProfileButtonLabel(
-                        name: profile.name,
-                        caliber: _caliberLabel(profile),
-                        nameStyle: nameStyle,
-                        caliberStyle: caliberStyle,
-                        caliberMaxWidth: caliberMax,
-                      ),
+                    key: ValueKey((
+                      'active-profile',
+                      active?.id,
+                      _selectorEpoch,
+                    )),
+                    initialValue: active,
+                    isExpanded: true,
+                    isDense: true,
+                    borderRadius: BorderRadius.circular(MenzilRadius.input),
+                    dropdownColor: c.surface,
+                    icon: Icon(
+                      Icons.expand_more,
+                      color: c.ink2,
+                      size: iconSize,
                     ),
-                  )
-                  .toList(),
-              items: saved
-                  .map(
-                    (profile) => DropdownMenuItem(
-                      value: profile,
-                      child: Text(
-                        profile.name,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
+                    decoration: InputDecoration(
+                      filled: true,
+                      fillColor: c.surface,
+                      constraints: const BoxConstraints(minHeight: 44),
+                      contentPadding: const EdgeInsets.fromLTRB(
+                        padLeft,
+                        11,
+                        padRight,
+                        11,
                       ),
+                      border: pill,
+                      enabledBorder: pill,
+                      focusedBorder: pill,
+                      disabledBorder: pill,
                     ),
-                  )
-                  .toList(),
-              onChanged: choosingProfile ? null : _choose,
-            ),
+                    selectedItemBuilder: (context) => saved
+                        .map(
+                          (profile) => Align(
+                            alignment: Alignment.centerLeft,
+                            child: _ProfileButtonLabel(
+                              name: profile.name,
+                              caliber: _caliberLabel(profile),
+                              nameStyle: nameStyle,
+                              caliberStyle: caliberStyle,
+                              caliberMaxWidth: caliberMax,
+                            ),
+                          ),
+                        )
+                        .toList(),
+                    items: saved
+                        .map(
+                          (profile) => DropdownMenuItem(
+                            value: profile,
+                            child: Text(
+                              profile.name,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
+                        )
+                        .toList(),
+                    onChanged: choosingProfile ? null : _choose,
+                  ),
                 ),
               ),
             ),

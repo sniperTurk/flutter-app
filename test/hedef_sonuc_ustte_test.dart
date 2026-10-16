@@ -288,9 +288,12 @@ void main() {
     );
     expect(spans[2].text, ' yukarı');
     expect(spans[2].style!.fontSize, 12.5);
-    expect(find.byWidgetPredicate((w) {
-      return w is Text && (w.style?.fontSize ?? 0) == 34;
-    }), findsNothing);
+    expect(
+      find.byWidgetPredicate((w) {
+        return w is Text && (w.style?.fontSize ?? 0) == 34;
+      }),
+      findsNothing,
+    );
   });
 
   testWidgets('no overflow at 320 pt and text scale 1.3', (tester) async {
