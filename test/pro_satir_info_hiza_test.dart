@@ -269,8 +269,10 @@ void main() {
           }
 
           final text = value.text.toPlainText();
-          final reserve = [w(text), w('${text.characters.first}…')]
-              .reduce((a, b) => a < b ? a : b);
+          final reserve = [
+            w(text),
+            w('${text.characters.first}…'),
+          ].reduce((a, b) => a < b ? a : b);
           final title = tester
               .renderObject<RenderParagraph>(_title(id))
               .getMaxIntrinsicWidth(double.infinity);
