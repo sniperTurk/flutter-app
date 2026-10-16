@@ -15,14 +15,20 @@ abstract final class ProfileCatalogMatch {
   /// Lower case words of [text] ("Viper PST Gen II" -> viper, pst, gen,
   /// ii); a decimal comma is read as a point.
   static List<String> words(String text) => [
-    for (final w
-        in text
-            .toLowerCase()
-            .replaceAll(',', '.')
-            .split(RegExp(r'[^a-z0-9çğıöşü.]+')))
+    for (final w in fold(
+      text,
+    ).replaceAll(',', '.').split(RegExp(r'[^a-z0-9çğıöşü.]+')))
       if (w.replaceAll('.', '').isNotEmpty)
         w.replaceAll(RegExp(r'^\.+|\.+$'), ''),
   ];
+
+  /// Turkish-aware lower case where dotted and dotless i are one letter
+  /// (PRF-5): "SARSILMAZ", "Sarsılmaz", "TIKKA" and "Tikka" compare equal.
+  static String fold(String text) => text
+      .replaceAll('İ', 'i')
+      .replaceAll('I', 'i')
+      .toLowerCase()
+      .replaceAll('ı', 'i');
 
   /// Letters and digits only: "Gazi Sniper" and "GaziSniper" are equal.
   static String squash(String text) => words(text).join().replaceAll('.', '');
@@ -147,9 +153,10 @@ abstract final class ProfileCatalogMatch {
 
   /// The list rifle (Marka / Model) a saved rifle stands for, or null.
   ///
-  /// Brand first, then the model words (one name holding the other, or
-  /// most words shared), then the saved caliber. Two models that fit
-  /// equally well give null.
+  /// Brand first, then the model name: only the same name (spacing,
+  /// case and the brand inside the name aside) is a match, so a typed rifle
+  /// is never renamed to another product (PRF-4); then the saved caliber.
+  /// Two models that fit equally well give null.
   static LibraryRifle? rifle(
     String brand,
     String model,
@@ -181,20 +188,20 @@ abstract final class ProfileCatalogMatch {
           );
       hits.add((r: r, exact: exact, f1: f1, caliber: caliber));
     }
-    if (hits.isEmpty) return null;
+    // The exact name comes before the caliber; no exact name, no match
+    // (the profile opens in the typed boxes with its values, PRF-4).
+    final exact = [
+      for (final h in hits)
+        if (h.exact) h,
+    ];
+    if (exact.isEmpty) return null;
     // A model with the saved caliber goes before one without it.
-    final pool = hits.any((h) => h.caliber)
-        ? hits.where((h) => h.caliber).toList()
-        : hits;
-    pool.sort((a, b) {
-      if (a.exact != b.exact) return a.exact ? -1 : 1;
-      return b.f1.compareTo(a.f1);
-    });
+    final pool = exact.any((h) => h.caliber)
+        ? exact.where((h) => h.caliber).toList()
+        : exact;
+    pool.sort((a, b) => b.f1.compareTo(a.f1));
     final best = pool.first;
-    if (pool.length > 1) {
-      final next = pool[1];
-      if (next.exact == best.exact && next.f1 == best.f1) return null;
-    }
+    if (pool.length > 1 && pool[1].f1 == best.f1) return null;
     return best.r;
   }
 }

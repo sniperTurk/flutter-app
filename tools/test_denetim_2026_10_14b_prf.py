@@ -11,9 +11,12 @@ Stdlib-only reference for test/audit_2026_10_14b/profile_match_audit_test.dart:
 * hand calculations: Barut katsayısı (%/15 °C) ⓘ example, fps round trip of
   the editor, MOA <-> mrad turret travel;
 * repository greps: the hidden flags are read with bool.fromEnvironment and
-  default off; _scopeEntry writes no windageRangeMrad (PRF-1); Kopyala and
-  the editor reuse the same record ids (PRF-2); the editor rewrites the
-  scope with the profile unit (PRF-3).
+  default off; Kopyala gives independent records (PRF-2, fixed in #313).
+
+PRF-1, PRF-3, PRF-4 and PRF-5 were fixed in fix/prf-durbun-eslestirme; the
+port and the source checks follow the fixed rules (_scopeEntry writes the
+side travel and keeps the scope's own unit; exact name before caliber;
+dotted / dotless i are one letter).
 
 Run: python3 -m unittest tools/test_denetim_2026_10_14b_prf.py
 """
@@ -58,9 +61,14 @@ def _library():
 # ---- Port of ProfileCatalogMatch (Dart String.toLowerCase == Unicode
 # default lower casing, as Python str.lower; Dart RegExp \w is ASCII). ----
 
+def fold(text):
+    # PRF-5 fix: dotted and dotless i are one letter.
+    return (text.replace("İ", "i").replace("I", "i").lower().replace("ı", "i"))
+
+
 def words(text):
     out = []
-    for w in re.split(r"[^a-z0-9çğıöşü.]+", text.lower().replace(",", ".")):
+    for w in re.split(r"[^a-z0-9çğıöşü.]+", fold(text).replace(",", ".")):
         if w.replace(".", ""):
             out.append(re.sub(r"^\.+|\.+$", "", w))
     return out
@@ -123,12 +131,14 @@ def match_rifle(brand, model, caliber_mm, lib):
             for v in lib
         )
         hits.append({"r": r, "exact": exact, "f1": f1, "cal": cal})
-    if not hits:
+    # PRF-4 fix: the exact name before the caliber; no exact name, no match.
+    exact = [h for h in hits if h["exact"]]
+    if not exact:
         return None
-    pool = [h for h in hits if h["cal"]] if any(h["cal"] for h in hits) else hits
-    pool.sort(key=lambda h: (not h["exact"], -h["f1"]))
+    pool = [h for h in exact if h["cal"]] if any(h["cal"] for h in exact) else exact
+    pool.sort(key=lambda h: -h["f1"])
     best = pool[0]
-    if len(pool) > 1 and pool[1]["exact"] == best["exact"] and pool[1]["f1"] == best["f1"]:
+    if len(pool) > 1 and pool[1]["f1"] == best["f1"]:
         return None
     return best["r"]
 
@@ -146,8 +156,12 @@ class PortFidelity(unittest.TestCase):
             "[^a-z0-9çğıöşü.]+",
             "sw.first.length >= 3",
             "f1 < 0.67",
-            "hits.any((h) => h.caliber)",
-            "next.exact == best.exact && next.f1 == best.f1",
+            "exact.any((h) => h.caliber)",
+            "if (exact.isEmpty) return null;",
+            "if (pool.length > 1 && pool[1].f1 == best.f1) return null;",
+            ".replaceAll('İ', 'i')",
+            ".replaceAll('I', 'i')",
+            ".replaceAll('ı', 'i')",
         ):
             self.assertIn(needle, src)
 
@@ -165,7 +179,7 @@ class PortFidelity(unittest.TestCase):
 
 
 class Prf4CaliberBeatsExactName(unittest.TestCase):
-    """PRF-4: documents today's behaviour (the Dart test expects the fix)."""
+    """PRF-4: fixed (fix/prf-durbun-eslestirme); flipped to the fixed state."""
 
     def test_hercules_bully_has_no_635_variant(self):
         cal = {r["d"] for r in _platform("pcp")
@@ -174,9 +188,17 @@ class Prf4CaliberBeatsExactName(unittest.TestCase):
         self.assertIn(6.35, {r["d"] for r in _platform("pcp")
                              if r["brand"] == "Hatsan" and r["model"] == "Hercules"})
 
-    def test_hatsan_hercules_bully_renamed_hercules_today(self):
+    def test_hatsan_hercules_bully_not_renamed(self):
         r = match_rifle("HATSAN", "Hercules Bully", 6.35, _platform("pcp"))
-        self.assertEqual(r["model"], "Hercules")  # finding: name replaced
+        self.assertTrue(r is None or r["model"] == "Hercules Bully", r)
+
+    def test_exact_name_without_saved_caliber_still_matches(self):
+        r = match_rifle("HATSAN", "Hercules Bully", 7.62, _platform("pcp"))
+        self.assertEqual((r["brand"], r["model"]), ("Hatsan", "Hercules Bully"))
+
+    def test_no_exact_name_no_match(self):
+        self.assertIsNone(
+            match_rifle("Hatsan", "Hercules Bully Sniper X", 6.35, _platform("pcp")))
 
     def test_editor_writes_the_list_name_into_the_saved_record(self):
         src = library_text("lib/features/profiles/profiles_screen.dart")
@@ -186,12 +208,16 @@ class Prf4CaliberBeatsExactName(unittest.TestCase):
 
 
 class Prf5DotlessI(unittest.TestCase):
-    def test_upper_case_dotless_i_brand_not_matched_today(self):
-        self.assertEqual("SARSILMAZ".lower(), "sarsilmaz")
-        self.assertNotEqual(squash("SARSILMAZ"), squash("Sarsılmaz"))
-        self.assertFalse(brand_matches("SARSILMAZ", "Sarsılmaz"))
-        self.assertIsNone(
-            match_rifle("SARSILMAZ", "SAR 308 Versiyon 2", 7.82, _platform("firearm")))
+    """PRF-5: fixed (fix/prf-durbun-eslestirme); flipped to the fixed state."""
+
+    def test_upper_case_dotless_i_brand_matched(self):
+        self.assertEqual(squash("SARSILMAZ"), squash("Sarsılmaz"))
+        self.assertTrue(brand_matches("SARSILMAZ", "Sarsılmaz"))
+        r = match_rifle("SARSILMAZ", "SAR 308 Versiyon 2", 7.82, _platform("firearm"))
+        self.assertEqual((r["brand"], r["model"]), ("Sarsılmaz", "SAR 308 Versiyon 2"))
+
+    def test_plain_capital_i_still_matches_dotted_i(self):
+        self.assertTrue(brand_matches("TIKKA", "Tikka"))
 
     def test_dotted_capital_i_happens_to_work(self):
         # 'İ'.lower() is 'i' + U+0307; the split drops the combining dot.
@@ -268,10 +294,15 @@ class RepositoryFacts(unittest.TestCase):
         i = src.index("Map<String, dynamic> _scopeEntry()")
         return src[i:src.index("Future<void> _save()", i)]
 
-    def test_prf1_scope_entry_writes_no_windage_travel(self):
+    def test_prf1_scope_entry_writes_windage_travel(self):
+        # PRF-1 fixed (fix/prf-durbun-eslestirme): flipped to the fixed state.
         block = self._scope_entry()
         self.assertIn("'elevationRangeMrad'", block)
-        self.assertNotIn("windageRangeMrad", block)  # finding PRF-1
+        self.assertIn("'windageRangeMrad': windage", block)
+        self.assertIn("'windageRangeIsLowerBound': true", block)
+        self.assertIn("'elevationRangeIsLowerBound': true", block)
+        cat = (ROOT / "lib/data/user_catalog.dart").read_text(encoding="utf-8")
+        self.assertIn("e['windageRangeIsLowerBound'] == true", cat)
         balli = library_text(BALLISTICS)
         self.assertIn("_halfTravelClicks(click, s.windageRangeMrad) ?? _unknownTravelClicks", balli)
 
@@ -289,9 +320,13 @@ class RepositoryFacts(unittest.TestCase):
             self.assertIn(f, dup)
         self.assertEqual(src.count("existing != null && existing.userEntered"), 0)
 
-    def test_prf3_scope_saved_with_profile_unit(self):
+    def test_prf3_scope_keeps_its_own_unit(self):
+        # PRF-3 fixed (fix/prf-durbun-eslestirme): in list mode the scope's
+        # own unit and click are saved, not the profile unit.
         block = self._scope_entry()
-        self.assertIn("'clickUnit': angularUnit.name", block)
+        self.assertNotIn("'clickUnit': angularUnit.name", block)
+        self.assertIn("'clickUnit': (own?.clickUnit ?? angularUnit).name", block)
+        self.assertIn("'click': own?.clickValue ?? _parse(scopeClick)", block)
         src = library_text("lib/features/profiles/profiles_screen.dart")
         self.assertIn("angularUnit = p?.angularUnit ?? s0?.clickUnit ?? AngularUnit.mrad;", src)
         self.assertIn(": num(_defaultClick(angularUnit)),", src)
