@@ -508,6 +508,7 @@ extension _HavaDurumuView on _BallisticsScreenState {
               // longer comes from the Rüzgâr gözlemi class.
               onChanged: (_) {
                 _userEdited.add(wind);
+                _windMaxFollowsWind();
                 // The weather button stays orange (owner, 2026-10-13): only
                 // a typed Sıcaklık or Bağıl nem means the weather is no
                 // longer the fetched one.

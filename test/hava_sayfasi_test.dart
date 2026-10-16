@@ -2,8 +2,9 @@
 // A: full-width weather button ("✓ Hava verisi alındı" / "⟳ Veriyi yenile"),
 //    under it ONE always-visible row: date | Sıfırla; the Rüzgâr yönü dial
 //    has a small title, stateOrange selection and "Saat 3 yönünde" | time.
-// B: Pro → Rüzgâr düzeltmesi: En çok rüzgâr | Düzeltme al, auto-updated by
-//    a weather fill that changes the wind, never over a typed value.
+// B: Pro → Rüzgâr düzeltmesi: En çok rüzgâr | Düzeltme al; a weather fill
+//    that changes the wind empties a button value (owner, 2026-10-15),
+//    never a typed value.
 // C: Basınç Ölçer: one ⓘ in the title, "Basınç al" no longer writes İrtifa.
 // D: İrtifa card: Haritadan (Google Elevation) | Telefondan (GPS, warmed up
 //    silently when the page opens); the calculation uses Telefondan, else
@@ -302,7 +303,7 @@ void main() {
   });
 
   group('B. Rüzgâr düzeltmesi', () {
-    testWidgets('Düzeltme al → orange; a new weather wind updates it', (
+    testWidgets('Düzeltme al → orange; a new weather wind empties it', (
       tester,
     ) async {
       final rig = _Rig();
@@ -321,7 +322,8 @@ void main() {
       expect(find.textContaining('Rüzgâr değişti'), findsNothing);
       expect(find.textContaining('Hava verisinden'), findsNothing);
 
-      // New wind from the next weather fill: updated without a prompt.
+      // New wind from the next weather fill: the button value is emptied
+      // (owner, 2026-10-15); "Düzeltme al" fills it again.
       rig.advance(const Duration(minutes: 40));
       rig.weather.outcome = observation(
         fetchedAt: rig.clock.current.toUtc(),
@@ -331,6 +333,10 @@ void main() {
       await _tap(tester, _weatherBtn);
       await _view(tester, rig, BallisticsView.pro);
       await openProFor(tester, _windMax);
+      expect(_text(tester, _windMax), '');
+      expect(find.text('Düzeltme al'), findsOneWidget);
+      expect(_button(tester, _windMaxBtn).active, isFalse);
+      await _tap(tester, _windMaxBtn);
       expect(_text(tester, _windMax), '12.0');
       expect(find.text('Düzeltme alındı'), findsOneWidget);
       expect(_date(tester, _windMaxDate), '14.10.2026 12:00');
