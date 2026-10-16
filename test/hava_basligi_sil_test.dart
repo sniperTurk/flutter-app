@@ -53,9 +53,7 @@ Future<void> _openHavaDurumu(WidgetTester tester, Size size) async {
 void main() {
   for (final size in const [Size(390, 844), Size(320, 568)]) {
     testWidgets('Hava Durumu at ${size.width.toInt()} pt: no "Hava" title, '
-        'top bar "Hava Durumu", first card directly under it', (
-      tester,
-    ) async {
+        'top bar "Hava Durumu", first card directly under it', (tester) async {
       await _openHavaDurumu(tester, size);
 
       // The page with an active profile, not the no-profile variant.
