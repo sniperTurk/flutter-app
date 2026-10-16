@@ -236,8 +236,7 @@ void main() {
     expect(find.byKey(ScopeDialKeys.windageDrumBox), findsNothing);
   });
 
-  testWidgets('the reticle square keeps its hard-edge clip, so the column '
-      'margin past it never paints', (
+  testWidgets('the reticle square hard-edge clips the column margin', (
     tester,
   ) async {
     await _open(tester, const Size(390, 844));
