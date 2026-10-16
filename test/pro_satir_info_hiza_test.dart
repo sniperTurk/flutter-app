@@ -251,6 +251,26 @@ void main() {
         final chevron = tester.getRect(_chevron(id));
         expect(info.right, lessThanOrEqualTo(chevron.left + 0.5), reason: id);
         rights.add(tester.getRect(_summary(id)).right);
+        // The value shortens first: a title wraps only when the value is
+        // already down to its 40 pt minimum (or its own shorter width).
+        final oneLine = tester.getRect(_title('angle')).height;
+        if (tester.getRect(_title(id)).height > oneLine + 0.5) {
+          final v = tester.getRect(_summary(id));
+          expect(v.width, lessThanOrEqualTo(40.5), reason: '$id wrapped early');
+        }
+        // Opening the box does not make the title jump to another height.
+        final before = tester.getRect(_title(id)).height;
+        await tester.tapAt(tester.getCenter(_chevron(id)));
+        await tester.pumpAndSettle();
+        expect(_summary(id), findsNothing, reason: id);
+        expect(
+          tester.getRect(_title(id)).height,
+          closeTo(before, 0.5),
+          reason: '$id title height when open',
+        );
+        await tester.tapAt(tester.getCenter(_title(id)));
+        await tester.pumpAndSettle();
+        expect(_summary(id), findsOneWidget, reason: id);
       }
       for (final r in rights) {
         expect(r, closeTo(rights.first, 0.5));

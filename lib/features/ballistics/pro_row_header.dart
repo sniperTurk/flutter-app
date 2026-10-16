@@ -55,6 +55,10 @@ class ProRowHeader extends StatelessWidget {
   final TextStyle titleStyle;
   final Widget? info;
   final String? value;
+
+  /// Hides [value] (open box) while keeping its space reserved, so the
+  /// title does not jump between one and two lines when the box toggles.
+  final bool showValue;
   final Key? valueKey;
   final TextStyle? valueStyle;
   final IconData chevron;
@@ -68,6 +72,7 @@ class ProRowHeader extends StatelessWidget {
     required this.chevronColor,
     this.info,
     this.value,
+    this.showValue = true,
     this.valueKey,
     this.valueStyle,
   });
@@ -116,7 +121,7 @@ class ProRowHeader extends StatelessWidget {
             ),
             if (info case final i?) i,
             Expanded(
-              child: v == null
+              child: v == null || !showValue
                   ? const SizedBox.shrink()
                   : Text(
                       v,
