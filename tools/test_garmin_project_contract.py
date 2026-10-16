@@ -18,8 +18,11 @@ NS = {"iq": "http://www.garmin.com/xml/connectiq"}
 V1_KEYS = (
     "v", "ok", "profile", "at", "range", "rangeUnit", "rangeStep", "up",
     "right", "upAngle", "rightAngle", "unit", "click", "windSpeed",
-    "windUnit", "windClock",
+    "windUnit", "windClock", "angle",
 )
+
+# Target watches (unchanged by the level/angle work, 2026-10-16).
+PRODUCTS = ["fenix7", "fenix7pro", "epix2pro47mm", "fr265", "fr965", "venu3"]
 
 
 class GarminProjectContract(unittest.TestCase):
@@ -32,7 +35,9 @@ class GarminProjectContract(unittest.TestCase):
         self.assertEqual(self.app.get("type"), "watch-app")
         self.assertRegex(self.app.get("id"), r"^[0-9a-f]{32}$")
         perms = [p.get("id") for p in self.app.find("iq:permissions", NS)]
-        self.assertEqual(perms, ["Communications"])
+        # Sensor: Toybox.Sensor (accelerometer for the level) requires it
+        # (Connect IQ API docs, Toybox.Sensor "Requires Permission: Sensor").
+        self.assertEqual(perms, ["Communications", "Sensor"])
         self.assertTrue(self.app.find("iq:products", NS))
         self.assertEqual([l.text for l in self.app.find("iq:languages", NS)], ["tur"])
 
@@ -58,6 +63,21 @@ class GarminProjectContract(unittest.TestCase):
         main = self.sources["MainView.mc"]
         self.assertIn("refreshTimer.start(method(:onRefresh), 30000, true)", main)
         self.assertIn("refreshTimer.stop()", main)
+
+    def test_manifest_products_unchanged(self):
+        ids = [p.get("id") for p in self.app.find("iq:products", NS)]
+        self.assertEqual(ids, PRODUCTS)
+
+    def test_level_sends_the_angle_and_is_reachable(self):
+        level = self.sources["LevelView.mc"]
+        self.assertIn('{"type" => "setAngle", "value" => v}', level)
+        main = self.sources["MainView.mc"]
+        self.assertIn("new LevelView()", main)
+        self.assertIn("s.angle", main)
+        # The angle row never pushes the unit line down: it comes after it
+        # and is skipped when the round screen has no room.
+        self.assertLess(main.index("Format.unitLine(s.unit, s.click)"), main.index('"Açı " + Format.signedDeg(s.angle)'))
+        self.assertIn("if (s.angle != null && rowY <= lastRow)", main)
 
     def test_manifest_has_a_version(self):
         self.assertRegex(self.app.get("version") or "", r"^\d+\.\d+\.\d+$")

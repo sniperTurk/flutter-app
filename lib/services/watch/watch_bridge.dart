@@ -177,9 +177,9 @@ class GarminLink {
   }
 }
 
-/// Sends the shot solution to a watch and receives the watch's distance
-/// requests. Without a watch (or without the native side) it silently does
-/// nothing: no exception, no retry storm.
+/// Sends the shot solution to a watch and receives the watch's distance and
+/// shot angle requests. Without a watch (or without the native side) it
+/// silently does nothing: no exception, no retry storm.
 class WatchBridge {
   /// The same content is sent again after this long, so a watch that marks
   /// data older than 2 minutes as stale never does so while Atış is open
@@ -253,4 +253,20 @@ class WatchBridge {
       .map((m) => m['value'])
       .where((v) => v is int && v >= 1 && v <= maxRange)
       .cast<int>();
+
+  /// Largest shot angle (degrees, either sign) the watch may set.
+  static const maxWatchAngleDeg = 60.0;
+
+  /// Shot angles (degrees, + up / − down) the watch's level measured and
+  /// the shooter sent ("Açıyı gönder"). Only finite numbers within
+  /// ±[maxWatchAngleDeg] pass, rounded to 0.1°.
+  Stream<double> get angleRequests => _transport.incoming
+      .where((m) => m['type'] == 'setAngle')
+      .map((m) => m['value'])
+      .where((v) => v is num && v.isFinite && v.abs() <= maxWatchAngleDeg)
+      .cast<num>()
+      .map((v) {
+        final r = (v * 10).roundToDouble() / 10;
+        return r == 0 ? 0.0 : r;
+      });
 }

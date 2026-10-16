@@ -35,6 +35,20 @@ module Format {
         return decimal(v) + " " + unit;
     }
 
+    // 1.2° (işaretsiz, 0,1° adım).
+    function deg(v) {
+        return v.abs().format("%.1f") + "°";
+    }
+
+    // +12.5° yukarı, -3.0° aşağı, 0.0° düz.
+    function signedDeg(v) {
+        var s = deg(v);
+        if (s.equals("0.0°")) {
+            return s;
+        }
+        return (v > 0 ? "+" : "-") + s;
+    }
+
     function unitLine(unit, click) {
         return unit + ", " + decimal(click) + "/klik";
     }

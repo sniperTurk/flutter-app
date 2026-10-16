@@ -229,13 +229,16 @@ abstract final class ProSectionInfo {
   /// ⓘ of the Garmin saati row (owner, 2026-10-16 01:04), one paragraph.
   /// Checked against the watch code: the phone sends what Hedef shows
   /// (WatchSolution: clicks, range, wind) and only while Hedef is open;
-  /// the watch sends a range back (setRange, garmin/source/RangeView.mc).
+  /// the watch sends a range back (setRange, garmin/source/RangeView.mc)
+  /// and, from its level, a shot angle (setAngle, LevelView.mc).
   static const garmin =
       'Hesap sonucunu (üst ve yan kule klikleri, mesafe, rüzgâr) Garmin '
       'saatinize gönderir; sonucu telefonu çıkarmadan bileğinizden '
       'okursunuz. Nasıl kullanılır: saatinize Connect IQ mağazasından SNIPER '
       'TÜRK uygulamasını yükleyin, bu satıra dokunun ve Garmin Connect\'te '
       'saatinizi seçin. Sonra Hedef\'teki her yeni hesap saate kendiliğinden '
-      'gider; saatten mesafe de gönderebilirsiniz. Kullanmazsanız hiçbir '
-      'ayarınız ve hesabınız değişmez.';
+      'gider; saatten mesafe de gönderebilirsiniz. Raya bir aparatla takılan '
+      'saat atış terazisi olur (düz olunca titreşimle uyarır) ve atış açısını '
+      'ölçer; saatte "Açıyı gönder" bu açıyı hesaba koyar. Kullanmazsanız '
+      'hiçbir ayarınız ve hesabınız değişmez.';
 }

@@ -85,6 +85,48 @@ void main() {
     expect(t.sent.last.containsKey('up'), isFalse);
   });
 
+  testWidgets('a shot angle from the Garmin level enters as Açı and is '
+      'solved', (tester) async {
+    tester.view.physicalSize = const Size(1000, 4000);
+    tester.view.devicePixelRatio = 1;
+    addTearDown(tester.view.reset);
+    final t = _FakeTransport();
+    WatchBridge.instance = WatchBridge(transport: t);
+    addTearDown(() => WatchBridge.instance = WatchBridge());
+
+    await tester.pumpWidget(_app(BallisticsView.environment));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Hesapla'));
+    await tester.pumpAndSettle();
+    await tester.pumpWidget(_app(BallisticsView.shot));
+    await tester.pumpAndSettle();
+    final first = t.sent.lastWhere((m) => m['ok'] == true);
+    expect(first['angle'], 0.0);
+
+    // "Açıyı gönder" on the watch: 12.5° up.
+    t.controller.add({'type': 'setAngle', 'value': 12.5});
+    await tester.pumpAndSettle();
+    final answer = t.sent.last;
+    expect(answer['ok'], true);
+    expect(answer['angle'], 12.5);
+    expect(answer['range'], first['range']);
+    expect(answer['upAngle'], isNot(first['upAngle']));
+
+    // Invalid angles change nothing.
+    final before = t.sent.length;
+    for (final v in <Object?>[double.nan, 90, -90, 'on iki', null]) {
+      t.controller.add({'type': 'setAngle', 'value': v});
+    }
+    await tester.pumpAndSettle();
+    expect(t.sent.skip(before).where((m) => m['angle'] != 12.5), isEmpty);
+
+    // It stays the Açı of every later solution (here a watch distance).
+    t.controller.add({'type': 'setRange', 'value': 60});
+    await tester.pumpAndSettle();
+    expect(t.sent.last['range'], 60);
+    expect(t.sent.last['angle'], 12.5);
+  });
+
   testWidgets('without a native watch side Atış works as before', (
     tester,
   ) async {

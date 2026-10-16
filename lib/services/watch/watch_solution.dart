@@ -44,6 +44,11 @@ class WatchSolution {
   /// Clock hour (1…12) the wind comes from.
   final int? windClock;
 
+  /// Shot angle (Pro Ayarlar Açı) the solution used, degrees, + up / − down.
+  /// Optional field: watch apps that do not know it ignore it, so the schema
+  /// version stays 1.
+  final double? angle;
+
   /// When the phone produced this solution.
   final DateTime at;
 
@@ -62,6 +67,7 @@ class WatchSolution {
     this.windSpeed,
     this.windUnit,
     this.windClock,
+    this.angle,
     required this.at,
   });
 
@@ -98,6 +104,7 @@ class WatchSolution {
     windSpeed: windSpeed,
     windUnit: windUnit,
     windClock: windClock,
+    angle: angle,
     at: time,
   );
 
@@ -135,6 +142,11 @@ class WatchSolution {
       m['windSpeed'] = (ws * 10).roundToDouble() / 10;
       m['windUnit'] = wu;
       if (wc != null) m['windClock'] = wc;
+    }
+    final a = angle;
+    if (a != null && a.isFinite) {
+      final r = (a * 10).roundToDouble() / 10;
+      m['angle'] = r == 0 ? 0.0 : r;
     }
     return m;
   }
