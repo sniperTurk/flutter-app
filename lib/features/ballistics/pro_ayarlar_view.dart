@@ -710,8 +710,12 @@ extension _ProAyarlarView on _BallisticsScreenState {
                     // Level with the middle of the 46 pt box (the box keeps
                     // MenzilSpace.md under it).
                     padding: const EdgeInsets.only(bottom: MenzilSpace.md),
-                    child: SizedBox(
-                      height: MenzilSpace.control,
+                    // At least the box height; taller when large text
+                    // wraps "isteğe bağlı" (never cut off).
+                    child: ConstrainedBox(
+                      constraints: const BoxConstraints(
+                        minHeight: MenzilSpace.control,
+                      ),
                       child: Align(
                         alignment: AlignmentDirectional.centerStart,
                         child: Text(

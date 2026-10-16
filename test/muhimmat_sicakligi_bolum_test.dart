@@ -325,4 +325,30 @@ void main() {
       }
     });
   }
+
+  testWidgets('320 pt, text scale 2: "isteğe bağlı" is never cut off', (
+    tester,
+  ) async {
+    await _size(tester, 320, 844);
+    await _pro(tester, _firearm, scale: 2);
+    await tester.ensureVisible(find.byKey(_row));
+    await tester.pumpAndSettle();
+    expect(tester.takeException(), isNull);
+    final p = tester.renderObject<RenderParagraph>(
+      find.descendant(
+        of: find.byKey(_optional),
+        matching: find.byType(RichText),
+      ),
+    );
+    // Laid out as tall as its lines need (a fixed 46 pt box clipped the
+    // second line before).
+    expect(
+      p.size.height,
+      greaterThanOrEqualTo(p.getMinIntrinsicHeight(p.size.width) - 0.01),
+    );
+    expect(
+      tester.getRect(find.byKey(_optional)).bottom,
+      lessThanOrEqualTo(tester.getRect(find.byKey(_row)).bottom + 0.01),
+    );
+  });
 }
