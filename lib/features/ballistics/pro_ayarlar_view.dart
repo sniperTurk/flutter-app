@@ -683,8 +683,10 @@ extension _ProAyarlarView on _BallisticsScreenState {
           if (_isFirearm) ...[
             // Mühimmat sıcaklığı (owner, 2026-10-16, design PR #366): moved
             // here from Hava Durumu, next to the powder correction it feeds.
-            // Same box, ⓘ, saved value and calculation (empty = the air
-            // temperature); box in the left half, "isteğe bağlı" right.
+            // Same box, saved value and calculation (empty = the air
+            // temperature); box in the left half, "isteğe bağlı" right. No ⓘ
+            // in the box (owner, 2026-10-16 21:17, #373): its text is listed
+            // in this section's title ⓘ sheet (ProInfoField above).
             Row(
               key: const Key('pro-ammo-temp-row'),
               crossAxisAlignment: CrossAxisAlignment.end,
@@ -695,7 +697,6 @@ extension _ProAyarlarView on _BallisticsScreenState {
                     controller: ammoTempCtl,
                     label: 'Mühimmat sıcaklığı',
                     onChanged: (_) => _coriolisChanged(),
-                    info: EnvironmentFieldInfo.ammoTemperature,
                     unit: metric ? '°C' : '°F',
                     keyboardType: const TextInputType.numberWithOptions(
                       decimal: true,

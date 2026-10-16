@@ -254,6 +254,31 @@ void main() {
         await shot('pro_$size');
       });
 
+      // The Tüfek düzeltmeleri header ⓘ sheet lists Mühimmat sıcaklığı (the
+      // box has no ⓘ of its own, owner 2026-10-16 21:17, #373).
+      await step('pro_bilgi_$size', () async {
+        final info = find.byKey(const Key('pro-info-rifle'));
+        await tester.ensureVisible(info);
+        await settle();
+        await tester.tap(info);
+        await settle();
+        final entry = find.textContaining(
+          'Mühimmat sıcaklığı',
+          findRichText: true,
+        );
+        if (entry.evaluate().isNotEmpty) {
+          await Scrollable.ensureVisible(
+            tester.element(entry.last),
+            alignment: 0.3,
+          );
+          await settle();
+        }
+        rect('pro_bilgi_$size:sayfa', find.byKey(const Key('pro-info-sheet')));
+        await shot('pro_bilgi_$size');
+        await tester.tap(find.byKey(const Key('pro-info-close')));
+        await settle();
+      });
+
       await step('hedef_$size', () async {
         await openTab('Hedef');
         await wait(2);

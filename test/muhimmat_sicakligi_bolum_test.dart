@@ -13,6 +13,7 @@ import 'package:sniper_turk/data/catalog_repository.dart';
 import 'package:sniper_turk/data/user_catalog.dart';
 import 'package:sniper_turk/features/ballistics/ballistics_screen.dart';
 import 'package:sniper_turk/features/ballistics/environment_field_info.dart';
+import 'package:sniper_turk/features/ballistics/pro_info_sheet.dart';
 import 'package:sniper_turk/features/ballistics/scope_dial_view.dart';
 import 'package:sniper_turk/models/domain.dart';
 import 'package:sniper_turk/services/shot_settings_store.dart';
@@ -190,26 +191,36 @@ void main() {
       tester.widget<Text>(find.byKey(_optional)).style!.color,
       const Color(0xFF9CB1C0),
     );
-    // Same label, unit, ⓘ text as on Hava Durumu before.
+    // Same label and unit as on Hava Durumu before. No ⓘ in the box (owner,
+    // 2026-10-16 21:17, #373): its text lives in the section header's sheet.
     final input = tester.widget<MenzilInput>(box);
     expect(input.label, 'Mühimmat sıcaklığı');
     expect(input.unit, '°C');
-    expect(input.info, EnvironmentFieldInfo.ammoTemperature);
-    // Listed in the box's ⓘ sheet; the box's own ⓘ opens that sheet.
+    expect(input.info, isNull);
+    expect(
+      find.descendant(of: box, matching: find.byType(MenzilInfoButton)),
+      findsNothing,
+    );
+    expect(
+      find.descendant(
+        of: find.byKey(_row),
+        matching: find.byType(MenzilInfoButton),
+      ),
+      findsNothing,
+    );
+    // Listed in the Tüfek düzeltmeleri header ⓘ sheet with the same text.
     await tester.tap(find.byKey(const Key('pro-info-rifle')));
     await tester.pumpAndSettle();
     final sheet = find.byKey(const Key('pro-info-sheet'));
     expect(sheet, findsOneWidget);
-    expect(
-      find.descendant(
-        of: sheet,
-        matching: find.textContaining(
-          'Mühimmat sıcaklığı: ',
-          findRichText: true,
-        ),
-      ),
-      findsWidgets,
-    );
+    final listed = tester
+        .widgetList<ProInfoFieldEntry>(
+          find.descendant(of: sheet, matching: find.byType(ProInfoFieldEntry)),
+        )
+        .where((e) => e.field.label == 'Mühimmat sıcaklığı')
+        .toList();
+    expect(listed, hasLength(1));
+    expect(listed.single.field.text, EnvironmentFieldInfo.ammoTemperature);
     expect(tester.takeException(), isNull);
   });
 
