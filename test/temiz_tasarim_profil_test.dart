@@ -368,7 +368,8 @@ void main() {
       matching: find.byWidgetPredicate((w) => w is MenzilSelect),
       matchRoot: true,
     );
-    await _pickAt(tester, model, 0);
+    // Index 0 is the "Seçiniz" row (owner, 2026-10-16).
+    await _pickAt(tester, model, 1);
     expect(selectedValue<String>(tester, 'scope-model-select'), isNotNull);
     await chooseInSelect(tester, 'scope-brand-select', 'Athlon');
     for (final f in filters) {

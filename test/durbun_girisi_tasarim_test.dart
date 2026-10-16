@@ -246,8 +246,10 @@ void main() {
     await tester.pumpAndSettle();
     expect(_menu, findsOneWidget);
     final lines = _entryTexts(tester);
-    expect(lines, isNotEmpty);
-    for (final l in lines) {
+    // The list starts with its "Seçiniz" row (owner, 2026-10-16).
+    expect(lines.first, 'Seçiniz');
+    expect(lines.length, greaterThan(1));
+    for (final l in lines.skip(1)) {
       expect(l.toUpperCase(), contains('MOA'), reason: l);
       expect(l.toUpperCase(), contains('FFP'), reason: l);
     }

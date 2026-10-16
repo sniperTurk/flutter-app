@@ -571,11 +571,11 @@ void main() {
       expect(typed('scope-model'), '');
       expect(typed('scope-travel-elevation'), '');
       final missing = _missingText(tester);
-      final dürbün = missing
+      final scopePart = missing
           .split(' · ')
           .firstWhere((p) => p.startsWith('Dürbün: '));
       expect(
-        dürbün,
+        scopePart,
         'Dürbün: Marka, Dürbün modeli, Dürbün birimi, Odak düzlemi, '
         'Min. büyütme, Maks. büyütme, Mercek çapı, Klik değeri, '
         'Dürbün ayağı',

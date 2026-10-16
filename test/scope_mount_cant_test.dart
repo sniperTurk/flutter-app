@@ -345,7 +345,7 @@ void main() {
       await chooseInSelect(tester, 'scope-unit', 'MRAD');
       await chooseInSelect(tester, 'scope-click', '0,1 MRAD');
       final field = find.byKey(
-        const ValueKey('scope-mount-cant-mrad-0.1'),
+        const ValueKey('scope-mount-cant-mrad-0,1'),
         skipOffstage: false,
       );
       expect(field, findsOneWidget);
