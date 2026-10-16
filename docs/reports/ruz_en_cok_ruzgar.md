@@ -53,15 +53,16 @@ Bulgular: `docs/reports/denetim_testflight_2026_10_14b.md` içindeki RUZ-1 ve RU
 
 ## CI
 
-Hepsi dalın son hâli `baa568e` (main ile birleştirilmiş) üzerinde çalıştı:
+Kod incelemesi düzeltmesinden sonra, dalın son kod hâli `bb01989` üzerinde:
 
-- iOS CI `verify`: başarılı — https://github.com/sniperTurk/flutter-app/actions/runs/38790166223/job/116619087139
-- iOS CI `dart-checks`: başarılı (aynı çalıştırma: https://github.com/sniperTurk/flutter-app/actions/runs/38790166223)
+- iOS CI `verify`: başarılı — https://github.com/sniperTurk/flutter-app/actions/runs/38833428490/job/116761258782
+- iOS CI `dart-checks`: başarılı (aynı çalıştırma: https://github.com/sniperTurk/flutter-app/actions/runs/38833428490)
 - iOS CI `wind-acceptance`: başarılı (aynı çalıştırma)
 - iOS CI `ios-simulator`: atlandı (iş akışı bu olayda çalıştırmıyor); Simulator derlemesi yapılmadı.
-- Test tanılama (tüm `test/`, `flutter test` çıkış kodu 0): başarılı — https://github.com/sniperTurk/flutter-app/actions/runs/38791424325
-- Analiz tanılama: başarılı — https://github.com/sniperTurk/flutter-app/actions/runs/38791428707
-- Biçim (dart format) iş akışı ilk commit'te test dosyasını biçimledi; bu değişiklik commit'e katıldı: https://github.com/sniperTurk/flutter-app/actions/runs/38781183508
+- Test tanılama (tüm `test/`, `flutter test` çıkış kodu 0): başarılı — https://github.com/sniperTurk/flutter-app/actions/runs/38833861747
+- Analiz tanılama: başarılı — https://github.com/sniperTurk/flutter-app/actions/runs/38833864496
+- Biçim (dart format) iş akışı: değişiklik yok — https://github.com/sniperTurk/flutter-app/actions/runs/38833423894
+- Yeni "yeniden açılış + aynı rüzgâr" testi düzeltme olmadan çalıştırıldı ve beklendiği gibi düştü (kutu boş, 7,5 beklendi): https://github.com/sniperTurk/flutter-app/actions/runs/38833404310 . Bunun için açılan geçici `tmp/ruz-repro` dalı bu ortamdan silinemedi (yetki yok); silinebilir.
 
 TestFlight çalıştırılmadı. PR taslak; birleştirilmedi.
 
