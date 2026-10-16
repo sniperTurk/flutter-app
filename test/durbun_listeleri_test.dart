@@ -744,10 +744,7 @@ void main() {
       '',
     );
     expect(selectedValue<String>(tester, 'scope-reticle'), 'Mil-Dot');
-    expect(
-      _missingText(tester),
-      contains('Dürbün: Min. büyütme, Klik değeri'),
-    );
+    expect(_missingText(tester), contains('Dürbün: Min. büyütme, Klik değeri'));
     final button = find.widgetWithText(MenzilPrimaryButton, 'Güncelle');
     await tester.ensureVisible(button);
     await tester.pumpAndSettle();
