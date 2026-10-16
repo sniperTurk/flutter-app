@@ -662,11 +662,22 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
   final MenzilSelectMenu<RifleProfile> _profileMenu =
       MenzilSelectMenu<RifleProfile>();
 
+  /// True while [_openProfileMenu] waits for the keyboard to go away.
+  bool _openingProfileMenu = false;
+
   /// Opens [_profileMenu] under the top-bar button. Each row shows the
   /// profile name and caliber, as the button does; a long name wraps
   /// instead of being cut, so every profile stays recognisable (UST-1).
   Future<void> _openProfileMenu() async {
-    final result = await _profileMenu.open(
+    if (_profileMenu.isOpen || _openingProfileMenu) return;
+    _openingProfileMenu = true;
+    try {
+      await MenzilSelectMenu.closeKeyboard(context);
+    } finally {
+      _openingProfileMenu = false;
+    }
+    if (!mounted) return;
+    final pending = _profileMenu.show(
       context,
       box: () => _profileButtonKey.currentContext?.findRenderObject(),
       items: [
@@ -680,6 +691,8 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
       // Rows grow with a wrapped name (at least 48 pt high).
       itemHeight: null,
     );
+    if (pending == null) return;
+    final result = await pending;
     if (!mounted || result == null) return;
     final picked = result.value;
     if (picked != null) await _choose(picked);

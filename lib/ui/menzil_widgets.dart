@@ -1469,16 +1469,31 @@ class MenzilSelectState<T> extends State<MenzilSelect<T>>
     }
   }
 
-  /// Opens the list UNDER the box (see [MenzilSelectMenu.open]).
+  /// True while [_open] waits for the keyboard to go away.
+  bool _opening = false;
+
+  /// Opens the list UNDER the box (see [MenzilSelectMenu.show]), once the
+  /// keyboard is gone.
   Future<void> _open() async {
     final w = widget;
-    if (w.onChanged == null || w.items.isEmpty) return;
-    final result = await _menu.open(
+    if (w.onChanged == null || w.items.isEmpty || _menu.isOpen || _opening) {
+      return;
+    }
+    _opening = true;
+    try {
+      await MenzilSelectMenu.closeKeyboard(context);
+    } finally {
+      _opening = false;
+    }
+    if (!mounted) return;
+    final pending = _menu.show(
       context,
       box: () => _boxKey.currentContext?.findRenderObject(),
       items: w.items,
       itemHeight: w.itemHeight,
     );
+    if (pending == null) return;
+    final result = await pending;
     if (!mounted || result == null) return;
     setState(() => _value = result.value);
     widget.onChanged?.call(result.value);
@@ -1760,9 +1775,6 @@ class MenzilSelectState<T> extends State<MenzilSelect<T>>
 class MenzilSelectMenu<T> {
   _MenzilMenuRoute<T>? _route;
 
-  /// True while [open] waits for the keyboard to go away.
-  bool _opening = false;
-
   /// Window width when the list opened.
   double? _openWidth;
 
@@ -1773,7 +1785,8 @@ class MenzilSelectMenu<T> {
   /// button did by taking the focus: the keyboard closes first and the list
   /// is placed once it is gone (at most about half a second), so it is
   /// never laid out against a keyboard that is about to disappear.
-  static Future<void> _closeKeyboard(BuildContext context) async {
+  /// Callers wait for this before [show] (MenzilSelect does).
+  static Future<void> closeKeyboard(BuildContext context) async {
     FocusManager.instance.primaryFocus?.unfocus();
     // The window's own insets: a Scaffold hides the keyboard from the
     // MediaQuery of its body.
@@ -1801,22 +1814,20 @@ class MenzilSelectMenu<T> {
     if (View.of(context).physicalSize.width != _openWidth) close();
   }
 
-  /// Opens the list of [items] UNDER [box] (read once the keyboard is
-  /// gone), [MenzilSelect.menuGap] below it and exactly as wide as the box
-  /// (owner, 2026-10-15). When the screen has too little room below, the
-  /// page scrolls up first so the list still opens downward. Null when
-  /// closed without a pick; otherwise the picked value.
-  Future<({T? value})?> open(
+  /// Shows the list of [items] UNDER [box], [MenzilSelect.menuGap] below
+  /// it and exactly as wide as the box (owner, 2026-10-15); call it once
+  /// [closeKeyboard] is done. When the screen has too little room below,
+  /// the page scrolls up first so the list still opens downward. Returns
+  /// null when the list cannot open (already open, nothing to show);
+  /// otherwise a future with null when closed without a pick, or the
+  /// picked value.
+  Future<({T? value})?>? show(
     BuildContext context, {
     required RenderObject? Function() box,
     required List<DropdownMenuItem<T>> items,
     double? itemHeight = kMinInteractiveDimension,
-  }) async {
-    if (items.isEmpty || _route != null || _opening) return null;
-    _opening = true;
-    await _closeKeyboard(context).whenComplete(() => _opening = false);
-    if (!context.mounted) return null;
-    if (_route != null) return null;
+  }) {
+    if (items.isEmpty || _route != null) return null;
     final navigator = Navigator.of(context);
     final anchor = box();
     final navBox = navigator.context.findRenderObject();
@@ -1888,9 +1899,10 @@ class MenzilSelectMenu<T> {
     );
     _route = menu;
     _openWidth = View.of(context).physicalSize.width;
-    final result = await navigator.push(menu);
-    if (identical(_route, menu)) _route = null;
-    return result == null ? null : (value: result.value);
+    return navigator.push(menu).then((result) {
+      if (identical(_route, menu)) _route = null;
+      return result == null ? null : (value: result.value);
+    });
   }
 }
 

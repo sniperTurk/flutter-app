@@ -510,6 +510,11 @@ void main() {
         expect(list.left, greaterThanOrEqualTo(0));
         expect(list.right, lessThanOrEqualTo(width + 0.01));
         // Rows do not overlap; the caliber of each is under or beside it.
+        // (At 320 pt ×1.3 the list scrolls: bring the last row in.)
+        await tester.ensureVisible(
+          find.byKey(const ValueKey(('top-bar-profile-item', 'pb'))),
+        );
+        await tester.pumpAndSettle();
         final itemA = tester.getRect(
           find.byKey(const ValueKey(('top-bar-profile-item', 'pa'))),
         );
