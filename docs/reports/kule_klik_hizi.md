@@ -40,7 +40,19 @@ Yeni `test/kule_klik_hizi_test.dart` (gerçek Hedef sayfası, sahte `TurretClick
 Yerel: `python3 tools/offline_dart_lint.py` → PASS (407 Dart dosyası, 0 sorun); `python3 -m unittest discover -s tools -p 'test_*.py'` → 915 test OK (1 atlanan, önceden var). Flutter SDK bu ortamda kurulamadı (storage.googleapis.com ağ politikası 403): `flutter analyze` ve `flutter test` yerelde ÇALIŞMADI (BLOCKED); sonuçlar yalnız aşağıdaki CI'dan.
 
 ## CI
-CI_LINKS
+Hepsi kod commit'i `7f16d67` üzerinde (main e7b29bf ile güncel; yeniden temellendirme gerekmedi):
+- iOS CI / verify (macOS, Simulator derlemesi dahil): BAŞARILI — https://github.com/sniperTurk/flutter-app/actions/runs/38944339215/job/117124792527
+- iOS CI / dart-checks: BAŞARILI — https://github.com/sniperTurk/flutter-app/actions/runs/38944339215/job/117120102839
+- iOS CI / wind-acceptance: BAŞARILI — https://github.com/sniperTurk/flutter-app/actions/runs/38944339215/job/117120102733
+- Tüm testler (test-diag, files=test): BAŞARILI — https://github.com/sniperTurk/flutter-app/actions/runs/38944533452
+- Kule testleri (kule_klik_hizi + kule_klik_sesi): BAŞARILI — https://github.com/sniperTurk/flutter-app/actions/runs/38944332773
+- analyze-diag: BAŞARILI — https://github.com/sniperTurk/flutter-app/actions/runs/38942507719
+- Format (375209577): BAŞARILI, değişiklik gerekmedi — https://github.com/sniperTurk/flutter-app/actions/runs/38944336898
+
+İlk tam test koşusu (https://github.com/sniperTurk/flutter-app/actions/runs/38942504414) yeni yavaş sürükleme testimde başarısız oldu: test aynı harekette ileri sonra geri gidiyordu ve 9 pt'den küçük artan yol geri dönüşte bir klik kaydırıyordu (bu davranış düzeltmeden önce de aynıydı). Test ileri ve geri iki ayrı hareket olarak yeniden yazıldı; beklenti gevşetilmedi.
+
+Code Review ve Security review: sorun yok — https://github.com/sniperTurk/flutter-app/pull/369#issuecomment-6221717263
+Not: bu ortamda `gh` CLI ile REST `gh api` kullanıldı; iş günlükleri indirilemedi (blob depolama 403), hatalar check-run annotation'larından okundu.
 
 ---
 🤖 Generated with [Claude Code](https://claude.com/claude-code)
