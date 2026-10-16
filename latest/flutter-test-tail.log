@@ -26,16 +26,16 @@ Downloading packages...
 Got dependencies!
 23 packages have newer versions incompatible with dependency constraints.
 Try `flutter pub outdated` for more information.
-00:00 +0: loading /Users/runner/work/flutter-app/flutter-app/integration_test/sim_screens_hava_basligi_test.dart
+00:00 +0: loading /Users/runner/work/flutter-app/flutter-app/integration_test/yan_kule_konum_screens_test.dart
 The following plugins do not support Swift Package Manager for ios:
   - flutter_compass
   - google_maps_flutter_ios
 This will become an error in a future version of Flutter. Please contact the plugin maintainers to request Swift Package Manager adoption.
 Running Xcode build...                                          
-Xcode build done.                                           86.6s
-00:00 +0: Hava Durumu screenshots at 390 and 320 pt
-SIMSCREEN:01_hava_durumu_390
-SIMSCREEN:02_hava_durumu_320
+Xcode build done.                                           165.3s
+00:00 +0: Hedef side turret at 390 and 320 pt
+SIMSCREEN:01_hedef_yan_kule_390
+SIMSCREEN:02_hedef_yan_kule_320
 SIMSCREEN_DONE failures=0
-00:20 +1: (tearDownAll)
-00:25 +1: All tests passed!
+01:17 +1: (tearDownAll)
+01:28 +1: All tests passed!
