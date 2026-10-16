@@ -69,7 +69,12 @@ Test yazı tipi her harfi kare çizer. Bu yüzden testte iPhone'un SF yazısı y
   - ⓘ ortasına ve ⓘ alanının kenarına yakın bir noktaya (merkezden +18 pt) dokunmak açıklama sayfasını açar, kutu kapalı kalır.
   - Başlığa, aradaki boşluğa, değere ve oka dokunmak kutuyu açar.
   - Garmin ⓘ'si Garmin Connect'i açmaz.
-- **Mevcut testler:** Hiçbiri değiştirilmedi, hiçbiri gevşetilmedi.
+- **Mevcut testler, bir istisna (sahibin onayı gerekir):** `test/ekran_boyutu_test.dart` uygulama yazısında "…" ile kesilen her metni hata sayar.
+  - Yeni kurala göre 375 pt ×1,3'te iki Pro satırının değeri ("kapalı") kısalıyor: 47 pt gerekiyor, 35–36 pt var. Başlık bu sayede tek satırda kalıyor.
+  - Sahibin kararı tam olarak bu ("önce değer … ile kısalır, başlık en son kayar"). Bu yüzden yalnız `pro-summary-*` anahtarlı Pro özet yazıları kasıtlı kesilen listesine eklendi (`_proSummaryByDesign`). Taramada yine `EKRAN_KESIK` olarak yazdırılırlar.
+  - Başka hiçbir metin muaf değil. Yeni test, değerin yalnız başlık başka türlü sığmıyorsa kısaldığını ayrıca doğrular.
+  - İstenmiyorsa seçenek: 375 pt ×1,3'te başlık iki satıra geçer, değer tam görünür. Bu, istenen sıranın tersi olur.
+  - Bu istisna dışında hiçbir mevcut test değiştirilmedi ya da gevşetilmedi.
 
 **Yerel:**
 

@@ -92,6 +92,24 @@ final Map<String, Set<String>> _summary = {};
 bool _cutByDesign(String text) =>
     text == _profile.name || text.startsWith('Kaydetmek için eksik:');
 
+/// Pro Ayarlar row summaries (owner, 2026-10-16 "Tamam yap": when the line
+/// runs out at 320 pt or text ×1.3 the value shortens with "…" first and
+/// the title wraps only as a last resort). Only the summary Text keyed
+/// `pro-summary-*` qualifies; test/pro_satir_info_hiza_test.dart checks
+/// that it is cut only when the title would not fit otherwise.
+bool _proSummaryByDesign(Element element) {
+  var found = false;
+  element.visitAncestorElements((a) {
+    final key = a.widget.key;
+    if (key is ValueKey<String> && key.value.startsWith('pro-summary-')) {
+      found = true;
+    }
+    // The summary's own Text is the RichText's direct parent.
+    return false;
+  });
+  return found;
+}
+
 /// Open finding waiting for the owner's choice (docs/ekran-boyutu/RAPOR.md
 /// #5): with Inter (and SF measured with Inter), "Barut katsayısı" next to its unit and ⓘ is still cut on
 /// a 375 pt phone. Every fix changes how the field looks, so it is listed
@@ -188,6 +206,7 @@ void _scanCutTexts(WidgetTester tester, _Collector c) {
       final family = ro.text.style?.fontFamily;
       if (_appFamilies.contains(family) &&
           !_cutByDesign(text) &&
+          !_proSummaryByDesign(element) &&
           !_knownOpen(text, c.device)) {
         c.cutAppFont.add(line);
       }
