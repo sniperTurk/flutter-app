@@ -80,7 +80,7 @@ Hâlâ açık:
 
 Python (`tools/`): `denetim_2026_10_15b_core.py`, `_hedef.py`, `_profil.py` (elle hesap) ve testleri `test_denetim_2026_10_15b_core.py`, `_hedef.py`, `_profil.py`, `_guvenlik.py` (anahtar ve bayrak taraması), `_pre.py` (PRE-1). Atlanan: HDF-1/FLG-1, PRE-1.
 
-Atlanan bütün testlerin `skip:` gerekçesi metindir (bulgu kimliği + kısa neden), çıplak `true` yok. Yalnız RUZ-1/RUZ-2 (`audit_2026_10_14b/weather_wind_elevation_audit_test.dart`) dokunulmadı: açık #335 aynı satırları siliyor, çakışma olmasın diye.
+Açık bulguların atlanan testlerinde gerekçe aynı biçimde yazılır: `test` ve `group` için `skip: '<kimlik>: <neden>'` metni; `testWidgets` `skip` için yalnız `bool` kabul ettiği için `skip: true` ve aynı satırda `// <kimlik>: <neden>`. Yalnız RUZ-1/RUZ-2 (`audit_2026_10_14b/weather_wind_elevation_audit_test.dart`) dokunulmadı: açık #335 aynı satırları siliyor, çakışma olmasın diye.
 
 `_pre.py` (PRE-1): bulgu algılayıcısı `metric` kelimesini artık tam kelime olarak arıyor; main'de `zero_group_screen.dart`'a gelen `metrics:` parametresi atlanan testi boşuna geçirecekti. Bulgu hâlâ açık.
 
