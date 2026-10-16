@@ -63,7 +63,7 @@
 | #228, #353 Garmin | Saate giden sayı ekrandaki sayıyla aynı mı? | Kod, widget testi | Aynı. Köprü TestFlight iş akışında yok |
 | #336, #342, #339, #347, #358 | Metin, sayaç, yazı tipi, ikon, yerleşim | Kod | Hiçbir sayı değişmiyor |
 
-### Kapsam güncellemesi (16.10.2026, 17:45)
+### Kapsam güncellemesi (16.10.2026, 17:37)
 
 Ana oturum kapsamı genişletti. İstenen: son TestFlight'tan (run 109, main `4c51b77`) sonra birleşen bütün PR'lar, yani `merged_at` 2026-10-15T16:58Z sonrası. Liste GitHub'dan yeniden çekildi.
 
