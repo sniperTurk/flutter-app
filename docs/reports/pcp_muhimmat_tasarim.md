@@ -215,15 +215,44 @@ Hepsi silinen özelliklerle birlikte gitti:
 
 ## Ekran görüntüleri
 
-SCREENSHOTS_PLACEHOLDER
+Simülatör turu: `integration_test/sim_screens_pcp_kartlar_test.dart`, iş akışı sim-screens.
+- Koşu: https://github.com/sniperTurk/flutter-app/actions/runs/38968207435
+- Cihaz: iPhone 17 Pro, iOS 26.2.
+- Sonuç: flutter test çıkış kodu 0, 27 ekran görüntüsü.
+
+Görüntüler, `ci/sim-screens` dalının a96550a commit'inde kalıcı olarak duruyor.
+
+390 ve 320 pt nasıl çekildi: uygulama, Simülatör ekranının solunda 390 ya da 320 pt genişliğinde bir kutuda çiziliyor; uygulamanın kendi ekran ölçüsü de 390 / 320 pt. Ekranın sağında kalan kısım siyah.
+
+İlk deneme (koşu 38964065412) geçersizdi. O denemede genişlik `tester.view` ile değiştirilmişti. Simülatör ekranı ilk kareden sonra hiç güncellenmedi; bütün görüntüler açılış ekranını gösteriyordu. Ayrıca iki adım da düştü. Tur düzeltildi ve tekrar çalıştırıldı.
+
+| Ekran | 390 pt | 320 pt |
+|---|---|---|
+| PCP Tüfek kartı | [01_pcp_tufek_390](https://raw.githubusercontent.com/sniperTurk/flutter-app/a96550a4656c2105792622665de9fd4588903c4a/latest/01_pcp_tufek_390.png), [02_pcp_tufek_390_alt](https://raw.githubusercontent.com/sniperTurk/flutter-app/a96550a4656c2105792622665de9fd4588903c4a/latest/02_pcp_tufek_390_alt.png) | [17_pcp_tufek_320](https://raw.githubusercontent.com/sniperTurk/flutter-app/a96550a4656c2105792622665de9fd4588903c4a/latest/17_pcp_tufek_320.png), [18_pcp_tufek_320_alt](https://raw.githubusercontent.com/sniperTurk/flutter-app/a96550a4656c2105792622665de9fd4588903c4a/latest/18_pcp_tufek_320_alt.png) |
+| PCP Mühimmat kartı | [05_pcp_muhimmat_390](https://raw.githubusercontent.com/sniperTurk/flutter-app/a96550a4656c2105792622665de9fd4588903c4a/latest/05_pcp_muhimmat_390.png), [06_pcp_muhimmat_390_alt](https://raw.githubusercontent.com/sniperTurk/flutter-app/a96550a4656c2105792622665de9fd4588903c4a/latest/06_pcp_muhimmat_390_alt.png) | [19_pcp_muhimmat_320](https://raw.githubusercontent.com/sniperTurk/flutter-app/a96550a4656c2105792622665de9fd4588903c4a/latest/19_pcp_muhimmat_320.png), [20_pcp_muhimmat_320_alt](https://raw.githubusercontent.com/sniperTurk/flutter-app/a96550a4656c2105792622665de9fd4588903c4a/latest/20_pcp_muhimmat_320_alt.png) |
+| PCP Mühimmat, yalnız En düşük girili | [03_pcp_muhimmat_tek_hiz_390](https://raw.githubusercontent.com/sniperTurk/flutter-app/a96550a4656c2105792622665de9fd4588903c4a/latest/03_pcp_muhimmat_tek_hiz_390.png), [04_pcp_muhimmat_tek_hiz_390_alt](https://raw.githubusercontent.com/sniperTurk/flutter-app/a96550a4656c2105792622665de9fd4588903c4a/latest/04_pcp_muhimmat_tek_hiz_390_alt.png) | |
+| Ateşli Tüfek kartı | [07_atesli_tufek_390](https://raw.githubusercontent.com/sniperTurk/flutter-app/a96550a4656c2105792622665de9fd4588903c4a/latest/07_atesli_tufek_390.png), [08_atesli_tufek_390_alt](https://raw.githubusercontent.com/sniperTurk/flutter-app/a96550a4656c2105792622665de9fd4588903c4a/latest/08_atesli_tufek_390_alt.png) | [21_atesli_tufek_320](https://raw.githubusercontent.com/sniperTurk/flutter-app/a96550a4656c2105792622665de9fd4588903c4a/latest/21_atesli_tufek_320.png), [22_atesli_tufek_320_alt](https://raw.githubusercontent.com/sniperTurk/flutter-app/a96550a4656c2105792622665de9fd4588903c4a/latest/22_atesli_tufek_320_alt.png) |
+| Hava Durumu | [09_hava_durumu_390](https://raw.githubusercontent.com/sniperTurk/flutter-app/a96550a4656c2105792622665de9fd4588903c4a/latest/09_hava_durumu_390.png) | [23_hava_durumu_320](https://raw.githubusercontent.com/sniperTurk/flutter-app/a96550a4656c2105792622665de9fd4588903c4a/latest/23_hava_durumu_320.png) |
+| Pro | [12_pro_390](https://raw.githubusercontent.com/sniperTurk/flutter-app/a96550a4656c2105792622665de9fd4588903c4a/latest/12_pro_390.png) | [26_pro_320](https://raw.githubusercontent.com/sniperTurk/flutter-app/a96550a4656c2105792622665de9fd4588903c4a/latest/26_pro_320.png) |
+| Hedef (845 fps ortalamayla) | [14_hedef_390](https://raw.githubusercontent.com/sniperTurk/flutter-app/a96550a4656c2105792622665de9fd4588903c4a/latest/14_hedef_390.png) | |
+
+### Onaylı çizimden görünen farklar
+
+1. **320 pt'de satırlar iki kutulu değil.** Kartın iç genişliği 300 pt'nin altına düşüyor. Ortak düzen kuralı (`MenzilFieldGrid`) gereği her kutu kendi satırına iniyor: Kalibre, Namlu çıkış hızı, Yiv oranı … alt alta. Sıra çizimdeki gibi. Bu kural bütün uygulamada geçerli; bu PR'da değiştirilmedi.
+2. **390 pt'de Kalibre iki satır.** "5.50 mm (.22)" yarım kutuya sığmıyor ve alt satıra geçiyor; Kalibre kutusu yanındaki Namlu çıkış hızı kutusundan uzun görünüyor. İki kutunun üstleri hizalı.
+3. **ⓘ iki ayrı biçimde.** Mühimmat kartında ⓘ kutunun içinde (önceki görevin onaylı kompakt kutusu). Tüfek kartında ⓘ etiket satırında (C maddesi). İki kart yan yana bakılınca farklı görünüyor.
+4. **Hava Durumu ve Pro'da görünür bir değişiklik yok.** Bu iki sayfa zaten kompakt kutu kullanıyordu; birim önceden de kutunun içindeydi. Görüntüler bunu göstermek için çekildi. Değişikliğin görüldüğü yer Profil Oluştur ve Düzenle'deki kutular (fps, inç, bar, m, mm).
+5. **320 pt'de uzun metinler kısalıyor.** Mühimmat Model kutusunda "Baracuda Match .22 cal. · 21.…" kısaltılıyor. "Aradığın mühimmat listede yok mu?" iki satıra iniyor.
+6. **Ondalık ayırıcı farklı.** Profil Oluştur'da listeden gelen Ağırlık ve BC virgüllü ("21,14", "0,039"); Profili Düzenle'de noktalı ("21.14", "0.039"). Bu fark main'de de var; bu PR'da değiştirilmedi.
+7. **Ekranın sağ tarafı siyah.** 390 ve 320 pt görüntülerinde uygulama ekranın solunda duruyor (yukarıdaki yöntem yüzünden).
 
 ## CI
 
-Bütün koşular rebase sonrası tek commit **7a7ac21** üzerinde (main f46ab8f'in üstünde). Önceki 8 commit tek commit'te toplandı. Rebase'te tek çakışma `pro_ayarlar_view.dart`'taydı: #373 silinen `_pcpPressureProFields`'i değiştirmişti; fonksiyon silinmiş olarak bırakıldı.
+Aşağıdaki koşular rebase sonrası commit **7a7ac21** üzerinde (main f46ab8f'in üstünde). Sonra gelen a1a5006 yalnız simülatör turunu düzeltiyor; bu raporun commit'i ise yalnız bu dosyayı değiştiriyor. Son commit'in (HEAD) CI sonuçları, raporu yeniden değiştirmemek için PR açıklamasında. Önceki 8 commit tek commit'te toplandı. Rebase'te tek çakışma `pro_ayarlar_view.dart`'taydı: #373 silinen `_pcpPressureProFields`'i değiştirmişti; fonksiyon silinmiş olarak bırakıldı.
 
 | İş | Sonuç | Bağlantı |
 |---|---|---|
-| iOS CI / verify | başarılı | https://github.com/sniperTurk/flutter-app/actions/runs/38957814565/job/117170753189 |
+| iOS CI / verify | başarılı (7a7ac21) | https://github.com/sniperTurk/flutter-app/actions/runs/38957814565/job/117170753189 |
 | iOS CI / dart-checks | başarılı | https://github.com/sniperTurk/flutter-app/actions/runs/38957814565/job/117165007855 |
 | iOS CI / wind-acceptance | başarılı | https://github.com/sniperTurk/flutter-app/actions/runs/38957814565/job/117165007645 |
 | iOS CI / ios-simulator | atlandı (iş akışı bu olayda çalıştırmıyor) | aynı koşu |
