@@ -827,6 +827,14 @@ class MenzilInfoButton extends StatelessWidget {
   /// Replaces the popup (Pro Ayarlar box ⓘ opens a bottom sheet, owner
   /// 2026-10-13).
   final VoidCallback? onPressed;
+
+  /// Where the icon sits inside the tap target. Pro Ayarlar rows put it at
+  /// the target's left edge plus [padding] so the ⓘ stays right after the
+  /// title text (owner, 2026-10-16); everywhere else it stays centred.
+  final AlignmentGeometry alignment;
+
+  /// Inner padding of the tap target (see [alignment]).
+  final EdgeInsetsGeometry padding;
   const MenzilInfoButton({
     super.key,
     required this.title,
@@ -834,6 +842,8 @@ class MenzilInfoButton extends StatelessWidget {
     this.illustration,
     this.tooltip,
     this.onPressed,
+    this.alignment = Alignment.center,
+    this.padding = EdgeInsets.zero,
   });
 
   /// True when a [MenzilInfoScope] above (Pro Ayarlar boxes) showed the
@@ -851,7 +861,8 @@ class MenzilInfoButton extends StatelessWidget {
     return IconButton(
       tooltip: tooltip ?? 'Bilgi: $title',
       constraints: const BoxConstraints(minWidth: 44, minHeight: 44),
-      padding: EdgeInsets.zero,
+      padding: padding,
+      alignment: alignment,
       // Not compact: compact density shrinks the 44 pt minimum to 40 pt and
       // fails Apple's tap-target guideline (found in the 2026-10-08 audit).
       visualDensity: VisualDensity.standard,
@@ -2778,6 +2789,11 @@ class MenzilToolTile extends StatelessWidget {
     final titleText = Text(
       title,
       style: MenzilType.heading(enabled ? c.ink : c.ink2, size: 20),
+      // A wrapped title ends at its longest line, so [titleTrailing] (the
+      // Garmin ⓘ) stays right after the text (owner, 2026-10-16).
+      textWidthBasis: titleTrailing == null
+          ? TextWidthBasis.parent
+          : TextWidthBasis.longestLine,
     );
     return MenzilCard(
       margin: margin,
