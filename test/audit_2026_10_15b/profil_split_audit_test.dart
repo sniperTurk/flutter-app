@@ -711,7 +711,7 @@ void main() {
       await chooseInSelect(tester, 'profile-distance-unit', 'Yard');
       // Today: "109.4" (100 m in yards); the user typed 100 yd.
       expect(_text(tester, 'profile-zero'), '100');
-    }, skip: 'PRF-9: unset Mesafe birimi converts the typed zero as metres');
+    }, skip: true); // PRF-9: unset unit converts the typed zero from metres
 
     testWidgets('PRF-10 guard: picking Tür after Kalibre keeps the bullet '
         'diameter (the calculation input)', (tester) async {
