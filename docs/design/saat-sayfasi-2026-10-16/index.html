@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Saat sayfası seçenekleri</title>
+<style>
+  :root { --bg:#0B1620; --surface:#122330; --ink:#E7EFF3; --ink2:#9CB1C0; --line:#27425A; --amber:#F5B031 }
+  * { box-sizing:border-box; margin:0; padding:0 }
+  body { background:var(--bg); color:var(--ink); font-family:-apple-system,"SF Pro Text",Inter,system-ui,sans-serif; padding:28px 20px 60px }
+  h1 { font-size:26px; font-weight:700; margin-bottom:6px }
+  .lead { color:var(--ink2); font-size:15px; line-height:1.5; max-width:72ch; margin-bottom:22px }
+  #yanyana { display:grid; grid-template-columns:repeat(3, 1fr); gap:20px; background:var(--bg); padding:16px; max-width:1300px }
+  .col { background:var(--surface); border:1px solid var(--line); border-radius:16px; padding:14px }
+  .col h2 { font-size:18px; font-weight:700 }
+  .col p { color:var(--ink2); font-size:13.5px; line-height:1.45; margin:4px 0 12px; min-height:58px }
+  .pair { display:grid; grid-template-columns:1fr 1fr; gap:10px; align-items:start }
+  .pair figure { display:flex; flex-direction:column; gap:6px }
+  .pair img { width:100%; border-radius:10px; border:1px solid var(--line); display:block }
+  figcaption { font-size:12.5px; color:var(--ink2) }
+  details { margin-top:28px; max-width:1300px }
+  summary { font-size:18px; font-weight:700; cursor:pointer; min-height:44px; display:flex; align-items:center }
+  .all { display:flex; flex-wrap:wrap; gap:16px; margin-top:10px }
+  .all figure { width:200px; display:flex; flex-direction:column; gap:6px }
+  .all img { width:100%; border-radius:10px; border:1px solid var(--line) }
+  a { color:#4CC3E8 }
+  .shot body, body.shot { padding:0 }
+  @media (max-width: 900px) { #yanyana { grid-template-columns:1fr } }
+</style>
+</head>
+<body>
+<div id="intro">
+  <h1>Saat sayfası — üç seçenek</h1>
+  <p class="lead">Aynı sayfa, üç farklı yerleşim. Her sütunda solda ilk açılış (saat yok), sağda Garmin + Apple Watch bağlı durum. Bütün durumlar, 320 pt denetimi ve ⓘ alt sayfaları aşağıda; canlı HTML: <a href="secenek-a.html">A</a> · <a href="secenek-b.html">B</a> · <a href="secenek-c.html">C</a>.</p>
+</div>
+<div id="yanyana">
+  <div class="col"><h2>A · Bölüm kartları</h2><p>Hava Durumu düzeni: başlık + ⓘ, altında kart. En tanıdık, en sade.</p>
+    <div class="pair"><figure><img src="png/a-1.png" alt="A, ilk açılış"><figcaption>İlk açılış</figcaption></figure><figure><img src="png/a-3.png" alt="A, iki saat bağlı"><figcaption>İki saat bağlı</figcaption></figure></div></div>
+  <div class="col"><h2>B · Önce saat listesi</h2><p>Saat yokken tanıtım + marka seçimi; bağlanınca her saat kendi kartında, ayarlar altta.</p>
+    <div class="pair"><figure><img src="png/b-1.png" alt="B, ilk açılış"><figcaption>İlk açılış</figcaption></figure><figure><img src="png/b-3.png" alt="B, iki saat bağlı"><figcaption>İki saat bağlı</figcaption></figure></div></div>
+  <div class="col"><h2>C · Önce durum ve önizleme</h2><p>Tepede saatin şu an gösterdiği yüz, durum ve tek gönderim düğmesi. Önerilen.</p>
+    <div class="pair"><figure><img src="png/c-1.png" alt="C, ilk açılış"><figcaption>İlk açılış</figcaption></figure><figure><img src="png/c-3.png" alt="C, iki saat bağlı"><figcaption>İki saat bağlı</figcaption></figure></div></div>
+</div>
+<details open>
+  <summary>Bütün ekranlar</summary>
+  <div class="all" id="all"></div>
+</details>
+<script>
+  const cap = { 1:'1. İlk açılış', '1b':'1b. Apple Watch bekleniyor', 2:'2. Garmin bağlı, gönderildi', 3:'3. Garmin + Apple Watch', 4:'4. Gönderilemedi', 320:'320 pt (3. durum)', bilgi:'ⓘ alt sayfası' };
+  const all = document.getElementById('all');
+  for (const o of ['a','b','c']) for (const k of [1,'1b',2,3,4,320,'bilgi'])
+    all.insertAdjacentHTML('beforeend', `<figure><a href="png/${o}-${k}.png"><img src="png/${o}-${k}.png" alt="${o.toUpperCase()} ${cap[k]}"></a><figcaption>${o.toUpperCase()} · ${cap[k]}</figcaption></figure>`);
+  all.insertAdjacentHTML('beforeend', `<figure><img src="png/alt-menu-320.png" alt="Alt menü 320 pt"><figcaption>Alt menü 320 pt: Hava Durumu → Hava</figcaption></figure>`);
+  if (location.search.includes('shot=1')) { document.getElementById('intro').remove(); document.querySelector('details').remove(); document.body.style.padding = '0'; }
+</script>
+</body>
+</html>
