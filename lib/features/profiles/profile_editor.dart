@@ -489,7 +489,12 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     final s0 = scope;
     // A catalog scope comes back in the lists; a typed one in the typed box.
     if (s0 != null) {
-      ScopeOptic? hit = s0.userEntered
+      // A typed scope saved with its Dürbün modeli (2026-10-16) stays typed:
+      // matched to a list record it would lose the model on the next save.
+      final typedModel = s0.userEntered && _typedScopeModelOf(s0).isNotEmpty;
+      ScopeOptic? hit = typedModel
+          ? null
+          : s0.userEntered
           ? _scopeLib
                 .where(
                   (r) =>
@@ -508,7 +513,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
       // naming (owner, 2026-10-14): matched tolerantly by Marka + series,
       // then büyütme / mercek çapı / odak / birim. The exact rule above
       // still goes first.
-      if (hit == null && s0.userEntered) {
+      if (hit == null && s0.userEntered && !typedModel) {
         hit = ProfileCatalogMatch.scope(s0, _scopeLib, _scopeModelOf);
         if (hit != null) _scopeTolerant = true;
       }
@@ -532,10 +537,12 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     scopeBrand = TextEditingController(
       text: series.isEmpty ? (s0?.brand ?? '') : '${rec!.brand} $series',
     );
+    // Typed: "listede yok" or no list at all (as _scopeFromList).
+    final typedScope = _scopeManual || _scopeLib.isEmpty;
     scopeModel = TextEditingController(
-      text: s0 != null && _scopeManual ? _typedScopeModelOf(s0) : '',
+      text: s0 != null && typedScope ? _typedScopeModelOf(s0) : '',
     );
-    _scopeLegacyNoModel = s0 != null && _scopeManual && scopeModel.text.isEmpty;
+    _scopeLegacyNoModel = s0 != null && typedScope && scopeModel.text.isEmpty;
     // A tolerant match keeps every saved value; only a value the saved
     // record lacks is taken from the list record (nothing is overwritten).
     final fill = _scopeTolerant ? rec : null;
@@ -978,7 +985,10 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     if (_scopeFromList) return null;
     final t = scopeModel.text.trim();
     if (t.isEmpty) return _scopeLegacyNoModel ? null : 'Gerekli.';
-    if (t.length > _scopeModelMaxLength) {
+    // The saved model ("X5 Pro 5-25x56 FFP") must fit the 100 characters
+    // the store accepts.
+    if (t.length > _scopeModelMaxLength ||
+        t.length + 1 + _scopeDesignation.length > 100) {
       return 'En fazla $_scopeModelMaxLength karakter.';
     }
     return null;

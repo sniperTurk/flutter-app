@@ -48,11 +48,12 @@ void main() {
       counter++;
       final id = '${counter.toString().padLeft(2, '0')}_$name';
       debugPrint('SIMSCREEN:$id');
-      // Hold the frame while the workflow saves the Simulator screen. The
-      // marker reaches the log late (a 4 s hold photographed the next
-      // frame), so this tour holds longer.
+      // The marker reached the log late (4 s and 10 s holds photographed a
+      // later frame): a filler line pushes it out, and the frame is held
+      // longer.
+      debugPrint('SIMPAD:${'.' * 4000}');
       await tester.runAsync(
-        () => Future<void>.delayed(const Duration(seconds: 10)),
+        () => Future<void>.delayed(const Duration(seconds: 20)),
       );
     }
 

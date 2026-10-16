@@ -1804,7 +1804,15 @@ class MenzilSelectState<T> extends State<MenzilSelect<T>>
                                         style: TextStyle(color: c.ink2),
                                       );
                                     }
-                                    return _closed(k, items);
+                                    // The choice in ink like the hint path
+                                    // (Flutter greys it: onChanged is null
+                                    // here); a closed box stays grey.
+                                    return w.onChanged == null
+                                        ? _closed(k, items)
+                                        : DefaultTextStyle.merge(
+                                            style: TextStyle(color: c.ink),
+                                            child: _closed(k, items),
+                                          );
                                   }(),
                                 ),
                               ),

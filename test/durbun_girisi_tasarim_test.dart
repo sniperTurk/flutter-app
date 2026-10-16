@@ -466,6 +466,57 @@ void main() {
     expect(_missingText(tester), isNot(contains('Dürbün modeli')));
   });
 
+  testWidgets('a typed scope with a model stays typed even when its '
+      'values equal a list record (the model is never dropped)', (
+    tester,
+  ) async {
+    // Brand + series and the numbers of the list's Titan 3-18x50 FFP MOA,
+    // but saved by the typed entry with its own Dürbün modeli.
+    CatalogRepository.installUserCatalog(
+      const UserCatalog(
+        scopes: [
+          ScopeOptic(
+            id: 'user-scope-benzer',
+            brand: 'Element Optics Titan MOA',
+            model: 'Benim 3-18x50 FFP',
+            objectiveDiameterMm: 50,
+            clickValue: 0.25,
+            clickUnit: AngularUnit.moa,
+            minMagnification: 3,
+            maxMagnification: 18,
+            firstFocalPlane: true,
+            userEntered: true,
+          ),
+        ],
+      ),
+    );
+    _view(tester);
+    final store = MemoryProfileStore();
+    await store.save(
+      const RifleProfile(
+        id: 'p-benzer',
+        name: 'Benzer Dürbün',
+        rifleId: 'hatsan-hercules-635',
+        ammunitionId: 'gmaz-51',
+        scopeId: 'user-scope-benzer',
+        muzzleVelocityMps: 270,
+        zeroRangeM: 25,
+        sightHeightMm: 60,
+        pressureBar: 200,
+        angularUnit: AngularUnit.moa,
+      ),
+    );
+    await _pump(tester, store);
+    await _openEdit(tester, 'Benzer Dürbün');
+    expect(_k('scope-brand-select'), findsNothing);
+    expect(_typed(tester, 'scope-brand'), 'Element Optics Titan MOA');
+    expect(_typed(tester, 'scope-model'), 'Benim');
+    expect(
+      _designation(tester),
+      'Dürbün: Element Optics Titan MOA Benim 3-18x50 FFP',
+    );
+  });
+
   for (final width in [320.0, 390.0]) {
     for (final scale in [1.0, 1.3]) {
       testWidgets('$width pt ×$scale: both paths, no overflow, open list '
