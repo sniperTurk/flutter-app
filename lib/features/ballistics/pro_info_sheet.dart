@@ -23,8 +23,9 @@ class ProInfoField {
 /// Opens the explanation of a Pro Ayarlar box as a bottom sheet (owner,
 /// 2026-10-13: "alttan açılan sayfa"; one information source per box: the
 /// ⓘ next to the box title; owner, 2026-10-16: the fields in the box have no
-/// ⓘ of their own, their texts are listed here under "Kutular"). [text] is a single plain paragraph shown before the
-/// entries (Garmin saati, owner 2026-10-16: one paragraph, no Ne? / Nasıl?).
+/// ⓘ of their own, their texts are listed here under "Kutular"). [text] is
+/// a single plain paragraph shown before the entries (Garmin saati, owner
+/// 2026-10-16: one paragraph, no Ne? / Nasıl?).
 Future<void> showProInfoSheet(
   BuildContext context, {
   required String title,
@@ -56,7 +57,7 @@ Future<void> showProInfoSheet(
 }
 
 /// Body of the Pro explanation bottom sheet: title, the box's explanations,
-/// "Kutular" (each field with its ⓘ text) and a full-width "Kapat".
+/// "Kutular" (each field with its explanation) and a full-width "Kapat".
 class ProInfoSheet extends StatelessWidget {
   final String title;
   final List<ProInfoEntry> entries;
