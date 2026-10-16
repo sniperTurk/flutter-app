@@ -3,7 +3,8 @@
 //
 // Chains checked (passing guards, no skip):
 //  * F1: empty İstasyon basıncı → ISA station pressure from the EFFECTIVE
-//    İrtifa (Telefondan irtifa, else Haritadan irtifa); a typed or phone
+//    İrtifa (one İrtifa box since 2026-10-16; was Telefondan irtifa, else
+//    Haritadan irtifa); a typed or phone
 //    ("Basınç al") pressure wins and is never combined with the altitude.
 //  * "Basınç irtifadan tahmin edildi." on Hedef for phone AND map-only
 //    altitude; gone after İrtifa Sıfırla.
@@ -11,8 +12,8 @@
 //    Ölçer card (back to the altitude estimate).
 //  * Pressure plausibility warning with the effective altitude.
 //  * Pro → Yerçekimi → Konumdan hesapla with the effective altitude.
-//  * Saved data: older single 'altitude' → Telefondan irtifa, saved
-//    'mapAltitude' → Haritadan irtifa, both used by the calculation.
+//  * Saved data: older single 'altitude' and saved 'mapAltitude' load into
+//    the one İrtifa box (2026-10-16) and are used by the calculation.
 //
 // Findings (skip: until fixed):
 //  * ATM-1 (high, suspected; pre-existing): the saved Hava Durumu is put
@@ -153,16 +154,16 @@ Future<void> _dope(WidgetTester tester) async {
 Future<double> _densityWith(
   WidgetTester tester, {
   String pressure = '',
-  String phone = '',
-  String map = '',
+  String alt = '',
 }) async {
   final rig = _Rig();
   await _open(tester, rig, BallisticsView.all);
   await _type(tester, BallisticsFieldKeys.temperature, '15');
   await _type(tester, BallisticsFieldKeys.humidity, '0');
   await _type(tester, BallisticsFieldKeys.pressure, pressure);
-  await _type(tester, BallisticsFieldKeys.altitude, phone);
-  await _type(tester, BallisticsFieldKeys.mapAltitude, map);
+  // One İrtifa box since 2026-10-16 (owner); the Telefondan/Haritadan
+  // pairs of this guard became single values.
+  await _type(tester, BallisticsFieldKeys.altitude, alt);
   await _dope(tester);
   return _density(tester);
 }
@@ -181,33 +182,24 @@ void main() {
       expect(await _densityWith(tester), closeTo(_rho0, _rhoTol));
     });
 
-    testWidgets('empty pressure + Telefondan irtifa 1500 m: ISA 845,6 hPa', (
+    testWidgets('empty pressure + İrtifa 1500 m: ISA 845,6 hPa', (
       tester,
     ) async {
       expect(
-        await _densityWith(tester, phone: '1500'),
+        await _densityWith(tester, alt: '1500'),
         closeTo(_rho1500, _rhoTol),
       );
     });
 
-    testWidgets('empty pressure + Haritadan irtifa only (300 m): ISA', (
-      tester,
-    ) async {
-      expect(await _densityWith(tester, map: '300'), closeTo(_rho300, _rhoTol));
-    });
-
-    testWidgets('both filled, different: Telefondan wins', (tester) async {
-      expect(
-        await _densityWith(tester, phone: '1500', map: '300'),
-        closeTo(_rho1500, _rhoTol),
-      );
+    testWidgets('empty pressure + İrtifa 300 m: ISA', (tester) async {
+      expect(await _densityWith(tester, alt: '300'), closeTo(_rho300, _rhoTol));
     });
 
     testWidgets('a typed pressure wins; the altitude is not applied again', (
       tester,
     ) async {
       expect(
-        await _densityWith(tester, pressure: '900', phone: '1500', map: '300'),
+        await _densityWith(tester, pressure: '900', alt: '1500'),
         closeTo(_rho900hPa, _rhoTol),
       );
     });
@@ -223,9 +215,8 @@ void main() {
       await _tap(tester, _pressureBtn);
       expect(rig.pressure.reads, 1);
       expect(_text(tester, BallisticsFieldKeys.pressure), '998.4');
-      // "Basınç al" leaves both İrtifa boxes alone (#307).
+      // "Basınç al" leaves the İrtifa box alone (#307).
       expect(_text(tester, BallisticsFieldKeys.altitude), '1500');
-      expect(_text(tester, BallisticsFieldKeys.mapAltitude), '');
       await _dope(tester);
       // The measured station pressure is used as is.
       expect(_density(tester), closeTo(_rho998hPa, _rhoTol));
@@ -236,7 +227,7 @@ void main() {
   });
 
   group('chain: Sıfırla', () {
-    testWidgets('İrtifa Sıfırla: both boxes empty, back to 1013,25 hPa', (
+    testWidgets('İrtifa Sıfırla: the box empty, back to 1013,25 hPa', (
       tester,
     ) async {
       final rig = _Rig();
@@ -244,12 +235,10 @@ void main() {
       await _type(tester, BallisticsFieldKeys.temperature, '15');
       await _type(tester, BallisticsFieldKeys.humidity, '0');
       await _type(tester, BallisticsFieldKeys.altitude, '1500');
-      await _type(tester, BallisticsFieldKeys.mapAltitude, '300');
       await _dope(tester);
       expect(_density(tester), closeTo(_rho1500, _rhoTol));
       await _tap(tester, _altReset);
       expect(_text(tester, BallisticsFieldKeys.altitude), '');
-      expect(_text(tester, BallisticsFieldKeys.mapAltitude), '');
       // Re-solved by the reset itself.
       expect(_density(tester), closeTo(_rho0, _rhoTol));
     });
@@ -262,24 +251,24 @@ void main() {
       await _type(tester, BallisticsFieldKeys.temperature, '15');
       await _type(tester, BallisticsFieldKeys.humidity, '0');
       await _type(tester, BallisticsFieldKeys.pressure, '900');
-      await _type(tester, BallisticsFieldKeys.mapAltitude, '1500');
+      await _type(tester, BallisticsFieldKeys.altitude, '1500');
       await _dope(tester);
       expect(_density(tester), closeTo(_rho900hPa, _rhoTol));
       await _tap(tester, _pressureReset);
       expect(_text(tester, BallisticsFieldKeys.pressure), '');
       // İrtifa is untouched by the Basınç Ölçer Sıfırla.
-      expect(_text(tester, BallisticsFieldKeys.mapAltitude), '1500');
+      expect(_text(tester, BallisticsFieldKeys.altitude), '1500');
       expect(_density(tester), closeTo(_rho1500, _rhoTol));
     });
   });
 
   group('chain: Hedef note "Basınç irtifadan tahmin edildi."', () {
-    testWidgets('map-only altitude shows it; İrtifa Sıfırla removes it', (
+    testWidgets('a typed İrtifa shows it; İrtifa Sıfırla removes it', (
       tester,
     ) async {
       final rig = _Rig();
       await _open(tester, rig, BallisticsView.environment);
-      await _type(tester, BallisticsFieldKeys.mapAltitude, '1500');
+      await _type(tester, BallisticsFieldKeys.altitude, '1500');
       await _view(tester, rig, BallisticsView.shot);
       expect(find.byKey(_note), findsOneWidget);
 
@@ -300,11 +289,11 @@ void main() {
   });
 
   group('chain: pressure warning with the effective İrtifa', () {
-    testWidgets('map only is checked; Telefondan wins over it', (tester) async {
+    testWidgets('the İrtifa box is checked', (tester) async {
       final rig = _Rig();
       await _open(tester, rig, BallisticsView.environment);
       await _type(tester, BallisticsFieldKeys.pressure, '1013');
-      await _type(tester, BallisticsFieldKeys.mapAltitude, '1500');
+      await _type(tester, BallisticsFieldKeys.altitude, '1500');
       expect(find.byKey(_warning), findsOneWidget);
       expect(find.textContaining('1500 m irtifada'), findsOneWidget);
       await _type(tester, BallisticsFieldKeys.altitude, '0');
@@ -315,46 +304,33 @@ void main() {
   group('chain: Yerçekimi → Konumdan hesapla uses the İrtifa card', () {
     Future<double> gravityAfter(
       WidgetTester tester, {
-      required String phone,
-      required String map,
+      required String alt,
     }) async {
       final rig = _Rig();
       await _open(tester, rig, BallisticsView.environment);
-      await _type(tester, BallisticsFieldKeys.altitude, phone);
-      await _type(tester, BallisticsFieldKeys.mapAltitude, map);
+      await _type(tester, BallisticsFieldKeys.altitude, alt);
       await _view(tester, rig, BallisticsView.pro);
       await openProFor(tester, _gravityBtn);
       await _tap(tester, _gravityBtn);
       return double.parse(_text(tester, _gravity).replaceAll(',', '.'));
     }
 
-    testWidgets('Telefondan irtifa (1500 m) over Haritadan (300 m)', (
-      tester,
-    ) async {
-      expect(
-        await gravityAfter(tester, phone: '1500', map: '300'),
-        closeTo(_g1500, _gTol),
-      );
+    testWidgets('İrtifa 1500 m', (tester) async {
+      expect(await gravityAfter(tester, alt: '1500'), closeTo(_g1500, _gTol));
       expect(find.textContaining('1500 m'), findsWidgets);
     });
 
-    testWidgets('Haritadan irtifa when Telefondan is empty', (tester) async {
-      expect(
-        await gravityAfter(tester, phone: '', map: '300'),
-        closeTo(_g300, _gTol),
-      );
+    testWidgets('İrtifa 300 m', (tester) async {
+      expect(await gravityAfter(tester, alt: '300'), closeTo(_g300, _gTol));
     });
 
-    testWidgets('both empty: the GPS fix height (900 m)', (tester) async {
-      expect(
-        await gravityAfter(tester, phone: '', map: ''),
-        closeTo(_g900, _gTol),
-      );
+    testWidgets('empty: the GPS fix height (900 m)', (tester) async {
+      expect(await gravityAfter(tester, alt: ''), closeTo(_g900, _gTol));
     });
   });
 
   group('chain: saved İrtifa comes back and is calculated', () {
-    testWidgets('older single İrtifa → Telefondan irtifa, used by F1', (
+    testWidgets('older single İrtifa → the İrtifa box, used by F1', (
       tester,
     ) async {
       _seed({
@@ -362,14 +338,13 @@ void main() {
       });
       await _open(tester, _Rig(), BallisticsView.all);
       expect(_text(tester, BallisticsFieldKeys.altitude), '1500');
-      expect(_text(tester, BallisticsFieldKeys.mapAltitude), '');
-      // A plain value (no fetch time): the button is not orange.
-      expect(find.text('Telefondan'), findsOneWidget);
+      // A plain value (no fetch time): the button is not "alındı".
+      expect(find.text('İrtifa al'), findsOneWidget);
       await _dope(tester);
       expect(_density(tester), closeTo(_rho1500, _rhoTol));
     });
 
-    testWidgets('saved Haritadan irtifa reopens orange and is used', (
+    testWidgets('saved Haritadan irtifa reopens alındı and is used', (
       tester,
     ) async {
       _seed({
@@ -377,9 +352,8 @@ void main() {
         'altMapAt': DateTime(2026, 10, 14, 9).millisecondsSinceEpoch,
       });
       await _open(tester, _Rig(), BallisticsView.all);
-      expect(_text(tester, BallisticsFieldKeys.altitude), '');
-      expect(_text(tester, BallisticsFieldKeys.mapAltitude), '1500');
-      expect(find.text('Haritadan alındı'), findsOneWidget);
+      expect(_text(tester, BallisticsFieldKeys.altitude), '1500');
+      expect(find.text('İrtifa alındı'), findsOneWidget);
       await _dope(tester);
       expect(_density(tester), closeTo(_rho1500, _rhoTol));
     });
@@ -416,13 +390,14 @@ void main() {
     );
   });
 
-  group('ATM-2 the İrtifa ⓘ says when İrtifa is used', () {
+  group('ATM-2 the user is told when İrtifa is used', () {
     test(
-      'the İrtifa ⓘ mentions the empty-pressure rule',
+      'the Basınç Ölçer ⓘ keeps the empty-pressure rule',
       () {
-        final t = EnvironmentFieldInfo.altitudeCard.toLowerCase();
-        expect(t, contains('basınç'));
-        expect(t, contains('boş'));
+        // The İrtifa ⓘ is the owner's exact wording since 2026-10-16
+        // (tek_irtifa_test.dart); the rule stays in the Basınç Ölçer ⓘ.
+        final t = EnvironmentFieldInfo.barometerCard;
+        expect(t, contains('Boşsa basınç İrtifa kartından'));
       },
       // ATM-2 fixed in fix/atm-metinler: un-skipped (CLAUDE.md).
     );

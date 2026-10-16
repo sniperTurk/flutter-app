@@ -96,12 +96,20 @@ class ShotSettings {
   final int? weatherFetchedAtMs;
   final int? pressureFetchedAtMs;
 
-  /// İrtifa card (owner, 2026-10-14): when "Telefondan" / "Haritadan" wrote
-  /// their box (UTC epoch ms); null = typed, reset or never fetched. The
-  /// boxes themselves are weatherSi 'altitude' (Telefondan irtifa; an older
-  /// single İrtifa migrates there) and 'mapAltitude' (Haritadan irtifa).
+  /// İrtifa card. Since 2026-10-16 (owner) one box: weatherSi
+  /// 'mapAltitude' holds it, [altitudeMapAtMs] is when "İrtifa al" wrote it
+  /// (UTC epoch ms; null = typed, reset or never fetched) and
+  /// [altitudeSource] marks this format. Older saves (2026-10-14) had two
+  /// boxes: 'altitude' (Telefondan irtifa; an even older single İrtifa) with
+  /// [altitudePhoneAtMs], and 'mapAltitude' (Haritadan irtifa) with
+  /// [altitudeMapAtMs]; they load as the map value, else the phone value.
+  /// The old phone value and time are kept in the save, never deleted.
   final int? altitudePhoneAtMs;
   final int? altitudeMapAtMs;
+
+  /// Where the one İrtifa box came from: 'map', 'phone' or 'typed' (also
+  /// empty). null = an older save from before 2026-10-16.
+  final String? altitudeSource;
 
   /// When the Rüzgâr yönü was set (tap on the dial or typed hour).
   final int? windDirectionAtMs;
@@ -150,6 +158,7 @@ class ShotSettings {
     this.pressureFetchedAtMs,
     this.altitudePhoneAtMs,
     this.altitudeMapAtMs,
+    this.altitudeSource,
     this.windDirectionAtMs,
     this.windMaxAtMs,
   });
@@ -204,6 +213,7 @@ class ShotSettings {
     if (pressureFetchedAtMs != null) 'pressurePhoneAt': pressureFetchedAtMs,
     if (altitudePhoneAtMs != null) 'altPhoneAt': altitudePhoneAtMs,
     if (altitudeMapAtMs != null) 'altMapAt': altitudeMapAtMs,
+    if (altitudeSource != null) 'altSource': altitudeSource,
     if (windDirectionAtMs != null) 'windDirAt': windDirectionAtMs,
     if (windMaxAtMs != null) 'windMaxAt': windMaxAtMs,
   };
@@ -279,6 +289,10 @@ class ShotSettings {
       pressureFetchedAtMs: epochMs(json['pressurePhoneAt']),
       altitudePhoneAtMs: epochMs(json['altPhoneAt']),
       altitudeMapAtMs: epochMs(json['altMapAt']),
+      altitudeSource: switch (json['altSource']) {
+        final String v when const {'map', 'phone', 'typed'}.contains(v) => v,
+        _ => null,
+      },
       windDirectionAtMs: epochMs(json['windDirAt']),
       windMaxAtMs: epochMs(json['windMaxAt']),
     );
