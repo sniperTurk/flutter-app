@@ -152,18 +152,16 @@ class SplitStructure(unittest.TestCase):
         # The panel only shows the lines it was given.
         self.assertIn("for (final l in widget.lines)", src)
 
-    def test_wind_guide_flag_defaults_off(self):
-        main = self._read("ballistics_screen.dart")
-        m = re.search(r"_showWindGuideLink\s*=\s*bool\.fromEnvironment\(([^)]*)\)", main)
-        self.assertIsNotNone(m)
-        self.assertNotIn("defaultValue", m.group(1))
-
-    @unittest.skip("HDF-1 (low): WIND_GUIDE_LINK keeps the removed Rüzgâr link "
-                   "behind a flag; CLAUDE.md 2026-10-15 says delete (= FLG-1)")
+    # HDF-1 (= FLG-1, fixed by fix/hdf1-ruzgar-rehberi-sil): the removed
+    # Rüzgâr link was hidden behind WIND_GUIDE_LINK; it is now deleted.
     def test_removed_wind_guide_link_is_deleted(self):
-        src = self._read("ballistics_screen.dart") + self._read("hava_durumu_view.dart")
+        src = (self._read("ballistics_screen.dart")
+               + self._read("hava_durumu_view.dart")
+               + self._read("wind_guide.dart"))
         self.assertNotIn("WIND_GUIDE_LINK", src)
-        self.assertNotIn("WindGuideLink(", src)
+        self.assertNotIn("_showWindGuideLink", src)
+        self.assertNotIn("WindGuideLink", src)
+        self.assertNotIn("Key('wind-guide-link')", src)
 
 
 if __name__ == "__main__":

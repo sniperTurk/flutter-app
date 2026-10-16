@@ -1,7 +1,7 @@
 // Pre-TestFlight audit 2026-10-15b — PR #317 (commit cb9ffee): Hedef / Hava
 // Durumu / Pro Ayarlar and the scope view split into part files, plus the
 // clean design (turrets, side turret, collapsible "Hesap dökümü", done
-// buttons, Rüzgâr ⓘ, WIND_GUIDE_LINK flag).
+// buttons, Rüzgâr ⓘ, WIND_GUIDE_LINK flag — deleted since, HDF-1).
 //
 // The split moved code without changing it (checked line by line against
 // 2188ec9, the commit before #317): state fields, persistence keys, the
@@ -15,9 +15,10 @@
 //    "Kuleleri kur" opens it too;
 //  * "Hesap dökümü" starts closed and opening/closing it changes no number;
 //  * "Hava verisi alındı" survives a fresh State (saved, not re-fetched);
-//  * WIND_GUIDE_LINK is off by default.
+//  * the removed Rüzgâr link is deleted, not flagged (HDF-1, fixed).
 // Tests for findings are skipped with their id (HDF-n).
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -395,56 +396,56 @@ void main() {
   });
 
   group('WIND_GUIDE_LINK', () {
-    testWidgets('off by default: no link on Hava Durumu, the Rüzgâr ⓘ opens '
-        'the guide', (tester) async {
-      expect(const bool.fromEnvironment('WIND_GUIDE_LINK'), isFalse);
+    // HDF-1 (= FLG-1, fixed by fix/hdf1-ruzgar-rehberi-sil): the removed
+    // "Rüzgâr tahmini nasıl yapılır?" link was hidden behind
+    // bool.fromEnvironment('WIND_GUIDE_LINK'); it is now deleted. The
+    // Rüzgâr ⓘ still opens the guide.
+    testWidgets('no link on Hava Durumu, the Rüzgâr ⓘ opens the guide', (
+      tester,
+    ) async {
       _seed();
       _size(tester, const Size(430, 3000));
       await tester.pumpWidget(_app(_profile(), BallisticsView.environment));
       await tester.pumpAndSettle();
-      expect(find.byType(WindGuideLink), findsNothing);
+      expect(find.byKey(const Key('wind-guide-link')), findsNothing);
       final info = find.byKey(const Key('environment-wind-info'));
       expect(info, findsOneWidget);
       expect(
         tester.widget<MenzilInfoButton>(info).tooltip,
         WindGuide.linkLabel,
       );
-    });
-
-    test('the flag has no default value (false) and only guards the link', () {
-      final src = librarySource(
-        'lib/features/ballistics/ballistics_screen.dart',
-      );
-      expect(
-        RegExp(
-          r"_showWindGuideLink\s*=\s*bool\.fromEnvironment\("
-          r"\s*'WIND_GUIDE_LINK',?\s*\)",
-        ).hasMatch(src),
-        isTrue,
-      );
-      expect(
-        RegExp(
-          r'if \(_BallisticsScreenState\._showWindGuideLink\)'
-          r'\s*WindGuideLink\(',
-        ).allMatches(src).length,
-        1,
-      );
-      expect('_showWindGuideLink'.allMatches(src).length, 2);
-    });
-
-    test(
-      'removed link is deleted, not kept behind a flag',
-      () {
-        final src = librarySource(
-          'lib/features/ballistics/ballistics_screen.dart',
+      await tester.ensureVisible(info);
+      await tester.tap(info);
+      await tester.pumpAndSettle();
+      expect(find.byKey(const Key('wind-guide-dialog')), findsOneWidget);
+      expect(find.text(WindGuide.title), findsOneWidget);
+      final lines = WindGuide.lines(metric: true);
+      expect(lines, hasLength(6));
+      for (var i = 0; i < lines.length; i++) {
+        expect(
+          tester.widget<Text>(find.byKey(Key('wind-guide-line-$i'))).data,
+          lines[i],
         );
-        expect(src.contains('WIND_GUIDE_LINK'), isFalse);
-        expect(src.contains('WindGuideLink('), isFalse);
-      },
-      skip:
-          'HDF-1: WIND_GUIDE_LINK keeps the removed Rüzgâr link behind a '
-          'flag (CLAUDE.md 2026-10-15: delete, do not hide); = FLG-1',
-    );
+      }
+    });
+
+    test('removed link is deleted, not kept behind a flag', () {
+      final src = [
+        librarySource('lib/features/ballistics/ballistics_screen.dart'),
+        librarySource('lib/features/ballistics/wind_guide.dart'),
+      ].join('\n');
+      expect(src.contains('WIND_GUIDE_LINK'), isFalse);
+      expect(src.contains('_showWindGuideLink'), isFalse);
+      expect(src.contains('WindGuideLink'), isFalse);
+      expect(src.contains("Key('wind-guide-link')"), isFalse);
+      // Nowhere in lib/ either.
+      for (final f in Directory('lib').listSync(recursive: true)) {
+        if (f is! File || !f.path.endsWith('.dart')) continue;
+        final text = f.readAsStringSync();
+        expect(text.contains('WIND_GUIDE_LINK'), isFalse, reason: f.path);
+        expect(text.contains('WindGuideLink'), isFalse, reason: f.path);
+      }
+    });
   });
 
   group('Turret step arrows', () {

@@ -183,10 +183,8 @@ class Flg1FlagsDefaultOff(unittest.TestCase):
             with self.subTest(workflow=name):
                 self.assertLessEqual(defines, _ALLOWED_RELEASE_DEFINES)
 
-    @unittest.skip('FLG-1 (low): WIND_GUIDE_LINK was added in #317 (16:31) after '
-                   'the 2026-10-15 rule (#321, 12:45) "removed features are '
-                   'deleted, not hidden behind flags"; default off, so no '
-                   'TestFlight effect')
+    # FLG-1 (= HDF-1, fixed by fix/hdf1-ruzgar-rehberi-sil): WIND_GUIDE_LINK,
+    # added in #317 after the 2026-10-15 "delete, do not hide" rule, is gone.
     def test_no_new_flag_after_delete_not_hide_rule(self):
         names = {name for _, name, _ in self._flags()}
         self.assertLessEqual(names, _FLAGS_AT_BASE)

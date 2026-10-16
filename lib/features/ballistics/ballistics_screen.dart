@@ -677,18 +677,11 @@ class _BallisticsScreenState extends State<BallisticsScreen>
 
   /// Rüzgâr gözlemi is hidden (owner, 2026-10-13: "gizle, silme"): its
   /// class middle overwrote a fetched or measured Rüzgâr hızı. The
-  /// "Rüzgârı gözle tahmin et" popup (link below the Rüzgâr card) replaces
+  /// "Rüzgârı gözle tahmin et" popup (the Rüzgâr ⓘ) replaces
   /// it and writes nothing. Build with --dart-define=WIND_OBSERVATION=true to show
   /// the old select again.
   static const bool _showWindObservation = bool.fromEnvironment(
     'WIND_OBSERVATION',
-  );
-
-  /// The "Rüzgâr tahmini nasıl yapılır?" link under the Rüzgâr card (owner,
-  /// 2026-10-15): hidden, the Rüzgâr ⓘ opens the same guide. Build with
-  /// --dart-define=WIND_GUIDE_LINK=true to show the link again.
-  static const bool _showWindGuideLink = bool.fromEnvironment(
-    'WIND_GUIDE_LINK',
   );
 
   /// Rüzgâr gözlemi (Ö2): the chosen Beaufort force, null = "Seçiniz".
