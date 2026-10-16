@@ -1322,6 +1322,17 @@ class _BallisticsScreenState extends State<BallisticsScreen>
     return sameDay ? full.substring(full.length - 5) : full;
   }
 
+  /// The Turkish locative ending for a clock time as it is read aloud:
+  /// "07:57'de", "07:53'te", "07:40'ta", "10:00'da".
+  static String _timeSuffix(int atMs) {
+    final t = DateTime.fromMillisecondsSinceEpoch(atMs);
+    // Ending by the last word read: the minute, or the hour at :00.
+    final n = t.minute != 0 ? t.minute : t.hour;
+    const ones = ['da', 'de', 'de', 'te', 'te', 'te', 'da', 'de', 'de', 'da'];
+    const tens = ['da', 'da', 'de', 'da', 'ta', 'de'];
+    return n % 10 != 0 ? ones[n % 10] : tens[n ~/ 10];
+  }
+
   /// When the weather / pressure button last filled its boxes (UTC epoch
   /// ms, from [_clock]); null = unknown (older saves), which counts as old.
   int? _weatherFetchedAtMs;
@@ -1499,6 +1510,8 @@ class _BallisticsScreenState extends State<BallisticsScreen>
   /// the typed altitude — usually a sea-level (QNH) value typed by mistake
   /// (owner, 2026-10-09). Weather keeps sea-level pressure between about
   /// 950 and 1050 hPa; reduced to the altitude that gives the plausible band.
+  /// An old phone reading instead says when it was taken (owner,
+  /// 2026-10-16); the button is named as it is shown.
   String? get _pressureWarning {
     double? parse(TextEditingController c) =>
         double.tryParse(c.text.trim().replaceAll(',', '.'));
@@ -1520,7 +1533,8 @@ class _BallisticsScreenState extends State<BallisticsScreen>
     // sea-level value (owner, TestFlight 2026-10-16).
     final at = _pressureFetchedAtMs;
     if ((tooHigh || tooLow) && _pressureStale && at != null) {
-      return 'Bu basınç ${_pressureTakenAtText(at)}\'de alındı. '
+      return 'Bu basınç ${_pressureTakenAtText(at)}\'${_timeSuffix(at)} '
+          'alındı. '
           '${aM.round()} m irtifada yaklaşık ${typical.round()} hPa '
           'beklenir; yer değiştirdiyseniz "$label"ye basın.';
     }

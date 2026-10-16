@@ -34,6 +34,11 @@ ekrandaki düğme "Basıncı yenile" yazıyordu. Asıl sebep değerin eski olmas
 - Saat yazısı `_pressureTakenAtText`: mevcut `fetchDateTimeText` (Basınç
   kartının altındaki tarih satırının kullandığı biçim) kullanılır; aynı
   gün ise yalnız "SS:dd" kısmı alınır.
+- Saatin ekindeki "'de" sahibin örneği (07:57'de) için doğru; diğer
+  saatlerde Türkçe okunuşa göre değişir: son okunan sözcük dakika (00
+  ise saat). Ör. "07:53'te", "08:40'ta", "10:00'da", "09:06'da"
+  (`_timeSuffix`). Code Review bunu buldu; sabit "'de" yanlış Türkçe
+  olurdu.
 - Hava verisi bilgi yazısı saklanırken düğme adı yerine bir yer tutucu
   (`{basinc-dugmesi}`) konur; yazı ekranda gösterilirken o anki düğme
   adıyla değiştirilir.
@@ -82,6 +87,8 @@ barometre):
   değiştirdiyseniz "Basıncı yenile"ye basın."; "Basınç al" ve "deniz
   seviyesi" yok; düğme "Basıncı yenile".
 - Dün 07:57'de alındı → "15.10.2026 07:57'de alındı".
+- Ek uyumu: 07:53 → "07:53'te", 08:40 → "08:40'ta", 10:00 → "10:00'da",
+  09:06 → "09:06'da".
 - Eski değer, çok düşük (912.4 hPa, 0 m) → aynı cümle kalıbı, 1013 hPa.
 - 5 dakika önce alındı (taze) → deniz seviyesi mesajı, düğme ve mesaj
   "Basınç alındı".

@@ -132,6 +132,24 @@ void main() {
     await _finish(tester);
   });
 
+  for (final (h, m, text) in const [
+    (7, 53, "07:53'te"),
+    (8, 40, "08:40'ta"),
+    (10, 0, "10:00'da"),
+    (9, 6, "09:06'da"),
+  ]) {
+    testWidgets('old phone reading: Turkish ending, $text', (tester) async {
+      final rig = _Rig(DateTime(2026, 10, 16, h, m), 1014.3);
+      await _pump(tester, rig);
+      await _tap(tester, _pressureKey);
+      rig.at(DateTime(2026, 10, 16, 11, 47));
+      await _type(tester, BallisticsFieldKeys.altitude, '359');
+
+      expect(_message(tester, _warning), startsWith('Bu basınç $text alındı.'));
+      await _finish(tester);
+    });
+  }
+
   testWidgets('old phone reading, too low: same wording', (tester) async {
     final rig = _Rig(DateTime(2026, 10, 16, 7, 57), 912.4);
     await _pump(tester, rig);
