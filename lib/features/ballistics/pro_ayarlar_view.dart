@@ -57,56 +57,33 @@ extension _ProAyarlarView on _BallisticsScreenState {
               // 44 pt minimum tap target (VoiceOver / HIG).
               child: ConstrainedBox(
                 constraints: const BoxConstraints(minHeight: 48),
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: Row(
-                        children: [
-                          Flexible(
-                            child: Text(
-                              title,
-                              // No bold box titles (owner, 2026-10-11):
-                              // regular.
-                              style: MenzilType.heading(
-                                c.ink,
-                                size: 18,
-                              ).copyWith(fontWeight: FontWeight.w400),
-                            ),
+                // [title][ⓘ][space][summary][⌄] (owner, 2026-10-16): the ⓘ
+                // right after the title with its own 44 pt target, which
+                // opens only the explanation; the rest of the line toggles.
+                child: ProRowHeader(
+                  title: title,
+                  // No bold box titles (owner, 2026-10-11): regular.
+                  titleStyle: MenzilType.heading(
+                    c.ink,
+                    size: 18,
+                  ).copyWith(fontWeight: FontWeight.w400),
+                  info: info.isEmpty
+                      ? null
+                      : proRowInfoButton(
+                          key: Key('pro-info-$id'),
+                          title: title,
+                          onPressed: () => showProInfoSheet(
+                            context,
+                            title: title,
+                            entries: info,
+                            fields: fields,
                           ),
-                          // ⓘ right after the title; its own tap target and
-                          // VoiceOver button, so it does not open the box.
-                          if (info.isNotEmpty)
-                            MenzilInfoButton(
-                              key: Key('pro-info-$id'),
-                              title: title,
-                              tooltip: 'Açıklama: $title',
-                              onPressed: () => showProInfoSheet(
-                                context,
-                                title: title,
-                                entries: info,
-                                fields: fields,
-                              ),
-                            ),
-                        ],
-                      ),
-                    ),
-                    if (!open)
-                      Flexible(
-                        child: Text(
-                          summary,
-                          key: Key('pro-summary-$id'),
-                          textAlign: TextAlign.right,
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          style: MenzilType.caption(c.ink2),
                         ),
-                      ),
-                    const SizedBox(width: MenzilSpace.xs),
-                    Icon(
-                      open ? Icons.expand_less : Icons.expand_more,
-                      color: c.ink2,
-                    ),
-                  ],
+                  value: open ? null : summary,
+                  valueKey: Key('pro-summary-$id'),
+                  valueStyle: MenzilType.caption(c.ink2),
+                  chevron: open ? Icons.expand_less : Icons.expand_more,
+                  chevronColor: c.ink2,
                 ),
               ),
             ),

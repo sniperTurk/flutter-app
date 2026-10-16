@@ -6,6 +6,7 @@ import '../../services/watch/watch_bridge.dart';
 import '../../ui/menzil_theme.dart';
 import '../../ui/menzil_widgets.dart';
 import 'pro_info_sheet.dart';
+import 'pro_row_header.dart';
 import 'pro_section_info.dart';
 
 /// Pro Ayarlar row for choosing the Garmin watch in Garmin Connect: the
@@ -82,10 +83,10 @@ class _GarminPairTileState extends State<GarminPairTile>
       icon: Icons.watch_outlined,
       title: 'Garmin saati',
       // Its own tap target: opens the explanation, not Garmin Connect.
-      titleTrailing: MenzilInfoButton(
+      // Same ⓘ as the Pro boxes (owner, 2026-10-16): right after the title.
+      titleTrailing: proRowInfoButton(
         key: const Key('pro-info-garmin'),
         title: 'Garmin saati',
-        tooltip: 'Açıklama: Garmin saati',
         onPressed: () => showProInfoSheet(
           context,
           title: 'Garmin saati',
