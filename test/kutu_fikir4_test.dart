@@ -146,8 +146,7 @@ void main() {
       // of the card title, none inside their boxes.
       for (final (key, label, unit) in [
         (BallisticsFieldKeys.pressure, 'İstasyon basıncı', 'hPa'),
-        (BallisticsFieldKeys.mapAltitude, 'Haritadan irtifa', 'm'),
-        (BallisticsFieldKeys.altitude, 'Telefondan irtifa', 'm'),
+        (BallisticsFieldKeys.altitude, 'İrtifa', 'm'),
       ]) {
         expect(
           find.descendant(of: find.byKey(key), matching: find.text(label)),

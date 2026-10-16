@@ -337,8 +337,8 @@ extension _HavaDurumuView on _BallisticsScreenState {
           ],
         ),
       ),
-      // İrtifa (owner, 2026-10-14): Haritadan | Telefondan, one ⓘ in the
-      // title; the calculation uses Telefondan, else Haritadan.
+      // İrtifa (owner, 2026-10-16): one box | "İrtifa al" (map, else phone
+      // GPS), one ⓘ in the title.
       _headerWithInfo(
         'İrtifa',
         EnvironmentFieldInfo.altitudeCard,
@@ -357,50 +357,11 @@ extension _HavaDurumuView on _BallisticsScreenState {
           children: [
             _boxButtonRow(
               box: MenzilInput(
-                key: BallisticsFieldKeys.mapAltitude,
-                controller: mapAltitude,
-                label: 'Haritadan irtifa',
-                // A typed value is the user's (button no longer orange).
-                onChanged: (_) => _update(() {
-                  _userEdited.add(mapAltitude);
-                  _altMapAtMs = null;
-                  _altitudeWasReset = false;
-                  _shotCache.clear();
-                  _holdSamples = null;
-                }),
-                unit: metric ? 'm' : 'ft',
-                keyboardType: const TextInputType.numberWithOptions(
-                  decimal: true,
-                  signed: true,
-                ),
-              ),
-              button: MenzilSecondaryButton(
-                key: const Key('environment-map-altitude'),
-                label: _altMapBusy
-                    ? 'Alınıyor…'
-                    : _altMapAtMs != null
-                    ? 'Haritadan alındı'
-                    : 'Haritadan',
-                expand: true,
-                active: _altMapAtMs != null,
-                twoLines: true,
-                maxLabelLines: 1,
-                onPressed: _altMapBusy ? null : _readMapAltitude,
-              ),
-            ),
-            _boxButtonRow(
-              box: MenzilInput(
                 key: BallisticsFieldKeys.altitude,
                 controller: altitude,
-                label: 'Telefondan irtifa',
-                // A typed value is the user's (button no longer orange).
-                onChanged: (_) => _update(() {
-                  _userEdited.add(altitude);
-                  _altPhoneAtMs = null;
-                  _altitudeWasReset = false;
-                  _shotCache.clear();
-                  _holdSamples = null;
-                }),
+                label: 'İrtifa',
+                // A typed value is used as is ("İrtifa alındı" clears).
+                onChanged: (_) => _altitudeTyped(),
                 unit: metric ? 'm' : 'ft',
                 keyboardType: const TextInputType.numberWithOptions(
                   decimal: true,
@@ -408,17 +369,17 @@ extension _HavaDurumuView on _BallisticsScreenState {
                 ),
               ),
               button: MenzilSecondaryButton(
-                key: const Key('environment-phone-altitude'),
-                label: _altPhoneBusy
+                key: const Key('environment-altitude-fetch'),
+                label: _altBusy
                     ? 'Alınıyor…'
-                    : _altPhoneAtMs != null
-                    ? 'Telefondan alındı'
-                    : 'Telefondan',
+                    : _altAtMs != null
+                    ? 'İrtifa alındı'
+                    : 'İrtifa al',
                 expand: true,
-                active: _altPhoneAtMs != null,
+                active: _altAtMs != null,
                 twoLines: true,
                 maxLabelLines: 1,
-                onPressed: _altPhoneBusy ? null : _readPhoneAltitude,
+                onPressed: _altBusy ? null : _readAltitude,
               ),
             ),
             if (_altitudeStatus != null)
@@ -432,7 +393,7 @@ extension _HavaDurumuView on _BallisticsScreenState {
               ),
             _dateResetRow(
               dateKey: const Key('environment-altitude-date'),
-              date: _whenText(_altitudeAtMs),
+              date: _whenText(_altAtMs),
               wasReset: _altitudeWasReset,
               resetKey: const Key('environment-altitude-reset'),
               onReset: _resetAltitude,
