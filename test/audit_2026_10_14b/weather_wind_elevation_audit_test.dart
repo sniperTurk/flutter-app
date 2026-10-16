@@ -76,8 +76,7 @@ const _profile = RifleProfile(
 
 const _weatherBtn = Key('environment-fill-weather');
 const _weatherReset = Key('environment-weather-reset');
-const _mapBtn = Key('environment-map-altitude');
-const _phoneBtn = Key('environment-phone-altitude');
+const _altBtn = Key('environment-altitude-fetch');
 const _windMax = Key('pro-wind-max');
 const _windMaxBtn = Key('pro-wind-max-fill');
 const _bracket = Key('shot-wind-bracket');
@@ -446,7 +445,7 @@ void main() {
   group(
     'chain: a weather fetch writes only Sıcaklık, Bağıl nem, Rüzgâr hızı',
     () {
-      testWidgets('Basınç, both İrtifa boxes, Rüzgâr yönü and its time stay', (
+      testWidgets('Basınç, the İrtifa box, Rüzgâr yönü and its time stay', (
         tester,
       ) async {
         // The location fix carries a GPS altitude (900 m): it must not leak.
@@ -464,7 +463,6 @@ void main() {
         expect(_text(tester, BallisticsFieldKeys.wind), '5.0');
         expect(_text(tester, BallisticsFieldKeys.pressure), '900');
         expect(_text(tester, BallisticsFieldKeys.altitude), '500');
-        expect(_text(tester, BallisticsFieldKeys.mapAltitude), '');
         expect(_text(tester, BallisticsFieldKeys.windDirection), '3');
         expect(tester.widget<Text>(find.byKey(when)).data, dirTime);
       });
@@ -477,23 +475,26 @@ void main() {
     ) async {
       final rig = _Rig(elevation: TestElevation(const ElevationRead(-430.4)));
       await _show(tester, rig, BallisticsView.environment);
-      await _tap(tester, _mapBtn);
-      expect(_text(tester, BallisticsFieldKeys.mapAltitude), '-430');
-      expect(find.text('Haritadan alındı'), findsOneWidget);
+      await _tap(tester, _altBtn);
+      expect(_text(tester, BallisticsFieldKeys.altitude), '-430');
+      expect(find.text('İrtifa alındı'), findsOneWidget);
     });
 
     testWidgets('a rejected phone reading (no usable vertical accuracy) '
-        'writes nothing; the map value stays', (tester) async {
+        'after a failed map writes nothing; the earlier value stays', (
+      tester,
+    ) async {
+      final elevation = TestElevation(const ElevationRead(480));
       final rig = _Rig(
         phone: TestPhoneAltitude(const LocationFix(39.9, 32.8)),
-        elevation: TestElevation(const ElevationRead(480)),
+        elevation: elevation,
       );
       await _show(tester, rig, BallisticsView.environment);
-      await _tap(tester, _mapBtn);
-      await _tap(tester, _phoneBtn);
-      expect(_text(tester, BallisticsFieldKeys.altitude), '');
-      expect(_text(tester, BallisticsFieldKeys.mapAltitude), '480');
-      expect(find.text('Telefondan alındı'), findsNothing);
+      await _tap(tester, _altBtn);
+      expect(_text(tester, BallisticsFieldKeys.altitude), '480');
+      elevation.result = const ElevationUnavailable(ElevationFailure.offline);
+      await _tap(tester, _altBtn);
+      expect(_text(tester, BallisticsFieldKeys.altitude), '480');
       expect(
         find.byKey(const Key('environment-altitude-status')),
         findsOneWidget,
