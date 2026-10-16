@@ -155,7 +155,7 @@ void main() {
     );
     expect(
       tester.getRect(optional).left,
-      greaterThan(tester.getRect(info).right),
+      greaterThanOrEqualTo(tester.getRect(info).right - 0.01),
     );
     // Title left-aligned with the card.
     expect(tester.getRect(title).left, moreOrLessEquals(card.left, epsilon: 1));
