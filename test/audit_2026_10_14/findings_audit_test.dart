@@ -255,7 +255,7 @@ void main() {
         ).readAsStringSync();
         expect(src, isNot(contains('calibrationMag => maxMagnification')));
       },
-      skip: true, // F4: SFP assumed calibrated at max magnification
+      skip: 'F4: SFP assumed calibrated at max magnification',
     );
   });
 

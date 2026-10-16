@@ -14,7 +14,7 @@ ballistic app):
   BC band thresholds in whole fps, the zero to 0.1 of its unit, turret
   travel in whole clicks. The worst-case error of each is half a display
   step converted to SI: these are the tolerances of the Dart round trips.
-* PRF-7 size: flat-fire vacuum trajectory y(x) = x tan(theta) - h -
+* PRF-9 size: flat-fire vacuum trajectory y(x) = x tan(theta) - h -
   g x^2 / (2 v^2) (h = sight height), zeroed where y(Z) = 0. A wrong zero
   Z' instead of Z changes the bore angle by theta(Z') - theta(Z); the
   impact moves by that angle times the range. Drag only adds drop, so this
@@ -29,7 +29,7 @@ Source scans (the editor is ONE Dart library, read whole):
   (a controller that is never read on save would be data loss);
 * "Tür" blocks only a NEW profile: ``_platformSet`` starts true and is set
   false only inside ``if (p == null)``;
-* PRF-7 detector: the Mesafe birimi onChanged converts the typed zero from
+* PRF-9 detector: the Mesafe birimi onChanged converts the typed zero from
   the internal default unit even while the box still says "Seçiniz".
 
 Run: python3 tools/denetim_2026_10_15b_profil.py
@@ -105,7 +105,7 @@ def bore_angle_mrad(zero_m: float, v_mps: float, sight_m: float) -> float:
                      / zero_m) / RAD_PER_MRAD
 
 
-def prf7_effect(typed: float, v_fps: float, sight_mm: float,
+def prf9_effect(typed: float, v_fps: float, sight_mm: float,
                 range_m: float) -> dict:
     """User types [typed] while Mesafe birimi is "Seçiniz", then picks Yard.
 
@@ -239,9 +239,9 @@ def tur_blocks_only_new_profile(src: str | None = None) -> bool:
     return block >= 0 and '}' not in head[block + len('if (p == null) {'):]
 
 
-def prf7_present(src: str | None = None) -> bool:
+def prf9_present(src: str | None = None) -> bool:
     """The Mesafe birimi onChanged converts the zero without asking whether
-    a unit was set before (finding PRF-7)."""
+    a unit was set before (finding PRF-9)."""
     src = src if src is not None else editor_source()
     i = src.find("key: const Key('profile-distance-unit')")
     if i < 0:
@@ -263,15 +263,15 @@ def main() -> int:
              clicks_to_mrad(480, 0.25, 'smoa')))
     for typed, v, h, r in [(100, 2650, 45, 600), (300, 2650, 45, 800),
                            (30, 920, 55, 60)]:
-        e = prf7_effect(typed, v, h, r)
-        print('PRF-7 typed %g then Yard: box %.1f yd, stored %.2f m '
+        e = prf9_effect(typed, v, h, r)
+        print('PRF-9 typed %g then Yard: box %.1f yd, stored %.2f m '
               '(meant %.2f m), aim error %.3f mrad = %.0f mm at %g m'
               % (typed, e['shown_yd'], e['stored_m'], e['intended_m'],
                  e['angle_error_mrad'], e['offset_mm_at_range'], r))
     print('Boxes without info:', fields_without_info() or 'none')
     print('Controllers not read on save:', controllers_not_saved() or 'none')
     print('Tür blocks only a new profile:', tur_blocks_only_new_profile())
-    print('PRF-7 present in source:', prf7_present())
+    print('PRF-9 present in source:', prf9_present())
     return 0
 
 

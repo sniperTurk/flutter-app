@@ -63,14 +63,14 @@ class HandCalculation(unittest.TestCase):
         self.assertEqual(round(d.mps_to_fps(700)), 2297)
         self.assertEqual(round(d.mps_to_fps(500)), 1640)
 
-    def test_prf7_size(self):
-        e = d.prf7_effect(100, 2650, 45, 600)
+    def test_prf9_size(self):
+        e = d.prf9_effect(100, 2650, 45, 600)
         self.assertEqual(e['shown_yd'], 109.4)
         self.assertAlmostEqual(e['intended_m'], 91.44, places=9)
         self.assertAlmostEqual(e['stored_m'], 100.035, places=3)
         # Small at a short zero, about 0.18 mrad (14 cm at 800 m) at 300.
         self.assertLess(abs(e['angle_error_mrad']), 0.05)
-        far = d.prf7_effect(300, 2650, 45, 800)
+        far = d.prf9_effect(300, 2650, 45, 800)
         self.assertGreater(far['angle_error_mrad'], 0.15)
         self.assertGreater(far['offset_mm_at_range'], 100)
 

@@ -30,7 +30,7 @@ class Pre1ZeroOffsetUnit(unittest.TestCase):
         pro = _read('lib/features/ballistics/pro_ayarlar_view.dart')
         zg = _read('lib/features/tools/zero_group_screen.dart')
         reads_inch = re.search(r"metric \? 'cm' : 'in'", pro) is not None
-        writes_only_cm = 'metric' not in zg
+        writes_only_cm = re.search(r'\bmetric\b', zg) is None
         self.assertFalse(reads_inch and writes_only_cm)
 
 

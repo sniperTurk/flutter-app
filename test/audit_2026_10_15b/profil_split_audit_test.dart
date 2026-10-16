@@ -16,15 +16,16 @@
 // m/s, zero to 0.1 yd <= 0.04572 m, turret travel as whole clicks).
 //
 // Findings (see the audit report):
-//   PRF-7 (medium, pre-existing since #262, made reachable by every new
+//   PRF-9 (medium, pre-existing since #262, made reachable by every new
 //         profile's "Seçiniz" boxes): a zero typed while Mesafe birimi is
 //         still "Seçiniz" is converted as if it were metres when Yard is
 //         picked (100 -> 109.4 yd, stored 100 m instead of 91.44 m).
 //                                                             [skipped test]
-//   PRF-8 (low, #318/#323): picking Tür after Kalibre resets the chosen
+//   PRF-10 (low, #318/#323; same bug as PRF-7 in profil_tur_audit_test.dart,
+//         fixed by #327): picking Tür after Kalibre reset the chosen
 //         cartridge to the first one of the same diameter (".300 Win Mag"
 //         -> ".308 Win"); diameter, and so the calculation, unchanged.
-//                                                             [skipped test]
+//                                                     [test runs, no skip]
 // Passing guards: listed factory round with saved BC bands in the moved Ek
 // mühimmat card, yard + MOA + travel; typed SMOA scope + decimal twist;
 // unresolved (missing) rifle record: Tür filled from the ammunition,
@@ -698,7 +699,7 @@ void main() {
       expect(inputs['bandRows'], 0);
     });
 
-    testWidgets('PRF-7: a zero typed while Mesafe birimi is "Seçiniz" is not '
+    testWidgets('PRF-9: a zero typed while Mesafe birimi is "Seçiniz" is not '
         'converted as metres when Yard is picked', (tester) async {
       await _pumpList(tester);
       await _openNew(tester);
@@ -710,9 +711,9 @@ void main() {
       await chooseInSelect(tester, 'profile-distance-unit', 'Yard');
       // Today: "109.4" (100 m in yards); the user typed 100 yd.
       expect(_text(tester, 'profile-zero'), '100');
-    }, skip: true); // PRF-7: unset unit converts the typed zero from metres
+    }, skip: 'PRF-9: unset Mesafe birimi converts the typed zero as metres');
 
-    testWidgets('PRF-8 guard: picking Tür after Kalibre keeps the bullet '
+    testWidgets('PRF-10 guard: picking Tür after Kalibre keeps the bullet '
         'diameter (the calculation input)', (tester) async {
       await _pumpList(tester);
       await _openNew(tester);
@@ -723,7 +724,7 @@ void main() {
       expect(mm, 7.82);
     });
 
-    testWidgets('PRF-8: picking Tür after Kalibre keeps the cartridge', (
+    testWidgets('PRF-10: picking Tür after Kalibre keeps the cartridge', (
       tester,
     ) async {
       await _pumpList(tester);
@@ -731,8 +732,8 @@ void main() {
       await chooseInSelect(tester, 'rifle-caliber', '.300 Win Mag');
       expect(selectedValue<String>(tester, 'rifle-caliber'), '.300 Win Mag');
       await chooseInSelect(tester, 'profile-platform', 'Ateşli Tüfek');
-      // Today: ".308 Win" (first cartridge of 7.82 mm).
+      // Before #327: ".308 Win" (first cartridge of 7.82 mm).
       expect(selectedValue<String>(tester, 'rifle-caliber'), '.300 Win Mag');
-    }, skip: true); // PRF-8: Tür onChanged sets _cartridge = null
+    }); // PRF-10: fixed by #327
   });
 }

@@ -448,28 +448,32 @@ void main() {
   });
 
   group('Turret step arrows', () {
-    testWidgets(
-      'tap targets at least 44 pt on a 320 pt phone',
-      (tester) async {
-        _seed();
-        _size(tester, const Size(320, 2400));
-        await tester.pumpWidget(_app(_profile(), BallisticsView.shot));
-        await tester.pumpAndSettle();
-        await _tap(tester, find.byKey(ScopeDialKeys.turretToggle));
-        for (final tip in const [
-          'Yükseklik kulesi 1 klik yukarı',
-          'Yükseklik kulesi 1 klik aşağı',
-          'Rüzgâr kulesi 1 klik sağa',
-          'Rüzgâr kulesi 1 klik sola',
-        ]) {
-          final r = tester.getRect(find.byTooltip(tip));
-          expect(r.width, greaterThanOrEqualTo(44), reason: tip);
-          expect(r.height, greaterThanOrEqualTo(44), reason: tip);
-        }
-      },
-      // HDF-2: #317 arrows are 28 pt wide (top) and 30·k pt tall (side,
-      // ≈23 pt on a 320 pt phone); they were 44 × 44 IconButtons.
-      skip: true,
-    );
+    // HDF-2 (fixed by #349): #317 arrows were 28 pt wide (top) and 30·k pt
+    // tall (side, ≈23 pt on a 320 pt phone). Now every arrow's tap area is
+    // at least 44 × 44 pt where it fits and never lies over L-R.
+    testWidgets('tap targets at least 44 pt on a 320 pt phone, none over '
+        'L-R', (tester) async {
+      _seed();
+      _size(tester, const Size(320, 2400));
+      await tester.pumpWidget(_app(_profile(), BallisticsView.shot));
+      await tester.pumpAndSettle();
+      await _tap(tester, find.byKey(ScopeDialKeys.turretToggle));
+      final toggle = tester.getRect(find.byKey(ScopeDialKeys.turretToggle));
+      for (final tip in const [
+        'Yükseklik kulesi 1 klik yukarı',
+        'Yükseklik kulesi 1 klik aşağı',
+        'Rüzgâr kulesi 1 klik sağa',
+        'Rüzgâr kulesi 1 klik sola',
+      ]) {
+        final r = tester.getRect(find.byTooltip(tip));
+        expect(r.width, greaterThanOrEqualTo(44), reason: tip);
+        expect(r.height, greaterThanOrEqualTo(44), reason: tip);
+        expect(
+          r.overlaps(toggle),
+          isFalse,
+          reason: '$tip tap area $r overlaps L-R $toggle',
+        );
+      }
+    });
   });
 }
