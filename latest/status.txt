@@ -2,6 +2,16 @@ install: 0
 grant location: 0
 grant location-always: 0
 simulated location: 0
-flutter test: TIMEOUT after 1500s
-flutter test exit: 0
-screenshots: 1
+flutter test exit: 1
+screenshots: 18
+failed step: SIMSTEP_FAIL:hava_320: The finder "Found 0 widgets with text "Hava Durumu" descending from widgets with type "MenzilBottomNavigation": []" (used in a call to "tap()") could not find any matching widgets.
+failed step: SIMSTEP_FAIL:hava_390: Scrollable.of() was called with a context that does not contain a Scrollable widget.
+failed step: SIMSTEP_FAIL:hedef_320: The finder "Found 0 widgets with text "Hedef" descending from widgets with type "MenzilBottomNavigation": []" (used in a call to "tap()") could not find any matching widgets.
+failed step: SIMSTEP_FAIL:hedef_390: Scrollable.of() was called with a context that does not contain a Scrollable widget.
+failed step: SIMSTEP_FAIL:kalibre_select_320: The finder "Found 0 widgets with text "Profil" descending from widgets with type "MenzilBottomNavigation": []" (used in a call to "tap()") could not find any matching widgets.
+failed step: SIMSTEP_FAIL:kalibre_select_390: Expected: exactly one matching candidate
+failed step: SIMSTEP_FAIL:pro_320: The finder "Found 0 widgets with text "Pro" descending from widgets with type "MenzilBottomNavigation": []" (used in a call to "tap()") could not find any matching widgets.
+failed step: SIMSTEP_FAIL:profil_320: The finder "Found 0 widgets with text "Profil" descending from widgets with type "MenzilBottomNavigation": []" (used in a call to "tap()") could not find any matching widgets.
+failed step: SIMSTEP_FAIL:secici_320: The finder "Found 0 widgets with key [<'top-bar-profile-button'>]: []" (used in a call to "tap()") could not find any matching widgets.
+failed step: SIMSTEP_FAIL:secici_kisa_320: The finder "Found 0 widgets with key [<'top-bar-profile-button'>]: []" (used in a call to "tap()") could not find any matching widgets.
+failed step: SIMSTEP_FAIL:secici_uzun_320: The finder "Found 0 widgets with key [<'top-bar-profile-button'>]: []" (used in a call to "tap()") could not find any matching widgets.
