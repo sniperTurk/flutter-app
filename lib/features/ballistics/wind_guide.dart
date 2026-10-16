@@ -11,8 +11,8 @@ import '../../ui/menzil_theme.dart';
 abstract final class WindGuide {
   static const title = 'Rüzgârı gözle tahmin et';
 
-  /// The link under the Rüzgâr card that opens the guide (owner,
-  /// 2026-10-13 19:49: a popup, not an inline block).
+  /// The Rüzgâr ⓘ's tooltip and VoiceOver label; the ⓘ opens the guide
+  /// in a popup (owner, 2026-10-15). The separate link was deleted (HDF-1).
   static const linkLabel = 'Rüzgâr tahmini nasıl yapılır?';
 
   /// One decimal with a Turkish comma; an exact zero stays "0".
@@ -87,29 +87,4 @@ class WindGuideLines extends StatelessWidget {
       ],
     );
   }
-}
-
-/// Link-style button between the Rüzgâr card and "Pro Ayarlara Geç"; the
-/// guide itself opens in a popup (owner, 2026-10-13 19:49).
-class WindGuideLink extends StatelessWidget {
-  final bool metric;
-
-  const WindGuideLink({super.key, required this.metric});
-
-  @override
-  Widget build(BuildContext context) => Padding(
-    padding: const EdgeInsets.only(bottom: MenzilSpace.sm),
-    child: Align(
-      alignment: Alignment.centerLeft,
-      child: TextButton(
-        key: const Key('wind-guide-link'),
-        style: TextButton.styleFrom(
-          minimumSize: const Size(44, 44),
-          alignment: Alignment.centerLeft,
-        ),
-        onPressed: () => WindGuide.show(context, metric: metric),
-        child: const Text(WindGuide.linkLabel),
-      ),
-    ),
-  );
 }

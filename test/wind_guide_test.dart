@@ -50,8 +50,8 @@ const _imperialLines = [
 const _weatherButton = Key('environment-fill-weather');
 const _proButton = Key('environment-continue-pro');
 const _link = Key('wind-guide-link');
-// Owner, 2026-10-15: the Rüzgâr heading's ⓘ opens the guide; the link is
-// hidden behind WIND_GUIDE_LINK.
+// Owner, 2026-10-15: the Rüzgâr heading's ⓘ opens the guide; the separate
+// link was deleted (HDF-1).
 const _windInfo = Key('environment-wind-info');
 const _title = Key('wind-guide-title');
 const _close = Key('wind-guide-close');
@@ -144,12 +144,12 @@ void main() {
     await _screen(tester);
     // Hidden by default (WIND_OBSERVATION).
     expect(find.text('Rüzgâr gözlemi'), findsNothing);
-    // No inline guide and no link (WIND_GUIDE_LINK, owner 2026-10-15).
+    // No inline guide and no link (deleted, HDF-1, owner 2026-10-15).
     expect(find.byKey(_title), findsNothing);
     expect(_line(0), findsNothing);
     expect(find.byKey(_link), findsNothing);
     expect(find.text('Rüzgâr tahmini nasıl yapılır?'), findsNothing);
-    // The link text is kept for the flag and the ⓘ's VoiceOver label.
+    // The text is kept as the ⓘ's tooltip and VoiceOver label.
     expect(WindGuide.linkLabel, 'Rüzgâr tahmini nasıl yapılır?');
 
     // The ⓘ sits in the Rüzgâr heading, above the Rüzgâr card.
@@ -213,10 +213,18 @@ void main() {
     await tester.pumpWidget(
       MaterialApp(
         theme: MenzilTheme.light(),
-        home: const Scaffold(body: WindGuideLink(metric: false)),
+        home: Scaffold(
+          body: Builder(
+            builder: (context) => TextButton(
+              key: const Key('open-imperial-guide'),
+              onPressed: () => WindGuide.show(context, metric: false),
+              child: const Text('Aç'),
+            ),
+          ),
+        ),
       ),
     );
-    await tester.tap(find.byKey(_link));
+    await tester.tap(find.byKey(const Key('open-imperial-guide')));
     await tester.pumpAndSettle();
     _expectLines(tester, _imperialLines);
     expect(find.textContaining('m/s'), findsNothing);

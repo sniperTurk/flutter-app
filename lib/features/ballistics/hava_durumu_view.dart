@@ -18,13 +18,6 @@ extension _HavaDurumuView on _BallisticsScreenState {
           // (owner, 2026-10-12); the page stays in Araçlar. The fetch
           // buttons sit under the Hava Durumu boxes.
           ..._environmentInputs(context, collapseShotInputs: true),
-          // Below the Rüzgâr card, above Pro Ayarlara Geç (owner,
-          // 2026-10-13): only a link; the guide opens in a popup
-          // (2026-10-13 19:49). Display only: it never fills Rüzgâr hızı.
-          // Hidden behind WIND_GUIDE_LINK (owner, 2026-10-15): the Rüzgâr
-          // ⓘ opens the same guide.
-          if (_BallisticsScreenState._showWindGuideLink)
-            WindGuideLink(metric: metric),
           if (widget.onContinueToPro != null)
             MenzilPrimaryButton(
               key: const Key('environment-continue-pro'),
@@ -449,7 +442,7 @@ extension _HavaDurumuView on _BallisticsScreenState {
           message: _pressureWarning!,
         ),
       // Rüzgâr: its ⓘ opens the "Rüzgâr tahmini nasıl yapılır?" guide
-      // (owner, 2026-10-15); the separate link below the card is hidden.
+      // (owner, 2026-10-15); the separate link was deleted (HDF-1).
       MenzilSectionHeader(
         'Rüzgâr',
         size: 18,
