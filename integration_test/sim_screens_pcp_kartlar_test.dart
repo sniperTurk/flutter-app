@@ -7,21 +7,47 @@
 // boxes, at 390 pt and at 320 pt wide. Same mechanics as
 // sim_screens_test.dart: `SIMSCREEN:<name>` markers are photographed by
 // .github/workflows/sim-screens.yml (test input). The narrower widths are
-// the app laid out in a 390 / 320 pt wide view on the Simulator's screen.
+// the app laid out in a 390 / 320 pt wide box at the left of the
+// Simulator's screen (its own MediaQuery says 390 / 320 pt); the rest of
+// the screen stays black.
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:sniper_turk/main.dart' as app;
+import 'package:sniper_turk/main.dart';
+import 'package:sniper_turk/services/turret_click_sound.dart';
 
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
   testWidgets('screenshot tour: PCP mühimmat', (tester) async {
     await (await SharedPreferences.getInstance()).clear();
-    app.main();
+    // As main(), with the app in a box of [appWidth] points.
+    TurretClickSound.instance = AudioTurretClickSound();
+    final appWidth = ValueNotifier<double>(390);
+    await tester.pumpWidget(
+      ValueListenableBuilder<double>(
+        valueListenable: appWidth,
+        builder: (context, width, _) {
+          final data = MediaQueryData.fromView(View.of(context));
+          return ColoredBox(
+            color: const Color(0xFF000000),
+            child: Align(
+              alignment: Alignment.topLeft,
+              child: SizedBox(
+                width: width,
+                child: MediaQuery(
+                  data: data.copyWith(size: Size(width, data.size.height)),
+                  child: const SniperTurkApp(),
+                ),
+              ),
+            ),
+          );
+        },
+      ),
+    );
 
     final failures = <String>[];
     var counter = 0;
@@ -180,13 +206,9 @@ void main() {
       await settle();
     }
 
-    final dpr = tester.view.devicePixelRatio;
-    final screenHeight = tester.view.physicalSize.height;
-    addTearDown(tester.view.reset);
-
     /// Lays the app out [points] wide (the left part of the screen).
     Future<void> width(double points) async {
-      tester.view.physicalSize = Size(points * dpr, screenHeight);
+      appWidth.value = points;
       await settle();
     }
 
@@ -223,8 +245,10 @@ void main() {
     /// Profil > + (Yeni profil) > Ateşli Tüfek: the Tüfek card, then close.
     Future<void> firearmCard(String name) async {
       await openTab('Profil');
-      await tester.ensureVisible(find.byTooltip('Yeni profil'));
-      await tester.tap(find.byTooltip('Yeni profil'));
+      final add = find.byKey(const Key('profiles-add'));
+      await tester.ensureVisible(add);
+      await settle();
+      await tester.tap(add);
       await settle();
       await choose('profile-platform', 'Ateşli Tüfek');
       await type('profile-velocity-fps', '2650');
@@ -308,10 +332,13 @@ void main() {
     if (saved) {
       await step('pcp_320', () async {
         await openTab('Profil');
-        final row = find.byKey(const Key('profile-row-name')).first;
-        await tester.ensureVisible(row);
+        // Düzenle is in the row's ⋯ menu.
+        final menu = find.byTooltip('Profil işlemleri').first;
+        await tester.ensureVisible(menu);
         await settle();
-        await tester.tap(row);
+        await tester.tap(menu);
+        await settle();
+        await tester.tap(find.text('Düzenle').last);
         await settle();
         expect(find.text('Profili Düzenle'), findsOneWidget);
         await card('profile-rifle-form', 'scope-sight-height', 'pcp_tufek_320');

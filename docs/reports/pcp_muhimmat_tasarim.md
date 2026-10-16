@@ -175,7 +175,7 @@ Sahibin 16.10.2026 20:49–21:04 kararları:
   - 885.8 fps ile açılıyor; çift kutuları boş; eksik yok; boş durum yazısı yok.
   - Hedef'in sonucu main'dekiyle birebir aynı (aşağıya bakın).
 
-**Eski profilin main'deki sonucu nasıl ölçüldü:** main'in (e7b29bf) üstüne yalnız yazdıran bir test koyan geçici bir dal açıldı (`tmp/pcp-eski-golden-main`). Test-diag run 38947080076 değeri 6.142636207799528 olarak verdi. Bu dalın testi aynı değeri bekliyor. Geçici dal bu iş bitince silindi.
+**Eski profilin main'deki sonucu nasıl ölçüldü:** main'in (e7b29bf) üstüne yalnız yazdıran bir test koyan geçici bir dal açıldı (`tmp/pcp-eski-golden-main`). Test-diag run 38947080076 değeri 6.142636207799528 olarak verdi. Bu dalın testi aynı değeri bekliyor. Geçici dal silinemedi: bu ortamdan dal silmeye izin yok (git push --delete bağlantıyı kesti, REST 403). Dal `tmp/pcp-eski-golden-main` hâlâ duruyor ve birleştirilmemeli; silinmesi sahibe kaldı.
 
 **`test/audit_2026_10_15c/kul10_pcp_hiz_test.dart`** (yeni, `skip` yok): KUL-10'un sayıları aynı. Hedef 255 m/s ile çözüyor (çift 250/260, Tüfek kartında 270); 18 gr; G1 0,031; sıfır 30 m; doğrulama 100 m'de. Uygulanan BC ≈ 0,031 çıkıyor ve Hedef'in hızıyla gözlemi 0,05 mrad içinde geri veriyor. Elle kontrol: 255 m/s'de 6,89 mrad.
 
@@ -219,6 +219,23 @@ SCREENSHOTS_PLACEHOLDER
 
 ## CI
 
-CI_PLACEHOLDER
+Bütün koşular rebase sonrası tek commit **7a7ac21** üzerinde (main f46ab8f'in üstünde). Önceki 8 commit tek commit'te toplandı. Rebase'te tek çakışma `pro_ayarlar_view.dart`'taydı: #373 silinen `_pcpPressureProFields`'i değiştirmişti; fonksiyon silinmiş olarak bırakıldı.
+
+| İş | Sonuç | Bağlantı |
+|---|---|---|
+| iOS CI / verify | başarılı | https://github.com/sniperTurk/flutter-app/actions/runs/38957814565/job/117170753189 |
+| iOS CI / dart-checks | başarılı | https://github.com/sniperTurk/flutter-app/actions/runs/38957814565/job/117165007855 |
+| iOS CI / wind-acceptance | başarılı | https://github.com/sniperTurk/flutter-app/actions/runs/38957814565/job/117165007645 |
+| iOS CI / ios-simulator | atlandı (iş akışı bu olayda çalıştırmıyor) | aynı koşu |
+| test-diag (`files=test`, bütün testler) | başarılı | https://github.com/sniperTurk/flutter-app/actions/runs/38958183988 |
+| analyze-diag | başarılı | https://github.com/sniperTurk/flutter-app/actions/runs/38958186264 |
+| format-fix (375209577) | başarılı, değişiklik yok (kod zaten biçimli) | https://github.com/sniperTurk/flutter-app/actions/runs/38957820241 |
+| main'deki eski PCP değeri (geçici dal) | bilerek düşen tek test, değer okundu | https://github.com/sniperTurk/flutter-app/actions/runs/38947080076 |
+
+Ara koşular (rebase öncesi):
+- test-diag 38947664929: 1 test düştü, `profile_lists_test` "Fabrika fişeği": hız kutusunun eski yerini bekliyordu. Yeni kurala göre düzeltildi; sonraki koşu (38949816043) başarılı.
+- 18:45 ve 19:07'de başlayan iOS CI `verify` ve simülatör turu 19:39'da iptal edildi. Aynı anda main'de TestFlight koşusu başladı ve macOS koşuları iptal edildi; bu iptallerin bu PR'la ilgisi yok.
+
+Code Review ve Security review yapıldı: https://github.com/sniperTurk/flutter-app/pull/368#issuecomment-6222636244. Eşiği geçen bulgu yok. Eşik altındaki iki not "Bilerek yapılmayanlar"da.
 
 🤖 Generated with [Claude Code](https://claude.com/claude-code)
