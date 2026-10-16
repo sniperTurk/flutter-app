@@ -1210,11 +1210,7 @@ void main() {
         selectedValue<String>(tester, 'scope-reticle'),
         'Christmas tree (MIL)',
       );
-      expect(plain(tester), [
-        'Christmas tree (MIL)',
-        'MOA çizgili',
-        'Duplex',
-      ]);
+      expect(plain(tester), ['Christmas tree (MIL)', 'MOA çizgili', 'Duplex']);
     });
 
     testWidgets('a saved generic reticle stays listed and selected', (

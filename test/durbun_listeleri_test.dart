@@ -220,16 +220,17 @@ void main() {
   tearDown(() => CatalogRepository.installUserCatalog(UserCatalog.empty));
 
   group('pick lists from the catalog', () {
-    for (final (key, label, suffix, of) in <(
-      String,
-      String,
-      String,
-      double? Function(ScopeOptic),
-    )>[
-      ('scope-min-mag', 'Minimum büyütme', 'x', (s) => s.minMagnification),
-      ('scope-max-mag', 'Maksimum büyütme', 'x', (s) => s.maxMagnification),
-      ('scope-objective', 'Mercek çapı', ' mm', (s) => s.objectiveDiameterMm),
-    ]) {
+    for (final (key, label, suffix, of)
+        in <(String, String, String, double? Function(ScopeOptic))>[
+          ('scope-min-mag', 'Minimum büyütme', 'x', (s) => s.minMagnification),
+          ('scope-max-mag', 'Maksimum büyütme', 'x', (s) => s.maxMagnification),
+          (
+            'scope-objective',
+            'Mercek çapı',
+            ' mm',
+            (s) => s.objectiveDiameterMm,
+          ),
+        ]) {
       testWidgets('$label: every catalog value is in the list (scrolled '
           'through), sorted, each once', (tester) async {
         await _openNew(tester);
@@ -241,9 +242,8 @@ void main() {
         expect(shown.first, 'Seçiniz');
         final values = shown.skip(1).toList();
         expect(values.toSet().length, values.length, reason: 'each once');
-        double parse(String t) => double.parse(
-          t.replaceAll(suffix, '').replaceAll(',', '.').trim(),
-        );
+        double parse(String t) =>
+            double.parse(t.replaceAll(suffix, '').replaceAll(',', '.').trim());
         final numbers = [for (final t in values) parse(t)];
         expect(numbers, [...numbers]..sort(), reason: 'sorted');
         for (final v in catalog) {
@@ -403,9 +403,7 @@ void main() {
 
   group('opened list: 8 rows, scrolls inside (app-wide)', () {
     testWidgets('390×844: a long list shows exactly 8 rows, a short one only '
-        'its rows; scroll bar shown; never wider than its box', (
-      tester,
-    ) async {
+        'its rows; scroll bar shown; never wider than its box', (tester) async {
       await _openNew(tester, height: 844);
       await openScopeManual(tester);
       await _openList(tester, 'scope-min-mag');
@@ -490,10 +488,7 @@ void main() {
         final box = tester.getRect(
           find.descendant(of: _k(key), matching: find.byType(InputDecorator)),
         );
-        expect(
-          tester.getSize(_menu).width,
-          lessThanOrEqualTo(box.width + 0.5),
-        );
+        expect(tester.getSize(_menu).width, lessThanOrEqualTo(box.width + 0.5));
         await _closeList(tester);
       }
       expect(tester.takeException(), isNull);
@@ -629,7 +624,10 @@ void main() {
       ('scope-mount', 'Dürbün ayağı'),
     ]) {
       final text = find.descendant(
-        of: find.descendant(of: _k(key), matching: find.byType(MenzilFieldLabel)),
+        of: find.descendant(
+          of: _k(key),
+          matching: find.byType(MenzilFieldLabel),
+        ),
         matching: find.text(label),
       );
       expect(text, findsOneWidget, reason: key);

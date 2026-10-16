@@ -363,10 +363,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
       for (final MapEntry(key: n, value: u) in _catalogReticles.entries)
         if (!unitSet || n == keep || u == null || (u == 'moa') == moa) n,
     ];
-    return [
-      if (keep != null && !out.contains(keep)) keep,
-      ...out,
-    ];
+    return [if (keep != null && !out.contains(keep)) keep, ...out];
   }
 
   /// Klik değeri of the turret, by unit: 0,1 / 0,05 mrad; 1/4, 1/8, 1/2 MOA.

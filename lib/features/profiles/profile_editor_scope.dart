@@ -710,10 +710,7 @@ extension _ScopeSection on _ProfileDialogState {
           if (Reticles.genericNames.contains(n)) n,
       ];
       final saved = scopeReticle;
-      names = [
-        if (saved != null && !plain.contains(saved)) saved,
-        ...plain,
-      ];
+      names = [if (saved != null && !plain.contains(saved)) saved, ...plain];
     }
     return MenzilSelect<String>(
       key: ValueKey('scope-reticle-$_scopePickToken'),
