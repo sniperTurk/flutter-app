@@ -26,7 +26,7 @@ Dal: `fix/hdf1-ruzgar-rehberi-sil` (main'den, #335 birleştikten sonra). Taslak 
 - Rüzgâr ⓘ metni, başlığı ve görünüşü değişmedi.
 - `WIND_OBSERVATION` (Rüzgâr gözlemi) bayrağına dokunulmadı; bu görevin kapsamında değil.
 - Eski raporlardaki (`ruzgar_rehber.md`, `temiz_tasarim_hedef.md`) tarihî anlatım değiştirilmedi.
-- HDF-1 denetim testleri (`test/audit_2026_10_15b/hedef_split_audit_test.dart`, `tools/test_denetim_2026_10_15b_hedef.py`, `tools/test_denetim_2026_10_15b_guvenlik.py`) PR #333'te ve #333 henüz main'de değil. Bu yüzden bu dalda atlanmış (skip) HDF-1 testi yok; açılacak test yok. **Dikkat:** #333 bu PR'dan sonra birleşirse, orada bayrağın var olmasını bekleyen testler (`WIND_GUIDE_LINK` varsayılan kapalı, ortam okuması sayısı 16) güncellenmeli, HDF-1/FLG-1 `skip`'leri kaldırılmalı. #333'ün dosyalarına bu PR'da dokunulmadı.
+- HDF-1 denetim testleri (`test/audit_2026_10_15b/hedef_split_audit_test.dart`, `tools/test_denetim_2026_10_15b_hedef.py`, `tools/test_denetim_2026_10_15b_guvenlik.py`) PR #333'te ve #333 henüz main'de değil. Bu yüzden bu dalda atlanmış (skip) HDF-1 testi yok; açılacak test yok. **Dikkat:** #333 bu PR'dan sonra birleşirse `test/audit_2026_10_15b/hedef_split_audit_test.dart` derlenmez (satır ~405 silinen `WindGuideLink` sınıfını kullanıyor), dosyadaki tüm testler kırmızı olur. O dosyada bayrağın var olmasını bekleyen denetimler (`WIND_GUIDE_LINK` varsayılan kapalı, `_showWindGuideLink` sayısı) ve `tools/test_denetim_2026_10_15b_hedef.py` / `_guvenlik.py` içindeki bayrak testleri güncellenmeli, HDF-1/FLG-1 `skip`'leri kaldırılmalı; ortam okuması 16 değil 15 olur. #333'ün dosyalarına bu PR'da dokunulmadı.
 
 ## Testler
 - `test/wind_guide_test.dart`: "imperial popup shows mph" testi silinen `WindGuideLink` yerine pencereyi doğrudan `WindGuide.show(metric: false)` ile açıyor; aynı 6 mph satırını ve m/s olmadığını denetliyor (zayıflatılmadı). Bağlantının görünmediğini, ⓘ'nin Rüzgâr başlığında olduğunu ve pencereyi açtığını denetleyen testler aynen duruyor; yalnız yorumları güncellendi.
@@ -37,7 +37,11 @@ Dal: `fix/hdf1-ruzgar-rehberi-sil` (main'den, #335 birleştikten sonra). Taslak 
 ## CI bağlantıları
 - Format (One-off dart format fix): https://github.com/sniperTurk/flutter-app/actions/runs/38853114680 — success, düzeltme commit'i gerekmedi.
 - Analyze (One-off analyze diagnostic): https://github.com/sniperTurk/flutter-app/actions/runs/38853119622 — success.
-- Test (One-off test diagnostic, files=test): https://github.com/sniperTurk/flutter-app/actions/runs/38853117401 — CI_TEST_SONUCU
-- PR denetimleri (`verify`, `dart-checks`, `wind-acceptance`): CI_PR_SONUCU
+- Test (One-off test diagnostic, files=test): https://github.com/sniperTurk/flutter-app/actions/runs/38853117401 — iş "success" bitti ama 3 test dosyasında hata bildirdi: `truing_shared_record_test.dart` (2 test), `scope_mount_cant_test.dart` (1), profil formu kesik metin testi (KESIK, Profil formu yeni/düzenle). Aynı tanı main üzerinde de çalıştırıldı: https://github.com/sniperTurk/flutter-app/actions/runs/38853967550 — hatalar birebir aynı. Yani bu PR'dan gelmiyor, main'de zaten var; bu PR'da düzeltilmedi (kapsam dışı). Rüzgâr/rehber testlerinde hata yok.
+- PR denetimleri (`verify`, `dart-checks`, `wind-acceptance`): iOS CI https://github.com/sniperTurk/flutter-app/actions/runs/38853986165 (commit 98ad6509): `verify` success (https://github.com/sniperTurk/flutter-app/actions/runs/38853986165/job/116825374685), `dart-checks` success (https://github.com/sniperTurk/flutter-app/actions/runs/38853986165/job/116821237211), `wind-acceptance` success (https://github.com/sniperTurk/flutter-app/actions/runs/38853986165/job/116821236975). `ios-simulator` atlandı (isteğe bağlı iş). Simulator, cihaz, TestFlight çalışmadı.
+
+## İnceleme
+- Code Review (5 bakış: CLAUDE.md, hata taraması, geçmiş, yorumlar, eski PR'lar): sorun bulunmadı. Tek bilgi notu yukarıdaki #333 sırası.
+- Security review: güvenlik sorunu yok. Kod yalnız silme; ağ, gizli anahtar, kayıtlı veri ya da iş akışı değişikliği yok. Yeni Python testi yalnız depo içi dosyaları okuyor.
 
 🤖 Generated with [Claude Code](https://claude.com/claude-code)
