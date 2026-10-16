@@ -167,7 +167,10 @@ void main() {
           // Yan kule konum (owner, 2026-10-16 21:08): the column moved 4·k pt
           // right, its empty margin past the reticle square, which bounds
           // hit testing. The part a finger can hit is still ≥ 44 pt wide.
-          expect(r.right - reticle.right, moreOrLessEquals(4 * k, epsilon: 0.5));
+          expect(
+            r.right - reticle.right,
+            moreOrLessEquals(4 * k, epsilon: 0.5),
+          );
           expect(
             math.min(r.right, reticle.right) - r.left,
             greaterThanOrEqualTo(44),

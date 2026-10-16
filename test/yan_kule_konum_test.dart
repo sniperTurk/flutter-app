@@ -174,7 +174,10 @@ void main() {
             )
             .first,
       );
-      expect(column.right - reticle.right, moreOrLessEquals(4 * k, epsilon: 0.5));
+      expect(
+        column.right - reticle.right,
+        moreOrLessEquals(4 * k, epsilon: 0.5),
+      );
       expect(column.right, lessThanOrEqualTo(card.right - 1));
       expect(column.right, lessThanOrEqualTo(size.width));
       expect(box.right, lessThanOrEqualTo(card.right));
