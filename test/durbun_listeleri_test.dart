@@ -669,6 +669,7 @@ void main() {
     final store = await _openNew(tester);
     await fillScopeForm(tester, model: 'Z3', minMag: '5', maxMag: '25');
     await chooseInSelect(tester, 'scope-reticle', 'Mil-Dot');
+    await enterRifleField(tester, 'scope-travel-elevation', '200');
     await fillRifleForm(tester);
     await fillAmmoForm(tester);
     await fillShotValues(tester);
@@ -683,11 +684,12 @@ void main() {
     await tester.tap(save);
     await tester.pumpAndSettle();
     final first = (await store.all()).single;
-    // The same record as saved by an older version with a typed 1,3x
-    // (no list value any more).
+    // The same record as saved by an older version with a typed 1,3x and
+    // a 0,2 MRAD click (no list values any more).
     final user = CatalogRepository.userCatalog;
     final old = user.scopes.singleWhere((o) => o.id == first.scopeId);
     expect(old.minMagnification, 5);
+    expect(old.elevationRangeMrad, closeTo(20, 1e-9));
     CatalogRepository.installUserCatalog(
       UserCatalog(
         rifles: user.rifles,
@@ -700,7 +702,7 @@ void main() {
             brand: old.brand,
             model: 'Z3 1,3-25x56 FFP',
             objectiveDiameterMm: old.objectiveDiameterMm,
-            clickValue: old.clickValue,
+            clickValue: 0.2,
             clickUnit: old.clickUnit,
             minMagnification: 1.3,
             maxMagnification: old.maxMagnification,
@@ -727,15 +729,34 @@ void main() {
     );
     expect(selectedValue<double>(tester, 'scope-max-mag'), 25);
     expect(selectedValue<double>(tester, 'scope-objective'), 56);
-    expect(selectedValue<double>(tester, 'scope-click'), 0.1);
+    expect(selectedValue<double>(tester, 'scope-click'), isNull);
+    // Üst kule klik sayısı was counted in 0,2 MRAD clicks: asked again.
+    expect(
+      tester
+          .widget<TextField>(
+            find.descendant(
+              of: _k('scope-travel-elevation'),
+              matching: find.byType(TextField),
+            ),
+          )
+          .controller!
+          .text,
+      '',
+    );
     expect(selectedValue<String>(tester, 'scope-reticle'), 'Mil-Dot');
-    expect(_missingText(tester), contains('Dürbün: Min. büyütme'));
+    expect(
+      _missingText(tester),
+      contains('Dürbün: Min. büyütme, Klik değeri'),
+    );
     final button = find.widgetWithText(MenzilPrimaryButton, 'Güncelle');
     await tester.ensureVisible(button);
     await tester.pumpAndSettle();
     expect(tester.widget<MenzilPrimaryButton>(button).onPressed, isNull);
 
     await chooseInSelect(tester, 'scope-min-mag', '1x');
+    expect(_missingText(tester), contains('Dürbün: Klik değeri'));
+    expect(tester.widget<MenzilPrimaryButton>(button).onPressed, isNull);
+    await chooseInSelect(tester, 'scope-click', '0,1 MRAD');
     expect(_missingText(tester), isNot(contains('Dürbün:')));
     await tester.ensureVisible(button);
     await tester.pumpAndSettle();
@@ -752,6 +773,8 @@ void main() {
     );
     expect(scope.minMagnification, 1);
     expect(scope.maxMagnification, 25);
+    expect(scope.clickValue, 0.1);
+    expect(scope.elevationRangeMrad, isNull);
     expect(scope.reticle, 'Mil-Dot');
     expect(tester.takeException(), isNull);
   });

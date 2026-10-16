@@ -262,7 +262,13 @@ abstract final class ReticleCatalog {
     return _byCatalogName.putIfAbsent('$turret|$name|$brand', () {
       final found = <String, ReticleData>{};
       for (final s in CatalogRepository.scopes) {
-        if (s.userEntered || !options(s.reticle).contains(name)) continue;
+        // The list offers each name once whatever its letter case
+        // ("Center-X", "CENTER-X").
+        final lower = name.toLowerCase();
+        if (s.userEntered ||
+            !options(s.reticle).any((o) => o.toLowerCase() == lower)) {
+          continue;
+        }
         if (brandMatches(s.brand, brand)) return null;
         final r = find(
           name,

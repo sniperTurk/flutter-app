@@ -670,9 +670,10 @@ class _ProfileDialogState extends State<_ProfileDialog> {
       text: travel(s0?.elevationRangeMrad),
     );
     // A typed scope whose saved value is no longer a list entry opens with
-    // that box on "Seçiniz"; it is required, so the profile cannot be saved
-    // (or calculate with the old value) until it is picked again (owner,
-    // 2026-10-16 22:24: "eski kayıtlar boş açılsın, sorun yok").
+    // that box on "Seçiniz"; it is required, so the edited profile cannot be
+    // saved until it is picked again (owner, 2026-10-16 22:24: "eski
+    // kayıtlar boş açılsın, sorun yok"). The saved profile itself is not
+    // changed until then.
     if (s0 != null && typedScope) {
       void keepListed(TextEditingController c, List<double> options) {
         final v = _parse(c);
@@ -682,9 +683,13 @@ class _ProfileDialogState extends State<_ProfileDialog> {
       keepListed(scopeMinMag, _minMagOptions);
       keepListed(scopeMaxMag, _maxMagOptions);
       keepListed(scopeObjective, _objectiveOptions);
+      final clickBefore = scopeClick.text;
       keepListed(scopeClick, [
         for (final (v, _) in _clickOptions(angularUnit)) v,
       ]);
+      // Üst kule klik sayısı was counted in the old click: with that click
+      // gone it would mean another travel, so it is asked again too.
+      if (scopeClick.text != clickBefore) scopeTravelElevation.clear();
     }
     // An ammunition of the other rifle type (a PCP slug saved with a
     // firearm) is not shown; the user picks a bullet again.
@@ -1104,8 +1109,12 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     return null;
   }
 
-  /// From 0,75x: the smallest minimum of the catalog (2026-10-16).
-  String? get _minMagError => _rangeError(scopeMinMag, 0.5, 60);
+  /// From the smallest list value (0,75x in the catalog, 2026-10-16).
+  String? get _minMagError => _rangeError(
+    scopeMinMag,
+    _minMagOptions.first < 1 ? _minMagOptions.first : 1,
+    60,
+  );
   String? get _maxMagError {
     final e = _rangeError(scopeMaxMag, 1, 100);
     if (e != null) return e;
