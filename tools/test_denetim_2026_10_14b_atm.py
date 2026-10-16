@@ -208,15 +208,15 @@ class CodePathGuards(unittest.TestCase):
     def setUpClass(cls):
         cls.src = library_text(SCREEN)
 
-    def test_effective_altitude_is_phone_else_map(self):
-        self.assertRegex(
-            self.src,
-            r"TextEditingController get _altitudeCtl =>\s*"
-            r"altitude\.text\.trim\(\)\.isNotEmpty \? altitude : mapAltitude;")
+    def test_effective_altitude_is_the_one_box(self):
+        # Owner 2026-10-16: one İrtifa box; the phone-else-map getter and
+        # the second (map) controller are deleted.
+        self.assertNotIn("_altitudeCtl", self.src)
+        self.assertNotIn("TextEditingController mapAltitude", self.src)
 
     def test_solve_uses_it_for_f1(self):
         body = _method(self.src, "void solve() {")
-        self.assertIn("final altitudeBox = _altitudeCtl;", body)
+        self.assertIn("final altitudeBox = altitude;", body)
         self.assertRegex(
             body,
             r"pressureFromAltitude =\s*pressure\.text\.trim\(\)\.isEmpty "
@@ -226,13 +226,12 @@ class CodePathGuards(unittest.TestCase):
 
     def test_pressure_warning_and_gravity_use_it(self):
         warn = _method(self.src, "String? get _pressureWarning {")
-        self.assertIn("final alt = _altitudeCtl;", warn)
+        self.assertIn("final alt = altitude;", warn)
         grav = _method(self.src, "Future<void> _gravityFromLocation() async {")
-        self.assertIn("_parsed(_altitudeCtl)", grav)
+        self.assertIn("_parsed(altitude)", grav)
 
     def test_no_other_reader_of_the_raw_phone_box_in_the_calculation(self):
-        # Only persistence/unit conversion/the card itself may read
-        # `altitude` directly; the solver input comes from _altitudeCtl.
+        # The solver input comes through altitudeBox (the İrtifa box).
         body = _method(self.src, "void solve() {")
         self.assertNotRegex(body, r"number\(altitude\)|_parsed\(altitude\)")
 
@@ -241,7 +240,6 @@ class CodePathGuards(unittest.TestCase):
         self.assertNotIn("altitude", p.replace("İrtifa", ""))
         a = _method(self.src, "void _resetAltitude() {")
         self.assertIn("altitude.text = '';", a)
-        self.assertIn("mapAltitude.text = '';", a)
         self.assertNotIn("pressure.text", a)
 
     def test_basinc_al_writes_no_altitude(self):
@@ -255,12 +253,14 @@ class CodePathGuards(unittest.TestCase):
         self.assertNotIn("tube", m.group(1).lower())
         self.assertNotIn("_showProTubePressure", m.group(1))
 
-    def test_both_boxes_persist_and_convert(self):
+    def test_the_box_persists_and_converts(self):
+        # The one İrtifa box is saved under 'mapAltitude'; an older phone
+        # value ('altitude') is carried, never deleted (2026-10-16).
         si = _method(self.src, "Map<String, double> _weatherSi() {")
         self.assertIn("'mapAltitude'", si)
         self.assertIn("'altitude'", si)
         conv = _method(self.src, "void _convertControllersToImperial() {")
-        self.assertIn("maybe(mapAltitude)", conv)
+        self.assertIn("maybe(altitude)", conv)
 
     def test_imperial_path_is_unreachable(self):
         # V380: metric only; the ft branches of both boxes cannot run.
@@ -283,16 +283,14 @@ class InfoTexts(unittest.TestCase):
     def _joined(self):
         return re.sub(r"'\s*\n\s*'", "", self.info)
 
-    def test_atm2_f1_rule_is_in_the_irtifa_and_basinc_info(self):
-        # ATM-2 fixed: the İrtifa card ⓘ and the Basınç Ölçer ⓘ state the F1
-        # rule; the unused EnvironmentFieldInfo.altitude text is deleted.
+    def test_atm2_f1_rule_is_in_the_basinc_info(self):
+        # ATM-2 fixed: the Basınç Ölçer ⓘ states the F1 rule. The İrtifa
+        # card ⓘ is the owner's exact wording since 2026-10-16; the unused
+        # EnvironmentFieldInfo.altitude text is deleted.
         joined = self._joined()
         self.assertNotIn("static const altitude =", self.info)
-        self.assertIn(
-            "İrtifa yalnız İstasyon basıncı boşken basınç tahmini için "
-            "kullanılır.",
-            _const(joined, "altitudeCard"),
-        )
+        self.assertTrue(
+            _const(joined, "altitudeCard").startswith("İrtifa; "))
         self.assertIn(
             "Boşsa basınç İrtifa kartından tahmin edilir.",
             _const(joined, "barometerCard"),

@@ -428,8 +428,7 @@ void main() {
       for (final k in const [
         _weatherBtn,
         _pressureBtn,
-        Key('environment-map-altitude'),
-        Key('environment-phone-altitude'),
+        Key('environment-altitude-fetch'),
         Key('environment-weather-reset'),
         Key('environment-pressure-reset'),
         Key('environment-altitude-reset'),

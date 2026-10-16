@@ -93,12 +93,8 @@ abstract final class BallisticsFieldKeys {
   static const pressure = ValueKey('ballistics-pressure');
   static const humidity = ValueKey('ballistics-humidity');
 
-  /// İrtifa card → Telefondan irtifa (the former single İrtifa box; owner,
-  /// 2026-10-14).
+  /// İrtifa card: the one İrtifa box (owner, 2026-10-16).
   static const altitude = ValueKey('ballistics-altitude');
-
-  /// İrtifa card → Haritadan irtifa.
-  static const mapAltitude = ValueKey('ballistics-map-altitude');
   static const ranges = ValueKey('ballistics-ranges');
 }
 
@@ -267,12 +263,9 @@ class _BallisticsScreenState extends State<BallisticsScreen>
   late final TextEditingController pressure;
   late final TextEditingController humidity;
 
-  /// Telefondan irtifa (owner, 2026-10-14; the former İrtifa box, so an
-  /// older saved İrtifa comes back here).
+  /// İrtifa (owner, 2026-10-16): one box, filled by "İrtifa al" (map,
+  /// else phone GPS) or typed.
   late final TextEditingController altitude;
-
-  /// Haritadan irtifa (Google Maps Elevation API).
-  late final TextEditingController mapAltitude;
   late final TextEditingController ranges;
 
   List<TrajectoryPoint> points = [];
@@ -422,13 +415,17 @@ class _BallisticsScreenState extends State<BallisticsScreen>
     final m = metric;
     final t = n(temperature), p = n(pressure), h = n(humidity);
     final a = n(altitude), w = n(wind), d = n(windDirection);
-    final ma = n(mapAltitude);
+    final legacyPhone = _legacyPhoneAltitudeM;
     return {
       if (t != null) 'temperature': m ? t : UnitSystem.fahrenheitToCelsius(t),
       if (p != null) 'pressure': m ? p : UnitSystem.inHgToHpa(p),
       if (h != null) 'humidity': h,
-      if (a != null) 'altitude': m ? a : UnitSystem.feetToMeters(a),
-      if (ma != null) 'mapAltitude': m ? ma : UnitSystem.feetToMeters(ma),
+      // The one İrtifa box is stored under the older 'mapAltitude' key
+      // (owner, 2026-10-16); [ShotSettings.altitudeSource] marks the new
+      // format. An older save's Telefondan irtifa ('altitude') is kept as
+      // it was, never deleted, and no longer shown.
+      if (a != null) 'mapAltitude': m ? a : UnitSystem.feetToMeters(a),
+      if (legacyPhone != null) 'altitude': legacyPhone,
       if (w != null) 'wind': m ? w : UnitSystem.mphToMps(w),
       if (d != null && _windHourValue != null) 'windDirection': d,
     };
@@ -457,19 +454,23 @@ class _BallisticsScreenState extends State<BallisticsScreen>
     temperature.text = show('temperature', UnitSystem.celsiusToFahrenheit);
     pressure.text = show('pressure', UnitSystem.hpaToInHg);
     humidity.text = show('humidity', (v) => v);
-    // An older save's single İrtifa is the 'altitude' key: it comes back
-    // as Telefondan irtifa (owner, 2026-10-14).
-    altitude.text = show('altitude', UnitSystem.metersToFeet);
-    mapAltitude.text = show('mapAltitude', UnitSystem.metersToFeet);
+    // İrtifa (owner, 2026-10-16): a new save holds the one box under
+    // 'mapAltitude'. An older save (no altitudeSource) had two boxes: the
+    // map value is shown if present, otherwise the phone value ('altitude',
+    // also an even older single İrtifa).
+    _legacyPhoneAltitudeM = si['altitude'];
+    _legacyPhoneAltitudeAtMs = s.altitudePhoneAtMs;
+    final newFormat = s.altitudeSource != null;
+    final fromMapKey = newFormat || si['mapAltitude'] != null;
+    final altSi = fromMapKey ? si['mapAltitude'] : si['altitude'];
+    altitude.text = altSi == null
+        ? ''
+        : _noNegativeZero(
+            _twoDecimals(m ? altSi : UnitSystem.metersToFeet(altSi)),
+          );
+    _altSource = s.altitudeSource ?? (fromMapKey ? 'map' : 'phone');
     wind.text = show('wind', UnitSystem.mpsToMph);
-    for (final c in [
-      temperature,
-      pressure,
-      humidity,
-      altitude,
-      mapAltitude,
-      wind,
-    ]) {
+    for (final c in [temperature, pressure, humidity, altitude, wind]) {
       if (c.text.isNotEmpty) _userEdited.add(c);
     }
     final wd = si['windDirection'];
@@ -482,9 +483,12 @@ class _BallisticsScreenState extends State<BallisticsScreen>
     // No time (older saves) = old: never orange (owner, 2026-10-14).
     _weatherFetchedAtMs = s.weatherFetchedAtMs;
     _pressureFetchedAtMs = s.pressureFetchedAtMs;
-    // The altitude buttons stay orange while their box holds the fetch.
-    _altPhoneAtMs = altitude.text.isEmpty ? null : s.altitudePhoneAtMs;
-    _altMapAtMs = mapAltitude.text.isEmpty ? null : s.altitudeMapAtMs;
+    // "İrtifa alındı" comes back while the box holds the fetched value.
+    _altAtMs = altitude.text.isEmpty
+        ? null
+        : fromMapKey
+        ? s.altitudeMapAtMs
+        : s.altitudePhoneAtMs;
     _windDirAtMs = wd == null ? null : s.windDirectionAtMs;
   }
 
@@ -509,8 +513,11 @@ class _BallisticsScreenState extends State<BallisticsScreen>
       pressureFromPhone: _pressureFilled,
       weatherFetchedAtMs: _weatherFilled ? _weatherFetchedAtMs : null,
       pressureFetchedAtMs: _pressureFilled ? _pressureFetchedAtMs : null,
-      altitudePhoneAtMs: altitude.text.trim().isEmpty ? null : _altPhoneAtMs,
-      altitudeMapAtMs: mapAltitude.text.trim().isEmpty ? null : _altMapAtMs,
+      // The one İrtifa box's fetch time goes in 'altMapAt' (it sits under
+      // 'mapAltitude'); an older phone time is kept as it was.
+      altitudeMapAtMs: altitude.text.trim().isEmpty ? null : _altAtMs,
+      altitudePhoneAtMs: _legacyPhoneAltitudeAtMs,
+      altitudeSource: _altSource,
       windDirectionAtMs: _windHourValue == null ? null : _windDirAtMs,
       windMaxAtMs: _windMaxFilled ? _windMaxAtMs : null,
       azimuthText: azimuthCtl.text.trim(),
@@ -624,11 +631,29 @@ class _BallisticsScreenState extends State<BallisticsScreen>
     return true;
   }
 
-  /// A weather fill brought a new Rüzgâr hızı (owner, 2026-10-14): En çok
-  /// rüzgâr follows it when the box holds a "Düzeltme al" value; a typed
-  /// value (or an emptied box) is never overwritten.
+  /// Rüzgâr hızı changed (weather fill, typed, Sıfırla; owner, 2026-10-15,
+  /// RUZ-1/RUZ-2): a "Düzeltme al" value belonged to the old wind, so it is
+  /// emptied and loses "Düzeltme alındı"; the user presses "Düzeltme al"
+  /// again. A typed value (or an emptied box) is never touched.
   void _windMaxFollowsWind() {
-    if (_windMaxFilled) _putWindMaxFromWind();
+    if (!_windMaxFilled) return;
+    setState(() {
+      windMaxCtl.text = '';
+      _windMaxFilled = false;
+      _windMaxAtMs = null;
+    });
+    _coriolisChanged();
+  }
+
+  /// Whether Rüzgâr hızı really changed between two box texts. Compared as
+  /// numbers: a restored box shows two decimals ("8", "5.25") while a
+  /// weather fill writes one ("8.0", "5.3"), so the same wind must not
+  /// count as a change (anything within the fill's 0.05 rounding).
+  static bool _windTextChanged(String before, String after) {
+    double? n(String t) => double.tryParse(t.trim().replaceAll(',', '.'));
+    final a = n(before), b = n(after);
+    if (a == null || b == null) return (a == null) != (b == null);
+    return (a - b).abs() > 0.05 + 1e-9;
   }
 
   void _resetWindMax() {
@@ -1060,9 +1085,8 @@ class _BallisticsScreenState extends State<BallisticsScreen>
     final fix = await services.location.current();
     if (!mounted) return;
     if (fix is LocationFix) {
-      // Altitude: the İrtifa card (Telefondan, else Haritadan; owner,
-      // 2026-10-14), else the GPS height.
-      final typedAlt = _parsed(_altitudeCtl);
+      // Altitude: the İrtifa box (owner, 2026-10-16), else the GPS height.
+      final typedAlt = _parsed(altitude);
       final altM = typedAlt != null
           ? (metric ? typedAlt : UnitSystem.feetToMeters(typedAlt))
           : (fix.altitudeM ?? 0);
@@ -1204,21 +1228,13 @@ class _BallisticsScreenState extends State<BallisticsScreen>
     pressure = TextEditingController();
     humidity = TextEditingController();
     altitude = TextEditingController();
-    mapAltitude = TextEditingController();
     ranges = TextEditingController(
       text: '25, 50, 75, 100, 125, 150, 175, 200, 250, 300, 400',
     );
     widget.environmentCarry?._apply(this);
     // Every Hava Durumu change is kept for this profile until Sıfırla
     // (owner, 2026-10-12).
-    for (final c in [
-      temperature,
-      pressure,
-      humidity,
-      altitude,
-      mapAltitude,
-      wind,
-    ]) {
+    for (final c in [temperature, pressure, humidity, altitude, wind]) {
       c.addListener(_weatherChanged);
     }
     windDirection.addListener(_weatherChanged);
@@ -1371,6 +1387,7 @@ class _BallisticsScreenState extends State<BallisticsScreen>
 
   /// Sıfırla of the weather row: empties the boxes it fills.
   void _resetWeather() {
+    final windBefore = wind.text;
     setState(() {
       // Sıfırla empties the boxes (owner, 2026-10-12); an empty box is
       // calculated with the standard atmosphere (15 °C, 1013,25 hPa, %50,
@@ -1388,6 +1405,7 @@ class _BallisticsScreenState extends State<BallisticsScreen>
       _shotCache.clear();
       _holdSamples = null;
     });
+    if (windBefore.isNotEmpty) _windMaxFollowsWind();
     if (widget.profile != null) _quietSolve();
   }
 
@@ -1460,9 +1478,8 @@ class _BallisticsScreenState extends State<BallisticsScreen>
   String? get _pressureWarning {
     double? parse(TextEditingController c) =>
         double.tryParse(c.text.trim().replaceAll(',', '.'));
-    // An empty İrtifa is solved as 0 m, so the check uses 0 m too. The
-    // effective İrtifa: Telefondan, else Haritadan (owner, 2026-10-14).
-    final alt = _altitudeCtl;
+    // An empty İrtifa is solved as 0 m, so the check uses 0 m too.
+    final alt = altitude;
     final p = parse(pressure);
     final a = alt.text.trim().isEmpty ? 0.0 : parse(alt);
     if (p == null || a == null || !p.isFinite || !a.isFinite) return null;
@@ -1572,8 +1589,10 @@ class _BallisticsScreenState extends State<BallisticsScreen>
       // Stored even when the values came back the same (no text change).
       _weatherChanged();
       _scheduleFreshnessCheck();
-      // A new Rüzgâr hızı updates En çok rüzgâr (owner, 2026-10-14).
-      if (windBefore != null && wind.text != windBefore) _windMaxFollowsWind();
+      // A new Rüzgâr hızı empties a "Düzeltme al" value (owner, 2026-10-15).
+      if (windBefore != null && _windTextChanged(windBefore, wind.text)) {
+        _windMaxFollowsWind();
+      }
     }
     // Re-solve with the new conditions (quietly: Atış says why if not).
     if (!failed && widget.profile != null) {
@@ -1647,29 +1666,32 @@ class _BallisticsScreenState extends State<BallisticsScreen>
     if (reading is PressureRead && widget.profile != null) _quietSolve();
   }
 
-  // ---- İrtifa card (owner, 2026-10-14) -----------------------------------
+  // ---- İrtifa card (owner, 2026-10-16: one box, one button) -------------
 
-  /// When "Telefondan" / "Haritadan" wrote their box (UTC epoch ms); null =
-  /// typed, reset or never fetched. The buttons stay orange while set (no
+  /// When "İrtifa al" wrote the box (UTC epoch ms); null = typed, reset or
+  /// never fetched. The button shows "İrtifa alındı" while set (no
   /// 30-minute rule for altitude).
-  int? _altPhoneAtMs;
-  int? _altMapAtMs;
-  bool _altPhoneBusy = false;
-  bool _altMapBusy = false;
+  int? _altAtMs;
+  bool _altBusy = false;
 
-  /// One short note under the İrtifa rows (failures only).
+  /// Where the box value came from: 'map', 'phone' or 'typed' (also empty
+  /// or reset). Saved as [ShotSettings.altitudeSource]; its presence marks
+  /// the one-box save format.
+  String _altSource = 'typed';
+
+  /// An older save's Telefondan irtifa (m) and its time: kept in the save
+  /// as they were (saved data is never deleted), not shown.
+  double? _legacyPhoneAltitudeM;
+  int? _legacyPhoneAltitudeAtMs;
+
+  /// One short note under the İrtifa row (failure only).
   String? _altitudeStatus;
 
   /// After Sıfırla, as on the other cards.
   bool _altitudeWasReset = false;
 
-  /// The İrtifa used by the calculation: Telefondan irtifa when it holds a
-  /// value, else Haritadan irtifa (owner, 2026-10-14).
-  TextEditingController get _altitudeCtl =>
-      altitude.text.trim().isNotEmpty ? altitude : mapAltitude;
-
   /// Silent GPS warm-up: one high-accuracy request when Hava Durumu opens,
-  /// exactly as if "Telefondan" were pressed, but its result is dropped
+  /// exactly as the phone step of "İrtifa al", but its result is dropped
   /// (nothing written, nothing shown). Bumping the token drops it too
   /// (page closed, app in the background).
   int _altWarmUpToken = 0;
@@ -1703,135 +1725,96 @@ class _BallisticsScreenState extends State<BallisticsScreen>
     _altWarmUp = null;
   }
 
-  String _altitudeShown(double meters) =>
-      (metric ? meters : UnitSystem.metersToFeet(meters)).toStringAsFixed(0);
+  String _altitudeShown(double meters) => _noNegativeZero(
+    (metric ? meters : UnitSystem.metersToFeet(meters)).toStringAsFixed(0),
+  );
 
-  /// "Telefondan": a fresh (GPS already warmed) reading, written at once.
-  Future<void> _readPhoneAltitude() async {
-    if (_altPhoneBusy) return;
+  /// "İrtifa al" (owner, 2026-10-16): the map ground elevation (phone
+  /// position → Google Maps Elevation API); when that fails (no internet,
+  /// no key, no position, error) the phone's GPS altitude (same 0–50 m
+  /// vertical-accuracy rule). Neither: a note, the box stays as it was.
+  /// No averaging.
+  Future<void> _readAltitude() async {
+    if (_altBusy) return;
     final services = ToolsServicesScope.of(context);
-    // A warm-up still running is this very request: wait for it instead of
-    // starting a second one.
+    // A warm-up still running is the phone request: the fallback waits for
+    // it instead of starting a second one.
     final running = _altWarmUp;
     _cancelPhoneAltitudeWarmUp();
     setState(() {
-      _altPhoneBusy = true;
+      _altBusy = true;
       _altitudeStatus = null;
     });
-    LocationResult fix;
-    try {
-      fix =
-          await (running ??
-              (services.phoneAltitude?.current() ??
-                  services.location.current()));
-    } catch (_) {
-      fix = const LocationFailure('Konum alınamadı.');
-    }
-    if (!mounted) return;
-    final meters = fix is LocationFix ? fix.altitudeM : null;
-    setState(() {
-      _altPhoneBusy = false;
-      if (meters != null && meters.isFinite) {
-        altitude.text = _altitudeShown(meters);
-        _userEdited.add(altitude);
-        _altPhoneAtMs = _clock.now().millisecondsSinceEpoch;
-        _altitudeWasReset = false;
-      } else {
-        // No usable altitude (0–50 m vertical accuracy rule): the box is
-        // emptied so the map value, if any, is used.
-        altitude.text = '';
-        _userEdited.remove(altitude);
-        _altPhoneAtMs = null;
-        _altitudeStatus = mapAltitude.text.trim().isNotEmpty
-            ? 'Telefon irtifası alınamadı; hesapta haritadan gelen irtifa '
-                  'kullanılıyor.'
-            : 'İrtifa alınamadı, elle girin.';
-      }
-    });
-    _altitudeChanged();
-  }
-
-  /// "Haritadan": the phone's position → Google Maps Elevation API.
-  Future<void> _readMapAltitude() async {
-    if (_altMapBusy) return;
-    final services = ToolsServicesScope.of(context);
-    final elevationService = services.elevation;
-    setState(() {
-      _altMapBusy = true;
-      _altitudeStatus = null;
-    });
-    String? failure;
     double? meters;
-    if (elevationService == null) {
-      failure = 'Harita irtifası bu derlemede yok; irtifayı elle girin.';
-    } else {
-      LocationResult fix;
+    var source = 'map';
+    final elevationService = services.elevation;
+    if (elevationService != null) {
       try {
-        fix = await services.location.current();
-      } catch (_) {
-        fix = const LocationFailure('Konum alınamadı.');
-      }
-      if (fix is! LocationFix) {
-        failure = switch (fix) {
-          LocationDenied() => 'Konum izni yok; irtifayı elle girin.',
-          LocationServiceOff() =>
-            'Konum Servisleri kapalı; irtifayı elle girin.',
-          _ => 'Konum alınamadı; irtifayı elle girin.',
-        };
-      } else {
-        ElevationResult result;
-        try {
-          result = await elevationService.elevation(
+        final fix = await services.location.current();
+        if (fix is LocationFix) {
+          final result = await elevationService.elevation(
             fix.latitude,
             fix.longitude,
           );
-        } catch (_) {
-          result = const ElevationUnavailable(ElevationFailure.error);
+          if (result is ElevationRead && result.meters.isFinite) {
+            meters = result.meters;
+          }
         }
-        switch (result) {
-          case ElevationRead(meters: final m):
-            meters = m;
-          case ElevationUnavailable(:final reason):
-            failure = switch (reason) {
-              ElevationFailure.noKey =>
-                'Harita irtifası bu derlemede yok; irtifayı elle girin.',
-              ElevationFailure.offline =>
-                'İnternet yok; harita irtifası alınamadı.',
-              ElevationFailure.error =>
-                'Harita irtifası alınamadı; irtifayı elle girin.',
-            };
-        }
+      } catch (_) {
+        meters = null;
       }
     }
+    if (meters == null) {
+      source = 'phone';
+      LocationResult fix;
+      try {
+        fix =
+            await (running ??
+                (services.phoneAltitude?.current() ??
+                    services.location.current()));
+      } catch (_) {
+        fix = const LocationFailure('Konum alınamadı.');
+      }
+      final m = fix is LocationFix ? fix.altitudeM : null;
+      if (m != null && m.isFinite) meters = m;
+    }
     if (!mounted) return;
+    final got = meters;
     setState(() {
-      _altMapBusy = false;
-      final m = meters;
-      if (failure == null && m != null) {
-        mapAltitude.text = _altitudeShown(m);
-        _userEdited.add(mapAltitude);
-        _altMapAtMs = _clock.now().millisecondsSinceEpoch;
+      _altBusy = false;
+      if (got != null) {
+        altitude.text = _altitudeShown(got);
+        _userEdited.add(altitude);
+        _altAtMs = _clock.now().millisecondsSinceEpoch;
+        _altSource = source;
         _altitudeWasReset = false;
       } else {
-        mapAltitude.text = '';
-        _userEdited.remove(mapAltitude);
-        _altMapAtMs = null;
-        _altitudeStatus = failure ?? 'Harita irtifası alınamadı.';
+        _altitudeStatus = 'İrtifa alınamadı, elle girin.';
       }
     });
-    _altitudeChanged();
+    if (got != null) _altitudeChanged();
   }
 
-  /// Sıfırla of the İrtifa card: empties both boxes.
+  /// A typed İrtifa is used as is and clears "İrtifa alındı".
+  void _altitudeTyped() {
+    setState(() {
+      _userEdited.add(altitude);
+      _altAtMs = null;
+      _altSource = 'typed';
+      _altitudeWasReset = false;
+      _altitudeStatus = null;
+      _shotCache.clear();
+      _holdSamples = null;
+    });
+  }
+
+  /// Sıfırla of the İrtifa card: empties the box.
   void _resetAltitude() {
     setState(() {
       altitude.text = '';
-      mapAltitude.text = '';
-      _userEdited
-        ..remove(altitude)
-        ..remove(mapAltitude);
-      _altPhoneAtMs = null;
-      _altMapAtMs = null;
+      _userEdited.remove(altitude);
+      _altAtMs = null;
+      _altSource = 'typed';
       _altitudeStatus = null;
       _altitudeWasReset = true;
     });
@@ -1846,14 +1829,6 @@ class _BallisticsScreenState extends State<BallisticsScreen>
     // Stored even when the value came back the same (no text change).
     _weatherChanged();
     if (widget.profile != null) _quietSolve();
-  }
-
-  /// The İrtifa date row: the latest of the two altitude fetches.
-  int? get _altitudeAtMs {
-    final a = _altPhoneAtMs, b = _altMapAtMs;
-    if (a == null) return b;
-    if (b == null) return a;
-    return a > b ? a : b;
   }
 
   Future<void> _loadUnitPreference() async {
@@ -1891,7 +1866,6 @@ class _BallisticsScreenState extends State<BallisticsScreen>
     final ammoC = double.tryParse(ammoTempCtl.text.trim().replaceAll(',', '.'));
     final pressureHpa = maybe(pressure);
     final altitudeM = maybe(altitude);
-    final mapAltitudeM = maybe(mapAltitude);
     final metricRanges = DopeRanges.parse(ranges.text);
 
     // Commit only after the complete source form has been validated. A
@@ -1917,12 +1891,9 @@ class _BallisticsScreenState extends State<BallisticsScreen>
       pressure.text = UnitSystem.hpaToInHg(pressureHpa).toStringAsFixed(2);
     }
     if (altitudeM != null) {
-      altitude.text = UnitSystem.metersToFeet(altitudeM).toStringAsFixed(0);
-    }
-    if (mapAltitudeM != null) {
-      mapAltitude.text = UnitSystem.metersToFeet(
-        mapAltitudeM,
-      ).toStringAsFixed(0);
+      altitude.text = _noNegativeZero(
+        UnitSystem.metersToFeet(altitudeM).toStringAsFixed(0),
+      );
     }
     if (!_profileYards) {
       ranges.text = metricRanges
@@ -1966,8 +1937,8 @@ class _BallisticsScreenState extends State<BallisticsScreen>
     final rawTemperature = env(temperature, 15, 59);
     final rawPressure = env(pressure, 1013.25, 29.92);
     final rawHumidity = env(humidity, 50, 50);
-    // İrtifa: Telefondan, else Haritadan (owner, 2026-10-14).
-    final altitudeBox = _altitudeCtl;
+    // İrtifa: the one İrtifa box (owner, 2026-10-16).
+    final altitudeBox = altitude;
     final rawAltitude = env(altitudeBox, 0, 0);
 
     if ([
@@ -2192,7 +2163,6 @@ class _BallisticsScreenState extends State<BallisticsScreen>
     pressure.dispose();
     humidity.dispose();
     altitude.dispose();
-    mapAltitude.dispose();
     ranges.dispose();
     latitudeCtl.dispose();
     azimuthCtl.dispose();
@@ -3981,8 +3951,8 @@ class EnvironmentCarry {
   int? _pressureFetchedAtMs;
 
   /// İrtifa card fetch times and the Rüzgâr yönü time (owner, 2026-10-14).
-  int? _altPhoneAtMs;
-  int? _altMapAtMs;
+  int? _altAtMs;
+  String? _altSource;
   int? _windDirAtMs;
 
   /// The profile the snapshot came from: Rüzgâr yönü depends on where the
@@ -3996,8 +3966,8 @@ class EnvironmentCarry {
     _pressureFilled = s._pressureFilled;
     _weatherFetchedAtMs = s._weatherFetchedAtMs;
     _pressureFetchedAtMs = s._pressureFetchedAtMs;
-    _altPhoneAtMs = s._altPhoneAtMs;
-    _altMapAtMs = s._altMapAtMs;
+    _altAtMs = s._altAtMs;
+    _altSource = s._altSource;
     _windDirAtMs = s._windDirAtMs;
     bool blank(TextEditingController c) => c.text.trim().isEmpty;
     double? n(TextEditingController c) =>
@@ -4007,7 +3977,6 @@ class EnvironmentCarry {
       'pressure': s.pressure,
       'humidity': s.humidity,
       'altitude': s.altitude,
-      'mapAltitude': s.mapAltitude,
       'wind': s.wind,
     };
     // An unreadable (not empty) value keeps the last good snapshot.
@@ -4017,13 +3986,11 @@ class EnvironmentCarry {
     final m = s.metric;
     final t = n(s.temperature), p = n(s.pressure), h = n(s.humidity);
     final a = n(s.altitude), w = n(s.wind), d = n(s.windDirection);
-    final ma = n(s.mapAltitude);
     _si = {
       if (t != null) 'temperature': m ? t : UnitSystem.fahrenheitToCelsius(t),
       if (p != null) 'pressure': m ? p : UnitSystem.inHgToHpa(p),
       if (h != null) 'humidity': h,
       if (a != null) 'altitude': m ? a : UnitSystem.feetToMeters(a),
-      if (ma != null) 'mapAltitude': m ? ma : UnitSystem.feetToMeters(ma),
       if (w != null) 'wind': m ? w : UnitSystem.mphToMps(w),
       if (d != null && s._windHourValue != null) 'windDirection': d,
     };
@@ -4036,7 +4003,6 @@ class EnvironmentCarry {
       if (s._userEdited.contains(s.pressure)) 'pressure',
       if (s._userEdited.contains(s.humidity)) 'humidity',
       if (s._userEdited.contains(s.altitude)) 'altitude',
-      if (s._userEdited.contains(s.mapAltitude)) 'mapAltitude',
       if (s._userEdited.contains(s.wind)) 'wind',
     };
   }
@@ -4051,15 +4017,14 @@ class EnvironmentCarry {
     s._pressureFilled = _pressureFilled;
     s._weatherFetchedAtMs = _weatherFetchedAtMs;
     s._pressureFetchedAtMs = _pressureFetchedAtMs;
-    s._altPhoneAtMs = _altPhoneAtMs;
-    s._altMapAtMs = _altMapAtMs;
+    s._altAtMs = _altAtMs;
+    s._altSource = _altSource ?? s._altSource;
     if (sameProfile) s._windDirAtMs = _windDirAtMs;
     final fields = {
       'temperature': s.temperature,
       'pressure': s.pressure,
       'humidity': s.humidity,
       'altitude': s.altitude,
-      'mapAltitude': s.mapAltitude,
       'wind': s.wind,
       'windDirection': s.windDirection,
     };
@@ -4071,7 +4036,9 @@ class EnvironmentCarry {
       if (key == 'windDirection' && !sameProfile) continue;
       final v = si[key];
       if (v == null) continue;
-      value.text = _twoDecimals(v);
+      value.text = key == 'altitude'
+          ? _noNegativeZero(_twoDecimals(v))
+          : _twoDecimals(v);
       if (_edited.contains(key)) s._userEdited.add(value);
     }
     final wd = si['windDirection'];
@@ -4140,3 +4107,10 @@ String _decimal(num? v) => v == null
 String _twoDecimals(double v) => v == v.roundToDouble()
     ? v.toStringAsFixed(0)
     : double.parse(v.toStringAsFixed(2)).toString();
+
+/// İrtifa box text (owner, 2026-10-16): a value that rounds to zero is
+/// "0", never "-0" (also "-0.0", "-0.00").
+String _noNegativeZero(String text) {
+  final v = double.tryParse(text);
+  return v != null && v == 0 && text.startsWith('-') ? '0' : text;
+}

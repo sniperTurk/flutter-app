@@ -175,7 +175,8 @@ class WindMaxHandCalcTest(unittest.TestCase):
     def test_calm_wind_gives_zero_bracket(self):
         # Owner rule "En çok rüzgâr = Rüzgâr hızı × 1,5": a calm fetch
         # (0 m/s) gives 0, i.e. no bracket (the pre-#291 automatic fill
-        # emptied the box for w <= 0). RUZ-1: the box keeps the old value.
+        # emptied the box for w <= 0). RUZ-1 (fixed 2026-10-15): a changed
+        # wind empties a button-filled box.
         self.assertEqual(0.0, 0.0 * self.GUST)
 
     def test_wez_wind_sigma(self):

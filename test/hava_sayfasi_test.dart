@@ -2,12 +2,14 @@
 // A: full-width weather button ("✓ Hava verisi alındı" / "⟳ Veriyi yenile"),
 //    under it ONE always-visible row: date | Sıfırla; the Rüzgâr yönü dial
 //    has a small title, stateOrange selection and "Saat 3 yönünde" | time.
-// B: Pro → Rüzgâr düzeltmesi: En çok rüzgâr | Düzeltme al, auto-updated by
-//    a weather fill that changes the wind, never over a typed value.
+// B: Pro → Rüzgâr düzeltmesi: En çok rüzgâr | Düzeltme al; a weather fill
+//    that changes the wind empties a button value (owner, 2026-10-15),
+//    never a typed value.
 // C: Basınç Ölçer: one ⓘ in the title, "Basınç al" no longer writes İrtifa.
-// D: İrtifa card: Haritadan (Google Elevation) | Telefondan (GPS, warmed up
-//    silently when the page opens); the calculation uses Telefondan, else
-//    Haritadan.
+// D: İrtifa card (owner, 2026-10-16: one box, one button; the two-row
+//    Haritadan | Telefondan tests were replaced): "İrtifa al" = map, else
+//    phone GPS (warmed up silently when the page opens). The full one-box
+//    rules are in tek_irtifa_test.dart.
 // Report: docs/reports/hava_sayfasi.md.
 import 'dart:async';
 import 'dart:convert';
@@ -52,8 +54,7 @@ const _weatherReset = Key('environment-weather-reset');
 const _pressureBtn = Key('environment-phone-pressure');
 const _pressureDate = Key('environment-pressure-date');
 const _pressureReset = Key('environment-pressure-reset');
-const _mapBtn = Key('environment-map-altitude');
-const _phoneBtn = Key('environment-phone-altitude');
+const _altBtn = Key('environment-altitude-fetch');
 const _altDate = Key('environment-altitude-date');
 const _altReset = Key('environment-altitude-reset');
 const _altStatus = Key('environment-altitude-status');
@@ -302,7 +303,7 @@ void main() {
   });
 
   group('B. Rüzgâr düzeltmesi', () {
-    testWidgets('Düzeltme al → orange; a new weather wind updates it', (
+    testWidgets('Düzeltme al → orange; a new weather wind empties it', (
       tester,
     ) async {
       final rig = _Rig();
@@ -321,7 +322,8 @@ void main() {
       expect(find.textContaining('Rüzgâr değişti'), findsNothing);
       expect(find.textContaining('Hava verisinden'), findsNothing);
 
-      // New wind from the next weather fill: updated without a prompt.
+      // New wind from the next weather fill: the button value is emptied
+      // (owner, 2026-10-15); "Düzeltme al" fills it again.
       rig.advance(const Duration(minutes: 40));
       rig.weather.outcome = observation(
         fetchedAt: rig.clock.current.toUtc(),
@@ -331,6 +333,10 @@ void main() {
       await _tap(tester, _weatherBtn);
       await _view(tester, rig, BallisticsView.pro);
       await openProFor(tester, _windMax);
+      expect(_text(tester, _windMax), '');
+      expect(find.text('Düzeltme al'), findsOneWidget);
+      expect(_button(tester, _windMaxBtn).active, isFalse);
+      await _tap(tester, _windMaxBtn);
       expect(_text(tester, _windMax), '12.0');
       expect(find.text('Düzeltme alındı'), findsOneWidget);
       expect(_date(tester, _windMaxDate), '14.10.2026 12:00');
@@ -395,13 +401,11 @@ void main() {
       expect(find.text('Basınç al'), findsOneWidget);
       expect(_date(tester, _pressureDate), '14.10.2026');
       await _type(tester, BallisticsFieldKeys.altitude, '500');
-      await _type(tester, BallisticsFieldKeys.mapAltitude, '480');
       await _tap(tester, _pressureBtn);
       expect(_text(tester, BallisticsFieldKeys.pressure), '998.4');
       expect(find.text('Basınç alındı'), findsOneWidget);
       expect(_date(tester, _pressureDate), '14.10.2026 11:20');
       expect(_text(tester, BallisticsFieldKeys.altitude), '500');
-      expect(_text(tester, BallisticsFieldKeys.mapAltitude), '480');
 
       rig.advance(const Duration(minutes: 31));
       await tester.pump(const Duration(minutes: 31));
@@ -427,9 +431,8 @@ void main() {
       expect(phone.permissionChecks, 1);
       expect(phone.requests, 1);
       expect(_text(tester, BallisticsFieldKeys.altitude), '');
-      expect(_text(tester, BallisticsFieldKeys.mapAltitude), '');
-      expect(find.text('Telefondan'), findsOneWidget);
-      expect(find.text('Telefondan alındı'), findsNothing);
+      expect(find.text('İrtifa al'), findsOneWidget);
+      expect(find.text('İrtifa alındı'), findsNothing);
       expect(find.byKey(_altStatus), findsNothing);
       expect(_date(tester, _altDate), '14.10.2026');
       // The ⓘ is in the title only.
@@ -437,44 +440,38 @@ void main() {
         find.byKey(const Key('environment-altitude-info')),
         findsOneWidget,
       );
-      for (final k in [
-        BallisticsFieldKeys.altitude,
-        BallisticsFieldKeys.mapAltitude,
-      ]) {
-        expect(
-          find.descendant(
-            of: find.byKey(k),
-            matching: find.byType(MenzilInfoButton),
-          ),
-          findsNothing,
-        );
-      }
+      expect(
+        find.descendant(
+          of: find.byKey(BallisticsFieldKeys.altitude),
+          matching: find.byType(MenzilInfoButton),
+        ),
+        findsNothing,
+      );
     });
 
-    testWidgets('tap after the warm-up writes at once, orange, no icon', (
-      tester,
-    ) async {
+    testWidgets('no map: the tap after the warm-up writes the phone value, '
+        'alındı, no icon', (tester) async {
       final phone = TestPhoneAltitude(
         const LocationFix(39.9, 32.8, altitudeM: 126.4),
       );
       final rig = _Rig(phone: phone);
       await _pump(tester, rig);
       rig.advance(const Duration(minutes: 3));
-      await _tap(tester, _phoneBtn);
+      await _tap(tester, _altBtn);
       expect(phone.requests, 2);
       expect(_text(tester, BallisticsFieldKeys.altitude), '126');
-      expect(find.text('Telefondan alındı'), findsOneWidget);
-      expect(_button(tester, _phoneBtn).active, isTrue);
-      expect(_button(tester, _phoneBtn).icon, isNull);
+      expect(find.text('İrtifa alındı'), findsOneWidget);
+      expect(_button(tester, _altBtn).active, isTrue);
+      expect(_button(tester, _altBtn).icon, isNull);
       expect(_date(tester, _altDate), '14.10.2026 11:23');
       // No 30-minute rule for altitude.
       rig.advance(const Duration(hours: 2));
       await tester.pump(const Duration(hours: 2));
-      expect(find.text('Telefondan alındı'), findsOneWidget);
+      expect(find.text('İrtifa alındı'), findsOneWidget);
       // Typing turns it back.
       await _type(tester, BallisticsFieldKeys.altitude, '130');
-      expect(find.text('Telefondan'), findsOneWidget);
-      expect(_button(tester, _phoneBtn).active, isFalse);
+      expect(find.text('İrtifa al'), findsOneWidget);
+      expect(_button(tester, _altBtn).active, isFalse);
     });
 
     testWidgets('a tap while the warm-up is still running uses it (one '
@@ -483,8 +480,8 @@ void main() {
         ..hold = Completer<LocationResult>();
       await _pump(tester, _Rig(phone: phone));
       expect(phone.requests, 1);
-      await tester.ensureVisible(find.byKey(_phoneBtn));
-      await tester.tap(find.byKey(_phoneBtn));
+      await tester.ensureVisible(find.byKey(_altBtn));
+      await tester.tap(find.byKey(_altBtn));
       await tester.pump();
       expect(phone.requests, 1);
       phone.hold!.complete(const LocationFix(39.9, 32.8, altitudeM: 88));
@@ -503,7 +500,7 @@ void main() {
       await _pump(tester, _Rig(phone: phone));
       expect(phone.permissionChecks, 1);
       expect(phone.requests, 0);
-      await _tap(tester, _phoneBtn);
+      await _tap(tester, _altBtn);
       expect(phone.requests, 1);
       expect(_text(tester, BallisticsFieldKeys.altitude), '126');
     });
@@ -542,118 +539,58 @@ void main() {
       phone
         ..hold = null
         ..result = const LocationFix(39.9, 32.8, altitudeM: 91);
-      await _tap(tester, _phoneBtn);
+      await _tap(tester, _altBtn);
       expect(phone.requests, 2);
       expect(_text(tester, BallisticsFieldKeys.altitude), '91');
     });
 
-    testWidgets('no usable phone altitude: box empty and the right note', (
-      tester,
-    ) async {
-      final phone = TestPhoneAltitude(const LocationFix(39.9, 32.8));
-      final rig = _Rig(
-        phone: phone,
-        elevation: TestElevation(const ElevationRead(122)),
-      );
-      await _pump(tester, rig);
-      await _tap(tester, _phoneBtn);
-      expect(_text(tester, BallisticsFieldKeys.altitude), '');
-      expect(
-        tester.widget<MenzilNotice>(find.byKey(_altStatus)).message,
-        'İrtifa alınamadı, elle girin.',
-      );
-      await _tap(tester, _mapBtn);
-      await _tap(tester, _phoneBtn);
-      expect(_text(tester, BallisticsFieldKeys.mapAltitude), '122');
-      expect(
-        tester.widget<MenzilNotice>(find.byKey(_altStatus)).message,
-        'Telefon irtifası alınamadı; hesapta haritadan gelen irtifa '
-        'kullanılıyor.',
-      );
-    });
-
-    testWidgets('Haritadan: the phone position goes to the map service', (
+    testWidgets('map: the phone position goes to the map service', (
       tester,
     ) async {
       final elevation = TestElevation(const ElevationRead(121.6));
       final rig = _Rig(elevation: elevation);
       await _pump(tester, rig);
-      expect(find.text('Haritadan'), findsOneWidget);
-      // No icons in buttons (owner, 2026-10-15).
-      expect(_button(tester, _mapBtn).icon, isNull);
-      expect(_button(tester, _phoneBtn).icon, isNull);
       expect(elevation.requests, isEmpty);
-      await _tap(tester, _mapBtn);
+      await _tap(tester, _altBtn);
       expect(elevation.requests, [(39.9, 32.8)]);
-      expect(_text(tester, BallisticsFieldKeys.mapAltitude), '122');
-      expect(find.text('Haritadan alındı'), findsOneWidget);
-      expect(_button(tester, _mapBtn).icon, isNull);
-      expect(_button(tester, _mapBtn).active, isTrue);
+      expect(_text(tester, BallisticsFieldKeys.altitude), '122');
+      expect(find.text('İrtifa alındı'), findsOneWidget);
       expect(_date(tester, _altDate), '14.10.2026 11:20');
-
-      // Offline next time: box empty, short note.
-      elevation.result = const ElevationUnavailable(ElevationFailure.offline);
-      await _tap(tester, _mapBtn);
-      expect(_text(tester, BallisticsFieldKeys.mapAltitude), '');
-      expect(
-        find.text('İnternet yok; harita irtifası alınamadı.'),
-        findsOneWidget,
-      );
     });
 
-    testWidgets('Sıfırla clears both boxes; the date is the latest fetch', (
-      tester,
-    ) async {
-      final phone = TestPhoneAltitude(
-        const LocationFix(39.9, 32.8, altitudeM: 126),
-      );
-      final rig = _Rig(
-        phone: phone,
-        elevation: TestElevation(const ElevationRead(122)),
-      );
+    testWidgets('Sıfırla clears the box, alındı and the date', (tester) async {
+      final rig = _Rig(elevation: TestElevation(const ElevationRead(122)));
       await _pump(tester, rig);
-      await _tap(tester, _mapBtn);
-      rig.advance(const Duration(minutes: 7));
-      await _tap(tester, _phoneBtn);
-      expect(_date(tester, _altDate), '14.10.2026 11:27');
+      await _tap(tester, _altBtn);
+      expect(_date(tester, _altDate), '14.10.2026 11:20');
       await _tap(tester, _altReset);
       expect(_text(tester, BallisticsFieldKeys.altitude), '');
-      expect(_text(tester, BallisticsFieldKeys.mapAltitude), '');
-      expect(find.text('Haritadan'), findsOneWidget);
-      expect(find.text('Telefondan'), findsOneWidget);
+      expect(find.text('İrtifa al'), findsOneWidget);
       expect(_date(tester, _altDate), '14.10.2026');
     });
 
-    testWidgets('both altitudes and times are kept; restart reopens orange', (
+    testWidgets('the value and time are kept; restart reopens alındı', (
       tester,
     ) async {
-      final rig = _Rig(
-        phone: TestPhoneAltitude(const LocationFix(39.9, 32.8, altitudeM: 126)),
-        elevation: TestElevation(const ElevationRead(122)),
-      );
+      final rig = _Rig(elevation: TestElevation(const ElevationRead(122)));
       await _pump(tester, rig);
-      await _tap(tester, _mapBtn);
-      await _tap(tester, _phoneBtn);
+      await _tap(tester, _altBtn);
       await tester.pumpAndSettle(const Duration(seconds: 1));
       final raw = (await SharedPreferences.getInstance()).getString(
         ShotSettingsStore.keyFor(_profile.id),
       );
       final saved = ShotSettings.fromJson(jsonDecode(raw!));
-      expect(saved.weatherSi['altitude'], 126);
       expect(saved.weatherSi['mapAltitude'], 122);
-      expect(saved.altitudePhoneAtMs, rig.clock.current.millisecondsSinceEpoch);
+      expect(saved.weatherSi.containsKey('altitude'), isFalse);
       expect(saved.altitudeMapAtMs, rig.clock.current.millisecondsSinceEpoch);
+      expect(saved.altitudeSource, 'map');
 
       await _pump(tester, rig, key: UniqueKey());
-      expect(_text(tester, BallisticsFieldKeys.altitude), '126');
-      expect(_text(tester, BallisticsFieldKeys.mapAltitude), '122');
-      expect(find.text('Telefondan alındı'), findsOneWidget);
-      expect(find.text('Haritadan alındı'), findsOneWidget);
+      expect(_text(tester, BallisticsFieldKeys.altitude), '122');
+      expect(find.text('İrtifa alındı'), findsOneWidget);
     });
 
-    testWidgets('an older single İrtifa migrates to Telefondan irtifa', (
-      tester,
-    ) async {
+    testWidgets('an older single İrtifa loads into the box', (tester) async {
       SharedPreferences.setMockInitialValues({
         ShotSettingsStore.keyFor(_profile.id): jsonEncode({
           'weather': {'altitude': 900, 'pressure': 912.4},
@@ -662,33 +599,25 @@ void main() {
       });
       await _pump(tester, _Rig());
       expect(_text(tester, BallisticsFieldKeys.altitude), '900');
-      expect(_text(tester, BallisticsFieldKeys.mapAltitude), '');
-      // No fetch time: a plain value, the button is not orange.
-      expect(find.text('Telefondan'), findsOneWidget);
+      // No fetch time: a plain value, the button is not alındı.
+      expect(find.text('İrtifa al'), findsOneWidget);
     });
 
-    testWidgets('pressure check uses Telefondan, else Haritadan', (
-      tester,
-    ) async {
+    testWidgets('pressure check uses the İrtifa box', (tester) async {
       await _pump(tester, _Rig());
       const warning = Key('environment-pressure-warning');
       await _type(tester, BallisticsFieldKeys.pressure, '1013');
       expect(find.byKey(warning), findsNothing);
-      await _type(tester, BallisticsFieldKeys.mapAltitude, '1000');
+      await _type(tester, BallisticsFieldKeys.altitude, '1000');
       expect(find.byKey(warning), findsOneWidget);
       expect(find.textContaining('1000 m irtifada'), findsOneWidget);
-      // The phone value wins.
       await _type(tester, BallisticsFieldKeys.altitude, '0');
       expect(find.byKey(warning), findsNothing);
     });
   });
 
-  group('D. calculation: F1 pressure from the effective İrtifa', () {
-    Future<double> density(
-      WidgetTester tester, {
-      required String phone,
-      required String map,
-    }) async {
+  group('D. calculation: F1 pressure from the İrtifa box', () {
+    Future<double> density(WidgetTester tester, {required String alt}) async {
       tester.view.physicalSize = const Size(430, 3000) * 3;
       tester.view.devicePixelRatio = 3;
       addTearDown(tester.view.reset);
@@ -703,8 +632,7 @@ void main() {
       await tester.enterText(_field(BallisticsFieldKeys.temperature), '15');
       await tester.enterText(_field(BallisticsFieldKeys.humidity), '0');
       await tester.enterText(_field(BallisticsFieldKeys.pressure), '');
-      await tester.enterText(_field(BallisticsFieldKeys.altitude), phone);
-      await tester.enterText(_field(BallisticsFieldKeys.mapAltitude), map);
+      await tester.enterText(_field(BallisticsFieldKeys.altitude), alt);
       await tester.ensureVisible(find.text('DOPE oluştur'));
       await tester.tap(find.text('DOPE oluştur'));
       await tester.pumpAndSettle();
@@ -715,23 +643,13 @@ void main() {
       return double.parse(m.group(1)!.replaceAll(',', '.'));
     }
 
-    testWidgets('map only is used; the phone value wins over it', (
+    testWidgets('the box value is used; empty = standard atmosphere', (
       tester,
     ) async {
       // ISA: 1062,2 hPa at -400 m → 1,2842 kg/m³ dry at 15 °C.
-      expect(
-        await density(tester, phone: '', map: '-400'),
-        closeTo(1.2842, 0.001),
-      );
-      expect(
-        await density(tester, phone: '-400', map: ''),
-        closeTo(1.2842, 0.001),
-      );
-      expect(
-        await density(tester, phone: '0', map: '-400'),
-        closeTo(1.2250, 0.001),
-      );
-      expect(await density(tester, phone: '', map: ''), closeTo(1.2250, 0.001));
+      expect(await density(tester, alt: '-400'), closeTo(1.2842, 0.001));
+      expect(await density(tester, alt: '0'), closeTo(1.2250, 0.001));
+      expect(await density(tester, alt: ''), closeTo(1.2250, 0.001));
     });
   });
 
@@ -745,7 +663,7 @@ void main() {
       );
       await _pump(tester, rig, size: const Size(320, 3000), textScale: 1.3);
       expect(tester.takeException(), isNull);
-      for (final k in [_weatherBtn, _pressureBtn, _mapBtn, _phoneBtn]) {
+      for (final k in [_weatherBtn, _pressureBtn, _altBtn]) {
         await _tap(tester, k);
         expect(tester.takeException(), isNull, reason: '$k');
       }
@@ -760,8 +678,7 @@ void main() {
       // Two items per row: box | button side by side.
       for (final (box, btn) in [
         (BallisticsFieldKeys.pressure, _pressureBtn),
-        (BallisticsFieldKeys.mapAltitude, _mapBtn),
-        (BallisticsFieldKeys.altitude, _phoneBtn),
+        (BallisticsFieldKeys.altitude, _altBtn),
       ]) {
         expect(
           tester.getTopLeft(find.byKey(btn)).dx,
@@ -771,8 +688,7 @@ void main() {
       for (final t in [
         'Hava verisi alındı',
         'Basınç alındı',
-        'Haritadan alındı',
-        'Telefondan alındı',
+        'İrtifa alındı',
       ]) {
         expect(tester.widget<Text>(find.text(t)).maxLines, 1, reason: t);
       }

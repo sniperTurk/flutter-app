@@ -226,16 +226,10 @@ void main() {
       expect(EnvironmentFieldInfo.pressure, contains('Örnek'));
     });
 
-    test('the İrtifa and Basınç Ölçer ⓘ state the empty-pressure rule', () {
+    test('the Basınç Ölçer ⓘ states the empty-pressure rule', () {
       // ATM-2: altitude only estimates pressure when İstasyon basıncı is
-      // empty.
-      expect(
-        EnvironmentFieldInfo.altitudeCard,
-        contains(
-          'İrtifa yalnız İstasyon basıncı boşken basınç tahmini için '
-          'kullanılır.',
-        ),
-      );
+      // empty. The İrtifa ⓘ is the owner's exact wording since 2026-10-16
+      // (tek_irtifa_test.dart).
       expect(
         EnvironmentFieldInfo.barometerCard,
         contains('Boşsa basınç İrtifa kartından tahmin edilir.'),
