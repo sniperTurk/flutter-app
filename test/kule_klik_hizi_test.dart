@@ -174,23 +174,27 @@ void main() {
       tester,
     ) async {
       final fake = await _open(tester);
-      final g = await _grab(tester, find.byKey(key), axis);
-      final before = value(tester);
-      final n0 = fake.clicks;
-      for (var i = 0; i < 6; i++) {
-        await g.moveBy(_along(axis, _px));
-        await tester.pump();
-        expect(value(tester), before + i + 1);
-        expect(fake.clicks - n0, i + 1);
+      // One gesture forward, then one back; a frame after every 9 pt.
+      for (final sign in const [1, -1]) {
+        final g = await _grab(
+          tester,
+          find.byKey(key),
+          axis,
+          sign: sign.toDouble(),
+        );
+        final before = value(tester);
+        final n0 = fake.clicks;
+        for (var i = 0; i < 6; i++) {
+          await g.moveBy(_along(axis, sign * _px));
+          await tester.pump();
+          expect(value(tester), before + sign * (i + 1));
+          expect(fake.clicks - n0, i + 1);
+        }
+        await g.up();
+        await tester.pumpAndSettle();
+        expect(value(tester), before + sign * 6);
+        expect(fake.clicks - n0, 6);
       }
-      for (var i = 0; i < 6; i++) {
-        await g.moveBy(_along(axis, -_px));
-        await tester.pump();
-      }
-      await g.up();
-      await tester.pumpAndSettle();
-      expect(value(tester), before);
-      expect(fake.clicks - n0, 12);
     });
 
     testWidgets('$name drum, fast drag past the travel limit stops there', (
