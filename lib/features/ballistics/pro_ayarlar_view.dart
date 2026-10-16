@@ -1,7 +1,8 @@
 part of 'ballistics_screen.dart';
 
 /// Pro Ayarlar sayfası: kutular (Açı, Rüzgâr düzeltmesi, Coriolis,
-/// Yerçekimi, Hareketli hedef, Tüfek düzeltmeleri) ve özet yazıları.
+/// Yerçekimi, Hareketli hedef, Tüfek düzeltmeleri), özet yazıları ve
+/// köprülü sürümlerde en sonda Garmin saati satırı.
 ///
 /// Modül ayrımı (owner, 2026-10-15): ballistics_screen.dart'tan aynen
 /// taşındı; durum ve hesap ballistics_screen.dart'ta kalır.
@@ -778,6 +779,11 @@ extension _ProAyarlarView on _BallisticsScreenState {
             ..._pcpPressureProFields(c),
         ],
       ),
+      // Garmin saati (owner, 2026-10-16: moved from Araçlar, "isteğe
+      // bağlı"): only in builds with the iOS Garmin bridge; elsewhere it
+      // builds nothing and takes no space. Not a setting: no summary counts
+      // it and no calculation reads it.
+      const GarminPairTile(),
       const SizedBox(height: MenzilSpace.md),
       if (widget.onContinueToShot != null)
         MenzilPrimaryButton(

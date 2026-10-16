@@ -2741,6 +2741,19 @@ class MenzilToolTile extends StatelessWidget {
   /// (#1B3245) instead of amber.
   final bool plainIcon;
 
+  /// Right after the title (Pro Ayarlar > Garmin saati: its ⓘ, owner
+  /// 2026-10-16), like [MenzilSectionHeader.titleTrailing].
+  final Widget? titleTrailing;
+
+  /// At the right end of the title line ("isteğe bağlı"). The title with
+  /// [titleTrailing] may take up to three quarters of the line, this the
+  /// rest; on a narrow phone or large text both wrap instead of
+  /// overflowing.
+  final Widget? titleEnd;
+
+  /// Space under the card (Pro Ayarlar uses its boxes' smaller gap).
+  final EdgeInsetsGeometry margin;
+
   /// [plainIcon] colours.
   static const Color plainIconColor = MenzilColors.toolIcon;
   static const Color plainIconBackground = MenzilColors.toolIconBackground;
@@ -2754,12 +2767,20 @@ class MenzilToolTile extends StatelessWidget {
     this.enabled = true,
     this.tileKey,
     this.plainIcon = false,
+    this.titleTrailing,
+    this.titleEnd,
+    this.margin = const EdgeInsets.only(bottom: MenzilSpace.md),
   });
 
   @override
   Widget build(BuildContext context) {
     final c = MenzilColors.of(context);
+    final titleText = Text(
+      title,
+      style: MenzilType.heading(enabled ? c.ink : c.ink2, size: 20),
+    );
     return MenzilCard(
+      margin: margin,
       padding: EdgeInsets.zero,
       child: Material(
         type: MaterialType.transparency,
@@ -2791,10 +2812,24 @@ class MenzilToolTile extends StatelessWidget {
                   : c.amberInk,
             ),
           ),
-          title: Text(
-            title,
-            style: MenzilType.heading(enabled ? c.ink : c.ink2, size: 20),
-          ),
+          title: titleTrailing == null && titleEnd == null
+              ? titleText
+              : Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Flexible(
+                      flex: 3,
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Flexible(child: titleText),
+                          if (titleTrailing case final t?) t,
+                        ],
+                      ),
+                    ),
+                    if (titleEnd case final end?) Flexible(child: end),
+                  ],
+                ),
           subtitle: Text(
             subtitle,
             style: MenzilType.caption(c.ink2).copyWith(fontSize: 13),

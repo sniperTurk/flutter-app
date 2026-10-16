@@ -192,6 +192,8 @@ class UserCatalog {
             );
             continue;
           }
+          final elevation = _positive(e['elevationRangeMrad']);
+          final windage = _positive(e['windageRangeMrad']);
           scopes.add(
             ScopeOptic(
               id: id,
@@ -208,15 +210,25 @@ class UserCatalog {
               minMagnification: _positive(e['minMag']),
               maxMagnification: _positive(e['maxMag']),
               // Total turret travel from the scope's spec sheet (optional).
-              elevationRangeMrad: _positive(e['elevationRangeMrad']),
-              windageRangeMrad: _positive(e['windageRangeMrad']),
+              elevationRangeMrad: elevation,
+              windageRangeMrad: windage,
+              // A list scope's ">17,5 MIL" travel stays a lower bound.
+              elevationRangeIsLowerBound:
+                  elevation != null && e['elevationRangeIsLowerBound'] == true,
+              windageRangeIsLowerBound:
+                  windage != null && e['windageRangeIsLowerBound'] == true,
               reticle: switch (e['reticle']) {
                 final String r when r.trim().isNotEmpty && r.length <= 100 =>
                   r.trim(),
                 _ => null,
               },
               sourceName: userCatalogSourceName,
-              sourceDocument: userCatalogSourceDocument,
+              // A saved list scope keeps its manufacturer source.
+              sourceDocument: switch (e['sourceDocument']) {
+                final String d when d.trim().isNotEmpty && d.length <= 1000 =>
+                  d.trim(),
+                _ => userCatalogSourceDocument,
+              },
               userEntered: true,
             ),
           );

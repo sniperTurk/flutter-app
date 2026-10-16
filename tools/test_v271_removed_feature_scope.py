@@ -62,6 +62,14 @@ class V1ToolScopeTests(unittest.TestCase):
         # fourteen tiles; Kullanım rehberi (#177) makes fifteen.
         self.assertIn("Key('tool-chrono')", hub)
         self.assertEqual(15, hub.count('MenzilToolTile('))
+        # 2026-10-12: Garmin saati (owner asked for the Garmin phone link).
+        # 2026-10-16: moved from Araçlar to Pro Ayarlar (owner: "Garmin
+        # özelliğini Pro Ayarlar'a alalım"); still only in a build that
+        # carries the opt-in iOS Garmin bridge; TestFlight has none.
+        self.assertNotIn('GarminPairTile', hub)
+        self.assertFalse((ROOT / 'lib/features/tools/garmin_pair_tile.dart').exists())
+        pro = (ROOT / 'lib/features/ballistics/pro_ayarlar_view.dart').read_text(encoding='utf-8')
+        self.assertIn('const GarminPairTile(),', pro)
 
     def test_still_retired_dependencies_and_ios_bridge_stay_absent(self):
         pubspec = (ROOT / 'pubspec.yaml').read_text(encoding='utf-8')

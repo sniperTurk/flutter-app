@@ -1,0 +1,107 @@
+name: Garmin phone bridge build (manual)
+
+# Elle tetiklenir; otomatik çalışmaz. İki elle tetikleme yolu:
+#  - workflow_dispatch (dosya ana dalda olduğunda),
+#  - PR'a "garmin-sim" etiketi eklemek (dosya yalnızca dalda iken).
+# PR açılması/push bu işi ÇALIŞTIRMAZ. iPhone uygulamasını Garmin köprüsüyle
+# (garmin/ios_runner + Connect IQ Mobile SDK Swift paketi) iOS Simulator için
+# imzasız derler. TestFlight / iOS CI iskeletine dokunmaz: köprü yalnızca bu
+# işte eklenir. Hiçbir imza, secret, App Store veya TestFlight adımı yoktur.
+on:
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: 'Branch to build'
+        required: true
+        default: 'feat/garmin-phone'
+  pull_request:
+    types: [labeled]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: garmin-sim-${{ inputs.branch || github.head_ref }}
+  cancel-in-progress: false
+
+jobs:
+  build:
+    if: github.event_name == 'workflow_dispatch' || github.event.label.name == 'garmin-sim'
+    runs-on: macos-15
+    timeout-minutes: 45
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          ref: ${{ inputs.branch || github.head_ref }}
+
+      - name: Select Xcode 26 or newer
+        shell: bash
+        run: |
+          set -euo pipefail
+          BEST="$(ls -d /Applications/Xcode_*.app 2>/dev/null | python3 -c "
+          import re, sys
+          best = None
+          for line in sys.stdin:
+              p = line.strip()
+              m = re.search(r'Xcode_(\\d+)(?:\\.(\\d+))?(?:\\.(\\d+))?', p)
+              if not m: continue
+              v = tuple(int(x or 0) for x in m.groups())
+              if v[0] >= 26 and (best is None or v > best[0]):
+                  best = (v, p)
+          print(best[1] if best else '')
+          ")"
+          [ -n "$BEST" ] || { echo "No Xcode 26+ installed on this runner image" >&2; exit 1; }
+          sudo xcode-select -s "$BEST/Contents/Developer"
+          xcodebuild -version
+
+      - name: Bridge configurator tests
+        shell: bash
+        run: python3 -m unittest tools/test_configure_ios_garmin_bridge.py
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.47.2'
+          channel: stable
+          cache: true
+
+      - name: Generate iOS scaffold and wire the Garmin bridge
+        id: scaffold
+        shell: bash
+        run: |
+          set -euo pipefail
+          flutter pub get --enforce-lockfile
+          tools/bootstrap_ios_scaffold.sh
+          python3 tools/configure_ios_garmin_bridge.py ios/Runner
+          gem list -i xcodeproj >/dev/null || sudo gem install xcodeproj --no-document
+          ruby tools/configure_ios_garmin_bridge.rb
+          grep -n "garmin-bridge" -A5 ios/Runner/AppDelegate.swift
+          grep -n "SniperTurkGarminBridge" ios/Runner/Runner-Bridging-Header.h
+          /usr/libexec/PlistBuddy -c 'Print :LSApplicationQueriesSchemes' ios/Runner/Info.plist
+
+      - name: Build iPhone app with the Garmin bridge for the simulator
+        id: phone
+        if: steps.scaffold.outcome == 'success'
+        shell: bash
+        run: |
+          set -o pipefail
+          flutter build ios --simulator --debug 2>&1 | tee /tmp/phone-build.log
+
+      - name: Summary
+        if: always()
+        shell: bash
+        run: |
+          {
+            echo "## Garmin köprüsü derlemesi"
+            echo "| Adım | Sonuç |"
+            echo "|---|---|"
+            echo "| iOS iskelet + Garmin köprüsü | ${{ steps.scaffold.outcome }} |"
+            echo "| iOS Simulator derlemesi (köprülü) | ${{ steps.phone.outcome }} |"
+          } >> "$GITHUB_STEP_SUMMARY"
+          if [ -f /tmp/phone-build.log ]; then
+            { grep -nE "error:|failed" /tmp/phone-build.log || true; } | head -20 | while IFS= read -r line; do
+              echo "::notice title=phone-build::${line:0:400}"
+            done
+          fi
+          exit 0
