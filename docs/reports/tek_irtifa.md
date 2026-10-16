@@ -82,11 +82,27 @@ Yerel çalıştırmalar:
 
 - `python3 tools/offline_dart_lint.py` → PASS (400 Dart dosyası, 0 sorun).
 - `python3 -m unittest discover -s tools -p 'test_*.py'` → OK (868 test).
-- Flutter SDK bu ortamda kurulamadı: Dart SDK indirmesi proxy tarafından 403 ile engellendi. Bu yüzden `flutter test`, `flutter analyze` ve `dart format` yerelde ÇALIŞMADI (BLOCKED). Sonuç için CI'ya bakılmalı.
+- Flutter SDK bu ortamda kurulamadı: Dart SDK indirmesi proxy tarafından 403 ile engellendi. Bu yüzden `flutter test`, `flutter analyze` ve `dart format` yerelde ÇALIŞMADI (BLOCKED). Bunlar yalnız CI'da çalıştı (aşağıda).
 
 ## CI
 
-CI_LINKS_PLACEHOLDER
+Head `b98c8ef` üzerinde (PR #356, `pull_request` olayı, iOS CI çalıştırması 38852695632):
+
+- `verify`: success. https://github.com/sniperTurk/flutter-app/actions/runs/38852695632/job/116820085990
+- `dart-checks`: success. https://github.com/sniperTurk/flutter-app/actions/runs/38852695632/job/116817219246
+- `wind-acceptance`: success. https://github.com/sniperTurk/flutter-app/actions/runs/38852695632/job/116817219349
+- `ios-simulator`: skipped (bu iş akışında PR'da çalışmıyor). Simulator, cihaz, TestFlight, App Store: ÇALIŞMADI.
+
+Elle başlatılan iş akışları:
+
+- `gh workflow run 375209577` (One-off dart format fix): success. https://github.com/sniperTurk/flutter-app/actions/runs/38852413301 . Biçimlendirme commit'ini (`a34aea7`) dala kendisi ekledi.
+- `test-diag.yml` (files=test): success. https://github.com/sniperTurk/flutter-app/actions/runs/38852415160 . Bu çalıştırma `b98c8ef`'ten önce başladı. Son commit yalnız bir testteki analiz uyarısını düzeltti; testlerin tamamı `verify` içinde `b98c8ef` üzerinde de yeşil.
+- `analyze-diag.yml`, ilk çalıştırma: failure. https://github.com/sniperTurk/flutter-app/actions/runs/38852416769 . Sebep: `prefer_const_declarations` (test/audit_2026_10_14b/atmosphere_altitude_audit_test.dart). `b98c8ef` ile düzeltildi.
+- `analyze-diag.yml`, yeniden: success. https://github.com/sniperTurk/flutter-app/actions/runs/38852691000
+
+İlk iOS CI çalıştırması (`8331e1c`) `dart-checks` / "Verify formatting" adımında kaldı: https://github.com/sniperTurk/flutter-app/actions/runs/38852405831 . Biçimlendirme commit'iyle düzeldi.
+
+Code Review ve Security review PR'da çalıştı, sorun bulmadı: https://github.com/sniperTurk/flutter-app/pull/356#issuecomment-6208328192
 
 🤖 Generated with [Claude Code](https://claude.com/claude-code)
 
