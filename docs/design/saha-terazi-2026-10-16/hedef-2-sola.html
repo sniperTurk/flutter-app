@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="tr"><head><meta charset="utf-8">
+<meta name="viewport" content="width=390">
+<title>Hedef</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#0B1620;font-family:-apple-system,"SF Pro Text","Helvetica Neue",Arial,sans-serif;color:#E7EFF3;text-align:left}
+.scr{width:var(--w,390px);height:844px;background:#0B1620;display:flex;flex-direction:column;position:relative;overflow:hidden}
+.top{display:flex;align-items:center;gap:8px;padding:14px 16px 12px;border-bottom:1px solid #27425A;min-height:64px}
+.top h1{font-size:22px;font-weight:700;margin:0;flex:1}
+.back{all:unset;width:28px;height:40px;display:flex;align-items:center;font-size:28px;color:#E7EFF3}
+.pill{all:unset;height:40px;box-sizing:border-box;border:1px solid #27425A;border-radius:20px;padding:0 14px;display:flex;align-items:center;gap:6px;font-size:14px;font-weight:600;background:#122330;color:#E7EFF3}
+.body{padding:12px 16px 16px;display:flex;flex-direction:column;gap:10px}
+.card{background:#122330;border:1px solid #27425A;border-radius:16px;padding:12px 14px;display:flex;flex-direction:column;gap:10px}
+.hd{display:flex;align-items:center;gap:8px}
+.hd .n{font-size:17px;font-weight:600}
+.hd .sp{flex:1}
+.row{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;align-items:end}
+.f{display:flex;flex-direction:column;gap:6px;min-width:0}
+.lab{display:flex;align-items:center;justify-content:space-between;font-size:13px;color:#9CB1C0;min-height:24px}
+.box{height:44px;border:1px solid #27425A;border-radius:10px;background:#0B1620;display:flex;align-items:center;justify-content:space-between;padding:0 12px;font-size:16px;color:#E7EFF3;width:100%;min-width:0}
+.box .v{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.u{font-size:13px;color:#9CB1C0;margin-left:6px}
+.ph{color:#9CB1C0}
+.i{all:unset;width:24px;height:24px;flex:none;display:inline-flex;align-items:center;justify-content:center;color:#9CB1C0;font-size:16px}
+.btn{all:unset;height:48px;box-sizing:border-box;border-radius:12px;border:1px solid #3A5A75;color:#E7EFF3;font-weight:600;font-size:15px;display:flex;align-items:center;justify-content:center;padding:0 12px;text-align:center;white-space:nowrap}
+.done{background:#1F5F7A;border-color:#2E7FA0;color:#FFFFFF}
+.primary{background:#F5B031;border-color:#F5B031;color:#0B1620}
+.k{font-size:13px;color:#9CB1C0}
+.cap{font-size:13px;color:#9CB1C0;line-height:1.4;margin:0}
+.seg{display:grid;gap:0;border:1px solid #3A5A75;border-radius:12px;overflow:hidden}
+.seg b{font-weight:600;font-size:14px;height:38px;display:flex;align-items:center;justify-content:center;color:#C9D7E0;border-right:1px solid #3A5A75;white-space:nowrap}
+.seg b:last-child{border-right:none}
+.seg b.sel{background:#1F5F7A;color:#fff}
+.num{font-variant-numeric:tabular-nums}
+.chip{font-size:12px;font-weight:600;border-radius:999px;padding:3px 9px;white-space:nowrap}
+.chip.wait{border:1px dashed #9CB1C0;color:#9CB1C0}
+.chip.tag{background:#1F5F7A;border:1px solid #2E7FA0;color:#fff}
+.chip.live{color:#4CC3E8;border:1px solid #2B5E74}
+.track{height:6px;border-radius:3px;background:#1B3245;position:relative}
+.track .fill{position:absolute;left:0;top:0;bottom:0;border-radius:3px;background:#4CC3E8}
+.knob{position:absolute;top:-9px;width:24px;height:24px;border-radius:12px;background:#E7EFF3;margin-left:-12px}
+.sw{width:51px;height:31px;border-radius:16px;background:#2E7FA0;position:relative;flex:none}
+.sw::after{content:"";position:absolute;right:2px;top:2px;width:27px;height:27px;border-radius:14px;background:#fff}
+.sw.dim{opacity:.45}
+.nav{position:absolute;left:0;right:0;bottom:0;height:76px;border-top:1px solid #27425A;background:#0E1C27;display:grid;grid-template-columns:repeat(5,minmax(0,1fr))}
+.nb{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;font-size:11px;color:#9CB1C0}
+.nb.on{color:#F5B031}
+.up{color:#4CC3E8}.dn{color:#F5B031}
+</style></head>
+<body><div class="scr" style="--w:390px"><div class="top"><h1>Hedef</h1><button class="pill" aria-label="Aktif profil">Hercules <span style="font-weight:400;color:#9CB1C0">6,35 mm</span> ⌄</button></div><div class="body" style="gap:12px">
+<div style="display:flex;align-items:center;gap:8px">
+ <button class="btn" style="width:52px;padding:0">−5</button><button class="btn" style="width:52px;padding:0">−1</button>
+ <div class="num" style="flex:1;text-align:center;font-size:44px;font-weight:800">100<span style="font-size:18px;font-weight:500;color:#9CB1C0;margin-left:4px">m</span></div>
+ <button class="btn" style="width:52px;padding:0">+1</button><button class="btn" style="width:52px;padding:0">+5</button>
+</div>
+<div class="track" style="margin:6px 0"><div class="knob" style="left:30%"></div></div>
+<div style="position:relative;margin:-14px -16px;padding:28px 16px">
+ <div aria-hidden="true" style="position:absolute;inset:0;background:radial-gradient(75% 50% at 0% 50%,rgba(255,138,128,.62),rgba(255,138,128,0) 100%)"></div>
+ <section aria-label="Kule çözümü" style="position:relative;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px">
+  <div style="border-left:3px solid #F5B031;padding:2px 0 2px 12px"><div class="k">Üst kule</div><div class="num" style="font-size:34px;font-weight:800;line-height:1.1">55 klik</div><div class="k num">13,8 MOA yukarı</div></div>
+  <div style="border-left:3px solid #4CC3E8;padding:2px 0 2px 12px"><div class="k">Yan kule</div><div class="num" style="font-size:34px;font-weight:800;line-height:1.1">4 klik</div><div class="k num">1,0 MOA sağ</div></div>
+ </section>
+ <div style="position:relative;display:flex;margin-top:8px;font-size:14px;font-weight:600"><span class="num" style="color:#FFB3AB">Terazi SOLA, 2,4°</span></div>
+</div>
+<div class="card" style="padding:12px;height:330px;overflow:hidden">
+ <svg viewBox="0 0 300 300" width="100%" role="img" aria-label="Retikül görünümü"><circle cx="150" cy="150" r="146" fill="#E9EDF0"/>
+ <line x1="10" y1="150" x2="290" y2="150" stroke="#0F2230" stroke-width="1.5"/><line x1="150" y1="10" x2="150" y2="290" stroke="#0F2230" stroke-width="1.5"/>
+ <circle cx="150" cy="150" r="7" fill="none" stroke="#1C8FB5" stroke-width="2"/>
+ <text x="44" y="96" font-size="12" font-weight="600" fill="#09617F">FFP, MOA, 21x</text></svg>
+</div></div><nav class="nav" aria-label="Sekmeler"><div class="nb">Profil</div><div class="nb">Hava Durumu</div><div class="nb">Pro</div><div class="nb on">Hedef</div><div class="nb">Araçlar</div></nav></div></body></html>
