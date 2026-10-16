@@ -326,13 +326,28 @@ class _TurretDrumState extends State<_TurretDrum> {
     }
   }
 
+  /// The drum's current value: the one last sent, else the parent's.
+  /// Every user step builds on it (owner, 2026-10-16 20:42: "Dürbün
+  /// kulelerinin klikleri çevirme hızı ile aynı değil"). A fast drag sends
+  /// several updates before the parent rebuilds; counting from the stale
+  /// [_TurretDrum.clicks] lost those steps (count and sound) while the
+  /// finger's travel was already used up.
+  int get _value => _sent ?? widget.clicks;
+
+  /// Every [pixelsPerClick] of finger travel is one click. At the travel
+  /// limit the travel beyond it is dropped, so turning back answers at once.
   void _drag(double delta) {
-    _carry += delta;
-    final steps = (_carry / pixelsPerClick).truncate();
-    if (steps != 0) {
-      _carry -= steps * pixelsPerClick;
-      _set(widget.clicks + steps);
+    final base = _value;
+    final total = _carry + delta;
+    final steps = (total / pixelsPerClick).truncate();
+    _carry = total - steps * pixelsPerClick;
+    final target = base + steps;
+    if ((total > 0 && target >= widget.maxClicks) ||
+        (total < 0 &&
+            target <= -(widget.maxNegativeClicks ?? widget.maxClicks))) {
+      _carry = 0;
     }
+    if (steps != 0) _set(target);
   }
 
   String _valueText() {
@@ -359,7 +374,7 @@ class _TurretDrumState extends State<_TurretDrum> {
         painter: _DrumPainter(
           colors: c,
           axis: widget.axis,
-          clicks: widget.clicks,
+          clicks: _value,
           clickValue: widget.clickValue,
           unitLabel: widget.unitLabel,
           positiveLetter: widget.positiveLetter,
@@ -405,7 +420,7 @@ class _TurretDrumState extends State<_TurretDrum> {
       Widget area({bool drag = false}) => GestureDetector(
         behavior: HitTestBehavior.opaque,
         excludeFromSemantics: true,
-        onTap: () => _set(widget.clicks + delta),
+        onTap: () => _set(_value + delta),
         onHorizontalDragStart: drag ? (_) => _carry = 0 : null,
         onHorizontalDragUpdate: drag ? (d) => _drag(d.delta.dx) : null,
         child: const SizedBox.expand(),
@@ -559,8 +574,8 @@ class _TurretDrumState extends State<_TurretDrum> {
       value: _valueText(),
       increasedValue: '${widget.clicks + 1}',
       decreasedValue: '${widget.clicks - 1}',
-      onIncrease: () => _set(widget.clicks + 1),
-      onDecrease: () => _set(widget.clicks - 1),
+      onIncrease: () => _set(_value + 1),
+      onDecrease: () => _set(_value - 1),
       child: body,
     );
   }
