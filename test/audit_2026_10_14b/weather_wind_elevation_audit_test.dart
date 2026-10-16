@@ -286,6 +286,32 @@ void main() {
       expect(find.text('Düzeltme al'), findsOneWidget);
     });
 
+    testWidgets('button value: restart + a fetch with the same wind keeps '
+        'it (restored "5" vs fetched "5.0" is no change)', (tester) async {
+      final rig = _Rig();
+      final a = UniqueKey();
+      await _show(tester, rig, BallisticsView.environment, key: a);
+      await _tap(tester, _weatherBtn); // 5.0 m/s
+      await _show(tester, rig, BallisticsView.pro, key: a);
+      await openProFor(tester, _windMax);
+      await _tap(tester, _windMaxBtn);
+      expect(_text(tester, _windMax), '7.5');
+      await tester.pumpAndSettle(const Duration(seconds: 1));
+
+      final b = UniqueKey();
+      rig.advance(const Duration(minutes: 40));
+      rig.nextWind(5);
+      await _show(tester, rig, BallisticsView.environment, key: b);
+      // The restored box shows two decimals at most: "5", not "5.0".
+      expect(_text(tester, BallisticsFieldKeys.wind), '5');
+      await _tap(tester, _weatherBtn);
+      expect(_text(tester, BallisticsFieldKeys.wind), '5.0');
+      await _show(tester, rig, BallisticsView.pro, key: b);
+      await openProFor(tester, _windMax);
+      expect(_text(tester, _windMax), '7.5');
+      expect(find.text('Düzeltme alındı'), findsOneWidget);
+    });
+
     testWidgets('typed value: restart + fetch never overwrite it', (
       tester,
     ) async {
