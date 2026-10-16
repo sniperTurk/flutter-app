@@ -287,8 +287,9 @@ abstract final class ProfileFieldInfo {
       'noktası çakışır. "Mesafe birimi"nde seçtiğiniz birimle (metre veya '
       'yard) girin. Örnek: ateşli tüfekte çoğunlukla 100 m (veya 100 yard).';
   static const distanceUnit =
-      'Mesafelerin birimi: metre veya yard (1 yard = 0,9144 m). Yard '
-      'seçilirse sıfırlama mesafesi, Hedef sayfası, dürbün içindeki mesafe '
+      'Mesafelerin birimi: metre veya yard (1 yard = 0,9144 m). Metre '
+      'seçtiyseniz Sıfırlama mesafesini metre olarak, Yard seçtiyseniz yard '
+      'olarak girin. Yard seçilirse sıfırlama mesafesi, Hedef sayfası, dürbün içindeki mesafe '
       'sayıları ve tablo yard ile gösterilir. Dürbününüzün odak düğmesi '
       'yard ile yazılıysa yard seçin.';
 
