@@ -79,7 +79,10 @@ Test yazı tipi her harfi kare çizer. Bu yüzden testte iPhone'un SF yazısı y
 
 ## CI bağlantıları
 
-- **Format (format-fix):** başarılı, değişiklik gerekmedi. https://github.com/sniperTurk/flutter-app/actions/runs/38854935012
+- **Format (format-fix):**
+  - İlk commit: değişiklik gerekmedi. https://github.com/sniperTurk/flutter-app/actions/runs/38854935012
+  - Sonraki test düzeltmelerinden sonra `dart-checks` format adımında kaldı: https://github.com/sniperTurk/flutter-app/actions/runs/38858050627
+  - format-fix yeni testteki 2 satırı biçimledi (commit 1f21960): https://github.com/sniperTurk/flutter-app/actions/runs/38858439396
 - **Analyze (analyze-diag):**
   - İlk commit: başarılı. https://github.com/sniperTurk/flutter-app/actions/runs/38855182989
   - Son commit: başarılı. https://github.com/sniperTurk/flutter-app/actions/runs/38857827170
