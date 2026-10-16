@@ -84,6 +84,9 @@ void _expectCompactInput(
   Key key, {
   required String label,
   required String unit,
+  // False for the boxes inside a Pro section (owner, 2026-10-16 21:17: no ⓘ
+  // in them; the section title has it).
+  bool hasInfo = true,
 }) {
   final field = _field(key);
   expect(field, findsOneWidget, reason: '$key');
@@ -94,6 +97,22 @@ void _expectCompactInput(
   final gap = box.top - labelRect.bottom;
   expect(gap, inInclusiveRange(0, 8), reason: '$key gap');
   expect(box.height, moreOrLessEquals(44, epsilon: 0.01), reason: '$key');
+  if (!hasInfo) {
+    expect(_infoIn(find.byKey(key)), findsNothing, reason: '$key no ⓘ');
+    // The unit stays inside the box, at its right.
+    final unitText = find.descendant(of: field, matching: find.text(unit));
+    expect(unitText, findsOneWidget, reason: '$key unit inside the box');
+    final unitRect = tester.getRect(unitText);
+    expect(unitRect.right, lessThanOrEqualTo(box.right + 0.01));
+    expect(unitRect.left, greaterThan(box.center.dx), reason: '$key unit');
+    expect(unitRect.top, greaterThanOrEqualTo(box.top - 0.01));
+    expect(unitRect.bottom, lessThanOrEqualTo(box.bottom + 0.01));
+    expect(
+      find.descendant(of: find.byKey(key), matching: find.text(unit)),
+      findsOneWidget,
+    );
+    return;
+  }
   final info = _infoIn(field);
   expect(info, findsOneWidget, reason: '$key ⓘ inside the box');
   final infoRect = tester.getRect(info);
@@ -316,9 +335,8 @@ void main() {
   });
 
   group('Pro Ayarlar', () {
-    testWidgets('inputs: label ≤ 8 pt above a 44 pt box; unit and ⓘ inside', (
-      tester,
-    ) async {
+    testWidgets('inputs: label ≤ 8 pt above a 44 pt box; unit inside, ⓘ '
+        'only outside the sections', (tester) async {
       await _pump(tester, BallisticsView.pro);
       _expectCompactInput(
         tester,
@@ -332,17 +350,21 @@ void main() {
         const Key('pro-target-speed'),
         label: 'Hedef hızı',
         unit: 'm/s',
+        hasInfo: false,
       );
       _expectCompactInput(
         tester,
         const Key('pro-bc-error'),
         label: 'BC hatası',
         unit: '%',
+        hasInfo: false,
       );
-      // A Pro box field ⓘ opens the box's sheet (as today) and does not
-      // focus the field.
+      // The section title ⓘ opens the sheet and does not focus a field.
       final speed = _field(const Key('pro-target-speed'));
-      await tester.tap(_infoIn(speed));
+      final titleInfo = find.byKey(const Key('pro-info-target'));
+      await tester.ensureVisible(titleInfo);
+      await tester.pumpAndSettle();
+      await tester.tap(titleInfo);
       await tester.pumpAndSettle();
       expect(find.byKey(const Key('pro-info-sheet')), findsOneWidget);
       final editable = tester.widget<EditableText>(
@@ -371,9 +393,8 @@ void main() {
       expect(tester.getRect(error).top, greaterThanOrEqualTo(top + 44 - 0.01));
     });
 
-    testWidgets('select: 44 pt box, ⓘ left of the arrow, no list on ⓘ', (
-      tester,
-    ) async {
+    testWidgets('select: 44 pt box, no ⓘ in a Pro section box, arrow opens '
+        'the list', (tester) async {
       await _pump(tester, BallisticsView.pro);
       const key = Key('pro-wez-shots');
       await openProFor(tester, key);
@@ -390,28 +411,17 @@ void main() {
         ),
       );
       expect(rect.top - label.bottom, inInclusiveRange(0, 8));
-      final info = _infoIn(box);
-      expect(info, findsOneWidget);
-      final infoRect = tester.getRect(info);
-      expect(infoRect.width, greaterThanOrEqualTo(44 - 0.01));
-      expect(infoRect.height, greaterThanOrEqualTo(44 - 0.01));
+      // Owner, 2026-10-16 21:17: no ⓘ in the box; Atış sayısı is explained
+      // in the Hareketli hedef title ⓘ.
+      expect(_infoIn(find.byKey(key)), findsNothing);
       final arrow = tester.getRect(
         find.descendant(of: box, matching: find.byIcon(Icons.expand_more)),
       );
-      expect(infoRect.right, lessThanOrEqualTo(arrow.left + 0.01));
       expect(arrow.right, lessThanOrEqualTo(rect.right));
+      expect(arrow.top, greaterThanOrEqualTo(rect.top - 0.01));
+      expect(arrow.bottom, lessThanOrEqualTo(rect.bottom + 0.01));
 
-      // Same as today (#279): a field ⓘ in a Pro box opens the box's
-      // bottom sheet; never the list.
-      await tester.tap(info);
-      await tester.pumpAndSettle();
-      expect(find.byKey(const Key('pro-info-sheet')), findsOneWidget);
-      expect(_dropdownMenu, findsNothing);
-      await tester.tap(find.byKey(const Key('pro-info-close')));
-      await tester.pumpAndSettle();
-      expect(find.byKey(const Key('pro-info-sheet')), findsNothing);
-
-      // The rest of the box still opens the list.
+      // The box opens the list.
       await tester.tapAt(arrow.center);
       await tester.pumpAndSettle();
       expect(_dropdownMenu, findsOneWidget);
