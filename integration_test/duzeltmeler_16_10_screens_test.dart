@@ -103,8 +103,10 @@ void main() {
       await settle();
       counter++;
       debugPrint('SIMSCREEN:${counter.toString().padLeft(2, '0')}_$name');
+      // Held 10 s: the marker reaches the host log a few seconds late; at
+      // 4 s some screens showed the next step (run 38976003488).
       await tester.runAsync(
-        () => Future<void>.delayed(const Duration(seconds: 4)),
+        () => Future<void>.delayed(const Duration(seconds: 10)),
       );
     }
 
@@ -148,7 +150,10 @@ void main() {
     Future<void> pickProfile(RifleProfile p) async {
       await tester.tap(find.byKey(const Key('top-bar-profile-button')));
       await settle();
-      await tester.tap(find.byKey(ValueKey(('top-bar-profile-item', p.id))));
+      // The open list's row (the button's own offstage items share the key).
+      await tester.tap(
+        find.byKey(ValueKey(('top-bar-profile-item', p.id))).hitTestable(),
+      );
       await settle();
     }
 
@@ -162,6 +167,13 @@ void main() {
     // 2026-10-16). Only the pixel ratio changes, so the app is laid out
     // [w] pt wide and fills the screen; the height follows the window.
     final physical = tester.view.physicalSize;
+    // The Simulator screen kept the first frame after the first pixel ratio
+    // change (all 390 pt screens showed Profil, run 38976003488); the
+    // second change rendered normally. So change it twice before the tour.
+    for (final w in const [320.0, 390.0]) {
+      tester.view.devicePixelRatio = physical.width / w;
+      await wait(2);
+    }
     for (final w in const [390.0, 320.0]) {
       final size = '${w.toInt()}';
       tester.view.devicePixelRatio = physical.width / w;
