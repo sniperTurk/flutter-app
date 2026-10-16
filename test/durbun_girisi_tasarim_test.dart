@@ -283,7 +283,7 @@ void main() {
     final scope = CatalogRepository.allScopes.singleWhere(
       (o) => o.id == saved.scopeId,
     );
-    expect(scope.brand, 'Element Optics Titan');
+    expect(scope.brand, 'Element Optics Titan MOA');
     expect(scope.model, '3-18x50 FFP');
     expect(scope.reticle, 'APR-2D MOA');
     expect(scope.clickUnit, AngularUnit.moa);
