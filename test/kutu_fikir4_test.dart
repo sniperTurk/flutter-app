@@ -336,9 +336,7 @@ void main() {
 
   group('Pro Ayarlar', () {
     testWidgets('inputs: label ≤ 8 pt above a 44 pt box; unit inside, ⓘ '
-        'only outside the sections', (
-      tester,
-    ) async {
+        'only outside the sections', (tester) async {
       await _pump(tester, BallisticsView.pro);
       _expectCompactInput(
         tester,
@@ -396,9 +394,7 @@ void main() {
     });
 
     testWidgets('select: 44 pt box, no ⓘ in a Pro section box, arrow opens '
-        'the list', (
-      tester,
-    ) async {
+        'the list', (tester) async {
       await _pump(tester, BallisticsView.pro);
       const key = Key('pro-wez-shots');
       await openProFor(tester, key);
