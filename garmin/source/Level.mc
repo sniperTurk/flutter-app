@@ -24,6 +24,11 @@ module Level {
     // (ölçüm aralığı), tau = 0,25 sn -> k = 0,33.
     const SAMPLE_MS = 100;
     const LP_K = 0.33;
+    // Sıfırla, ekran açıldıktan bu kadar ölçüm sonra uygulanır (1 sn;
+    // süzgeç 0,25 sn'lik zaman sabitinin 4 katında oturur).
+    const SETTLE_TICKS = 10;
+    // Durum yazısı (ör. "Açı gönderildi") 3 sn görünür.
+    const STATUS_TICKS = 30;
 
     // ax, ay, az: Sensor ivmesi (milli-g; saat dururken yukarıyı gösterir;
     // x saat 3, y saat 12, z ekrandan dışarı). Döner: [yatıklık, eğim],

@@ -95,13 +95,14 @@ class MainView extends WatchUi.View {
             dc.drawText(cx, rowY, Graphics.FONT_XTINY, windText, Graphics.TEXT_JUSTIFY_CENTER);
             rowY += xh;
         }
-        // Çözümde kullanılan atış açısı (telefon gönderiyorsa).
-        if (s.angle != null) {
+        dc.drawText(cx, rowY, Graphics.FONT_XTINY, Format.unitLine(s.unit, s.click), Graphics.TEXT_JUSTIFY_CENTER);
+        rowY += xh;
+        // Çözümde kullanılan atış açısı (telefon gönderiyorsa); birim satırını
+        // aşağı itmez, sığmazsa atlanır.
+        if (s.angle != null && rowY <= lastRow) {
             dc.drawText(cx, rowY, Graphics.FONT_XTINY, "Açı " + Format.signedDeg(s.angle), Graphics.TEXT_JUSTIFY_CENTER);
             rowY += xh;
         }
-        dc.drawText(cx, rowY, Graphics.FONT_XTINY, Format.unitLine(s.unit, s.click), Graphics.TEXT_JUSTIFY_CENTER);
-        rowY += xh;
         // Yuvarlak ekranın altına sığmazsa güncelleme satırı atlanır.
         if (rowY <= lastRow) {
             dc.drawText(cx, rowY, Graphics.FONT_XTINY, Format.updated(s.atSec), Graphics.TEXT_JUSTIFY_CENTER);

@@ -45,7 +45,9 @@ hesaplıyor." Rüzgâr hızı ve yönü saate zaten gidiyordu; eksik olan açıy
   - Titreşim: düz olunca bir kez `Attention.vibrate` (50 %, 150 ms); yalnız
     `Attention has :vibrate` ve saatin titreşim ayarı açıksa. Saatin ses
     ayarı açıksa bir kısa tuş sesi (`TONE_KEY`) de çalar.
-  - Sıfırla: Aşağı > Sıfırla > "Tüfek düz ve yatay mı?" onayı; o anki
+  - Sıfırla: Aşağı > Sıfırla > "Tüfek düz ve yatay mı?" onayı. Menüdeyken
+    ölçüm durduğu için sıfır, Terazi'ye dönüldükten ve süzgeç oturduktan
+    sonraki ilk taze ölçümden (yaklaşık 1 sn, "Sıfırlanıyor") alınır; o
     yatıklık ve açı 0 olur.
   - Açıyı gönder: `Communications.transmit({"type" => "setAngle",
     "value" => <derece, 1 ondalık>})`; tek mesaj, sürekli akış yok. Durum
@@ -88,6 +90,11 @@ tek yerde kalır; saat yine hesap yapmaz, yalnızca ölçer ve gösterir.
 - Sınırda titreyen ölçüm sürekli titreşim yapmasın diye titreşim, yatıklık
   0,8°'yi geçip yeniden 0,5° içine girince tekrar verilir ("düz" yazısı
   yine 0,5°'de değişir).
+- Sıfırla yapılmadan "Açıyı gönder" çalışmaz ("Önce Sıfırla"): aparat
+  payı ölçülmeden giden açı hesabı bozar.
+- Durum yazıları ("Açı gönderildi" vb.) 3 sn sonra silinir, ipucu geri gelir.
+- Ana ekranda "Açı" satırı birim satırının (MRAD/MOA) altındadır ve
+  yuvarlak ekranda yer yoksa atlanır; birim satırı yerinden oynamaz.
 - Takma şekli değişince eski sıfır farkı silinir; ekranda "Takma değişti:
   Sıfırla" ve Sıfırla yapılana kadar "Önce Sıfırla" yazar.
 - Atış ekranı açık değilken açı gelirse Açı yine kaydedilir; saat, mesafe
@@ -110,6 +117,10 @@ tek yerde kalır; saat yine hesap yapmaz, yalnızca ölçer ve gösterir.
   bilgisi yalnız Garmin'in Connect IQ API belgelerinden (Toybox.Sensor,
   Sensor.Info, AccelerometerData, Attention, VibeProfile, System.DeviceSettings,
   Math; 2026-10-16'da okundu).
+
+- Bilinen dar pencere: Hedef ekranı açıldıktan hemen sonra (kayıtlı
+  Pro Ayarlar okunmadan önce, milisaniyeler) gelen açı, okunan kayıtla
+  ezilebilir. Elle girilen açıda da aynı yol var; ayrı iş olarak bırakıldı.
 
 ## Testler
 

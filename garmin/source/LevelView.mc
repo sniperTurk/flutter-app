@@ -29,6 +29,12 @@ class LevelView extends WatchUi.View {
     var level = false;
     var armed = true;
     var status = null;
+    // Durum yazısı bu kadar ölçüm sonra silinir (yaklaşık 3 sn).
+    var statusTicks = 0;
+    // Sıfırla onaylandı: ekran yeniden açılıp ölçüm oturunca uygulanır.
+    var pendingReset = false;
+    // Ekran açıldığından beri ölçüm sayısı (süzgeç oturması için).
+    var ticksShown = 0;
 
     function initialize() {
         View.initialize();
@@ -47,6 +53,10 @@ class LevelView extends WatchUi.View {
             } catch (e) {
                 // Ölçüm yine getInfo ile denenir.
             }
+        }
+        ticksShown = 0;
+        if (timer != null) {
+            timer.stop();
         }
         timer = new Timer.Timer();
         timer.start(method(:onTick), Level.SAMPLE_MS, true);
@@ -91,6 +101,23 @@ class LevelView extends WatchUi.View {
         var r = Level.angles(fx, fy, fz, mount);
         rawCant = r[0];
         rawAngle = r[1];
+        ticksShown += 1;
+        // Menüdeyken ölçüm durur: sıfır, menü kapandıktan ve süzgeç
+        // oturduktan sonraki taze ölçümden alınır (yaklaşık 1 sn).
+        if (pendingReset && ticksShown >= Level.SETTLE_TICKS) {
+            pendingReset = false;
+            cantOffset = rawCant;
+            angleOffset = rawAngle;
+            Level.saveOffsets(cantOffset, angleOffset);
+            armed = true;
+            setStatus("Sıfırlandı");
+        }
+        if (statusTicks > 0) {
+            statusTicks -= 1;
+            if (statusTicks == 0 && !pendingReset) {
+                status = null;
+            }
+        }
         cant = rawCant - cantOffset;
         angle = rawAngle - angleOffset;
         updateLevel();
@@ -131,15 +158,10 @@ class LevelView extends WatchUi.View {
 
     // Sıfırla: tüfek düz ve yatayken o anki yatıklık ve açı 0 olur.
     function reset() {
-        if (!hasData()) {
-            setStatus("Sensör verisi yok");
-            return;
-        }
-        cantOffset = rawCant;
-        angleOffset = rawAngle;
-        Level.saveOffsets(cantOffset, angleOffset);
-        armed = true;
-        setStatus("Sıfırlandı");
+        pendingReset = true;
+        status = "Sıfırlanıyor";
+        statusTicks = 0;
+        WatchUi.requestUpdate();
     }
 
     function toggleMount() {
@@ -156,6 +178,11 @@ class LevelView extends WatchUi.View {
             setStatus("Sensör verisi yok");
             return;
         }
+        // Aparat payı sıfırlanmadan ölçülen açı yanlış olur.
+        if (!Level.isCalibrated() || pendingReset) {
+            setStatus("Önce Sıfırla");
+            return;
+        }
         var v = Math.round(angle * 10.0) / 10.0;
         if (v.abs() > Level.MAX_SEND_DEG) {
             setStatus("Açı 60° dışında");
@@ -167,6 +194,7 @@ class LevelView extends WatchUi.View {
 
     function setStatus(text) {
         status = text;
+        statusTicks = Level.STATUS_TICKS;
         WatchUi.requestUpdate();
     }
 

@@ -131,6 +131,9 @@ class LevelSourceMirror(unittest.TestCase):
         self.assertIn("(Attention has :playTone) && ds.tonesOn", src)
         self.assertEqual(src.count("Attention.vibrate("), 1)
         self.assertIn("if (!level && armed)", src)
+        # Sıfırlanmadan açı gönderilmez; sıfır taze ölçümden alınır.
+        self.assertIn("if (!Level.isCalibrated() || pendingReset)", src)
+        self.assertIn("if (pendingReset && ticksShown >= Level.SETTLE_TICKS)", src)
         # Sürekli akış yok: transmit yalnızca sendAngle içinde.
         self.assertEqual(src.count("Communications.transmit("), 1)
 

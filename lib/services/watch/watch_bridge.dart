@@ -263,8 +263,8 @@ class WatchBridge {
   Stream<double> get angleRequests => _transport.incoming
       .where((m) => m['type'] == 'setAngle')
       .map((m) => m['value'])
-      .whereType<num>()
-      .where((v) => v.isFinite && v.abs() <= maxWatchAngleDeg)
+      .where((v) => v is num && v.isFinite && v.abs() <= maxWatchAngleDeg)
+      .cast<num>()
       .map((v) {
         final r = (v * 10).roundToDouble() / 10;
         return r == 0 ? 0.0 : r;

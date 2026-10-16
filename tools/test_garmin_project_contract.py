@@ -74,6 +74,10 @@ class GarminProjectContract(unittest.TestCase):
         main = self.sources["MainView.mc"]
         self.assertIn("new LevelView()", main)
         self.assertIn("s.angle", main)
+        # The angle row never pushes the unit line down: it comes after it
+        # and is skipped when the round screen has no room.
+        self.assertLess(main.index("Format.unitLine(s.unit, s.click)"), main.index('"Açı " + Format.signedDeg(s.angle)'))
+        self.assertIn("if (s.angle != null && rowY <= lastRow)", main)
 
     def test_manifest_has_a_version(self):
         self.assertRegex(self.app.get("version") or "", r"^\d+\.\d+\.\d+$")
