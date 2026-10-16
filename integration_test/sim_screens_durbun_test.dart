@@ -48,9 +48,11 @@ void main() {
       counter++;
       final id = '${counter.toString().padLeft(2, '0')}_$name';
       debugPrint('SIMSCREEN:$id');
-      // Hold the frame while the workflow saves the Simulator screen.
+      // Hold the frame while the workflow saves the Simulator screen. The
+      // marker reaches the log late (a 4 s hold photographed the next
+      // frame), so this tour holds longer.
       await tester.runAsync(
-        () => Future<void>.delayed(const Duration(seconds: 4)),
+        () => Future<void>.delayed(const Duration(seconds: 10)),
       );
     }
 
@@ -219,46 +221,33 @@ void main() {
 
     await wait(3);
 
-    // ---- List path ----
-    await step('liste_bos', () async {
+    Future<void> openEditorOf(int index) async {
+      // Düzenle is in the row's ⋯ menu (owner, 2026-10-14).
+      final menus = find.byTooltip('Profil işlemleri');
+      await tester.ensureVisible(menus.at(index));
+      await settle();
+      await tester.tap(menus.at(index));
+      await settle();
+      await tester.tap(find.text('Düzenle').last);
+      await settle();
+      expect(find.text('Profili Düzenle'), findsOneWidget);
+    }
+
+    Future<void> closeEditor() async {
+      tester
+          .state<NavigatorState>(find.byType(Navigator).first)
+          .popUntil((route) => route.isFirst);
+      await settle();
+    }
+
+    // ---- Typed path first: the first saved profile is the active one, so
+    // its summary card is on the Profil page. ----
+    var typedSaved = false;
+    await step('elle_dolu', () async {
       await openTab('Profil');
       await tester.ensureVisible(find.text('İlk profilimi oluştur'));
       await settle();
       await tester.tap(find.text('İlk profilimi oluştur'));
-      await settle();
-      await scopeCard('durbun_liste_marka_secilmedi');
-    });
-    var listSaved = false;
-    await step('liste_dolu', () async {
-      await rifleAmmoShot();
-      await choose('scope-brand-select', 'Element Optics');
-      await choose('scope-filter-unit-Element Optics-null', 'MOA');
-      await choose('scope-filter-ffp-Element Optics-null', 'FFP');
-      await choose('scope-model-select', 'Titan 5-25x56 FFP MOA');
-      await choose('scope-reticle', 'APR-2D MOA');
-      await choose('scope-mount', 'Normal (0 MOA)');
-      await scopeCard('durbun_liste_dolu');
-      await save('Kaydet');
-      expect(find.text('Profil Oluştur'), findsNothing);
-      listSaved = true;
-    });
-    if (listSaved) {
-      await step('liste_duzenle', () async {
-        await tester.tap(find.byKey(const Key('profile-row-name')).first);
-        await settle();
-        expect(find.text('Profili Düzenle'), findsOneWidget);
-        await scopeCard('durbun_liste_duzenle');
-        tester
-            .state<NavigatorState>(find.byType(Navigator).first)
-            .popUntil((route) => route.isFirst);
-        await settle();
-      });
-    }
-
-    // ---- Typed path ----
-    var typedSaved = false;
-    await step('elle_dolu', () async {
-      await tester.tap(find.byTooltip('Yeni profil').first);
       await settle();
       await rifleAmmoShot();
       await tapNotListed('scope-not-listed');
@@ -282,20 +271,41 @@ void main() {
     });
     if (typedSaved) {
       await step('elle_ozet', () async {
-        // The new profile's row; make it active to see its summary card.
-        final rows = find.byKey(const Key('profile-row-name'));
-        await tester.ensureVisible(rows.last);
-        await settle();
-        await page('profil_listesi');
+        await page('profil_ozet_elle');
       });
       await step('elle_duzenle', () async {
-        final rows = find.byKey(const Key('profile-row-name'));
-        await tester.ensureVisible(rows.last);
-        await settle();
-        await tester.tap(rows.last);
-        await settle();
-        expect(find.text('Profili Düzenle'), findsOneWidget);
+        await openEditorOf(0);
         await scopeCard('durbun_elle_duzenle');
+        await closeEditor();
+      });
+    }
+
+    // ---- List path ----
+    var listSaved = false;
+    await step('liste_dolu', () async {
+      await tester.ensureVisible(find.text('Profil ekle'));
+      await settle();
+      await tester.tap(find.text('Profil ekle'));
+      await settle();
+      expect(find.text('Profil Oluştur'), findsOneWidget);
+      await scopeCard('durbun_liste_marka_secilmedi');
+      await rifleAmmoShot();
+      await choose('scope-brand-select', 'Element Optics');
+      await choose('scope-filter-unit-Element Optics-null', 'MOA');
+      await choose('scope-filter-ffp-Element Optics-null', 'FFP');
+      await choose('scope-model-select', 'Titan 5-25x56 FFP MOA');
+      await choose('scope-reticle', 'APR-2D MOA');
+      await choose('scope-mount', 'Normal (0 MOA)');
+      await scopeCard('durbun_liste_dolu');
+      await save('Kaydet');
+      expect(find.text('Profil Oluştur'), findsNothing);
+      listSaved = true;
+    });
+    if (listSaved) {
+      await step('liste_duzenle', () async {
+        await openEditorOf(1);
+        await scopeCard('durbun_liste_duzenle');
+        await closeEditor();
       });
     }
 
