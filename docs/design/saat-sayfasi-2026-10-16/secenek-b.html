@@ -1,0 +1,456 @@
+<!doctype html>
+<html lang="tr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Seçenek B — Önce saat listesi</title><style>/* SNIPER TÜRK — Saat sayfası taslakları. Değerler lib/ui/menzil_theme.dart
+   (koyu tema) ve lib/ui/menzil_widgets.dart ile birebir aynı. */
+:root {
+  --bg: #0B1620;
+  --surface: #122330;
+  --surface2: #1B3245;
+  --ink: #E7EFF3;
+  --ink2: #9CB1C0;
+  --line: #27425A;
+  --cyan: #4CC3E8;
+  --cyan-soft: #12384A;
+  --amber: #F5B031;
+  --done-fill: #1F5F7A;
+  --done-border: #2E7FA0;
+  --danger: #FF8A80;
+  --r-card: 16px;
+  --r-input: 10px;
+  --r-button: 12px;
+  --gutter: 14px;
+  --font: -apple-system, "SF Pro Text", Inter, system-ui, sans-serif;
+  --font-d: -apple-system, "SF Pro Display", "Inter Display", Inter, system-ui, sans-serif;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { background: #05090D; }
+body { font-family: var(--font); color: var(--ink); -webkit-font-smoothing: antialiased; }
+button { font: inherit; color: inherit; background: none; border: 0; }
+
+/* ---------- telefon ---------- */
+.phone {
+  width: var(--w, 390px);
+  min-height: 844px;
+  background: var(--bg);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  text-align: left;
+}
+.statusbar {
+  height: 47px; flex: none;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 6px 28px 0 32px;
+  font-size: 16px; font-weight: 600; letter-spacing: -0.2px;
+}
+.statusbar .batt { width: 26px; height: 12px; border: 1.5px solid var(--ink); border-radius: 4px; padding: 1.5px; opacity: .9 }
+.statusbar .batt i { display: block; height: 100%; width: 72%; background: var(--ink); border-radius: 1.5px }
+.topbar {
+  height: 58px; flex: none;
+  border-bottom: 1px solid var(--line);
+  display: flex; align-items: center; gap: 10px;
+  padding: 0 var(--gutter);
+}
+.topbar h1 { font-family: var(--font-d); font-size: 18px; font-weight: 700; line-height: 1.1; flex: none; min-width: 92px }
+.profile-pill {
+  margin-left: auto; height: 40px; max-width: 100%;
+  display: flex; align-items: center; gap: 4px;
+  padding: 0 10px 0 16px;
+  background: var(--surface); border: 1px solid var(--line); border-radius: 999px;
+  font-size: 15px; font-weight: 500; white-space: nowrap; overflow: hidden;
+}
+.profile-pill span { overflow: hidden; text-overflow: ellipsis }
+.profile-pill svg { flex: none; width: 22px; height: 22px; color: var(--ink2) }
+
+.page { flex: 1; padding: 10px var(--gutter) 20px; display: flex; flex-direction: column }
+
+/* ---------- alt menü ---------- */
+.nav {
+  flex: none; background: var(--surface); border-top: 1px solid var(--line);
+  display: flex; padding-bottom: 34px; position: relative;
+}
+.nav .it { flex: 1; min-width: 0; min-height: 56px; position: relative;
+  display: flex; flex-direction: column; align-items: center; padding: 9px 2px 8px; color: var(--ink2) }
+.nav .it.on { color: var(--ink) }
+.nav .it.on::before { content: ""; position: absolute; top: 0; left: 22%; right: 22%; height: 3px; background: var(--amber); border-radius: 0 0 3px 3px }
+.nav .it svg { width: 24px; height: 24px }
+.nav .it b { margin-top: 3px; font-size: 11.5px; font-weight: 600; white-space: nowrap; transform-origin: center top }
+.nav::after { content: ""; position: absolute; bottom: 9px; left: 50%; width: 134px; margin-left: -67px; height: 5px; border-radius: 3px; background: var(--ink); opacity: .85 }
+
+/* ---------- bölüm başlığı + ⓘ ---------- */
+.sh { display: flex; align-items: center; min-height: 44px; padding-top: 4px; margin-bottom: 0 }
+.sh h2 { font-family: var(--font); font-size: 18px; font-weight: 700; line-height: 1.1 }
+.sh .end { margin-left: auto; font-size: 12.5px; color: var(--ink2) }
+.ib { width: 44px; height: 44px; flex: none; display: inline-flex; align-items: center; justify-content: center; color: var(--ink2) }
+.ib svg { width: 18px; height: 18px }
+
+/* ---------- kart ---------- */
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-card); padding: 14px; margin-bottom: 10px }
+.card.flush { padding: 0 }
+.card.warn { border-color: var(--amber) }
+
+/* ---------- kutu (MenzilSelect / değer) ---------- */
+.row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; align-items: end }
+.fld .lab { display: flex; align-items: center; height: 44px; font-size: 12.5px; color: var(--ink2); line-height: 1.25 }
+.fld .lab .ib { margin-left: -10px }
+.box {
+  height: 46px; border: 1px solid var(--line); border-radius: var(--r-input); background: var(--bg);
+  display: flex; align-items: center; padding: 0 8px 0 14px; font-size: 15px; color: var(--ink); gap: 4px;
+}
+.box span { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap }
+.box svg { width: 22px; height: 22px; color: var(--ink2); flex: none }
+
+/* ---------- düğmeler (rol renkleri) ---------- */
+.btn {
+  height: 46px; min-width: 44px; border-radius: var(--r-button);
+  display: flex; align-items: center; justify-content: center; gap: 6px;
+  padding: 0 14px; font-size: 15px; font-weight: 700; white-space: nowrap; width: 100%;
+}
+.btn.out { border: 1px solid var(--line); color: var(--ink) }          /* eylem */
+.btn.done { background: var(--done-fill); border: 1px solid var(--done-border); color: #fff } /* tamam */
+.btn.white { background: var(--ink); color: var(--bg) }                /* yalnız sayfa geçişi / Kapat */
+.btn.small { width: auto; height: 44px; padding: 0 12px; font-size: 14px; font-weight: 600 }
+.btn.dis { opacity: .4 }
+.btn svg { width: 20px; height: 20px; flex: none }
+
+.daterow { display: flex; align-items: center; min-height: 32px; padding-top: 8px; font-size: 13px; color: var(--ink2) }
+
+/* ---------- uyarı (MenzilNotice warning) ---------- */
+.notice { background: var(--surface); border: 1px solid var(--amber); border-radius: var(--r-button); padding: 10px 12px; margin-top: 10px; font-size: 13.5px; line-height: 1.35; color: var(--ink) }
+.notice b { display: block; font-size: 14px; font-weight: 600; margin-bottom: 2px }
+
+/* ---------- saat satırı ---------- */
+.wrow { display: flex; align-items: center; gap: 12px; padding: 10px 0; min-height: 64px }
+.wrow + .wrow { border-top: 1px solid var(--line) }
+.wglyph { width: 40px; height: 40px; flex: none; border-radius: 10px; background: var(--surface2); display: flex; align-items: center; justify-content: center; color: var(--ink) }
+.wglyph svg { width: 24px; height: 24px }
+.wtxt { flex: 1; min-width: 0 }
+.wtxt .n { font-size: 15px; font-weight: 600; line-height: 1.3 }
+.wtxt .n .st { font-weight: 500; color: var(--ink2) }
+.wtxt .n .st.bad { color: var(--amber) }
+.wtxt .s { font-size: 12.5px; color: var(--ink2); margin-top: 2px; line-height: 1.3 }
+
+/* ---------- bilgi çipleri ---------- */
+.chips { display: grid; grid-template-columns: 1fr 1fr; gap: 8px }
+.chip {
+  height: 44px; border-radius: 999px; display: flex; align-items: center; gap: 8px; padding: 0 12px 0 10px;
+  font-size: 14px; font-weight: 500; min-width: 0; white-space: nowrap;
+}
+.chip span { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis }
+.chip .dot { width: 20px; height: 20px; flex: none; border-radius: 50%; display: flex; align-items: center; justify-content: center }
+.chip.on { background: var(--done-fill); border: 1px solid var(--done-border); color: #fff }
+.chip.on .dot { background: #fff; color: var(--done-fill) }
+.chip.on .dot svg { width: 14px; height: 14px }
+.chip.off { border: 1.5px dashed rgba(156,177,192,.55); color: var(--ink2); background: transparent }
+.chip.off .dot { border: 1.5px solid var(--ink2); opacity: .8 }
+.chip.lock { background: var(--surface2); border: 1px solid var(--done-border); color: var(--ink) }
+.chip.lock .dot { background: var(--ink); color: var(--surface2) }
+.chip.lock .dot svg { width: 14px; height: 14px }
+.chip .lk { width: 14px; height: 14px; flex: none; color: var(--ink2) }
+
+/* ---------- saatten gelenler ---------- */
+.recv { display: grid; grid-template-columns: 1fr 1fr; gap: 10px }
+.rtile { background: var(--bg); border: 1px solid var(--line); border-radius: var(--r-input); padding: 10px 12px 9px; min-height: 76px }
+.rtile .k { font-size: 12.5px; color: var(--ink2) }
+.rtile .v { font-family: var(--font-d); font-size: 22px; font-weight: 600; margin-top: 3px; font-variant-numeric: tabular-nums }
+.rtile .v.empty { color: var(--ink2); font-weight: 500 }
+.rtile .t { font-size: 12px; color: var(--ink2); margin-top: 3px }
+
+/* ---------- saat yüzü önizleme (docs/saat-uygulamasi/taslak ile aynı dil) ---------- */
+.face { background: #000; color: #fff; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; font-family: var(--font); position: relative; flex: none }
+.face.round { border-radius: 50%; border: .55em solid #262B31; }
+.face.rect { border-radius: 2.2em; border: .35em solid #262B31 }
+.face .tm { color: #9AA4AE; font-size: .95em }
+.face .pr { font-size: 1.1em; margin-top: .25em }
+.face .rg { color: #4CC3E8; font-size: 1.5em; margin-top: .05em }
+.face .cl { display: flex; align-items: flex-start; gap: .7em; margin: .35em 0 .25em }
+.face .cl > div { display: flex; flex-direction: column; align-items: center }
+.face .cl .lb { color: #9AA4AE; font-size: .85em }
+.face .cl .num { font-size: 2.6em; line-height: 1; letter-spacing: -.02em; font-weight: 400 }
+.face .cl .up { color: #F5A524 }
+.face .cl .an { color: #9AA4AE; font-size: .8em; margin-top: .15em }
+.face .cl .sep { width: 1px; align-self: stretch; background: #3A4048 }
+.face .ft { color: #9AA4AE; font-size: .75em; line-height: 1.4 }
+.face.stale::after { content: ""; position: absolute; inset: 0; border-radius: inherit; background: rgba(0,0,0,.45) }
+
+/* ---------- ⓘ alt sayfa ---------- */
+.scrim { position: absolute; inset: 0; background: rgba(0,0,0,.55); z-index: 5 }
+.sheet { position: absolute; left: 0; right: 0; bottom: 0; z-index: 6; background: var(--surface); border-radius: 20px 20px 0 0; padding: 0 20px 34px; }
+.sheet .handle { width: 32px; height: 4px; border-radius: 2px; background: rgba(156,177,192,.5); margin: 22px auto 18px }
+.sheet h3 { font-family: var(--font-d); font-size: 20px; font-weight: 700; margin-bottom: 10px }
+.sheet p, .sheet li { font-size: 15px; line-height: 1.4; color: var(--ink2); font-weight: 500 }
+.sheet p + p { margin-top: 10px }
+.sheet ol { padding-left: 0; list-style: none; counter-reset: s; margin: 4px 0 10px }
+.sheet ol li { counter-increment: s; display: flex; gap: 10px; margin-top: 8px }
+.sheet ol li::before { content: counter(s); flex: none; width: 24px; height: 24px; border-radius: 50%; background: var(--surface2); color: var(--ink); font-size: 13px; font-weight: 600; display: flex; align-items: center; justify-content: center; margin-top: -1px }
+.sheet .btn { margin-top: 18px }
+
+/* ---------- galeri (parametresiz açılışta) ---------- */
+.gallery { padding: 32px; display: flex; flex-wrap: wrap; gap: 28px; align-items: flex-start; color: #cfd8de; font-family: var(--font) }
+.gallery figure { display: flex; flex-direction: column; gap: 10px }
+.gallery figcaption { font-size: 14px; color: #9CB1C0 }
+.gallery header { width: 100%; max-width: 900px }
+.gallery header h1 { font-size: 26px; margin-bottom: 6px; color: #E7EFF3 }
+.gallery header p { font-size: 15px; line-height: 1.5; max-width: 70ch }
+
+/* 320 pt: yan yana kutu + düğmede yazı küçülür (MenzilSecondaryButton twoLines gibi) */
+.tight .row2 .btn { font-size: 13px; padding: 0 8px }
+.tight .chip { font-size: 13px; gap: 6px; padding: 0 10px 0 8px }
+.chip b { font-weight: inherit } .chip .short { display: none } .tight .chip .short { display: inline } .tight .chip .full { display: none }
+</style></head>
+<body><div id="root"></div><script>// SNIPER TÜRK — Saat sayfası taslakları: ortak parçalar.
+// Her parça lib/ui/menzil_widgets.dart'taki karşılığını taklit eder.
+// Değerler örnektir; hiçbir hesaptan gelmez.
+
+const SVG = (inner, vb = '0 0 24 24') =>
+  `<svg viewBox="${vb}" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${inner}</svg>`;
+
+// lib/ui/menzil_icons.dart çizimlerinin SVG karşılığı + yeni "saat" glifi.
+const GLYPH = {
+  profile: SVG('<path d="M9 21V10C9 7 10.2 4.5 12 3C13.8 4.5 15 7 15 10V21"/><path d="M9 21H15M9 14H15"/>'),
+  environment: SVG('<path d="M3 9H14A3 3 0 1 0 11 6"/><path d="M3 14H18A3 3 0 1 1 15 17"/><path d="M3 19H10"/>'),
+  pro: SVG('<path d="M3 20H21M3 20L17 5"/><path d="M8.46 14.15A8 8 0 0 1 11 20"/><circle cx="19" cy="11.5" r="1.6"/>'),
+  shot: SVG('<circle cx="12" cy="12" r="7"/><path d="M12 2V7M12 17V22M2 12H7M17 12H22"/>'),
+  // Yeni: Saat. Aynı 24'lük ızgara, 2 pt çizgi; kasa + kayış + akrep/yelkovan.
+  watch: SVG('<rect x="6.5" y="6" width="11" height="12" rx="3"/><path d="M9 6L9.6 2.5H14.4L15 6M9 18L9.6 21.5H14.4L15 18"/><path d="M12 9.5V12L13.8 13"/>'),
+  tools: SVG('<path d="M4 7H13M17 7H20M4 17H7M11 17H20"/><circle cx="15" cy="7" r="2.2"/><circle cx="9" cy="17" r="2.2"/>'),
+};
+const ICON = {
+  info: SVG('<circle cx="12" cy="12" r="9.5" stroke-width="1.8"/><path d="M12 11V16.5" stroke-width="1.8"/><circle cx="12" cy="7.6" r=".6" fill="currentColor" stroke-width="1.2"/>'),
+  chevron: SVG('<path d="M7 10L12 15L17 10"/>'),
+  check: SVG('<path d="M5 12.5L10 17L19 7.5"/>'),
+  checkBold: SVG('<path d="M5 12.5L10 17L19 7.5" stroke-width="3.2"/>'),
+  lockBold: SVG('<rect x="6" y="11" width="12" height="9" rx="1.5" fill="currentColor" stroke-width="2"/><path d="M8.5 11V8.5a3.5 3.5 0 0 1 7 0V11" stroke-width="2.6"/>'),
+  lock: SVG('<rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/>'),
+};
+
+const NAV_LABELS = { profile: 'Profil', environment: 'Hava', pro: 'Pro', shot: 'Hedef', watch: 'Saat', tools: 'Araçlar' };
+
+// ---------- örnek durumlar ----------
+const GARMIN = { brand: 'Garmin', name: 'Fenix 7', last: '14:32' };
+const APPLE = { brand: 'Apple Watch', name: 'Apple Watch', last: '14:32' };
+// Kapalı çipler (2–4. durumlarda kullanıcı ikisini kapatmış gibi gösterilir).
+const OFF_LATER = ['dir', 'clock'];
+const STATES = {
+  1: { key: 1, title: 'İlk açılış, saat yok', watches: [], send: null, recv: null, off: [] },
+  2: { key: 2, title: 'Bir Garmin bağlı, gönderildi', watches: [GARMIN], send: 'ok', off: OFF_LATER,
+       recv: { range: '600 m', rangeAt: '14:31', angle: null } },
+  3: { key: 3, title: 'Garmin + Apple Watch bağlı', watches: [GARMIN, APPLE], send: 'ok', off: OFF_LATER,
+       recv: { range: '600 m', rangeAt: '14:31', angle: '−4°', angleAt: '14:31' } },
+  4: { key: 4, title: 'Gönderilemedi', send: 'fail', off: OFF_LATER,
+       watches: [{ ...GARMIN, fail: true, last: '14:20' }, { ...APPLE, last: '14:32' }],
+       recv: { range: '600 m', rangeAt: '14:31', angle: '−4°', angleAt: '14:31' } },
+};
+
+// Saatte görünenler: 10 bilgi, ilk ikisi kilitli (her zaman açık).
+const FIELDS = [
+  { id: 'clicks', label: 'Kule klikleri', lock: true },
+  { id: 'range', label: 'Mesafe', lock: true },
+  { id: 'profile', label: 'Profil adı' },
+  { id: 'angle', label: 'Açı değeri' },
+  { id: 'wind', label: 'Rüzgâr hızı' },
+  { id: 'dir', label: 'Rüzgâr yönü' },
+  { id: 'click', label: 'Klik değeri' },
+  { id: 'calc', label: 'Hesap saati' },
+  { id: 'clock', label: 'Günün saati' },
+  { id: 'stale', label: 'Eski veri uyarısı', short: 'Eski veri' },
+];
+
+// ---------- ⓘ metinleri (kısa Türkçe: ne, nerede, örnek) ----------
+const NO_CHANGE = 'Saati kullanmazsanız hiçbir ayarınız ve hesabınız değişmez.';
+const INFO = {
+  saatler: {
+    title: 'Saatler',
+    body: [`Hesabın sonucunu bileğinizdeki saatte gösterir. Garmin ve Apple Watch aynı anda bağlanabilir. Örnek: Fenix 7 · bağlı.`, NO_CHANGE],
+  },
+  marka: {
+    title: 'Saat markası',
+    body: [`Bağlayacağınız saatin markası. Saatin kutusunda ya da arkasında yazar. Örnek: Fenix 7 için Garmin.`, NO_CHANGE],
+  },
+  garmin: {
+    title: 'Garmin saati bağlama',
+    steps: [
+      'Saate Connect IQ mağazasından SNIPER TÜRK uygulamasını yükleyin.',
+      'Saat markası olarak Garmin seçip “Saati bağla”ya dokunun; Garmin Connect açılır.',
+      'Garmin Connect\'te saatinizi seçin ve buraya dönün. Örnek: listede Fenix 7 · bağlı yazar.',
+    ],
+    body: ['Telefonda Garmin Connect yüklü ve saat telefonla eşli olmalı. ' + NO_CHANGE],
+  },
+  apple: {
+    title: 'Apple Watch bağlama',
+    steps: [
+      'SNIPER TÜRK iPhone\'a yüklenince saat uygulaması da kendiliğinden gelir.',
+      'Saatte SNIPER TÜRK\'ü bir kez açın.',
+      'Buraya dönün. Örnek: listede Apple Watch · bağlı yazar.',
+    ],
+    body: ['Saat iPhone ile eşli ve yakında olmalı. ' + NO_CHANGE],
+  },
+  gonder: {
+    title: 'Saate gönderim',
+    body: ['Her yeni hesapta sonuç bağlı saatlere kendiliğinden gider. Gönderilemezse düğme “Hesabı saate gönder” olur; dokunup tekrar gönderin. Örnek: saat telefondan uzaksa gönderim olmaz.'],
+  },
+  gorunen: {
+    title: 'Saatte görünenler',
+    body: ['Saat ekranında hangi bilgilerin görüneceğini seçer. Kule klikleri ve Mesafe hep görünür; diğerlerine dokunup açın ya da kapatın. Seçim bağlı bütün saatlere uygulanır. Örnek: Rüzgâr yönü kapalıysa saatte yalnız “Rüzgâr 3.0 m/s” yazar.'],
+  },
+  gelen: {
+    title: 'Saatten gelenler',
+    body: ['Saatte değiştirdiğiniz mesafe ve saatin terazisiyle ölçtüğünüz atış açısı buraya gelir; hesap bunlarla yenilenir ve sonuç saate geri gider. Örnek: saatte mesafeyi 600 m yaptınız; burada Mesafe 600 m, 14:31 yazar.', NO_CHANGE],
+  },
+};
+
+// ---------- parçalar ----------
+const esc = (s) => String(s);
+const ib = () => `<span class="ib" aria-label="Bilgi">${ICON.info}</span>`;
+
+function statusbar() {
+  return `<div class="statusbar"><span>14:33</span><span class="batt"><i></i></span></div>`;
+}
+function topbar(title = 'Saat') {
+  return `<div class="topbar"><h1>${title}</h1><div class="profile-pill"><span>Tikka T3x .308</span>${ICON.chevron}</div></div>`;
+}
+function nav(active = 'watch', labels = NAV_LABELS) {
+  const order = ['profile', 'environment', 'pro', 'shot', 'watch', 'tools'];
+  return `<nav class="nav">${order.map((k) =>
+    `<div class="it${k === active ? ' on' : ''}">${GLYPH[k]}<b>${labels[k]}</b></div>`).join('')}</nav>`;
+}
+function sectionHeader(title, end = '') {
+  return `<div class="sh"><h2>${title}</h2>${ib()}${end ? `<span class="end">${end}</span>` : ''}</div>`;
+}
+const card = (html, cls = '') => `<div class="card ${cls}">${html}</div>`;
+function field(label, value, { info = true } = {}) {
+  return `<div class="fld"><div class="lab">${label}${info ? ib() : ''}</div><div class="box"><span>${value}</span>${ICON.chevron}</div></div>`;
+}
+// Düğme rolleri: out = eylem, done = tamam (✓), white = sayfa geçişi / Kapat.
+function btn(label, role = 'out', extra = '') {
+  const tick = role === 'done' ? ICON.check : '';
+  return `<div class="btn ${role} ${extra}">${tick}<span>${label}</span></div>`;
+}
+function dateRow(text) { return `<div class="daterow">${text}</div>`; }
+function notice(title, text) { return `<div class="notice"><b>${title}</b>${text}</div>`; }
+
+function watchRow(w, { remove = true } = {}) {
+  const st = w.fail ? '<span class="st bad"> · yanıt yok</span>' : '<span class="st"> · bağlı</span>';
+  const sub = (w.brand !== w.name ? `${w.brand} · ` : '') + `son gönderim ${w.last}`;
+  return `<div class="wrow"><div class="wglyph">${GLYPH.watch}</div>
+    <div class="wtxt"><div class="n">${w.name}${st}</div><div class="s">${sub}</div></div>
+    ${remove ? btn('Kaldır', 'out', 'small') : ''}</div>`;
+}
+
+function chip(f, off) {
+  const name = f.short ? `<b class="full">${f.label}</b><b class="short">${f.short}</b>` : f.label;
+  if (f.lock) return `<div class="chip lock" aria-label="${f.label}, her zaman açık"><span class="dot">${ICON.lockBold}</span><span>${f.label}</span></div>`;
+  const isOff = off.includes(f.id);
+  return isOff
+    ? `<div class="chip off" aria-label="${f.label}, kapalı"><span class="dot"></span><span>${name}</span></div>`
+    : `<div class="chip on" aria-label="${f.label}, açık"><span class="dot">${ICON.checkBold}</span><span>${name}</span></div>`;
+}
+const chips = (off) => `<div class="chips">${FIELDS.map((f) => chip(f, off)).join('')}</div>`;
+
+function recvTiles(r) {
+  const t = (k, v, at) => `<div class="rtile"><div class="k">${k}</div>
+    <div class="v${v ? '' : ' empty'}">${v || '—'}</div><div class="t">${v ? 'Saatten, ' + at : 'Henüz gelmedi'}</div></div>`;
+  return `<div class="recv">${t('Mesafe', r && r.range, r && r.rangeAt)}${t('Atış açısı', r && r.angle, r && r.angleAt)}</div>`;
+}
+
+// Saat yüzü önizlemesi: docs/saat-uygulamasi/taslak'taki ekranların küçük hali.
+// "off" listesindeki bilgiler yüzde görünmez.
+function face(kind, off = [], { size = 13, stale = false } = {}) {
+  const on = (id) => !off.includes(id);
+  const wind = on('wind') ? `Rüzgâr 3.0 m/s${on('dir') ? ' · saat 3' : ''}` : (on('dir') ? 'Rüzgâr saat 3' : '');
+  const lines = [wind, on('click') ? 'MRAD · 0.1/klik' : '', on('calc') ? `Güncellendi ${stale ? '14:20' : '14:32'}` : ''].filter(Boolean);
+  const dim = kind === 'round' ? `width:16em;height:16em` : `width:13.4em;height:16em`;
+  return `<div class="face ${kind}${stale ? ' stale' : ''}" style="font-size:${size}px;${dim}">
+    ${on('clock') ? '<div class="tm">14:33</div>' : ''}
+    ${on('profile') ? '<div class="pr">Tikka T3x .308</div>' : ''}
+    <div class="rg">600 m</div>
+    <div class="cl"><div><span class="lb">Yukarı</span><span class="num up">↑47</span>${on('angle') ? '<span class="an">4.7 MRAD</span>' : ''}</div>
+    <span class="sep"></span>
+    <div><span class="lb">Sağ</span><span class="num">→6</span>${on('angle') ? '<span class="an">0.6 MRAD</span>' : ''}</div></div>
+    <div class="ft">${lines.join('<br>')}</div></div>`;
+}
+
+function infoSheet(key) {
+  const i = INFO[key];
+  const steps = i.steps ? `<ol>${i.steps.map((s) => `<li><span>${s}</span></li>`).join('')}</ol>` : '';
+  return `<div class="scrim"></div><div class="sheet"><div class="handle"></div><h3>${i.title}</h3>
+    ${steps}${(i.body || []).map((p) => `<p>${p}</p>`).join('')}${btn('Kapat', 'white')}</div>`;
+}
+
+function phone(bodyHtml, { w = 390, overlay = '' } = {}) {
+  return `<div class="phone${w < 360 ? ' tight' : ''}" style="--w:${w}px">${statusbar()}${topbar()}<main class="page">${bodyHtml}</main>${nav()}${overlay}</div>`;
+}
+
+// ?s=1..4  (durum)  &w=390|320  &info=anahtar (o durumun üstünde ⓘ alt sayfası)
+// Parametresiz: bütün durumlar yan yana (galeri).
+function mount(option) {
+  const q = new URLSearchParams(location.search);
+  const root = document.getElementById('root');
+  if (q.has('s')) {
+    const st = STATES[q.get('s')];
+    const w = Number(q.get('w') || 390);
+    const overlay = q.get('info') ? infoSheet(q.get('info')) : '';
+    root.innerHTML = phone(option.render(st, w), { w, overlay });
+    document.body.style.background = '#0B1620';
+    return;
+  }
+  const figs = [1, 2, 3, 4].map((k) =>
+    `<figure>${phone(option.render(STATES[k], 390))}<figcaption>${k}. ${STATES[k].title}</figcaption></figure>`).join('');
+  const narrow = `<figure>${phone(option.render(STATES[3], 320), { w: 320 })}<figcaption>320 pt denetimi (3. durum)</figcaption></figure>`;
+  const sheet = `<figure>${phone(option.render(STATES[2], 390), { overlay: infoSheet(option.infoExample) })}<figcaption>ⓘ alt sayfası: ${INFO[option.infoExample].title}</figcaption></figure>`;
+  root.innerHTML = `<div class="gallery"><header><h1>${option.name}</h1><p>${option.idea}</p></header>${figs}${narrow}${sheet}</div>`;
+}
+
+// Seçenek B — Önce saat listesi; boşken satın almaya teşvik eden tanıtım.
+const OPTION = {
+  name: 'Seçenek B — Önce saat listesi',
+  idea: 'Sayfa bağlı saatlerin listesiyle başlar; her saat kendi kartında, sorun o saatin kartında görünür. Saat yokken iki saat yüzü “ne kazanırsınız”ı gösterir; ayarlar ilk saat bağlanınca açılır.',
+  infoExample: 'apple',
+  css: `
+  .promo { display:flex; flex-direction:column; gap:12px }
+  .promo .faces { display:flex; justify-content:center; align-items:center; gap:14px; padding:6px 0 2px }
+  .promo h3 { font-family:var(--font-d); font-size:20px; font-weight:700; line-height:1.15 }
+  .promo p { font-size:14px; line-height:1.4; color:var(--ink2); margin-top:-6px }
+  .brands { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:10px }
+  .brand { height:64px; border-radius:var(--r-button); border:1px solid var(--line); background:var(--surface);
+           display:flex; align-items:center; gap:10px; padding:0 12px; font-size:15px; font-weight:600; min-width:0 }
+  .brand span { flex:1; min-width:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis }
+  .brand .radio { width:22px; height:22px; flex:none; border-radius:50%; border:2px solid var(--ink2) }
+  .brand.sel { border:2px solid var(--cyan); background:var(--cyan-soft) }
+  .brand.sel .radio { border-color:var(--cyan); background:radial-gradient(circle, var(--cyan) 0 5px, transparent 5.5px) }
+  .wcard { padding:4px 14px }
+  .wcard .inline { margin:0 0 12px }
+  .wcard .inline .notice { margin-top:0 }
+  `,
+  render(st, w) {
+    const has = st.watches.length > 0;
+    const fs = w < 360 ? 7.6 : 9;
+    if (!has) {
+      let html = card(`<div class="promo"><div class="faces">${face('round', [], { size: fs })}${face('rect', [], { size: fs })}</div>
+        <h3>Klikler bileğinizde</h3>
+        <p>Her yeni hesap bağlı saate kendiliğinden gider; tüfekten gözünüzü ayırmadan kule kliklerini okursunuz.</p></div>`);
+      html += sectionHeader('Saat markası', 'isteğe bağlı');
+      html += `<div class="brands"><div class="brand sel"><i class="radio"></i><span>Garmin</span></div>
+        <div class="brand"><i class="radio"></i><span>Apple Watch</span></div></div>`;
+      html += btn('Saati bağla');
+      return html;
+    }
+    let html = sectionHeader('Saatlerim', 'isteğe bağlı');
+    for (const x of st.watches) {
+      const warn = x.fail ? notice('Gönderilemedi', 'Saat telefondan uzakta ya da saatte SNIPER TÜRK kapalı. Saati yaklaştırıp “Hesabı saate gönder”e dokunun.') : '';
+      html += card(watchRow(x) + (warn ? `<div class="inline">${warn}</div>` : ''), 'wcard');
+    }
+    html += st.send === 'ok'
+      ? btn('Hesap saate gönderildi', 'done') + dateRow(`Son gönderim 14:32 · ${st.watches.length} saat`)
+      : btn('Hesabı saate gönder') + dateRow('Son başarılı gönderim 14:32 · Apple Watch');
+    html += `<div style="height:8px"></div>` + btn('Başka saat bağla');
+    html += `<div style="height:10px"></div>`;
+    html += sectionHeader('Saatte görünenler') + card(chips(st.off));
+    html += sectionHeader('Saatten gelenler') + card(recvTiles(st.recv));
+    return html;
+  },
+};
+
+document.head.insertAdjacentHTML('beforeend', '<style>' + OPTION.css + '</style>');
+mount(OPTION);</script></body></html>

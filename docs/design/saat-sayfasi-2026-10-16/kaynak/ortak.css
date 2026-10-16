@@ -1,0 +1,198 @@
+/* SNIPER TÜRK — Saat sayfası taslakları. Değerler lib/ui/menzil_theme.dart
+   (koyu tema) ve lib/ui/menzil_widgets.dart ile birebir aynı. */
+:root {
+  --bg: #0B1620;
+  --surface: #122330;
+  --surface2: #1B3245;
+  --ink: #E7EFF3;
+  --ink2: #9CB1C0;
+  --line: #27425A;
+  --cyan: #4CC3E8;
+  --cyan-soft: #12384A;
+  --amber: #F5B031;
+  --done-fill: #1F5F7A;
+  --done-border: #2E7FA0;
+  --danger: #FF8A80;
+  --r-card: 16px;
+  --r-input: 10px;
+  --r-button: 12px;
+  --gutter: 14px;
+  --font: -apple-system, "SF Pro Text", Inter, system-ui, sans-serif;
+  --font-d: -apple-system, "SF Pro Display", "Inter Display", Inter, system-ui, sans-serif;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { background: #05090D; }
+body { font-family: var(--font); color: var(--ink); -webkit-font-smoothing: antialiased; }
+button { font: inherit; color: inherit; background: none; border: 0; }
+
+/* ---------- telefon ---------- */
+.phone {
+  width: var(--w, 390px);
+  min-height: 844px;
+  background: var(--bg);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  text-align: left;
+}
+.statusbar {
+  height: 47px; flex: none;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 6px 28px 0 32px;
+  font-size: 16px; font-weight: 600; letter-spacing: -0.2px;
+}
+.statusbar .batt { width: 26px; height: 12px; border: 1.5px solid var(--ink); border-radius: 4px; padding: 1.5px; opacity: .9 }
+.statusbar .batt i { display: block; height: 100%; width: 72%; background: var(--ink); border-radius: 1.5px }
+.topbar {
+  height: 58px; flex: none;
+  border-bottom: 1px solid var(--line);
+  display: flex; align-items: center; gap: 10px;
+  padding: 0 var(--gutter);
+}
+.topbar h1 { font-family: var(--font-d); font-size: 18px; font-weight: 700; line-height: 1.1; flex: none; min-width: 92px }
+.profile-pill {
+  margin-left: auto; height: 40px; max-width: 100%;
+  display: flex; align-items: center; gap: 4px;
+  padding: 0 10px 0 16px;
+  background: var(--surface); border: 1px solid var(--line); border-radius: 999px;
+  font-size: 15px; font-weight: 500; white-space: nowrap; overflow: hidden;
+}
+.profile-pill span { overflow: hidden; text-overflow: ellipsis }
+.profile-pill svg { flex: none; width: 22px; height: 22px; color: var(--ink2) }
+
+.page { flex: 1; padding: 10px var(--gutter) 20px; display: flex; flex-direction: column }
+
+/* ---------- alt menü ---------- */
+.nav {
+  flex: none; background: var(--surface); border-top: 1px solid var(--line);
+  display: flex; padding-bottom: 34px; position: relative;
+}
+.nav .it { flex: 1; min-width: 0; min-height: 56px; position: relative;
+  display: flex; flex-direction: column; align-items: center; padding: 9px 2px 8px; color: var(--ink2) }
+.nav .it.on { color: var(--ink) }
+.nav .it.on::before { content: ""; position: absolute; top: 0; left: 22%; right: 22%; height: 3px; background: var(--amber); border-radius: 0 0 3px 3px }
+.nav .it svg { width: 24px; height: 24px }
+.nav .it b { margin-top: 3px; font-size: 11.5px; font-weight: 600; white-space: nowrap; transform-origin: center top }
+.nav::after { content: ""; position: absolute; bottom: 9px; left: 50%; width: 134px; margin-left: -67px; height: 5px; border-radius: 3px; background: var(--ink); opacity: .85 }
+
+/* ---------- bölüm başlığı + ⓘ ---------- */
+.sh { display: flex; align-items: center; min-height: 44px; padding-top: 4px; margin-bottom: 0 }
+.sh h2 { font-family: var(--font); font-size: 18px; font-weight: 700; line-height: 1.1 }
+.sh .end { margin-left: auto; font-size: 12.5px; color: var(--ink2) }
+.ib { width: 44px; height: 44px; flex: none; display: inline-flex; align-items: center; justify-content: center; color: var(--ink2) }
+.ib svg { width: 18px; height: 18px }
+
+/* ---------- kart ---------- */
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-card); padding: 14px; margin-bottom: 10px }
+.card.flush { padding: 0 }
+.card.warn { border-color: var(--amber) }
+
+/* ---------- kutu (MenzilSelect / değer) ---------- */
+.row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; align-items: end }
+.fld .lab { display: flex; align-items: center; height: 44px; font-size: 12.5px; color: var(--ink2); line-height: 1.25 }
+.fld .lab .ib { margin-left: -10px }
+.box {
+  height: 46px; border: 1px solid var(--line); border-radius: var(--r-input); background: var(--bg);
+  display: flex; align-items: center; padding: 0 8px 0 14px; font-size: 15px; color: var(--ink); gap: 4px;
+}
+.box span { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap }
+.box svg { width: 22px; height: 22px; color: var(--ink2); flex: none }
+
+/* ---------- düğmeler (rol renkleri) ---------- */
+.btn {
+  height: 46px; min-width: 44px; border-radius: var(--r-button);
+  display: flex; align-items: center; justify-content: center; gap: 6px;
+  padding: 0 14px; font-size: 15px; font-weight: 700; white-space: nowrap; width: 100%;
+}
+.btn.out { border: 1px solid var(--line); color: var(--ink) }          /* eylem */
+.btn.done { background: var(--done-fill); border: 1px solid var(--done-border); color: #fff } /* tamam */
+.btn.white { background: var(--ink); color: var(--bg) }                /* yalnız sayfa geçişi / Kapat */
+.btn.small { width: auto; height: 44px; padding: 0 12px; font-size: 14px; font-weight: 600 }
+.btn.dis { opacity: .4 }
+.btn svg { width: 20px; height: 20px; flex: none }
+
+.daterow { display: flex; align-items: center; min-height: 32px; padding-top: 8px; font-size: 13px; color: var(--ink2) }
+
+/* ---------- uyarı (MenzilNotice warning) ---------- */
+.notice { background: var(--surface); border: 1px solid var(--amber); border-radius: var(--r-button); padding: 10px 12px; margin-top: 10px; font-size: 13.5px; line-height: 1.35; color: var(--ink) }
+.notice b { display: block; font-size: 14px; font-weight: 600; margin-bottom: 2px }
+
+/* ---------- saat satırı ---------- */
+.wrow { display: flex; align-items: center; gap: 12px; padding: 10px 0; min-height: 64px }
+.wrow + .wrow { border-top: 1px solid var(--line) }
+.wglyph { width: 40px; height: 40px; flex: none; border-radius: 10px; background: var(--surface2); display: flex; align-items: center; justify-content: center; color: var(--ink) }
+.wglyph svg { width: 24px; height: 24px }
+.wtxt { flex: 1; min-width: 0 }
+.wtxt .n { font-size: 15px; font-weight: 600; line-height: 1.3 }
+.wtxt .n .st { font-weight: 500; color: var(--ink2) }
+.wtxt .n .st.bad { color: var(--amber) }
+.wtxt .s { font-size: 12.5px; color: var(--ink2); margin-top: 2px; line-height: 1.3 }
+
+/* ---------- bilgi çipleri ---------- */
+.chips { display: grid; grid-template-columns: 1fr 1fr; gap: 8px }
+.chip {
+  height: 44px; border-radius: 999px; display: flex; align-items: center; gap: 8px; padding: 0 12px 0 10px;
+  font-size: 14px; font-weight: 500; min-width: 0; white-space: nowrap;
+}
+.chip span { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis }
+.chip .dot { width: 20px; height: 20px; flex: none; border-radius: 50%; display: flex; align-items: center; justify-content: center }
+.chip.on { background: var(--done-fill); border: 1px solid var(--done-border); color: #fff }
+.chip.on .dot { background: #fff; color: var(--done-fill) }
+.chip.on .dot svg { width: 14px; height: 14px }
+.chip.off { border: 1.5px dashed rgba(156,177,192,.55); color: var(--ink2); background: transparent }
+.chip.off .dot { border: 1.5px solid var(--ink2); opacity: .8 }
+.chip.lock { background: var(--surface2); border: 1px solid var(--done-border); color: var(--ink) }
+.chip.lock .dot { background: var(--ink); color: var(--surface2) }
+.chip.lock .dot svg { width: 14px; height: 14px }
+.chip .lk { width: 14px; height: 14px; flex: none; color: var(--ink2) }
+
+/* ---------- saatten gelenler ---------- */
+.recv { display: grid; grid-template-columns: 1fr 1fr; gap: 10px }
+.rtile { background: var(--bg); border: 1px solid var(--line); border-radius: var(--r-input); padding: 10px 12px 9px; min-height: 76px }
+.rtile .k { font-size: 12.5px; color: var(--ink2) }
+.rtile .v { font-family: var(--font-d); font-size: 22px; font-weight: 600; margin-top: 3px; font-variant-numeric: tabular-nums }
+.rtile .v.empty { color: var(--ink2); font-weight: 500 }
+.rtile .t { font-size: 12px; color: var(--ink2); margin-top: 3px }
+
+/* ---------- saat yüzü önizleme (docs/saat-uygulamasi/taslak ile aynı dil) ---------- */
+.face { background: #000; color: #fff; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; font-family: var(--font); position: relative; flex: none }
+.face.round { border-radius: 50%; border: .55em solid #262B31; }
+.face.rect { border-radius: 2.2em; border: .35em solid #262B31 }
+.face .tm { color: #9AA4AE; font-size: .95em }
+.face .pr { font-size: 1.1em; margin-top: .25em }
+.face .rg { color: #4CC3E8; font-size: 1.5em; margin-top: .05em }
+.face .cl { display: flex; align-items: flex-start; gap: .7em; margin: .35em 0 .25em }
+.face .cl > div { display: flex; flex-direction: column; align-items: center }
+.face .cl .lb { color: #9AA4AE; font-size: .85em }
+.face .cl .num { font-size: 2.6em; line-height: 1; letter-spacing: -.02em; font-weight: 400 }
+.face .cl .up { color: #F5A524 }
+.face .cl .an { color: #9AA4AE; font-size: .8em; margin-top: .15em }
+.face .cl .sep { width: 1px; align-self: stretch; background: #3A4048 }
+.face .ft { color: #9AA4AE; font-size: .75em; line-height: 1.4 }
+.face.stale::after { content: ""; position: absolute; inset: 0; border-radius: inherit; background: rgba(0,0,0,.45) }
+
+/* ---------- ⓘ alt sayfa ---------- */
+.scrim { position: absolute; inset: 0; background: rgba(0,0,0,.55); z-index: 5 }
+.sheet { position: absolute; left: 0; right: 0; bottom: 0; z-index: 6; background: var(--surface); border-radius: 20px 20px 0 0; padding: 0 20px 34px; }
+.sheet .handle { width: 32px; height: 4px; border-radius: 2px; background: rgba(156,177,192,.5); margin: 22px auto 18px }
+.sheet h3 { font-family: var(--font-d); font-size: 20px; font-weight: 700; margin-bottom: 10px }
+.sheet p, .sheet li { font-size: 15px; line-height: 1.4; color: var(--ink2); font-weight: 500 }
+.sheet p + p { margin-top: 10px }
+.sheet ol { padding-left: 0; list-style: none; counter-reset: s; margin: 4px 0 10px }
+.sheet ol li { counter-increment: s; display: flex; gap: 10px; margin-top: 8px }
+.sheet ol li::before { content: counter(s); flex: none; width: 24px; height: 24px; border-radius: 50%; background: var(--surface2); color: var(--ink); font-size: 13px; font-weight: 600; display: flex; align-items: center; justify-content: center; margin-top: -1px }
+.sheet .btn { margin-top: 18px }
+
+/* ---------- galeri (parametresiz açılışta) ---------- */
+.gallery { padding: 32px; display: flex; flex-wrap: wrap; gap: 28px; align-items: flex-start; color: #cfd8de; font-family: var(--font) }
+.gallery figure { display: flex; flex-direction: column; gap: 10px }
+.gallery figcaption { font-size: 14px; color: #9CB1C0 }
+.gallery header { width: 100%; max-width: 900px }
+.gallery header h1 { font-size: 26px; margin-bottom: 6px; color: #E7EFF3 }
+.gallery header p { font-size: 15px; line-height: 1.5; max-width: 70ch }
+
+/* 320 pt: yan yana kutu + düğmede yazı küçülür (MenzilSecondaryButton twoLines gibi) */
+.tight .row2 .btn { font-size: 13px; padding: 0 8px }
+.tight .chip { font-size: 13px; gap: 6px; padding: 0 10px 0 8px }
+.chip b { font-weight: inherit } .chip .short { display: none } .tight .chip .short { display: inline } .tight .chip .full { display: none }
