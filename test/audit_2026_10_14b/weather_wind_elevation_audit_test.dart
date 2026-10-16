@@ -10,8 +10,9 @@
 //    bracket wind; WEZ drops when the bracket widens.
 //  * "Düzeltme al" = Rüzgâr hızı × 1.5 (hand calc in
 //    tools/test_denetim_2026_10_14b_ruz.py); the button marker survives a
-//    restart and a later weather fetch still updates the box; a typed value
-//    survives restart + fetch.
+//    restart; a later weather fetch with a new wind empties the box and
+//    its "Düzeltme alındı" (owner, 2026-10-15); a typed value survives
+//    restart + fetch, a typed wind and Sıfırla.
 //  * A weather fetch never writes Basınç, İrtifa (either box) or Rüzgâr
 //    yönü, and keeps the Rüzgâr yönü time.
 //  * Elevation adapter parsing edge cases (Dead Sea, bounds, statuses,
@@ -19,7 +20,9 @@
 //  * İrtifa card: a Dead Sea map value is written as a negative number; a
 //    rejected phone reading writes nothing into the calculation boxes.
 //
-// Findings (expected behaviour, skipped while it fails):
+// Findings (fixed 2026-10-15, docs/reports/ruz_en_cok_ruzgar.md; the
+// owner's rule: a button-filled En çok rüzgâr is tied to the wind it was
+// taken from and is emptied whenever Rüzgâr hızı changes):
 //  * RUZ-1: a weather fetch that brings a calm wind (0 m/s) leaves the
 //    button-filled En çok rüzgâr at the OLD × 1.5 value, still orange.
 //  * RUZ-2: a typed Rüzgâr hızı (or Hava Durumu Sıfırla) leaves a
@@ -254,7 +257,7 @@ void main() {
 
   group('chain: Düzeltme al marker across restart', () {
     testWidgets('button value: restart keeps "Düzeltme alındı"; the next '
-        'weather wind still updates it (8 × 1.5 = 12.0)', (tester) async {
+        'weather wind (8) empties it', (tester) async {
       final rig = _Rig();
       final a = UniqueKey();
       await _show(tester, rig, BallisticsView.environment, key: a);
@@ -277,7 +280,36 @@ void main() {
       await _tap(tester, _weatherBtn);
       await _show(tester, rig, BallisticsView.pro, key: b);
       await openProFor(tester, _windMax);
-      expect(_text(tester, _windMax), '12.0');
+      // Owner, 2026-10-15: a new wind empties the button value; the user
+      // presses "Düzeltme al" again.
+      expect(_text(tester, _windMax), '');
+      expect(find.text('Düzeltme al'), findsOneWidget);
+    });
+
+    testWidgets('button value: restart + a fetch with the same wind keeps '
+        'it (restored "5" vs fetched "5.0" is no change)', (tester) async {
+      final rig = _Rig();
+      final a = UniqueKey();
+      await _show(tester, rig, BallisticsView.environment, key: a);
+      await _tap(tester, _weatherBtn); // 5.0 m/s
+      await _show(tester, rig, BallisticsView.pro, key: a);
+      await openProFor(tester, _windMax);
+      await _tap(tester, _windMaxBtn);
+      expect(_text(tester, _windMax), '7.5');
+      await tester.pumpAndSettle(const Duration(seconds: 1));
+
+      final b = UniqueKey();
+      rig.advance(const Duration(minutes: 40));
+      rig.nextWind(5);
+      await _show(tester, rig, BallisticsView.environment, key: b);
+      // The restored box shows two decimals at most: "5", not "5.0".
+      expect(_text(tester, BallisticsFieldKeys.wind), '5');
+      await _tap(tester, _weatherBtn);
+      expect(_text(tester, BallisticsFieldKeys.wind), '5.0');
+      await _show(tester, rig, BallisticsView.pro, key: b);
+      await openProFor(tester, _windMax);
+      expect(_text(tester, _windMax), '7.5');
+      expect(find.text('Düzeltme alındı'), findsOneWidget);
     });
 
     testWidgets('typed value: restart + fetch never overwrite it', (
@@ -324,13 +356,13 @@ void main() {
         expect(_text(tester, BallisticsFieldKeys.wind), '0.0');
         await _show(tester, rig, BallisticsView.pro, key: ws);
         await openProFor(tester, _windMax);
-        // Owner rule: En çok rüzgâr = Rüzgâr hızı × 1.5 = 0 → no bracket
-        // (empty or 0), never the old 7.5.
-        expect(_text(tester, _windMax), anyOf('', '0.0'));
+        // Owner rule (2026-10-15): the wind changed → the button value is
+        // emptied, never the old 7.5.
+        expect(_text(tester, _windMax), '');
+        expect(_button(tester, _windMaxBtn).active, isFalse);
         await _show(tester, rig, BallisticsView.shot, key: ws);
         expect(find.byKey(_bracket), findsNothing);
       },
-      skip: true, // RUZ-1: _putWindMaxFromWind returns early for w <= 0
     );
   });
 
@@ -357,27 +389,57 @@ void main() {
         await _type(tester, BallisticsFieldKeys.wind, '8');
         await _show(tester, rig, BallisticsView.pro, key: ws);
         await openProFor(tester, _windMax);
-        // Either it follows (12.0) or it stops claiming to be the button's
-        // value; the owner decides which.
+        // Owner, 2026-10-15: the button value is emptied.
         expect(staleOrange(tester), isFalse);
+        expect(_text(tester, _windMax), '');
+        expect(find.text('Düzeltme al'), findsOneWidget);
       },
-      skip: true, // RUZ-2: only a weather fetch updates En çok rüzgâr
     );
 
+    testWidgets('Hava Durumu Sıfırla (wind emptied): no stale orange 7.5', (
+      tester,
+    ) async {
+      final rig = _Rig();
+      final ws = UniqueKey();
+      await filled(tester, rig, ws);
+      await _show(tester, rig, BallisticsView.environment, key: ws);
+      await _tap(tester, _weatherReset);
+      expect(_text(tester, BallisticsFieldKeys.wind), '');
+      await _show(tester, rig, BallisticsView.pro, key: ws);
+      await openProFor(tester, _windMax);
+      expect(staleOrange(tester), isFalse);
+      expect(_text(tester, _windMax), '');
+      expect(find.text('Düzeltme al'), findsOneWidget);
+    });
+
     testWidgets(
-      'Hava Durumu Sıfırla (wind emptied): no stale orange 7.5',
+      'a typed En çok rüzgâr survives a typed wind, a fetch, a calm fetch '
+      'and Sıfırla',
       (tester) async {
         final rig = _Rig();
         final ws = UniqueKey();
         await filled(tester, rig, ws);
+        await _type(tester, _windMax, '9');
+        expect(find.text('Düzeltme al'), findsOneWidget);
+
         await _show(tester, rig, BallisticsView.environment, key: ws);
+        await _type(tester, BallisticsFieldKeys.wind, '8');
+        rig.advance(const Duration(minutes: 40));
+        rig.nextWind(6);
+        await _tap(tester, _weatherBtn);
+        expect(_text(tester, BallisticsFieldKeys.wind), '6.0');
+        rig.advance(const Duration(minutes: 40));
+        rig.nextWind(0);
+        await _tap(tester, _weatherBtn);
+        expect(_text(tester, BallisticsFieldKeys.wind), '0.0');
         await _tap(tester, _weatherReset);
         expect(_text(tester, BallisticsFieldKeys.wind), '');
+
         await _show(tester, rig, BallisticsView.pro, key: ws);
         await openProFor(tester, _windMax);
-        expect(staleOrange(tester), isFalse);
+        expect(_text(tester, _windMax), '9');
+        expect(find.text('Düzeltme al'), findsOneWidget);
       },
-      skip: true, // RUZ-2: weather Sıfırla leaves En çok rüzgâr untouched
     );
   });
 

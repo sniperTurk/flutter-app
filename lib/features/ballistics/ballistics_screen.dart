@@ -624,11 +624,29 @@ class _BallisticsScreenState extends State<BallisticsScreen>
     return true;
   }
 
-  /// A weather fill brought a new Rüzgâr hızı (owner, 2026-10-14): En çok
-  /// rüzgâr follows it when the box holds a "Düzeltme al" value; a typed
-  /// value (or an emptied box) is never overwritten.
+  /// Rüzgâr hızı changed (weather fill, typed, Sıfırla; owner, 2026-10-15,
+  /// RUZ-1/RUZ-2): a "Düzeltme al" value belonged to the old wind, so it is
+  /// emptied and loses "Düzeltme alındı"; the user presses "Düzeltme al"
+  /// again. A typed value (or an emptied box) is never touched.
   void _windMaxFollowsWind() {
-    if (_windMaxFilled) _putWindMaxFromWind();
+    if (!_windMaxFilled) return;
+    setState(() {
+      windMaxCtl.text = '';
+      _windMaxFilled = false;
+      _windMaxAtMs = null;
+    });
+    _coriolisChanged();
+  }
+
+  /// Whether Rüzgâr hızı really changed between two box texts. Compared as
+  /// numbers: a restored box shows two decimals ("8", "5.25") while a
+  /// weather fill writes one ("8.0", "5.3"), so the same wind must not
+  /// count as a change (anything within the fill's 0.05 rounding).
+  static bool _windTextChanged(String before, String after) {
+    double? n(String t) => double.tryParse(t.trim().replaceAll(',', '.'));
+    final a = n(before), b = n(after);
+    if (a == null || b == null) return (a == null) != (b == null);
+    return (a - b).abs() > 0.05 + 1e-9;
   }
 
   void _resetWindMax() {
@@ -1372,6 +1390,7 @@ class _BallisticsScreenState extends State<BallisticsScreen>
 
   /// Sıfırla of the weather row: empties the boxes it fills.
   void _resetWeather() {
+    final windBefore = wind.text;
     setState(() {
       // Sıfırla empties the boxes (owner, 2026-10-12); an empty box is
       // calculated with the standard atmosphere (15 °C, 1013,25 hPa, %50,
@@ -1389,6 +1408,7 @@ class _BallisticsScreenState extends State<BallisticsScreen>
       _shotCache.clear();
       _holdSamples = null;
     });
+    if (windBefore.isNotEmpty) _windMaxFollowsWind();
     if (widget.profile != null) _quietSolve();
   }
 
@@ -1573,8 +1593,10 @@ class _BallisticsScreenState extends State<BallisticsScreen>
       // Stored even when the values came back the same (no text change).
       _weatherChanged();
       _scheduleFreshnessCheck();
-      // A new Rüzgâr hızı updates En çok rüzgâr (owner, 2026-10-14).
-      if (windBefore != null && wind.text != windBefore) _windMaxFollowsWind();
+      // A new Rüzgâr hızı empties a "Düzeltme al" value (owner, 2026-10-15).
+      if (windBefore != null && _windTextChanged(windBefore, wind.text)) {
+        _windMaxFollowsWind();
+      }
     }
     // Re-solve with the new conditions (quietly: Atış says why if not).
     if (!failed && widget.profile != null) {
