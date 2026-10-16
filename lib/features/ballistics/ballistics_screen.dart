@@ -1178,6 +1178,7 @@ class _BallisticsScreenState extends State<BallisticsScreen>
     _shotRangeM = _defaultShotRangeM;
     if (p != null) {
       _watchRanges = WatchBridge.instance.rangeRequests.listen(_onWatchRange);
+      _watchAngles = WatchBridge.instance.angleRequests.listen(_onWatchAngle);
       // Refresh the shown solution's time so an open, unchanged Atış is
       // never marked stale on the watch (the bridge sends at most 1/min).
       _watchTimer = Timer.periodic(const Duration(seconds: 30), (_) {
@@ -2180,6 +2181,7 @@ class _BallisticsScreenState extends State<BallisticsScreen>
     _freshnessTimer?.cancel();
     _cancelPhoneAltitudeWarmUp();
     unawaited(_watchRanges?.cancel());
+    unawaited(_watchAngles?.cancel());
     _watchTimer?.cancel();
     velocity.dispose();
     grain.dispose();
@@ -2923,6 +2925,7 @@ class _BallisticsScreenState extends State<BallisticsScreen>
   // happens without a watch (WatchBridge is silent then).
 
   StreamSubscription<int>? _watchRanges;
+  StreamSubscription<double>? _watchAngles;
   Timer? _watchTimer;
 
   /// Last solution sent from Atış; null while Atış is not shown.
@@ -2985,6 +2988,7 @@ class _BallisticsScreenState extends State<BallisticsScreen>
         windClock: windMps > 0 && basis != null
             ? WindClock.fromDegrees(basis.environment.windDirectionDeg)
             : null,
+        angle: _inclineDeg,
         at: now,
       );
     } on ArgumentError {
@@ -2997,6 +3001,13 @@ class _BallisticsScreenState extends State<BallisticsScreen>
   /// the turret correction is computed).
   void _onWatchRange(int display) {
     if (mounted) _setShotDisplay(display);
+  }
+
+  /// A shot angle measured by the Garmin level ("Açıyı gönder"): enters
+  /// exactly like a typed Açı (Pro Ayarlar), saved and recalculated; the new
+  /// solution goes back when Atış rebuilds.
+  void _onWatchAngle(double deg) {
+    if (mounted) _setAngles(incline: deg);
   }
 
   /// Interactive scope: turrets change the dialled clicks and the reticle

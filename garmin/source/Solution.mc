@@ -17,6 +17,7 @@ class Solution {
     var windSpeed = null;
     var windUnit = null;
     var windClock = null;
+    var angle = null;       // atış açısı, derece (+ yukarı); eski telefonda yok
 
     function initialize() {
     }
@@ -71,6 +72,7 @@ class Solution {
         var wu = m.get("windUnit");
         s.windUnit = (wu instanceof String) ? wu : null;
         s.windClock = Solution.toNum(m.get("windClock"));
+        s.angle = Solution.toFlt(m.get("angle"));
         return s;
     }
 

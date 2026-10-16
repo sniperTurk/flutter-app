@@ -25,6 +25,7 @@ WatchSolution _solution({
   int up = 47,
   double upAngle = 4.7,
   double rightAngle = 0.6,
+  double? angle,
   DateTime? at,
 }) => WatchSolution(
   ok: true,
@@ -41,6 +42,7 @@ WatchSolution _solution({
   windSpeed: 3.04,
   windUnit: 'm/s',
   windClock: 3,
+  angle: angle,
   at: at ?? DateTime.utc(2026, 10, 11, 14, 32),
 );
 
@@ -95,6 +97,34 @@ void main() {
         later.toMessage()['at'],
         DateTime.utc(2027).millisecondsSinceEpoch,
       );
+    });
+
+    test('carries the shot angle the solution used, 1 decimal', () {
+      expect(_solution(angle: 12.54).toMessage()['angle'], 12.5);
+      expect(_solution(angle: -3.06).toMessage()['angle'], -3.1);
+      final flat = _solution(angle: -0.04).toMessage()['angle']! as double;
+      expect(flat, 0.0);
+      expect(flat.isNegative, isFalse);
+    });
+
+    test('without an angle (older callers) no angle field travels', () {
+      expect(_solution().toMessage().containsKey('angle'), isFalse);
+    });
+
+    test('a changed angle is new content for the watch', () {
+      expect(
+        _solution(angle: 12.5).contentKey(),
+        isNot(_solution(angle: 0).contentKey()),
+      );
+      expect(_solution(angle: 12.5).withTime(DateTime.utc(2027)).angle, 12.5);
+    });
+
+    test('no solution sends no angle', () {
+      final m = WatchSolution.none(
+        profile: 'Tikka',
+        at: DateTime.utc(2026),
+      ).toMessage();
+      expect(m.containsKey('angle'), isFalse);
     });
 
     test('no wind entered sends no wind fields', () {
@@ -186,6 +216,43 @@ void main() {
       await Future<void>.delayed(Duration.zero);
       await sub.cancel();
       expect(got, [650, 1500]);
+    });
+
+    test('only finite shot angles inside ±60° pass from the watch', () async {
+      final t = _FakeTransport();
+      final bridge = WatchBridge(transport: t);
+      final got = <double>[];
+      final sub = bridge.angleRequests.listen(got.add);
+      for (final v in <Object?>[
+        12.5,
+        double.nan,
+        double.infinity,
+        90,
+        -60.0,
+        60.01,
+        '20',
+        null,
+        true,
+        -3,
+        12.54,
+      ]) {
+        t.controller.add({'type': 'setAngle', 'value': v});
+      }
+      t.controller.add({'type': 'setRange', 'value': 30});
+      await Future<void>.delayed(Duration.zero);
+      await sub.cancel();
+      expect(got, [12.5, -60.0, -3.0, 12.5]);
+    });
+
+    test('a shot angle is never taken as a distance', () async {
+      final t = _FakeTransport();
+      final bridge = WatchBridge(transport: t);
+      final got = <int>[];
+      final sub = bridge.rangeRequests.listen(got.add);
+      t.controller.add({'type': 'setAngle', 'value': 15});
+      await Future<void>.delayed(Duration.zero);
+      await sub.cancel();
+      expect(got, isEmpty);
     });
   });
 

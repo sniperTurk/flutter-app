@@ -73,14 +73,18 @@ const _profile = RifleProfile(
 );
 
 /// The owner's 01:04 wording; only "Hedef'teki" was added (the phone sends
-/// the solution while Hedef is open, see docs/reports/garmin_pro_ayarlar.md).
+/// the solution while Hedef is open, see docs/reports/garmin_pro_ayarlar.md)
+/// and the level/angle sentence (docs/reports/garmin_terazi_aci.md).
 const _infoText =
     'Hesap sonucunu (üst ve yan kule klikleri, mesafe, rüzgâr) Garmin '
     'saatinize gönderir; sonucu telefonu çıkarmadan bileğinizden okursunuz. '
     'Nasıl kullanılır: saatinize Connect IQ mağazasından SNIPER TÜRK '
     'uygulamasını yükleyin, bu satıra dokunun ve Garmin Connect\'te saatinizi '
     'seçin. Sonra Hedef\'teki her yeni hesap saate kendiliğinden gider; '
-    'saatten mesafe de gönderebilirsiniz. Kullanmazsanız hiçbir ayarınız ve '
+    'saatten mesafe de gönderebilirsiniz. Raya bir aparatla takılan saat '
+    'atış terazisi olur (düz olunca titreşimle uyarır) ve atış açısını '
+    'ölçer; saatte "Açıyı gönder" bu açıyı hesaba koyar. Kullanmazsanız '
+    'hiçbir ayarınız ve '
     'hesabınız değişmez.';
 
 const _boxes = ['angle', 'wind', 'coriolis', 'gravity', 'target', 'rifle'];

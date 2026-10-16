@@ -24,6 +24,31 @@ CI'da Connect IQ SDK yok; repo'daki otomatik kontrol yalnızca
 biçimi, mesaj şeması alanları, yazı kuralları). Monkey C sözdizimini
 doğrulamaz; saat kodu değişince Windows'ta yeniden derlenmelidir.
 
+## Atış terazisi ve açı (2026-10-16, derlenmedi)
+
+Saat tüfeğin rayına bir aparatla takılınca atış terazisi olur
+(`source/Level.mc`, `source/LevelView.mc`). Ana ekranda **Aşağı** tuşu
+açar; telefon çözümü olmadan da çalışır.
+
+- Takma şekli (Aşağı > Takma şekli): **Dik** (varsayılan; ekran atıcıya
+  bakar, saat 12 yukarı) veya **Ekran yukarı** (saat 12 namluya doğru).
+  Takma şekli değişince sıfır farkı silinir; yeniden Sıfırla gerekir.
+- Yatıklık (0,1°, çizgi; |yatıklık| ≤ 0,5° "düz") ve atış açısı
+  (+ yukarı / − aşağı, 0,1°) ivmeölçerden `atan2` ile hesaplanır; ikisi
+  birbirine karışmaz (`tools/test_garmin_level_math.py`, ±60°).
+- Düz olunca bir kez kısa titreşim (saatin titreşim ayarı açıksa) ve ses
+  açıksa kısa tuş sesi; düzden 0,8°'den fazla çıkıp yeniden düzelince
+  yine bir kez.
+- **Sıfırla** (Aşağı > Sıfırla > onay): tüfek düz ve yatayken o anki
+  yatıklık ve açı 0 olur, saatte saklanır (aparat toleransı).
+- **Başlat**: "Açıyı gönder"; telefona tek mesaj
+  `{"type":"setAngle","value":<derece, 1 ondalık>}`. Telefon ±60° dışını
+  ve sayı olmayanı yok sayar; geçerli açı Pro Ayarlar Açı'ya yazılır, yeniden
+  hesaplanır ve yeni çözüm saate döner (ana ekranda "Açı +12.5°").
+- Manifest'e `Sensor` izni eklendi (Toybox.Sensor bu izni ister).
+- Mesaj şeması v1 kaldı: `angle` isteğe bağlı yeni alan; eski saat
+  uygulamaları onu okumaz.
+
 ## Sahibinin yapması gerekenler
 
 1. Garmin Developer hesabı (https://developer.garmin.com, 18 yaş şartı) —
@@ -38,7 +63,7 @@ doğrulamaz; saat kodu değişince Windows'ta yeniden derlenmelidir.
    ardından `connectiq` simülatörü ve `monkeydo build/sniperturk.prg fenix7`.
 6. Simülatörde telefon mesajı denemesi: simülatörün telefon mesajı
    özelliğiyle şu sözlüğü gönder (şema v1):
-   `{"v":1,"ok":true,"profile":"Tikka T3x .308","at":<ms>,"range":600,"rangeUnit":"m","rangeStep":10,"up":47,"right":6,"upAngle":4.7,"rightAngle":0.6,"unit":"MRAD","click":0.1,"windSpeed":3.0,"windUnit":"m/s","windClock":3}`
+   `{"v":1,"ok":true,"profile":"Tikka T3x .308","at":<ms>,"range":600,"rangeUnit":"m","rangeStep":10,"up":47,"right":6,"upAngle":4.7,"rightAngle":0.6,"unit":"MRAD","click":0.1,"windSpeed":3.0,"windUnit":"m/s","windClock":3,"angle":12.5}`
 7. Manifest'teki ürün kimliklerini SDK'daki cihaz listesiyle karşılaştır;
    yuvarlak ekranlı hedef cihazlar seçildi, liste örnektir.
 8. Mağaza: Connect IQ Store'a yükleme sahibinin Garmin hesabıyla yapılır.
