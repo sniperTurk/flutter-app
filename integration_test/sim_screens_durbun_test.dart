@@ -180,7 +180,9 @@ void main() {
       final position = mainScroll();
       if (position != null) {
         // Leave the "Dürbün" heading in view above the card.
-        position.jumpTo(math.max(position.minScrollExtent, position.pixels - 40));
+        position.jumpTo(
+          math.max(position.minScrollExtent, position.pixels - 40),
+        );
         await settle();
       }
       await shot(name);

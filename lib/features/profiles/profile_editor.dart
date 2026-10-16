@@ -535,8 +535,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     scopeModel = TextEditingController(
       text: s0 != null && _scopeManual ? _typedScopeModelOf(s0) : '',
     );
-    _scopeLegacyNoModel =
-        s0 != null && _scopeManual && scopeModel.text.isEmpty;
+    _scopeLegacyNoModel = s0 != null && _scopeManual && scopeModel.text.isEmpty;
     // A tolerant match keeps every saved value; only a value the saved
     // record lacks is taken from the list record (nothing is overwritten).
     final fill = _scopeTolerant ? rec : null;
@@ -984,6 +983,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     }
     return null;
   }
+
   String? get _minMagError => _rangeError(scopeMinMag, 1, 60);
   String? get _maxMagError {
     final e = _rangeError(scopeMaxMag, 1, 100);

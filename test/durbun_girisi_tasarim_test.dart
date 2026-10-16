@@ -142,9 +142,13 @@ final Finder _entries = find.byWidgetPredicate(
 
 List<String> _entryTexts(WidgetTester tester) => [
   for (final e in _entries.evaluate())
-    for (final t in find
-        .descendant(of: find.byWidget(e.widget), matching: find.byType(Text))
-        .evaluate())
+    for (final t
+        in find
+            .descendant(
+              of: find.byWidget(e.widget),
+              matching: find.byType(Text),
+            )
+            .evaluate())
       (t.widget as Text).data ?? '',
 ];
 
@@ -234,7 +238,11 @@ void main() {
     _expectRows(tester, listRows);
 
     // Birim MOA and Odak düzlemi FFP narrow the Model list.
-    await chooseInSelect(tester, 'scope-filter-unit-Element Optics-null', 'MOA');
+    await chooseInSelect(
+      tester,
+      'scope-filter-unit-Element Optics-null',
+      'MOA',
+    );
     await chooseInSelect(tester, 'scope-filter-ffp-Element Optics-null', 'FFP');
     await tester.ensureVisible(_k('scope-model-select'));
     await tester.pumpAndSettle();
@@ -286,7 +294,10 @@ void main() {
     expect(scope.clickUnit, AngularUnit.moa);
 
     await _openEdit(tester, saved.name);
-    expect(selectedValue<String>(tester, 'scope-brand-select'), 'Element Optics');
+    expect(
+      selectedValue<String>(tester, 'scope-brand-select'),
+      'Element Optics',
+    );
     expect(selectedValue<String>(tester, 'scope-model-select'), model);
     expect(selectedValue<String>(tester, 'scope-reticle'), 'APR-2D MOA');
     expect(selectedValue<double>(tester, 'scope-mount'), 0);
@@ -329,8 +340,14 @@ void main() {
       'Retikül',
     ]);
     // Labels as asked, no parentheses.
-    expect(tester.widget<MenzilInput>(_k('scope-brand')).label, 'Dürbün markası');
-    expect(tester.widget<MenzilInput>(_k('scope-model')).label, 'Dürbün modeli');
+    expect(
+      tester.widget<MenzilInput>(_k('scope-brand')).label,
+      'Dürbün markası',
+    );
+    expect(
+      tester.widget<MenzilInput>(_k('scope-model')).label,
+      'Dürbün modeli',
+    );
 
     // Both names are required.
     expect(_missingText(tester), contains('Dürbün modeli'));
