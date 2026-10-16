@@ -1,6 +1,6 @@
 # Pro Ayarlar: açılan bölümlerdeki kutulardan ⓘ kaldırıldı
 
-Dal: `fix/pro-kutu-info-kaldir` · PR: #373 (taslak)
+Dal: `fix/pro-kutu-info-kaldir` · PR: #373 (taslak açıldı; ana oturum 19:37 UTC birleştirdi)
 
 Sahip, 16.10.2026 21:16–21:17 (İstanbul), TestFlight 110 ekran görüntüsü
 (Pro Ayarlar, "Hareketli hedef" açık, her kutuda ⓘ): "Pro sayfası açılan
@@ -63,7 +63,7 @@ Böylece her bölümde tek bilgi düğmesi kalıyor.
 ## Bilerek yapılmayan
 
 - Açık PR'larla çakışma olmasın diye başka dosyaya dokunulmadı.
-  - fix/duzeltmeleri-16-10, Pro → Tüfek düzeltmeleri'ne "Mühimmat
+  - fix/duzeltmeler-16-10, Pro → Tüfek düzeltmeleri'ne "Mühimmat
     sıcaklığı" kutusu ekliyor. O PR birleşirse o kutu bu kurala göre ⓘ'sız
     olmalı ve metni Tüfek düzeltmeleri başlık sayfasına eklenmeli. Bu iş o
     PR'da veya birleştirmede yapılmalı.
