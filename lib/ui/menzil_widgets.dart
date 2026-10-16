@@ -846,13 +846,6 @@ class MenzilInfoButton extends StatelessWidget {
     this.padding = EdgeInsets.zero,
   });
 
-  /// True when a [MenzilInfoScope] above (Pro Ayarlar boxes) showed the
-  /// text itself; otherwise the usual popup opens.
-  bool _handledByScope(BuildContext context) {
-    final scope = context.getInheritedWidgetOfExactType<MenzilInfoScope>();
-    return scope != null && scope.onInfo(title, text);
-  }
-
   @override
   Widget build(BuildContext context) {
     final c = MenzilColors.of(context);
@@ -870,7 +863,6 @@ class MenzilInfoButton extends StatelessWidget {
       onPressed:
           onPressed ??
           () {
-            if (_handledByScope(context)) return;
             showDialog<void>(
               context: context,
               builder: (dialogContext) => AlertDialog(
@@ -909,7 +901,7 @@ class MenzilInfoButton extends StatelessWidget {
 /// In the compact variant the small label sits 5 pt above a 44 pt box; the
 /// unit and the ⓘ are inside the box at its right edge. The ⓘ keeps its
 /// 44 × 44 pt tap target (the box height), opens the field's explanation (a
-/// popup, or Pro's bottom sheet via [MenzilInfoScope]) and neither
+/// popup) and neither
 /// focuses the field nor opens a list. Dialogs open on their own route and
 /// so keep the regular layout.
 class MenzilCompactFields extends InheritedWidget {
@@ -1023,23 +1015,6 @@ class _CompactTrailing extends StatelessWidget {
       ),
     );
   }
-}
-
-/// Lets the field ⓘ buttons ([MenzilInfoButton]) below it show their text
-/// somewhere other than the usual popup. [onInfo] gets the ⓘ's title and
-/// text and returns true when it handled them; false falls back to the
-/// popup. Used by Pro Ayarlar (owner, 2026-10-13: every field ⓘ in a box
-/// opens the box's bottom sheet).
-class MenzilInfoScope extends InheritedWidget {
-  final bool Function(String title, String text) onInfo;
-  const MenzilInfoScope({
-    super.key,
-    required this.onInfo,
-    required super.child,
-  });
-
-  @override
-  bool updateShouldNotify(MenzilInfoScope oldWidget) => false;
 }
 
 /// Label row with an optional [MenzilInfoButton] on the right.

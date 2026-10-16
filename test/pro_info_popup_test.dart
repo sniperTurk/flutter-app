@@ -1,10 +1,12 @@
 // Pro Ayarlar explanations (owner, 2026-10-13: "Pro sayfasındaki
 // açıklamalar popup olsun"; then "alttan açılan sayfa" and "iki bilgi olmaz
 // kafa karıştırır"): no inline Ne? / Neden önemli? / Nasıl? block in any
-// opened box; the ⓘ next to each box title AND every field ⓘ inside the box
-// open the SAME bottom sheet: the box's explanations, then "Kutular" (each
-// field with its ⓘ text; the tapped field highlighted). Other pages' ⓘ
-// keep their popup; Hedef keeps its explanations.
+// opened box; the ⓘ next to each box title opens a bottom sheet: the box's
+// explanations, then "Kutular" (each field with its explanation). Owner,
+// 2026-10-16 21:17 ("Pro sayfası açılan menü içindeki kutuların hepsinden
+// infoları kaldır, zaten başlıklarda info var"): the boxes inside an opened
+// section have NO ⓘ of their own; the title sheet names every one of them.
+// Other pages' ⓘ keep their popup; Hedef keeps its explanations.
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -112,7 +114,7 @@ Map<String, List<ProExplain>> _expected({required bool pcp}) => {
   ],
 };
 
-/// "Kutular" of each box: field label → its ⓘ text, in page order.
+/// "Kutular" of each box: field label → its explanation, in page order.
 Map<String, Map<String, String>> _fields({required bool pcp}) => {
   'angle': {
     'Tüfek eğimi': EnvironmentFieldInfo.inclineFor(firearm: !pcp),
@@ -275,7 +277,7 @@ void _expectSheet(
     reason: title,
   );
   for (final f in shown) {
-    // Word for word the field's own ⓘ text.
+    // Word for word the text the field's own ⓘ used to show.
     expect(f.field.text, fields[f.field.label], reason: f.field.label);
   }
   expect(
@@ -290,13 +292,52 @@ void _expectSheet(
   }
 }
 
-/// The field ⓘ buttons inside the open box [id] (not the box ⓘ).
+/// The ⓘ buttons inside the open box [id] other than the title ⓘ.
 Finder _fieldButtons(String id) => find.descendant(
   of: find.byKey(Key('pro-box-$id')),
   matching: find.byWidgetPredicate(
     (w) => w is MenzilInfoButton && w.key != Key('pro-info-$id'),
   ),
 );
+
+/// Every info icon inside the box [id] (header included).
+Finder _boxIcons(String id) => find.descendant(
+  of: find.byKey(Key('pro-box-$id')),
+  matching: find.byIcon(Icons.info_outline),
+);
+
+/// The title ⓘ's own icon (the one info icon a box may hold).
+Finder _titleIcon(String id) => find.descendant(
+  of: find.byKey(Key('pro-info-$id')),
+  matching: find.byIcon(Icons.info_outline),
+);
+
+/// Labels of the value boxes on screen inside the open box [id], in page
+/// order: every [MenzilInput] / [MenzilSelect], plus the two Açı tiles.
+List<String> _boxLabels(WidgetTester tester, String id) {
+  final box = find.byKey(Key('pro-box-$id'));
+  final labels = <String>[];
+  for (final w in tester.widgetList(
+    find.descendant(
+      of: box,
+      matching: find.byWidgetPredicate(
+        (w) =>
+            w is MenzilInput ||
+            w is MenzilSelect ||
+            w.key == const Key('shot-incline') ||
+            w.key == const Key('shot-cant'),
+      ),
+    ),
+  )) {
+    labels.add(switch (w) {
+      MenzilInput(:final label) => label,
+      MenzilSelect(:final label) => label,
+      _ when w.key == const Key('shot-incline') => 'Tüfek eğimi',
+      _ => 'Dürbün eğimi',
+    });
+  }
+  return labels;
+}
 
 /// [entry] starts inside the visible part of the sheet's scroll view (its
 /// bold label shows); when it is shorter than the view it is fully visible.
@@ -381,8 +422,6 @@ void main() {
         // Opening the sheet does not open the box.
         expect(find.byKey(Key('pro-summary-$id')), findsOneWidget, reason: id);
         _expectSheet(tester, title, entry.value, fields[id]!);
-        // From the box ⓘ nothing is highlighted.
-        expect(_entries(tester).where((f) => f.highlighted), isEmpty);
         // The PCP spin drift note rides along in the Tüfek sheet.
         expect(
           _inSheet(find.byKey(const Key('pro-spin-pcp-note'))),
@@ -399,9 +438,8 @@ void main() {
       }
     });
 
-    testWidgets('$name: every field ⓘ opens its box sheet, field highlighted', (
-      tester,
-    ) async {
+    testWidgets('$name: no ⓘ inside any opened box; the title sheet names '
+        'every box', (tester) async {
       await _size(tester, const Size(430, 3000));
       await tester.pumpWidget(_app(profile, BallisticsView.pro));
       await tester.pumpAndSettle();
@@ -412,31 +450,38 @@ void main() {
         await tester.ensureVisible(header);
         await tester.pumpAndSettle();
         await tapProHeader(tester, header);
-        final buttons = tester
-            .widgetList<MenzilInfoButton>(_fieldButtons(id))
-            .toList();
-        // Every field of the box has its ⓘ and is listed under "Kutular".
+        expect(find.byKey(Key('pro-summary-$id')), findsNothing, reason: id);
+        // No ⓘ in any box of the open section (owner, 2026-10-16 21:17)...
+        expect(_fieldButtons(id), findsNothing, reason: id);
         expect(
-          buttons.map((b) => b.title).toList(),
-          fields[id]!.keys.toList(),
-          reason: id,
+          find.descendant(
+            of: find.byKey(Key('pro-box-$id')),
+            matching: find.byType(MenzilInfoButton),
+          ),
+          findsOneWidget,
+          reason: '$id: only the title ⓘ',
         );
-        for (var i = 0; i < buttons.length; i++) {
-          await _tapButton(tester, _fieldButtons(id).at(i));
-          // The same sheet as the box ⓘ, not the old popup.
-          _expectSheet(tester, title, entry.value, fields[id]!);
-          final shown = _entries(tester);
+        // The one info icon in the box is the title's.
+        expect(_boxIcons(id), findsOneWidget, reason: id);
+        expect(_titleIcon(id), findsOneWidget, reason: id);
+        // ...the title keeps its ⓘ, and its sheet names every box shown.
+        final labels = _boxLabels(tester, id);
+        expect(labels, fields[id]!.keys.toList(), reason: id);
+        await _openInfo(tester, id);
+        _expectSheet(tester, title, entry.value, fields[id]!);
+        for (final label in labels) {
           expect(
-            [for (final f in shown) f.highlighted],
-            [for (var j = 0; j < shown.length; j++) j == i],
-            reason: buttons[i].title,
+            _entries(tester).where((f) => f.field.label == label),
+            hasLength(1),
+            reason: '$id: $label',
           );
-          final hl = _inSheet(find.byKey(ValueKey('pro-info-field-$i')));
-          final box = tester.widget<Container>(hl).decoration! as BoxDecoration;
-          expect(box.color, isNotNull, reason: buttons[i].title);
-          _expectVisible(tester, hl);
-          await _close(tester);
         }
+        await _close(tester);
+        // The box is still open with its values; close it for the next one.
+        expect(find.byKey(Key('pro-summary-$id')), findsNothing, reason: id);
+        await tester.ensureVisible(header);
+        await tester.pumpAndSettle();
+        await tapProHeader(tester, header);
       }
     });
   }
@@ -533,27 +578,21 @@ void main() {
       }
       await _close(tester);
     }
-    // The last field of the longest sheet: highlighted and scrolled into
-    // view.
-    final header = find.byKey(const Key('pro-section-rifle'));
-    await tester.ensureVisible(header);
-    await tester.pumpAndSettle();
-    await tapProHeader(tester, header);
-    final button = find.descendant(
-      of: find.byKey(const Key('pro-bullet-length')),
-      matching: find.byType(MenzilInfoButton),
-    );
-    await _tapButton(tester, button);
-    expect(tester.takeException(), isNull);
+    // The last field of the longest sheet can be scrolled into view (its
+    // only explanation now that the box has no ⓘ).
+    await _openInfo(tester, 'rifle');
     final last = _entries(tester).length - 1;
-    expect(_entries(tester)[last].highlighted, isTrue);
     expect(_entries(tester)[last].field.label, 'Mermi uzunluğu');
+    final lastEntry = _inSheet(find.byKey(ValueKey('pro-info-field-$last')));
+    await tester.ensureVisible(lastEntry);
+    await tester.pumpAndSettle();
+    expect(tester.takeException(), isNull);
     final scrollable = _inSheet(find.byType(Scrollable)).first;
     expect(
       tester.state<ScrollableState>(scrollable).position.pixels,
       greaterThan(0),
     );
-    _expectVisible(tester, find.byKey(ValueKey('pro-info-field-$last')));
+    _expectVisible(tester, lastEntry);
     await _close(tester);
   });
 

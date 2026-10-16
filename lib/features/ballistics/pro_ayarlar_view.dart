@@ -26,9 +26,9 @@ extension _ProAyarlarView on _BallisticsScreenState {
   /// boxes start closed, one open at a time). The box's Ne? / Neden önemli?
   /// / Nasıl? explanations ([info]) open from the ⓘ next to the title in a
   /// bottom sheet (owner, 2026-10-13: "alttan açılan sayfa"), followed by
-  /// "Kutular": each of the box's [fields] with its ⓘ text. Every field ⓘ
-  /// inside the box opens the same sheet with that field highlighted (owner:
-  /// "iki bilgi olmaz kafa karıştırır").
+  /// "Kutular": each of the box's [fields] with its explanation. The boxes
+  /// inside have no ⓘ of their own (owner, 2026-10-16 21:17: "zaten
+  /// başlıklarda info var"), so [fields] must list every one of them.
   Widget _proBox({
     required String id,
     required String title,
@@ -91,28 +91,10 @@ extension _ProAyarlarView on _BallisticsScreenState {
           ),
           if (open) ...[
             const SizedBox(height: MenzilSpace.sm),
-            // A field ⓘ in the box opens the box's sheet at that field.
-            MenzilInfoScope(
-              onInfo: (label, text) {
-                var i = fields.indexWhere(
-                  (f) => f.label == label && f.text == text,
-                );
-                if (i < 0) i = fields.indexWhere((f) => f.text == text);
-                if (i < 0 || info.isEmpty) return false;
-                showProInfoSheet(
-                  context,
-                  title: title,
-                  entries: info,
-                  fields: fields,
-                  highlight: i,
-                );
-                return true;
-              },
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: children,
-              ),
+            Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: children,
             ),
           ],
         ],
@@ -175,7 +157,8 @@ extension _ProAyarlarView on _BallisticsScreenState {
         ProInfoField('Hedefte', EnvironmentFieldInfo.windFar),
       ],
       // Owner, 2026-10-14: En çok rüzgâr | Düzeltme al, then date |
-      // Sıfırla; the two zone boxes follow (ⓘ in the bottom sheet).
+      // Sıfırla; the two zone boxes follow (their texts in the title ⓘ
+      // sheet; no ⓘ in the boxes, owner 2026-10-16).
       children: [
         _boxButtonRow(
           box: MenzilInput(
@@ -183,7 +166,6 @@ extension _ProAyarlarView on _BallisticsScreenState {
             controller: windMaxCtl,
             label: 'En çok rüzgâr',
             unit: windUnit,
-            info: EnvironmentFieldInfo.windMax,
             onChanged: (v) {
               if (_windMaxFilled || _windMaxWasReset) {
                 _update(() => _windMaxFilled = _windMaxWasReset = false);
@@ -217,7 +199,6 @@ extension _ProAyarlarView on _BallisticsScreenState {
               controller: windMidCtl,
               label: 'Yol ortası',
               unit: windUnit,
-              info: EnvironmentFieldInfo.windMid,
               onChanged: (_) => _coriolisChanged(),
             ),
             MenzilInput(
@@ -225,7 +206,6 @@ extension _ProAyarlarView on _BallisticsScreenState {
               controller: windFarCtl,
               label: 'Hedefte',
               unit: windUnit,
-              info: EnvironmentFieldInfo.windFar,
               onChanged: (_) => _coriolisChanged(),
             ),
           ],
@@ -335,7 +315,6 @@ extension _ProAyarlarView on _BallisticsScreenState {
               controller: latitudeCtl,
               label: 'Enlem',
               unit: '°',
-              info: EnvironmentFieldInfo.latitude,
               errorText: latitudeCtl.text.isNotEmpty && _latitude == null
                   ? '−90 ile 90 arasında olmalı.'
                   : null,
@@ -368,7 +347,6 @@ extension _ProAyarlarView on _BallisticsScreenState {
               controller: azimuthCtl,
               label: 'Atış yönü',
               unit: '°',
-              info: EnvironmentFieldInfo.azimuth,
               errorText: azimuthCtl.text.isNotEmpty && _azimuth == null
                   ? '0 ile 360 arasında olmalı.'
                   : null,
@@ -431,7 +409,6 @@ extension _ProAyarlarView on _BallisticsScreenState {
               controller: gravityCtl,
               label: 'Yerçekimi',
               unit: 'm/s²',
-              info: EnvironmentFieldInfo.gravity,
               errorText: gravityCtl.text.isNotEmpty && _gravityTyped == null
                   ? '9,7 ile 9,9 arasında olmalı.'
                   : null,
@@ -508,7 +485,8 @@ extension _ProAyarlarView on _BallisticsScreenState {
         ],
         children: [
           // Owner, 2026-10-12: boxes first, Verileri sil under them; the
-          // explanations are in the ⓘ bottom sheet (owner, 2026-10-13).
+          // explanations are only in the title ⓘ bottom sheet (owner,
+          // 2026-10-13; no ⓘ in the boxes since 2026-10-16).
           MenzilFieldGrid(
             children: [
               MenzilInput(
@@ -516,13 +494,11 @@ extension _ProAyarlarView on _BallisticsScreenState {
                 controller: targetSpeedCtl,
                 label: 'Hedef hızı',
                 unit: windUnit,
-                info: EnvironmentFieldInfo.targetSpeed,
                 onChanged: (_) => _coriolisChanged(),
               ),
               MenzilSelect<bool>(
                 key: ValueKey('pro-target-direction-$_targetMovesRight'),
                 label: 'Yönü',
-                info: EnvironmentFieldInfo.targetDirection,
                 initialValue: _targetMovesRight,
                 // "Seçiniz" stays in the list so a choice can be taken back
                 // (owner, 2026-10-10).
@@ -545,7 +521,6 @@ extension _ProAyarlarView on _BallisticsScreenState {
                 controller: groupCtl,
                 label: 'Grup çapı',
                 unit: lenUnit,
-                info: EnvironmentFieldInfo.group,
                 onChanged: (_) => _coriolisChanged(),
               ),
               MenzilInput(
@@ -553,7 +528,6 @@ extension _ProAyarlarView on _BallisticsScreenState {
                 controller: sdCtl,
                 label: 'Hız farkı',
                 unit: 'fps',
-                info: EnvironmentFieldInfo.sd,
                 onChanged: (_) => _coriolisChanged(),
               ),
               MenzilInput(
@@ -561,7 +535,6 @@ extension _ProAyarlarView on _BallisticsScreenState {
                 controller: targetSizeCtl,
                 label: 'Hedef çapı',
                 unit: lenUnit,
-                info: EnvironmentFieldInfo.targetSize,
                 onChanged: (_) => _coriolisChanged(),
               ),
               MenzilInput(
@@ -569,7 +542,6 @@ extension _ProAyarlarView on _BallisticsScreenState {
                 controller: rangeErrorCtl,
                 label: 'Mesafe hatası',
                 unit: _distanceUnit,
-                info: EnvironmentFieldInfo.rangeError,
                 onChanged: (_) => _coriolisChanged(),
               ),
               MenzilInput(
@@ -577,7 +549,6 @@ extension _ProAyarlarView on _BallisticsScreenState {
                 controller: bcErrorCtl,
                 label: 'BC hatası',
                 unit: '%',
-                info: EnvironmentFieldInfo.bcError,
                 onChanged: (_) => _coriolisChanged(),
               ),
               KeyedSubtree(
@@ -585,7 +556,6 @@ extension _ProAyarlarView on _BallisticsScreenState {
                 child: MenzilSelect<int>(
                   key: const Key('pro-wez-shots'),
                   label: 'Atış sayısı',
-                  info: EnvironmentFieldInfo.wezShotCount,
                   initialValue: _wezShotChosen ? _wezShotCount : null,
                   hint: 'Seçiniz',
                   // "Seçiniz" stays in the list (owner, 2026-10-12).
@@ -650,13 +620,12 @@ extension _ProAyarlarView on _BallisticsScreenState {
             ),
         ],
         children: [
-          // Owner, 2026-10-12: boxes first; the explanations are in the ⓘ
-          // bottom sheet since 2026-10-13.
+          // Owner, 2026-10-12: boxes first; the explanations are only in the
+          // title ⓘ bottom sheet (2026-10-13; no ⓘ in the boxes, 2026-10-16).
           MenzilInput(
             key: const Key('pro-turret-scale'),
             controller: turretScaleCtl,
             label: 'Gerçek / yazan',
-            info: EnvironmentFieldInfo.turretScale,
             errorText:
                 turretScaleCtl.text.trim().isNotEmpty &&
                     (_parsed(turretScaleCtl) == null ||
@@ -673,7 +642,6 @@ extension _ProAyarlarView on _BallisticsScreenState {
                 controller: zeroUpCtl,
                 label: 'Yukarı + / aşağı −',
                 unit: lenUnit,
-                info: EnvironmentFieldInfo.zeroUp,
                 keyboardType: signed,
                 onChanged: (_) => _coriolisChanged(),
               ),
@@ -682,7 +650,6 @@ extension _ProAyarlarView on _BallisticsScreenState {
                 controller: zeroRightCtl,
                 label: 'Sağ + / sol −',
                 unit: lenUnit,
-                info: EnvironmentFieldInfo.zeroRight,
                 keyboardType: signed,
                 onChanged: (_) => _coriolisChanged(),
               ),
@@ -694,7 +661,6 @@ extension _ProAyarlarView on _BallisticsScreenState {
               controller: bulletLengthCtl,
               label: 'Mermi uzunluğu',
               unit: 'mm',
-              info: EnvironmentFieldInfo.bulletLength,
               onChanged: (_) => _coriolisChanged(),
             ),
             if (profileResolution?.rifle.twistRateIn == null ||
@@ -793,7 +759,6 @@ extension _ProAyarlarView on _BallisticsScreenState {
             controller: tubePressureCtl,
             label: 'Kalan tüp basıncı',
             unit: 'bar',
-            info: EnvironmentFieldInfo.tubePressure,
             errorText: bad
                 ? '0 ile ${ProductionLimits.maxPcpPressureBar.toStringAsFixed(0)} '
                       'arasında olmalı.'
@@ -840,7 +805,6 @@ extension _ProAyarlarView on _BallisticsScreenState {
       required Key key,
       required String title,
       required String value,
-      required String info,
       required IconData icon,
       required VoidCallback onTap,
     }) => Expanded(
@@ -866,7 +830,6 @@ extension _ProAyarlarView on _BallisticsScreenState {
                   Expanded(
                     child: Text(title, style: MenzilType.caption(c.ink2)),
                   ),
-                  MenzilInfoButton(title: title, text: info),
                 ],
               ),
               Text(value, style: MenzilType.number(c.ink, size: 22)),
@@ -881,7 +844,6 @@ extension _ProAyarlarView on _BallisticsScreenState {
           key: const Key('shot-incline'),
           title: 'Tüfek eğimi',
           value: '∠ ${ShotAngleMath.degrees(_inclineDeg)}',
-          info: EnvironmentFieldInfo.inclineFor(firearm: _isFirearm),
           icon: Icons.terrain_outlined,
           onTap: _editIncline,
         ),
@@ -893,7 +855,6 @@ extension _ProAyarlarView on _BallisticsScreenState {
               ? 'Yok'
               : '${ShotAngleMath.degrees(_cantDeg)} '
                     '${_cantDeg > 0 ? 'sağa' : 'sola'}',
-          info: EnvironmentFieldInfo.cantFor(firearm: _isFirearm),
           icon: Icons.rotate_right,
           onTap: _editCant,
         ),

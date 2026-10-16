@@ -189,14 +189,12 @@ Future<void> runWezTour(
   await type(const Key('pro-bullet-length'), '45');
   await hedef('hedef_1000m_transonik', focus: const Key('shot-transonic'));
 
-  // Atış sayısı ⓘ (metin değişti).
+  // Atış sayısı açıklaması: kutuda ⓘ yok (owner, 2026-10-16 21:17);
+  // Hareketli hedef başlığının ⓘ sayfasında.
   await tester.pumpWidget(app(BallisticsView.pro));
   await settle();
   await openProFor(tester, const Key('pro-wez-shots'));
-  final info = find.descendant(
-    of: find.byKey(const Key('pro-wez-shots')),
-    matching: find.byIcon(Icons.info_outline),
-  );
+  final info = find.byKey(const Key('pro-info-target'));
   await tester.ensureVisible(info);
   await settle();
   await tester.tap(info);

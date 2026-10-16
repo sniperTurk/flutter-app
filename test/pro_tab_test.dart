@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:sniper_turk/data/catalog_repository.dart';
 import 'package:sniper_turk/data/user_catalog.dart';
+import 'package:sniper_turk/features/ballistics/environment_field_info.dart';
 import 'package:sniper_turk/features/ballistics/scope_dial_view.dart';
 import 'package:sniper_turk/features/home/home_screen.dart';
 import 'package:sniper_turk/models/domain.dart';
@@ -149,9 +150,30 @@ void main() {
     await openProFor(tester, const Key('pro-latitude'));
     expect(find.byKey(const Key('pro-latitude')), findsOneWidget);
     expect(find.byKey(const Key('pro-azimuth')), findsOneWidget);
-    // Every entered value explains itself (ⓘ).
-    expect(find.byTooltip('Bilgi: Enlem'), findsOneWidget);
-    expect(find.byTooltip('Bilgi: Atış yönü'), findsOneWidget);
+    // No ⓘ in the boxes (owner, 2026-10-16 21:17); Enlem and Atış yönü are
+    // explained in the Coriolis title ⓘ sheet.
+    expect(find.byTooltip('Bilgi: Enlem'), findsNothing);
+    expect(find.byTooltip('Bilgi: Atış yönü'), findsNothing);
+    await _tapKey(tester, 'pro-info-coriolis');
+    expect(
+      find.byWidgetPredicate(
+        (w) =>
+            w is RichText &&
+            w.text.toPlainText() == 'Enlem: ${EnvironmentFieldInfo.latitude}',
+      ),
+      findsOneWidget,
+    );
+    expect(
+      find.byWidgetPredicate(
+        (w) =>
+            w is RichText &&
+            w.text.toPlainText() ==
+                'Atış yönü: ${EnvironmentFieldInfo.azimuth}',
+      ),
+      findsOneWidget,
+    );
+    await tester.tap(find.text('Kapat'));
+    await tester.pumpAndSettle();
 
     await tester.enterText(find.byKey(const Key('pro-latitude')), '40');
     await tester.enterText(find.byKey(const Key('pro-azimuth')), '0');

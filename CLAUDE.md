@@ -48,6 +48,7 @@ is, where to find it and a typical example. Plain identity fields (brand,
 model, name) may skip it. Profil texts live in
 `lib/features/profiles/profile_field_info.dart`; follow the same pattern for
 other pages.
+Exception (owner, 2026-10-16 21:17): on Pro Ayarlar the boxes inside the collapsible sections have no ⓘ of their own; their explanations live in the section header's ⓘ.
 
 ## UI rule: select over typing, two boxes per row (owner, 2026-10-11)
 Typed product names and calibers are mistyped, so a value that can be chosen
