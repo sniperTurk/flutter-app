@@ -9,6 +9,7 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -251,12 +252,36 @@ void main() {
         final chevron = tester.getRect(_chevron(id));
         expect(info.right, lessThanOrEqualTo(chevron.left + 0.5), reason: id);
         rights.add(tester.getRect(_summary(id)).right);
-        // The value shortens first: a title wraps only when the value is
-        // already down to its 40 pt minimum (or its own shorter width).
+        // The value shortens first: a title wraps only when it would not
+        // fit even with the value down to its first letter and "…".
         final oneLine = tester.getRect(_title('angle')).height;
         if (tester.getRect(_title(id)).height > oneLine + 0.5) {
-          final v = tester.getRect(_summary(id));
-          expect(v.width, lessThanOrEqualTo(40.5), reason: '$id wrapped early');
+          final value = tester.renderObject<RenderParagraph>(_summary(id));
+          double w(String s) {
+            final tp = TextPainter(
+              text: TextSpan(text: s, style: value.text.style),
+              textScaler: value.textScaler,
+              textDirection: TextDirection.ltr,
+            )..layout();
+            final width = tp.width;
+            tp.dispose();
+            return width;
+          }
+
+          final text = value.text.toPlainText();
+          final reserve = [w(text), w('${text.characters.first}…')]
+              .reduce((a, b) => a < b ? a : b);
+          final title = tester
+              .renderObject<RenderParagraph>(_title(id))
+              .getMaxIntrinsicWidth(double.infinity);
+          final row = tester.getRect(_header(id)).width;
+          expect(
+            title,
+            greaterThan(
+              row - proInfoTarget - MenzilSpace.xs - proChevronSize - reserve,
+            ),
+            reason: '$id wrapped while the value still had room',
+          );
         }
         // Opening the box does not make the title jump to another height.
         final before = tester.getRect(_title(id)).height;

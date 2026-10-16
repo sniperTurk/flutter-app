@@ -19,10 +19,6 @@ const double proInfoTarget = 44;
 const double proChevronSize = 24;
 const double _chevronGap = MenzilSpace.xs;
 
-/// When the line runs out (320 pt, large text), the summary keeps at least
-/// this much (or its own width when shorter) before the title has to wrap.
-const double _valueReserve = 40;
-
 /// The ⓘ of a Pro row: its own 44 × 44 pt tap target with the icon at its
 /// left edge plus [proInfoGap]. A tap anywhere in the target opens only the
 /// explanation; the row's tap handler never sees it (the inner button wins
@@ -100,9 +96,14 @@ class ProRowHeader extends StatelessWidget {
       builder: (context, box) {
         final v = value;
         final infoWidth = info == null ? 0.0 : proInfoTarget;
-        final reserve = v == null
+        // The value may shrink down to its first letter and "…" before the
+        // title has to wrap.
+        final reserve = v == null || v.isEmpty
             ? 0.0
-            : math.min(_width(context, v, valueStyle), _valueReserve);
+            : math.min(
+                _width(context, v, valueStyle),
+                _width(context, '${v.characters.first}…', valueStyle),
+              );
         final titleMax = math.max(
           0.0,
           box.maxWidth - infoWidth - reserve - _chevronGap - proChevronSize,
