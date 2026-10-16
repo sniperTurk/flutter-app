@@ -144,6 +144,15 @@ class _TurretBarState extends State<_TurretBar> {
     final columnWidth = sideColumnWidth * k;
     final columnHeight =
         (sideBoxHeight + 2 * (sideArrowHeight + sideArrowGap)) * k;
+    // Owner, 2026-10-16 21:08: "Sağ kulenin sağ tarafında dürbün beyazlığı
+    // var … Kuleyi biraz sağa al." The box sits centred in its column, 4 pt
+    // (× k) in from the column's edges, so a sliver of the scope circle
+    // showed to its right. The whole turret (box and arrows) moves right by
+    // that inset: the box's right edge lands on the reticle square's right
+    // edge, over the circle's outer edge. Only the empty margin of the
+    // column reaches past the square, into the card's padding; the square
+    // still clips its painting.
+    final columnInset = (sideColumnWidth - sideBoxWidth) / 2 * k;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
@@ -201,7 +210,7 @@ class _TurretBarState extends State<_TurretBar> {
                 // reticle so its zero meets the horizontal line; its arrows
                 // sit above and below the drum box.
                 Positioned(
-                  right: 0,
+                  right: -columnInset,
                   top: (side - columnHeight) / 2,
                   height: columnHeight,
                   width: columnWidth,
