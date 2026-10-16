@@ -70,6 +70,7 @@ void main() {
     final up = tester.widget<ScopeDialView>(find.byType(ScopeDialView)).requiredUp;
     // ignore: avoid_print
     print('PCP_OLD_GOLDEN U$up');
-    expect(up, isNotNull);
+    // Fails on purpose: the value is read from the "Actual:" annotation.
+    expect('U$up', 'READ_ME');
   });
 }
