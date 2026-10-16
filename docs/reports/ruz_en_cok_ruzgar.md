@@ -29,7 +29,7 @@ Bulgular: `docs/reports/denetim_testflight_2026_10_14b.md` içindeki RUZ-1 ve RU
 
 ## Uç durumlar
 
-- Hava alımı aynı rüzgârı getirirse (metin değişmezse) düğme değeri kalıyor.
+- Hava alımı aynı rüzgârı getirirse düğme değeri kalıyor. Rüzgâr sayı olarak karşılaştırılıyor (`_windTextChanged`): yeniden açılışta kutu "5" gösterir, hava alımı "5.0" yazar; bu değişiklik sayılmıyor. Hava alımının 0,05'lik yuvarlaması içindeki fark da değişiklik sayılmıyor (kod incelemesinde bulundu, 2026-10-16).
 - Kutu boşsa ya da elle yazılmışsa hiçbir yol ona dokunmuyor.
 - Uygulama yeniden açılınca kayıtlı "Düzeltme alındı" durumu eskisi gibi geri geliyor; yükleme rüzgârı değiştirmiş sayılmıyor.
 - Boşaltma yalnız En çok rüzgâr'ı etkiliyor; Yol ortası ve Hedefte kutuları değişmiyor (bunları yalnız Pro'daki Sıfırla boşaltır).
@@ -45,6 +45,7 @@ Bulgular: `docs/reports/denetim_testflight_2026_10_14b.md` içindeki RUZ-1 ve RU
 - `test/audit_2026_10_14b/weather_wind_elevation_audit_test.dart`:
   - RUZ-1 testi ve iki RUZ-2 testi `skip`'ten çıkarıldı; artık kutunun boş ve düğmenin "Düzeltme al" olmasını da bekliyor.
   - Yeni test: elle yazılan En çok rüzgâr (9), elle yazılan rüzgâr, yeni hava alımı, 0 m/s hava alımı ve Sıfırla'dan sonra 9 olarak kalıyor.
+  - Yeni test: Düzeltme al → yeniden açılış (kutu "5") → aynı rüzgârla hava alımı ("5.0"): 7,5 ve "Düzeltme alındı" kalıyor. Düzeltme olmadan bu test CI'da düştü (aşağıda).
   - "restart" zincir testi yeni kurala göre güncellendi: sonraki hava alımı 8 m/s getirince kutu boşalıyor (eskiden 12,0 bekliyordu).
 - `test/hava_sayfasi_test.dart` B testi aynı nedenle güncellendi: yeni rüzgâr kutuyu boşaltıyor; "Düzeltme al"a yeniden basınca 12,0 ve yeni tarih geliyor.
 - Yerel: `python3 tools/offline_dart_lint.py` → PASS (0 sorun); `python3 -m unittest discover -s tools -p 'test_*.py'` → 842 test OK.

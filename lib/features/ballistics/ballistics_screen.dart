@@ -637,6 +637,17 @@ class _BallisticsScreenState extends State<BallisticsScreen>
     _coriolisChanged();
   }
 
+  /// Whether Rüzgâr hızı really changed between two box texts. Compared as
+  /// numbers: a restored box shows two decimals ("8", "5.25") while a
+  /// weather fill writes one ("8.0", "5.3"), so the same wind must not
+  /// count as a change (anything within the fill's 0.05 rounding).
+  static bool _windTextChanged(String before, String after) {
+    double? n(String t) => double.tryParse(t.trim().replaceAll(',', '.'));
+    final a = n(before), b = n(after);
+    if (a == null || b == null) return (a == null) != (b == null);
+    return (a - b).abs() > 0.05 + 1e-9;
+  }
+
   void _resetWindMax() {
     setState(() {
       windMaxCtl.text = '';
@@ -1581,7 +1592,9 @@ class _BallisticsScreenState extends State<BallisticsScreen>
       _weatherChanged();
       _scheduleFreshnessCheck();
       // A new Rüzgâr hızı empties a "Düzeltme al" value (owner, 2026-10-15).
-      if (windBefore != null && wind.text != windBefore) _windMaxFollowsWind();
+      if (windBefore != null && _windTextChanged(windBefore, wind.text)) {
+        _windMaxFollowsWind();
+      }
     }
     // Re-solve with the new conditions (quietly: Atış says why if not).
     if (!failed && widget.profile != null) {
