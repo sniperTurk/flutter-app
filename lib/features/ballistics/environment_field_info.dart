@@ -49,13 +49,11 @@ abstract final class EnvironmentFieldInfo {
       'deniz seviyesi basıncı değildir. Boşsa basınç İrtifa kartından '
       'tahmin edilir. Örnek: 998,4 hPa.';
 
-  /// İrtifa card: ONE ⓘ right of the title (owner exception, 2026-10-14).
+  /// İrtifa card: ONE ⓘ right of the title (owner wording, 2026-10-16).
   static const altitudeCard =
-      'Bulunduğunuz yerin deniz seviyesinden yüksekliği. Haritadan: Google '
-      'haritadan zemin yüksekliği, internet ister. Telefondan: GPS ölçümü, '
-      'açık havada daha doğrudur. Telefon irtifası varsa hesap onu kullanır; '
-      'yoksa harita irtifası kullanılır. İrtifa yalnız İstasyon basıncı '
-      'boşken basınç tahmini için kullanılır. Örnek: 126 m.';
+      'İrtifa; Atış yerinizin deniz seviyesinden yüksekliğidir. "İrtifa al" '
+      'yüksekliği haritadan alır; internet yoksa telefonun GPS\'inden alır. '
+      'Elle de girebilirsiniz. Örnek: 100 m.';
   static const humidity =
       'Bağıl nem, yüzde olarak (0–100). Etkisi küçüktür: nemli hava biraz '
       'daha hafiftir. Hava durumunda yazar. Örnek: %60.';
