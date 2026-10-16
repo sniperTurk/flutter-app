@@ -13,15 +13,17 @@ extension _ScopeSection on _ProfileDialogState {
   static const _fromMrad = _ProfileDialogState._fromMrad;
   static const _magRange = _ProfileDialogState._magRange;
   static const _manualKey = _ProfileDialogState._manualKey;
-  static const _maxMagOptions = _ProfileDialogState._maxMagOptions;
-  static const _minMagOptions = _ProfileDialogState._minMagOptions;
+  static List<double> get _maxMagOptions => _ProfileDialogState._maxMagOptions;
+  static List<double> get _minMagOptions => _ProfileDialogState._minMagOptions;
   static const _num = _ProfileDialogState._num;
-  static const _objectiveOptions = _ProfileDialogState._objectiveOptions;
+  static List<double> get _objectiveOptions =>
+      _ProfileDialogState._objectiveOptions;
   static const _parse = _ProfileDialogState._parse;
   static const _reticlesOf = _ProfileDialogState._reticlesOf;
   static List<ScopeOptic> get _scopeLib => _ProfileDialogState._scopeLib;
   static const _scopeModelOf = _ProfileDialogState._scopeModelOf;
   static const _showScopeListedeYok = _ProfileDialogState._showScopeListedeYok;
+  static const _typedReticleNames = _ProfileDialogState._typedReticleNames;
   static const _unitName = _ProfileDialogState._unitName;
 
   /// A catalog scope (picked from the lists): Minimum / Maksimum büyütme,
@@ -297,20 +299,10 @@ extension _ScopeSection on _ProfileDialogState {
     return out;
   }
 
-  /// A plain reticle pattern that matches the scope's turret unit: MIL
-  /// patterns for a MRAD scope, the MOA pattern for MOA / SMOA; Duplex fits
-  /// both. A typed scope whose Dürbün birimi still says "Seçiniz" lists all
-  /// five (owner, 2026-10-14): the hidden unit (MRAD in a new profile, the
-  /// saved unit on edit) gave Profil Oluştur 4 and Profili Düzenle 2.
-  bool _genericFitsUnit(String n) {
-    if (!_scopeFromList && !_angularUnitSet) return true;
-    if (n == Reticles.duplex) return true;
-    final moa = angularUnit.moaFamily;
-    return n == Reticles.hashMoa ? moa : !moa;
-  }
-
   /// A number picked from [options] into [controller] ("Seçiniz" while
-  /// empty). [suffix] follows the number in the list ("x", " mm").
+  /// empty; the list starts with a "Seçiniz" row). [suffix] follows the
+  /// number in the list ("x", " mm"). A value that is not an option shows
+  /// "Seçiniz" (owner, 2026-10-16: old values open empty).
   Widget _numberSelect({
     required String key,
     required String label,
@@ -321,20 +313,18 @@ extension _ScopeSection on _ProfileDialogState {
     String? errorText,
   }) {
     final current = _parse(controller);
-    final values = [
-      ...options,
-      if (current != null && !options.contains(current)) current,
-    ]..sort();
     return KeyedSubtree(
       key: Key(key),
       child: MenzilSelect<double>(
         key: ValueKey('$key-$_scopePickToken'),
         info: info,
         label: label,
-        initialValue: current,
+        hint: 'Seçiniz',
+        initialValue: options.contains(current) ? current : null,
         errorText: errorText,
         items: [
-          for (final v in values)
+          const DropdownMenuItem<double>(child: Text('Seçiniz')),
+          for (final v in options)
             DropdownMenuItem(value: v, child: Text('${_trimNum(v)}$suffix')),
         ],
         onChanged: (v) => _update(() {
@@ -358,9 +348,11 @@ extension _ScopeSection on _ProfileDialogState {
         key: ValueKey('scope-click-${angularUnit.name}-$_scopePickToken'),
         info: ProfileFieldInfo.clickValue,
         label: 'Klik değeri',
+        hint: 'Seçiniz',
         initialValue: options.any((o) => o.$1 == current) ? current : null,
         errorText: _showErrors ? _clickError : null,
         items: [
+          const DropdownMenuItem<double>(child: Text('Seçiniz')),
           for (final (v, name) in options)
             DropdownMenuItem(value: v, child: Text(name)),
         ],
@@ -443,6 +435,7 @@ extension _ScopeSection on _ProfileDialogState {
             hint: 'Seçiniz',
             initialValue: brand,
             items: [
+              const DropdownMenuItem<String>(child: Text('Seçiniz')),
               for (final b in brands)
                 DropdownMenuItem(value: b, child: Text(b)),
               if (_showScopeListedeYok)
@@ -490,6 +483,7 @@ extension _ScopeSection on _ProfileDialogState {
             // never smaller).
             wrapSelected: true,
             items: [
+              const DropdownMenuItem<String>(child: Text('Seçiniz')),
               for (final m in models)
                 DropdownMenuItem(
                   value: m,
@@ -498,6 +492,13 @@ extension _ScopeSection on _ProfileDialogState {
             ],
             onChanged: (v) => _update(() {
               _scopeModelKey = v;
+              if (v == null) {
+                // Back on "Seçiniz": no model, no reticle.
+                _scopeRecord = null;
+                scopeReticle = null;
+                _scopePickToken++;
+                return;
+              }
               final choices = _scopeReticleChoices;
               final group = _scopeGroup;
               if (group.isEmpty) return;
@@ -568,6 +569,166 @@ extension _ScopeSection on _ProfileDialogState {
     ),
   );
 
+  /// Odak düzlemi of a typed scope (or of a list record that lacks it).
+  Widget _scopeFocalSelect() => KeyedSubtree(
+    key: const Key('scope-focal-plane'),
+    child: MenzilSelect<bool>(
+      key: ValueKey('scope-focal-plane-$_scopePickToken'),
+      info: ProfileFieldInfo.focalPlane,
+      label: 'Odak düzlemi',
+      hint: 'Seçiniz',
+      initialValue: firstFocalPlane,
+      items: const [
+        DropdownMenuItem<bool>(child: Text('Seçiniz')),
+        DropdownMenuItem(value: true, child: Text('FFP')),
+        DropdownMenuItem(value: false, child: Text('SFP')),
+      ],
+      onChanged: (v) => _update(() => firstFocalPlane = v),
+    ),
+  );
+
+  /// Dürbün birimi of a typed scope (or of a list record that lacks it).
+  Widget _scopeUnitSelect() => KeyedSubtree(
+    key: const Key('scope-unit'),
+    child: MenzilSelect<AngularUnit>(
+      key: ValueKey(
+        'profile-angular-unit-${angularUnit.name}'
+        '${_scopePickToken == 0 ? '' : '-$_scopePickToken'}',
+      ),
+      info: ProfileFieldInfo.scopeUnit,
+      label: 'Dürbün birimi',
+      hint: 'Seçiniz',
+      initialValue: _angularUnitSet ? angularUnit : null,
+      items: const [
+        DropdownMenuItem<AngularUnit>(child: Text('Seçiniz')),
+        DropdownMenuItem(value: AngularUnit.mrad, child: Text('MRAD')),
+        DropdownMenuItem(value: AngularUnit.moa, child: Text('MOA')),
+        // "1/4 IN @ 100 YDS" turrets (owner, 2026-10-09).
+        DropdownMenuItem(value: AngularUnit.smoa, child: Text('SMOA')),
+      ],
+      onChanged: (v) => _update(() {
+        _angularUnitSet = v != null;
+        final next = v ?? AngularUnit.mrad;
+        // A catalog scope's click follows the unit (0.1 MRAD,
+        // 1/4 MOA; owner, 2026-10-09).
+        if (_scopeManual) {
+          // A typed scope picks its Klik değeri from the new unit's
+          // list; one that does not fit (or no unit) is cleared.
+          final click = _parse(scopeClick);
+          if (v == null || !_clickOptions(next).any((o) => o.$1 == click)) {
+            scopeClick.clear();
+          }
+        } else if (next != angularUnit) {
+          scopeClick.text = _trimNum(_defaultClick(next));
+        }
+        angularUnit = next;
+      }),
+    ),
+  );
+
+  /// Dürbün ayağı: MOA only, 0–60 in 5 MOA steps and 90 (owner,
+  /// 2026-10-16), each with its ready click gain.
+  Widget _scopeMountSelect() => KeyedSubtree(
+    key: const Key('scope-mount'),
+    child: MenzilSelect<double>(
+      // Rebuilt when the click value/unit changes so every
+      // choice shows its ready click gain.
+      key: ValueKey('scope-mount-cant-${angularUnit.name}-${scopeClick.text}'),
+      info: ProfileFieldInfo.mountCant,
+      label: 'Dürbün ayağı',
+      hint: 'Seçiniz',
+      initialValue: _mountCantSet ? mountCant : null,
+      // Closed box: just "0 MOA" / "30 MOA"; the list keeps
+      // "Normal" and the click gain.
+      selectedLabels: [
+        'Seçiniz',
+        for (final moa in ProductionLimits.mountCantOptionsMoa)
+          '${_trimNum(moa)} MOA',
+      ],
+      items: [
+        const DropdownMenuItem<double>(child: Text('Seçiniz')),
+        for (final moa in ProductionLimits.mountCantOptionsMoa)
+          DropdownMenuItem(
+            value: moa,
+            child: Text(
+              _mountLabel(moa),
+              key: Key('scope-mount-cant-${_trimNum(moa)}'),
+            ),
+          ),
+      ],
+      onChanged: (v) => _update(() {
+        _mountCantSet = v != null;
+        mountCant = v ?? 0;
+      }),
+    ),
+  );
+
+  /// Retikül: a list scope offers its model's reticles; a typed scope
+  /// every reticle name of the catalog that fits its Dürbün birimi and the
+  /// plain patterns (owner, 2026-10-16). Every list starts with "Seçiniz".
+  Widget _scopeReticleSelect() {
+    final choices = _scopeManual
+        ? const <(String, ScopeOptic)>[]
+        : _scopeReticleChoices;
+    if (choices.isNotEmpty) {
+      return MenzilSelect<String>(
+        key: ValueKey('scope-reticle-$_scopePickToken-$_scopeModelKey'),
+        info: ProfileFieldInfo.reticle,
+        label: 'Retikül',
+        hint: 'Seçiniz',
+        initialValue: choices.any((e) => e.$1 == scopeReticle)
+            ? scopeReticle
+            : null,
+        items: [
+          const DropdownMenuItem<String>(child: Text('Seçiniz')),
+          for (final (r, _) in choices)
+            DropdownMenuItem(value: r, child: Text(r)),
+        ],
+        onChanged: (v) => _update(() {
+          final hit = choices.where((e) => e.$1 == v).firstOrNull;
+          if (hit != null) {
+            _applyScope(hit.$2, reticle: hit.$1);
+          } else {
+            scopeReticle = null;
+          }
+        }),
+      );
+    }
+    final List<String> names;
+    if (_scopeTyped) {
+      names = _typedReticleNames(
+        angularUnit,
+        unitSet: _angularUnitSet,
+        keep: scopeReticle,
+      );
+    } else {
+      // A list scope whose maker names no reticle: only the plain patterns
+      // of its unit (owner, 2026-10-11: a MRAD scope listed MOA too); a
+      // saved name stays offered.
+      final plain = [
+        for (final n in _typedReticleNames(angularUnit, unitSet: true))
+          if (Reticles.genericNames.contains(n)) n,
+      ];
+      final saved = scopeReticle;
+      names = [
+        if (saved != null && !plain.contains(saved)) saved,
+        ...plain,
+      ];
+    }
+    return MenzilSelect<String>(
+      key: ValueKey('scope-reticle-$_scopePickToken'),
+      info: ProfileFieldInfo.reticle,
+      label: 'Retikül',
+      hint: 'Seçiniz',
+      initialValue: names.contains(scopeReticle) ? scopeReticle : null,
+      items: [
+        const DropdownMenuItem<String>(child: Text('Seçiniz')),
+        for (final n in names) DropdownMenuItem(value: n, child: Text(n)),
+      ],
+      onChanged: (v) => _update(() => scopeReticle = v),
+    );
+  }
+
   /// "Dürbün" heading and card.
   List<Widget> _scopeSection(MenzilColors c) => [
     const MenzilSectionHeader(
@@ -587,8 +748,13 @@ extension _ScopeSection on _ProfileDialogState {
           // Owner, 2026-10-11: Marka, then the models of that brand,
           // then only that model's reticles.
           ..._scopeNameFields(),
-          // Owner, 2026-10-11: picked from standard values, not
-          // typed; Minimum | Maksimum side by side.
+          // Typed scope (owner, 2026-10-16 22:14–22:49), two per row:
+          // Dürbün birimi | Odak düzlemi, Minimum | Maksimum büyütme,
+          // Mercek çapı | Klik değeri, Üst kule klik sayısı | Dürbün ayağı,
+          // Retikül. A list scope shows only the boxes its record lacks,
+          // in the same order.
+          if (_scopeUnitShown) _scopeUnitSelect(),
+          if (_scopeFocalShown) _scopeFocalSelect(),
           if (_scopeMinMagShown)
             _numberSelect(
               key: 'scope-min-mag',
@@ -619,64 +785,6 @@ extension _ScopeSection on _ProfileDialogState {
               suffix: ' mm',
               errorText: _shownSelect(_objectiveError),
             ),
-          if (_scopeFocalShown)
-            KeyedSubtree(
-              key: const Key('scope-focal-plane'),
-              child: MenzilSelect<bool>(
-                key: ValueKey('scope-focal-plane-$_scopePickToken'),
-                info: ProfileFieldInfo.focalPlane,
-                label: 'Odak düzlemi',
-                initialValue: firstFocalPlane,
-                items: const [
-                  DropdownMenuItem(value: true, child: Text('FFP')),
-                  DropdownMenuItem(value: false, child: Text('SFP')),
-                ],
-                onChanged: (v) => _update(() => firstFocalPlane = v),
-              ),
-            ),
-          if (_scopeUnitShown)
-            KeyedSubtree(
-              key: const Key('scope-unit'),
-              child: MenzilSelect<AngularUnit>(
-                key: ValueKey(
-                  'profile-angular-unit-${angularUnit.name}'
-                  '${_scopePickToken == 0 ? '' : '-$_scopePickToken'}',
-                ),
-                info: ProfileFieldInfo.scopeUnit,
-                label: 'Dürbün birimi',
-                initialValue: _angularUnitSet ? angularUnit : null,
-                items: const [
-                  DropdownMenuItem(
-                    value: AngularUnit.mrad,
-                    child: Text('MRAD'),
-                  ),
-                  DropdownMenuItem(value: AngularUnit.moa, child: Text('MOA')),
-                  // "1/4 IN @ 100 YDS" turrets (owner, 2026-10-09).
-                  DropdownMenuItem(
-                    value: AngularUnit.smoa,
-                    child: Text('SMOA'),
-                  ),
-                ],
-                onChanged: (v) => _update(() {
-                  _angularUnitSet = v != null;
-                  final next = v ?? AngularUnit.mrad;
-                  // A catalog scope's click follows the unit (0.1 MRAD,
-                  // 1/4 MOA; owner, 2026-10-09).
-                  if (_scopeManual) {
-                    // A typed scope picks its Klik değeri from the
-                    // new unit's list; one that does not fit is cleared.
-                    final click = _parse(scopeClick);
-                    if (!_clickOptions(next).any((o) => o.$1 == click)) {
-                      scopeClick.clear();
-                    }
-                  } else if (next != angularUnit) {
-                    scopeClick.text = _trimNum(_defaultClick(next));
-                  }
-                  angularUnit = next;
-                }),
-              ),
-            ),
-          // Typed scope: Dürbün birimi | Klik değeri side by side.
           if (_scopeTyped) _clickSelect(),
           // Üst kule klik sayısı | Dürbün ayağı, Dürbün ayağı on the right
           // (owner, 2026-10-15).
@@ -689,93 +797,11 @@ extension _ScopeSection on _ProfileDialogState {
             onChanged: (_) => _update(() {}),
             errorText: _travelError(scopeTravelElevation),
           ),
-          KeyedSubtree(
-            key: const Key('scope-mount'),
-            child: MenzilSelect<double>(
-              // Rebuilt when the click value/unit changes so every
-              // choice shows its ready click gain.
-              key: ValueKey(
-                'scope-mount-cant-${angularUnit.name}-${scopeClick.text}',
-              ),
-              info: ProfileFieldInfo.mountCant,
-              label: 'Dürbün ayağı',
-              initialValue: _mountCantSet ? mountCant : null,
-              // Closed box: just "0 MOA" / "30 MOA"; the list keeps
-              // "Normal" and the click gain.
-              selectedLabels: [
-                for (final moa in ProductionLimits.mountCantOptionsMoa)
-                  '${_trimNum(moa)} MOA',
-              ],
-              items: [
-                for (final moa in ProductionLimits.mountCantOptionsMoa)
-                  DropdownMenuItem(
-                    value: moa,
-                    child: Text(
-                      _mountLabel(moa),
-                      key: Key('scope-mount-cant-${_trimNum(moa)}'),
-                    ),
-                  ),
-              ],
-              onChanged: (v) => _update(() {
-                _mountCantSet = v != null;
-                mountCant = v ?? 0;
-              }),
-            ),
-          ),
+          _scopeMountSelect(),
           MenzilFullWidth(
             child: KeyedSubtree(
               key: const Key('scope-reticle'),
-              child: Builder(
-                builder: (context) {
-                  final choices = _scopeManual
-                      ? const <(String, ScopeOptic)>[]
-                      : _scopeReticleChoices;
-                  if (choices.isNotEmpty) {
-                    return MenzilSelect<String>(
-                      key: ValueKey(
-                        'scope-reticle-$_scopePickToken-$_scopeModelKey',
-                      ),
-                      info: ProfileFieldInfo.reticle,
-                      label: 'Retikül',
-                      hint: 'Seçiniz',
-                      initialValue: choices.any((e) => e.$1 == scopeReticle)
-                          ? scopeReticle
-                          : null,
-                      items: [
-                        for (final (r, _) in choices)
-                          DropdownMenuItem(value: r, child: Text(r)),
-                      ],
-                      onChanged: (v) => _update(() {
-                        final hit = choices.where((e) => e.$1 == v).firstOrNull;
-                        if (hit != null) {
-                          _applyScope(hit.$2, reticle: hit.$1);
-                        }
-                      }),
-                    );
-                  }
-                  return MenzilSelect<String>(
-                    key: ValueKey('scope-reticle-$_scopePickToken'),
-                    info: ProfileFieldInfo.reticle,
-                    label: 'Retikül',
-                    initialValue: scopeReticle,
-                    items: [
-                      if (scopeReticle != null &&
-                          !Reticles.genericNames.contains(scopeReticle))
-                        DropdownMenuItem(
-                          value: scopeReticle,
-                          child: Text(scopeReticle!),
-                        ),
-                      // The manufacturer names no reticle: only the
-                      // plain patterns of the scope's unit (owner,
-                      // 2026-10-11: a MRAD scope listed MOA too).
-                      for (final n in Reticles.genericNames)
-                        if (_genericFitsUnit(n) || n == scopeReticle)
-                          DropdownMenuItem(value: n, child: Text(n)),
-                    ],
-                    onChanged: (v) => _update(() => scopeReticle = v),
-                  );
-                },
-              ),
+              child: _scopeReticleSelect(),
             ),
           ),
           MenzilFullWidth(

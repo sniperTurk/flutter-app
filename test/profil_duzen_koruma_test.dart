@@ -301,12 +301,13 @@ const _scopeFilterLayout = _scopeNewLayout;
 const _scopeEditLayout = _scopeNewLayout;
 
 /// The typed scope ("Aradığın dürbün listede yok mu?" / no list match),
-/// owner 2026-10-16: Marka | Model side by side, "Listeden seç" last.
+/// owner 2026-10-16: Marka | Model side by side, "Listeden seç" last; rows
+/// 2–4 in the order of 2026-10-16 22:14–22:49.
 const _scopeTypedLayout = [
   'Marka (yazılı) | Model (yazılı)',
+  'Dürbün birimi | Odak düzlemi',
   'Minimum büyütme | Maksimum büyütme',
-  'Mercek çapı | Odak düzlemi',
-  'Dürbün birimi | Klik değeri',
+  'Mercek çapı | Klik değeri',
   // Owner, 2026-10-15: Üst kule klik sayısı | Dürbün ayağı (ayak sağda).
   'Üst kule klik sayısı | Dürbün ayağı',
   'Retikül',
@@ -1149,19 +1150,31 @@ void main() {
     const mil = ['Christmas tree (MIL)', 'MIL çizgili', 'Mil-Dot', 'Duplex'];
     const moa = ['MOA çizgili', 'Duplex'];
 
+    // The plain patterns in the list (owner, 2026-10-16: the typed list
+    // also offers every catalog reticle name after them, and starts with
+    // a "Seçiniz" row).
+    List<String?> plain(WidgetTester tester) {
+      final r = _reticles(tester);
+      expect(r.first, isNull, reason: 'first row is Seçiniz');
+      return [
+        for (final n in r)
+          if (all.contains(n)) n,
+      ];
+    }
+
     testWidgets('Profil Oluştur: Seçiniz lists all 5; MRAD 4; MOA 2', (
       tester,
     ) async {
       await _openNew(tester);
       await openScopeManual(tester);
       expect(selectedValue<AngularUnit>(tester, 'scope-unit'), isNull);
-      expect(_reticles(tester), all);
+      expect(plain(tester), all);
       await chooseInSelect(tester, 'scope-unit', 'MRAD');
-      expect(_reticles(tester), mil);
+      expect(plain(tester), mil);
       await chooseInSelect(tester, 'scope-unit', 'MOA');
-      expect(_reticles(tester), moa);
+      expect(plain(tester), moa);
       await chooseInSelect(tester, 'scope-unit', 'SMOA');
-      expect(_reticles(tester), moa);
+      expect(plain(tester), moa);
     });
 
     testWidgets('Profili Düzenle: hidden MOA unit, box Seçiniz -> all 5', (
@@ -1179,11 +1192,11 @@ void main() {
       );
       await openScopeManual(tester);
       expect(selectedValue<AngularUnit>(tester, 'scope-unit'), isNull);
-      expect(_reticles(tester), all);
+      expect(plain(tester), all);
       await chooseInSelect(tester, 'scope-unit', 'MRAD');
-      expect(_reticles(tester), mil);
+      expect(plain(tester), mil);
       await chooseInSelect(tester, 'scope-unit', 'MOA');
-      expect(_reticles(tester), moa);
+      expect(plain(tester), moa);
     });
 
     testWidgets('a chosen reticle is never cleared by the unit', (
@@ -1197,7 +1210,7 @@ void main() {
         selectedValue<String>(tester, 'scope-reticle'),
         'Christmas tree (MIL)',
       );
-      expect(_reticles(tester), [
+      expect(plain(tester), [
         'Christmas tree (MIL)',
         'MOA çizgili',
         'Duplex',
@@ -1250,7 +1263,7 @@ void main() {
       ) async {
         await _openNewScaled(tester, width: 320, scale: scale);
         await openScopeManual(tester);
-        expect(_reticles(tester), all);
+        expect(plain(tester), all);
         await chooseInSelect(tester, 'scope-reticle', 'Duplex');
         expect(selectedValue<String>(tester, 'scope-reticle'), 'Duplex');
         expect(tester.takeException(), isNull);

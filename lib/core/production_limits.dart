@@ -12,15 +12,21 @@ abstract final class ProductionLimits {
 
   /// Dürbün ayağı choices in MOA (0 = normal mount). Picked from a list,
   /// never typed (owner, 2026-10-08), so a stored value is always one of
-  /// these.
+  /// these. 0–60 MOA in 5 MOA steps plus the earlier 90 (owner,
+  /// 2026-10-16 22:14–22:49; MOA only, no MRAD mounts).
   static const List<double> mountCantOptionsMoa = [
     0,
+    5,
     10,
     15,
     20,
+    25,
     30,
+    35,
     40,
     45,
+    50,
+    55,
     60,
     90,
   ];

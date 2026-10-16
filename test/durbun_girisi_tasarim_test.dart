@@ -7,9 +7,10 @@
 // yok mu?"; the filters are in their place (closed, "Seçiniz") before a
 // Marka is chosen.
 //
-// Typed: Dürbün markası, Dürbün modeli | Minimum, Maksimum büyütme | Mercek
-// çapı, Odak düzlemi | Dürbün birimi, Klik değeri | Üst kule klik sayısı,
-// Dürbün ayağı | Retikül | "Dürbün: Marka Model …" | "Listeden seç".
+// Typed (owner, 2026-10-16 22:14–22:49): Dürbün markası, Dürbün modeli |
+// Dürbün birimi, Odak düzlemi | Minimum, Maksimum büyütme | Mercek çapı,
+// Klik değeri | Üst kule klik sayısı, Dürbün ayağı | Retikül | "Dürbün:
+// Marka Model …" | "Listeden seç".
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -309,9 +310,9 @@ void main() {
 
     List<List<Finder>> typedRows() => [
       [_k('scope-brand'), _k('scope-model')],
+      [_k('scope-unit'), _k('scope-focal-plane')],
       [_k('scope-min-mag'), _k('scope-max-mag')],
-      [_k('scope-objective'), _k('scope-focal-plane')],
-      [_k('scope-unit'), _k('scope-click')],
+      [_k('scope-objective'), _k('scope-click')],
       [_k('scope-travel-elevation'), _k('scope-mount')],
       [_k('scope-reticle')],
       [_k('scope-designation')],
@@ -549,9 +550,9 @@ void main() {
         await enterRifleField(tester, 'scope-model', 'X5 Pro');
         final typedOrder = [
           'scope-brand',
+          'scope-unit',
           'scope-min-mag',
           'scope-objective',
-          'scope-unit',
           'scope-travel-elevation',
           'scope-reticle',
           'scope-designation',
