@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:sniper_turk/features/tools/garmin_pair_tile.dart';
+import 'package:sniper_turk/features/ballistics/garmin_pair_tile.dart';
 import 'package:sniper_turk/features/tools/tools_screen.dart';
 import 'package:sniper_turk/services/watch/watch_bridge.dart';
 import 'package:sniper_turk/ui/menzil_theme.dart';
@@ -187,9 +187,7 @@ void main() {
       expect(find.textContaining('1 saat seçili'), findsOneWidget);
     });
 
-    testWidgets('uses the Araçlar tile look: white icon on grey-blue', (
-      tester,
-    ) async {
+    testWidgets('keeps the tile look: white icon on grey-blue', (tester) async {
       await tester.pumpWidget(_host(GarminPairTile(link: _FakeGarmin(1))));
       await tester.pumpAndSettle();
       final tile = tester.widget<MenzilToolTile>(find.byType(MenzilToolTile));
@@ -216,6 +214,43 @@ void main() {
       expect(find.textContaining('Saat seçilmedi'), findsNothing);
     });
 
+    testWidgets('ⓘ and "isteğe bağlı" on the title line; ⓘ does not pair', (
+      tester,
+    ) async {
+      final g = _FakeGarmin(1);
+      // The app's dark theme: secondary text is #9CB1C0.
+      await tester.pumpWidget(
+        MaterialApp(
+          theme: MenzilTheme.dark(),
+          home: Scaffold(body: GarminPairTile(link: g)),
+        ),
+      );
+      await tester.pumpAndSettle();
+      final title = tester.getRect(find.text('Garmin saati'));
+      final info = tester.getRect(find.byKey(const Key('pro-info-garmin')));
+      final optional = tester.getRect(
+        find.byKey(const Key('pro-garmin-optional')),
+      );
+      // Garmin saati, then ⓘ, then "isteğe bağlı" on the right, one line.
+      expect(info.left, greaterThanOrEqualTo(title.right - 0.5));
+      expect(optional.left, greaterThanOrEqualTo(info.right - 0.5));
+      // "isteğe bağlı" ends at the right end of the title line, just
+      // before the chevron (ListTile's 16 pt gap).
+      final chevron = tester.getRect(find.byIcon(Icons.chevron_right));
+      expect(chevron.left - optional.right, inInclusiveRange(0, 24));
+      expect((info.center.dy - title.center.dy).abs(), lessThan(12));
+      final text = tester.widget<Text>(
+        find.byKey(const Key('pro-garmin-optional')),
+      );
+      expect(text.data, 'isteğe bağlı');
+      expect(text.style?.color, const Color(0xFF9CB1C0));
+      expect(text.textAlign, TextAlign.end);
+      await tester.tap(find.byKey(const Key('pro-info-garmin')));
+      await tester.pumpAndSettle();
+      expect(g.selects, 0);
+      expect(find.byKey(const Key('pro-info-sheet')), findsOneWidget);
+    });
+
     testWidgets('Araçlar without the bridge has no Garmin tile', (
       tester,
     ) async {
@@ -225,6 +260,21 @@ void main() {
       await tester.pumpWidget(_host(const ToolsScreen()));
       await tester.pumpAndSettle();
       expect(find.byKey(const Key('tool-garmin')), findsNothing);
+      expect(find.byKey(const Key('tool-usage-guide')), findsOneWidget);
+    });
+
+    testWidgets('Araçlar with the bridge has no Garmin tile either', (
+      tester,
+    ) async {
+      tester.view.physicalSize = const Size(430, 2400);
+      tester.view.devicePixelRatio = 1.0;
+      addTearDown(tester.view.reset);
+      GarminLink.instance = _FakeGarmin(1);
+      addTearDown(() => GarminLink.instance = GarminLink());
+      await tester.pumpWidget(_host(const ToolsScreen()));
+      await tester.pumpAndSettle();
+      expect(find.byKey(const Key('tool-garmin')), findsNothing);
+      expect(find.text('Garmin saati'), findsNothing);
       expect(find.byKey(const Key('tool-usage-guide')), findsOneWidget);
     });
   });
