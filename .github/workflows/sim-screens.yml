@@ -16,6 +16,10 @@ on:
         description: 'Integration test that prints SIMSCREEN:<name> markers'
         required: false
         default: 'integration_test/sim_screens_test.dart'
+      device:
+        description: 'iPhone model to use, e.g. "iPhone 16e" (390 pt wide); empty = newest Pro'
+        required: false
+        default: ''
   # Manual only since 2026-10-11 (no pull_request trigger): it holds a scarce
   # macOS runner for 15+ minutes and must never queue ahead of TestFlight.
 
@@ -58,12 +62,17 @@ jobs:
       - name: Boot an iPhone Simulator
         id: sim
         shell: bash
+        env:
+          SIM_DEVICE: ${{ github.event.inputs.device || '' }}
         run: |
           set -euo pipefail
-          # Newest iOS runtime, an iPhone (not an iPad), Pro model preferred.
+          # Newest iOS runtime, an iPhone (not an iPad), Pro model preferred;
+          # with the device input, that iPhone model (created on the newest
+          # runtime when the runner has no such device yet).
           UDID="$(xcrun simctl list devices available -j | python3 -c '
-          import json, re, sys
+          import json, os, re, sys
           data = json.load(sys.stdin)["devices"]
+          want = os.environ.get("SIM_DEVICE", "").strip()
           best = None
           for runtime, devices in data.items():
               m = re.search(r"iOS-(\d+)-(\d+)", runtime)
@@ -74,14 +83,42 @@ jobs:
                   name = d.get("name", "")
                   if not d.get("isAvailable") or not name.startswith("iPhone"):
                       continue
+                  if want and name != want:
+                      continue
                   score = (version, "Pro" in name and "Max" not in name, name)
                   if best is None or score > best[0]:
                       best = (score, d["udid"], name, runtime)
           if best is None:
+              if want:
+                  print("")
+                  sys.exit(0)
               sys.exit("no available iPhone simulator")
           print(best[1])
           print(f"{best[2]} / {best[3]}", file=sys.stderr)
           ')"
+          if [[ -z "$UDID" ]]; then
+            RUNTIME="$(xcrun simctl list runtimes available -j | python3 -c '
+          import json, sys
+          rs = [r for r in json.load(sys.stdin)["runtimes"]
+                if r.get("platform") == "iOS" and r.get("isAvailable")]
+          if not rs:
+              sys.exit("no available iOS runtime")
+          rs.sort(key=lambda r: [int(x) for x in r["version"].split(".")])
+          print(rs[-1]["identifier"])
+          ')"
+            TYPE="$(xcrun simctl list devicetypes -j | python3 -c '
+          import json, os, sys
+          want = os.environ["SIM_DEVICE"].strip()
+          for t in json.load(sys.stdin)["devicetypes"]:
+              if t.get("name") == want:
+                  print(t["identifier"])
+                  break
+          else:
+              sys.exit(f"no device type named {want}")
+          ')"
+            UDID="$(xcrun simctl create "$SIM_DEVICE" "$TYPE" "$RUNTIME")"
+            echo "created $SIM_DEVICE on $RUNTIME" >&2
+          fi
           echo "udid=$UDID" >> "$GITHUB_OUTPUT"
           xcrun simctl boot "$UDID"
           xcrun simctl bootstatus "$UDID" -b

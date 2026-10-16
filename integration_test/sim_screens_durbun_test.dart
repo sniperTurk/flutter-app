@@ -1,6 +1,8 @@
 // Screenshot tour of Profil Oluştur / Profili Düzenle -> Dürbün (owner,
 // 2026-10-16): the list path (Marka, filters, Model, Retikül) and the typed
-// path (Dürbün markası | Dürbün modeli ...), saved and opened again. Same
+// path (Dürbün markası | Dürbün modeli, Dürbün birimi | Odak düzlemi ...),
+// both empty ("Seçiniz") and filled, the opened Minimum büyütme, Dürbün
+// ayağı and Retikül lists, saved and opened again. Same
 // mechanics as sim_screens_test.dart: `SIMSCREEN:<name>` markers are
 // photographed by .github/workflows/sim-screens.yml (test input).
 import 'dart:math' as math;
@@ -195,6 +197,17 @@ void main() {
       await shot('${name}_alt');
     }
 
+    /// An opened list, photographed, then closed without a pick.
+    Future<void> listShot(String key, String name) async {
+      await tester.ensureVisible(find.byKey(Key(key)));
+      await settle();
+      await tester.tap(find.byKey(Key(key)));
+      await settle();
+      await shot(name);
+      await tester.tapAt(const Offset(4, 4));
+      await settle();
+    }
+
     Future<void> rifleAmmoShot() async {
       // A typed PCP rifle and slug, as in the other tours.
       await choose('profile-platform', 'PCP Tüfek');
@@ -252,17 +265,25 @@ void main() {
       await settle();
       await rifleAmmoShot();
       await tapNotListed('scope-not-listed');
+      FocusManager.instance.primaryFocus?.unfocus();
       await scopeCard('durbun_elle_bos');
+      // Minimum büyütme opened: 8 rows, scroll bar inside (owner,
+      // 2026-10-16).
+      await listShot('scope-min-mag', 'liste_minimum_buyutme');
       await type('scope-brand', 'Benim Optik');
       await type('scope-model', 'X5 Pro');
+      FocusManager.instance.primaryFocus?.unfocus();
+      await choose('scope-unit', 'MRAD');
+      await choose('scope-focal-plane', 'FFP');
       await choose('scope-min-mag', '5x');
       await choose('scope-max-mag', '25x');
       await choose('scope-objective', '56 mm');
-      await choose('scope-focal-plane', 'FFP');
-      await choose('scope-unit', 'MRAD');
       await choose('scope-click', '0,1 MRAD');
       await type('scope-travel-elevation', '200');
+      FocusManager.instance.primaryFocus?.unfocus();
+      await listShot('scope-mount', 'liste_durbun_ayagi');
       await choose('scope-mount', 'Normal (0 MOA)');
+      await listShot('scope-reticle', 'liste_retikul');
       await choose('scope-reticle', 'Mil-Dot');
       FocusManager.instance.primaryFocus?.unfocus();
       await scopeCard('durbun_elle_dolu');
@@ -289,8 +310,10 @@ void main() {
       await tester.tap(find.text('Profil ekle'));
       await settle();
       expect(find.text('Profil Oluştur'), findsOneWidget);
-      await scopeCard('durbun_liste_marka_secilmedi');
       await rifleAmmoShot();
+      FocusManager.instance.primaryFocus?.unfocus();
+      // Every Dürbün box on "Seçiniz" before a Marka (owner, 2026-10-16).
+      await scopeCard('durbun_liste_bos');
       await choose('scope-brand-select', 'Element Optics');
       await choose('scope-filter-unit-Element Optics-null', 'MOA');
       await choose('scope-filter-ffp-Element Optics-null', 'FFP');
