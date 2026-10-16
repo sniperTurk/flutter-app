@@ -577,11 +577,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
           isDense: true,
           borderRadius: BorderRadius.circular(MenzilRadius.input),
           dropdownColor: c.surface,
-          icon: Icon(
-            Icons.expand_more,
-            color: c.ink2,
-            size: iconSize,
-          ),
+          icon: Icon(Icons.expand_more, color: c.ink2, size: iconSize),
           decoration: InputDecoration(
             filled: true,
             fillColor: c.surface,
