@@ -147,19 +147,33 @@ void main() {
       await tester.pumpAndSettle();
     }
 
-    testWidgets('firearm: next to Sıcaklık, on the same row; not on PCP', (
+    testWidgets('firearm: in its own section under Hava; not on PCP', (
       tester,
     ) async {
       await sized(tester);
       await environment(tester, _firearm());
       expect(find.byKey(_ammoKey), findsOneWidget);
-      expect(find.text('Mühimmat sıcaklığı'), findsOneWidget);
+      // Moved out of the Hava card (owner, 2026-10-16): the box label and
+      // the new section title.
+      expect(
+        find.descendant(
+          of: find.byKey(_ammoKey),
+          matching: find.text('Mühimmat sıcaklığı'),
+        ),
+        findsOneWidget,
+      );
+      expect(
+        find.descendant(
+          of: find.byKey(const Key('environment-ammo-temp-card')),
+          matching: find.byKey(_ammoKey),
+        ),
+        findsOneWidget,
+      );
       final air = tester.getTopLeft(
         find.byKey(BallisticsFieldKeys.temperature),
       );
       final ammo = tester.getTopLeft(find.byKey(_ammoKey));
-      expect(ammo.dy, air.dy);
-      expect(ammo.dx, greaterThan(air.dx));
+      expect(ammo.dy, greaterThan(air.dy));
       final field = tester.widget<TextField>(
         find.descendant(
           of: find.byKey(_ammoKey),
