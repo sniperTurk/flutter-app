@@ -1814,11 +1814,7 @@ class MenzilSelectMenu<T> {
   }) async {
     if (items.isEmpty || _route != null || _opening) return null;
     _opening = true;
-    try {
-      await _closeKeyboard(context);
-    } finally {
-      _opening = false;
-    }
+    await _closeKeyboard(context).whenComplete(() => _opening = false);
     if (!context.mounted) return null;
     if (_route != null) return null;
     final navigator = Navigator.of(context);

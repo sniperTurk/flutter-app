@@ -491,8 +491,12 @@ void main() {
         await tester.tap(find.byKey(const Key('top-bar-profile-button')));
         await tester.pumpAndSettle();
         expect(tester.takeException(), isNull);
-        final ra = find.text(a);
-        final rb = find.text(b);
+        Finder inList(String id, String text) => find.descendant(
+          of: find.byKey(ValueKey(('top-bar-profile-item', id))),
+          matching: find.text(text),
+        );
+        final ra = inList('pa', a);
+        final rb = inList('pb', b);
         expect(ra, findsOneWidget);
         expect(rb, findsOneWidget);
         // Full names, wrapped, never cut with "…".
