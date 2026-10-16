@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="tr"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Hedef önce</title>
+<style>
+:root{
+  --bg:#0B1620;--surface:#122330;--surface2:#1B3245;--ink:#E7EFF3;--ink2:#9CB1C0;
+  --line:#27425A;--amber:#F5B031;--onAmber:#1B1200;--cyan:#4CC3E8;--cyanSoft:#12384A;
+  --danger:#FF8A80;--doneFill:#1F5F7A;--doneBorder:#2E7FA0;
+  --font:-apple-system,"SF Pro Text",Inter,system-ui,sans-serif;
+  --fontD:-apple-system,"SF Pro Display","Inter Display",Inter,system-ui,sans-serif;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);font-family:var(--font);
+  -webkit-font-smoothing:antialiased;text-align:left}
+.phone{position:relative;width:100vw;height:100vh;display:flex;flex-direction:column;overflow:hidden;background:var(--bg)}
+.status{flex:none;height:47px;display:flex;align-items:center;justify-content:space-between;padding:6px 30px 0 46px;font-weight:600;font-size:16px}
+.status .island{width:124px;height:36px;border-radius:20px;background:#000}
+.status .icons{display:flex;gap:6px;align-items:center}
+.small .status{height:20px;padding:0 8px;font-size:12px}
+.small .status .island{display:none}
+.topbar{flex:none;height:59px;border-bottom:1px solid var(--line);display:flex;align-items:center;padding:0 14px;background:var(--bg);position:relative;z-index:5}
+.topbar .slot{flex:none;overflow:hidden;white-space:nowrap}
+.topbar .ttl{font-family:var(--fontD);font-size:18px;font-weight:700;line-height:1.1}
+.topbar .brand{font-family:var(--fontD);font-size:20px;font-weight:700}
+.topbar .pslot{flex:1;display:flex;justify-content:flex-end;min-width:0;margin-left:10px}
+.pill{display:inline-flex;align-items:center;height:44px;max-width:100%;border:1px solid var(--line);border-radius:999px;
+  background:var(--surface);padding:0 10px 0 18px;min-width:0}
+.pill .n{font-size:15px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:24px;flex:0 1 auto}
+.pill .cal{font-size:14px;color:var(--ink2);white-space:nowrap;margin-left:8px;flex:none}
+.pill svg{flex:none;margin-left:10px}
+.content{flex:1;min-height:0;overflow:hidden;padding:10px 14px 20px;position:relative}
+.nav{flex:none;background:var(--surface);border-top:1px solid var(--line);padding-bottom:34px;position:relative;z-index:5}
+.small .nav{padding-bottom:0}
+.nav .row{display:flex}
+.nav .it{flex:1;min-height:56px;position:relative;display:flex;flex-direction:column;align-items:center;padding:9px 2px 8px;color:var(--ink2)}
+.nav .it.on{color:var(--ink)}
+.nav .it.on::before{content:"";position:absolute;top:0;left:22%;right:22%;height:3px;background:var(--amber);border-radius:0 0 3px 3px}
+.nav .lbl{font-size:11.5px;font-weight:600;margin-top:3px;white-space:nowrap}
+.nav .home{position:absolute;bottom:8px;left:50%;transform:translateX(-50%);width:134px;height:5px;border-radius:3px;background:var(--ink)}
+.small .nav .home{display:none}
+.h18{font-family:var(--font);font-size:18px;font-weight:700;line-height:1.1;margin:4px 0 8px;display:flex;align-items:center;min-height:22px}
+.h22{font-family:var(--fontD);font-size:22px;font-weight:700;line-height:1.1}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:14px;margin-bottom:10px}
+.grid{display:grid;grid-template-columns:1fr 1fr;column-gap:10px}
+.field{margin-bottom:10px;min-width:0}
+.field .l{font-size:12.5px;line-height:1.25;margin-bottom:5px;white-space:nowrap;overflow:hidden}
+.box{height:44px;border:1px solid var(--line);border-radius:10px;background:var(--bg);display:flex;align-items:center;padding-left:12px}
+.box .v{flex:1;font-size:15px;font-weight:400;white-space:nowrap;overflow:hidden}
+.box .v.ph{color:var(--ink2)}
+.box .u{font-size:13px;font-weight:500;color:var(--ink2);flex:none}
+.box .u.pad{margin-right:12px}
+.ib{width:44px;height:44px;display:inline-flex;align-items:center;justify-content:center;flex:none;color:var(--ink2)}
+.h18 .ib{margin-left:0}
+.btn2{height:46px;border:1px solid var(--line);border-radius:12px;display:flex;align-items:center;justify-content:center;
+  font-size:15px;font-weight:400;color:var(--ink);padding:0 8px;white-space:nowrap;overflow:hidden}
+.btn2.b{font-weight:700}
+.btn2.done{background:var(--doneFill);border-color:var(--doneBorder);color:#fff}
+.btn1{height:46px;border-radius:12px;background:var(--ink);color:var(--bg);display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700}
+.btnA{height:46px;border-radius:12px;background:var(--amber);color:var(--onAmber);display:inline-flex;align-items:center;justify-content:center;
+  font-size:15px;font-weight:700;padding:0 16px;white-space:nowrap}
+.cap{font-size:12.5px;line-height:1.35;color:var(--ink2)}
+.body{font-size:15px;line-height:1.35;font-weight:500}
+.row2{display:grid;grid-template-columns:1fr 1fr;column-gap:10px;align-items:end}
+.date{font-size:12.5px;color:var(--ink2);white-space:nowrap;align-self:center}
+/* change markers for the mockups only: a dashed outline marks what changed */
+.chg{outline:2px dashed var(--cyan);outline-offset:3px;border-radius:12px}
+.gone{outline:2px dashed var(--danger);outline-offset:3px;border-radius:12px}
+.tag{position:absolute;z-index:20;font:600 11px/1.2 var(--font);background:var(--cyan);color:#062130;padding:3px 6px;border-radius:6px;white-space:nowrap}
+.tag.red{background:var(--danger);color:#2a0b08}
+.fit{white-space:nowrap}
+.temiz .chg,.temiz .gone{outline:none}.temiz .tag{display:none}</style></head>
+<body><div class="phone"><div class="status"><span>9:41</span><span class="island"></span><span class="icons"><svg width="18" height="12" viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx="1"/><rect x="5" y="5" width="3" height="7" rx="1"/><rect x="10" y="2.5" width="3" height="9.5" rx="1"/><rect x="15" y="0" width="3" height="12" rx="1"/></svg><svg width="25" height="12" viewBox="0 0 25 12" fill="none" stroke="currentColor"><rect x="0.5" y="0.5" width="21" height="11" rx="3"/><rect x="2" y="2" width="15" height="8" rx="1.6" fill="currentColor" stroke="none"/><path d="M23.5 4v4"/></svg></span></div><header class="topbar"><div class="slot"><span class="ttl">Hedef</span></div><div class="pslot"><div class="pill" id="pill"><span class="n">Ateşli 308</span><span class="cal">7,82 mm</span><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--ink2)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 9.5l5 5 5-5"/></svg></div></div></header>
+<main class="content" style="text-align:justify"><div style="display:flex;align-items:center"><div style="width:50px;height:54px;flex:none;border:1px solid var(--line);border-radius:12px;background:var(--surface);display:flex;align-items:center;justify-content:center;font-size:19px;font-weight:600;color:var(--ink2)">−5</div><div style="width:6px"></div><div style="width:44px;height:54px;flex:none;border:1px solid var(--line);border-radius:12px;background:var(--surface);display:flex;align-items:center;justify-content:center;font-size:19px;font-weight:500;color:var(--ink2)">−1</div><div class="fit" style="flex:1;min-width:0;height:64px;display:flex;align-items:baseline;justify-content:center;padding-top:6px"><span style="font-family:var(--fontD);font-size:52px;font-weight:700;letter-spacing:-0.5px;font-variant-numeric:tabular-nums;line-height:1">300</span><span style="width:4px"></span><span style="font-size:18px;font-weight:500;color:var(--ink2)">m</span></div><div style="width:44px;height:54px;flex:none;border:1px solid var(--line);border-radius:12px;background:var(--surface);display:flex;align-items:center;justify-content:center;font-size:19px;font-weight:500;color:var(--ink2)">+1</div><div style="width:6px"></div><div style="width:50px;height:54px;flex:none;border:1px solid var(--line);border-radius:12px;background:var(--surface);display:flex;align-items:center;justify-content:center;font-size:19px;font-weight:600;color:var(--ink2)">+5</div></div><div style="height:48px;display:flex;align-items:center;padding:0 12px;position:relative"><div style="flex:1;height:6px;border-radius:3px;background:var(--surface2);position:relative"><div style="position:absolute;left:0;top:0;bottom:0;width:30%;background:var(--ink);border-radius:3px"></div><div style="position:absolute;left:30%;top:50%;width:24px;height:24px;margin:-12px 0 0 -12px;border-radius:50%;background:var(--ink)"></div></div></div><div class="gone" style="position:relative;display:grid;grid-template-columns:1fr 1fr;column-gap:12px;margin-top:6px"><span class="tag red" style="right:0;top:-18px">Kaldırılıyor (#330 satırı)</span><div style="border-left:3px solid var(--amber);padding:2px 0 2px 12px;min-width:0"><div style="font-size:12.5px;line-height:1.25;color:var(--ink2)">Üst kule</div><div class="fit" style="font-family:var(--fontD);font-size:34px;font-weight:700;line-height:1.1;letter-spacing:-0.5px;font-variant-numeric:tabular-nums">39 klik</div><div style="font-size:12.5px;line-height:1.25;color:var(--ink2)">3,9 MRAD yukarı</div></div><div style="border-left:3px solid var(--cyan);padding:2px 0 2px 12px;min-width:0"><div style="font-size:12.5px;line-height:1.25;color:var(--ink2)">Yan kule</div><div class="fit" style="font-family:var(--fontD);font-size:34px;font-weight:700;line-height:1.1;letter-spacing:-0.5px;font-variant-numeric:tabular-nums">4 klik</div><div style="font-size:12.5px;line-height:1.25;color:var(--ink2)">0,4 MRAD sağ</div></div></div><div style="height:14px"></div><div class="card" id="scopecard" style="padding:14px;margin-bottom:0">
+<div style="height:84px;display:flex;align-items:center">
+ <div style="width:52px;flex:none"></div>
+ <div style="flex:1;min-width:0;display:flex;align-items:center;height:78px">
+   <svg class="chev" width="28" height="78" viewBox="0 0 28 78"><path d="M17 31l-8 8 8 8" fill="none" stroke="#0F2230" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/><path d="M17 31l-8 8 8 8" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+   <div style="width:4px"></div><svg id="drum" style="flex:1;height:78px;min-width:0"></svg><div style="width:4px"></div>
+   <svg class="chev" width="28" height="78" viewBox="0 0 28 78"><path d="M11 31l8 8-8 8" fill="none" stroke="#0F2230" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/><path d="M11 31l8 8-8 8" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+ </div>
+ <div style="width:4px"></div>
+ <div style="width:48px;height:48px;flex:none;border-radius:50%;border:1px solid var(--line);background:var(--surface);display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700">L-R</div>
+</div>
+<div style="height:6px"></div>
+<div style="display:flex;justify-content:center"><svg id="scope"></svg></div>
+<div style="display:flex;align-items:center;height:48px"><span style="font-size:15px;color:var(--ink2);font-weight:500">Büyütme</span>
+ <div style="flex:1;height:6px;border-radius:3px;background:var(--surface2);margin:0 22px;position:relative"><div style="position:absolute;left:0;top:0;bottom:0;width:40%;background:var(--ink);border-radius:3px"></div>
+ <div style="position:absolute;left:40%;top:50%;width:24px;height:24px;margin:-12px 0 0 -12px;border-radius:50%;background:var(--ink)"></div></div>
+ <span style="width:52px;text-align:right;font-size:16px;font-weight:500">10x</span></div>
+<div style="height:8px"></div>
+<div style="display:grid;grid-template-columns:1fr 1fr;column-gap:8px"><div class="btn2 done">Çözüm kulelere kuruldu</div><div class="btn2">Kuleleri sıfırla</div></div>
+<div style="height:10px"></div>
+<div class="body" style="font-variant-numeric:tabular-nums;text-align:justify">Kule: 39 klik yukarı (3,9 MRAD) · 4 klik sağ (0,4 MRAD)</div>
+</div></main><nav class="nav"><div class="row"><div class="it"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21V10C9 7 10.2 4.5 12 3C13.8 4.5 15 7 15 10V21"/><path d="M9 21H15M9 14H15"/></svg><span class="lbl">Profil</span></div><div class="it"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9H14A3 3 0 1 0 11 6"/><path d="M3 14H18A3 3 0 1 1 15 17"/><path d="M3 19H10"/></svg><span class="lbl">Hava Durumu</span></div><div class="it"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20H21M3 20L17 5"/><path d="M8.47 14.15A8 8 0 0 1 11 20"/><circle cx="19" cy="11.5" r="1.6"/></svg><span class="lbl">Pro</span></div><div class="it on"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="7"/><path d="M12 2V7M12 17V22M2 12H7M17 12H22"/></svg><span class="lbl">Hedef</span></div><div class="it"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7H13M17 7H20M4 17H7M11 17H20"/><circle cx="15" cy="7" r="2.2"/><circle cx="9" cy="17" r="2.2"/></svg><span class="lbl">Araçlar</span></div></div><div class="home"></div></nav></div>
+<script>if(location.hash==='#temiz')document.documentElement.classList.add('temiz');// Schematic redraw of the Hedef scope (scope_reticle.dart) and the top
+// turret drum (scope_turrets.dart, _DrumPainter) for the mockups. The scope
+// field uses the light palette with scopeBgDim, as in the app's dark theme.
+window.afterLayout = function () {
+  const NS = 'http://www.w3.org/2000/svg';
+  const L = { bg: '#E9EDF0', ink: '#0F2230', danger: '#B3261E', amberInk: '#7A4A00', cyanInk: '#09617F',
+    ok: '#1F7A4D', face: '#F2D400', ring: '#8A9096', ringSoft: '#C9CED3', impact: '#0A84FF' };
+  const D = { surface2: '#1B3245', line: '#27425A', ink: '#E7EFF3', ink2: '#9CB1C0', danger: '#FF8A80' };
+  const el = (tag, attrs, parent) => {
+    const e = document.createElementNS(NS, tag);
+    for (const k in attrs) e.setAttribute(k, attrs[k]);
+    if (parent) parent.appendChild(e);
+    return e;
+  };
+  const text = (p, s, x, y, size, fill, opts = {}) => {
+    const t = el('text', { x, y, 'font-size': size, fill, 'font-weight': opts.w || 600,
+      'text-anchor': opts.anchor || 'middle', 'dominant-baseline': 'central',
+      'font-family': getComputedStyle(document.body).fontFamily, 'font-variant-numeric': 'tabular-nums' }, p);
+    if (opts.halo) { t.setAttribute('stroke', opts.halo); t.setAttribute('stroke-width', 3); t.setAttribute('paint-order', 'stroke'); }
+    t.textContent = s;
+    return t;
+  };
+
+  // ---- Top drum: 39 clicks of 0.1 MRAD dialled.
+  const drum = document.getElementById('drum');
+  const w = drum.getBoundingClientRect().width, h = 78;
+  drum.setAttribute('viewBox', `0 0 ${w} ${h}`);
+  const defs = el('defs', {}, drum);
+  const g = el('linearGradient', { id: 'dg', x1: 0, x2: 1, y1: 0, y2: 0 }, defs);
+  el('stop', { offset: 0, 'stop-color': D.surface2 }, g);
+  el('stop', { offset: 0.5, 'stop-color': D.line }, g);
+  el('stop', { offset: 1, 'stop-color': D.surface2 }, g);
+  el('clipPath', { id: 'dc' }, defs).appendChild(el('rect', { width: w, height: h, rx: 10 }));
+  el('rect', { width: w, height: h, rx: 10, fill: 'url(#dg)' }, drum);
+  const clip = el('g', { 'clip-path': 'url(#dc)' }, drum);
+  const clicks = 39, ppc = 9, mid = w / 2, major = 10;
+  for (let v = clicks - 30; v <= clicks + 30; v++) {
+    const p = mid - (v - clicks) * ppc;
+    const isMaj = v % major === 0;
+    const len = isMaj ? h * 0.30 : h * 0.16;
+    el('line', { x1: p, x2: p, y1: h, y2: h - len, stroke: D.ink, 'stroke-width': 1.2 }, clip);
+    if (isMaj) text(clip, `${Math.abs(v / 10)}${v === 0 ? '' : v > 0 ? 'U' : 'D'}`, p, h * 0.40, 15, D.ink);
+  }
+  text(drum, '← U   MRAD   D →', mid, 10, 10, D.ink2);
+  el('path', { d: `M${mid - 7} ${h}L${mid + 7} ${h}L${mid} ${h - 11}Z`, fill: D.danger }, drum);
+
+  // ---- Scope.
+  const svg = document.getElementById('scope');
+  const card = document.getElementById('scopecard');
+  const inner = card.clientWidth - 28;
+  const side = Math.max(200, Math.min(inner, Math.max(240, window.innerHeight * 0.56)));
+  svg.setAttribute('width', side); svg.setAttribute('height', side);
+  svg.setAttribute('viewBox', `0 0 ${side} ${side}`);
+  const c = side / 2, r = side / 2 - 2;
+  const halfField = 6, scale = r / halfField; // ±6 MRAD visible
+  const sdefs = el('defs', {}, svg);
+  el('clipPath', { id: 'sc' }, sdefs).appendChild(el('circle', { cx: c, cy: c, r }));
+  el('circle', { cx: c, cy: c, r, fill: L.bg }, svg);
+  const s = el('g', { 'clip-path': 'url(#sc)' }, svg);
+  // Target paper around the point of impact (dialled = solution: centre).
+  const tr = 0.75 * scale;
+  el('circle', { cx: c, cy: c, r: tr, fill: L.ringSoft }, s);
+  el('circle', { cx: c, cy: c, r: tr * 0.66, fill: L.face }, s);
+  el('circle', { cx: c, cy: c, r: tr * 0.33, fill: L.ringSoft }, s);
+  for (const f of [1, 0.66, 0.33]) el('circle', { cx: c, cy: c, r: tr * f, fill: 'none', stroke: L.ring, 'stroke-width': 1 }, s);
+  const halo = 'rgba(233,237,240,.85)';
+  const line = (x1, y1, x2, y2, wd) => {
+    el('line', { x1, y1, x2, y2, stroke: halo, 'stroke-width': wd + 2.4 }, s);
+    el('line', { x1, y1, x2, y2, stroke: L.ink, 'stroke-width': wd }, s);
+  };
+  const post = halfField * 0.82 * scale;
+  line(c - post, c, c + post, c, 1.4);
+  line(c, c - post, c, c + post, 1.4);
+  line(c + post, c, c + r, c, 7); line(c - post, c, c - r, c, 7);
+  line(c, c + post, c, c + r, 7); line(c, c - post, c, c - r, 7);
+  const dotR = Math.max(1.5, Math.min(side * 0.011, scale * 0.12));
+  for (let i = -4; i <= 4; i++) {
+    if (!i) continue;
+    for (const [x, y] of [[c + i * scale, c], [c, c + i * scale]]) {
+      el('circle', { cx: x, cy: y, r: dotR + 1.2, fill: halo }, s);
+      el('circle', { cx: x, cy: y, r: dotR, fill: L.ink }, s);
+    }
+  }
+  el('circle', { cx: c, cy: c, r: 2.5, fill: L.ok }, s);
+  el('circle', { cx: c, cy: c, r: 5, fill: L.impact }, s);
+  const holdFont = Math.max(10, side * 0.042);
+  const holds = { '-4': '120', '-3': '160', '-2': '205', '-1': '255', '1': '342', '2': '380', '3': '414', '4': '446' };
+  for (const k in holds) text(s, holds[k], c + dotR + 6, c + Number(k) * scale, holdFont, L.danger, { anchor: 'start', w: 500, halo });
+  const windFont = Math.max(9, side * 0.036);
+  for (const [i, v] of [[2, '4,4'], [4, '8,8']]) for (const sd of [-1, 1]) text(s, v, c + sd * i * scale, c - dotR - 11, windFont, L.amberInk, { w: 500, halo });
+  text(s, 'Hedef: 300 m', c - r * 0.48, c + r * 0.36, Math.max(11, side * 0.045), L.cyanInk);
+  text(s, 'aralık: 1 MRAD', c - r * 0.48, c + r * 0.50, Math.max(10, side * 0.036), L.cyanInk);
+  text(s, 'FFP · MRAD · 10x', c - r * 0.48, c - r * 0.50, Math.max(10, side * 0.038), L.cyanInk);
+  el('circle', { cx: c, cy: c, r, fill: 'none', stroke: L.ink, 'stroke-width': 2 }, svg);
+};
+</script>
+<script>
+(function(){
+  const ph=document.querySelector('.phone');
+  if(window.innerHeight<700) ph.classList.add('small');
+  // Title slot: the widest page title (18 pt bold) or the brand (20 pt bold),
+  // capped at 42 % of the bar (MenzilTopBar.titleSlotWidth).
+  const bar=document.querySelector('.topbar');
+  if(bar){
+    const cv=document.createElement('canvas').getContext('2d');
+    const fam=getComputedStyle(document.body).fontFamily;
+    let w=0;
+    for(const t of ['Hava Durumu','Pro Ayarlar','Hedef','Araçlar']){cv.font='700 18px '+fam;w=Math.max(w,cv.measureText(t).width);}
+    cv.font='700 20px '+fam;w=Math.max(w,cv.measureText('Sniper Türk').width);
+    const inner=bar.clientWidth-28;
+    w=Math.min(Math.ceil(w),inner*0.42);
+    bar.querySelector('.slot').style.width=w+'px';
+  }
+  // One line that shrinks (FittedBox scaleDown) instead of wrapping.
+  for(const el of document.querySelectorAll('.fit')){
+    const inner=document.createElement('span');
+    inner.style.cssText='display:inline-block;white-space:nowrap;transform-origin:left center';
+    while(el.firstChild) inner.appendChild(el.firstChild);
+    el.appendChild(inner);
+    const room=el.clientWidth-parseFloat(getComputedStyle(el).paddingLeft)-parseFloat(getComputedStyle(el).paddingRight);
+    const need=inner.getBoundingClientRect().width;
+    if(need>room){const k=room/need;inner.style.transform='scale('+k+')';
+      if(getComputedStyle(el).justifyContent==='center'){inner.style.transformOrigin='center';}}
+  }
+  if(window.afterLayout) window.afterLayout();
+})();
+</script>
+</body></html>

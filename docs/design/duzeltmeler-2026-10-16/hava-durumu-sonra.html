@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="tr"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Hava Durumu sonra</title>
+<style>
+:root{
+  --bg:#0B1620;--surface:#122330;--surface2:#1B3245;--ink:#E7EFF3;--ink2:#9CB1C0;
+  --line:#27425A;--amber:#F5B031;--onAmber:#1B1200;--cyan:#4CC3E8;--cyanSoft:#12384A;
+  --danger:#FF8A80;--doneFill:#1F5F7A;--doneBorder:#2E7FA0;
+  --font:-apple-system,"SF Pro Text",Inter,system-ui,sans-serif;
+  --fontD:-apple-system,"SF Pro Display","Inter Display",Inter,system-ui,sans-serif;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);font-family:var(--font);
+  -webkit-font-smoothing:antialiased;text-align:left}
+.phone{position:relative;width:100vw;height:100vh;display:flex;flex-direction:column;overflow:hidden;background:var(--bg)}
+.status{flex:none;height:47px;display:flex;align-items:center;justify-content:space-between;padding:6px 30px 0 46px;font-weight:600;font-size:16px}
+.status .island{width:124px;height:36px;border-radius:20px;background:#000}
+.status .icons{display:flex;gap:6px;align-items:center}
+.small .status{height:20px;padding:0 8px;font-size:12px}
+.small .status .island{display:none}
+.topbar{flex:none;height:59px;border-bottom:1px solid var(--line);display:flex;align-items:center;padding:0 14px;background:var(--bg);position:relative;z-index:5}
+.topbar .slot{flex:none;overflow:hidden;white-space:nowrap}
+.topbar .ttl{font-family:var(--fontD);font-size:18px;font-weight:700;line-height:1.1}
+.topbar .brand{font-family:var(--fontD);font-size:20px;font-weight:700}
+.topbar .pslot{flex:1;display:flex;justify-content:flex-end;min-width:0;margin-left:10px}
+.pill{display:inline-flex;align-items:center;height:44px;max-width:100%;border:1px solid var(--line);border-radius:999px;
+  background:var(--surface);padding:0 10px 0 18px;min-width:0}
+.pill .n{font-size:15px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:24px;flex:0 1 auto}
+.pill .cal{font-size:14px;color:var(--ink2);white-space:nowrap;margin-left:8px;flex:none}
+.pill svg{flex:none;margin-left:10px}
+.content{flex:1;min-height:0;overflow:hidden;padding:10px 14px 20px;position:relative}
+.nav{flex:none;background:var(--surface);border-top:1px solid var(--line);padding-bottom:34px;position:relative;z-index:5}
+.small .nav{padding-bottom:0}
+.nav .row{display:flex}
+.nav .it{flex:1;min-height:56px;position:relative;display:flex;flex-direction:column;align-items:center;padding:9px 2px 8px;color:var(--ink2)}
+.nav .it.on{color:var(--ink)}
+.nav .it.on::before{content:"";position:absolute;top:0;left:22%;right:22%;height:3px;background:var(--amber);border-radius:0 0 3px 3px}
+.nav .lbl{font-size:11.5px;font-weight:600;margin-top:3px;white-space:nowrap}
+.nav .home{position:absolute;bottom:8px;left:50%;transform:translateX(-50%);width:134px;height:5px;border-radius:3px;background:var(--ink)}
+.small .nav .home{display:none}
+.h18{font-family:var(--font);font-size:18px;font-weight:700;line-height:1.1;margin:4px 0 8px;display:flex;align-items:center;min-height:22px}
+.h22{font-family:var(--fontD);font-size:22px;font-weight:700;line-height:1.1}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:14px;margin-bottom:10px}
+.grid{display:grid;grid-template-columns:1fr 1fr;column-gap:10px}
+.field{margin-bottom:10px;min-width:0}
+.field .l{font-size:12.5px;line-height:1.25;margin-bottom:5px;white-space:nowrap;overflow:hidden}
+.box{height:44px;border:1px solid var(--line);border-radius:10px;background:var(--bg);display:flex;align-items:center;padding-left:12px}
+.box .v{flex:1;font-size:15px;font-weight:400;white-space:nowrap;overflow:hidden}
+.box .v.ph{color:var(--ink2)}
+.box .u{font-size:13px;font-weight:500;color:var(--ink2);flex:none}
+.box .u.pad{margin-right:12px}
+.ib{width:44px;height:44px;display:inline-flex;align-items:center;justify-content:center;flex:none;color:var(--ink2)}
+.h18 .ib{margin-left:0}
+.btn2{height:46px;border:1px solid var(--line);border-radius:12px;display:flex;align-items:center;justify-content:center;
+  font-size:15px;font-weight:400;color:var(--ink);padding:0 8px;white-space:nowrap;overflow:hidden}
+.btn2.b{font-weight:700}
+.btn2.done{background:var(--doneFill);border-color:var(--doneBorder);color:#fff}
+.btn1{height:46px;border-radius:12px;background:var(--ink);color:var(--bg);display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700}
+.btnA{height:46px;border-radius:12px;background:var(--amber);color:var(--onAmber);display:inline-flex;align-items:center;justify-content:center;
+  font-size:15px;font-weight:700;padding:0 16px;white-space:nowrap}
+.cap{font-size:12.5px;line-height:1.35;color:var(--ink2)}
+.body{font-size:15px;line-height:1.35;font-weight:500}
+.row2{display:grid;grid-template-columns:1fr 1fr;column-gap:10px;align-items:end}
+.date{font-size:12.5px;color:var(--ink2);white-space:nowrap;align-self:center}
+/* change markers for the mockups only: a dashed outline marks what changed */
+.chg{outline:2px dashed var(--cyan);outline-offset:3px;border-radius:12px}
+.gone{outline:2px dashed var(--danger);outline-offset:3px;border-radius:12px}
+.tag{position:absolute;z-index:20;font:600 11px/1.2 var(--font);background:var(--cyan);color:#062130;padding:3px 6px;border-radius:6px;white-space:nowrap}
+.tag.red{background:var(--danger);color:#2a0b08}
+.fit{white-space:nowrap}
+.temiz .chg,.temiz .gone{outline:none}.temiz .tag{display:none}</style></head>
+<body><div class="phone"><div class="status"><span>9:41</span><span class="island"></span><span class="icons"><svg width="18" height="12" viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx="1"/><rect x="5" y="5" width="3" height="7" rx="1"/><rect x="10" y="2.5" width="3" height="9.5" rx="1"/><rect x="15" y="0" width="3" height="12" rx="1"/></svg><svg width="25" height="12" viewBox="0 0 25 12" fill="none" stroke="currentColor"><rect x="0.5" y="0.5" width="21" height="11" rx="3"/><rect x="2" y="2" width="15" height="8" rx="1.6" fill="currentColor" stroke="none"/><path d="M23.5 4v4"/></svg></span></div><header class="topbar"><div class="slot"><span class="ttl">Hava Durumu</span></div><div class="pslot"><div class="pill" id="pill"><span class="n">Ateşli 308</span><span class="cal">7,82 mm</span><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--ink2)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 9.5l5 5 5-5"/></svg></div></div></header>
+<main class="content">
+<div class="h18">Hava</div>
+<div class="card"><div class="grid"><div class="field "><div class="l">Sıcaklık</div><div class="box"><span class="v">18</span><span class="u">°C</span><span class="ib "><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><line x1="12" y1="11" x2="12" y2="16.5"/><circle cx="12" cy="7.6" r="0.6" fill="currentColor"/></svg></span></div></div><div class="field "><div class="l">Bağıl nem</div><div class="box"><span class="v">55</span><span class="u">%</span><span class="ib "><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><line x1="12" y1="11" x2="12" y2="16.5"/><circle cx="12" cy="7.6" r="0.6" fill="currentColor"/></svg></span></div></div></div>
+<div class="btn2">Konumdan canlı hava verisi al</div>
+<div class="row2" style="margin-top:8px"><span class="date">16.10.2026</span><div class="btn2">Sıfırla</div></div></div>
+
+<div class="h18">Basınç Ölçer<span class="ib "><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><line x1="12" y1="11" x2="12" y2="16.5"/><circle cx="12" cy="7.6" r="0.6" fill="currentColor"/></svg></span></div>
+<div class="card"><div class="row2"><div class="field "><div class="l">İstasyon basıncı</div><div class="box"><span class="v">1013.2</span><span class="u pad">hPa</span></div></div><div class="btn2" style="margin-bottom:10px">Basınç al</div></div>
+<div class="row2" style="margin-top:8px"><span class="date">16.10.2026</span><div class="btn2">Sıfırla</div></div></div>
+<div class="h18">İrtifa<span class="ib "><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><line x1="12" y1="11" x2="12" y2="16.5"/><circle cx="12" cy="7.6" r="0.6" fill="currentColor"/></svg></span></div>
+<div class="card"><div class="row2"><div class="field "><div class="l">İrtifa</div><div class="box"><span class="v">120</span><span class="u pad">m</span></div></div><div class="btn2" style="margin-bottom:10px">İrtifa al</div></div>
+<div class="row2" style="margin-top:8px"><span class="date">16.10.2026</span><div class="btn2">Sıfırla</div></div></div>
+<div class="h18">Rüzgâr<span class="ib "><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><line x1="12" y1="11" x2="12" y2="16.5"/><circle cx="12" cy="7.6" r="0.6" fill="currentColor"/></svg></span></div>
+<div class="card" style="padding-bottom:4px"><div class="grid"><div class="field "><div class="l">Rüzgâr hızı</div><div class="box"><span class="v">3</span><span class="u">m/s</span><span class="ib "><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><line x1="12" y1="11" x2="12" y2="16.5"/><circle cx="12" cy="7.6" r="0.6" fill="currentColor"/></svg></span></div></div><div class="field "><div class="l">Rüzgâr yönü</div><div class="box"><span class="v">3</span><span class="u">saat</span><span class="ib "><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><line x1="12" y1="11" x2="12" y2="16.5"/><circle cx="12" cy="7.6" r="0.6" fill="currentColor"/></svg></span></div></div></div></div>
+</main><nav class="nav"><div class="row"><div class="it"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21V10C9 7 10.2 4.5 12 3C13.8 4.5 15 7 15 10V21"/><path d="M9 21H15M9 14H15"/></svg><span class="lbl">Profil</span></div><div class="it on"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9H14A3 3 0 1 0 11 6"/><path d="M3 14H18A3 3 0 1 1 15 17"/><path d="M3 19H10"/></svg><span class="lbl">Hava Durumu</span></div><div class="it"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20H21M3 20L17 5"/><path d="M8.47 14.15A8 8 0 0 1 11 20"/><circle cx="19" cy="11.5" r="1.6"/></svg><span class="lbl">Pro</span></div><div class="it"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="7"/><path d="M12 2V7M12 17V22M2 12H7M17 12H22"/></svg><span class="lbl">Hedef</span></div><div class="it"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7H13M17 7H20M4 17H7M11 17H20"/><circle cx="15" cy="7" r="2.2"/><circle cx="9" cy="17" r="2.2"/></svg><span class="lbl">Araçlar</span></div></div><div class="home"></div></nav></div>
+<script>if(location.hash==='#temiz')document.documentElement.classList.add('temiz');</script>
+<script>
+(function(){
+  const ph=document.querySelector('.phone');
+  if(window.innerHeight<700) ph.classList.add('small');
+  // Title slot: the widest page title (18 pt bold) or the brand (20 pt bold),
+  // capped at 42 % of the bar (MenzilTopBar.titleSlotWidth).
+  const bar=document.querySelector('.topbar');
+  if(bar){
+    const cv=document.createElement('canvas').getContext('2d');
+    const fam=getComputedStyle(document.body).fontFamily;
+    let w=0;
+    for(const t of ['Hava Durumu','Pro Ayarlar','Hedef','Araçlar']){cv.font='700 18px '+fam;w=Math.max(w,cv.measureText(t).width);}
+    cv.font='700 20px '+fam;w=Math.max(w,cv.measureText('Sniper Türk').width);
+    const inner=bar.clientWidth-28;
+    w=Math.min(Math.ceil(w),inner*0.42);
+    bar.querySelector('.slot').style.width=w+'px';
+  }
+  // One line that shrinks (FittedBox scaleDown) instead of wrapping.
+  for(const el of document.querySelectorAll('.fit')){
+    const inner=document.createElement('span');
+    inner.style.cssText='display:inline-block;white-space:nowrap;transform-origin:left center';
+    while(el.firstChild) inner.appendChild(el.firstChild);
+    el.appendChild(inner);
+    const room=el.clientWidth-parseFloat(getComputedStyle(el).paddingLeft)-parseFloat(getComputedStyle(el).paddingRight);
+    const need=inner.getBoundingClientRect().width;
+    if(need>room){const k=room/need;inner.style.transform='scale('+k+')';
+      if(getComputedStyle(el).justifyContent==='center'){inner.style.transformOrigin='center';}}
+  }
+  if(window.afterLayout) window.afterLayout();
+})();
+</script>
+</body></html>
