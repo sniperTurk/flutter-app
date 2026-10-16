@@ -371,19 +371,15 @@ void main() {
       skip: true, // DGM-1: guide says "Profil oluştur", page has another
     );
 
-    test(
-      'DGM-2: no unused oneLine + icon layout in MenzilPrimaryButton',
-      () {
-        final callers = _libDartFiles()
-            .where((f) => !f.path.endsWith('menzil_widgets.dart'))
-            .where((f) => f.readAsStringSync().contains('iconLead:'))
-            .map((f) => f.path)
-            .toList();
-        expect(callers, isEmpty);
-        final src = File('lib/ui/menzil_widgets.dart').readAsStringSync();
-        expect(src, isNot(contains('iconLead')));
-      },
-      skip: 'DGM-2: iconLead layout kept although no page uses it',
-    );
+    test('DGM-2: no unused oneLine + icon layout in MenzilPrimaryButton', () {
+      final callers = _libDartFiles()
+          .where((f) => !f.path.endsWith('menzil_widgets.dart'))
+          .where((f) => f.readAsStringSync().contains('iconLead:'))
+          .map((f) => f.path)
+          .toList();
+      expect(callers, isEmpty);
+      final src = File('lib/ui/menzil_widgets.dart').readAsStringSync();
+      expect(src, isNot(contains('iconLead')));
+    }, skip: 'DGM-2: iconLead layout kept although no page uses it');
   });
 }

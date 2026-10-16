@@ -591,8 +591,7 @@ void main() {
           );
           final ofBrand = [
             for (final x in BulletLibrary.all)
-              if (x.platform == WeaponPlatform.firearm && x.brand == b.brand)
-                x,
+              if (x.platform == WeaponPlatform.firearm && x.brand == b.brand) x,
           ];
           await _pumpList(tester);
           await _openNew(tester);

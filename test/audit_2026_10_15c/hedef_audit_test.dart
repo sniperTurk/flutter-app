@@ -410,8 +410,9 @@ void main() {
       expect((cell(row, wind) / 0.1).round(), 16);
     });
 
-    testWidgets('normal rows: nearest click, one decimal, direction words',
-        (tester) async {
+    testWidgets('normal rows: nearest click, one decimal, direction words', (
+      tester,
+    ) async {
       await _pumpRow(
         tester,
         up: 5.8948,
