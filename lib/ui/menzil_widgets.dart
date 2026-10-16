@@ -1058,7 +1058,7 @@ class _LabelWithInfo extends StatelessWidget {
             ),
     );
     // ⓘ sits on the right, vertically centred on the label text (owner,
-    // 2026-10-09). Its 44 pt touch area stays where it was, but the label
+    // 2026-10-09). Its touch area stays where it was, but the label
     // may run under the empty left part of it: only the icon and the
     // space right of it are kept free ([_reserve]), so a half-width label
     // such as "Maksimum büyütme" stays on one line at 390 pt (owner,
@@ -1088,9 +1088,9 @@ class _LabelWithInfo extends StatelessWidget {
     );
   }
 
-  /// Width kept free for the ⓘ: the 18 pt icon and the 13 pt between it
-  /// and the right edge of its 44 pt button.
-  static const double _reserve = 31;
+  /// Width kept free for the ⓘ: half of its 48 pt tap target, half of
+  /// the 18 pt icon and a 4 pt gap before the icon.
+  static const double _reserve = 48 / 2 + 18 / 2 + 4;
 }
 
 /// Text that drops its bold weight when it needs a second line (owner,

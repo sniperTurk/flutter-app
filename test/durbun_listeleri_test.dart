@@ -290,14 +290,27 @@ void main() {
         for (final i in _select<String>(tester, _k('scope-reticle')).items)
           i.value,
       ];
-      final names = <String>{
-        for (final s in _catalog) ...ReticleCatalog.options(s.reticle),
+      // Each name once whatever its letter case ("Center-X", "CENTER-X").
+      final byLower = <String, String>{};
+      for (final s in _catalog) {
+        for (final n in ReticleCatalog.options(s.reticle)) {
+          byLower.putIfAbsent(n.toLowerCase(), () => n);
+        }
+      }
+      final generic = {for (final g in Reticles.genericNames) g.toLowerCase()};
+      final names = {
+        for (final MapEntry(:key, :value) in byLower.entries)
+          if (!generic.contains(key)) value,
       };
       expect(names.length, greaterThan(20));
       // Dürbün birimi on "Seçiniz": everything.
       final all = items();
       expect(all.first, isNull);
-      expect(all.skip(1).toSet().length, all.length - 1, reason: 'each once');
+      expect(
+        {for (final n in all.skip(1)) n!.toLowerCase()}.length,
+        all.length - 1,
+        reason: 'each once',
+      );
       for (final n in names) {
         expect(all, contains(n), reason: n);
       }
@@ -622,13 +635,22 @@ void main() {
       );
       if (info.evaluate().isNotEmpty) {
         final box = tester.getRect(_k(key));
+        // Where it was before: the middle of its 48 pt tap target at the
+        // box's right edge.
         expect(
           tester.getCenter(info).dx,
-          closeTo(box.right - 22, 0.5),
+          closeTo(box.right - 24, 0.5),
           reason: key,
         );
-        // Its own text never runs under the icon.
-        expect(tester.getRect(text).right, lessThan(box.right - 31 + 0.5));
+        // The label never runs under the icon.
+        final icon = tester.getRect(
+          find.descendant(of: info, matching: find.byIcon(Icons.info_outline)),
+        );
+        expect(
+          tester.getRect(text).right,
+          lessThanOrEqualTo(icon.left - 2),
+          reason: key,
+        );
       }
     }
   });
@@ -637,42 +659,55 @@ void main() {
       '"Seçiniz", blocks saving, and is saved once picked again', (
     tester,
   ) async {
+    // A complete typed profile, saved through the screen.
+    final store = await _openNew(tester);
+    await fillScopeForm(tester, model: 'Z3', minMag: '5', maxMag: '25');
+    await chooseInSelect(tester, 'scope-reticle', 'Mil-Dot');
+    await fillRifleForm(tester);
+    await fillAmmoForm(tester);
+    await fillShotValues(tester);
+    final save = find.widgetWithText(MenzilPrimaryButton, 'Kaydet');
+    await tester.ensureVisible(save);
+    await tester.pumpAndSettle();
+    expect(
+      tester.widget<MenzilPrimaryButton>(save).onPressed,
+      isNotNull,
+      reason: _missingText(tester),
+    );
+    await tester.tap(save);
+    await tester.pumpAndSettle();
+    final first = (await store.all()).single;
+    // The same record as saved by an older version with a typed 1,3x
+    // (no list value any more).
+    final user = CatalogRepository.userCatalog;
+    final old = user.scopes.singleWhere((o) => o.id == first.scopeId);
+    expect(old.minMagnification, 5);
     CatalogRepository.installUserCatalog(
-      const UserCatalog(
+      UserCatalog(
+        rifles: user.rifles,
+        ammunition: user.ammunition,
         scopes: [
+          for (final o in user.scopes)
+            if (o.id != old.id) o,
           ScopeOptic(
-            id: 'user-scope-eski-deger',
-            brand: 'Eski Optik',
-            model: 'Z3 1,3-16x44 FFP',
-            objectiveDiameterMm: 44,
-            clickValue: 0.1,
-            clickUnit: AngularUnit.mrad,
+            id: old.id,
+            brand: old.brand,
+            model: 'Z3 1,3-25x56 FFP',
+            objectiveDiameterMm: old.objectiveDiameterMm,
+            clickValue: old.clickValue,
+            clickUnit: old.clickUnit,
             minMagnification: 1.3,
-            maxMagnification: 16,
-            firstFocalPlane: true,
-            reticle: 'Mil-Dot',
+            maxMagnification: old.maxMagnification,
+            firstFocalPlane: old.firstFocalPlane,
+            reticle: old.reticle,
+            elevationRangeMrad: old.elevationRangeMrad,
             userEntered: true,
           ),
         ],
       ),
     );
-    _view(tester);
-    final store = MemoryProfileStore();
-    await store.save(
-      const RifleProfile(
-        id: 'p-eski-deger',
-        name: 'Eski Değer',
-        rifleId: 'hatsan-hercules-635',
-        ammunitionId: 'gmaz-51',
-        scopeId: 'user-scope-eski-deger',
-        muzzleVelocityMps: 270,
-        zeroRangeM: 25,
-        sightHeightMm: 60,
-        pressureBar: 200,
-      ),
-    );
     await _pump(tester, store);
-    final row = find.text('Eski Değer').first;
+    final row = find.text(first.name).first;
     await tester.ensureVisible(row);
     await tester.tap(row);
     await tester.pumpAndSettle();
@@ -684,17 +719,18 @@ void main() {
       find.descendant(of: _k('scope-min-mag'), matching: find.text('Seçiniz')),
       findsOneWidget,
     );
-    expect(selectedValue<double>(tester, 'scope-max-mag'), 16);
-    expect(selectedValue<double>(tester, 'scope-objective'), 44);
+    expect(selectedValue<double>(tester, 'scope-max-mag'), 25);
+    expect(selectedValue<double>(tester, 'scope-objective'), 56);
     expect(selectedValue<double>(tester, 'scope-click'), 0.1);
     expect(selectedValue<String>(tester, 'scope-reticle'), 'Mil-Dot');
-    expect(_missingText(tester), contains('Min. büyütme'));
+    expect(_missingText(tester), contains('Dürbün: Min. büyütme'));
     final button = find.widgetWithText(MenzilPrimaryButton, 'Güncelle');
     await tester.ensureVisible(button);
+    await tester.pumpAndSettle();
     expect(tester.widget<MenzilPrimaryButton>(button).onPressed, isNull);
 
     await chooseInSelect(tester, 'scope-min-mag', '1x');
-    expect(_missingText(tester), isNot(contains('Min. büyütme')));
+    expect(_missingText(tester), isNot(contains('Dürbün:')));
     await tester.ensureVisible(button);
     await tester.pumpAndSettle();
     expect(
@@ -709,7 +745,7 @@ void main() {
       (o) => o.id == saved.scopeId,
     );
     expect(scope.minMagnification, 1);
-    expect(scope.maxMagnification, 16);
+    expect(scope.maxMagnification, 25);
     expect(scope.reticle, 'Mil-Dot');
     expect(tester.takeException(), isNull);
   });
