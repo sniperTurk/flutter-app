@@ -381,32 +381,21 @@ void main() {
   });
 
   group('Hava Durumu', () {
-    testWidgets('"Hava" over the top card, "Hava özeti" over the summary', (
-      tester,
-    ) async {
+    testWidgets('no "Hava" title over the top card (owner, 2026-10-16); '
+        '"Hava özeti" over the summary', (tester) async {
       await _size(tester, const Size(430, 3000));
       await _show(tester, BallisticsView.environment, rig: _Rig());
-      final hava = find.byKey(const Key('environment-weather-header'));
+      // The top card title "Hava" is deleted: the top bar already says
+      // "Hava Durumu".
+      expect(find.byKey(const Key('environment-weather-header')), findsNothing);
       final ozet = find.byKey(const Key('environment-summary-header'));
-      expect(
-        find.descendant(of: hava, matching: find.text('Hava')),
-        findsOneWidget,
-      );
       expect(
         find.descendant(of: ozet, matching: find.text('Hava özeti')),
         findsOneWidget,
       );
       // Same size as Basınç Ölçer / İrtifa / Rüzgâr (18).
-      expect(tester.widget<MenzilSectionHeader>(hava).size, 18);
       expect(tester.widget<MenzilSectionHeader>(ozet).size, 18);
-      // "Hava" sits above the Sıcaklık box; the summary card under its title
-      // no longer repeats "Hava".
-      expect(
-        tester.getRect(hava).bottom,
-        lessThanOrEqualTo(
-          tester.getRect(find.byKey(BallisticsFieldKeys.temperature)).top,
-        ),
-      );
+      // The summary card under its title does not repeat "Hava".
       final card = find.byKey(const Key('environment-summary-card'));
       expect(
         tester.getRect(ozet).bottom,
@@ -416,7 +405,8 @@ void main() {
         find.descendant(of: card, matching: find.text('Hava')),
         findsNothing,
       );
-      expect(find.text('Hava'), findsOneWidget);
+      // No section title or text reads just "Hava" on the page.
+      expect(find.text('Hava'), findsNothing);
     });
 
     testWidgets('no icons in buttons; only "Hava verisi alındı" keeps ✓', (

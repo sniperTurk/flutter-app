@@ -186,14 +186,10 @@ extension _HavaDurumuView on _BallisticsScreenState {
     );
 
     return [
-      // Top card title "Hava" (owner, 2026-10-15), the same size as the
-      // Basınç Ölçer / İrtifa / Rüzgâr titles.
-      const MenzilSectionHeader(
-        'Hava',
-        key: Key('environment-weather-header'),
-        size: 18,
-        padding: EdgeInsets.only(top: MenzilSpace.xxs, bottom: MenzilSpace.sm),
-      ),
+      // No "Hava" title over the top card (owner, 2026-10-16 21:10: the top
+      // bar already says "Hava Durumu"). The card is the page's first child,
+      // MenzilPage's top padding (MenzilSpace.md, 10 pt) under the top bar,
+      // like the first card on Pro Ayarlar.
       MenzilCard(
         padding: const EdgeInsets.fromLTRB(
           MenzilSpace.lg,
