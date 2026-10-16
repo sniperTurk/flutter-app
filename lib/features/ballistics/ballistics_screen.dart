@@ -53,6 +53,7 @@ import '../profiles/profile_field_info.dart';
 import 'environment_field_info.dart';
 import 'fetch_date_text.dart';
 import 'flight_warnings.dart';
+import 'garmin_pair_tile.dart';
 import 'incline_measure_screen.dart';
 import 'pro_info_sheet.dart';
 import 'pro_section_info.dart';

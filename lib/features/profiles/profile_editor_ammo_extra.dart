@@ -181,6 +181,7 @@ extension _AmmoExtraSection on _ProfileDialogState {
               : ProfileFieldInfo.bandSpeed,
           controller: ammoBandFps[i],
           label: '${i + 1}. eşik hızı',
+          unit: 'fps',
           onChanged: (_) => _update(() {}),
           errorText: _shown(_bandFpsError(i), ammoBandFps[i]),
         ),

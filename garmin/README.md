@@ -1,21 +1,28 @@
-# Garmin Connect IQ prototipi (DERLENMEDİ)
+# Garmin Connect IQ saat uygulaması
 
 Telefondaki Atış çözümünü Garmin saatte gösteren Connect IQ "watch-app"
 (Monkey C). Balistik hesap yapmaz; yalnızca telefonun gönderdiğini gösterir.
 Saatten mesafe değiştirme isteği gönderir (yukarı/aşağı tuşları, Başlat).
 
-## Neden derlenmedi
+## Derleme ve simülatör durumu (2026-10-12)
 
-Connect IQ SDK yalnızca SDK Manager ile indirilir ve resmi sayfa şöyle der:
-"By downloading any of the following SDKs, you accept our license agreement."
-(https://developer.garmin.com/connect-iq/sdk/). İndirmek lisansı kabul etmek
-demektir; bu oturumda lisans kabul edilmedi, Garmin hesabı açılmadı. Bu
-yüzden kod hiç derlenmedi ve simülatörde çalıştırılmadı. Derleme hataları
-olabilir; ilk derlemede düzeltilmesi beklenir.
+Sahibin Windows bilgisayarında Connect IQ SDK 9.2.0 ile derlendi ve
+simülatörde fenix7'de çalıştırıldı (`tools/build-windows.ps1 -Device fenix7`,
+ardından `monkeydo build\sniperturk.prg fenix7`):
 
-Repo'daki tek otomatik kontrol `tools/test_garmin_project_contract.py`:
-manifest izinleri, uygulama kimliği biçimi, mesaj şeması alanları ve yazı
-kuralları (kalın yazı tipi yok). Monkey C sözdizimini doğrulamaz.
+- `main` (af936fd): derleme başarılı; simülatörün Phone App Message
+  özelliğiyle gönderilen örnek mesaj (aşağıda 6. madde) ekranda doğru
+  göründü, "Veri eski" uyarısı kalktı.
+- `feat/garmin-phone`: derleme başarılı; iPhone köprüsünün gönderdiği biçim
+  (`"ok":1`) kabul edildi, ekran yeni değerlerle güncellendi.
+
+Denenmedi: gerçek saat; yukarı/aşağı tuşlarıyla telefona giden mesafe
+isteği (simülatörde karşı tarafta telefon yok); manifest'teki diğer cihazlar.
+
+CI'da Connect IQ SDK yok; repo'daki otomatik kontrol yalnızca
+`tools/test_garmin_project_contract.py` (manifest izinleri, uygulama kimliği
+biçimi, mesaj şeması alanları, yazı kuralları). Monkey C sözdizimini
+doğrulamaz; saat kodu değişince Windows'ta yeniden derlenmelidir.
 
 ## Sahibinin yapması gerekenler
 
@@ -36,19 +43,33 @@ kuralları (kalın yazı tipi yok). Monkey C sözdizimini doğrulamaz.
    yuvarlak ekranlı hedef cihazlar seçildi, liste örnektir.
 8. Mağaza: Connect IQ Store'a yükleme sahibinin Garmin hesabıyla yapılır.
 
-## Telefon tarafı (henüz yazılmadı)
+## Telefon tarafı (iPhone köprüsü, isteğe bağlı)
 
-iPhone'dan Garmin'e veri, Garmin'in iOS "Connect IQ Mobile SDK"sı ile gider
-(https://developer.garmin.com/connect-iq/core-topics/mobile-sdk-for-ios/ —
-sayfa metni bu oturumda alınamadı, adımlar SDK belgesinden doğrulanmalı):
+iPhone'dan Garmin'e veri Garmin'in Connect IQ Mobile SDK'sı ile gider
+(Swift paketi https://github.com/garmin/connectiq-companion-app-sdk-ios,
+sabit commit; SDK'yı indirmek Garmin lisansını kabul etmektir).
 
-- Telefonda Garmin Connect Mobile uygulaması kurulu olmalı.
-- SDK bir iOS framework'üdür; Runner'a eklenir (bu, iOS imzalamasını ve
-  TestFlight denetimlerini etkiler; ayrı PR).
-- Cihaz seçimi Garmin Connect Mobile'a yönlendirilerek yapılır (URL şeması;
-  Info.plist'e sorgu şeması eklenir).
-- Uygulama, `manifest.xml`'deki kimlikle (`4dde1aef12b64a15b5a6209c2c5944b0`)
-  bulunur ve aynı şema v1 sözlüğü gönderilir.
-- Dart tarafı değişmez: `feat/apple-watch` dalındaki `WatchBridge` aynı
-  `sniper_turk/watch` kanalına yazar; iOS köprüsü mesajı hem WatchConnectivity'ye
-  hem Connect IQ'ya iletecek şekilde genişletilir.
+- `ios_runner/SniperTurkGarminBridge.{h,m}`: `sniper_turk/garmin` kanalı.
+  `publish(map)` bağlı saatlere gönderir, `selectDevice` Garmin Connect'i
+  açar, saatten gelen `setRange` Dart'a `fromWatch` olarak iletilir.
+- Dart: `WatchBridge` çözümü hem Apple Watch hem Garmin kanalına yollar
+  (`MultiWatchTransport`). Araçlar'daki "Garmin saati" satırı yalnızca
+  köprülü derlemede görünür; saati Garmin Connect'te seçtirir.
+- İskelete yalnızca `tools/configure_ios_garmin_bridge.py` + `.rb` ile,
+  elle tetiklenen `.github/workflows/garmin-sim.yml` içinde eklenir
+  (Info.plist: `sniperturk-ciq` adresi, `gcm-ciq` sorgusu, Bluetooth
+  açıklaması; `-ObjC`). TestFlight derlemesi bu köprüyü içermez.
+- Telefonda Garmin Connect uygulaması kurulu olmalı; saat bir kez Garmin
+  Connect üzerinden seçilir, liste telefonda saklanır.
+- Connect IQ SDK'sı tembel başlar: Bluetooth izni yalnızca saklı bir saat
+  listesi varsa, "Garmin saati" satırına dokunulunca veya Garmin Connect
+  uygulamayı geri açınca sorulur. Garmin kullanmayan hiç sorulmaz.
+- Garmin Connect dönüşü uygulama kapalıyken de (soğuk açılış, UIScene veya
+  klasik iskelet) işlenir. Seçili saat sayısı `sniper_turk/garmin/devices`
+  olay kanalıyla Araçlar'daki satıra hemen yansır. Yalnızca "Garmin saati"
+  satırına dokunduktan sonraki 15 dakika içinde gelen dönüş kabul edilir;
+  başka bir uygulamanın açtığı `sniperturk-ciq://` adresi saat listesini
+  değiştirmez.
+- `publish` YES: çözüm en az bir bağlı saate gönderilmek üzere verildi
+  (ulaştı demek değil). Mesaj geçicidir (`isTransient`), saatte birikmez;
+  `ok` saate 1/0 sayı olarak gider.

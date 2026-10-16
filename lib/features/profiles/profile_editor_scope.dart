@@ -371,6 +371,7 @@ extension _ScopeSection on _ProfileDialogState {
     _angularUnitSet = true; // the catalog scope tells its unit
     final series = ScopePickerScreen.seriesOf(_scopeModelOf(s));
     _scopeRecord = s;
+    _scopeOwn = s;
     scopeBrand.text = series.isEmpty ? s.brand : '${s.brand} $series';
     // A value the record lacks is emptied (not kept from an earlier model)
     // and its box is shown for the user to fill.

@@ -285,6 +285,30 @@ class _TurretDrumState extends State<_TurretDrum> {
   static const double minTap = 44;
   double _carry = 0;
 
+  /// The value last handed to [onChanged] that the parent has not built
+  /// yet. Two drag updates may arrive before a rebuild; the click sound
+  /// counts against this value so it never clicks for a step twice.
+  int? _sent;
+
+  @override
+  void initState() {
+    super.initState();
+    // Loaded before the first click so it is not late (owner, 2026-10-15
+    // 23:30: klik sesi).
+    TurretClickSound.instance.preload();
+  }
+
+  @override
+  void didUpdateWidget(covariant _TurretDrum old) {
+    super.didUpdateWidget(old);
+    _sent = null;
+  }
+
+  /// Every user step (arrow tap, drum drag, VoiceOver adjust) comes here;
+  /// programmatic moves ("Kuleleri kur", "Kuleleri sıfırla", auto-set,
+  /// profile change) reach the drum through [clicks] and never do. One
+  /// click sound per click step actually turned (owner, 2026-10-15 23:30
+  /// and 23:31); at the travel limit the turret stops and so do the clicks.
   void _set(int value) {
     final v = value
         .clamp(
@@ -292,7 +316,14 @@ class _TurretDrumState extends State<_TurretDrum> {
           widget.maxClicks,
         )
         .toInt();
-    if (v != widget.clicks) widget.onChanged(v);
+    final shown = _sent ?? widget.clicks;
+    for (var i = (v - shown).abs(); i > 0; i--) {
+      TurretClickSound.instance.click();
+    }
+    if (v != shown) {
+      _sent = v;
+      widget.onChanged(v);
+    }
   }
 
   void _drag(double delta) {
