@@ -60,8 +60,11 @@ void main() {
       await settle();
       counter++;
       debugPrint('SIMSCREEN:${counter.toString().padLeft(2, '0')}_$name');
+      // Hold the frame while the workflow saves the Simulator screen. The
+      // marker reaches the workflow's log a few seconds late, so the hold
+      // is longer than sim_screens_test.dart's 4 s.
       await tester.runAsync(
-        () => Future<void>.delayed(const Duration(seconds: 4)),
+        () => Future<void>.delayed(const Duration(seconds: 15)),
       );
     }
 
