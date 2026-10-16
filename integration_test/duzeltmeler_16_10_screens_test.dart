@@ -2,16 +2,15 @@
 // 2026-10-16 20:06, design PR #366; item 5 changed 20:07), for the report
 // docs/reports/duzeltmeler_16_10.md: Profil (Profil ekle), the top-bar
 // profile list (open, long and short active name), Hava Durumu, Pro >
-// Tüfek düzeltmeleri (Mühimmat sıcaklığı) and Hedef, at 390×844 and
-// 320×568 pt, plus an opened standard select (Profil Oluştur > Kalibre) to
+// Tüfek düzeltmeleri (Mühimmat sıcaklığı) and Hedef, 390 and 320 pt
+// wide, plus an opened standard select (Profil Oluştur > Kalibre) to
 // compare the profile list with.
 //
 // Run by .github/workflows/sim-screens.yml with
 //   test=integration_test/duzeltmeler_16_10_screens_test.dart
-// The app is laid out at the requested size inside the Simulator window
-// (tester.view overrides; top-left corner of the screenshot), with the
-// iPhone's safe-area insets for that size. The test prints the measured
-// rectangles as SIMRECT lines for the report.
+// The app is laid out at the requested width by changing the pixel ratio
+// of the Simulator window (the height follows the window). The test
+// prints the measured rectangles as SIMRECT lines for the report.
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
@@ -158,15 +157,19 @@ void main() {
     app.main();
     await wait(3);
 
-    for (final (w, h, top, bottom) in const [
-      (390.0, 844.0, 47.0, 34.0),
-      (320.0, 568.0, 20.0, 0.0),
-    ]) {
+    // The Simulator's own window (physical pixels) is kept: a different
+    // physical size makes the engine drop every frame (first try,
+    // 2026-10-16). Only the pixel ratio changes, so the app is laid out
+    // [w] pt wide and fills the screen; the height follows the window.
+    final physical = tester.view.physicalSize;
+    for (final w in const [390.0, 320.0]) {
       final size = '${w.toInt()}';
-      tester.view.devicePixelRatio = 3;
-      tester.view.physicalSize = Size(w, h) * 3;
-      tester.view.padding = FakeViewPadding(top: top * 3, bottom: bottom * 3);
+      tester.view.devicePixelRatio = physical.width / w;
       await wait(1);
+      debugPrint(
+        'SIMRECT:ekran_$size:0,0,${w.toStringAsFixed(1)},'
+        '${(physical.height / (physical.width / w)).toStringAsFixed(1)}',
+      );
 
       await step('profil_$size', () async {
         await openTab('Profil');
@@ -222,7 +225,7 @@ void main() {
         await shot('hava_$size');
         final s = find.byType(Scrollable).hitTestable();
         if (s.evaluate().isNotEmpty) {
-          final pos = Scrollable.of(tester.element(s.first)).position;
+          final pos = tester.state<ScrollableState>(s.first).position;
           pos.jumpTo(pos.viewportDimension * 0.85);
           await settle();
           await shot('hava_${size}_2');
@@ -256,7 +259,7 @@ void main() {
         await wait(2);
         final s = find.byType(Scrollable).hitTestable();
         if (s.evaluate().isNotEmpty) {
-          Scrollable.of(tester.element(s.first)).position.jumpTo(0);
+          tester.state<ScrollableState>(s.first).position.jumpTo(0);
           await settle();
         }
         rect('hedef_$size:slider', find.byType(Slider));
@@ -279,7 +282,7 @@ void main() {
         await settle();
         await shot('kalibre_select_$size');
         await closeList();
-        await tester.pageBack();
+        await tester.state<NavigatorState>(find.byType(Navigator).first).maybePop();
         await settle();
         // "Çıkılsın mı?" when the editor asks before leaving.
         for (final t in const ['Çık', 'Çıkış', 'Vazgeç', 'Kaydetmeden çık']) {
