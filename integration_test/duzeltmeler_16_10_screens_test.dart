@@ -17,7 +17,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sniper_turk/features/ballistics/scope_dial_view.dart';
-import 'package:sniper_turk/features/ballistics/scope_results.dart';
 import 'package:sniper_turk/main.dart' as app;
 import 'package:sniper_turk/models/domain.dart';
 import 'package:sniper_turk/services/active_profile_store.dart';

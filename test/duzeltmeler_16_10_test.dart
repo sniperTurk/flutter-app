@@ -22,7 +22,6 @@ import 'package:sniper_turk/data/catalog_repository.dart';
 import 'package:sniper_turk/data/user_catalog.dart';
 import 'package:sniper_turk/features/ballistics/ballistics_screen.dart';
 import 'package:sniper_turk/features/ballistics/scope_dial_view.dart';
-import 'package:sniper_turk/features/ballistics/scope_results.dart';
 import 'package:sniper_turk/features/home/home_screen.dart';
 import 'package:sniper_turk/models/domain.dart';
 import 'package:sniper_turk/services/active_profile_store.dart';
@@ -548,7 +547,7 @@ void main() {
       );
       expect(node.flagsCollection.isButton, isTrue);
       expect(node.value, 'Bir 6,35 mm');
-      tester.semantics.tap(find.bySemanticsLabel('Aktif tüfek profili'));
+      tester.semantics.tap(find.semantics.byLabel('Aktif tüfek profili'));
       await tester.pumpAndSettle();
       expect(
         _routeName(tester, find.text('İki').last),

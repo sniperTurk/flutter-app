@@ -275,7 +275,9 @@ void main() {
         matching: find.byType(RichText),
       ),
     );
-    final spans = (rich.text as TextSpan).children!.cast<TextSpan>();
+    // Text.rich wraps the line's span in one more TextSpan.
+    final root = (rich.text as TextSpan).children!.single as TextSpan;
+    final spans = root.children!.cast<TextSpan>();
     expect(spans[0].text, 'Üst kule ');
     expect(spans[0].style!.fontSize, 12.5);
     expect(spans[0].style!.color, const Color(0xFF9CB1C0));

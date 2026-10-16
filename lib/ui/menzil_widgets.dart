@@ -1819,7 +1819,8 @@ class MenzilSelectMenu<T> {
     } finally {
       _opening = false;
     }
-    if (!context.mounted || _route != null) return null;
+    if (!context.mounted) return null;
+    if (_route != null) return null;
     final navigator = Navigator.of(context);
     final anchor = box();
     final navBox = navigator.context.findRenderObject();

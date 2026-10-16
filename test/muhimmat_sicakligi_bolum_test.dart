@@ -201,7 +201,13 @@ void main() {
     final sheet = find.byKey(const Key('pro-info-sheet'));
     expect(sheet, findsOneWidget);
     expect(
-      find.descendant(of: sheet, matching: find.text('Mühimmat sıcaklığı')),
+      find.descendant(
+        of: sheet,
+        matching: find.textContaining(
+          'Mühimmat sıcaklığı: ',
+          findRichText: true,
+        ),
+      ),
       findsWidgets,
     );
     expect(tester.takeException(), isNull);
