@@ -6,8 +6,10 @@
 // explanation; the rest of the line opens and closes the box. Summaries and
 // chevrons share one right edge; titles stay on one line at 390 pt.
 import 'dart:async';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sniper_turk/data/catalog_repository.dart';
@@ -172,7 +174,28 @@ Future<void> _expectToggles(
   expect(_summary(id), findsOneWidget, reason: '$id closed again');
 }
 
+/// The test font draws every glyph a full em wide, so a 17-letter title
+/// can never fit. SF cannot be bundled; like ekran_boyutu_test.dart, Inter
+/// stands in for the iOS system faces so the widths are close to a phone.
+Future<void> _loadStandInFont() async {
+  final files = Directory('assets/fonts').listSync().whereType<File>().where((
+    f,
+  ) {
+    final name = f.uri.pathSegments.last;
+    return name.startsWith('Inter-') && name.endsWith('.otf');
+  }).toList();
+  expect(files, isNotEmpty);
+  for (final family in [MenzilType.textFamily, MenzilType.displayFamily]) {
+    final loader = FontLoader(family);
+    for (final f in files) {
+      loader.addFont(Future.value(ByteData.sublistView(f.readAsBytesSync())));
+    }
+    await loader.load();
+  }
+}
+
 void main() {
+  setUpAll(_loadStandInFont);
   setUp(() {
     SharedPreferences.setMockInitialValues({});
     CatalogRepository.installUserCatalog(
