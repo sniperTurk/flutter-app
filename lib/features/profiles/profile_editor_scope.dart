@@ -61,8 +61,9 @@ extension _ScopeSection on _ProfileDialogState {
     _scopeManual = true;
     _scopeBrandSel = null;
     _scopeRecord = null;
-    _scopeFiltersHidden = false;
     scopeBrand.text = '';
+    scopeModel.text = '';
+    _scopeLegacyNoModel = false;
     for (final c in [
       scopeMinMag,
       scopeMaxMag,
@@ -205,7 +206,11 @@ extension _ScopeSection on _ProfileDialogState {
     ].join(' · ');
   }
 
+  /// Birim | Odak düzlemi, Tüp | Büyütme: always in their place (approved
+  /// design, owner 2026-10-16); on "Seçiniz" and closed until a Marka is
+  /// chosen.
   List<Widget> _scopeFilterFields() {
+    final open = _scopeBrandSel != null;
     void changed(VoidCallback f) => _update(() {
       f();
       _dropUnavailableScopeFilters();
@@ -232,11 +237,11 @@ extension _ScopeSection on _ProfileDialogState {
           for (final u in _scopeUnitChoices)
             DropdownMenuItem(value: u, child: Text(_unitName(u))),
         ],
-        onChanged: (v) => changed(() => _scopeUnitFilter = v),
+        onChanged: open ? (v) => changed(() => _scopeUnitFilter = v) : null,
       ),
       MenzilSelect<bool>(
         key: ValueKey(k('ffp', _scopeFfpFilter)),
-        label: 'Odak',
+        label: 'Odak düzlemi',
         hint: 'Seçiniz',
         info: ProfileFieldInfo.scopeFilterFocal,
         initialValue: _scopeFfpFilter,
@@ -245,7 +250,7 @@ extension _ScopeSection on _ProfileDialogState {
           for (final f in _scopeFfpChoices)
             DropdownMenuItem(value: f, child: Text(f ? 'FFP' : 'SFP')),
         ],
-        onChanged: (v) => changed(() => _scopeFfpFilter = v),
+        onChanged: open ? (v) => changed(() => _scopeFfpFilter = v) : null,
       ),
       MenzilSelect<double>(
         key: ValueKey(k('tube', _scopeTubeFilter)),
@@ -258,7 +263,7 @@ extension _ScopeSection on _ProfileDialogState {
           for (final d in _scopeTubeChoices)
             DropdownMenuItem(value: d, child: Text('${_num(d)} mm')),
         ],
-        onChanged: (v) => changed(() => _scopeTubeFilter = v),
+        onChanged: open ? (v) => changed(() => _scopeTubeFilter = v) : null,
       ),
       MenzilSelect<String>(
         key: ValueKey(k('mag', _scopeMagFilter)),
@@ -271,7 +276,7 @@ extension _ScopeSection on _ProfileDialogState {
           for (final r in _scopeMagChoices)
             DropdownMenuItem(value: r, child: Text(r)),
         ],
-        onChanged: (v) => changed(() => _scopeMagFilter = v),
+        onChanged: open ? (v) => changed(() => _scopeMagFilter = v) : null,
       ),
     ];
   }
@@ -395,43 +400,34 @@ extension _ScopeSection on _ProfileDialogState {
     _scopePickToken++;
   }
 
-  /// Marka and Model of the scope, each on its own row.
+  /// True while the scope is typed in ("Aradığın dürbün listede yok mu?",
+  /// or no list to pick from).
+  bool get _scopeTyped => !_scopeFromList;
+
+  /// Typed scope: Dürbün markası | Dürbün modeli side by side (owner,
+  /// 2026-10-16); list scope: Marka, the four filters, then Model.
   List<Widget> _scopeNameFields() {
     final brands = _scopeBrands;
-    if (_scopeManual || brands.isEmpty) {
+    if (_scopeTyped) {
       return [
-        MenzilFullWidth(
-          child: MenzilInput(
-            key: const Key('scope-brand'),
-            controller: scopeBrand,
-            label: 'Dürbün markası',
-            keyboardType: TextInputType.text,
-            maxLength: 100,
-            onChanged: (_) => _update(() {}),
-            errorText: _shown(_scopeBrandError, scopeBrand),
-          ),
+        MenzilInput(
+          key: const Key('scope-brand'),
+          controller: scopeBrand,
+          label: 'Dürbün markası',
+          keyboardType: TextInputType.text,
+          maxLength: 100,
+          onChanged: (_) => _update(() {}),
+          errorText: _shown(_scopeBrandError, scopeBrand),
         ),
-        if (brands.isNotEmpty)
-          MenzilFullWidth(
-            child: Align(
-              alignment: Alignment.centerLeft,
-              child: TextButton.icon(
-                key: const Key('scope-back-to-list'),
-                onPressed: () => _update(() {
-                  _scopeManual = false;
-                  _scopeBrandSel = null;
-                  _scopeModelKey = null;
-                  _scopeRecord = null;
-                  scopeBrand.text = '';
-                  scopeClick.text = _trimNum(_defaultClick(angularUnit));
-                  scopeReticle = null;
-                  _scopePickToken++;
-                }),
-                icon: const Icon(Icons.list_alt, size: 18),
-                label: const Text('Listeden seç'),
-              ),
-            ),
-          ),
+        MenzilInput(
+          key: const Key('scope-model'),
+          controller: scopeModel,
+          label: 'Dürbün modeli',
+          keyboardType: TextInputType.text,
+          maxLength: _ProfileDialogState._scopeModelMaxLength,
+          onChanged: (_) => _update(() {}),
+          errorText: _shown(_scopeModelError, scopeModel),
+        ),
       ];
     }
     final brand = brands.contains(_scopeBrandSel) ? _scopeBrandSel : null;
@@ -464,8 +460,6 @@ extension _ScopeSection on _ProfileDialogState {
               _scopeRecord = null;
               scopeReticle = null;
               _scopePickToken++;
-              // A changed Marka shows the filters again (owner, 2026-10-13).
-              _scopeFiltersHidden = false;
               _scopeBrandSel = v;
               scopeBrand.text = v ?? '';
               // A new brand starts every filter on "Seçiniz" (owner,
@@ -478,7 +472,7 @@ extension _ScopeSection on _ProfileDialogState {
           ),
         ),
       ),
-      if (brand != null && !_scopeFiltersHidden) ..._scopeFilterFields(),
+      ..._scopeFilterFields(),
       MenzilFullWidth(
         child: KeyedSubtree(
           key: const Key('scope-model-select'),
@@ -532,29 +526,47 @@ extension _ScopeSection on _ProfileDialogState {
   }
 
   /// One-line designation, e.g. "6-24x56 FFP" (empty parts are skipped).
-  String get _scopeDesignation {
-    String part(TextEditingController c) {
-      final v = _parse(c);
-      return v == null ? '' : _trimNum(v);
-    }
+  String get _scopeDesignation => _scopeDesignationOf(
+    _parse(scopeMinMag),
+    _parse(scopeMaxMag),
+    _parse(scopeObjective),
+    firstFocalPlane,
+  );
 
-    final lo = part(scopeMinMag), hi = part(scopeMaxMag);
-    final obj = part(scopeObjective);
-    final zoom = lo.isEmpty && hi.isEmpty
-        ? ''
-        : lo == hi || hi.isEmpty
-        ? lo
-        : lo.isEmpty
-        ? hi
-        : '$lo-$hi';
-    final body = zoom.isEmpty && obj.isEmpty
-        ? ''
-        : '${zoom}x${obj.isEmpty ? '' : obj}';
-    final plane = firstFocalPlane == null
-        ? ''
-        : (firstFocalPlane! ? 'FFP' : 'SFP');
-    return [body, plane].where((x) => x.isNotEmpty).join(' ');
+  /// The "Dürbün: …" line: Marka, the typed Dürbün modeli and the
+  /// designation ("Dürbün: Benim Optik X5 5-25x56 FFP").
+  String get _scopeLine {
+    final text = [
+      scopeBrand.text.trim(),
+      if (_scopeTyped) scopeModel.text.trim(),
+      _scopeDesignation,
+    ].where((x) => x.isNotEmpty).join(' ');
+    return text.isEmpty ? 'Dürbün: —' : 'Dürbün: $text';
   }
+
+  /// "Listeden seç": back from the typed entry to the lists.
+  Widget _scopeBackToList() => MenzilFullWidth(
+    child: Align(
+      alignment: Alignment.centerLeft,
+      child: TextButton.icon(
+        key: const Key('scope-back-to-list'),
+        onPressed: () => _update(() {
+          _scopeManual = false;
+          _scopeBrandSel = null;
+          _scopeModelKey = null;
+          _scopeRecord = null;
+          scopeBrand.text = '';
+          scopeModel.text = '';
+          _scopeLegacyNoModel = false;
+          scopeClick.text = _trimNum(_defaultClick(angularUnit));
+          scopeReticle = null;
+          _scopePickToken++;
+        }),
+        icon: const Icon(Icons.list_alt, size: 18),
+        label: const Text('Listeden seç'),
+      ),
+    ),
+  );
 
   /// "Dürbün" heading and card.
   List<Widget> _scopeSection(MenzilColors c) => [
@@ -665,7 +677,7 @@ extension _ScopeSection on _ProfileDialogState {
               ),
             ),
           // Typed scope: Dürbün birimi | Klik değeri side by side.
-          if (_scopeManual || _scopeBrands.isEmpty) _clickSelect(),
+          if (_scopeTyped) _clickSelect(),
           // Üst kule klik sayısı | Dürbün ayağı, Dürbün ayağı on the right
           // (owner, 2026-10-15).
           MenzilInput(
@@ -771,10 +783,7 @@ extension _ScopeSection on _ProfileDialogState {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  _scopeDesignation.isEmpty
-                      ? 'Dürbün: —'
-                      : 'Dürbün: ${scopeBrand.text.trim()} $_scopeDesignation'
-                            .trim(),
+                  _scopeLine,
                   key: const Key('scope-designation'),
                   style: MenzilType.body(c.ink),
                 ),
@@ -786,6 +795,9 @@ extension _ScopeSection on _ProfileDialogState {
               ],
             ),
           ),
+          // Typed entry: "Listeden seç" last, under the Dürbün line
+          // (owner, 2026-10-16).
+          if (_scopeManual && _scopeBrands.isNotEmpty) _scopeBackToList(),
           // Owner, 2026-10-13: the typed entry opens from this link
           // instead of a "Listede yok" item in the Marka list.
           if (_scopeFromList)
@@ -803,4 +815,35 @@ extension _ScopeSection on _ProfileDialogState {
       ),
     ),
   ];
+}
+
+/// "6-24x56 FFP" from a scope's values (empty parts are skipped).
+String _scopeDesignationOf(double? min, double? max, double? obj, bool? ffp) {
+  String part(double? v) => v == null ? '' : _trimNum(v);
+  final lo = part(min), hi = part(max), o = part(obj);
+  final zoom = lo.isEmpty && hi.isEmpty
+      ? ''
+      : lo == hi || hi.isEmpty
+      ? lo
+      : lo.isEmpty
+      ? hi
+      : '$lo-$hi';
+  final body = zoom.isEmpty && o.isEmpty ? '' : '${zoom}x$o';
+  final plane = ffp == null ? '' : (ffp ? 'FFP' : 'SFP');
+  return [body, plane].where((x) => x.isNotEmpty).join(' ');
+}
+
+/// Dürbün modeli of a saved typed scope: the record's model before its
+/// designation ("X5 5-25x56 FFP" -> "X5"); empty for a record saved before
+/// 2026-10-16, which kept only the designation.
+String _typedScopeModelOf(ScopeOptic s) {
+  final d = _scopeDesignationOf(
+    s.minMagnification,
+    s.maxMagnification,
+    s.objectiveDiameterMm > 0 ? s.objectiveDiameterMm : null,
+    s.firstFocalPlane,
+  );
+  final m = s.model.trim();
+  if (d.isEmpty || !m.endsWith(' $d')) return '';
+  return m.substring(0, m.length - d.length - 1).trim();
 }

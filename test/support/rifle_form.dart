@@ -198,6 +198,7 @@ Future<void> openScopeManual(WidgetTester tester) async {
 Future<void> fillScopeForm(
   WidgetTester tester, {
   String brand = 'Test Optik',
+  String model = 'X1',
   String minMag = '6',
   String maxMag = '24',
   String objective = '56',
@@ -209,6 +210,8 @@ Future<void> fillScopeForm(
     await openScopeManual(tester);
   }
   await enterRifleField(tester, 'scope-brand', brand);
+  // Dürbün markası | Dürbün modeli, both required (owner, 2026-10-16).
+  await enterRifleField(tester, 'scope-model', model);
   // Büyütme and Mercek çapı are picked from lists (owner, 2026-10-11).
   await chooseInSelect(tester, 'scope-min-mag', '${minMag}x');
   await chooseInSelect(tester, 'scope-max-mag', '${maxMag}x');

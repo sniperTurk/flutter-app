@@ -164,6 +164,7 @@ void main() {
     tester.widget<TextButton>(notListed).onPressed!();
     await tester.pumpAndSettle();
     await type('scope-brand', 'Test Optik');
+    await type('scope-model', 'X1');
     // Büyütme, Mercek çapı and Klik değeri are picked from lists; every
     // list box starts on "Seçiniz" (owner, 2026-10-11).
     await choose('scope-min-mag', '6x');

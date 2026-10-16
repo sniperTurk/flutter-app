@@ -22,7 +22,18 @@ const _hidden = [
   'scope-unit',
 ];
 
-const _filterLabels = ['Birim', 'Odak', 'Tüp', 'Büyütme'];
+const _filterPrefixes = [
+  'scope-filter-unit-',
+  'scope-filter-ffp-',
+  'scope-filter-tube-',
+  'scope-filter-mag-',
+];
+
+Finder _prefix(String p) => find.byWidgetPredicate(
+  (w) =>
+      w.key is ValueKey<String> &&
+      (w.key! as ValueKey<String>).value.startsWith(p),
+);
 
 void _setView(WidgetTester tester) {
   tester.view.physicalSize = const Size(430 * 3, 2600 * 3);
@@ -132,7 +143,13 @@ void main() {
     for (final key in _hidden.where((k) => k != 'scope-focal-plane')) {
       expect(find.byKey(Key(key)), findsNothing, reason: key);
     }
-    expect(find.byTooltip('Bilgi: Odak düzlemi'), findsOneWidget);
+    expect(
+      find.descendant(
+        of: find.byKey(const Key('scope-focal-plane')),
+        matching: find.byTooltip('Bilgi: Odak düzlemi'),
+      ),
+      findsOneWidget,
+    );
     // Filled in by the user, the box stays.
     await chooseFocalPlane(tester, 'SFP');
     expect(find.byKey(const Key('scope-focal-plane')), findsOneWidget);
@@ -179,7 +196,10 @@ void main() {
     }
   });
 
-  testWidgets('Profili Düzenle of a catalog scope hides the filters', (
+  // Owner, 2026-10-16: Profili Düzenle follows the approved design too, so
+  // the four filters stay in their place (on "Seçiniz"); this replaces the
+  // 2026-10-13 rule that hid them until Marka changed.
+  testWidgets('Profili Düzenle of a catalog scope shows the filters', (
     tester,
   ) async {
     await _openSaved(tester, _profile('gazi-6-36'));
@@ -190,17 +210,17 @@ void main() {
       ),
       findsOneWidget,
     );
-    for (final label in _filterLabels) {
-      expect(find.byTooltip('Bilgi: $label'), findsNothing, reason: label);
+    for (final p in _filterPrefixes) {
+      expect(_prefix(p), findsOneWidget, reason: p);
     }
     for (final key in _hidden) {
       expect(find.byKey(Key(key)), findsNothing, reason: key);
     }
     expect(find.text('Dürbün: Gazi Sniper 6-36x56 FFP'), findsOneWidget);
-    // Another Marka shows the filters again.
+    // Another Marka keeps them.
     await chooseInSelect(tester, 'scope-brand-select', 'Element Optics');
-    for (final label in _filterLabels) {
-      expect(find.byTooltip('Bilgi: $label'), findsOneWidget, reason: label);
+    for (final p in _filterPrefixes) {
+      expect(_prefix(p), findsOneWidget, reason: p);
     }
   });
 
@@ -239,8 +259,22 @@ void main() {
     expect(selectedValue<double>(tester, 'scope-objective'), 44);
     expect(selectedValue<bool>(tester, 'scope-focal-plane'), isTrue);
     expect(find.byKey(const Key('scope-click')), findsOneWidget);
-    for (final label in _filterLabels) {
-      expect(find.byTooltip('Bilgi: $label'), findsNothing, reason: label);
+    // Saved without a Dürbün modeli: the box is there, empty.
+    expect(find.byKey(const Key('scope-model')), findsOneWidget);
+    expect(
+      tester
+          .widget<TextField>(
+            find.descendant(
+              of: find.byKey(const Key('scope-model')),
+              matching: find.byType(TextField),
+            ),
+          )
+          .controller!
+          .text,
+      '',
+    );
+    for (final p in _filterPrefixes) {
+      expect(_prefix(p), findsNothing, reason: p);
     }
     expect(find.byKey(const Key('scope-not-listed')), findsNothing);
   });

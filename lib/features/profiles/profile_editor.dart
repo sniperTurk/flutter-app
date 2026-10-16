@@ -210,10 +210,6 @@ class _ProfileDialogState extends State<_ProfileDialog> {
   /// Profili Düzenle opens it in the lists, else the picked list record.
   ScopeOptic? _scopeOwn;
 
-  /// Profili Düzenle of a catalog scope: Birim / Odak / Tüp / Büyütme stay
-  /// hidden until Marka changes (owner, 2026-10-13).
-  bool _scopeFiltersHidden = false;
-
   /// The chosen model: the catalog model without its reticle name.
   String? _scopeModelKey;
 
@@ -306,6 +302,15 @@ class _ProfileDialogState extends State<_ProfileDialog> {
 
   /// The scope is typed in too; stored as a personal scope record.
   late final TextEditingController scopeBrand;
+
+  /// Dürbün modeli of a typed scope (owner, 2026-10-16); saved before the
+  /// designation in the record's model, empty for older typed records.
+  late final TextEditingController scopeModel;
+
+  /// Profili Düzenle of a typed scope saved before Dürbün modeli existed
+  /// (before 2026-10-16): it still saves with the box left empty, so an old
+  /// profile updates as before; a new typed entry needs its model.
+  bool _scopeLegacyNoModel = false;
   late final TextEditingController scopeMinMag;
   late final TextEditingController scopeMaxMag;
   late final TextEditingController scopeObjective;
@@ -514,9 +519,6 @@ class _ProfileDialogState extends State<_ProfileDialog> {
         _scopeModelKey = _scopeModelOf(hit);
         _scopeRecord = hit;
         _scopeOwn = s0;
-        // Profili Düzenle of a catalog scope: no filter boxes (owner,
-        // 2026-10-13); they come back when Marka changes.
-        _scopeFiltersHidden = true;
       }
     }
     angularUnit = p?.angularUnit ?? s0?.clickUnit ?? AngularUnit.mrad;
@@ -530,6 +532,11 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     scopeBrand = TextEditingController(
       text: series.isEmpty ? (s0?.brand ?? '') : '${rec!.brand} $series',
     );
+    scopeModel = TextEditingController(
+      text: s0 != null && _scopeManual ? _typedScopeModelOf(s0) : '',
+    );
+    _scopeLegacyNoModel =
+        s0 != null && _scopeManual && scopeModel.text.isEmpty;
     // A tolerant match keeps every saved value; only a value the saved
     // record lacks is taken from the list record (nothing is overwritten).
     final fill = _scopeTolerant ? rec : null;
@@ -837,6 +844,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     section('Dürbün', [
       (_scopeBrandError == null, 'Marka'),
       if (listScope) (_scopeModelKey != null, 'Model'),
+      if (!listScope) (_scopeModelError == null, 'Dürbün modeli'),
       if (_scopeMinMagShown) (_minMagError == null, 'Min. büyütme'),
       if (_scopeMaxMagShown) (_maxMagError == null, 'Maks. büyütme'),
       if (_scopeObjectiveShown) (_objectiveError == null, 'Mercek çapı'),
@@ -879,6 +887,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     _grainFocus.dispose();
     rifleTwist.dispose();
     scopeBrand.dispose();
+    scopeModel.dispose();
     scopeMinMag.dispose();
     scopeMaxMag.dispose();
     scopeObjective.dispose();
@@ -960,6 +969,21 @@ class _ProfileDialogState extends State<_ProfileDialog> {
       twistDirection != null;
 
   String? get _scopeBrandError => _textError(scopeBrand);
+
+  /// Longest Dürbün modeli: the record's model also carries the designation
+  /// ("5-25x56 FFP") and is limited to 100 characters.
+  static const _scopeModelMaxLength = 80;
+
+  /// Dürbün modeli is asked (and required) only for a typed scope.
+  String? get _scopeModelError {
+    if (_scopeFromList) return null;
+    final t = scopeModel.text.trim();
+    if (t.isEmpty) return _scopeLegacyNoModel ? null : 'Gerekli.';
+    if (t.length > _scopeModelMaxLength) {
+      return 'En fazla $_scopeModelMaxLength karakter.';
+    }
+    return null;
+  }
   String? get _minMagError => _rangeError(scopeMinMag, 1, 60);
   String? get _maxMagError {
     final e = _rangeError(scopeMaxMag, 1, 100);
@@ -990,6 +1014,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
   bool get _scopeValid =>
       _travelError(scopeTravelElevation) == null &&
       _scopeBrandError == null &&
+      _scopeModelError == null &&
       _minMagError == null &&
       _maxMagError == null &&
       _objectiveError == null &&
@@ -1274,7 +1299,12 @@ class _ProfileDialogState extends State<_ProfileDialog> {
       'kind': 'scope',
       'platform': platform.name,
       'brand': scopeBrand.text.trim(),
-      'model': _scopeDesignation,
+      // A typed scope keeps its Dürbün modeli before the designation
+      // ("X5 5-25x56 FFP"); a list scope only the designation, as before.
+      'model': [
+        if (!_scopeFromList) scopeModel.text.trim(),
+        _scopeDesignation,
+      ].where((x) => x.isNotEmpty).join(' '),
       'objectiveMm': _parse(scopeObjective),
       'click': own?.clickValue ?? _parse(scopeClick),
       'clickUnit': (own?.clickUnit ?? angularUnit).name,
