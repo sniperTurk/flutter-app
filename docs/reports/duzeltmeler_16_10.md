@@ -62,10 +62,10 @@ Güncellenen testler (gevşetilmedi; yeni yerleşime göre):
 Yerel: `python3 tools/offline_dart_lint.py` → PASS (0 sorun); `python3 -m unittest discover -s tools -p 'test_*.py'` → 915 test OK (1 atlandı).
 
 ## Ekran görüntüleri
-SCREENSHOTS_PLACEHOLDER
+Simulator turu (`integration_test/duzeltmeler_16_10_screens_test.dart`, sim-screens iş akışı) bekleniyor; görüntüler gelince bu bölüme tasarımla yan yana eklenecek.
 
 ## CI
-CI_PLACEHOLDER
+Bekleniyor.
 
 ## Not
 - Bu görev çalışırken bir başkasının bekleyen "Simulator screenshots" çalışması (38941387154) benim başlattığım çalışma yüzünden iptal oldu (iş akışı aynı anda yalnız bir bekleyen çalışmaya izin veriyor). Girdilerini göremediğim için yeniden başlatamadım; sahibi yeniden başlatmalı.
