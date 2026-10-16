@@ -120,6 +120,10 @@ void main() {
     }
 
     debugPrint('SIMSCREEN_DONE failures=${failures.length}');
+    // Keep the last frame up until its late marker has been seen.
+    await tester.runAsync(
+      () => Future<void>.delayed(const Duration(seconds: 30)),
+    );
     expect(failures, isEmpty, reason: failures.join('\n'));
   });
 }
