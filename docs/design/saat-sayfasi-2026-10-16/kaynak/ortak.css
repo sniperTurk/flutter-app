@@ -196,3 +196,7 @@ button { font: inherit; color: inherit; background: none; border: 0; }
 .tight .row2 .btn { font-size: 13px; padding: 0 8px }
 .tight .chip { font-size: 13px; gap: 6px; padding: 0 10px 0 8px }
 .chip b { font-weight: inherit } .chip .short { display: none } .tight .chip .short { display: inline } .tight .chip .full { display: none }
+.wtxt .n .st.wait { color: var(--cyan) }
+.lead { font-size: 15px; line-height: 1.4; color: var(--ink); font-weight: 500 }
+.hint { font-size: 13.5px; line-height: 1.4; color: var(--ink2); margin: 6px 0 2px }
+.cardtitle { font-family: var(--font-d); font-size: 20px; font-weight: 700; line-height: 1.15; margin-bottom: 6px }

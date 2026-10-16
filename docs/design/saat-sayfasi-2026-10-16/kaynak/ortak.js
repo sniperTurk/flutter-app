@@ -32,7 +32,9 @@ const APPLE = { brand: 'Apple Watch', name: 'Apple Watch', last: '14:32' };
 // Kapalı çipler (2–4. durumlarda kullanıcı ikisini kapatmış gibi gösterilir).
 const OFF_LATER = ['dir', 'clock'];
 const STATES = {
-  1: { key: 1, title: 'İlk açılış, saat yok', watches: [], send: null, recv: null, off: [] },
+  1: { key: 1, title: 'İlk açılış, saat yok', watches: [], send: null, recv: null, off: [], brand: 'Garmin' },
+  '1b': { key: '1b', title: 'Apple Watch seçip “Saati bağla”ya dokunduktan sonra', brand: 'Apple Watch',
+       watches: [{ brand: 'Apple Watch', name: 'Apple Watch', pending: true }], send: null, recv: null, off: [] },
   2: { key: 2, title: 'Bir Garmin bağlı, gönderildi', watches: [GARMIN], send: 'ok', off: OFF_LATER,
        recv: { range: '600 m', rangeAt: '14:31', angle: null } },
   3: { key: 3, title: 'Garmin + Apple Watch bağlı', watches: [GARMIN, APPLE], send: 'ok', off: OFF_LATER,
@@ -130,12 +132,26 @@ function dateRow(text) { return `<div class="daterow">${text}</div>`; }
 function notice(title, text) { return `<div class="notice"><b>${title}</b>${text}</div>`; }
 
 function watchRow(w, { remove = true } = {}) {
-  const st = w.fail ? '<span class="st bad"> · yanıt yok</span>' : '<span class="st"> · bağlı</span>';
-  const sub = (w.brand !== w.name ? `${w.brand} · ` : '') + `son gönderim ${w.last}`;
+  // Durum her satırda iki soruyu yanıtlar: bağlı mı, son hesap gitti mi.
+  const pre = w.brand !== w.name ? `${w.brand} · ` : '';
+  let st, sub;
+  if (w.pending) { st = '<span class="st wait"> · bekleniyor</span>'; sub = 'Saatte SNIPER TÜRK\'ü bir kez açın'; }
+  else if (w.fail) { st = '<span class="st bad"> · yanıt yok</span>'; sub = `${pre}son hesap gitmedi, saatte ${w.last} hesabı var`; }
+  else { st = '<span class="st"> · bağlı</span>'; sub = `${pre}son hesap ${w.last}'de gitti`; }
   return `<div class="wrow"><div class="wglyph">${GLYPH.watch}</div>
     <div class="wtxt"><div class="n">${w.name}${st}</div><div class="s">${sub}</div></div>
-    ${remove ? btn('Kaldır', 'out', 'small') : ''}</div>`;
+    ${remove ? btn(w.pending ? 'Vazgeç' : 'Kaldır', 'out', 'small') : ''}</div>`;
 }
+
+// "Saati bağla"ya dokununca ne olacağını düğmeden ÖNCE söyleyen cümle
+// (alan altı açıklama değil; kartın kendi metni, Hava Durumu'ndaki
+// "Hava hazır, sıra tüfekte" kartı gibi).
+function connectHint(brand) {
+  return brand === 'Apple Watch'
+    ? 'Dokunun, sonra saatte SNIPER TÜRK\'ü bir kez açın; saat burada kendiliğinden görünür.'
+    : 'Dokununca Garmin Connect açılır; saatinizi seçip buraya dönün.';
+}
+const isConnected = (st) => st.watches.some((w) => !w.pending);
 
 function chip(f, off) {
   const name = f.short ? `<b class="full">${f.label}</b><b class="short">${f.short}</b>` : f.label;
@@ -194,7 +210,7 @@ function mount(option) {
     document.body.style.background = '#0B1620';
     return;
   }
-  const figs = [1, 2, 3, 4].map((k) =>
+  const figs = [1, '1b', 2, 3, 4].map((k) =>
     `<figure>${phone(option.render(STATES[k], 390))}<figcaption>${k}. ${STATES[k].title}</figcaption></figure>`).join('');
   const narrow = `<figure>${phone(option.render(STATES[3], 320), { w: 320 })}<figcaption>320 pt denetimi (3. durum)</figcaption></figure>`;
   const sheet = `<figure>${phone(option.render(STATES[2], 390), { overlay: infoSheet(option.infoExample) })}<figcaption>ⓘ alt sayfası: ${INFO[option.infoExample].title}</figcaption></figure>`;

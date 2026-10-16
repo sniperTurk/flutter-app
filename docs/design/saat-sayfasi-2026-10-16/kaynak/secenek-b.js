@@ -20,16 +20,17 @@ const OPTION = {
   .wcard .inline .notice { margin-top:0 }
   `,
   render(st, w) {
-    const has = st.watches.length > 0;
+    const conn = isConnected(st);
+    const brand = st.brand || 'Garmin';
     const fs = w < 360 ? 7.6 : 9;
-    if (!has) {
+    const tiles = `<div class="brands"><div class="brand${brand === 'Garmin' ? ' sel' : ''}"><i class="radio"></i><span>Garmin</span></div>
+        <div class="brand${brand === 'Apple Watch' ? ' sel' : ''}"><i class="radio"></i><span>Apple Watch</span></div></div>`;
+    if (st.watches.length === 0) {
       let html = card(`<div class="promo"><div class="faces">${face('round', [], { size: fs })}${face('rect', [], { size: fs })}</div>
         <h3>Klikler bileğinizde</h3>
-        <p>Her yeni hesap bağlı saate kendiliğinden gider; tüfekten gözünüzü ayırmadan kule kliklerini okursunuz.</p></div>`);
-      html += sectionHeader('Saat markası', 'isteğe bağlı');
-      html += `<div class="brands"><div class="brand sel"><i class="radio"></i><span>Garmin</span></div>
-        <div class="brand"><i class="radio"></i><span>Apple Watch</span></div></div>`;
-      html += btn('Saati bağla');
+        <p>Her hesap saatinize kendiliğinden gider. Başlamak için aşağıdan saatinizin markasını seçip “Saati bağla”ya dokunun.</p></div>`);
+      html += sectionHeader('Saat markası', 'isteğe bağlı') + tiles;
+      html += `<div class="hint" style="margin:0 0 8px">${connectHint(brand)}</div>` + btn('Saati bağla');
       return html;
     }
     let html = sectionHeader('Saatlerim', 'isteğe bağlı');
@@ -37,10 +38,12 @@ const OPTION = {
       const warn = x.fail ? notice('Gönderilemedi', 'Saat telefondan uzakta ya da saatte SNIPER TÜRK kapalı. Saati yaklaştırıp “Hesabı saate gönder”e dokunun.') : '';
       html += card(watchRow(x) + (warn ? `<div class="inline">${warn}</div>` : ''), 'wcard');
     }
+    if (!conn) return html;
     html += st.send === 'ok'
-      ? btn('Hesap saate gönderildi', 'done') + dateRow(`Son gönderim 14:32 · ${st.watches.length} saat`)
+      ? btn('Hesap saate gönderildi', 'done') + dateRow('Her yeni hesap kendiliğinden gider · son 14:32')
       : btn('Hesabı saate gönder') + dateRow('Son başarılı gönderim 14:32 · Apple Watch');
-    html += `<div style="height:8px"></div>` + btn('Başka saat bağla');
+    html += sectionHeader('Başka saat bağla') + tiles;
+    html += `<div class="hint" style="margin:0 0 8px">${connectHint(brand)}</div>` + btn('Saati bağla');
     html += `<div style="height:10px"></div>`;
     html += sectionHeader('Saatte görünenler') + card(chips(st.off));
     html += sectionHeader('Saatten gelenler') + card(recvTiles(st.recv));

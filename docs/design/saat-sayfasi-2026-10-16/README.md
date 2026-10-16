@@ -24,6 +24,59 @@ Hepsi bir arada: [`index.html`](index.html). Canlı taslaklar: [`secenek-a.html`
 - **Alt menü 6 düğme:** 320 pt'de her düğmeye ~53 pt düşüyor; "Hava Durumu" sığmıyor ve 7 pt'ye kadar küçülüyor. Önerim etiketi **"Hava"** yapmak; sayfa başlığı "Hava Durumu" olarak kalır. Bkz. [`png/alt-menu-320.png`](png/alt-menu-320.png). Saat simgesi diğer simgelerle aynı 24'lük ızgarada, 2 pt çizgiyle çizildi.
 - Apple Watch'un adı iPhone'dan okunamıyor (WatchConnectivity ad vermiyor). Bu yüzden listede "Apple Watch · bağlı" yazar; Garmin'in adı Garmin Connect'ten gelir ("Fenix 7").
 
+## Kabul testi: "ilk kez kullanan biri 5 saniyede anlıyor mu?" (owner, 16:56)
+
+Önceki taslakta saatin nereden bağlanacağı, düğmelerin ne yaptığı, rengin ne anlama geldiği ve ikinci saatin nereye ekleneceği anlaşılmadığı için bu turda üç seçenekte de şunlar değişti:
+
+- **Boş sayfada yalnız tek iş var.** Saat bağlanmadan çipler, "Saatten gelenler" ve gönderim gösterilmiyor; devre dışı (soluk) bir düğme de yok. Sayfada tek düğme var: "Saati bağla". Üstünde düz Türkçe bir başlık ve cümle duruyor: "Saatinizi bağlayın: markayı seçip Saati bağla'ya dokunun."
+- **Dokununca ne olacağı düğmeden önce yazıyor.** Garmin seçiliyse "Dokununca Garmin Connect açılır; saatinizi seçip buraya dönün." Apple Watch seçiliyse "Dokunun, sonra saatte SNIPER TÜRK'ü bir kez açın; saat burada kendiliğinden görünür." Bu cümle bir alanın altında değil, kartın kendi metni; Hava Durumu'ndaki "Hava hazır, sıra tüfekte" kartında olduğu gibi.
+- **Dokunduktan sonraki ara durum çizildi** (`png/*-1b.png`). Apple Watch satırı "Apple Watch · bekleniyor" olur ve altında "Saatte SNIPER TÜRK'ü bir kez açın" yazar; yanında "Vazgeç" düğmesi var. Garmin'de bu adım Garmin Connect içinde geçiyor, dönünce saat doğrudan "bağlı" görünüyor.
+- **Her saat satırı iki soruyu yanıtlıyor:** saat bağlı mı, hesap ona gitti mi. Örnekler: "Fenix 7 · bağlı / Garmin · son hesap 14:32'de gitti", "Fenix 7 · yanıt yok / son hesap gitmedi, saatte 14:20 hesabı var".
+- **Gönderim düğmesinin altında kuralın kendisi yazıyor:** "Her yeni hesap kendiliğinden gider · son 14:32".
+- **İkinci saat**, bağlı saatlerin hemen altında, ilk saatle aynı yerde ve aynı biçimde eklenir: A ve C'de "Saat markası | Başka saat bağla", B'de "Başka saat bağla" başlığı altında iki marka kutusu.
+- **Marka ön seçimi:** iPhone eşli bir Apple Watch olup olmadığını (WatchConnectivity `isPaired`) ve Garmin Connect'in yüklü olup olmadığını bilebilir. Uygulama bulduğu markayı önceden seçer; ikisi de varsa ya da hiçbiri yoksa kutuda "Seçin" yazar ve "Saati bağla" önce marka listesini açar. Böylece elinde Apple Watch olan biri yanlışlıkla Garmin Connect'e gitmez. Bu, A ve C'deki açılır kutu için önemli; B'de iki marka zaten yan yana görünüyor.
+
+**Düğme renkleri ne demek** (üç seçenekte aynı; diğer sayfalarla da aynı):
+
+| Görünüş | Anlamı | Bu sayfadaki örnek |
+|---|---|---|
+| Çerçeveli, içi boş | Dokunursanız bir şey yapılır | Saati bağla, Başka saat bağla, Hesabı saate gönder, Kaldır, Vazgeç |
+| Koyu mavi, ✓ işaretli | İş yapılmış, bir şey yapmanız gerekmiyor | Hesap saate gönderildi |
+| Beyaz dolu | Sayfayı kapatır ya da başka sayfaya geçer | Kapat (ⓘ alt sayfası) |
+| Turuncu ince kenar ya da yazı | Dikkat, bir şey yolunda değil | yanıt yok, gönderilemedi kartı |
+
+### İlk kullanım — A (Bölüm kartları)
+
+1. Sayfayı açınca tek bir kart görür: "Saatinizi bağlayın". Altında Saat markası kutusu ("Garmin" seçili) ve yanında "Saati bağla" düğmesi var.
+2. Kartta, dokununca Garmin Connect'in açılacağı yazıyor. "Saati bağla"ya dokunur, Garmin Connect'te Fenix 7'yi seçip geri döner.
+3. Kartta "Fenix 7 · bağlı / son hesap 14:32'de gitti" satırı belirir. Altında "Saate gönderim" bölümü ve koyu mavi "✓ Hesap saate gönderildi" düğmesi açılır.
+4. İkinci saat için aynı kartın altındaki Saat markası kutusundan Apple Watch'u seçer ve "Başka saat bağla"ya dokunur. Satır önce "Apple Watch · bekleniyor" olur; saatte uygulamayı açınca "bağlı" olur.
+
+### İlk kullanım — B (Önce saat listesi)
+
+1. Sayfayı açınca iki saat yüzü ve "Klikler bileğinizde" yazısını görür; metin aşağıdan markanın seçileceğini söylüyor. Altta iki büyük kutu var: Garmin ve Apple Watch.
+2. Elindeki saatin kutusuna dokunur. Altındaki cümle o markada ne olacağını söyler. Sonra tek düğme olan "Saati bağla"ya dokunur.
+3. Sayfanın tepesinde "Saatlerim" listesi çıkar; saat kendi kartında "bağlı / son hesap … gitti" olarak durur. Altında "✓ Hesap saate gönderildi" düğmesi görünür.
+4. İkinci saat için listenin altındaki "Başka saat bağla" bölümünde öbür markaya ve "Saati bağla"ya dokunur. Yeni saat listede ayrı bir kart olarak çıkar.
+
+### İlk kullanım — C (Önce durum ve önizleme)
+
+1. Sayfayı açınca "Örnek" etiketli bir saat yüzü görür: saatinde ne çıkacağı budur. Altında "Saatinizi bağlayın" başlığı, markanın seçilip "Saati bağla"ya dokunulacağını söyleyen cümle, Saat markası kutusu ve "Saati bağla" var.
+2. Kartta dokununca ne olacağı yazıyor. Dokunur ve bağlar; Apple Watch'ta başlık "Apple Watch bekleniyor" olur.
+3. Bağlanınca "Örnek" etiketi kalkar ve yüz gerçek hesabı gösterir. Başlık "Fenix 7 bağlı", altında "Son hesap 14:32'de saate gitti. Her yeni hesap kendiliğinden gider." ve "✓ Hesap saate gönderildi" yazar.
+4. İkinci saat için aşağıdaki "Saatler" kartında Saat markası kutusundan öbür markayı seçer ve "Başka saat bağla"ya dokunur. Bağlanınca tepede iki yüz yan yana durur ve başlık "2 saat bağlı" olur.
+
+### Dört soruyla öz denetim
+
+| Soru | A | B | C |
+|---|---|---|---|
+| 1. Nereden bağlanır? | Geçer: boş sayfadaki tek düğme "Saati bağla", başlığı "Saatinizi bağlayın" | Geçer: tek düğme, marka kutuları üstünde | Geçer: tek düğme, örnek yüzün hemen altında |
+| 2. Dokununca ne olur? | Geçer: düğmenin üstündeki cümle, markaya göre değişiyor | Geçer: aynı cümle | Geçer: aynı cümle; bekleme başlığı da var |
+| 3. Saat bağlı mı, hesabı alıyor mu? | Geçer: satırda "bağlı / son hesap 14:32'de gitti" ve ✓ düğmesi | Geçer: her saatin kendi kartı, sorun o kartta | Geçer, en açık burada: tepede büyük durum yazısı ve saatin gösterdiği yüz |
+| 4. İkinci saat nereye? | Geçer: aynı kartta "Başka saat bağla" | Geçer: listenin altında "Başka saat bağla" bölümü | Geçer: "Saatler" kartında "Başka saat bağla" |
+
+Üç seçenek de dört soruyu geçtiği için hiçbiri çıkarılmadı. En zayıf nokta A ve C'deki açılır marka kutusu: Apple Watch'u olan biri kutunun Garmin'de durduğunu fark etmeyebilir. Yukarıdaki ön seçim kuralı bu riski kapatıyor; B'de bu risk hiç yok. Bu denetim benim değerlendirmem; gerçek bir kullanıcıyla 5 saniye testi yapılmadı. İstenirse seçilen seçenek bir kişiye telefonda gösterilip dört soru sorulabilir.
+
 ## Seçenek A — Bölüm kartları
 
 **Fikir:** Hava Durumu'nun düzeninin aynısı. Başlık + ⓘ ve altında bir kart; sırasıyla Saatler, Saate gönderim, Saatte görünenler ve Saatten gelenler. Saat markası kutusu ile "Saati bağla" düğmesi, Basınç Ölçer'deki "İstasyon basıncı | Basınç al" gibi aynı satırda duruyor. Saat bağlanınca aynı düğmenin adı "Başka saat bağla" olur.
@@ -33,10 +86,10 @@ Hepsi bir arada: [`index.html`](index.html). Canlı taslaklar: [`secenek-a.html`
 
 ## Seçenek B — Önce saat listesi
 
-**Fikir:** Sayfa bağlı saatlerin listesiyle açılır ve her saat kendi kartında durur. Gönderim sorunu o saatin kartında görünür, gönderim düğmesi listenin hemen altındadır. Saat yokken tepede iki gerçek saat yüzü (Garmin yuvarlak ve Apple Watch) ile "Klikler bileğinizde" tanıtımı, altında iki büyük marka kutusu (Garmin | Apple Watch) ve "Saati bağla" var. Ayarlar ilk saat bağlanınca görünür.
+**Fikir:** Sayfa bağlı saatlerin listesiyle açılır ve her saat kendi kartında durur. Gönderim sorunu o saatin kartında görünür, gönderim düğmesi listenin hemen altındadır. Saat yokken tepede iki gerçek saat yüzü (Garmin yuvarlak ve Apple Watch) ile "Klikler bileğinizde" tanıtımı, altında iki büyük marka kutusu (Garmin | Apple Watch) ve "Saati bağla" var. Ayarlar ilk saat bağlanınca görünür. İkinci saat, listenin altındaki "Başka saat bağla" bölümünde aynı iki marka kutusuyla eklenir.
 
 - Artıları: boş ekran satış yapıyor; hangi saatte sorun olduğu kartından hemen anlaşılıyor; marka seçimi tek dokunuş.
-- Eksileri: bağlandıktan sonra tanıtım kayboluyor ve sayfa A'ya benziyor. "Başka saat bağla" ile "Hesabı saate gönder" iki çerçeveli düğme olarak alt alta duruyor. Bağlıyken marka seçimi için ek bir alt sayfa gerekiyor (çizilmedi).
+- Eksileri: bağlandıktan sonra tanıtım kayboluyor ve sayfa A'ya benziyor. Marka kutuları bağlıyken de sayfada yer kaplıyor; sayfa üçünün en uzunu.
 
 ## Seçenek C — Önce durum ve önizleme (önerilen)
 
@@ -86,14 +139,14 @@ Garmin'in seçili saatleri Garmin Connect'te tutulur; `watch.devices.v1` yalnız
 ## Tasarlanmayanlar
 
 - Saat ekranlarının kendisi (ayrı tasarlandı), uygulama kodu ve testler.
-- "Saati bağla"ya dokunduktan sonraki ara durumlar: Garmin Connect'in açılması, Apple Watch'ta uygulamanın açılmasının beklenmesi, "Kaldır" onayı. Bağlıyken marka seçimi için B'deki ek alt sayfa da çizilmedi.
+- Garmin Connect'in kendi ekranları (uygulamamızın dışında) ve "Kaldır" onayı.
 - Pro'daki "Garmin saati" satırının kaldırılması (Saat sayfası gelince o satır silinmeli; ayrı görev).
 - Üyelik ekranı ve kilitli durumun görünümü.
 - Açık tema ve büyük yazı boyutu denetimi.
 
 ## Dosyalar ve yeniden üretme
 
-- `png/{a,b,c}-{1,2,3,4}.png`: 1 ilk açılış, 2 bir Garmin bağlı ve gönderildi, 3 Garmin + Apple Watch, 4 gönderilemedi.
+- `png/{a,b,c}-{1,1b,2,3,4}.png`: 1 ilk açılış, 1b Apple Watch seçilip "Saati bağla"ya dokunulduktan sonra (bekleniyor), 2 bir Garmin bağlı ve gönderildi, 3 Garmin + Apple Watch, 4 gönderilemedi.
 - `png/{a,b,c}-320.png` 320 pt denetimi (3. durum); `png/{a,b,c}-bilgi.png` ⓘ alt sayfası (A: Garmin adımları, B: Apple Watch adımları, C: Saatte görünenler).
 - `png/alt-menu-320.png` alt menü karşılaştırması; `png/yan-yana.png` üç seçenek yan yana.
 - Görüntüler 390 pt genişlikte, 2× piksel yoğunluğunda (780 px). Uzun sayfalar 844 pt'den uzun çekildi, alt menü sayfanın sonunda. Yazı tipi iPhone'da sistem yazısı (SF); bu makinede onun yerine en yakın yazı olan Inter kullanıldı.

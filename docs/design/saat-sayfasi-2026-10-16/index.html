@@ -46,9 +46,9 @@
   <div class="all" id="all"></div>
 </details>
 <script>
-  const cap = { 1:'1. İlk açılış', 2:'2. Garmin bağlı, gönderildi', 3:'3. Garmin + Apple Watch', 4:'4. Gönderilemedi', 320:'320 pt (3. durum)', bilgi:'ⓘ alt sayfası' };
+  const cap = { 1:'1. İlk açılış', '1b':'1b. Apple Watch bekleniyor', 2:'2. Garmin bağlı, gönderildi', 3:'3. Garmin + Apple Watch', 4:'4. Gönderilemedi', 320:'320 pt (3. durum)', bilgi:'ⓘ alt sayfası' };
   const all = document.getElementById('all');
-  for (const o of ['a','b','c']) for (const k of [1,2,3,4,320,'bilgi'])
+  for (const o of ['a','b','c']) for (const k of [1,'1b',2,3,4,320,'bilgi'])
     all.insertAdjacentHTML('beforeend', `<figure><a href="png/${o}-${k}.png"><img src="png/${o}-${k}.png" alt="${o.toUpperCase()} ${cap[k]}"></a><figcaption>${o.toUpperCase()} · ${cap[k]}</figcaption></figure>`);
   all.insertAdjacentHTML('beforeend', `<figure><img src="png/alt-menu-320.png" alt="Alt menü 320 pt"><figcaption>Alt menü 320 pt: Hava Durumu → Hava</figcaption></figure>`);
   if (location.search.includes('shot=1')) { document.getElementById('intro').remove(); document.querySelector('details').remove(); document.body.style.padding = '0'; }

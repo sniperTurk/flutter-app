@@ -42,7 +42,7 @@ writeFileSync(join(here, 'alt-menu-320.html'), page('Alt menü 320 pt', `
 // ---------- ekran görüntüleri ----------
 const shots = [];
 for (const o of options) {
-  for (const s of [1, 2, 3, 4]) shots.push({ f: `secenek-${o}.html`, q: `s=${s}&w=390`, out: `${o}-${s}.png`, w: 390 });
+  for (const s of [1, '1b', 2, 3, 4]) shots.push({ f: `secenek-${o}.html`, q: `s=${s}&w=390`, out: `${o}-${s}.png`, w: 390 });
   shots.push({ f: `secenek-${o}.html`, q: 's=3&w=320', out: `${o}-320.png`, w: 320 });
   const info = { a: 'garmin', b: 'apple', c: 'gorunen' }[o];
   shots.push({ f: `secenek-${o}.html`, q: `s=2&w=390&info=${info}`, out: `${o}-bilgi.png`, w: 390, fixed: true });

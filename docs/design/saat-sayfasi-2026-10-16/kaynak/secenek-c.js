@@ -13,34 +13,40 @@ const OPTION = {
   .hero .row2 .lab { height:32px }
   `,
   render(st, w) {
-    const has = st.watches.length > 0;
-    const two = st.watches.length > 1;
+    const conn = isConnected(st);
+    const live = st.watches.filter((x) => !x.pending);
+    const two = live.length > 1;
     const narrow = w < 360;
+    const brand = st.brand || 'Garmin';
     const fs = two ? (narrow ? 7.4 : 8.8) : (narrow ? 10.5 : 12);
     const stale = st.send === 'fail';
-    let faces;
-    if (!has) faces = face('round', [], { size: fs });
-    else faces = st.watches.map((x) => face(x.brand === 'Garmin' ? 'round' : 'rect', st.off, { size: fs, stale: stale && x.fail })).join('');
-    let head, sub, action;
-    if (!has) {
-      head = 'Saat bağlı değil';
-      sub = 'Bağlayınca kule klikleri her hesapta bu yüzdeki gibi saatinize gider.';
-      action = `<div class="row2">${field('Saat markası', 'Garmin')}${btn('Saati bağla')}</div>`;
+    const faces = conn
+      ? live.map((x) => face(x.brand === 'Garmin' ? 'round' : 'rect', st.off, { size: fs, stale: stale && x.fail })).join('')
+      : face(brand === 'Apple Watch' ? 'rect' : 'round', [], { size: fs });
+    const pick = (label) => `<div class="hint">${connectHint(brand)}</div><div class="row2">${field('Saat markası', brand)}${btn(label)}</div>`;
+    let head, sub, action = '';
+    if (st.watches.length === 0) {
+      head = 'Saatinizi bağlayın';
+      sub = 'Kule klikleriniz her hesapta saatinizde bu yüzdeki gibi görünür. Markayı seçip “Saati bağla”ya dokunun.';
+      action = pick('Saati bağla');
+    } else if (!conn) {
+      head = 'Apple Watch bekleniyor';
+      sub = 'Saatte SNIPER TÜRK\'ü bir kez açın. Bağlanınca son hesap hemen saate gider.';
     } else if (st.send === 'ok') {
       head = two ? '2 saat bağlı' : 'Fenix 7 bağlı';
-      sub = `Son hesap 14:32'de ${two ? 'iki saate' : 'saate'} gitti.`;
+      sub = `Son hesap 14:32'de ${two ? 'iki saate' : 'saate'} gitti. Her yeni hesap kendiliğinden gider.`;
       action = btn('Hesap saate gönderildi', 'done');
     } else {
       head = 'Fenix 7\'ye gönderilemedi';
       sub = 'Fenix 7 14:20\'deki eski hesabı gösteriyor. Saati telefona yaklaştırıp tekrar gönderin.';
       action = btn('Hesabı saate gönder');
     }
-    let html = card(`${has ? '' : '<span class="tag">Örnek</span>'}<div class="faces">${faces}</div><h3>${head}</h3><div class="sub">${sub}</div>${action}`, `hero${stale ? ' warn' : ''}`);
-    if (has) {
-      html += sectionHeader('Saatler', 'isteğe bağlı');
-      html += card(st.watches.map((x) => watchRow(x)).join('') +
-        `<div style="border-top:1px solid var(--line);margin-top:2px;padding-top:2px"><div class="row2">${field('Saat markası', 'Garmin')}${btn('Başka saat bağla')}</div></div>`);
-    }
+    let html = card(`${conn ? '' : '<span class="tag">Örnek</span>'}<div class="faces">${faces}</div><h3>${head}</h3><div class="sub">${sub}</div>${action}`, `hero${stale ? ' warn' : ''}`);
+    if (st.watches.length === 0) return html;
+    html += sectionHeader('Saatler', 'isteğe bağlı');
+    const rows = st.watches.map((x) => watchRow(x)).join('');
+    if (!conn) return html + card(rows);
+    html += card(rows + `<div style="border-top:1px solid var(--line);margin-top:2px;padding-top:4px">${pick('Başka saat bağla')}</div>`);
     html += sectionHeader('Saatte görünenler') + card(chips(st.off));
     html += sectionHeader('Saatten gelenler') + card(recvTiles(st.recv));
     return html;
