@@ -107,4 +107,27 @@ Yerel:
 
 ## CI
 
-CI_PLACEHOLDER
+Kod commit'i `43603a9` üzerinde (bu rapor commit'inden önceki son kod):
+
+- iOS CI (PR): success. https://github.com/sniperTurk/flutter-app/actions/runs/38881755670
+  - `verify`: success (iOS Simulator derleme ve açılış testi dahil).
+  - `dart-checks`: success (biçim, `flutter analyze`, birim ve widget testleri).
+  - `wind-acceptance`: success.
+- `gh workflow run 375209577` (One-off dart format fix): success, değişiklik
+  gerekmedi (commit eklemedi). https://github.com/sniperTurk/flutter-app/actions/runs/38881747582
+- `test-diag.yml` (files=test): success. https://github.com/sniperTurk/flutter-app/actions/runs/38882018054
+- `analyze-diag.yml`: success. https://github.com/sniperTurk/flutter-app/actions/runs/38882020921
+
+İlk kod commit'i `d0ef558` için başlayan iOS CI, yeni commit gelince iptal
+edildi (cancelled): https://github.com/sniperTurk/flutter-app/actions/runs/38881250237
+
+Code Review ve Security review PR'da çalıştı. Code Review bir gerçek sorun
+buldu (saat ekinin Türkçe uyumu, sabit "'de"); `43603a9` ile düzeltildi.
+Security review sorun bulmadı (yalnız ekranda metin üretimi; ağ, kayıt ya da
+dış girdi yok).
+
+Simulator dışında cihaz, imza, TestFlight ve App Store işlemi çalışmadı.
+
+🤖 Generated with [Claude Code](https://claude.com/claude-code)
+
+https://claude.ai/code/session_01NBSrDv9J77WeDsAychwciP
