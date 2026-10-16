@@ -162,7 +162,6 @@ const _all = [
   ProSectionInfo.zeroOffset,
   ProSectionInfo.spinDrift,
   ProSectionInfo.powder,
-  ProSectionInfo.pcpPressure,
 ];
 
 Widget _app(

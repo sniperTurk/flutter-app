@@ -275,9 +275,10 @@ void main() {
   });
 
   group('PCP BC modeli box', () {
-    testWidgets('shown, G1 selected, every table listed, BC | BC modeli', (
-      tester,
-    ) async {
+    // Owner, 2026-10-16 (approved PCP card): Tip | Marka, Model, …,
+    // Ağırlık | BC, then BC modeli on its own row.
+    testWidgets('shown, G1 selected, every table listed, Ağırlık | BC, '
+        'BC modeli below', (tester) async {
       await _openNew(tester);
       expect(find.byKey(const Key('ammo-bc-model')), findsOneWidget);
       expect(selectedValue<String>(tester, 'ammo-bc-model'), 'g1');
@@ -285,11 +286,18 @@ void main() {
       // No custom curve on PCP.
       expect(_values(tester, 'ammo-bc-model'), isNot(contains('custom')));
       Rect r(String k) => tester.getRect(find.byKey(Key(k)));
-      expect((r('ammo-bc').top - r('ammo-bc-model').top).abs(), lessThan(1));
-      expect(r('ammo-bc').right, lessThan(r('ammo-bc-model').left));
-      // Tip | Ağırlık on the row above.
-      expect((r('ammo-type').top - r('ammo-grain').top).abs(), lessThan(1));
-      expect(r('ammo-grain').bottom, lessThanOrEqualTo(r('ammo-bc').top));
+      expect((r('ammo-grain').top - r('ammo-bc').top).abs(), lessThan(1));
+      expect(r('ammo-grain').right, lessThan(r('ammo-bc').left));
+      expect(
+        r('ammo-bc-model').top,
+        greaterThanOrEqualTo(r('ammo-bc').bottom - 0.5),
+      );
+      // Tip | Marka on the first row.
+      expect(
+        (r('ammo-type').top - r('ammo-brand-select').top).abs(),
+        lessThan(1),
+      );
+      expect(r('ammo-type').bottom, lessThanOrEqualTo(r('ammo-grain').top));
       expect(_info(tester, 'ammo-bc-model'), ProfileFieldInfo.bcModel);
     });
 

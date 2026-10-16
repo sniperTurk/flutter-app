@@ -1155,7 +1155,8 @@ class MenzilFieldLabel extends StatelessWidget {
   }
 }
 
-/// Text input: label row (label + unit) above a rounded, high-contrast field.
+/// Text input: label row (label + ⓘ) above a rounded, high-contrast field
+/// with the unit inside it at the right (owner, 2026-10-16).
 /// [semanticLabel] gives VoiceOver the full label including the unit.
 class MenzilInput extends StatelessWidget {
   final TextEditingController controller;
@@ -1283,12 +1284,13 @@ class MenzilInput extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         mainAxisSize: MainAxisSize.min,
         children: [
+          // The unit is inside the box at its right, not in the label row
+          // (owner, 2026-10-16 20:49–21:04, approved Temiz Tasarım); the ⓘ
+          // stays at the right of the label row.
           _LabelWithInfo(
             title: label,
             info: info,
-            label: ExcludeSemantics(
-              child: MenzilFieldLabel(label: label, unit: unit),
-            ),
+            label: ExcludeSemantics(child: MenzilFieldLabel(label: label)),
           ),
           Semantics(
             label: semanticLabel,
@@ -1315,10 +1317,38 @@ class MenzilInput extends StatelessWidget {
                 helperText: helperText,
                 errorText: errorText,
                 counterText: maxLength == null ? null : '',
+                suffixIcon: unit == null ? null : _InputUnit(unit!),
+                // As small as the unit: the box keeps its height and the
+                // typed value ends where the unit starts (never under it).
+                suffixIconConstraints: const BoxConstraints(),
               ),
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+/// The unit of a regular [MenzilInput], inside the box at its right edge
+/// (owner, 2026-10-16). VoiceOver reads it with the field's label
+/// ([MenzilInput.semanticLabel]), so it is excluded here.
+class _InputUnit extends StatelessWidget {
+  final String unit;
+  const _InputUnit(this.unit);
+
+  @override
+  Widget build(BuildContext context) {
+    final c = MenzilColors.of(context);
+    return Padding(
+      padding: const EdgeInsetsDirectional.only(start: 6, end: 12),
+      child: ExcludeSemantics(
+        child: Text(
+          unit,
+          key: const ValueKey('menzil-input-unit'),
+          maxLines: 1,
+          style: MenzilType.unit(c.ink2),
+        ),
       ),
     );
   }

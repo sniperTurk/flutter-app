@@ -16,7 +16,6 @@ import '../../core/drag_table.dart';
 import '../../core/estimated_bc.dart';
 import '../../core/gravity.dart';
 import '../../core/moving_target.dart';
-import '../../core/pcp_pressure.dart';
 import '../../core/powder_temperature.dart';
 import '../../core/production_limits.dart';
 import '../../core/reticle_holds.dart';
@@ -354,7 +353,7 @@ class _BallisticsScreenState extends State<BallisticsScreen>
         _targetMovesRight = s.targetMovesRight;
         bulletLengthCtl.text = s.bulletLengthText;
         powderCoefCtl.text = s.powderCoefText;
-        tubePressureCtl.text = s.tubePressureText;
+        _savedTubePressureText = s.tubePressureText;
         powderTempCtl.text = s.powderTempText;
         final ammoC = double.tryParse(s.ammoTempText.replaceAll(',', '.'));
         ammoTempCtl.text = ammoC == null || !ammoC.isFinite
@@ -530,7 +529,7 @@ class _BallisticsScreenState extends State<BallisticsScreen>
       spinDriftOn: _spinDriftOn,
       bulletLengthText: bulletLengthCtl.text.trim(),
       powderCoefText: powderCoefCtl.text.trim(),
-      tubePressureText: tubePressureCtl.text.trim(),
+      tubePressureText: _savedTubePressureText,
       powderTempText: powderTempCtl.text.trim(),
       ammoTempText: _ammoTempC == null ? '' : _twoDecimals(_ammoTempC!),
       windMidText: windMidCtl.text.trim(),
@@ -713,10 +712,10 @@ class _BallisticsScreenState extends State<BallisticsScreen>
   final TextEditingController bulletLengthCtl = TextEditingController();
   final TextEditingController powderCoefCtl = TextEditingController();
 
-  /// PCP: tube pressure left, bar (Pro > Tüfek düzeltmeleri). The box is
-  /// shown and used only with PRO_TUBE_PRESSURE; otherwise the profile's
-  /// Tüp basıncı is used (see [_pcpVelocity]).
-  final TextEditingController tubePressureCtl = TextEditingController();
+  /// The Pro "Kalan tüp basıncı" box is deleted (owner, 2026-10-16, with
+  /// PRO_TUBE_PRESSURE). A value saved before is only carried back on save
+  /// so the user's saved data is not erased; nothing reads it.
+  String _savedTubePressureText = '';
   final TextEditingController powderTempCtl = TextEditingController();
 
   /// Mühimmat sıcaklığı (Hava Durumu, firearms; Ö1 2026-10-12), in the shown
@@ -883,35 +882,6 @@ class _BallisticsScreenState extends State<BallisticsScreen>
             ammoC: _ammoTempC,
           ),
         );
-  }
-
-  bool get _isPcp => profileResolution?.rifle.platform == WeaponPlatform.pcp;
-
-  /// Pro "Kalan tüp basıncı", hidden (owner, 2026-10-14: "kalan basınç diye
-  /// bir şey olmaz", "her atışta basınç mı girecek"; hidden, not removed).
-  /// The tube pressure is asked once, on Profil > Mühimmat "Tüp basıncı".
-  static const bool _showProTubePressure = bool.fromEnvironment(
-    'PRO_TUBE_PRESSURE',
-  );
-
-  /// PCP tüp ve regülatör basıncı (owner, 2026-10-12): the velocity at the
-  /// profile's Tüp basıncı, from its regulator pressure and basınca göre hız
-  /// table. A tube pressure saved on Pro before is ignored unless
-  /// PRO_TUBE_PRESSURE is on. Null on a firearm (never applies there).
-  PcpVelocity? _pcpVelocity(double profileMps) {
-    if (!_isPcp) return null;
-    final p = widget.profile;
-    final tube = _showProTubePressure
-        ? _parsed(tubePressureCtl)
-        : p?.tubePressureBar;
-    return PcpPressure.velocity(
-      profileMps: profileMps,
-      regulatorBar: p?.pressureBar,
-      tubeBar: tube != null && tube <= ProductionLimits.maxPcpPressureBar
-          ? tube
-          : null,
-      table: p?.pressureVelocityTable ?? const [],
-    );
   }
 
   /// Gyroscopic stability (Miller), length in calibres and twist direction,
@@ -1188,7 +1158,9 @@ class _BallisticsScreenState extends State<BallisticsScreen>
 
     velocity = TextEditingController(
       // Namlu çıkış hızı is always fps (owner rule), like on Profil.
-      text: UnitSystem.mpsToFps(p?.muzzleVelocityMps ?? 270).toStringAsFixed(1),
+      // PCP with En düşük | En yüksek namlu çıkış hızı: their mean;
+      // otherwise the Tüfek card's Namlu çıkış hızı (owner, 2026-10-16).
+      text: UnitSystem.mpsToFps(p?.velocityMps ?? 270).toStringAsFixed(1),
     );
     grain = TextEditingController(text: (ammo?.grain ?? 51).toString());
     // A yard profile shows (and takes) its zero in yards, and its shot
@@ -2024,22 +1996,11 @@ class _BallisticsScreenState extends State<BallisticsScreen>
         windDirectionDeg: wd,
       );
       // Barut sıcaklığı (firearms): today's velocity from the profile
-      // velocity; the zero stays solved with the zeroing-day velocity.
-      // PCP tüp basıncı: the velocity at the profile's Tüp basıncı (the Pro
-      // box only with PRO_TUBE_PRESSURE); a firearm never changes here.
-      final vPowder = _powderAdjusted(v, temp);
-      final pcp = _pcpVelocity(vPowder);
-      final vToday = pcp?.mps ?? vPowder;
-      // Denetim F3 (2026-10-14): an unregulated PCP whose table gives the
-      // velocity at the Profil tube pressure (#284) is zeroed and shot with
-      // that same velocity, so it is on zero at its own zero range. The Pro
-      // "Kalan tüp basıncı" (PRO_TUBE_PRESSURE, hidden) keeps the old split.
-      final pcpTableAtProfilePressure =
-          !_showProTubePressure &&
-          pcp != null &&
-          pcp.fromTable &&
-          !pcp.regulatorBypassed;
-      final double? vZero = pcpTableAtProfilePressure || vToday == v ? null : v;
+      // velocity; the zero stays solved with the zeroing-day velocity. A
+      // PCP shoots and zeroes with its profile velocity
+      // (RifleProfile.velocityMps, owner 2026-10-16).
+      final vToday = _powderAdjusted(v, temp);
+      final double? vZero = vToday == v ? null : v;
       final density = Atmosphere.densityKgM3(environment);
       final ratio = Atmosphere.densityRatio(environment);
       final sound = Atmosphere.speedOfSoundMps(environment);
@@ -2163,7 +2124,6 @@ class _BallisticsScreenState extends State<BallisticsScreen>
     turretScaleCtl.dispose();
     bulletLengthCtl.dispose();
     powderCoefCtl.dispose();
-    tubePressureCtl.dispose();
     powderTempCtl.dispose();
     ShotSettingsStore.externalWrites.removeListener(_onExternalShotSettings);
     ammoTempCtl.dispose();
@@ -3754,14 +3714,6 @@ class _BallisticsScreenState extends State<BallisticsScreen>
     );
     if (!mounted || result == null) return;
     _setAngles(cant: result);
-  }
-
-  /// PCP with the tube pressure (the profile's, or Pro's with
-  /// PRO_TUBE_PRESSURE) below the regulator pressure.
-  bool get _pcpRegulatorBypassed {
-    final v0 = widget.profile?.muzzleVelocityMps;
-    if (v0 == null) return false;
-    return _pcpVelocity(v0)?.regulatorBypassed ?? false;
   }
 }
 

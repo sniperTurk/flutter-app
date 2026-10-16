@@ -263,12 +263,17 @@ void main() {
   });
 
   group('Profil Oluştur: satırlar ve bölümler', () {
-    testWidgets('Kalibre is one full-width row', (tester) async {
+    // Owner, 2026-10-16 20:49–21:04 (approved drawing) supersedes "Kalibre
+    // one full-width row": Kalibre | Namlu çıkış hızı share the first row.
+    testWidgets('Kalibre | Namlu çıkış hızı on one row', (tester) async {
       await _openNew(tester);
       final cal = _rect(tester, 'rifle-caliber');
+      final v = _rect(tester, 'profile-velocity-fps');
       final brand = _rect(tester, 'rifle-brand-select');
       expect(cal.left, moreOrLessEquals(brand.left, epsilon: 1));
-      expect(cal.width, moreOrLessEquals(brand.width, epsilon: 1));
+      expect(v.right, moreOrLessEquals(brand.right, epsilon: 1));
+      expect((cal.top - v.top).abs(), lessThan(1));
+      expect(cal.right, lessThan(v.left));
     });
 
     testWidgets('Dürbün: Üst kule klik sayısı | Dürbün ayağı (ayak sağda)', (

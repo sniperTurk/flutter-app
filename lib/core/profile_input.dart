@@ -1,6 +1,5 @@
 import '../models/domain.dart';
 import 'powder_temperature.dart';
-import 'unit_system.dart';
 import 'production_limits.dart';
 
 /// Validates profile values before they are persisted.
@@ -14,9 +13,15 @@ class ProfileInput {
   /// PCP regülatör basıncı (bar); null = unregulated / firearm.
   final double? pressureBar;
 
-  /// PCP tüp basıncı (bar) and basınca göre hız (bar, m/s); PCP only.
+  /// PCP tüp basıncı (bar); PCP only. Owner 2026-10-16: kept for future
+  /// regulator use; not in the formula.
   final double? tubePressureBar;
-  final List<PressureVelocityPoint> pressureVelocityTable;
+
+  /// PCP En düşük / En yüksek namlu çıkış hızı (m/s), optional, both or
+  /// neither; PCP only (owner, 2026-10-16). [muzzleVelocityMps] stays the
+  /// Tüfek card's Namlu çıkış hızı; the calculations use the mean of these
+  /// two when both are given (RifleProfile.velocityMps).
+  final double? pcpMinVelocityMps, pcpMaxVelocityMps;
 
   /// Built-in slope of the scope mount, in MOA (0 = normal mount).
   final double mountCantMoa;
@@ -32,7 +37,8 @@ class ProfileInput {
     required this.sightHeightMm,
     required this.pressureBar,
     this.tubePressureBar,
-    this.pressureVelocityTable = const [],
+    this.pcpMinVelocityMps,
+    this.pcpMaxVelocityMps,
     this.mountCantMoa = 0,
     this.powderTempCoefPercentPer15C,
     this.powderTempReferenceC,
@@ -46,11 +52,42 @@ class ProfileInput {
     required WeaponPlatform platform,
     String? pressureText,
     String? tubePressureText,
-    List<(String bar, String fps)> pressureTable = const [],
+    String? pcpMinVelocityText,
+    String? pcpMaxVelocityText,
     double mountCantMoa = 0,
     String? powderCoefText,
     String? powderTempText,
   }) {
+    // PCP (owner, 2026-10-16): En düşük and En yüksek namlu çıkış hızı
+    // (m/s) are optional but come as a pair, lowest first (like Barut
+    // sıcaklığı). The Tüfek card's [muzzleVelocityText] is always read.
+    double? pcpMin, pcpMax;
+    if (platform == WeaponPlatform.pcp) {
+      final minTyped = pcpMinVelocityText?.trim() ?? '';
+      final maxTyped = pcpMaxVelocityText?.trim() ?? '';
+      if (minTyped.isNotEmpty || maxTyped.isNotEmpty) {
+        if (minTyped.isEmpty || maxTyped.isEmpty) {
+          throw const FormatException(
+            'En düşük ve en yüksek hızın ikisini de girin.',
+          );
+        }
+        pcpMin = _boundedPositive(
+          minTyped,
+          'En düşük namlu çıkış hızı',
+          ProductionLimits.maxMuzzleVelocityMps,
+        );
+        pcpMax = _boundedPositive(
+          maxTyped,
+          'En yüksek namlu çıkış hızı',
+          ProductionLimits.maxMuzzleVelocityMps,
+        );
+        if (pcpMin > pcpMax) {
+          throw const FormatException(
+            'En düşük namlu çıkış hızı en yüksek hızdan büyük olamaz.',
+          );
+        }
+      }
+    }
     final normalizedName = name.trim();
     if (normalizedName.isEmpty) {
       throw const FormatException('Profil adı boş bırakılamaz.');
@@ -77,9 +114,9 @@ class ProfileInput {
     }
     // PCP tüp ve regülatör basıncı (owner, 2026-10-12), all optional: an
     // empty regülatör basıncı means an unregulated rifle; a firearm never
-    // has any of them.
+    // has any of them. Owner 2026-10-16: kept for future regulator use; not
+    // in the formula.
     double? pressure, tube;
-    final table = <PressureVelocityPoint>[];
     if (platform == WeaponPlatform.pcp) {
       final pressureTyped = pressureText?.trim() ?? '';
       if (pressureTyped.isNotEmpty) {
@@ -102,35 +139,6 @@ class ProfileInput {
           'Regülatör basıncı tüp basıncından küçük olmalıdır.',
         );
       }
-      for (final (barText, fpsText) in pressureTable) {
-        final b = barText.trim(), f = fpsText.trim();
-        if (b.isEmpty && f.isEmpty) continue;
-        if (b.isEmpty || f.isEmpty) {
-          throw const FormatException(
-            'Basınca göre hız: her satırda basınç ile hız birlikte girilmeli.',
-          );
-        }
-        final bar = _boundedPositive(
-          b,
-          'Basınca göre hız basıncı',
-          ProductionLimits.maxPcpPressureBar,
-        );
-        final fps = double.tryParse(f.replaceAll(',', '.'));
-        if (fps == null || !fps.isFinite || fps < 100 || fps > 4900) {
-          throw const FormatException(
-            'Basınca göre hız 100 ile 4900 fps arasında olmalıdır.',
-          );
-        }
-        if (table.any((p) => p.bar == bar)) {
-          throw const FormatException(
-            'Basınca göre hız: aynı basınç iki kez girilmiş.',
-          );
-        }
-        table.add(
-          PressureVelocityPoint(bar: bar, mps: UnitSystem.fpsToMps(fps)),
-        );
-      }
-      table.sort((a, b) => a.bar.compareTo(b.bar));
     }
     // Barut sıcaklığı is optional and firearm-only (a PCP never has one).
     // Given, it needs both values inside the bands the calculation accepts.
@@ -169,7 +177,8 @@ class ProfileInput {
       sightHeightMm: sight,
       pressureBar: pressure,
       tubePressureBar: tube,
-      pressureVelocityTable: List.unmodifiable(table),
+      pcpMinVelocityMps: pcpMin,
+      pcpMaxVelocityMps: pcpMax,
       mountCantMoa: mountCantMoa,
       powderTempCoefPercentPer15C: coef,
       powderTempReferenceC: refC,

@@ -167,17 +167,6 @@ extension _HedefView on _BallisticsScreenState {
           ),
         ),
       const SizedBox(height: MenzilSpace.sm),
-      if (_pcpRegulatorBypassed)
-        const Padding(
-          padding: EdgeInsets.only(bottom: MenzilSpace.sm),
-          child: MenzilNotice(
-            key: Key('shot-pcp-regulator'),
-            tone: MenzilNoticeTone.warning,
-            message:
-                'Regülatör devre dışı: tüp basıncı regülatör basıncının '
-                'altında, hız düşer.',
-          ),
-        ),
       if (_pressureEstimated && _basis != null)
         const Padding(
           padding: EdgeInsets.only(bottom: MenzilSpace.sm),

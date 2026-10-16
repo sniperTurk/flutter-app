@@ -246,6 +246,8 @@ final Map<String, Finder> _rifleParts = {
   'Sight height': find.byKey(const Key('scope-sight-height')),
   'Mesafe birimi': find.byKey(const Key('profile-distance-unit')),
   'Sıfırlama mesafesi': find.byKey(const Key('profile-zero')),
+  'Tüp basıncı': find.byKey(const Key('profile-tube-pressure')),
+  'Regülatör basıncı': find.byKey(const Key('profile-regulator-pressure')),
 };
 
 /// The parts on screen, row by row ("A | B" = one row), top to bottom.
@@ -317,18 +319,38 @@ const _scopeTypedLayout = [
   'Dürbün: …',
 ];
 
-/// Tüfek from the lists (new profile and every list rifle on edit). Owner,
-/// 2026-10-14 18:56–18:58: Marka, Model and Kalibre each alone on a full
-/// row (an exception to "two boxes per row"), then three rows of two.
-/// Supersedes "Namlu çıkış hızı | Kalibre" (2026-10-13).
+/// Tüfek from the lists (new profile and every list rifle on edit), Ateşli
+/// Tüfek. Owner, 2026-10-16 20:49–21:04 (approved drawing), two boxes per
+/// row: Kalibre | Namlu çıkış hızı, Yiv oranı | Namlu yiv yönü, Sıfırlama
+/// mesafesi | Mesafe birimi, Sight height alone last. Supersedes the
+/// 2026-10-14 18:56–18:58 order (Kalibre alone).
 const _rifleListLayout = [
   'Marka',
   'Model',
   'Aradığın tüfek listede yok mu?',
-  'Kalibre',
+  ..._rifleBoxRows,
+];
+
+/// The two-box rows of an Ateşli Tüfek, under Marka and Model.
+const _rifleBoxRows = [
+  'Kalibre | Namlu çıkış hızı',
   'Yiv oranı | Namlu yiv yönü',
-  'Sight height | Mesafe birimi',
-  'Sıfırlama mesafesi | Namlu çıkış hızı',
+  'Sıfırlama mesafesi | Mesafe birimi',
+  'Sight height',
+];
+
+/// A PCP (owner, 2026-10-16): the same, with Tüp basıncı | Regülatör
+/// basıncı (moved from the Mühimmat card) under Yiv oranı | Namlu yiv yönü.
+/// Namlu çıkış hızı stays on the Tüfek card.
+const _rifleListLayoutPcp = [
+  'Marka',
+  'Model',
+  'Aradığın tüfek listede yok mu?',
+  'Kalibre | Namlu çıkış hızı',
+  'Yiv oranı | Namlu yiv yönü',
+  'Tüp basıncı | Regülatör basıncı',
+  'Sıfırlama mesafesi | Mesafe birimi',
+  'Sight height',
 ];
 
 /// Tüfek typed in (no list match): the same order.
@@ -336,10 +358,7 @@ const _rifleTypedLayout = [
   'Marka (yazılı)',
   'Model (yazılı)',
   'Listeden seç',
-  'Kalibre',
-  'Yiv oranı | Namlu yiv yönü',
-  'Sight height | Mesafe birimi',
-  'Sıfırlama mesafesi | Namlu çıkış hızı',
+  ..._rifleBoxRows,
 ];
 
 /// The Tüfek names of "Kaydetmek için eksik", in the order of the boxes.
@@ -349,16 +368,19 @@ const _rifleBannerOrder = [
   'Marka',
   'Model',
   'Kalibre',
+  'Namlu çıkış hızı',
   'Yiv oranı',
   'Yiv yönü',
-  'Sight height',
-  'Mesafe birimi',
+  'Basınç',
   'Sıfırlama mesafesi',
-  'Namlu çıkış hızı',
+  'Mesafe birimi',
+  'Sight height',
 ];
 
-/// Marka, Model and Kalibre: each alone on a full row, one left edge, one
-/// width, as wide as the two-box rows below (two columns only).
+/// Marka and Model: each alone on a full row, one left edge, one width, as
+/// wide as the two-box rows below; Kalibre the left box of the next row and
+/// Sight height alone, full width, last (two columns only; owner,
+/// 2026-10-16).
 void _rifleFullRows(WidgetTester tester) {
   Rect first(List<String> keys) => tester.getRect(
     keys
@@ -368,15 +390,23 @@ void _rifleFullRows(WidgetTester tester) {
   final brand = first(const ['rifle-brand-select', 'rifle-brand']);
   final model = first(const ['rifle-model-select', 'rifle-model']);
   final caliber = first(const ['rifle-caliber']);
+  final velocity = first(const ['profile-velocity-fps']);
   final twist = first(const ['rifle-twist-rate']);
   final direction = first(const ['rifle-twist-direction']);
-  for (final r in [model, caliber]) {
+  final sight = first(const ['scope-sight-height']);
+  for (final r in [model, sight]) {
     expect((r.left - brand.left).abs(), lessThan(1), reason: '$r / $brand');
     expect((r.width - brand.width).abs(), lessThan(1), reason: '$r / $brand');
   }
+  // Kalibre | Namlu çıkış hızı: the two columns of Yiv oranı | yön.
+  expect((caliber.left - twist.left).abs(), lessThan(1));
+  expect((caliber.width - twist.width).abs(), lessThan(1));
+  expect((velocity.right - direction.right).abs(), lessThan(1));
+  expect((velocity.top - caliber.top).abs(), lessThanOrEqualTo(1));
   expect(model.top, greaterThanOrEqualTo(brand.bottom - 0.5));
   expect(caliber.top, greaterThanOrEqualTo(model.bottom - 0.5));
   expect(twist.top, greaterThanOrEqualTo(caliber.bottom - 0.5));
+  expect(twist.top, greaterThanOrEqualTo(velocity.bottom - 0.5));
   // Full width: from the left box's left edge to the right box's right edge.
   expect((brand.left - twist.left).abs(), lessThan(1));
   expect((brand.right - direction.right).abs(), lessThan(1));
@@ -680,7 +710,7 @@ void main() {
       expect(selectedValue<String>(tester, 'scope-model-select'), isNotNull);
       expect(_designation(tester), 'Dürbün: Gazi Sniper 6-36x56 FFP');
       // The built-in HATSAN / Hercules is the list's Hatsan / Hercules.
-      expect(_rifleLayout(tester), _rifleListLayout);
+      expect(_rifleLayout(tester), _rifleListLayoutPcp);
       _rifleFullRows(tester);
       expect(selectedValue<String>(tester, 'rifle-brand-select'), 'Hatsan');
       expect(selectedValue<String>(tester, 'rifle-model-select'), 'Hercules');
@@ -997,18 +1027,19 @@ void main() {
         'Marka',
         'Model',
         'Aradığın tüfek listede yok mu?',
-        'Kalibre',
+        'Kalibre | Namlu çıkış hızı',
         'Mermi çapı',
         'Yiv oranı | Namlu yiv yönü',
-        'Sight height | Mesafe birimi',
-        'Sıfırlama mesafesi | Namlu çıkış hızı',
+        'Sıfırlama mesafesi | Mesafe birimi',
+        'Sight height',
       ];
       expect(_rifleLayout(tester), withDiameter);
       _rifleFullRows(tester);
-      final c = tester.getRect(find.byKey(const Key('rifle-caliber')));
+      // Mermi çapı: full width, like Model.
+      final m = tester.getRect(find.byKey(const Key('rifle-model-select')));
       final d = tester.getRect(find.byKey(const Key('rifle-bullet-diameter')));
-      expect((d.left - c.left).abs(), lessThan(1));
-      expect((d.width - c.width).abs(), lessThan(1));
+      expect((d.left - m.left).abs(), lessThan(1));
+      expect((d.width - m.width).abs(), lessThan(1));
       await chooseInSelect(
         tester,
         'rifle-bullet-diameter',
@@ -1075,7 +1106,8 @@ void main() {
         selectedValue<TwistDirection>(tester, 'rifle-twist-direction'),
         _typed(tester, 'profile-velocity-fps'),
       );
-      expect(_rifleLayout(tester), _rifleListLayout);
+      expect(_rifleLayout(tester), _rifleListLayoutPcp);
+      _rifleFullRows(tester);
       // The built-in Hercules names no twist: fill the two boxes once.
       if (_typed(tester, 'rifle-twist-rate').isEmpty) {
         await enterRifleField(tester, 'rifle-twist-rate', '16');
@@ -1092,7 +1124,7 @@ void main() {
       expect(saved.zeroRangeM, closeTo(25, 0.01));
       expect(saved.sightHeightMm, closeTo(60, 0.01));
       await _openEdit(tester, 'Gazi Profil');
-      expect(_rifleLayout(tester), _rifleListLayout);
+      expect(_rifleLayout(tester), _rifleListLayoutPcp);
       _rifleFullRows(tester);
       expect(values(), before);
     });

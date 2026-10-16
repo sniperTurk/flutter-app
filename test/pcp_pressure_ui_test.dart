@@ -1,8 +1,10 @@
 // PCP tüp ve regülatör basıncı on screen (owner, 2026-10-12): Profil shows
-// Tüp basıncı | Regülatör basıncı and the basınca göre hız rows on PCP only;
-// a firearm sees none of it and its solution does not change; a PCP with
-// nothing entered solves as before. Owner, 2026-10-14: no "Kalan tüp
-// basıncı" on Pro any more; the calculation uses the Profil Tüp basıncı.
+// Tüp basıncı | Regülatör basıncı on PCP only; a firearm sees none of it and
+// its solution does not change. Owner, 2026-10-14: no "Kalan tüp basıncı"
+// on Pro. Owner, 2026-10-16: the "Basınca göre hız" rows are deleted, the
+// two pressures moved to the Tüfek card and stay but do NOT enter the
+// calculation: the PCP solution uses its Namlu çıkış hızı (or the mean of
+// En düşük / En yüksek) whatever the pressures and a saved table say.
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
@@ -163,9 +165,10 @@ Future<void> _openNew(WidgetTester tester, {required bool firearm}) async {
   );
 }
 
-const _pcpKeys = [
-  'profile-tube-pressure',
-  'profile-regulator-pressure',
+const _pcpKeys = ['profile-tube-pressure', 'profile-regulator-pressure'];
+
+/// The deleted "Basınca göre hız" rows (owner, 2026-10-16).
+const _deletedKeys = [
   'profile-pv-title',
   'profile-pv-bar-0',
   'profile-pv-fps-0',
@@ -186,17 +189,13 @@ void main() {
       final tr = tester.getRect(t), rr = tester.getRect(r);
       expect((tr.top - rr.top).abs(), lessThan(1));
       expect(tr.right, lessThan(rr.left));
-      final b = tester.getRect(find.byKey(const Key('profile-pv-bar-0')));
-      final f = tester.getRect(find.byKey(const Key('profile-pv-fps-0')));
-      expect((b.top - f.top).abs(), lessThan(1));
+      for (final k in _deletedKeys) {
+        expect(find.byKey(Key(k)), findsNothing, reason: k);
+      }
+      expect(find.text('Basınca göre hız'), findsNothing);
       expect(find.text('Tüp basıncı'), findsOneWidget);
       expect(find.text('Regülatör basıncı'), findsOneWidget);
-      for (final k in [
-        'profile-tube-pressure',
-        'profile-regulator-pressure',
-        'profile-pv-bar-0',
-        'profile-pv-fps-0',
-      ]) {
+      for (final k in _pcpKeys) {
         expect(
           find.descendant(
             of: find.byKey(Key(k)),
@@ -310,30 +309,26 @@ void main() {
       expect(find.byKey(const Key('shot-pcp-regulator')), findsNothing);
     });
 
-    testWidgets('regulated, Profil tube below the regulator: warning and '
-        'the slower measured velocity', (tester) async {
-      // The Profil form keeps Regülatör below Tüp basıncı, so this is the
-      // solver path for a stored profile, not a typed one.
+    testWidgets('regulated, stored tube below the regulator: no warning, '
+        'same solution (pressures are not in the formula)', (tester) async {
+      // The Profil form keeps Regülatör below Tüp basıncı, so this is a
+      // stored profile, not a typed one.
       await big(tester);
       final plain = await elevation(tester, _regulatedAt(250));
       final low = await elevation(tester, _regulatedAt(120));
-      expect(find.byKey(const Key('shot-pcp-regulator')), findsOneWidget);
-      // 255 m/s against a zero at 270 m/s: the pellet drops more.
-      expect(low, isNot(closeTo(plain, 1e-6)));
+      expect(find.byKey(const Key('shot-pcp-regulator')), findsNothing);
+      expect(low, closeTo(plain, 1e-12));
     });
 
-    testWidgets('unregulated: the velocity follows the Profil tube pressure', (
+    testWidgets('unregulated: a saved "Basınca göre hız" table is not read', (
       tester,
     ) async {
       await big(tester);
       final none = await elevation(tester, _unregulatedAt(null));
       final full = await elevation(tester, _unregulatedAt(200));
       final low = await elevation(tester, _unregulatedAt(120));
-      // 270 m/s measured at 200 bar = the profile velocity. The screen's
-      // velocity goes through the fps box (rounded), so the two agree to
-      // well under a click (0.1 mrad), not to the last bit.
-      expect(full, closeTo(none, 0.005));
-      expect(low, isNot(closeTo(none, 1e-6)));
+      expect(full, closeTo(none, 1e-12));
+      expect(low, closeTo(none, 1e-12));
     });
 
     testWidgets('a tube pressure saved on Pro before is ignored', (

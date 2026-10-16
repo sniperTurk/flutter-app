@@ -6,9 +6,7 @@ import '../../core/ballistic_input.dart';
 import '../../core/drag_band_truing.dart';
 import '../../core/drag_curve.dart';
 import '../../core/gravity.dart';
-import '../../core/pcp_pressure.dart';
 import '../../core/powder_temperature.dart';
-import '../../core/production_limits.dart';
 import '../../core/scope_dial.dart';
 import '../../core/unit_system.dart';
 import '../../core/velocity_truing.dart';
@@ -58,19 +56,17 @@ abstract final class TruingFieldInfo {
       'değeriyle çarpın: 0,1 MRAD dürbünde 42 tık = 4,2 MRAD. Tek atışla '
       'değil, en az 3–5 atışlık grubun ortasıyla ölçün.';
 
-  /// KUL-2 (owner, 2026-10-15): regulator-less PCP with a usable
-  /// "Basınca göre hız" table; the velocity comes from the table.
-  static const pcpTable =
-      'Bu tüfekte hız, Profil > Mühimmat\'taki "Basınca göre hız" '
-      'tablosundan, Tüp basıncına göre geliyor; Namlu çıkış hızı hesaba '
-      'girmiyor. Bu yüzden doğrulanan hız profile yazılmaz. Hızı düzeltmek '
-      'için tablodaki hızları kronografla ölçüp Profil\'de güncelleyin.';
-  static const pcpTableApply =
-      'Regülatörsüz PCP\'de Hedef, Profil > Mühimmat\'taki Tüp basıncına '
-      'karşılık gelen tablo hızını kullanır; Namlu çıkış hızı kullanılmaz. '
-      'Doğrulanan hızı yazmak hiçbir sonucu değiştirmezdi; bu yüzden düğme '
-      'kapalı. Kronografla birkaç basınçta hızı ölçüp "Basınca göre hız" '
-      'tablosuna girin. Örnek: 200 bar 886 fps, 120 bar 837 fps.';
+  /// PCP (owner, 2026-10-16): the velocity is the mean of En düşük and En
+  /// yüksek namlu çıkış hızı; the trued mean is shown, never written.
+  static const pcpMean =
+      'PCP\'de hesap, Profil > Mühimmat\'taki en düşük ve en yüksek namlu '
+      'çıkış hızının ortalamasıyla yapılır. Burada bulunan hız bu '
+      'ortalamanın doğrulanmış hâlidir; profile yazılmaz.';
+  static const pcpMeanApply =
+      'PCP\'de namlu çıkış hızı, en düşük ve en yüksek hızın ortalamasıdır; '
+      'tek bir hız profile yazılmaz. Hızı düzeltmek için kronografla 10 atış '
+      'yapıp Profil > Mühimmat\'taki en düşük ve en yüksek hızı güncelleyin. '
+      'Örnek: 830 ve 860 fps girilirse hesap 845 fps ile yapılır.';
 }
 
 /// Hız Doğrulama (truing): the shooter fires at a known range beyond the
@@ -200,31 +196,15 @@ class _TruingScreenState extends State<TruingScreen> {
     }
   }
 
-  /// Same switch as Hedef (`BallisticsScreen`): the hidden Pro "Kalan tüp
-  /// basıncı" box.
-  static const bool _proTubePressure = bool.fromEnvironment(
-    'PRO_TUBE_PRESSURE',
-  );
-
-  /// KUL-2 (owner, 2026-10-15): true for a regulator-less PCP whose Profil
-  /// "Basınca göre hız" table gives the velocity at its Tüp basıncı. Hedef
-  /// zeroes and shoots with that table velocity there (Denetim F3), so a
-  /// trued Namlu çıkış hızı would change nothing; it is not written. Same
-  /// rule as Hedef's `pcpTableAtProfilePressure`.
-  bool get _velocityFromPcpTable {
+  /// PCP with En düşük | En yüksek namlu çıkış hızı (owner, 2026-10-16):
+  /// every mode solves with their mean, as Hedef does; the trued velocity
+  /// is shown but never written to the profile (it is not one number
+  /// there). Without them the Tüfek card's Namlu çıkış hızı is trued and
+  /// "profile uygula" works as before.
+  bool get _pcpMeanVelocity {
     final p = _profile, res = _resolution;
-    if (_proTubePressure || p == null || res == null) return false;
-    if (res.rifle.platform != WeaponPlatform.pcp) return false;
-    final tube = p.tubePressureBar;
-    final pcp = PcpPressure.velocity(
-      profileMps: p.muzzleVelocityMps,
-      regulatorBar: p.pressureBar,
-      tubeBar: tube != null && tube <= ProductionLimits.maxPcpPressureBar
-          ? tube
-          : null,
-      table: p.pressureVelocityTable,
-    );
-    return pcp.fromTable && !pcp.regulatorBypassed;
+    if (p == null || res == null) return false;
+    return res.rifle.platform == WeaponPlatform.pcp && p.hasPcpVelocityRange;
   }
 
   /// Namlu çıkış hızı is always shown in fps, as on Profil (owner rule).
@@ -306,8 +286,10 @@ class _TruingScreenState extends State<TruingScreen> {
     final BallisticInput base;
     try {
       base = BallisticInput(
-        muzzleVelocityMps: p.muzzleVelocityMps * f,
-        zeroMuzzleVelocityMps: f == 1 ? null : p.muzzleVelocityMps,
+        // The velocity Hedef uses (RifleProfile.velocityMps): a PCP with En
+        // düşük | En yüksek solves every mode with their mean (KUL-10).
+        muzzleVelocityMps: p.velocityMps * f,
+        zeroMuzzleVelocityMps: f == 1 ? null : p.velocityMps,
         grain: ammo.grain,
         zeroRangeM: p.zeroRangeM,
         sightHeightMm: p.sightHeightMm,
@@ -363,7 +345,7 @@ class _TruingScreenState extends State<TruingScreen> {
         final result = f == 1
             ? today
             : TruingResult(
-                baseMps: p.muzzleVelocityMps,
+                baseMps: p.velocityMps,
                 truedMps: double.parse((today.truedMps / f).toStringAsFixed(1)),
                 rangeM: today.rangeM,
                 predictedMrad: today.predictedMrad,
@@ -559,6 +541,8 @@ class _TruingScreenState extends State<TruingScreen> {
         pressureBar: p.pressureBar,
         tubePressureBar: p.tubePressureBar,
         pressureVelocityTable: p.pressureVelocityTable,
+        pcpMinVelocityMps: p.pcpMinVelocityMps,
+        pcpMaxVelocityMps: p.pcpMaxVelocityMps,
         angularUnit: p.angularUnit,
         distanceUnit: p.distanceUnit,
         mountCantMoa: p.mountCantMoa,
@@ -647,7 +631,7 @@ class _TruingScreenState extends State<TruingScreen> {
 
   Future<void> _apply(TruingResult r, bool metric) async {
     final p = _profile;
-    if (p == null || _velocityFromPcpTable) return;
+    if (p == null || _pcpMeanVelocity) return;
     final ok = await showDialog<bool>(
       context: context,
       builder: (ctx) => AlertDialog(
@@ -740,7 +724,7 @@ class _TruingScreenState extends State<TruingScreen> {
               child: Text(
                 '${p.name}\n'
                 '${res.ammunition.displayName}\n'
-                'Namlu çıkış hızı: ${_fps(p.muzzleVelocityMps)}'
+                'Namlu çıkış hızı: ${_fps(p.velocityMps)}'
                 ' · Sıfır: ${ToolFormat.dec(p.distanceUnit.fromMeters(p.zeroRangeM), 0)} ${p.distanceUnit.symbol}',
                 style: MenzilType.body(c.ink),
               ),
@@ -782,11 +766,11 @@ class _TruingScreenState extends State<TruingScreen> {
                   _error = null;
                 }),
               ),
-              if (_mode == _TruingMode.velocity && _velocityFromPcpTable)
+              if (_mode == _TruingMode.velocity && _pcpMeanVelocity)
                 const MenzilNotice(
-                  key: Key('truing-pcp-table'),
-                  tone: MenzilNoticeTone.warning,
-                  message: TruingFieldInfo.pcpTable,
+                  key: Key('truing-pcp-mean'),
+                  tone: MenzilNoticeTone.info,
+                  message: TruingFieldInfo.pcpMean,
                 ),
               const MenzilSectionHeader(
                 '1 · Gözlem',
@@ -1047,7 +1031,7 @@ class _TruingScreenState extends State<TruingScreen> {
               '%5’ten büyük bir değişim. Kronografla hızı ölçmek, sıfırı ve '
               'sight height değerini kontrol etmek iyi olur.',
         ),
-      if (_velocityFromPcpTable)
+      if (_pcpMeanVelocity)
         const Row(
           children: [
             Expanded(
@@ -1061,7 +1045,7 @@ class _TruingScreenState extends State<TruingScreen> {
             MenzilInfoButton(
               key: Key('truing-apply-info'),
               title: 'Hız profile yazılmaz',
-              text: TruingFieldInfo.pcpTableApply,
+              text: TruingFieldInfo.pcpMeanApply,
             ),
           ],
         )

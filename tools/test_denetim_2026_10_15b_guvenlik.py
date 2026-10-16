@@ -168,7 +168,9 @@ class Flg1FlagsDefaultOff(unittest.TestCase):
         return found
 
     def test_flags_found(self):
-        self.assertGreaterEqual(len(self._flags()), 14)
+        # 14 at the audit; PCP_AMMO_BRAND and PRO_TUBE_PRESSURE (two reads)
+        # were deleted on 2026-10-16 (owner: delete, do not hide).
+        self.assertGreaterEqual(len(self._flags()), 11)
 
     def test_every_bool_flag_defaults_false(self):
         for path, name, default in self._flags():

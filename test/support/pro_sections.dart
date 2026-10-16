@@ -36,9 +36,6 @@ const _sectionOf = <String, String>{
   'pro-bullet-length': 'rifle',
   'pro-powder-source': 'rifle',
   'pro-powder-today': 'rifle',
-  'pro-tube-pressure': 'rifle',
-  'pro-pcp-regulator': 'rifle',
-  'pro-pcp-velocity': 'rifle',
 };
 
 /// Opens the Pro box that holds the field with [key] when the field is not

@@ -271,9 +271,18 @@ class RifleProfile {
   /// PCP tüp basıncı (dolum basıncı) in bar; null = not given / firearm.
   final double? tubePressureBar;
 
-  /// PCP basınca göre hız: the user's chronograph points (tube pressure in
-  /// bar, velocity in m/s); empty = none. See [PcpPressure].
+  /// PCP "Basınca göre hız" points saved before 2026-10-16 (tube pressure
+  /// in bar, velocity in m/s). The feature is deleted (owner, 2026-10-16):
+  /// the table is only carried so a re-save does not erase the user's saved
+  /// data; NOTHING reads it for a calculation.
   final List<PressureVelocityPoint> pressureVelocityTable;
+
+  /// PCP En düşük / En yüksek namlu çıkış hızı in m/s (owner, 2026-10-16:
+  /// the lowest and highest of 10 chronograph shots, Mühimmat card).
+  /// Optional; both set or both null, and always null on a firearm.
+  /// [muzzleVelocityMps] stays the Tüfek card's Namlu çıkış hızı; what the
+  /// calculations use is [velocityMps].
+  final double? pcpMinVelocityMps, pcpMaxVelocityMps;
   final AngularUnit angularUnit;
 
   /// Metre or yard for every distance shown for this profile.
@@ -303,12 +312,29 @@ class RifleProfile {
     this.pressureBar,
     this.tubePressureBar,
     this.pressureVelocityTable = const [],
+    this.pcpMinVelocityMps,
+    this.pcpMaxVelocityMps,
     this.angularUnit = AngularUnit.mrad,
     this.distanceUnit = DistanceUnit.meter,
     this.mountCantMoa = 0,
     this.powderTempCoefPercentPer15C,
     this.powderTempReferenceC,
   });
+
+  /// Both PCP velocities are saved, lowest first (see [pcpMinVelocityMps]).
+  bool get hasPcpVelocityRange {
+    final lo = pcpMinVelocityMps, hi = pcpMaxVelocityMps;
+    return lo != null && hi != null && lo <= hi;
+  }
+
+  /// The velocity every calculation uses (Hedef, Hız Doğrulama, watch,
+  /// hit probability, DOPE, MPBR), owner 2026-10-16: with En düşük and En
+  /// yüksek namlu çıkış hızı both saved, their mean; otherwise (firearm,
+  /// PCP without them, older PCP profiles) the Tüfek card's Namlu çıkış hızı
+  /// [muzzleVelocityMps], exactly as before.
+  double get velocityMps => hasPcpVelocityRange
+      ? (pcpMinVelocityMps! + pcpMaxVelocityMps!) / 2
+      : muzzleVelocityMps;
 }
 
 class EnvironmentData {

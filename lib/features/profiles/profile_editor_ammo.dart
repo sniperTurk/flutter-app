@@ -20,7 +20,6 @@ extension _AmmoSection on _ProfileDialogState {
   static const _otherKey = _ProfileDialogState._otherKey;
   static const _parse = _ProfileDialogState._parse;
   static const _showAmmoListedeYok = _ProfileDialogState._showAmmoListedeYok;
-  static const _showPcpAmmoBrand = _ProfileDialogState._showPcpAmmoBrand;
   static const _showProfileAmmoLength =
       _ProfileDialogState._showProfileAmmoLength;
   static const _trimDot = _ProfileDialogState._trimDot;
@@ -131,9 +130,12 @@ extension _AmmoSection on _ProfileDialogState {
         'BC ${_trimNum(bc)} ${model.name.toUpperCase()}';
   }
 
-  /// Opens the typed firearm entry from the "listede yok mu?" link.
+  /// Opens the typed entry from the "listede yok mu?" link. A PCP keeps its
+  /// Tip (owner, 2026-10-16: Tip stays in its place above the typed boxes).
   void _openAmmoManual() {
+    final type = ammoType;
     _clearAmmo();
+    if (platform == WeaponPlatform.pcp) ammoType = type;
     _ammoManual = true;
   }
 
@@ -431,14 +433,11 @@ extension _AmmoSection on _ProfileDialogState {
     required Widget modelText,
   }) {
     final firearm = platform == WeaponPlatform.firearm;
-    // PCP rows (owner, 2026-10-14: BC | BC modeli): Tip | Ağırlık, BC |
-    // BC modeli; with Uzunluk, Tip takes its row and Ağırlık | Uzunluk.
-    if (!firearm && !_showPcpAmmoBrand) {
-      return [_showProfileAmmoLength ? MenzilFullWidth(child: type) : type];
-    }
-    // PCP: Marka | Tip; firearm: Mühimmat türü | Marka. Model gets a row.
+    // Firearm: Mühimmat türü | Marka; PCP (owner, 2026-10-16, the approved
+    // design): Tip | Marka. Model gets its own row on both.
     List<Widget> arrange(Widget brand, Widget model) => [
-      if (firearm) ...[type, brand] else ...[brand, type],
+      type,
+      brand,
       MenzilFullWidth(child: model),
     ];
     final factory = platform == WeaponPlatform.firearm && _factoryAmmo;
@@ -508,8 +507,12 @@ extension _AmmoSection on _ProfileDialogState {
       ];
     }
     if (_ammoManual || empty) {
+      // PCP typed entry (owner, 2026-10-16): Tip stays on top, then the
+      // typed Marka | Model side by side.
       return [
-        ...arrange(brandText, modelText),
+        MenzilFullWidth(child: type),
+        brandText,
+        modelText,
         if (!empty)
           MenzilFullWidth(
             child: Align(
@@ -557,35 +560,43 @@ extension _AmmoSection on _ProfileDialogState {
         picks.add(() => _applyBullet(b, _parse(rifleCaliber)));
       }
     }
+    // PCP Marka (owner, 2026-10-16): always in its place; a list box that
+    // waits ("Seçiniz", not tappable) until Tip is chosen, because the list
+    // is the pellets or slugs of this Kalibre. The rule is in its ⓘ.
+    final waitsForType = !firearm && ammoType == null;
     final brandSelect = KeyedSubtree(
       key: const Key('ammo-brand-select'),
       child: MenzilSelect<String>(
         key: ValueKey(
           'ammo-brand-select-${platform.name}-$factory-'
-          '${rifleCaliber.text}-$brand-$_ammoListToken',
+          '${rifleCaliber.text}-$brand-$_ammoListToken-$ammoType',
         ),
         label: 'Marka',
         hint: 'Seçiniz',
+        info: firearm ? null : ProfileFieldInfo.pcpAmmoBrand,
         initialValue: brand,
         items: [
           for (final b in brands) DropdownMenuItem(value: b, child: Text(b)),
           // Firearm: hidden behind AMMO_LISTEDE_YOK (owner, 2026-10-14);
-          // the link under Model opens the typed entry.
-          if (!firearm || _showAmmoListedeYok)
+          // the link under Model opens the typed entry (PCP too since
+          // 2026-10-16).
+          if (firearm && _showAmmoListedeYok)
             const DropdownMenuItem(
               value: _manualKey,
               child: Text('Listede yok'),
             ),
         ],
-        onChanged: (v) => _update(() {
-          if (v == _manualKey) {
-            _clearAmmo();
-            _ammoManual = true;
-            return;
-          }
-          ammoBrand.text = v ?? '';
-          ammoModel.text = '';
-        }),
+        onChanged: waitsForType
+            ? null
+            : (v) => _update(() {
+                if (v == _manualKey) {
+                  _clearAmmo();
+                  _ammoManual = true;
+                  return;
+                }
+                ammoBrand.text = v ?? '';
+                ammoModel.text = '';
+              }),
       ),
     );
     final modelSelect = KeyedSubtree(
@@ -610,18 +621,18 @@ extension _AmmoSection on _ProfileDialogState {
     return [
       ...arrange(brandSelect, modelSelect),
       // Owner, 2026-10-14: like the scope's link (#269), the typed firearm
-      // round opens from here instead of a "Listede yok" item.
-      if (firearm)
-        MenzilFullWidth(
-          child: Align(
-            alignment: Alignment.centerLeft,
-            child: TextButton(
-              key: const Key('ammo-not-listed'),
-              onPressed: () => _update(_openAmmoManual),
-              child: const Text('Aradığın mühimmat listede yok mu?'),
-            ),
+      // round opens from here instead of a "Listede yok" item; the PCP
+      // pellet or slug too since 2026-10-16.
+      MenzilFullWidth(
+        child: Align(
+          alignment: Alignment.centerLeft,
+          child: TextButton(
+            key: const Key('ammo-not-listed'),
+            onPressed: () => _update(_openAmmoManual),
+            child: const Text('Aradığın mühimmat listede yok mu?'),
           ),
         ),
+      ),
     ];
   }
 
@@ -721,333 +732,302 @@ extension _AmmoSection on _ProfileDialogState {
       ),
   ];
 
-  /// PCP: Tüp basıncı | Regülatör basıncı, then "Basınca göre hız" rows.
-  /// Each pair sits in its own full-width grid so the two boxes share a row
-  /// whatever comes before them.
-  List<Widget> _pcpPressureFields(MenzilColors c) => [
-    MenzilFullWidth(
-      child: MenzilFieldGrid(
-        children: [
-          MenzilInput(
-            key: const Key('profile-tube-pressure'),
-            controller: tubePressure,
-            label: 'Tüp basıncı',
-            unit: 'bar',
-            info: ProfileFieldInfo.tubePressure,
-            onChanged: (_) => _update(() {}),
-            errorText: _shown(_tubePressureError, tubePressure),
-          ),
-          MenzilInput(
-            key: const Key('profile-regulator-pressure'),
-            controller: regulatorPressure,
-            label: 'Regülatör basıncı',
-            unit: 'bar',
-            info: ProfileFieldInfo.regulatorPressure,
-            onChanged: (_) => _update(() {}),
-            errorText: _shown(_regulatorPressureError, regulatorPressure),
-          ),
-        ],
-      ),
+  /// PCP: En düşük | En yüksek namlu çıkış hızı (owner, 2026-10-16), fps,
+  /// optional, both or neither. With both the calculation uses their mean;
+  /// otherwise the Tüfek card's Namlu çıkış hızı. An older PCP profile
+  /// opens them empty and calculates as before.
+  List<Widget> _pcpVelocityFields() => [
+    MenzilInput(
+      key: const Key('profile-pcp-velocity-min'),
+      controller: pcpMinVelocity,
+      label: 'En düşük namlu çıkış hızı',
+      unit: 'fps',
+      info: ProfileFieldInfo.pcpMinVelocity,
+      onChanged: (_) => _update(() {}),
+      errorText: _shownPcpVelocity(_pcpMinVelocityError),
     ),
-    MenzilFullWidth(
-      child: Padding(
-        padding: const EdgeInsets.only(bottom: MenzilSpace.sm),
-        child: Text(
-          'Basınca göre hız',
-          key: const Key('profile-pv-title'),
-          style: MenzilType.body(c.ink),
-        ),
-      ),
-    ),
-    MenzilFullWidth(
-      child: MenzilFieldGrid(
-        children: [
-          for (var i = 0; i < PcpPressure.tableRows; i++) ...[
-            MenzilInput(
-              key: Key('profile-pv-bar-$i'),
-              controller: pvBar[i],
-              label: '${i + 1}. basınç',
-              unit: 'bar',
-              info: ProfileFieldInfo.pvBar,
-              onChanged: (_) => _update(() {}),
-              errorText: _shown(_pvBarError(i), pvBar[i]),
-            ),
-            MenzilInput(
-              key: Key('profile-pv-fps-$i'),
-              controller: pvFps[i],
-              label: '${i + 1}. hız',
-              unit: 'fps',
-              info: ProfileFieldInfo.pvFps,
-              onChanged: (_) => _update(() {}),
-              errorText: _shown(_pvFpsError(i), pvFps[i]),
-            ),
-          ],
-        ],
-      ),
+    MenzilInput(
+      key: const Key('profile-pcp-velocity-max'),
+      controller: pcpMaxVelocity,
+      label: 'En yüksek namlu çıkış hızı',
+      unit: 'fps',
+      info: ProfileFieldInfo.pcpMaxVelocity,
+      onChanged: (_) => _update(() {}),
+      errorText: _shownPcpVelocity(_pcpMaxVelocityError),
     ),
   ];
 
-  /// "Mühimmat" heading and card.
-  List<Widget> _ammoSection(MenzilColors c) => [
-    const MenzilSectionHeader(
-      'Mühimmat',
-      padding: EdgeInsets.only(top: MenzilSpace.xxs, bottom: MenzilSpace.sm),
+  /// Tip of a PCP round: Pellet or Slug.
+  Widget get _pcpTypeSelect => KeyedSubtree(
+    key: const Key('ammo-type'),
+    child: MenzilSelect<AmmunitionType>(
+      key: ValueKey('ammo-type-$ammoType'),
+      info: ProfileFieldInfo.ammoType,
+      label: 'Tip',
+      initialValue: ammoType == AmmunitionType.bullet ? null : ammoType,
+      items: const [
+        DropdownMenuItem(value: AmmunitionType.pellet, child: Text('Pellet')),
+        DropdownMenuItem(value: AmmunitionType.slug, child: Text('Slug')),
+      ],
+      onChanged: (v) => _update(() {
+        if (v == ammoType) return;
+        // A listed model of the other type goes; the brand stays.
+        if (!_ammoManual && ammoModel.text.isNotEmpty) {
+          final brand = ammoBrand.text;
+          _clearAmmo();
+          ammoBrand.text = brand;
+        }
+        ammoType = v;
+      }),
     ),
-    MenzilCard(
-      key: const Key('profile-ammo-form'),
-      padding: const EdgeInsets.fromLTRB(
-        MenzilSpace.lg,
-        MenzilSpace.lg,
-        MenzilSpace.lg,
-        MenzilSpace.xxs,
+  );
+
+  /// Mühimmat türü of a firearm round: Fabrika fişeği or El dolumu.
+  Widget get _ammoSourceSelect => KeyedSubtree(
+    key: const Key('ammo-source'),
+    child: MenzilSelect<bool>(
+      key: ValueKey('ammo-source-$_factoryAmmo'),
+      info: ProfileFieldInfo.ammoSource,
+      label: 'Mühimmat türü',
+      initialValue: _ammoSourceSet ? _factoryAmmo : null,
+      items: const [
+        DropdownMenuItem(value: true, child: Text('Fabrika fişeği')),
+        DropdownMenuItem(value: false, child: Text('El dolumu')),
+      ],
+      onChanged: (v) => _update(() {
+        if (v == null) return;
+        final was = _ammoSourceSet;
+        _ammoSourceSet = true;
+        if (was && v == _factoryAmmo) return;
+        _factoryAmmo = v;
+        _clearAmmo();
+      }),
+    ),
+  );
+
+  /// BC modeli list.
+  Widget get _bcModelSelect => KeyedSubtree(
+    key: const Key('ammo-bc-model'),
+    child: MenzilSelect<String>(
+      key: ValueKey(
+        'ammo-bc-model-${_customCurve ? _customKey : ammoBcModel?.name}',
       ),
-      child: MenzilFieldGrid(
-        children: [
-          // Owner, 2026-10-11: firearm Mühimmat türü | Marka, Model on
-          // its own row; PCP Tip only (Marka | Tip with PCP_AMMO_BRAND);
-          // then Ağırlık | BC; BC modeli. Namlu çıkış hızı is on the
-          // Tüfek card since 2026-10-13.
-          ..._ammoNameFields(
-            type: platform == WeaponPlatform.firearm
-                ? KeyedSubtree(
-                    key: const Key('ammo-source'),
-                    child: MenzilSelect<bool>(
-                      key: ValueKey('ammo-source-$_factoryAmmo'),
-                      info: ProfileFieldInfo.ammoSource,
-                      label: 'Mühimmat türü',
-                      initialValue: _ammoSourceSet ? _factoryAmmo : null,
-                      items: const [
-                        DropdownMenuItem(
-                          value: true,
-                          child: Text('Fabrika fişeği'),
-                        ),
-                        DropdownMenuItem(
-                          value: false,
-                          child: Text('El dolumu'),
-                        ),
-                      ],
-                      onChanged: (v) => _update(() {
-                        if (v == null) return;
-                        final was = _ammoSourceSet;
-                        _ammoSourceSet = true;
-                        if (was && v == _factoryAmmo) return;
-                        _factoryAmmo = v;
-                        _clearAmmo();
-                      }),
-                    ),
-                  )
-                : KeyedSubtree(
-                    key: const Key('ammo-type'),
-                    child: MenzilSelect<AmmunitionType>(
-                      key: ValueKey('ammo-type-$ammoType'),
-                      info: ProfileFieldInfo.ammoType,
-                      label: 'Tip',
-                      initialValue: ammoType == AmmunitionType.bullet
-                          ? null
-                          : ammoType,
-                      items: const [
-                        DropdownMenuItem(
-                          value: AmmunitionType.pellet,
-                          child: Text('Pellet'),
-                        ),
-                        DropdownMenuItem(
-                          value: AmmunitionType.slug,
-                          child: Text('Slug'),
-                        ),
-                      ],
-                      onChanged: (v) => _update(() {
-                        if (v == ammoType) return;
-                        // A listed model of the other type goes; the
-                        // brand stays.
-                        if (!_ammoManual && ammoModel.text.isNotEmpty) {
-                          final brand = ammoBrand.text;
-                          _clearAmmo();
-                          ammoBrand.text = brand;
-                        }
-                        ammoType = v;
-                      }),
-                    ),
-                  ),
-            brandText: MenzilInput(
-              key: const Key('ammo-brand'),
-              controller: ammoBrand,
-              label: 'Marka',
-              // The list has no factory round for this Kalibre: say so
-              // instead of a silently typed box (owner, 2026-10-11).
-              info: _typedFirearmAmmo
-                  ? ProfileFieldInfo.ammoBrandOther
-                  : _noFactoryForCaliber
-                  ? 'Bu kalibre için listede henüz fabrika fişeği yok. '
-                        'Fişeğin markasını ve modelini kutunun üstünden '
-                        'okuyup yazın; ağırlık, BC ve hız kutuda veya '
-                        'üreticinin sitesinde yazar. Kendi doldurduğunuz '
-                        'fişekse Mühimmat türünde El dolumu seçin.'
-                  : _noPcpForCaliber
-                  // Owner, 2026-10-12: the empty list must say why.
-                  ? 'Bu kalibre ve tipte listede henüz ürün yok. '
-                        'Markayı ve modeli kutunun üstünden okuyup '
-                        'yazın. BC bilinmiyorsa boş bırakabilirsiniz.'
-                  : null,
-              keyboardType: TextInputType.text,
-              maxLength: 60,
-              onChanged: (_) => _update(() {}),
-              errorText: _shown(_ammoBrandError, ammoBrand),
-            ),
-            modelText: MenzilInput(
-              key: const Key('ammo-model'),
-              controller: ammoModel,
-              label: 'Model',
-              info: _typedFirearmAmmo ? ProfileFieldInfo.ammoModelTyped : null,
-              keyboardType: TextInputType.text,
-              maxLength: 80,
-              onChanged: (_) => _update(() {}),
-              errorText: _shown(_ammoModelError, ammoModel),
-            ),
-          ),
-          if (_typedFirearmAmmo)
-            ..._typedGrainFields()
-          else
-            MenzilInput(
-              key: const Key('ammo-grain'),
-              info: platform == WeaponPlatform.firearm
-                  ? ProfileFieldInfo.grainFirearm
-                  : ProfileFieldInfo.grain,
-              controller: ammoGrain,
-              focusNode: _grainFocus,
-              label: 'Ağırlık',
-              unit: 'gr',
-              onChanged: (_) => _update(() {}),
-              errorText: _shown(_grainError, ammoGrain),
-            ),
-          // Uzunluk | BC on PCP (owner, 2026-10-13); hidden behind
-          // PROFILE_AMMO_LENGTH (owner, 2026-10-13 23:32).
-          if (platform == WeaponPlatform.pcp && _showProfileAmmoLength)
-            MenzilInput(
-              key: const Key('ammo-length'),
-              controller: ammoLength,
-              label: 'Uzunluk',
-              unit: 'mm',
-              info: ProfileFieldInfo.ammoLength,
-              onChanged: (_) => _update(() {}),
-              errorText: _shown(_lengthError, ammoLength),
-            ),
-          if (!_customCurve)
-            MenzilInput(
-              key: const Key('ammo-bc'),
-              info:
-                  (platform == WeaponPlatform.firearm
-                      ? ProfileFieldInfo.bcFirearm
-                      : ProfileFieldInfo.bc) +
-                  _factoryBcNote,
-              controller: ammoBc,
-              label: 'BC',
-              // A typed BC picks G1 when no model is chosen yet
-              // (owner, 2026-10-13); G7 or others stay selectable.
-              onChanged: (v) => _update(() {
-                // Typed firearm round: BC modeli is chosen on
-                // purpose (owner, 2026-10-14: starts "Seçiniz").
-                if (platform == WeaponPlatform.firearm &&
-                    !_typedFirearmAmmo &&
-                    !_customCurve &&
-                    ammoBcModel == null &&
-                    v.trim().isNotEmpty) {
-                  ammoBcModel = BallisticModel.g1;
-                }
-              }),
-              errorText: _shown(_bcError, ammoBc),
-            ),
-          // Firearm: the warning under BC as before; PCP: under BC |
-          // BC modeli so the two stay on one row (owner, 2026-10-14).
-          if (_bcPlausibilityWarning != null && platform != WeaponPlatform.pcp)
-            _bcWarningNotice,
-          KeyedSubtree(
-            key: const Key('ammo-bc-model'),
-            child: MenzilSelect<String>(
-              key: ValueKey(
-                'ammo-bc-model-${_customCurve ? _customKey : ammoBcModel?.name}',
-              ),
-              info: platform == WeaponPlatform.firearm
-                  ? ProfileFieldInfo.bcModelWithCustom
-                  : ProfileFieldInfo.bcModel,
-              label: 'BC modeli',
-              hint: 'Seçiniz',
-              // PCP starts on G1 (owner, 2026-10-14: "G1 seçili
-              // kalsın"); a firearm starts on "Seçiniz" as before.
-              initialValue: _customCurve
-                  ? _customKey
-                  : platform == WeaponPlatform.pcp
-                  ? _bcModelForSave!.name
-                  : ammoBcModel?.name,
-              items: _typedFirearmAmmo
-                  ? _typedBcModelItems
-                  : [
-                      for (final (m, text) in _bcModelChoices)
-                        DropdownMenuItem(value: m.name, child: Text(text)),
-                      if (platform == WeaponPlatform.firearm)
-                        const DropdownMenuItem(
-                          value: _customKey,
-                          child: Text('Özel eğri (Mach–Cd)'),
-                        )
-                      else if (_customCurve)
-                        const DropdownMenuItem(
-                          value: _customKey,
-                          child: Text('Özel eğri (kayıtlı)'),
-                        ),
-                    ],
-              onChanged: (v) => _update(() {
-                _customCurve = v == _customKey;
-                if (!_customCurve) {
-                  final was = ammoBcModel;
-                  ammoBcModel = BallisticModel.values
-                      .where((m) => m.name == v)
-                      .firstOrNull;
-                  if (ammoBcModel != was) _factoryBcForModel();
-                }
-              }),
-            ),
-          ),
-          if (_bcPlausibilityWarning != null && platform == WeaponPlatform.pcp)
-            _bcWarningNotice,
-          // PCP tüp ve regülatör basıncı (owner, 2026-10-12): never on
-          // a firearm. Tüp | Regülatör on one row, then the optional
-          // basınca göre hız rows (Basınç | Hız).
-          if (platform == WeaponPlatform.pcp) ..._pcpPressureFields(c),
-          if (_customCurve)
-            MenzilFullWidth(
-              child: DragCurveField(
-                key: const Key('ammo-curve'),
-                curve: _dragCurve,
-                errorText: _showErrors && _dragCurve == null
-                    ? 'Eğriyi yükleyin.'
-                    : null,
-                onChanged: (v) => _update(() => _dragCurve = v),
-              ),
-            ),
-          if (_showErrors &&
-              ((!_customCurve && _bcModelForSave == null) ||
-                  _effectiveAmmoType == null))
-            const MenzilFullWidth(
-              child: MenzilNotice(
-                tone: MenzilNoticeTone.danger,
-                message: 'Mühimmat tipini ve BC modelini (G1/G7) seçin.',
-              ),
-            ),
-          // Read-only check line above Kaydet (owner, 2026-10-14).
-          if (_typedAmmoSummary != null)
-            MenzilFullWidth(
-              child: MenzilCard(
-                key: const Key('ammo-typed-summary'),
-                padding: const EdgeInsets.all(MenzilSpace.md),
-                child: Text(
-                  _typedAmmoSummary!,
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                  style: MenzilType.body(c.ink),
+      info: platform == WeaponPlatform.firearm
+          ? ProfileFieldInfo.bcModelWithCustom
+          : ProfileFieldInfo.bcModel,
+      label: 'BC modeli',
+      hint: 'Seçiniz',
+      // PCP starts on G1 (owner, 2026-10-14: "G1 seçili kalsın"); a firearm
+      // starts on "Seçiniz" as before.
+      initialValue: _customCurve
+          ? _customKey
+          : platform == WeaponPlatform.pcp
+          ? _bcModelForSave!.name
+          : ammoBcModel?.name,
+      items: _typedFirearmAmmo
+          ? _typedBcModelItems
+          : [
+              for (final (m, text) in _bcModelChoices)
+                DropdownMenuItem(value: m.name, child: Text(text)),
+              if (platform == WeaponPlatform.firearm)
+                const DropdownMenuItem(
+                  value: _customKey,
+                  child: Text('Özel eğri (Mach–Cd)'),
+                )
+              else if (_customCurve)
+                const DropdownMenuItem(
+                  value: _customKey,
+                  child: Text('Özel eğri (kayıtlı)'),
                 ),
-              ),
-            ),
-        ],
-      ),
+            ],
+      onChanged: (v) => _update(() {
+        _customCurve = v == _customKey;
+        if (!_customCurve) {
+          final was = ammoBcModel;
+          ammoBcModel = BallisticModel.values
+              .where((m) => m.name == v)
+              .firstOrNull;
+          if (ammoBcModel != was) _factoryBcForModel();
+        }
+      }),
     ),
-  ];
+  );
+
+  /// "Mühimmat" heading and card.
+  List<Widget> _ammoSection(MenzilColors c) {
+    final pcp = platform == WeaponPlatform.pcp;
+    return [
+      const MenzilSectionHeader(
+        'Mühimmat',
+        padding: EdgeInsets.only(top: MenzilSpace.xxs, bottom: MenzilSpace.sm),
+      ),
+      MenzilCard(
+        key: const Key('profile-ammo-form'),
+        padding: const EdgeInsets.fromLTRB(
+          MenzilSpace.lg,
+          MenzilSpace.lg,
+          MenzilSpace.lg,
+          MenzilSpace.xxs,
+        ),
+        // PCP (owner, 2026-10-16, the approved design): the Hava Durumu
+        // boxes, with the unit and the ⓘ inside each box at its right; the
+        // firearm card is unchanged.
+        child: MenzilCompactFields(
+          enabled: pcp,
+          child: MenzilFieldGrid(children: _ammoFields(c)),
+        ),
+      ),
+    ];
+  }
+
+  /// The Mühimmat card's boxes, top to bottom.
+  ///
+  /// Firearm (owner, 2026-10-11): Mühimmat türü | Marka, Model on its own
+  /// row, then Ağırlık | BC, BC modeli. Namlu çıkış hızı is on the Tüfek
+  /// card since 2026-10-13.
+  ///
+  /// PCP (owner, 2026-10-16): Tip | Marka; Model; "Aradığın mühimmat
+  /// listede yok mu?"; Ağırlık | BC; BC modeli (| Uzunluk when shown); En
+  /// düşük | En yüksek namlu çıkış hızı. Tüp basıncı | Regülatör basıncı
+  /// are on the Tüfek card (owner, 2026-10-16 20:49–21:04).
+  List<Widget> _ammoFields(MenzilColors c) {
+    final pcp = platform == WeaponPlatform.pcp;
+    final bcModel = _bcModelSelect;
+    return [
+      ..._ammoNameFields(
+        type: pcp ? _pcpTypeSelect : _ammoSourceSelect,
+        brandText: MenzilInput(
+          key: const Key('ammo-brand'),
+          controller: ammoBrand,
+          label: 'Marka',
+          // The list has no factory round for this Kalibre: say so instead
+          // of a silently typed box (owner, 2026-10-11).
+          info: _typedFirearmAmmo
+              ? ProfileFieldInfo.ammoBrandOther
+              : _noFactoryForCaliber
+              ? 'Bu kalibre için listede henüz fabrika fişeği yok. '
+                    'Fişeğin markasını ve modelini kutunun üstünden okuyup '
+                    'yazın; ağırlık, BC ve hız kutuda veya üreticinin '
+                    'sitesinde yazar. Kendi doldurduğunuz fişekse Mühimmat '
+                    'türünde El dolumu seçin.'
+              : _noPcpForCaliber
+              // Owner, 2026-10-12: the empty list must say why.
+              ? 'Bu kalibre ve tipte listede henüz ürün yok. Markayı ve '
+                    'modeli kutunun üstünden okuyup yazın. BC bilinmiyorsa '
+                    'boş bırakabilirsiniz.'
+              : pcp
+              ? ProfileFieldInfo.pcpAmmoBrandTyped
+              : null,
+          keyboardType: TextInputType.text,
+          maxLength: 60,
+          onChanged: (_) => _update(() {}),
+          errorText: _shown(_ammoBrandError, ammoBrand),
+        ),
+        modelText: MenzilInput(
+          key: const Key('ammo-model'),
+          controller: ammoModel,
+          label: 'Model',
+          info: _typedFirearmAmmo
+              ? ProfileFieldInfo.ammoModelTyped
+              : pcp
+              ? ProfileFieldInfo.pcpAmmoModelTyped
+              : null,
+          keyboardType: TextInputType.text,
+          maxLength: 80,
+          onChanged: (_) => _update(() {}),
+          errorText: _shown(_ammoModelError, ammoModel),
+        ),
+      ),
+      if (_typedFirearmAmmo)
+        ..._typedGrainFields()
+      else
+        MenzilInput(
+          key: const Key('ammo-grain'),
+          info: pcp ? ProfileFieldInfo.grain : ProfileFieldInfo.grainFirearm,
+          controller: ammoGrain,
+          focusNode: _grainFocus,
+          label: 'Ağırlık',
+          unit: 'gr',
+          onChanged: (_) => _update(() {}),
+          errorText: _shown(_grainError, ammoGrain),
+        ),
+      if (!_customCurve)
+        MenzilInput(
+          key: const Key('ammo-bc'),
+          info:
+              (pcp ? ProfileFieldInfo.bc : ProfileFieldInfo.bcFirearm) +
+              _factoryBcNote,
+          controller: ammoBc,
+          label: 'BC',
+          // A typed BC picks G1 when no model is chosen yet (owner,
+          // 2026-10-13); G7 or others stay selectable.
+          onChanged: (v) => _update(() {
+            // Typed firearm round: BC modeli is chosen on purpose (owner,
+            // 2026-10-14: starts "Seçiniz").
+            if (platform == WeaponPlatform.firearm &&
+                !_typedFirearmAmmo &&
+                !_customCurve &&
+                ammoBcModel == null &&
+                v.trim().isNotEmpty) {
+              ammoBcModel = BallisticModel.g1;
+            }
+          }),
+          errorText: _shown(_bcError, ammoBc),
+        ),
+      // Firearm: the warning under BC as before; PCP: under BC modeli.
+      if (_bcPlausibilityWarning != null && !pcp) _bcWarningNotice,
+      // PCP: BC modeli | Uzunluk while PROFILE_AMMO_LENGTH shows Uzunluk
+      // (hidden, owner 2026-10-13 23:32); otherwise BC modeli takes the row.
+      if (pcp && !_showProfileAmmoLength)
+        MenzilFullWidth(child: bcModel)
+      else
+        bcModel,
+      if (pcp && _showProfileAmmoLength)
+        MenzilInput(
+          key: const Key('ammo-length'),
+          controller: ammoLength,
+          label: 'Uzunluk',
+          unit: 'mm',
+          info: ProfileFieldInfo.ammoLength,
+          onChanged: (_) => _update(() {}),
+          errorText: _shown(_lengthError, ammoLength),
+        ),
+      if (_bcPlausibilityWarning != null && pcp) _bcWarningNotice,
+      if (pcp) ..._pcpVelocityFields(),
+      if (_customCurve)
+        MenzilFullWidth(
+          child: DragCurveField(
+            key: const Key('ammo-curve'),
+            curve: _dragCurve,
+            errorText: _showErrors && _dragCurve == null
+                ? 'Eğriyi yükleyin.'
+                : null,
+            onChanged: (v) => _update(() => _dragCurve = v),
+          ),
+        ),
+      if (_showErrors &&
+          ((!_customCurve && _bcModelForSave == null) ||
+              _effectiveAmmoType == null))
+        const MenzilFullWidth(
+          child: MenzilNotice(
+            tone: MenzilNoticeTone.danger,
+            message: 'Mühimmat tipini ve BC modelini (G1/G7) seçin.',
+          ),
+        ),
+      // Read-only check line above Kaydet (owner, 2026-10-14).
+      if (_typedAmmoSummary != null)
+        MenzilFullWidth(
+          child: MenzilCard(
+            key: const Key('ammo-typed-summary'),
+            padding: const EdgeInsets.all(MenzilSpace.md),
+            child: Text(
+              _typedAmmoSummary!,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+              style: MenzilType.body(c.ink),
+            ),
+          ),
+        ),
+    ];
+  }
 }

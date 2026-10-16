@@ -118,18 +118,18 @@ Future<void> fillAmmoForm(
     await chooseInSelect(tester, 'ammo-source', 'Fabrika fişeği');
   }
   // Firearm: a typed round opens from the "listede yok mu?" link (owner,
-  // 2026-10-14); PCP (PCP_AMMO_BRAND on) keeps "Listede yok" in the list.
-  if (find.byKey(const Key('ammo-not-listed')).evaluate().isNotEmpty) {
+  // 2026-10-14). PCP (owner, 2026-10-16): Marka | Model are shown but
+  // optional; the helper keeps the earlier PCP flow (Tip, Ağırlık, BC
+  // typed, no name), so the saved record is "Özel yapım" as before.
+  final pcp = find.byKey(const Key('ammo-type')).evaluate().isNotEmpty;
+  if (!pcp && find.byKey(const Key('ammo-not-listed')).evaluate().isNotEmpty) {
     await openAmmoManual(tester);
-  } else if (find.byKey(const Key('ammo-brand-select')).evaluate().isNotEmpty) {
-    await chooseInSelect(tester, 'ammo-brand-select', 'Listede yok');
   }
   // Typed firearm round: Marka from the list, "Diğer" types it.
   if (find.byKey(const Key('ammo-brand-pick')).evaluate().isNotEmpty) {
     await chooseInSelect(tester, 'ammo-brand-pick', 'Diğer');
   }
-  // PCP asks no Marka/Model (owner, 2026-10-13).
-  if (find.byKey(const Key('ammo-brand')).evaluate().isNotEmpty) {
+  if (!pcp && find.byKey(const Key('ammo-brand')).evaluate().isNotEmpty) {
     await enterRifleField(tester, 'ammo-brand', brand);
     await enterRifleField(tester, 'ammo-model', model);
   }
@@ -160,6 +160,9 @@ Future<void> chooseBcModel(WidgetTester tester, String label) async {
 }
 
 /// Fills Atış değerleri: muzzle velocity (fps), zero (m) and sight height (mm).
+/// The Namlu çıkış hızı box is on the Tüfek card for PCP and Ateşli alike
+/// (owner, 2026-10-16); a PCP's optional En düşük | En yüksek are filled
+/// with [fillPcpVelocities].
 Future<void> fillShotValues(
   WidgetTester tester, {
   String velocityFps = '900',
@@ -231,3 +234,14 @@ T? selectedValue<T>(WidgetTester tester, String key) => tester
       ),
     )
     .value;
+
+/// Fills a PCP's optional En düşük | En yüksek namlu çıkış hızı on the
+/// Mühimmat card (owner, 2026-10-16).
+Future<void> fillPcpVelocities(
+  WidgetTester tester, {
+  required String minFps,
+  required String maxFps,
+}) async {
+  await enterRifleField(tester, 'profile-pcp-velocity-min', minFps);
+  await enterRifleField(tester, 'profile-pcp-velocity-max', maxFps);
+}

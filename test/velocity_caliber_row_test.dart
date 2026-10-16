@@ -1,9 +1,10 @@
-// Owner, 2026-10-14 18:56–18:58 (Profil Oluştur / Profili Düzenle > Tüfek):
-// Kalibre is alone on its full row under Marka and Model, and Namlu çıkış
-// hızı sits right of Sıfırlama mesafesi on the last row. This supersedes the
-// 2026-10-13 decision "Namlu çıkış hızı | Kalibre" on one row (this file
-// pinned it before). A long caliber keeps its size and wraps inside the
-// box, which grows (like the Model boxes, #308); PCP and Ateşli Tüfek alike,
+// Owner, 2026-10-16 20:49–21:04 (Profil Oluştur / Profili Düzenle > Tüfek,
+// approved drawing): the first row under Marka, Model and the "listede yok"
+// link is Kalibre | Namlu çıkış hızı, PCP and Ateşli Tüfek alike (Namlu
+// çıkış hızı stays on the Tüfek card for a PCP). This supersedes the
+// 2026-10-14 18:56–18:58 layout (Kalibre alone, Sıfırlama mesafesi | Namlu
+// çıkış hızı last), which this file pinned before. A long caliber keeps its
+// size and wraps inside its box, which grows (like the Model boxes, #308),
 // at every width and text size.
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -52,35 +53,33 @@ Finder _key(String key) => find.byKey(Key(key));
 
 Finder _in(String key, Finder f) => find.descendant(of: _key(key), matching: f);
 
-/// Kalibre: full width under Model, alone on its row. Namlu çıkış hızı:
-/// right of Sıfırlama mesafesi when the card has two columns, under it when
-/// it has one. Every box inside the rifle card.
+/// Kalibre | Namlu çıkış hızı on the first row under Model when the card
+/// has two columns (Kalibre left), Namlu çıkış hızı right under Kalibre when
+/// it has one. Nothing else on that row; every box inside the rifle card.
 void _expectLayout(WidgetTester tester) {
   final card = tester.getRect(_key('profile-rifle-form'));
   final model = tester.getRect(_key('rifle-model-select'));
   final c = tester.getRect(_key('rifle-caliber'));
   final v = tester.getRect(_key('profile-velocity-fps'));
-  final z = tester.getRect(_key('profile-zero'));
   expect(c.top, greaterThanOrEqualTo(model.bottom));
   expect((c.left - model.left).abs(), lessThan(1));
-  expect((c.width - model.width).abs(), lessThan(1));
-  for (final r in [c, v, z]) {
+  for (final r in [c, v]) {
     expect(r.left, greaterThanOrEqualTo(card.left));
     expect(r.right, lessThanOrEqualTo(card.right + 0.5));
   }
-  // Nothing else on the Kalibre row.
+  if (c.width < model.width * 0.75) {
+    // Two columns: Kalibre | Namlu çıkış hızı.
+    expect((v.top - c.top).abs(), lessThanOrEqualTo(1), reason: '$c / $v');
+    expect(c.right, lessThan(v.left));
+    expect((v.width - c.width).abs(), lessThan(1));
+  } else {
+    // One column: Namlu çıkış hızı right under Kalibre.
+    expect(v.top, greaterThanOrEqualTo(c.bottom - 0.5));
+  }
+  // Yiv oranı starts the next row, under both.
   final twist = tester.getRect(_key('rifle-twist-rate'));
   expect(twist.top, greaterThanOrEqualTo(c.bottom - 0.5));
-  expect(v.top, greaterThanOrEqualTo(c.bottom));
-  if (z.width < c.width * 0.75) {
-    // Two columns: Sıfırlama mesafesi | Namlu çıkış hızı.
-    expect((v.top - z.top).abs(), lessThanOrEqualTo(1), reason: '$z / $v');
-    expect(z.right, lessThan(v.left));
-    expect((v.width - z.width).abs(), lessThan(1));
-  } else {
-    // One column: Namlu çıkış hızı right under Sıfırlama mesafesi.
-    expect(v.top, greaterThanOrEqualTo(z.bottom - 0.5));
-  }
+  expect(twist.top, greaterThanOrEqualTo(v.bottom - 0.5));
 }
 
 /// The closed Kalibre box shows [text] whole, at the normal size, wrapped
@@ -162,8 +161,8 @@ void main() {
       (_narrowest, 1.0),
       (_narrowest, 1.3),
     ]) {
-      testWidgets('$kind: Kalibre alone, Sıfırlama mesafesi | Namlu çıkış '
-          'hızı (width $width, text ×$textScale)', (tester) async {
+      testWidgets('$kind: Kalibre | Namlu çıkış hızı '
+          '(width $width, text ×$textScale)', (tester) async {
         await _openNew(
           tester,
           firearm: firearm,
@@ -221,11 +220,15 @@ void main() {
         _expectLayout(tester);
         _expectWraps(tester, 'Fişeğim listede yok');
         final c = tester.getRect(_key('rifle-caliber'));
+        final v = tester.getRect(_key('profile-velocity-fps'));
+        final model = tester.getRect(_key('rifle-model-select'));
         final d = tester.getRect(_key('rifle-bullet-diameter'));
+        // Full width, under the Kalibre | Namlu çıkış hızı row.
         expect(d.top, greaterThanOrEqualTo(c.bottom));
-        expect((d.left - c.left).abs(), lessThan(1));
-        expect((d.width - c.width).abs(), lessThan(1));
-        // Directly under Kalibre: Yiv oranı comes after Mermi çapı.
+        expect(d.top, greaterThanOrEqualTo(v.bottom));
+        expect((d.left - model.left).abs(), lessThan(1));
+        expect((d.width - model.width).abs(), lessThan(1));
+        // Yiv oranı comes after Mermi çapı.
         final twist = tester.getRect(_key('rifle-twist-rate'));
         expect(twist.top, greaterThanOrEqualTo(d.bottom - 0.5));
         await chooseInSelect(

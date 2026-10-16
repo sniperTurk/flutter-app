@@ -2,7 +2,10 @@
 // small label sits ≤ 8 pt above a 44 pt box; the unit and the ⓘ are inside
 // the box on the right; the ⓘ keeps a 44 × 44 pt tap target, opens the same
 // popup and neither focuses the field nor opens a list. Every other page
-// (Profil here) keeps the 44 pt label row and the 46 pt box.
+// (Profil here) keeps the 44 pt label row (label and ⓘ) and the 46 pt box,
+// with the unit inside the box at its right since 2026-10-16 (owner,
+// approved Temiz Tasarım), except the PCP Mühimmat card, which uses the
+// compact boxes since 2026-10-16 (test/pcp_muhimmat_tasarim_test.dart).
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:sniper_turk/features/ballistics/ballistics_screen.dart';
@@ -503,9 +506,8 @@ void main() {
     expect(newWhole.height, lessThan(oldWhole.height));
   });
 
-  testWidgets('Profil keeps the old layout: 44 pt label row, 46 pt box', (
-    tester,
-  ) async {
+  testWidgets('Profil keeps the 44 pt label row and the 46 pt box outside '
+      'the PCP Mühimmat card; the unit is inside the box', (tester) async {
     tester.view.physicalSize = const Size(430 * 3, 2600 * 3);
     tester.view.devicePixelRatio = 3;
     addTearDown(tester.view.reset);
@@ -519,6 +521,7 @@ void main() {
     await tester.tap(find.byTooltip('Yeni profil'));
     await tester.pumpAndSettle();
     await chooseInSelect(tester, 'profile-platform', 'PCP Tüfek');
+    // Tüp basıncı, on the Tüfek card since 2026-10-16.
     const key = Key('profile-tube-pressure');
     await tester.ensureVisible(find.byKey(key));
     await tester.pumpAndSettle();
@@ -537,8 +540,19 @@ void main() {
     );
     expect(box.top - whole.top, greaterThanOrEqualTo(44 - 0.01));
     expect(box.height, greaterThanOrEqualTo(MenzilSpace.control - 0.01));
+    // The unit sits inside the box at its right (owner, 2026-10-16), not in
+    // the label row.
+    final unit = find.descendant(of: field, matching: find.text('bar'));
+    expect(unit, findsOneWidget);
+    final u = tester.getRect(unit);
+    expect(u.left, greaterThanOrEqualTo(box.left));
+    expect(u.right, lessThanOrEqualTo(box.right));
+    expect(u.center.dx, greaterThan(box.center.dx));
     expect(
-      find.descendant(of: field, matching: find.text('bar')),
+      find.descendant(
+        of: find.byType(MenzilFieldLabel),
+        matching: find.text('bar'),
+      ),
       findsNothing,
     );
     // A Profil select keeps its label row too.

@@ -268,8 +268,24 @@ extension _RifleSection on _ProfileDialogState {
     rifleCaliber.text = '';
   }
 
-  /// Namlu çıkış hızı, a half box beside Sıfırlama mesafesi on the last
-  /// Tüfek row (owner, 2026-10-14 18:58; it sat left of Kalibre before).
+  /// Sıfırlama mesafesi in the profile's distance unit.
+  Widget _zeroField() => MenzilInput(
+    key: const Key('profile-zero'),
+    controller: zero,
+    label: 'Sıfırlama mesafesi',
+    // The unit the typed value is read in ('m' while Mesafe birimi is still
+    // "Seçiniz": the code reads it as metres then).
+    unit: distanceUnit.symbol,
+    info: platform == WeaponPlatform.firearm
+        ? ProfileFieldInfo.zeroFirearm
+        : ProfileFieldInfo.zero,
+    onChanged: (_) => _update(() {}),
+    errorText: _shown(_zeroError, zero),
+  );
+
+  /// Namlu çıkış hızı, required, Ateşli and PCP: a half box beside Kalibre
+  /// on the first Tüfek row (owner, 2026-10-16 20:49–21:04). On a PCP with
+  /// En düşük | En yüksek on the Mühimmat card their mean is used instead.
   Widget _velocityField() => MenzilInput(
     key: const Key('profile-velocity-fps'),
     controller: velocity,
@@ -282,44 +298,68 @@ extension _RifleSection on _ProfileDialogState {
     errorText: _shown(_velocityError, velocity),
   );
 
-  /// Kalibre, full width and alone on its row under Marka and Model (owner,
-  /// 2026-10-14 18:56–18:58: an exception to "two boxes per row" for Marka,
-  /// Model and Kalibre). A long choice keeps its size and wraps; the box
-  /// grows (like the Model boxes, #308).
+  /// PCP: Tüp basıncı | Regülatör basıncı (bar), optional, on the Tüfek
+  /// card under Yiv oranı | Namlu yiv yönü (owner, 2026-10-16 20:49–21:04;
+  /// they were on the Mühimmat card). The saved keys stay (`tubePressureBar`,
+  /// `pressureBar`), so old saved values still load.
+  /// owner 2026-10-16: kept for future regulator use; not in the formula.
+  List<Widget> _pcpPressureFields() => [
+    MenzilInput(
+      key: const Key('profile-tube-pressure'),
+      controller: tubePressure,
+      label: 'Tüp basıncı',
+      unit: 'bar',
+      info: ProfileFieldInfo.tubePressure,
+      onChanged: (_) => _update(() {}),
+      errorText: _shown(_tubePressureError, tubePressure),
+    ),
+    MenzilInput(
+      key: const Key('profile-regulator-pressure'),
+      controller: regulatorPressure,
+      label: 'Regülatör basıncı',
+      unit: 'bar',
+      info: ProfileFieldInfo.regulatorPressure,
+      onChanged: (_) => _update(() {}),
+      errorText: _shown(_regulatorPressureError, regulatorPressure),
+    ),
+  ];
+
+  /// Kalibre, a half box with Namlu çıkış hızı beside it (owner, 2026-10-16
+  /// 20:49–21:04: "Kalibre | Namlu çıkış hızı"). A long choice keeps its
+  /// size and wraps inside the box; the box grows (like the Model boxes,
+  /// #308).
   Widget _caliberField() {
     final choices = _caliberChoices;
-    return MenzilFullWidth(
-      child: KeyedSubtree(
-        key: const Key('rifle-caliber'),
-        child: MenzilSelect<String>(
-          key: ValueKey(
-            'rifle-caliber-${platform.name}-${rifleCaliber.text}-'
-            '$_cartridge-${rifleBrand.text}-${rifleModel.text}-'
-            '$_caliberAll-$_caliberByDiameter',
-          ),
-          info: platform == WeaponPlatform.firearm
-              ? ProfileFieldInfo.caliberFirearm
-              : ProfileFieldInfo.caliber,
-          label: 'Kalibre',
-          hint: 'Seçiniz',
-          initialValue: _caliberKey,
-          items: [for (final c in choices) c.item],
-          wrapSelected: true,
-          // The open list is as wide as the box, never wider (owner,
-          // 2026-10-13: "kutudan dışarı çıkmasın"), so a long cartridge may
-          // wrap there: its entry grows with it instead of keeping 48 pt and
-          // spilling over the next one (a tap on its lower half chose
-          // nothing).
-          itemHeight: null,
-          selectedLabels: [for (final c in choices) c.full],
-          // Kept for the box's short form; unused while the text wraps.
-          shortSelectedLabels: [for (final c in choices) c.short],
-          onChanged: (v) => _update(() {
-            final before = (rifleCaliber.text, _cartridge);
-            _onCaliberKey(v);
-            _keepAmmoInCaliber(before);
-          }),
+    return KeyedSubtree(
+      key: const Key('rifle-caliber'),
+      child: MenzilSelect<String>(
+        key: ValueKey(
+          'rifle-caliber-${platform.name}-${rifleCaliber.text}-'
+          '$_cartridge-${rifleBrand.text}-${rifleModel.text}-'
+          '$_caliberAll-$_caliberByDiameter',
         ),
+        info: platform == WeaponPlatform.firearm
+            ? ProfileFieldInfo.caliberFirearm
+            : ProfileFieldInfo.caliber,
+        label: 'Kalibre',
+        hint: 'Seçiniz',
+        initialValue: _caliberKey,
+        items: [for (final c in choices) c.item],
+        wrapSelected: true,
+        // The open list is as wide as the box, never wider (owner,
+        // 2026-10-13: "kutudan dışarı çıkmasın"), so a long cartridge may
+        // wrap there: its entry grows with it instead of keeping 48 pt and
+        // spilling over the next one (a tap on its lower half chose
+        // nothing).
+        itemHeight: null,
+        selectedLabels: [for (final c in choices) c.full],
+        // Kept for the box's short form; unused while the text wraps.
+        shortSelectedLabels: [for (final c in choices) c.short],
+        onChanged: (v) => _update(() {
+          final before = (rifleCaliber.text, _cartridge);
+          _onCaliberKey(v);
+          _keepAmmoInCaliber(before);
+        }),
       ),
     );
   }
@@ -479,13 +519,14 @@ extension _RifleSection on _ProfileDialogState {
       ),
       child: MenzilFieldGrid(
         children: [
-          // Owner, 2026-10-11: Marka, Model and Kalibre are picked
-          // from lists. Order (owner, 2026-10-14 18:56–18:58): Marka,
-          // Model, Kalibre each alone on a full row; then Yiv oranı |
-          // Namlu yiv yönü, Sight height | Mesafe birimi, Sıfırlama
-          // mesafesi | Namlu çıkış hızı.
+          // Order (owner, 2026-10-16 20:49–21:04, two boxes per row): Marka,
+          // Model and "Aradığın tüfek listede yok mu?" as before; then
+          // Kalibre | Namlu çıkış hızı; Yiv oranı | Namlu yiv yönü; PCP only
+          // Tüp basıncı | Regülatör basıncı; Sıfırlama mesafesi | Mesafe
+          // birimi; Sight height alone on the last row.
           ..._rifleNameFields(),
           _caliberField(),
+          _velocityField(),
           if (platform == WeaponPlatform.firearm && _caliberByDiameter)
             MenzilFullWidth(
               child: KeyedSubtree(
@@ -522,6 +563,8 @@ extension _RifleSection on _ProfileDialogState {
             info: ProfileFieldInfo.twistRate,
             controller: rifleTwist,
             label: 'Yiv oranı',
+            // Inside the box (owner, 2026-10-16: "inç" in the box).
+            unit: 'inç',
             onChanged: (_) => _update(() {}),
             errorText: _shown(_twistError, rifleTwist),
           ),
@@ -553,19 +596,8 @@ extension _RifleSection on _ProfileDialogState {
                 message: 'Namlu yiv yönünü seçin (Sağ / Sol).',
               ),
             ),
-          MenzilInput(
-            key: const Key('scope-sight-height'),
-            info: platform == WeaponPlatform.firearm
-                ? ProfileFieldInfo.sightHeightFirearm
-                : ProfileFieldInfo.sightHeight,
-            controller: sight,
-            label: 'Sight height',
-            unit: 'mm',
-            onChanged: (_) => _update(() {}),
-            errorText: sight.text.isNotEmpty && !_validSight
-                ? '0–300 mm arasında geçerli bir değer girin.'
-                : null,
-          ),
+          if (platform == WeaponPlatform.pcp) ..._pcpPressureFields(),
+          _zeroField(),
           MenzilSelect<DistanceUnit>(
             key: const Key('profile-distance-unit'),
             info: ProfileFieldInfo.distanceUnit,
@@ -590,20 +622,21 @@ extension _RifleSection on _ProfileDialogState {
               distanceUnit = next;
             }),
           ),
-          MenzilInput(
-            key: const Key('profile-zero'),
-            controller: zero,
-            label: 'Sıfırlama mesafesi',
-            // The unit the typed value is read in ('m' while Mesafe birimi
-            // is still "Seçiniz": the code reads it as metres then).
-            unit: distanceUnit.symbol,
-            info: platform == WeaponPlatform.firearm
-                ? ProfileFieldInfo.zeroFirearm
-                : ProfileFieldInfo.zero,
-            onChanged: (_) => _update(() {}),
-            errorText: _shown(_zeroError, zero),
+          MenzilFullWidth(
+            child: MenzilInput(
+              key: const Key('scope-sight-height'),
+              info: platform == WeaponPlatform.firearm
+                  ? ProfileFieldInfo.sightHeightFirearm
+                  : ProfileFieldInfo.sightHeight,
+              controller: sight,
+              label: 'Sight height',
+              unit: 'mm',
+              onChanged: (_) => _update(() {}),
+              errorText: sight.text.isNotEmpty && !_validSight
+                  ? '0–300 mm arasında geçerli bir değer girin.'
+                  : null,
+            ),
           ),
-          _velocityField(),
         ],
       ),
     ),
