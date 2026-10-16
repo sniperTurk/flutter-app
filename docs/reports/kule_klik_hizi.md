@@ -40,13 +40,13 @@ Yeni `test/kule_klik_hizi_test.dart` (gerçek Hedef sayfası, sahte `TurretClick
 Yerel: `python3 tools/offline_dart_lint.py` → PASS (407 Dart dosyası, 0 sorun); `python3 -m unittest discover -s tools -p 'test_*.py'` → 915 test OK (1 atlanan, önceden var). Flutter SDK bu ortamda kurulamadı (storage.googleapis.com ağ politikası 403): `flutter analyze` ve `flutter test` yerelde ÇALIŞMADI (BLOCKED); sonuçlar yalnız aşağıdaki CI'dan.
 
 ## CI
-Hepsi kod commit'i `7f16d67` üzerinde (main e7b29bf ile güncel; yeniden temellendirme gerekmedi):
+Kod commit'i `7f16d67` üzerinde (analyze-diag hariç; main e7b29bf ile güncel, yeniden temellendirme gerekmedi):
 - iOS CI / verify (macOS, Simulator derlemesi dahil): BAŞARILI — https://github.com/sniperTurk/flutter-app/actions/runs/38944339215/job/117124792527
 - iOS CI / dart-checks: BAŞARILI — https://github.com/sniperTurk/flutter-app/actions/runs/38944339215/job/117120102839
 - iOS CI / wind-acceptance: BAŞARILI — https://github.com/sniperTurk/flutter-app/actions/runs/38944339215/job/117120102733
 - Tüm testler (test-diag, files=test): BAŞARILI — https://github.com/sniperTurk/flutter-app/actions/runs/38944533452
 - Kule testleri (kule_klik_hizi + kule_klik_sesi): BAŞARILI — https://github.com/sniperTurk/flutter-app/actions/runs/38944332773
-- analyze-diag: BAŞARILI — https://github.com/sniperTurk/flutter-app/actions/runs/38942507719
+- analyze-diag: BAŞARILI, ilk commit `643c99a` üzerinde (lib aynı; sonra yalnız test dosyası değişti, o da dart-checks'ten geçti) — https://github.com/sniperTurk/flutter-app/actions/runs/38942507719
 - Format (375209577): BAŞARILI, değişiklik gerekmedi — https://github.com/sniperTurk/flutter-app/actions/runs/38944336898
 
 İlk tam test koşusu (https://github.com/sniperTurk/flutter-app/actions/runs/38942504414) yeni yavaş sürükleme testimde başarısız oldu: test aynı harekette ileri sonra geri gidiyordu ve 9 pt'den küçük artan yol geri dönüşte bir klik kaydırıyordu (bu davranış düzeltmeden önce de aynıydı). Test ileri ve geri iki ayrı hareket olarak yeniden yazıldı; beklenti gevşetilmedi.
