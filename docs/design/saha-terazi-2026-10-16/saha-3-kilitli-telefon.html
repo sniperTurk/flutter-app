@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="tr"><head><meta charset="utf-8">
+<meta name="viewport" content="width=390">
+<title>Saha</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#0B1620;font-family:-apple-system,"SF Pro Text","Helvetica Neue",Arial,sans-serif;color:#E7EFF3;text-align:left}
+.scr{width:var(--w,390px);height:844px;background:#0B1620;display:flex;flex-direction:column;position:relative;overflow:hidden}
+.top{display:flex;align-items:center;gap:8px;padding:14px 16px 12px;border-bottom:1px solid #27425A;min-height:64px}
+.top h1{font-size:22px;font-weight:700;margin:0;flex:1}
+.back{all:unset;width:28px;height:40px;display:flex;align-items:center;font-size:28px;color:#E7EFF3}
+.pill{all:unset;height:40px;box-sizing:border-box;border:1px solid #27425A;border-radius:20px;padding:0 14px;display:flex;align-items:center;gap:6px;font-size:14px;font-weight:600;background:#122330;color:#E7EFF3}
+.body{padding:12px 16px 16px;display:flex;flex-direction:column;gap:10px}
+.card{background:#122330;border:1px solid #27425A;border-radius:16px;padding:12px 14px;display:flex;flex-direction:column;gap:10px}
+.hd{display:flex;align-items:center;gap:8px}
+.hd .n{font-size:17px;font-weight:600}
+.hd .sp{flex:1}
+.row{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;align-items:end}
+.f{display:flex;flex-direction:column;gap:6px;min-width:0}
+.lab{display:flex;align-items:center;justify-content:space-between;font-size:13px;color:#9CB1C0;min-height:24px}
+.box{height:44px;border:1px solid #27425A;border-radius:10px;background:#0B1620;display:flex;align-items:center;justify-content:space-between;padding:0 12px;font-size:16px;color:#E7EFF3;width:100%;min-width:0}
+.box .v{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.u{font-size:13px;color:#9CB1C0;margin-left:6px}
+.ph{color:#9CB1C0}
+.i{all:unset;width:24px;height:24px;flex:none;display:inline-flex;align-items:center;justify-content:center;color:#9CB1C0;font-size:16px}
+.btn{all:unset;height:48px;box-sizing:border-box;border-radius:12px;border:1px solid #3A5A75;color:#E7EFF3;font-weight:600;font-size:15px;display:flex;align-items:center;justify-content:center;padding:0 12px;text-align:center;white-space:nowrap}
+.done{background:#1F5F7A;border-color:#2E7FA0;color:#FFFFFF}
+.primary{background:#F5B031;border-color:#F5B031;color:#0B1620}
+.k{font-size:13px;color:#9CB1C0}
+.cap{font-size:13px;color:#9CB1C0;line-height:1.4;margin:0}
+.seg{display:grid;gap:0;border:1px solid #3A5A75;border-radius:12px;overflow:hidden}
+.seg b{font-weight:600;font-size:14px;height:38px;display:flex;align-items:center;justify-content:center;color:#C9D7E0;border-right:1px solid #3A5A75;white-space:nowrap}
+.seg b:last-child{border-right:none}
+.seg b.sel{background:#1F5F7A;color:#fff}
+.num{font-variant-numeric:tabular-nums}
+.chip{font-size:12px;font-weight:600;border-radius:999px;padding:3px 9px;white-space:nowrap}
+.chip.wait{border:1px dashed #9CB1C0;color:#9CB1C0}
+.chip.tag{background:#1F5F7A;border:1px solid #2E7FA0;color:#fff}
+.chip.live{color:#4CC3E8;border:1px solid #2B5E74}
+.track{height:6px;border-radius:3px;background:#1B3245;position:relative}
+.track .fill{position:absolute;left:0;top:0;bottom:0;border-radius:3px;background:#4CC3E8}
+.knob{position:absolute;top:-9px;width:24px;height:24px;border-radius:12px;background:#E7EFF3;margin-left:-12px}
+.sw{width:51px;height:31px;border-radius:16px;background:#2E7FA0;position:relative;flex:none}
+.sw::after{content:"";position:absolute;right:2px;top:2px;width:27px;height:27px;border-radius:14px;background:#fff}
+.sw.dim{opacity:.45}
+.nav{position:absolute;left:0;right:0;bottom:0;height:76px;border-top:1px solid #27425A;background:#0E1C27;display:grid;grid-template-columns:repeat(5,minmax(0,1fr))}
+.nb{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;font-size:11px;color:#9CB1C0}
+.nb.on{color:#F5B031}
+.up{color:#4CC3E8}.dn{color:#F5B031}
+</style></head>
+<body><div class="scr" style="--w:390px"><div class="top"><button class="back" aria-label="Geri">‹</button><h1>Saha</h1></div><div class="body">
+<section class="card" aria-label="Hedef">
+ <div class="hd"><span class="n">Hedef</span><button class="i" aria-label="Hedef bilgisi">ⓘ</button><span class="sp"></span><span class="chip tag">kilitli</span></div>
+ <div class="row" style="align-items:start">
+  <div class="f"><div class="lab"><span>Yön</span><button class="i" aria-label="Yön bilgisi">ⓘ</button></div>
+   <div class="num" style="font-size:clamp(25px,8.2vw,32px);font-weight:800;line-height:1.05;letter-spacing:-.01em;white-space:nowrap">KKB 339°</div>
+   <div class="k">ölçüm 15:27</div></div>
+  <div class="f"><div class="lab"><span>Açı</span><button class="i" aria-label="Açı bilgisi">ⓘ</button></div>
+   <div class="num up" style="font-size:clamp(25px,8.2vw,32px);font-weight:800;line-height:1.05">+4,2°</div>
+   <div class="k">yukarı</div></div>
+ </div>
+ <div class="row" style="align-items:center"><button class="btn done">Kilitlendi 15:27</button><button class="btn">Kilidi aç</button></div>
+</section>
+<section class="card" aria-label="Rüzgâr">
+ <div class="hd"><span class="n">Rüzgâr</span><button class="i" aria-label="Rüzgâr bilgisi">ⓘ</button><span class="sp"></span><span class="chip live">canlı</span></div>
+ <div style="display:grid;grid-template-columns:132px minmax(0,1fr);gap:14px;align-items:center">
+  <div><svg width="132" height="132" viewBox="0 0 132 132" role="img" aria-label="Rüzgâr halkası"><circle cx="66.0" cy="66.0" r="52.0" fill="#0B1620" stroke="#27425A" stroke-width="10"/><line x1="66.0" y1="19.0" x2="66.0" y2="9.0" stroke="#9CB1C0" stroke-width="2"/><line x1="89.5" y1="25.3" x2="94.5" y2="16.6" stroke="#9CB1C0" stroke-width="1"/><line x1="106.7" y1="42.5" x2="115.4" y2="37.5" stroke="#9CB1C0" stroke-width="1"/><line x1="113.0" y1="66.0" x2="123.0" y2="66.0" stroke="#9CB1C0" stroke-width="2"/><line x1="106.7" y1="89.5" x2="115.4" y2="94.5" stroke="#9CB1C0" stroke-width="1"/><line x1="89.5" y1="106.7" x2="94.5" y2="115.4" stroke="#9CB1C0" stroke-width="1"/><line x1="66.0" y1="113.0" x2="66.0" y2="123.0" stroke="#9CB1C0" stroke-width="2"/><line x1="42.5" y1="106.7" x2="37.5" y2="115.4" stroke="#9CB1C0" stroke-width="1"/><line x1="25.3" y1="89.5" x2="16.6" y2="94.5" stroke="#9CB1C0" stroke-width="1"/><line x1="19.0" y1="66.0" x2="9.0" y2="66.0" stroke="#9CB1C0" stroke-width="2"/><line x1="25.3" y1="42.5" x2="16.6" y2="37.5" stroke="#9CB1C0" stroke-width="1"/><line x1="42.5" y1="25.3" x2="37.5" y2="16.6" stroke="#9CB1C0" stroke-width="1"/><text x="100.0" y="70.0" font-size="11" fill="#9CB1C0" text-anchor="middle">3</text><text x="66.0" y="104.0" font-size="11" fill="#9CB1C0" text-anchor="middle">6</text><text x="32.0" y="70.0" font-size="11" fill="#9CB1C0" text-anchor="middle">9</text><circle cx="66.0" cy="14.0" r="7" fill="#122330" stroke="#E7EFF3" stroke-width="1.5"/><circle cx="66.0" cy="14.0" r="2" fill="#E7EFF3"/><line x1="29.2" y1="102.8" x2="50.4" y2="81.6" stroke="#E8590C" stroke-width="4" stroke-linecap="round"/><path d="M57.5 74.5 L54.0 87.9 L44.1 78.0 Z" fill="#E8590C"/><circle cx="29.2" cy="102.8" r="6" fill="#E8590C"/></svg></div>
+  <div style="min-width:0">
+   <div class="num" style="font-size:30px;font-weight:800;line-height:1.05">saat 7</div>
+   <div class="k num" style="margin-bottom:8px">204° GGB'den</div>
+   <div class="seg" style="grid-template-columns:1fr"><b class="">Halkadan</b></div><div class="seg" style="grid-template-columns:1fr;margin-top:6px"><b class="sel">Telefonla</b></div>
+  </div>
+ </div>
+ <div class="row"><div class="f"><div class="lab"><span>Rüzgâr hızı</span><button class="i" aria-label="Rüzgâr hızı bilgisi">ⓘ</button></div><div class="box"><span class="v">3,5</span><span class="u">m/s</span></div></div><div class="f"><div class="lab"><span>Rüzgâr yönü</span><button class="i" aria-label="Rüzgâr yönü bilgisi">ⓘ</button></div><div class="box"><span class="v">7</span><span class="u">saat</span></div></div></div>
+ <div class="track" aria-label="Rüzgâr hızı kaydırıcı" style="margin:6px 4px 2px"><div class="fill" style="width:23%"></div><div class="knob" style="left:23%"></div></div>
+ <p class="cap num">Hava servisinden: 3,1 m/s, GGB 210°, 15:10</p>
+ <button class="btn">Rüzgârı kilitle</button>
+</section>
+<section class="card" aria-label="Hedef boyutu">
+ <div class="hd"><span class="n">Hedef boyutu</span><span class="sp"></span><span class="chip wait">kaynak kararı bekliyor</span></div>
+ <div class="row"><div class="f"><div class="lab"><span>Hedef tipi</span><button class="i" aria-label="Hedef tipi bilgisi">ⓘ</button></div><div class="box"><span class="v ph">Seçiniz</span></div></div><div class="f"><div class="lab"><span>Hedef çapı</span><button class="i" aria-label="Hedef çapı bilgisi">ⓘ</button></div><div class="box"><span class="v ph">—</span><span class="u">cm</span></div></div></div>
+</section></div></div></body></html>

@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="tr"><head><meta charset="utf-8">
+<meta name="viewport" content="width=390">
+<title>Su Terazisi</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#0B1620;font-family:-apple-system,"SF Pro Text","Helvetica Neue",Arial,sans-serif;color:#E7EFF3;text-align:left}
+.scr{width:var(--w,390px);height:844px;background:#0B1620;display:flex;flex-direction:column;position:relative;overflow:hidden}
+.top{display:flex;align-items:center;gap:8px;padding:14px 16px 12px;border-bottom:1px solid #27425A;min-height:64px}
+.top h1{font-size:22px;font-weight:700;margin:0;flex:1}
+.back{all:unset;width:28px;height:40px;display:flex;align-items:center;font-size:28px;color:#E7EFF3}
+.pill{all:unset;height:40px;box-sizing:border-box;border:1px solid #27425A;border-radius:20px;padding:0 14px;display:flex;align-items:center;gap:6px;font-size:14px;font-weight:600;background:#122330;color:#E7EFF3}
+.body{padding:12px 16px 16px;display:flex;flex-direction:column;gap:10px}
+.card{background:#122330;border:1px solid #27425A;border-radius:16px;padding:12px 14px;display:flex;flex-direction:column;gap:10px}
+.hd{display:flex;align-items:center;gap:8px}
+.hd .n{font-size:17px;font-weight:600}
+.hd .sp{flex:1}
+.row{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;align-items:end}
+.f{display:flex;flex-direction:column;gap:6px;min-width:0}
+.lab{display:flex;align-items:center;justify-content:space-between;font-size:13px;color:#9CB1C0;min-height:24px}
+.box{height:44px;border:1px solid #27425A;border-radius:10px;background:#0B1620;display:flex;align-items:center;justify-content:space-between;padding:0 12px;font-size:16px;color:#E7EFF3;width:100%;min-width:0}
+.box .v{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.u{font-size:13px;color:#9CB1C0;margin-left:6px}
+.ph{color:#9CB1C0}
+.i{all:unset;width:24px;height:24px;flex:none;display:inline-flex;align-items:center;justify-content:center;color:#9CB1C0;font-size:16px}
+.btn{all:unset;height:48px;box-sizing:border-box;border-radius:12px;border:1px solid #3A5A75;color:#E7EFF3;font-weight:600;font-size:15px;display:flex;align-items:center;justify-content:center;padding:0 12px;text-align:center;white-space:nowrap}
+.done{background:#1F5F7A;border-color:#2E7FA0;color:#FFFFFF}
+.primary{background:#F5B031;border-color:#F5B031;color:#0B1620}
+.k{font-size:13px;color:#9CB1C0}
+.cap{font-size:13px;color:#9CB1C0;line-height:1.4;margin:0}
+.seg{display:grid;gap:0;border:1px solid #3A5A75;border-radius:12px;overflow:hidden}
+.seg b{font-weight:600;font-size:14px;height:38px;display:flex;align-items:center;justify-content:center;color:#C9D7E0;border-right:1px solid #3A5A75;white-space:nowrap}
+.seg b:last-child{border-right:none}
+.seg b.sel{background:#1F5F7A;color:#fff}
+.num{font-variant-numeric:tabular-nums}
+.chip{font-size:12px;font-weight:600;border-radius:999px;padding:3px 9px;white-space:nowrap}
+.chip.wait{border:1px dashed #9CB1C0;color:#9CB1C0}
+.chip.tag{background:#1F5F7A;border:1px solid #2E7FA0;color:#fff}
+.chip.live{color:#4CC3E8;border:1px solid #2B5E74}
+.track{height:6px;border-radius:3px;background:#1B3245;position:relative}
+.track .fill{position:absolute;left:0;top:0;bottom:0;border-radius:3px;background:#4CC3E8}
+.knob{position:absolute;top:-9px;width:24px;height:24px;border-radius:12px;background:#E7EFF3;margin-left:-12px}
+.sw{width:51px;height:31px;border-radius:16px;background:#2E7FA0;position:relative;flex:none}
+.sw::after{content:"";position:absolute;right:2px;top:2px;width:27px;height:27px;border-radius:14px;background:#fff}
+.sw.dim{opacity:.45}
+.nav{position:absolute;left:0;right:0;bottom:0;height:76px;border-top:1px solid #27425A;background:#0E1C27;display:grid;grid-template-columns:repeat(5,minmax(0,1fr))}
+.nb{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;font-size:11px;color:#9CB1C0}
+.nb.on{color:#F5B031}
+.up{color:#4CC3E8}.dn{color:#F5B031}
+</style></head>
+<body><div class="scr" style="--w:390px"><div class="top"><button class="back" aria-label="Geri">‹</button><h1>Su Terazisi</h1><button class="pill">Kilitle</button></div><div class="body">
+<section class="card" style="gap:0;padding:4px 14px" aria-label="Terazi anahtarları">
+ <div class="hd" style="min-height:52px;border-bottom:1px solid #27425A"><span style="font-size:15px;font-weight:600">Atışta teraziyi göster</span><button class="i" aria-label="Atışta teraziyi göster bilgisi">ⓘ</button><span class="sp"></span><span class="sw" role="switch" aria-checked="true"></span></div>
+ <div class="hd" style="min-height:52px"><span style="font-size:15px;font-weight:600">Açıyı teraziden al</span><button class="i" aria-label="Açıyı teraziden al bilgisi">ⓘ</button><span class="sp"></span><span class="chip wait">sıfır bekliyor</span><span class="sw dim" role="switch" aria-checked="true"></span></div>
+</section>
+<section aria-label="Eğim: SOLA 2,4°" style="position:relative;height:430px;border:1.5px solid;border-radius:20px;overflow:hidden;background:linear-gradient(to right,rgba(255,138,128,.38) 0%,rgba(255,138,128,.22) 49.6%,transparent 50%);border-color:#FF8A80">
+ <svg width="358" height="430" viewBox="0 0 358 430" style="position:absolute;inset:0" aria-hidden="true"><line x1="24" y1="255.0" x2="334" y2="255.0" stroke="#9CB1C0" stroke-width="1.5" stroke-dasharray="6 6" opacity=".6"/><line x1="68.9" y1="268.9" x2="289.1" y2="241.1" stroke="#E7EFF3" stroke-width="5" stroke-linecap="round"/><circle cx="179.0" cy="255.0" r="7" fill="#0B1620" stroke="#E7EFF3" stroke-width="3"/></svg>
+ <div style="position:absolute;left:20px;top:28px;right:20px">
+  <div style="font-size:92px;font-weight:900;letter-spacing:-.03em;line-height:.95;color:#FFD9D5">SOLA</div>
+  <div class="num" style="font-size:44px;font-weight:700;color:#FFD9D5;margin-top:6px">2,4°</div>
+ </div>
+ <div class="k" style="position:absolute;left:20px;bottom:14px">telefona göre</div>
+</section><button class="btn primary" style="height:56px;font-size:17px">Tüfeğe göre sıfırla</button><div style="display:flex;align-items:center;min-height:28px"><span style="font-size:15px;color:#9CB1C0">Sıfır farkı: sıfırlanmadı</span></div>
+<div class="row"><button class="btn">Ses açık</button><button class="btn">Ayarlar</button></div></div></div></body></html>
