@@ -3,11 +3,15 @@ import 'package:flutter/material.dart';
 import 'data/catalog_repository.dart';
 import 'features/home/home_screen.dart';
 import 'services/app_settings.dart';
+import 'services/turret_click_sound.dart';
 import 'tools/tools_services.dart';
 import 'ui/keyboard_done_bar.dart';
 import 'ui/menzil_theme.dart';
 
 void main() {
+  // Turret click sound (owner, 2026-10-15 23:30). Tests keep the silent
+  // default; the players load when the first turret drum is built.
+  TurretClickSound.instance = AudioTurretClickSound();
   final catalogIssues = CatalogRepository.bundledIntegrityIssues();
   runApp(
     catalogIssues.isEmpty

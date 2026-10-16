@@ -7,6 +7,7 @@ import '../../core/reticle.dart';
 import '../../core/scope_dial.dart';
 import '../../core/units.dart';
 import '../../models/domain.dart';
+import '../../services/turret_click_sound.dart';
 import '../../ui/menzil_theme.dart';
 import '../../ui/menzil_widgets.dart';
 
