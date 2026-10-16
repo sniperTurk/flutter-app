@@ -141,15 +141,10 @@ final Finder _entries = find.byWidgetPredicate(
 );
 
 List<String> _entryTexts(WidgetTester tester) => [
-  for (final e in _entries.evaluate())
-    for (final t
-        in find
-            .descendant(
-              of: find.byWidget(e.widget),
-              matching: find.byType(Text),
-            )
-            .evaluate())
-      (t.widget as Text).data ?? '',
+  for (final t in tester.widgetList<Text>(
+    find.descendant(of: _entries, matching: find.byType(Text)),
+  ))
+    t.data ?? '',
 ];
 
 Future<void> _save(WidgetTester tester, String label) async {
@@ -198,7 +193,7 @@ void main() {
         reason: '$p is open before a Marka',
       );
     }
-    final listRows = [
+    List<List<Finder>> listRows() => [
       [_k('scope-brand-select')],
       [_prefix('scope-filter-unit-'), _prefix('scope-filter-ffp-')],
       [_prefix('scope-filter-tube-'), _prefix('scope-filter-mag-')],
@@ -208,7 +203,7 @@ void main() {
       [_k('scope-designation')],
       [_k('scope-not-listed')],
     ];
-    _expectRows(tester, listRows);
+    _expectRows(tester, listRows());
     // Full rows: Marka, Model, Retikül span the card.
     final card = _r(tester, _k('profile-scope-form'));
     for (final key in ['scope-brand-select', 'scope-model-select']) {
@@ -235,7 +230,7 @@ void main() {
         reason: '$p stays closed after a Marka',
       );
     }
-    _expectRows(tester, listRows);
+    _expectRows(tester, listRows());
 
     // Birim MOA and Odak düzlemi FFP narrow the Model list.
     await chooseInSelect(
@@ -274,7 +269,7 @@ void main() {
     ]) {
       expect(_k(key), findsNothing, reason: key);
     }
-    _expectRows(tester, listRows);
+    _expectRows(tester, listRows());
     final line = _designation(tester);
     expect(line, startsWith('Dürbün: Element Optics Titan'));
     expect(line, contains('3-18x50 FFP'));
@@ -303,7 +298,7 @@ void main() {
     expect(selectedValue<double>(tester, 'scope-mount'), 0);
     expect(_designation(tester), line);
     // Profili Düzenle: the same rows as Profil Oluştur.
-    _expectRows(tester, listRows);
+    _expectRows(tester, listRows());
     expect(tester.takeException(), isNull);
   });
 
@@ -312,7 +307,7 @@ void main() {
     final store = await _openNew(tester);
     await openScopeManual(tester);
 
-    final typedRows = [
+    List<List<Finder>> typedRows() => [
       [_k('scope-brand'), _k('scope-model')],
       [_k('scope-min-mag'), _k('scope-max-mag')],
       [_k('scope-objective'), _k('scope-focal-plane')],
@@ -322,7 +317,7 @@ void main() {
       [_k('scope-designation')],
       [_k('scope-back-to-list')],
     ];
-    _expectRows(tester, typedRows);
+    _expectRows(tester, typedRows());
     expect(_k('scope-brand-select'), findsNothing);
     expect(_k('scope-not-listed'), findsNothing);
     for (final p in _filters) {
@@ -367,7 +362,7 @@ void main() {
     await chooseInSelect(tester, 'scope-mount', 'Normal (0 MOA)');
     await chooseInSelect(tester, 'scope-reticle', 'Mil-Dot');
     expect(_designation(tester), 'Dürbün: Benim Optik X5 Pro 5-25x56 FFP');
-    _expectRows(tester, typedRows);
+    _expectRows(tester, typedRows());
 
     await fillRifleForm(tester);
     await fillAmmoForm(tester);
@@ -393,7 +388,7 @@ void main() {
       find.descendant(
         of: _k('profile-summary-scope'),
         matching: find.textContaining(
-          'Benim Optik X5 Pro 5-25x56 FFP',
+          'Benim Optik X5 Pro 5-25 x 56 FFP',
           findRichText: true,
         ),
       ),
@@ -411,7 +406,7 @@ void main() {
     expect(_typed(tester, 'scope-travel-elevation'), '200');
     expect(selectedValue<String>(tester, 'scope-reticle'), 'Mil-Dot');
     expect(_designation(tester), 'Dürbün: Benim Optik X5 Pro 5-25x56 FFP');
-    _expectRows(tester, typedRows);
+    _expectRows(tester, typedRows());
     // Güncelle saves it unchanged.
     await _save(tester, 'Güncelle');
     final after = (await store.all()).single;
