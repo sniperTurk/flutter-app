@@ -282,7 +282,9 @@ void main() {
         await settle();
         await shot('kalibre_select_$size');
         await closeList();
-        await tester.state<NavigatorState>(find.byType(Navigator).first).maybePop();
+        await tester
+            .state<NavigatorState>(find.byType(Navigator).first)
+            .maybePop();
         await settle();
         // "Çıkılsın mı?" when the editor asks before leaving.
         for (final t in const ['Çık', 'Çıkış', 'Vazgeç', 'Kaydetmeden çık']) {
