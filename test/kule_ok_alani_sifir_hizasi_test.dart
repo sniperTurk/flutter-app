@@ -170,6 +170,7 @@ void main() {
           expect(
             r.right - reticle.right,
             moreOrLessEquals(4 * k, epsilon: 0.5),
+            reason: tip,
           );
           expect(
             math.min(r.right, reticle.right) - r.left,

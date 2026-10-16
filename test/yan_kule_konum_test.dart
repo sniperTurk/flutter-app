@@ -236,7 +236,8 @@ void main() {
     expect(find.byKey(ScopeDialKeys.windageDrumBox), findsNothing);
   });
 
-  testWidgets('the reticle square clips the turret while it slides', (
+  testWidgets('the reticle square keeps its hard-edge clip, so the column '
+      'margin past it never paints', (
     tester,
   ) async {
     await _open(tester, const Size(390, 844));
