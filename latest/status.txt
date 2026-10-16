@@ -3,5 +3,6 @@ grant location: 0
 grant location-always: 0
 simulated location: 0
 flutter test exit: 1
-screenshots: 43
-failed step: SIMSTEP_FAIL:pro_tup_basinci: Bad state: No element
+screenshots: 6
+failed step: SIMSTEP_FAIL:elle_dolu: Bad state: No element
+failed step: SIMSTEP_FAIL:liste_duzenle: Expected: exactly one matching candidate

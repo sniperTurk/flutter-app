@@ -1,7 +1,8 @@
 Resolving dependencies...
 Downloading packages...
   archive 4.3.0 (4.5.2 available)
-  camera_avfoundation 0.10.3+1 (0.11.0+1 available)
+  audioplayers 6.4.0 (6.8.1 available)
+  camera_avfoundation 0.10.3+1 (0.11.0+3 available)
   camera_platform_interface 2.14.0 (2.15.0 available)
   cross_file 0.3.5+5 (0.4.0 available)
   cupertino_icons 1.0.9 (2.0.0 available)
@@ -23,69 +24,37 @@ Downloading packages...
   test_api 0.7.12 (0.7.15 available)
   vm_service 15.3.0 (15.4.0 available)
 Got dependencies!
-22 packages have newer versions incompatible with dependency constraints.
+23 packages have newer versions incompatible with dependency constraints.
 Try `flutter pub outdated` for more information.
-00:00 +0: loading /Users/runner/work/flutter-app/flutter-app/integration_test/sim_screens_test.dart
+00:00 +0: loading /Users/runner/work/flutter-app/flutter-app/integration_test/sim_screens_durbun_test.dart
 The following plugins do not support Swift Package Manager for ios:
   - flutter_compass
   - google_maps_flutter_ios
 This will become an error in a future version of Flutter. Please contact the plugin maintainers to request Swift Package Manager adoption.
 Running Xcode build...                                          
-Xcode build done.                                           109.1s
-00:00 +0: screenshot tour of the main pages
-SIMSCREEN:01_profil_karsilama
-SIMSCREEN:02_hava_durumu_bos
-SIMSCREEN:03_hava_durumu_bos_2
-SIMSCREEN:04_hava_durumu_bos_3
-SIMSCREEN:05_pro_ayarlar_bos
-SIMSCREEN:06_pro_ayarlar_bos_2
-SIMSCREEN:07_hedef_bos
-SIMSCREEN:08_araclar
-SIMSCREEN:09_araclar_2
-SIMSCREEN:10_araclar_3
-SIMSCREEN:11_hesaplayicilar
-SIMSCREEN:12_hesaplayicilar_2
-SIMSCREEN:13_hesaplayicilar_3
-SIMSCREEN:14_profil_olustur_pcp
-SIMSCREEN:15_profil_olustur_pcp_2
-SIMSCREEN:16_profil_olustur_pcp_3
-SIMSCREEN:17_profil_olustur_pcp_4
-SIMSCREEN:18_profil_olustur_pcp_5
-SIMSCREEN:19_profil_olustur_atesli
-SIMSCREEN:20_profil_olustur_atesli_2
-SIMSCREEN:21_profil_olustur_atesli_3
-SIMSCREEN:22_profil_olustur_atesli_4
-SIMSCREEN:23_profil_olustur_atesli_5
-SIMSCREEN:24_profil_olustur_atesli_6
-SIMSCREEN:25_profil_retikul_liste
-SIMSCREEN:26_profil_olustur_dolu
-SIMSCREEN:27_profil_olustur_dolu_2
-SIMSCREEN:28_profil_olustur_dolu_3
-SIMSCREEN:29_profil_olustur_dolu_4
-SIMSCREEN:30_profil_olustur_dolu_5
-SIMSCREEN:31_profil_olustur_dolu_6
-SIMSCREEN:32_profil_olustur_dolu_7
-SIMSCREEN:33_profil_kayitli
-SIMSCREEN:34_profil_kayitli_2
-SIMSCREEN:35_hava_durumu
-SIMSCREEN:36_hava_durumu_2
-SIMSCREEN:37_hava_durumu_3
-SIMSCREEN:38_pro_ayarlar
-SIMSCREEN:39_pro_ayarlar_2
-SIMSTEP_FAIL:pro_tup_basinci: Bad state: No element
-SIMSCREEN:40_FAIL_pro_tup_basinci
-SIMSCREEN:41_hedef_atis
-SIMSCREEN:42_hedef_atis_2
-SIMSCREEN:43_hedef_atis_3
-SIMSCREEN_DONE failures=1
-SIMSTEP_SUMMARY:pro_tup_basinci: Bad state: No element
+Xcode build done.                                           136.0s
+00:00 +0: screenshot tour: dürbün girişi
+SIMSCREEN:01_durbun_liste_marka_secilmedi
+SIMSCREEN:02_durbun_liste_marka_secilmedi_alt
+SIMSCREEN:03_durbun_liste_dolu
+SIMSCREEN:04_durbun_liste_dolu_alt
+SIMSTEP_FAIL:liste_duzenle: Expected: exactly one matching candidate
+SIMSCREEN:05_FAIL_liste_duzenle
+SIMSTEP_FAIL:elle_dolu: Bad state: No element
+SIMSCREEN:06_FAIL_elle_dolu
+SIMSCREEN_DONE failures=2
+SIMSTEP_SUMMARY:liste_duzenle: Expected: exactly one matching candidate
+SIMSTEP_SUMMARY:elle_dolu: Bad state: No element
 ══╡ EXCEPTION CAUGHT BY FLUTTER TEST FRAMEWORK ╞════════════════════════════════════════════════════
 The following TestFailure was thrown running a test:
 Expected: empty
-  Actual: ['pro_tup_basinci: Bad state: No element']
+  Actual: [
+            'liste_duzenle: Expected: exactly one matching candidate',
+            'elle_dolu: Bad state: No element'
+          ]
 
 When the exception was thrown, this was the stack:
-#4      main.<anonymous closure> (file:///Users/runner/work/flutter-app/flutter-app/integration_test/sim_screens_test.dart:326:5)
+#4      main.<anonymous closure> (file:///Users/runner/work/flutter-app/flutter-app/integration_test/sim_screens_durbun_test.dart:306:5)
 <asynchronous suspension>
 #5      testWidgets.<anonymous closure>.<anonymous closure> (package:flutter_test/src/widget_tester.dart:192:15)
 <asynchronous suspension>
@@ -95,16 +64,16 @@ When the exception was thrown, this was the stack:
 (elided one frame from package:stack_trace)
 
 This was caught by the test expectation on the following line:
-  file:///Users/runner/work/flutter-app/flutter-app/integration_test/sim_screens_test.dart line 326
+  file:///Users/runner/work/flutter-app/flutter-app/integration_test/sim_screens_durbun_test.dart line 306
 The test description was:
-  screenshot tour of the main pages
+  screenshot tour: dürbün girişi
 ════════════════════════════════════════════════════════════════════════════════════════════════════
-04:11 +0 -1: screenshot tour of the main pages [E]
+00:58 +0 -1: screenshot tour: dürbün girişi [E]
   Test failed. See exception logs above.
-  The test description was: screenshot tour of the main pages
+  The test description was: screenshot tour: dürbün girişi
   
-04:11 +0 -1: (tearDownAll)
-04:18 +0 -1: Some tests failed.
+00:58 +0 -1: (tearDownAll)
+01:04 +0 -1: Some tests failed.
 
 Failing tests:
-  /Users/runner/work/flutter-app/flutter-app/integration_test/sim_screens_test.dart: screenshot tour of the main pages
+  /Users/runner/work/flutter-app/flutter-app/integration_test/sim_screens_durbun_test.dart: screenshot tour: dürbün girişi
