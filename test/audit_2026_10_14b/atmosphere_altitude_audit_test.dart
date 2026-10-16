@@ -396,8 +396,10 @@ void main() {
       () {
         // The İrtifa ⓘ is the owner's exact wording since 2026-10-16
         // (tek_irtifa_test.dart); the rule stays in the Basınç Ölçer ⓘ.
-        final t = EnvironmentFieldInfo.barometerCard;
-        expect(t, contains('Boşsa basınç İrtifa kartından'));
+        expect(
+          EnvironmentFieldInfo.barometerCard,
+          contains('Boşsa basınç İrtifa kartından'),
+        );
       },
       // ATM-2 fixed in fix/atm-metinler: un-skipped (CLAUDE.md).
     );
