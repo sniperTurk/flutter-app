@@ -49,7 +49,8 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomeScreenState extends State<HomeScreen>
+    with WidgetsBindingObserver {
   late final ProfileStore profiles =
       widget.profileStore ?? PersistentProfileStore();
   late final ActiveProfileStore activeStore =
@@ -131,6 +132,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
     _load();
     _loadUnitPreference();
   }
@@ -563,14 +565,27 @@ class _HomeScreenState extends State<HomeScreen> {
           0.0,
           textRoom - _ProfileButtonLabel.gap - _ProfileButtonLabel.minName,
         );
+        // The list opens like every other MenzilSelect (owner, 2026-10-16
+        // 20:07: "Profil seçici select diğer selectler gibi açılacak"): the
+        // field below only draws the button, unchanged; a tap opens the
+        // shared select list under it ([_openProfileMenu]).
+        final open = choosingProfile ? null : _openProfileMenu;
         return SizedBox(
           key: const Key('top-bar-profile-button'),
           width: width,
           child: Semantics(
             container: true,
             label: 'Aktif tüfek profili',
+            value: caliber == null ? shown.name : '${shown.name} $caliber',
             button: true,
-            child: DropdownButtonFormField<RifleProfile>(
+            onTap: open,
+            child: GestureDetector(
+              key: _profileButtonKey,
+              behavior: HitTestBehavior.opaque,
+              onTap: open,
+              child: ExcludeSemantics(
+                child: AbsorbPointer(
+                  child: DropdownButtonFormField<RifleProfile>(
               key: ValueKey(('active-profile', active?.id, _selectorEpoch)),
               initialValue: active,
               isExpanded: true,
@@ -621,10 +636,58 @@ class _HomeScreenState extends State<HomeScreen> {
                   .toList(),
               onChanged: choosingProfile ? null : _choose,
             ),
+                ),
+              ),
+            ),
           ),
         );
       },
     );
+  }
+
+  /// The top-bar profile button (its key is also its anchor for the list).
+  final GlobalKey _profileButtonKey = GlobalKey(
+    debugLabel: 'top-bar-profile-button',
+  );
+
+  /// The profile list: the same list, look and placement as every
+  /// MenzilSelect (under the button, never wider than it).
+  final MenzilSelectMenu<RifleProfile> _profileMenu =
+      MenzilSelectMenu<RifleProfile>();
+
+  /// Opens [_profileMenu] under the top-bar button. Each row shows the
+  /// profile name and caliber, as the button does; a long name wraps
+  /// instead of being cut, so every profile stays recognisable (UST-1).
+  Future<void> _openProfileMenu() async {
+    final result = await _profileMenu.open(
+      context,
+      box: () => _profileButtonKey.currentContext?.findRenderObject(),
+      items: [
+        for (final p in saved)
+          DropdownMenuItem<RifleProfile>(
+            key: ValueKey(('top-bar-profile-item', p.id)),
+            value: p,
+            child: _ProfileMenuRow(name: p.name, caliber: _caliberLabel(p)),
+          ),
+      ],
+      // Rows grow with a wrapped name (at least 48 pt high).
+      itemHeight: null,
+    );
+    if (!mounted || result == null) return;
+    final picked = result.value;
+    if (picked != null) await _choose(picked);
+  }
+
+  @override
+  void didChangeMetrics() {
+    if (mounted) _profileMenu.metricsChanged(context);
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    _profileMenu.close();
+    super.dispose();
   }
 
   /// Hava Durumu, Pro and Atış (single shot and table) share one ballistic workspace so inputs and the
@@ -807,6 +870,34 @@ class _ShotModeSwitch extends StatelessWidget {
             half(BallisticsView.table, 'Tablo', Icons.table_rows_outlined),
           ],
         ),
+      ),
+    );
+  }
+}
+
+/// One row of the top-bar profile list, laid out like the rows of the
+/// Profil > Kalibre select (name, then its mm at 12 pt): name and caliber
+/// share a line when they fit; otherwise the long name wraps and the
+/// caliber goes under it, so nothing is cut off (UST-1).
+class _ProfileMenuRow extends StatelessWidget {
+  final String name;
+  final String? caliber;
+
+  const _ProfileMenuRow({required this.name, required this.caliber});
+
+  @override
+  Widget build(BuildContext context) {
+    final cal = caliber;
+    return SizedBox(
+      width: double.infinity,
+      child: Wrap(
+        alignment: WrapAlignment.spaceBetween,
+        crossAxisAlignment: WrapCrossAlignment.center,
+        spacing: MenzilSpace.xs,
+        children: [
+          Text(name),
+          if (cal != null) Text(cal, style: const TextStyle(fontSize: 12)),
+        ],
       ),
     );
   }

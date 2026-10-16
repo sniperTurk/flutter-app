@@ -75,12 +75,14 @@ extension _ScopeResults on ScopeDialView {
   }
 }
 
-/// Hedef: the REQUIRED turret solution at the selected range, shown big
-/// directly under the distance slider and above the reticle card (owner,
-/// 2026-10-15 12:50: "Hedef'te sonuç en üstte… çok haklısın"; design
-/// docs/design/clean-2026-10-15/Hedef.png). It shows what the turrets must
-/// be set to ("Kuleleri kur"), not what is dialled now; no calculation of
-/// its own: [requiredUp] / [requiredRight] are the scope view's numbers.
+/// Hedef: the REQUIRED turret solution at the selected range, one compact
+/// line directly under the distance slider and above the reticle card:
+/// "▌Üst kule 39 klik yukarı   ▌Yan kule 4 klik sağ" (owner, 2026-10-16,
+/// design PR #366; replaces the big two-column row of #330). It shows what
+/// the turrets must be set to ("Kuleleri kur"), not what is dialled now; no
+/// calculation of its own: [requiredUp] / [requiredRight] are the scope
+/// view's numbers. The angle (MRAD/MOA) stays in VoiceOver and in the
+/// "Kule:" line under the scope.
 class TurretSolutionRow extends StatelessWidget {
   static const rowKey = ValueKey('hedef-turret-solution');
   static const elevationKey = ValueKey('hedef-solution-elevation');
@@ -119,22 +121,37 @@ class TurretSolutionRow extends StatelessWidget {
         : '$a ${unit.label} ${angle > 0 ? pos : neg}';
   }
 
+  /// Height of the line (the design's 22 pt); larger text makes it taller.
+  static const double lineHeight = 22;
+
+  /// "yukarı" / "aşağı" / "sağ" / "sol" for a non-zero [clicks].
+  static String _direction(int clicks, String pos, String neg) =>
+      clicks == 0 ? '' : (clicks > 0 ? pos : neg);
+
   @override
   Widget build(BuildContext context) {
     final c = MenzilColors.of(context);
     final upClicks = ScopeDialMath.clicksFor(requiredUp, clickValue);
     final rightClicks = ScopeDialMath.clicksFor(requiredRight, clickValue);
     final upDetail = _detail(requiredUp, 'yukarı', 'aşağı');
-    final rightDetail = rightClicks == 0 && windCalm
-        ? 'rüzgâr yok'
-        : _detail(requiredRight, 'sağ', 'sol');
+    final calm = rightClicks == 0 && windCalm;
+    final rightDetail = calm ? 'rüzgâr yok' : _detail(requiredRight, 'sağ', 'sol');
+    // Labels 12,5 pt grey, the clicks 15 pt semibold with equal-width
+    // figures (they change live with the distance).
+    final word = MenzilType.label(c.ink2);
+    final number = MenzilType.label(c.ink).copyWith(
+      fontSize: 15,
+      fontWeight: FontWeight.w600,
+      fontFeatures: MenzilType.tabular,
+    );
 
-    Widget column({
+    Widget part({
       required Key key,
       required Color accent,
       required String title,
       required int clicks,
       required String detail,
+      required String direction,
     }) {
       final big = '${clicks.abs()} klik';
       return Semantics(
@@ -142,45 +159,36 @@ class TurretSolutionRow extends StatelessWidget {
         container: true,
         label: '$title $big, $detail',
         child: ExcludeSemantics(
-          child: DecoratedBox(
-            decoration: BoxDecoration(
-              border: Border(left: BorderSide(color: accent, width: 3)),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(12, 2, 0, 2),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    title,
-                    textAlign: TextAlign.left,
-                    style: MenzilType.label(c.ink2),
-                  ),
-                  // A long number on a narrow screen or at a large text
-                  // size shrinks inside its column instead of overflowing.
-                  FittedBox(
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(minHeight: lineHeight),
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: DecoratedBox(
+                decoration: BoxDecoration(
+                  border: Border(left: BorderSide(color: accent, width: 3)),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 8),
+                  // One line, never wrapped: on a narrow screen or at a
+                  // large text size it is set smaller instead.
+                  child: FittedBox(
                     fit: BoxFit.scaleDown,
                     alignment: Alignment.centerLeft,
-                    child: Text(
-                      big,
+                    child: Text.rich(
+                      TextSpan(
+                        children: [
+                          TextSpan(text: '$title ', style: word),
+                          TextSpan(text: big, style: number),
+                          if (direction.isNotEmpty)
+                            TextSpan(text: ' $direction', style: word),
+                        ],
+                      ),
                       maxLines: 1,
+                      softWrap: false,
                       textAlign: TextAlign.left,
-                      // Changes live with the distance: equal-width figures.
-                      style: MenzilType.display(
-                        c.ink,
-                        size: 34,
-                        live: true,
-                      ).copyWith(height: 1.1),
                     ),
                   ),
-                  Text(
-                    detail,
-                    textAlign: TextAlign.left,
-                    style: MenzilType.label(
-                      c.ink2,
-                    ).copyWith(fontFeatures: MenzilType.tabular),
-                  ),
-                ],
+                ),
               ),
             ),
           ),
@@ -193,26 +201,30 @@ class TurretSolutionRow extends StatelessWidget {
       container: true,
       explicitChildNodes: true,
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Expanded(
-            child: column(
+            child: part(
               key: elevationKey,
               accent: c.amber,
               title: 'Üst kule',
               clicks: upClicks,
               detail: upDetail,
+              direction: _direction(upClicks, 'yukarı', 'aşağı'),
             ),
           ),
-          // 12 pt between the columns, as in the design.
+          // 12 pt between the halves, as in the design.
           const SizedBox(width: 12),
           Expanded(
-            child: column(
+            child: part(
               key: windageKey,
               accent: c.cyan,
               title: 'Yan kule',
               clicks: rightClicks,
               detail: rightDetail,
+              direction: calm
+                  ? 'rüzgâr yok'
+                  : _direction(rightClicks, 'sağ', 'sol'),
             ),
           ),
         ],

@@ -131,6 +131,9 @@ extension _ProAyarlarView on _BallisticsScreenState {
     final n = [
       turretScaleCtl.text.trim().isNotEmpty,
       zero.up != 0 || zero.right != 0,
+      // Mühimmat sıcaklığı is in this box since 2026-10-16 (owner): an
+      // entered value is one setting on.
+      _isFirearm && ammoTempCtl.text.trim().isNotEmpty,
       _isPcp &&
           _BallisticsScreenState._showProTubePressure &&
           tubePressureCtl.text.trim().isNotEmpty,
@@ -613,6 +616,11 @@ extension _ProAyarlarView on _BallisticsScreenState {
               'Mermi uzunluğu',
               EnvironmentFieldInfo.bulletLength,
             ),
+          if (_isFirearm)
+            const ProInfoField(
+              'Mühimmat sıcaklığı',
+              EnvironmentFieldInfo.ammoTemperature,
+            ),
           if (_isPcp && _BallisticsScreenState._showProTubePressure)
             const ProInfoField(
               'Kalan tüp basıncı',
@@ -673,6 +681,50 @@ extension _ProAyarlarView on _BallisticsScreenState {
               ),
           ],
           if (_isFirearm) ...[
+            // Mühimmat sıcaklığı (owner, 2026-10-16, design PR #366): moved
+            // here from Hava Durumu, next to the powder correction it feeds.
+            // Same box, ⓘ, saved value and calculation (empty = the air
+            // temperature); box in the left half, "isteğe bağlı" right.
+            Row(
+              key: const Key('pro-ammo-temp-row'),
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                Expanded(
+                  child: MenzilInput(
+                    key: const Key('env-ammo-temp'),
+                    controller: ammoTempCtl,
+                    label: 'Mühimmat sıcaklığı',
+                    onChanged: (_) => _coriolisChanged(),
+                    info: EnvironmentFieldInfo.ammoTemperature,
+                    unit: metric ? '°C' : '°F',
+                    keyboardType: const TextInputType.numberWithOptions(
+                      decimal: true,
+                      signed: true,
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 10),
+                Expanded(
+                  child: Padding(
+                    // Level with the middle of the 46 pt box (the box keeps
+                    // MenzilSpace.md under it).
+                    padding: const EdgeInsets.only(bottom: MenzilSpace.md),
+                    child: SizedBox(
+                      height: MenzilSpace.control,
+                      child: Align(
+                        alignment: AlignmentDirectional.centerStart,
+                        child: Text(
+                          'isteğe bağlı',
+                          key: const Key('pro-ammo-temp-optional'),
+                          textAlign: TextAlign.start,
+                          style: MenzilType.caption(c.ink2),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
             // The values are entered on Profil > Mühimmat (2026-10-11); here
             // only what is used and today's velocity.
             Builder(

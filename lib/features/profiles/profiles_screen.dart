@@ -558,15 +558,16 @@ class _ProfilesScreenState extends State<ProfilesScreen> {
                 ),
               ),
               const SizedBox(width: MenzilSpace.sm),
-              SizedBox(
-                width: _addButtonWidth,
-                child: MenzilPrimaryButton(
-                  key: const Key('profiles-add'),
-                  label: 'Profil ekle',
-                  amber: true,
-                  oneLine: true,
-                  onPressed: _add,
-                ),
+              // Only as wide as its text plus the theme's 16 pt on each
+              // side (owner, 2026-10-16, design PR #366): no empty amber
+              // space beside the label. Same height, colour and place.
+              MenzilPrimaryButton(
+                key: const Key('profiles-add'),
+                label: 'Profil ekle',
+                amber: true,
+                oneLine: true,
+                expand: false,
+                onPressed: _add,
               ),
             ],
           ),
@@ -667,10 +668,6 @@ class _ProfilesScreenState extends State<ProfilesScreen> {
       ],
     );
   }
-
-  /// Width of the header's Profil ekle button; the label is set smaller
-  /// when a large text size does not fit (oneLine).
-  static const double _addButtonWidth = 148;
 }
 
 /// What the "⋯" menu of a profile row does.
