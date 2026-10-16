@@ -63,6 +63,33 @@
 | #228, #353 Garmin | Saate giden sayı ekrandaki sayıyla aynı mı? | Kod, widget testi | Aynı. Köprü TestFlight iş akışında yok |
 | #336, #342, #339, #347, #358 | Metin, sayaç, yazı tipi, ikon, yerleşim | Kod | Hiçbir sayı değişmiyor |
 
+### Kapsam güncellemesi (16.10.2026, 17:45)
+
+Ana oturum kapsamı genişletti. İstenen: son TestFlight'tan (run 109, main `4c51b77`) sonra birleşen bütün PR'lar, yani `merged_at` 2026-10-15T16:58Z sonrası. Liste GitHub'dan yeniden çekildi.
+
+- **Liste:** 32 PR. #322, #326–#340, #342–#347, #349–#353, #355–#358 ve #228.
+- **Kapsam:** #333 denetim raporunun kendisi. Kalan 31 PR'ın hepsi yukarıdaki tabloda var.
+- **main:** `e7b29bf`'den sonra değişmedi.
+
+Ayrıca istenen noktalara yeniden bakıldı:
+
+- **Garmin köprüsü (#228):**
+  - Köprüsüz derlemede `deviceCount()` boş dönüyor ve "Garmin saati" satırı hiç çizilmiyor (`garmin_pair_tile.dart`).
+  - Saat kanalı yoksa gönderim sessizce düşüyor (`MissingPluginException` yakalanıyor).
+  - Apple Watch kanalı Garmin kanalından etkilenmiyor: ikisinden biri teslim alırsa "gönderildi" sayılıyor.
+- **Kule klik sesi (#352):**
+  - Yeni bağımlılık: `audioplayers` 6.4.0. pubspec.lock'ta sha256 ile kayıtlı.
+  - iOS ses oturumu "ambient": sessiz düğmesine uyuyor, kullanıcının müziğini kesmiyor.
+  - Ses hataları yakalanıyor. Ses hiçbir sayıyı değiştirmiyor (test).
+  - Bu denetimde iOS Simulator derlemesi çalışmadı (ios-simulator işi atlandı). Yeni yerel eklentinin iOS'ta derlendiği burada kanıtlanmadı.
+- **Kutulardaki birimler (#346):** her birim, kutunun okunduğu birimle aynı.
+- **Tek İrtifa kutusu (#356):** önce harita, yoksa telefon. Boş kutu 0 m / 1013,25 hPa veriyor.
+- **Mühimmat sıcaklığı bölümü (#355):** yalnız yer değişti, sayılar aynı.
+- **BC ve kule düzeltmeleri:** #337, #338, #344, #345, #349 tabloda. #338'in bıraktığı yol KUL-10.
+- **Pro satırı ve ⓘ (#358):** ⓘ dokunma alanı 44 × 44 pt (`proInfoTarget`). Sayı değişmiyor.
+
+Bu genişletmede yeni bulgu çıkmadı. Karar aynı: KUL-10 açık, TestFlight başlamamalı.
+
 ### Gizli bayraklar
 
 - 16 ortam okuması var; sayı `4c51b77` ile aynı.
