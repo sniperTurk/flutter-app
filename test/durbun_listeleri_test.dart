@@ -346,7 +346,15 @@ void main() {
       }
       // The last entry is reached by scrolling inside the list and picked.
       final last = moa.last!;
-      await chooseInSelect(tester, 'scope-reticle', last);
+      await _openList(tester, 'scope-reticle');
+      final position = _menuScroll(tester);
+      position.jumpTo(position.maxScrollExtent);
+      await tester.pumpAndSettle();
+      expect(_visibleRows(tester).last, last);
+      await tester.tap(
+        find.descendant(of: _entries, matching: find.text(last)).last,
+      );
+      await tester.pumpAndSettle();
       expect(selectedValue<String>(tester, 'scope-reticle'), last);
       await chooseInSelect(tester, 'scope-reticle', 'APR-2D MOA');
       expect(selectedValue<String>(tester, 'scope-reticle'), 'APR-2D MOA');
