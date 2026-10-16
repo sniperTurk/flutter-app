@@ -73,12 +73,12 @@ Widget _app(
 }) => MaterialApp(
   theme: dark ? MenzilTheme.dark() : MenzilTheme.light(),
   builder: (context, c) => MediaQuery(
-    data: MediaQuery.of(
-      context,
-    ).copyWith(textScaler: TextScaler.linear(scale)),
+    data: MediaQuery.of(context).copyWith(textScaler: TextScaler.linear(scale)),
     child: c!,
   ),
-  home: Scaffold(body: BallisticsScreen(profile: p, view: view)),
+  home: Scaffold(
+    body: BallisticsScreen(profile: p, view: view),
+  ),
 );
 
 Future<void> _size(WidgetTester tester, double width, [double h = 3000]) async {
@@ -142,20 +142,21 @@ void main() {
     expect(title, findsOneWidget);
     final info = find.byKey(const Key('environment-ammo-temp-info'));
     expect(info, findsOneWidget);
-    expect(tester.getRect(info).left, greaterThanOrEqualTo(
-      tester.getRect(title).right - 0.01,
-    ));
+    expect(
+      tester.getRect(info).left,
+      greaterThanOrEqualTo(tester.getRect(title).right - 0.01),
+    );
     final optional = find.byKey(const Key('environment-ammo-temp-optional'));
     expect(tester.widget<Text>(optional).data, 'isteğe bağlı');
-    expect(
-      tester.widget<Text>(optional).style!.color,
-      const Color(0xFF9CB1C0),
-    );
+    expect(tester.widget<Text>(optional).style!.color, const Color(0xFF9CB1C0));
     expect(
       tester.getRect(optional).right,
       moreOrLessEquals(header.right, epsilon: 0.5),
     );
-    expect(tester.getRect(optional).left, greaterThan(tester.getRect(info).right));
+    expect(
+      tester.getRect(optional).left,
+      greaterThan(tester.getRect(info).right),
+    );
     // Title left-aligned with the card.
     expect(tester.getRect(title).left, moreOrLessEquals(card.left, epsilon: 1));
 
@@ -250,8 +251,10 @@ void main() {
       await tester.pumpAndSettle();
       expect(tester.takeException(), isNull);
       expect(find.byKey(_header), findsOneWidget);
-      expect(find.byKey(const Key('environment-ammo-temp-optional')),
-          findsOneWidget);
+      expect(
+        find.byKey(const Key('environment-ammo-temp-optional')),
+        findsOneWidget,
+      );
       final header = tester.getRect(find.byKey(_header));
       expect(header.right, lessThanOrEqualTo(width + 0.01));
       final scrollable = find.byType(Scrollable).first;
