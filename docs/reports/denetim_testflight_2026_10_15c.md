@@ -166,6 +166,7 @@ Yerel:
 | analyze (`92bdf1b`) | başarılı | https://github.com/sniperTurk/flutter-app/actions/runs/38906401269 |
 | `flutter test test` (bütün testler, `581757c`) | başarılı | https://github.com/sniperTurk/flutter-app/actions/runs/38907663277 |
 | analyze (`581757c`) | başarılı | https://github.com/sniperTurk/flutter-app/actions/runs/38907666763 |
+| PR #363 iOS CI (`80d6372`): verify, dart-checks, wind-acceptance | başarılı (ios-simulator atlandı) | https://github.com/sniperTurk/flutter-app/actions/runs/38910197449 |
 
 TestFlight, Simulator ve App Store çalıştırılmadı.
 
