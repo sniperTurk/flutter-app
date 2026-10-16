@@ -470,13 +470,7 @@ class _BallisticsScreenState extends State<BallisticsScreen>
           );
     _altSource = s.altitudeSource ?? (fromMapKey ? 'map' : 'phone');
     wind.text = show('wind', UnitSystem.mpsToMph);
-    for (final c in [
-      temperature,
-      pressure,
-      humidity,
-      altitude,
-      wind,
-    ]) {
+    for (final c in [temperature, pressure, humidity, altitude, wind]) {
       if (c.text.isNotEmpty) _userEdited.add(c);
     }
     final wd = si['windDirection'];
@@ -1240,13 +1234,7 @@ class _BallisticsScreenState extends State<BallisticsScreen>
     widget.environmentCarry?._apply(this);
     // Every Hava Durumu change is kept for this profile until Sıfırla
     // (owner, 2026-10-12).
-    for (final c in [
-      temperature,
-      pressure,
-      humidity,
-      altitude,
-      wind,
-    ]) {
+    for (final c in [temperature, pressure, humidity, altitude, wind]) {
       c.addListener(_weatherChanged);
     }
     windDirection.addListener(_weatherChanged);

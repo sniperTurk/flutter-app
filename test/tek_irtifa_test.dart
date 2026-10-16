@@ -173,7 +173,10 @@ void main() {
       expect(find.text('Telefondan irtifa'), findsNothing);
       expect(find.byKey(const Key('environment-map-altitude')), findsNothing);
       expect(find.byKey(const Key('environment-phone-altitude')), findsNothing);
-      expect(find.byKey(const ValueKey('ballistics-map-altitude')), findsNothing);
+      expect(
+        find.byKey(const ValueKey('ballistics-map-altitude')),
+        findsNothing,
+      );
       // Box | button side by side.
       expect(
         tester.getTopLeft(find.byKey(_btn)).dx,
@@ -226,7 +229,8 @@ void main() {
     for (final (name, provider) in <(String, ElevationProvider? Function())>[
       (
         'no internet',
-        () => TestElevation(const ElevationUnavailable(ElevationFailure.offline)),
+        () =>
+            TestElevation(const ElevationUnavailable(ElevationFailure.offline)),
       ),
       (
         'no key',
@@ -239,9 +243,7 @@ void main() {
       ('service throws', _ThrowingElevation.new),
       ('no map service in the build', () => null),
     ]) {
-      testWidgets('map fails ($name) + phone OK → phone value', (
-        tester,
-      ) async {
+      testWidgets('map fails ($name) + phone OK → phone value', (tester) async {
         final phone = TestPhoneAltitude(
           const LocationFix(39.9, 32.8, altitudeM: 88.4),
         );
@@ -517,12 +519,7 @@ void main() {
         tester,
       ) async {
         final rig = _Rig(elevation: TestElevation(const ElevationRead(1234)));
-        await _pump(
-          tester,
-          rig,
-          size: Size(width, 3000),
-          textScale: 1.3,
-        );
+        await _pump(tester, rig, size: Size(width, 3000), textScale: 1.3);
         expect(tester.takeException(), isNull);
         expect(tester.widget<Text>(find.text('İrtifa al')).maxLines, 1);
         await _tap(tester, _btn);
