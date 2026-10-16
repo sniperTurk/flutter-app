@@ -569,6 +569,62 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
         // field below only draws the button, unchanged; a tap opens the
         // shared select list under it ([_openProfileMenu]).
         final open = choosingProfile ? null : _openProfileMenu;
+        // Draws the button only (its own list never opens).
+        final field = DropdownButtonFormField<RifleProfile>(
+          key: ValueKey(('active-profile', active?.id, _selectorEpoch)),
+          initialValue: active,
+          isExpanded: true,
+          isDense: true,
+          borderRadius: BorderRadius.circular(MenzilRadius.input),
+          dropdownColor: c.surface,
+          icon: Icon(
+            Icons.expand_more,
+            color: c.ink2,
+            size: iconSize,
+          ),
+          decoration: InputDecoration(
+            filled: true,
+            fillColor: c.surface,
+            constraints: const BoxConstraints(minHeight: 44),
+            contentPadding: const EdgeInsets.fromLTRB(
+              padLeft,
+              11,
+              padRight,
+              11,
+            ),
+            border: pill,
+            enabledBorder: pill,
+            focusedBorder: pill,
+            disabledBorder: pill,
+          ),
+          selectedItemBuilder: (context) => saved
+              .map(
+                (profile) => Align(
+                  alignment: Alignment.centerLeft,
+                  child: _ProfileButtonLabel(
+                    name: profile.name,
+                    caliber: _caliberLabel(profile),
+                    nameStyle: nameStyle,
+                    caliberStyle: caliberStyle,
+                    caliberMaxWidth: caliberMax,
+                  ),
+                ),
+              )
+              .toList(),
+          items: saved
+              .map(
+                (profile) => DropdownMenuItem(
+                  value: profile,
+                  child: Text(
+                    profile.name,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+              )
+              .toList(),
+          onChanged: choosingProfile ? null : _choose,
+        );
         return SizedBox(
           key: const Key('top-bar-profile-button'),
           width: width,
@@ -584,69 +640,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
               // VoiceOver uses the Semantics tap above (one labelled node).
               excludeFromSemantics: true,
               onTap: open,
-              child: ExcludeSemantics(
-                child: AbsorbPointer(
-                  child: DropdownButtonFormField<RifleProfile>(
-                    key: ValueKey((
-                      'active-profile',
-                      active?.id,
-                      _selectorEpoch,
-                    )),
-                    initialValue: active,
-                    isExpanded: true,
-                    isDense: true,
-                    borderRadius: BorderRadius.circular(MenzilRadius.input),
-                    dropdownColor: c.surface,
-                    icon: Icon(
-                      Icons.expand_more,
-                      color: c.ink2,
-                      size: iconSize,
-                    ),
-                    decoration: InputDecoration(
-                      filled: true,
-                      fillColor: c.surface,
-                      constraints: const BoxConstraints(minHeight: 44),
-                      contentPadding: const EdgeInsets.fromLTRB(
-                        padLeft,
-                        11,
-                        padRight,
-                        11,
-                      ),
-                      border: pill,
-                      enabledBorder: pill,
-                      focusedBorder: pill,
-                      disabledBorder: pill,
-                    ),
-                    selectedItemBuilder: (context) => saved
-                        .map(
-                          (profile) => Align(
-                            alignment: Alignment.centerLeft,
-                            child: _ProfileButtonLabel(
-                              name: profile.name,
-                              caliber: _caliberLabel(profile),
-                              nameStyle: nameStyle,
-                              caliberStyle: caliberStyle,
-                              caliberMaxWidth: caliberMax,
-                            ),
-                          ),
-                        )
-                        .toList(),
-                    items: saved
-                        .map(
-                          (profile) => DropdownMenuItem(
-                            value: profile,
-                            child: Text(
-                              profile.name,
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                          ),
-                        )
-                        .toList(),
-                    onChanged: choosingProfile ? null : _choose,
-                  ),
-                ),
-              ),
+              child: ExcludeSemantics(child: AbsorbPointer(child: field)),
             ),
           ),
         );
