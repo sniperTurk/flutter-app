@@ -81,8 +81,9 @@ extension _ScopeResults on ScopeDialView {
 /// design PR #366; replaces the big two-column row of #330). It shows what
 /// the turrets must be set to ("Kuleleri kur"), not what is dialled now; no
 /// calculation of its own: [requiredUp] / [requiredRight] are the scope
-/// view's numbers. The angle (MRAD/MOA) stays in VoiceOver and in the
-/// "Kule:" line under the scope.
+/// view's numbers. The required angle (MRAD/MOA) stays in VoiceOver; the
+/// "Kule:" line under the scope shows the dialled clicks and angle (the
+/// same values once "Kuleleri kur" is tapped).
 class TurretSolutionRow extends StatelessWidget {
   static const rowKey = ValueKey('hedef-turret-solution');
   static const elevationKey = ValueKey('hedef-solution-elevation');

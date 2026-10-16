@@ -549,33 +549,37 @@ class _ProfilesScreenState extends State<ProfilesScreen> {
         Padding(
           key: const Key('profiles-list-header'),
           padding: const EdgeInsets.only(bottom: MenzilSpace.sm),
-          child: Row(
-            children: [
-              const Expanded(
-                child: MenzilSectionHeader(
-                  'Profiller',
-                  padding: EdgeInsets.zero,
+          child: LayoutBuilder(
+            builder: (context, constraints) => Row(
+              children: [
+                const Expanded(
+                  child: MenzilSectionHeader(
+                    'Profiller',
+                    padding: EdgeInsets.zero,
+                  ),
                 ),
-              ),
-              const SizedBox(width: MenzilSpace.sm),
-              // Only as wide as its text plus the theme's 16 pt on each
-              // side (owner, 2026-10-16, design PR #366): no empty amber
-              // space beside the label. Same height, colour and place. At
-              // very large iOS text sizes it grows no wider than the old
-              // fixed button and the label is set smaller (oneLine), so the
-              // "Profiller" title keeps its room.
-              ConstrainedBox(
-                constraints: const BoxConstraints(maxWidth: _addButtonMaxWidth),
-                child: MenzilPrimaryButton(
-                  key: const Key('profiles-add'),
-                  label: 'Profil ekle',
-                  amber: true,
-                  oneLine: true,
-                  expand: false,
-                  onPressed: _add,
+                const SizedBox(width: MenzilSpace.sm),
+                // Only as wide as its text plus the theme's 16 pt on each
+                // side (owner, 2026-10-16, design PR #366): no empty amber
+                // space beside the label. Same height, colour and place.
+                // At very large iOS text sizes it takes at most half of
+                // the row and the label is set smaller (oneLine), so it
+                // never pushes "Profiller" off the row.
+                ConstrainedBox(
+                  constraints: BoxConstraints(
+                    maxWidth: (constraints.maxWidth - MenzilSpace.sm) / 2,
+                  ),
+                  child: MenzilPrimaryButton(
+                    key: const Key('profiles-add'),
+                    label: 'Profil ekle',
+                    amber: true,
+                    oneLine: true,
+                    expand: false,
+                    onPressed: _add,
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
         if (items.isEmpty)
@@ -674,10 +678,6 @@ class _ProfilesScreenState extends State<ProfilesScreen> {
       ],
     );
   }
-
-  /// Widest the header's Profil ekle gets: the old fixed width, reached only
-  /// at very large text sizes (normally the button is narrower).
-  static const double _addButtonMaxWidth = 148;
 }
 
 /// What the "⋯" menu of a profile row does.
