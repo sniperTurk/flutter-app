@@ -246,17 +246,13 @@ void main() {
       );
     });
 
-    test(
-      'expected: the calibration magnification comes from the scope, not '
-      'its maximum magnification',
-      () {
-        final src = File(
-          'lib/features/ballistics/scope_dial_view.dart',
-        ).readAsStringSync();
-        expect(src, isNot(contains('calibrationMag => maxMagnification')));
-      },
-      skip: true, // F4: SFP assumed calibrated at max magnification
-    );
+    test('expected: the calibration magnification comes from the scope, not '
+        'its maximum magnification', () {
+      final src = File(
+        'lib/features/ballistics/scope_dial_view.dart',
+      ).readAsStringSync();
+      expect(src, isNot(contains('calibrationMag => maxMagnification')));
+    }, skip: 'F4: SFP assumed calibrated at max magnification');
   });
 
   group('F5 leftover GA text (#195)', () {
