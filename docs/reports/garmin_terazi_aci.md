@@ -151,7 +151,38 @@ tek yerde kalır; saat yine hesap yapmaz, yalnızca ölçer ve gösterir.
 
 ## CI
 
-CI_SONUCLARI_BURAYA
+Kod başı `808d9f5` (bu rapor commit'inden önceki son kod commit'i):
+
+- iOS CI / `verify`: başarılı —
+  https://github.com/sniperTurk/flutter-app/actions/runs/38848811443/job/116808151498
+- iOS CI / `dart-checks`: başarılı —
+  https://github.com/sniperTurk/flutter-app/actions/runs/38848811443/job/116805241224
+- iOS CI / `wind-acceptance`: başarılı —
+  https://github.com/sniperTurk/flutter-app/actions/runs/38848811443/job/116805241060
+- iOS CI / `ios-simulator`: atlandı (iş akışının kendi koşulu; Simulator
+  derlemesi çalışmadı, geçti denemez).
+- Test teşhisi (`flutter test`, tüm `test/`): başarılı —
+  https://github.com/sniperTurk/flutter-app/actions/runs/38848909770
+- Analyze teşhisi: başarılı —
+  https://github.com/sniperTurk/flutter-app/actions/runs/38848912221
+- Format (`dart format`, 375209577): başarılı, değişiklik gerekmedi —
+  https://github.com/sniperTurk/flutter-app/actions/runs/38848807899
+
+İlk itmede (`fffc2d5`) analyze ve `dart-checks` kırmızıydı: Dart `Stream`
+sınıfında `whereType` yok. `where` + `cast` ile düzeltildi, yukarıdaki
+koşular bu düzeltmeden sonra.
+
+Garmin saat kodu CI'da derlenmez (SDK yok); Connect IQ derlemesi,
+simülatör ve gerçek saat denemesi YAPILMADI.
+
+**İnceleme:** Code Review (hata, CLAUDE.md/yorum uyumu, geçmiş) ve Security
+review çalıştırıldı. Güvenlik: bulgu yok (saatten gelen açı tür, sonluluk ve
+±60° ile süzülüyor; yalnız Sensor izni eklendi; anahtar yok). Kod
+incelemesinin bulduğu ve düzeltilenler: ana ekranda "Açı" satırı birim
+satırını aşağı itiyordu; Sıfırla menüden önceki eski ölçümü alıyordu;
+Sıfırla yapılmadan açı gönderilebiliyordu; durum yazısı hiç silinmiyordu.
+Düzeltilmeyen (dar pencere, mevcut desen): ekran açılır açılmaz gelen açının
+kayıtlı ayar okumasıyla ezilebilmesi (Uç durumlar'da).
 
 ## Sahibin yapacakları
 
