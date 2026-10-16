@@ -80,7 +80,7 @@ void main() {
     expect(_title(tester), 'Hava Durumu');
     expect(find.text('Atış girdileri'), findsNothing);
     expect(find.text('Hesapla'), findsNothing);
-    expect(find.text('Pro Ayarlara Geç'), findsOneWidget);
+    expect(find.text('Pro Ayarlar\'a geç'), findsOneWidget);
     // Rüzgâr düzeltmesi is back on Pro Ayarlar (owner, 2026-10-12).
     expect(find.byKey(const Key('pro-section-wind')), findsNothing);
     expect(find.byKey(const Key('pro-wind-max')), findsNothing);

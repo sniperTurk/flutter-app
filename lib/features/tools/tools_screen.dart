@@ -7,6 +7,7 @@ import '../guide/usage_guide_screen.dart';
 import 'calculators_screen.dart';
 import 'chrono_screen.dart';
 import 'compass_screen.dart';
+import 'garmin_pair_tile.dart';
 import 'hit_probability_screen.dart';
 import 'level_screen.dart';
 import 'map_distance_screen.dart';
@@ -173,6 +174,9 @@ class ToolsScreen extends StatelessWidget {
           subtitle: 'Oturum kaydı ve soğuk namlu ilk atış kaçıklığı',
           onTap: () => _open(context, const ShotJournalScreen()),
         ),
+        // Garmin saati (2026-10-12): only in builds with the iOS Garmin
+        // bridge; invisible (no space) everywhere else.
+        const GarminPairTile(),
         MenzilToolTile(
           plainIcon: true,
           tileKey: const Key('tool-usage-guide'),
