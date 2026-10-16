@@ -1299,6 +1299,40 @@ class _BallisticsScreenState extends State<BallisticsScreen>
   bool get _pressureOrange => _pressureFilled && _isFresh(_pressureFetchedAtMs);
   bool get _pressureStale => _pressureFilled && !_isFresh(_pressureFetchedAtMs);
 
+  /// The "Basınç al" button's label when it is not reading. The button and
+  /// every message that names it use this one getter, so a message never
+  /// names a label the button is not showing (owner, 2026-10-16).
+  String get _pressureActionLabel => _pressureOrange
+      ? 'Basınç alındı'
+      : _pressureStale
+      ? 'Basıncı yenile'
+      : 'Basınç al';
+
+  /// Stands for [_pressureActionLabel] in a stored status text; replaced
+  /// when the text is shown, so it follows the button as it changes.
+  static const _pressureLabelToken = '{basinc-dugmesi}';
+
+  /// "07:57" for a fetch today, "15.10.2026 07:57" for another day.
+  String _pressureTakenAtText(int atMs) {
+    final t = DateTime.fromMillisecondsSinceEpoch(atMs);
+    final now = _clock.now().toLocal();
+    final full = fetchDateTimeText(atMs);
+    final sameDay =
+        t.year == now.year && t.month == now.month && t.day == now.day;
+    return sameDay ? full.substring(full.length - 5) : full;
+  }
+
+  /// The Turkish locative ending for a clock time as it is read aloud:
+  /// "07:57'de", "07:53'te", "07:40'ta", "10:00'da".
+  static String _timeSuffix(int atMs) {
+    final t = DateTime.fromMillisecondsSinceEpoch(atMs);
+    // Ending by the last word read: the minute, or the hour at :00.
+    final n = t.minute != 0 ? t.minute : t.hour;
+    const ones = ['da', 'de', 'de', 'te', 'te', 'te', 'da', 'de', 'de', 'da'];
+    const tens = ['da', 'da', 'de', 'da', 'ta', 'de'];
+    return n % 10 != 0 ? ones[n % 10] : tens[n ~/ 10];
+  }
+
   /// When the weather / pressure button last filled its boxes (UTC epoch
   /// ms, from [_clock]); null = unknown (older saves), which counts as old.
   int? _weatherFetchedAtMs;
@@ -1476,6 +1510,8 @@ class _BallisticsScreenState extends State<BallisticsScreen>
   /// the typed altitude — usually a sea-level (QNH) value typed by mistake
   /// (owner, 2026-10-09). Weather keeps sea-level pressure between about
   /// 950 and 1050 hPa; reduced to the altitude that gives the plausible band.
+  /// An old phone reading instead says when it was taken (owner,
+  /// 2026-10-16); the button is named as it is shown.
   String? get _pressureWarning {
     double? parse(TextEditingController c) =>
         double.tryParse(c.text.trim().replaceAll(',', '.'));
@@ -1490,13 +1526,25 @@ class _BallisticsScreenState extends State<BallisticsScreen>
     final high = FieldCalc.stationPressureHpa(1050, aM);
     final low = FieldCalc.stationPressureHpa(950, aM);
     final typical = FieldCalc.stationPressureHpa(1013.25, aM);
-    if (pHpa > high + 1) {
+    final tooHigh = pHpa > high + 1;
+    final tooLow = pHpa < low - 1;
+    final label = _pressureActionLabel;
+    // An old phone reading: most likely taken somewhere else, not a typed
+    // sea-level value (owner, TestFlight 2026-10-16).
+    final at = _pressureFetchedAtMs;
+    if ((tooHigh || tooLow) && _pressureStale && at != null) {
+      return 'Bu basınç ${_pressureTakenAtText(at)}\'${_timeSuffix(at)} '
+          'alındı. '
+          '${aM.round()} m irtifada yaklaşık ${typical.round()} hPa '
+          'beklenir; yer değiştirdiyseniz "$label"ye basın.';
+    }
+    if (tooHigh) {
       return '${aM.round()} m irtifada gerçek basınç yaklaşık '
           '${typical.round()} hPa olur; girilen değer deniz seviyesi basıncı '
           'olabilir. Hava durumu uygulamasındaki basıncı istasyon basıncına '
-          'çevirin ya da "Basınç al" düğmesini kullanın.';
+          'çevirin ya da "$label" düğmesini kullanın.';
     }
-    if (pHpa < low - 1) {
+    if (tooLow) {
       return '${aM.round()} m irtifa için basınç çok düşük (yaklaşık '
           '${typical.round()} hPa beklenir). Basıncı ve irtifayı kontrol edin.';
     }
@@ -1565,8 +1613,8 @@ class _BallisticsScreenState extends State<BallisticsScreen>
         final mm = t.minute.toString().padLeft(2, '0');
         status =
             'Hava verisi konumdan dolduruldu (${obs.sourceName}, $hh:$mm). '
-            'Basınç için "Basınç al", irtifa için İrtifa kartı. Rüzgâr '
-            'yönünü siz seçin.';
+            'Basınç için "$_pressureLabelToken", irtifa için İrtifa '
+            'kartı. Rüzgâr yönünü siz seçin.';
       }
     } on WeatherFailure {
       failed = true;

@@ -44,7 +44,11 @@ extension _HavaDurumuView on _BallisticsScreenState {
   }
 
   Widget _weatherFillCard(BuildContext context) {
-    final status = _weatherStatus;
+    // The pressure button's name follows its current label.
+    final status = _weatherStatus?.replaceAll(
+      _BallisticsScreenState._pressureLabelToken,
+      _pressureActionLabel,
+    );
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
@@ -339,13 +343,7 @@ extension _HavaDurumuView on _BallisticsScreenState {
               ),
               button: MenzilSecondaryButton(
                 key: const Key('environment-phone-pressure'),
-                label: _pressureBusy
-                    ? 'Okunuyor…'
-                    : _pressureOrange
-                    ? 'Basınç alındı'
-                    : _pressureStale
-                    ? 'Basıncı yenile'
-                    : 'Basınç al',
+                label: _pressureBusy ? 'Okunuyor…' : _pressureActionLabel,
                 expand: true,
                 active: _pressureOrange,
                 twoLines: true,
