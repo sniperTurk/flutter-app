@@ -186,8 +186,7 @@ class MenzilTopBar extends StatelessWidget implements PreferredSizeWidget {
     TextDirection textDirection = TextDirection.ltr,
     Locale? locale,
   }) {
-    double widest = 0;
-    void measure(String text, TextStyle style) {
+    double measure(String text, TextStyle style) {
       final painter = TextPainter(
         text: TextSpan(text: text, style: style),
         textDirection: textDirection,
@@ -195,14 +194,24 @@ class MenzilTopBar extends StatelessWidget implements PreferredSizeWidget {
         locale: locale,
         maxLines: 1,
       )..layout();
-      if (painter.width > widest) widest = painter.width;
+      final width = painter.width;
       painter.dispose();
+      return width;
     }
 
+    double widest = 0;
     for (final t in titles) {
-      measure(t, titleStyle);
+      widest = math.max(widest, measure(t, titleStyle));
     }
-    if (includeBrand) measure(MenzilBrand.text, brandStyle);
+    if (includeBrand) {
+      // The brand row is the logo, a gap and the text (owner, 2026-10-17);
+      // the logo has a fixed size and does not follow [textScaler].
+      final brand =
+          MenzilBrand.logoSize +
+          MenzilBrand.logoGap +
+          measure(MenzilBrand.text, brandStyle);
+      widest = math.max(widest, brand);
+    }
     final cap = barWidth * titleSlotMaxFraction;
     return math.min(widest.ceilToDouble(), cap);
   }
@@ -317,13 +326,30 @@ class MenzilBrand extends StatelessWidget {
   /// up from 18; page titles stay at [MenzilTopBar.titleSize].
   static const double fontSize = 20;
 
-  static TextStyle style(Color ink) => MenzilType.heading(ink, size: fontSize);
+  /// Logo left of the text (owner, 2026-10-17 18:37: "logo 44 pt"): a
+  /// square of [logoSize], [logoGap] before the text.
+  static const double logoSize = 44;
+  static const double logoGap = 4;
+
+  /// Logo asset for the theme, the same switch as the welcome card.
+  static String logoAsset(Brightness brightness) =>
+      brightness == Brightness.dark
+      ? 'assets/branding/logo_line_dark.png'
+      : 'assets/branding/logo_line.png';
+
+  /// Brand text a bit thinner than page titles (owner, 2026-10-17: "biraz
+  /// ince"): w600; [MenzilType.heading] itself stays w700.
+  static TextStyle style(Color ink) => MenzilType.heading(
+    ink,
+    size: fontSize,
+  ).copyWith(fontWeight: FontWeight.w600);
 
   @override
   Widget build(BuildContext context) {
     final c = MenzilColors.of(context);
-    // "Sniper Türk", text only (owner, 2026-10-09). On the narrowest phones
-    // it scales down instead of squeezing the profile selector.
+    // Logo + "Sniper Türk" (owner, 2026-10-17). On the narrowest phones both
+    // scale down together instead of squeezing the profile selector. The
+    // logo is decorative; screen readers hear only "Sniper Türk".
     return Semantics(
       header: true,
       label: 'Sniper Türk',
@@ -331,11 +357,24 @@ class MenzilBrand extends StatelessWidget {
         child: FittedBox(
           fit: BoxFit.scaleDown,
           alignment: Alignment.centerLeft,
-          child: Text(
-            text,
-            key: const Key('top-bar-brand'),
-            maxLines: 1,
-            style: style(c.ink),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Image.asset(
+                logoAsset(Theme.of(context).brightness),
+                key: const Key('top-bar-brand-logo'),
+                width: logoSize,
+                height: logoSize,
+                excludeFromSemantics: true,
+              ),
+              const SizedBox(width: logoGap),
+              Text(
+                text,
+                key: const Key('top-bar-brand'),
+                maxLines: 1,
+                style: style(c.ink),
+              ),
+            ],
           ),
         ),
       ),
