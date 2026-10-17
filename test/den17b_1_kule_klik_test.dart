@@ -134,9 +134,11 @@ List<Object?> _scopeValues(ScopeOptic s) => [
   s.userEntered,
 ];
 
-/// Every saved profile value but the record ids it points to.
+/// Every saved profile value but the record ids (a kept profile id is
+/// checked by `store.all()` staying a single record).
 Map<String, dynamic> _profileValues(RifleProfile p) =>
     const ProfileCodec().encode(p)
+      ..remove('id')
       ..remove('scopeId')
       ..remove('rifleId')
       ..remove('ammunitionId');
