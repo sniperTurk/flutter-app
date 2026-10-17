@@ -211,15 +211,18 @@ void main() {
       ];
       // Every text the page draws (Hava özeti, warnings, …) except the two
       // notes, which name the source on purpose.
-      final summary = [
-        for (final r in tester.widgetList<RichText>(
-          find.descendant(
-            of: find.byType(BallisticsScreen),
-            matching: find.byType(RichText),
-          ),
-        ))
-          r.text.toPlainText(),
-      ].where((t) => !t.contains('Google') && !t.contains('MET Norway')).toList();
+      final summary =
+          [
+                for (final r in tester.widgetList<RichText>(
+                  find.descendant(
+                    of: find.byType(BallisticsScreen),
+                    matching: find.byType(RichText),
+                  ),
+                ))
+                  r.text.toPlainText(),
+              ]
+              .where((t) => !t.contains('Google') && !t.contains('MET Norway'))
+              .toList();
       return (boxes, summary);
     }
 
