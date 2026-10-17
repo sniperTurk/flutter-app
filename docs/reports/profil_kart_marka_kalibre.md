@@ -92,9 +92,9 @@ editörde gördüğü adla aynı olsun diye editörün yolu izlendi.
   https://github.com/sniperTurk/flutter-app/actions/runs/39048667515
 - Simülatör (sim-screens run 39059264965, ci/sim-screens 42d2c111):
   - Profil, kayıtlı profil:
-    https://raw.githubusercontent.com/sniperTurk/flutter-app/42d2c111/latest/32_profil_kayitli.png
+    https://raw.githubusercontent.com/sniperTurk/flutter-app/42d2c1115ff889eddbce6cd979fadc333da06851/latest/32_profil_kayitli.png
   - Kaydırılmış:
-    https://raw.githubusercontent.com/sniperTurk/flutter-app/42d2c111/latest/33_profil_kayitli_2.png
+    https://raw.githubusercontent.com/sniperTurk/flutter-app/42d2c1115ff889eddbce6cd979fadc333da06851/latest/33_profil_kayitli_2.png
 - Görülen: kartın ikinci satırı "Test Marka, 6,35 mm" (ekran turunun elle
   yazılmış PCP tüfeği → marka + mm), tek satır; sıfır / fps / BC yok. İlk
   satır (Profil + Aktif), üst bar, Profil ekle ve alttaki özet kartları
