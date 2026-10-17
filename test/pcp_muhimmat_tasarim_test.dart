@@ -950,8 +950,7 @@ void main() {
 
     test('profile list summary: brand, caliber; no velocity', () {
       final p = const ProfileCodec().decode(oldJson());
-      expect(profileListSummary(p), isNot(contains('fps')));
-      expect(profileListSummary(p), isNot(contains('girin')));
+      expect(profileListSummary(p), 'PCPM, 5,50 mm');
     });
   });
 }
