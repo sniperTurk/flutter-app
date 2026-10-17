@@ -12,6 +12,7 @@ import 'package:sniper_turk/features/ballistics/scope_dial_view.dart';
 import 'package:sniper_turk/features/home/home_screen.dart';
 import 'package:sniper_turk/models/domain.dart';
 import 'package:sniper_turk/services/active_profile_store.dart';
+import 'package:sniper_turk/services/manual_catalog_store.dart';
 import 'package:sniper_turk/services/profile_store.dart';
 import 'package:sniper_turk/ui/menzil_theme.dart';
 
@@ -203,8 +204,14 @@ void _expectLastClick(WidgetTester tester, String value) {
 }
 
 void main() {
-  setUp(() {
+  // The Profil page reloads personal records from ManualCatalogStore, so
+  // they are saved there too (an empty store would drop them).
+  setUp(() async {
     SharedPreferences.setMockInitialValues({});
+    final store = ManualCatalogStore();
+    for (final e in const [_fxRifle, _fxAmmo, _typedScope]) {
+      await store.upsert(e);
+    }
     CatalogRepository.installUserCatalog(
       UserCatalog.fromManualEntries([_fxRifle, _fxAmmo, _typedScope]),
     );
