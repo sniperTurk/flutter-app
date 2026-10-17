@@ -1,10 +1,10 @@
 // Profil → "Profiller" listesi (owner, 2026-10-15 12:49 "profilleri
 // yukarı al, içi böyle yazılı olsun"; Profil.png on design/clean-2026-10-15).
 // Since 2026-10-17 19:14 the list sits below the Tüfek / Dürbün / Mühimmat
-// summaries and "Hava Durumu'na geç" is last. "Profil ekle" is amber and
-// text only; each card shows its name (+ Aktif) and one summary line
-// "kalibre, sıfır N m|yd, hız, BC x G1|G7"; the active card has a 4 pt
-// amber left edge; ⋯ stays right.
+// summaries and "Hava Durumu'na geç" is last. "Profil ekle" is amber with
+// no icon (a "+" glyph since 2026-10-17); each card shows its name
+// (+ Aktif) and one summary line "kalibre, sıfır N m|yd, hız, BC x G1|G7";
+// the active card has a 4 pt amber left edge; ⋯ stays right.
 // See docs/reports/profiller_ustte.md.
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';

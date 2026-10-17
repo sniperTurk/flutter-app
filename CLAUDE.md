@@ -57,7 +57,7 @@ Marka | Model come from `lib/data/rifle_library.dart`,
 `factory_ammo_library.dart` and `bullet_library.dart`; typed boxes only after
 "Listede yok"). Keep two boxes per row (Marka | Model side by side); every
 row holds two boxes, Kalibre included (e.g. Namlu çıkış hızı | Kalibre share a
-row); a long selected value wraps or is shortened inside its box. No helper
+row); a long selected value stays on one line and is cut with "…" inside its box (owner, 2026-10-17 18:05). No helper
 text under a field: every explanation goes into its ⓘ. Labels have no parentheses ("Yiv oranı",
 not "Yiv oranı (1:…)").
 

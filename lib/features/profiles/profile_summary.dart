@@ -22,14 +22,32 @@ String _scopeSummary(ScopeOptic s) {
   return [size, focal].where((p) => p.isNotEmpty).join(' ');
 }
 
+/// The click Hedef uses for this scope in the profile's unit: the catalog
+/// click when the units match, otherwise 0.1 MRAD / ¼ MOA / ¼ SMOA; null
+/// when the scope has no click value.
+double? _profileClick(ScopeOptic s, AngularUnit unit) {
+  if (!s.clickValue.isFinite || s.clickValue <= 0) return null;
+  return s.clickUnit == unit ? s.clickValue : unit.standardClick;
+}
+
 /// Total clicks of the top (elevation) turret in the profile's unit, with
-/// the same click Hedef uses (the catalog click when the units match,
-/// otherwise 0.1 MRAD / ¼ MOA / ¼ SMOA); null when the travel is unknown.
+/// the same click Hedef uses ([_profileClick]); null when the travel is
+/// unknown.
 int? _topTurretClicks(ScopeOptic s, AngularUnit unit) {
   final mrad = s.elevationRangeMrad;
-  if (mrad == null || mrad <= 0 || s.clickValue <= 0) return null;
-  final click = s.clickUnit == unit ? s.clickValue : unit.standardClick;
+  final click = _profileClick(s, unit);
+  if (mrad == null || mrad <= 0 || click == null) return null;
   return (unit.fromMrad(mrad) / click).round();
+}
+
+/// Klik değeri for the summary, in the Profil editor's list format
+/// ("0,1 MRAD", "1/4 MOA"); a click that list lacks (e.g. 0.2 MRAD) is
+/// shown as a number with a decimal comma ("0,2 MRAD").
+String _clickSummary(double click, AngularUnit unit) {
+  for (final (v, name) in _ProfileDialogState._clickOptions(unit)) {
+    if (v == click) return name;
+  }
+  return '${_trimNum(click)} ${unit.label}';
 }
 
 /// The zero in the profile's own distance unit ("25" m, "27,3" yd).
@@ -47,6 +65,39 @@ String _ammoTypeName(AmmunitionType t) => switch (t) {
   AmmunitionType.slug => 'Slug',
   AmmunitionType.bullet => 'Mermi',
 };
+
+/// Firearm Tip box (owner, 2026-10-17: "Mermi 31.2 mm yazalım"): the
+/// bullet length next to the type, joined by a space like "BC / model"
+/// ("0,243 G7"); without a saved length the box stays "Tip" / "Mermi".
+MenzilMetric _firearmTypeMetric(Ammunition a) {
+  final length = a.lengthMm;
+  if (length == null || !length.isFinite || length <= 0) {
+    return MenzilMetric('Tip', _ammoTypeName(a.type));
+  }
+  return MenzilMetric(
+    'Tip / uzunluk',
+    '${_ammoTypeName(a.type)} ${_trimNum(length)}',
+    'mm',
+  );
+}
+
+/// Mühimmat türü as the Profil editor names it when it opens the profile
+/// (same rule as the editor): a listed bullet that is not a listed factory
+/// round is "El dolumu", anything else "Fabrika fişeği"; "—" without a
+/// saved ammunition, like "BC / model" without a value.
+String _firearmAmmoSourceName(Ammunition? a) {
+  if (a == null) return '—';
+  final inFactory = FactoryAmmoLibrary.all.any(
+    (f) => f.brand == a.brand && f.name == a.model,
+  );
+  final inLibrary = BulletLibrary.all.any(
+    (b) =>
+        b.platform == a.platform &&
+        b.brand == a.brand &&
+        _ProfileDialogState._modelOf(b) == a.model,
+  );
+  return inFactory || !inLibrary ? 'Fabrika fişeği' : 'El dolumu';
+}
 
 /// Dürbün Marka and a clean Dürbün Model for the summary (owner,
 /// 2026-10-11: no designation, reticle or unit repeated in the name).
@@ -139,6 +190,8 @@ class _ActiveProfileDetails extends StatelessWidget {
     final scopeNames = scope == null ? null : _scopeBrandModel(scope);
     final reticle = scope == null ? null : _summaryReticle(scope);
     final ammoModel = ammo == null ? '' : _ammoModelName(ammo);
+    final firearm =
+        (rifle?.platform ?? ammo?.platform) == WeaponPlatform.firearm;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
@@ -224,6 +277,18 @@ class _ActiveProfileDetails extends StatelessWidget {
                 '${_topTurretClicks(scope, profile.angularUnit)}',
                 'klik',
               ),
+            // Klik değeri last in the Dürbün card (owner, 2026-10-17:
+            // "ekle"): the click the calculation uses; left out, like
+            // Dürbün üst kule, when the scope has none.
+            if (scope != null &&
+                _profileClick(scope, profile.angularUnit) != null)
+              MenzilMetric(
+                'Klik değeri',
+                _clickSummary(
+                  _profileClick(scope, profile.angularUnit)!,
+                  profile.angularUnit,
+                ),
+              ),
           ],
         ),
         const SizedBox(height: cardGap),
@@ -240,7 +305,9 @@ class _ActiveProfileDetails extends StatelessWidget {
                 ),
           metrics: [
             if (ammo != null) ...[
-              MenzilMetric('Tip', _ammoTypeName(ammo.type)),
+              firearm
+                  ? _firearmTypeMetric(ammo)
+                  : MenzilMetric('Tip', _ammoTypeName(ammo.type)),
               MenzilMetric('Ağırlık', _trimNum(ammo.grain), 'gr'),
             ],
             MenzilMetric(
@@ -250,6 +317,9 @@ class _ActiveProfileDetails extends StatelessWidget {
                   : '${_trimNum(ballisticCoefficient)} $ballisticModelName'
                         .trim(),
             ),
+            // Last box of the card, firearm only (owner, 2026-10-17).
+            if (firearm)
+              MenzilMetric('Mühimmat türü', _firearmAmmoSourceName(ammo)),
           ],
         ),
       ],

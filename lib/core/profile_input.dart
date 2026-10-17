@@ -17,10 +17,10 @@ class ProfileInput {
   /// regulator use; not in the formula.
   final double? tubePressureBar;
 
-  /// PCP En düşük / En yüksek namlu çıkış hızı (m/s), optional, each on
-  /// its own; PCP only (owner, 2026-10-16). Saved only: the calculations
-  /// use the Tüfek card's Namlu çıkış hızı [muzzleVelocityMps] (owner,
-  /// 2026-10-17).
+  /// PCP En düşük / En yüksek namlu çıkış hızı (m/s), optional, both or
+  /// neither; PCP only (owner, 2026-10-16). [muzzleVelocityMps] stays the
+  /// Tüfek card's Namlu çıkış hızı; the calculations use the mean of these
+  /// two when both are given (RifleProfile.velocityMps).
   final double? pcpMinVelocityMps, pcpMaxVelocityMps;
 
   /// Built-in slope of the scope mount, in MOA (0 = normal mount).
@@ -59,31 +59,33 @@ class ProfileInput {
     String? powderTempText,
   }) {
     // PCP (owner, 2026-10-16): En düşük and En yüksek namlu çıkış hızı
-    // (m/s) are optional, each on its own (owner, 2026-10-17); both given,
-    // lowest first. Saved only: the Tüfek card's [muzzleVelocityText] is
-    // the velocity every calculation uses.
+    // (m/s) are optional but come as a pair, lowest first (like Barut
+    // sıcaklığı). The Tüfek card's [muzzleVelocityText] is always read.
     double? pcpMin, pcpMax;
     if (platform == WeaponPlatform.pcp) {
       final minTyped = pcpMinVelocityText?.trim() ?? '';
       final maxTyped = pcpMaxVelocityText?.trim() ?? '';
-      if (minTyped.isNotEmpty) {
+      if (minTyped.isNotEmpty || maxTyped.isNotEmpty) {
+        if (minTyped.isEmpty || maxTyped.isEmpty) {
+          throw const FormatException(
+            'En düşük ve en yüksek hızın ikisini de girin.',
+          );
+        }
         pcpMin = _boundedPositive(
           minTyped,
           'En düşük namlu çıkış hızı',
           ProductionLimits.maxMuzzleVelocityMps,
         );
-      }
-      if (maxTyped.isNotEmpty) {
         pcpMax = _boundedPositive(
           maxTyped,
           'En yüksek namlu çıkış hızı',
           ProductionLimits.maxMuzzleVelocityMps,
         );
-      }
-      if (pcpMin != null && pcpMax != null && pcpMin > pcpMax) {
-        throw const FormatException(
-          'En düşük namlu çıkış hızı en yüksek hızdan büyük olamaz.',
-        );
+        if (pcpMin > pcpMax) {
+          throw const FormatException(
+            'En düşük namlu çıkış hızı en yüksek hızdan büyük olamaz.',
+          );
+        }
       }
     }
     final normalizedName = name.trim();

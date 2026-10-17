@@ -279,10 +279,9 @@ class RifleProfile {
 
   /// PCP En düşük / En yüksek namlu çıkış hızı in m/s (owner, 2026-10-16:
   /// the lowest and highest of 10 chronograph shots, Mühimmat card).
-  /// Optional, each on its own, and always null on a firearm. Saved and
-  /// loaded only: owner 2026-10-17 ("namlu çıkış hızından yapsın
-  /// hesaplamayı"), every calculation uses the Tüfek card's Namlu çıkış
-  /// hızı [muzzleVelocityMps].
+  /// Optional; both set or both null, and always null on a firearm.
+  /// [muzzleVelocityMps] stays the Tüfek card's Namlu çıkış hızı; what the
+  /// calculations use is [velocityMps].
   final double? pcpMinVelocityMps, pcpMaxVelocityMps;
   final AngularUnit angularUnit;
 
@@ -321,6 +320,21 @@ class RifleProfile {
     this.powderTempCoefPercentPer15C,
     this.powderTempReferenceC,
   });
+
+  /// Both PCP velocities are saved, lowest first (see [pcpMinVelocityMps]).
+  bool get hasPcpVelocityRange {
+    final lo = pcpMinVelocityMps, hi = pcpMaxVelocityMps;
+    return lo != null && hi != null && lo <= hi;
+  }
+
+  /// The velocity every calculation uses (Hedef, Hız Doğrulama, watch,
+  /// hit probability, DOPE, MPBR), owner 2026-10-16: with En düşük and En
+  /// yüksek namlu çıkış hızı both saved, their mean; otherwise (firearm,
+  /// PCP without them, older PCP profiles) the Tüfek card's Namlu çıkış hızı
+  /// [muzzleVelocityMps], exactly as before.
+  double get velocityMps => hasPcpVelocityRange
+      ? (pcpMinVelocityMps! + pcpMaxVelocityMps!) / 2
+      : muzzleVelocityMps;
 }
 
 class EnvironmentData {

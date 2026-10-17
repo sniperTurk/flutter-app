@@ -6,15 +6,15 @@
 // a row) for every way into the form: a new profile, Profili Düzenle of a
 // list item, of a profile saved before the 13 Oct catalog update (#235,
 // older names), of a typed item and of a Kopyala copy, plus save -> reopen
-// round trips. Also items 2-4 of the same task: Model boxes wrap instead of
-// shrinking, "Kaydetmek için eksik" names only boxes that are on screen,
+// round trips. Also items 2-4 of the same task: Model boxes never shrink
+// (since 2026-10-17 18:05 one line cut with "…" instead of wrapping),
+// "Kaydetmek için eksik" names only boxes that are on screen,
 // "Barut katsayısı" has no unit beside it.
 //
 // If one of these fails, a later change has silently undone an owner
 // decision: change the code back, or get the owner's word before changing
 // the test.
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sniper_turk/data/catalog_repository.dart';
@@ -28,6 +28,7 @@ import 'package:sniper_turk/ui/menzil_theme.dart';
 import 'package:sniper_turk/ui/menzil_widgets.dart';
 
 import 'support/rifle_form.dart';
+import 'support/select_one_line.dart';
 
 // ---- Old saved data (JSON as written before the 13 Oct catalog update) ---
 
@@ -377,8 +378,9 @@ const _rifleBannerOrder = [
 
 /// Marka and Model: each alone on a full row, one left edge, one width, as
 /// wide as the two-box rows below; Kalibre the left box of the next row and
-/// Sight height alone, full width, last (two columns only; owner,
-/// 2026-10-16).
+/// Sight height alone last, a half box as wide as Sıfırlama mesafesi (two
+/// columns only; owner, 2026-10-16; Sight height half width: owner,
+/// 2026-10-17 17:57).
 void _rifleFullRows(WidgetTester tester) {
   Rect first(List<String> keys) => tester.getRect(
     keys
@@ -392,10 +394,11 @@ void _rifleFullRows(WidgetTester tester) {
   final twist = first(const ['rifle-twist-rate']);
   final direction = first(const ['rifle-twist-direction']);
   final sight = first(const ['scope-sight-height']);
-  for (final r in [model, sight]) {
-    expect((r.left - brand.left).abs(), lessThan(1), reason: '$r / $brand');
-    expect((r.width - brand.width).abs(), lessThan(1), reason: '$r / $brand');
-  }
+  final zero = first(const ['profile-zero']);
+  expect((model.left - brand.left).abs(), lessThan(1), reason: '$model');
+  expect((model.width - brand.width).abs(), lessThan(1), reason: '$model');
+  expect((sight.left - brand.left).abs(), lessThan(1), reason: '$sight');
+  expect((sight.width - zero.width).abs(), lessThan(1), reason: '$sight');
   // Kalibre | Namlu çıkış hızı: the two columns of Yiv oranı | yön.
   expect((caliber.left - twist.left).abs(), lessThan(1));
   expect((caliber.width - twist.width).abs(), lessThan(1));
@@ -565,42 +568,36 @@ const _hiddenScopeNames = [
   'Klik değeri',
 ];
 
-// ---- Item 2: Model text wraps at its normal size ----
+// ---- Item 2: closed select boxes, one line, cut with "…" ----
+// (owner, 2026-10-17 18:05; until then the Model, Marka and Kalibre boxes
+// wrapped and grew, owner 2026-10-14.)
 
 Finder _box(String key) => find.descendant(
   of: find.byKey(Key(key)),
   matching: find.byType(InputDecorator),
 );
 
-void _wrapsAtNormalSize(WidgetTester tester, String key, String text) {
-  final wrapped = find.descendant(
-    of: find.byKey(Key(key)),
-    matching: find.byKey(const Key('menzil-select-wrapped')),
+/// The closed select [key] shows [text] on one line at the normal size, cut
+/// with "…" when it does not fit; the box has the standard height (Tür).
+void _oneLineAtNormalSize(WidgetTester tester, String key, String text) {
+  expectClosedOneLine(
+    tester,
+    key,
+    text,
+    standardHeight: tester.getSize(_box('profile-platform')).height,
   );
-  expect(wrapped, findsOneWidget, reason: key);
-  final t = tester.widget<Text>(wrapped);
-  expect(t.data, text);
-  // Normal size, never scaled down.
-  expect(t.style?.fontSize, 15);
+}
+
+/// The closed Kalibre box: [text] on ONE line, cut with "…" when it does
+/// not fit, as tall as Namlu çıkış hızı (owner, 2026-10-17 17:54–18:05).
+void _caliberOneLine(WidgetTester tester, String text) {
+  _oneLineAtNormalSize(tester, 'rifle-caliber', text);
   expect(
-    find.descendant(of: find.byKey(Key(key)), matching: find.byType(FittedBox)),
-    findsNothing,
-  );
-  expect(
-    find.descendant(
-      of: find.byKey(Key(key)),
-      matching: find.byType(MenzilFitText),
+    tester.getSize(_box('rifle-caliber').first).height,
+    moreOrLessEquals(
+      tester.getSize(_box('profile-velocity-fps').first).height,
+      epsilon: 0.5,
     ),
-    findsNothing,
-  );
-  final p = tester.renderObject<RenderParagraph>(wrapped);
-  expect(p.didExceedMaxLines, isFalse, reason: 'cut');
-  // More than one line: the box grows instead.
-  expect(p.size.height, greaterThan(1.8 * 15), reason: 'one line only');
-  expect(
-    tester.getSize(_box(key)).height,
-    greaterThan(tester.getSize(_box('profile-platform')).height + 10),
-    reason: 'the box did not grow',
   );
 }
 
@@ -955,14 +952,14 @@ void main() {
     });
   });
 
-  group('Model boxes wrap at the normal size (like Mühimmat Model)', () {
+  group('Model boxes: one line, cut with "…" (like Mühimmat Model)', () {
     testWidgets('Dürbün Model', (tester) async {
       const line = 'ED-ELR Gen III 5-40x56 SFIR FFP Zero Stop MOA';
       await _openNew(tester);
       await chooseInSelect(tester, 'scope-brand-select', 'Discovery Optics');
       await chooseInSelect(tester, 'scope-model-select', line);
       expect(selectedValue<String>(tester, 'scope-model-select'), line);
-      _wrapsAtNormalSize(tester, 'scope-model-select', line);
+      _oneLineAtNormalSize(tester, 'scope-model-select', line);
       // The open list keeps the size too (no shrinking FittedBox).
       final box = find.byKey(const Key('scope-model-select'));
       await tester.ensureVisible(box);
@@ -986,7 +983,7 @@ void main() {
       await chooseInSelect(tester, 'rifle-brand-select', 'Weatherby');
       await chooseInSelect(tester, 'rifle-model-select', model);
       expect(selectedValue<String>(tester, 'rifle-model-select'), model);
-      _wrapsAtNormalSize(tester, 'rifle-model-select', model);
+      _oneLineAtNormalSize(tester, 'rifle-model-select', model);
       expect(tester.takeException(), isNull);
     });
 
@@ -994,11 +991,7 @@ void main() {
       await _openNew(tester);
       await chooseInSelect(tester, 'rifle-brand-select', 'Tikka');
       await chooseInSelect(tester, 'rifle-model-select', 'T3x UPR');
-      final wrapped = find.descendant(
-        of: find.byKey(const Key('rifle-model-select')),
-        matching: find.byKey(const Key('menzil-select-wrapped')),
-      );
-      expect(tester.widget<Text>(wrapped).data, 'T3x UPR');
+      _oneLineAtNormalSize(tester, 'rifle-model-select', 'T3x UPR');
       expect(
         tester.getSize(_box('rifle-model-select')).height,
         moreOrLessEquals(
@@ -1069,7 +1062,7 @@ void main() {
       expect(tester.takeException(), isNull);
     });
 
-    testWidgets('long Marka and Kalibre wrap at the normal size', (
+    testWidgets('long Marka and Kalibre: one line at the normal size', (
       tester,
     ) async {
       await _openNew(tester);
@@ -1078,7 +1071,7 @@ void main() {
         'rifle-brand-select',
         'Accuracy International',
       );
-      _wrapsAtNormalSize(
+      _oneLineAtNormalSize(
         tester,
         'rifle-brand-select',
         'Accuracy International',
@@ -1088,7 +1081,8 @@ void main() {
         selectedValue<String>(tester, 'rifle-caliber'),
         '.338-378 Weatherby Mag',
       );
-      _wrapsAtNormalSize(tester, 'rifle-caliber', '.338-378 Weatherby Mag');
+      // Kalibre: one line, cut with "…" when needed (owner, 2026-10-17).
+      _caliberOneLine(tester, '.338-378 Weatherby Mag');
       _rifleFullRows(tester);
       expect(tester.takeException(), isNull);
     });
@@ -1156,14 +1150,14 @@ void main() {
         for (final k in ['rifle-brand-select', 'rifle-caliber']) {
           final r = tester.getRect(find.byKey(Key(k)));
           expect(r.right, lessThanOrEqualTo(card.right + 0.5), reason: k);
-          final p = tester.renderObject<RenderParagraph>(
-            find.descendant(
-              of: find.byKey(Key(k)),
-              matching: find.byKey(const Key('menzil-select-wrapped')),
-            ),
-          );
-          expect(p.didExceedMaxLines, isFalse, reason: k);
         }
+        _oneLineAtNormalSize(
+          tester,
+          'rifle-brand-select',
+          'Accuracy International',
+        );
+        // Kalibre: one line (owner, 2026-10-17).
+        _caliberOneLine(tester, '.338-378 Weatherby Mag');
         await openRifleManual(tester);
         expect(_flat(_rifleLayout(tester)), _flat(_rifleTypedLayout));
         expect(tester.takeException(), isNull);

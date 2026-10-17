@@ -216,12 +216,8 @@ class _ChronoScreenState extends State<ChronoScreen> {
         ? ''
         : '\nSeri ortalaması ${_profileFps(s.meanMps)}; profile '
               '${ToolFormat.dec(powder.referenceC!, 1)} °C\'deki hız yazılır.';
-    final ok = await _confirm(
-      'Profile uygula',
-      '${p.name}\nNamlu çıkış hızı: ${_profileFps(p.muzzleVelocityMps)}'
-          ' → ${_profileFps(v)}$note',
-    );
-    if (!ok || !mounted) return;
+    // Validated before the confirmation, so a refused write (a PCP with En
+    // düşük | En yüksek: the mean is the velocity) never asks first.
     final RifleProfile updated;
     try {
       updated = ToolProfileUpdate.apply(p, muzzleVelocityMps: v);
@@ -229,6 +225,12 @@ class _ChronoScreenState extends State<ChronoScreen> {
       _snack(e.message);
       return;
     }
+    final ok = await _confirm(
+      'Profile uygula',
+      '${p.name}\nNamlu çıkış hızı: ${_profileFps(p.muzzleVelocityMps)}'
+          ' → ${_profileFps(v)}$note',
+    );
+    if (!ok || !mounted) return;
     await _saveProfile(updated, 'Seri ortalaması profile uygulandı.');
   }
 
