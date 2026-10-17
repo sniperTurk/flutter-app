@@ -468,7 +468,11 @@ extension _TurretDrumDesign on _TurretDrumState {
             child: Flex(
               direction: widget.axis,
               crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [capCell(1), Expanded(child: window), capCell(-1)],
+              children: [
+                capCell(1),
+                Expanded(child: window),
+                capCell(-1),
+              ],
             ),
           ),
         );
@@ -619,10 +623,7 @@ class _TurretCapPainter extends CustomPainter {
               colors: [c.line, c.surface2],
             ).createShader(face.outerRect),
         );
-        canvas.drawRRect(
-          face,
-          _stroke(c.ink2.withValues(alpha: 0.45), 1),
-        );
+        canvas.drawRRect(face, _stroke(c.ink2.withValues(alpha: 0.45), 1));
         canvas.drawPath(
           _chevron(centre, math.min(16.0, small * 0.36)),
           _stroke(c.ink, 2.6),
@@ -631,7 +632,11 @@ class _TurretCapPainter extends CustomPainter {
         // Fine grip lines across the drum, then a filled triangle with a
         // dark edge on top.
         final grip = Paint()..strokeWidth = 1;
-        for (var t = 3.0; t < (_horizontal ? size.width : size.height); t += 3) {
+        for (
+          var t = 3.0;
+          t < (_horizontal ? size.width : size.height);
+          t += 3
+        ) {
           grip.color = (t ~/ 3).isEven
               ? c.drumLight.withValues(alpha: 0.55)
               : c.drumDark.withValues(alpha: 0.8);
@@ -792,9 +797,7 @@ class _DesignDrumPainter extends CustomPainter {
       ..strokeWidth = 1.2;
     final reach = (mid / pixelsPerClick).ceil() + 1;
     final major = _major;
-    final numberSize = horizontal
-        ? design.numberSize
-        : design.numberSize - 2;
+    final numberSize = horizontal ? design.numberSize : design.numberSize - 2;
     for (var v = clicks - reach; v <= clicks + reach; v++) {
       // Values above the current setting sit before the pointer, so dragging
       // toward the pointer increases the setting (as the shipped drum).
@@ -803,16 +806,13 @@ class _DesignDrumPainter extends CustomPainter {
       final isMid = design.midTicks && !isMajor && v % major == major ~/ 2;
       final len = across * (isMajor ? 0.30 : (isMid ? 0.22 : 0.15));
       if (horizontal) {
-        canvas.drawLine(
-          Offset(p, across),
-          Offset(p, across - len),
-          tick,
-        );
+        canvas.drawLine(Offset(p, across), Offset(p, across - len), tick);
       } else {
         canvas.drawLine(Offset(0, p), Offset(len, p), tick);
       }
       if (isMajor) {
-        final text = '${ScopeDialView._trim((v * clickValue).abs())}'
+        final text =
+            '${ScopeDialView._trim((v * clickValue).abs())}'
             '${_letter(v)}';
         _text(
           canvas,

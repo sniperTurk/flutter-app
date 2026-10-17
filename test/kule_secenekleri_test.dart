@@ -156,9 +156,13 @@ void main() {
           );
 
           // The caps step the turret one click, as the shipped arrows.
-          await tester.tap(find.byKey(const ValueKey('Yükseklik kulesi-cap-plus')));
+          await tester.tap(
+            find.byKey(const ValueKey('Yükseklik kulesi-cap-plus')),
+          );
           await tester.pump();
-          await tester.tap(find.byKey(const ValueKey('Rüzgâr kulesi-cap-minus')));
+          await tester.tap(
+            find.byKey(const ValueKey('Rüzgâr kulesi-cap-minus')),
+          );
           await tester.pumpAndSettle();
           expect(clicks.value, (1, -1));
           expect(tester.takeException(), isNull);
