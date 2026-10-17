@@ -714,6 +714,11 @@ class MenzilNotice extends StatelessWidget {
   final String? info;
   final String? infoTitle;
 
+  /// Space around the notice; 10 pt under it by default. Hava Durumu's
+  /// pressure warning uses none: the section title under it holds the gap
+  /// (owner, 2026-10-17).
+  final EdgeInsetsGeometry margin;
+
   const MenzilNotice({
     super.key,
     this.title,
@@ -722,6 +727,7 @@ class MenzilNotice extends StatelessWidget {
     this.icon,
     this.info,
     this.infoTitle,
+    this.margin = const EdgeInsets.only(bottom: MenzilSpace.md),
   });
 
   @override
@@ -736,7 +742,7 @@ class MenzilNotice extends StatelessWidget {
       MenzilNoticeTone.danger => (c.dangerSoft, c.danger),
     };
     return Padding(
-      padding: const EdgeInsets.only(bottom: MenzilSpace.md),
+      padding: margin,
       child: DecoratedBox(
         decoration: BoxDecoration(
           color: bg,

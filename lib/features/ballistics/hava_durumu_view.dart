@@ -412,6 +412,10 @@ extension _HavaDurumuView on _BallisticsScreenState {
           key: const Key('environment-pressure-warning'),
           tone: MenzilNoticeTone.warning,
           message: warning,
+          // The Rüzgâr title under it holds the 20 pt gap.
+          margin: sectionGaps
+              ? EdgeInsets.zero
+              : const EdgeInsets.only(bottom: MenzilSpace.md),
         ),
       // Rüzgâr: its ⓘ opens the "Rüzgâr tahmini nasıl yapılır?" guide
       // (owner, 2026-10-15); the separate link was deleted (HDF-1).
@@ -434,8 +438,7 @@ extension _HavaDurumuView on _BallisticsScreenState {
         MenzilSectionHeader(
           'Rüzgâr',
           size: 18,
-          // The warning above already ends with its own 10 pt.
-          textGapAbove: warning == null ? gap : gap - MenzilSpace.md,
+          textGapAbove: gap,
           titleInfo: (alignment, padding) => MenzilInfoButton(
             key: const Key('environment-wind-info'),
             title: 'Rüzgâr',

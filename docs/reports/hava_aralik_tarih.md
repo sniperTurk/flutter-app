@@ -32,7 +32,7 @@ Eski boşluğun kaynağı: başlıktaki ⓘ'nin 44 pt dokunma alanı başlık sa
 
 ## Uç durumlar
 
-- **Basınç uyarısı görünürse** (İrtifa kartı ile Rüzgâr başlığı arasında): İrtifa kartı → uyarı 10 pt kaldı (önceki gibi). Uyarının kendi alt boşluğu 10 pt olduğu ve ⓘ'nin 44 pt alanı başlığın içine sığmak zorunda olduğu için uyarı → "Rüzgâr" yazısı 26,2 pt (önce ≈26). Rüzgâr yazısı → kart yine 8 pt. Testle kontrol edildi.
+- **Basınç uyarısı görünürse** (İrtifa kartı ile Rüzgâr başlığı arasında): İrtifa kartı → uyarı 10 pt kaldı (önceki gibi). Uyarı → "Rüzgâr" yazısı 20 pt (kart → başlık ile aynı; önce ≈26), Rüzgâr yazısı → kart 8 pt. Bunun için `MenzilNotice`'e isteğe bağlı `margin` eklendi (varsayılan aynı 10 pt; yalnız bu uyarı Hava Durumu'nda 0 kullanıyor). Testle kontrol edildi.
 - **Rüzgâr yönü seçilmemişse:** 1. satır boş kalır (önceki gibi yer tutar), 2. satırda bugünün tarihi solda.
 - **320 pt ve yazı boyutu ×1,3:** taşma yok; aralıklar aynı (20 / 8 pt). Başlık uzun gelirse alt satıra geçebilir, aralıklar yine aynı.
 - **Profil yokken açılan Hava Durumu** aynı girdileri kullanır, aynı aralıkları alır.
