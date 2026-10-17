@@ -83,7 +83,11 @@ Görülen farklar:
 
 ## CI
 
-CI_LINKLERI
+Bu dosyanın son commit'inde çalışan iş akışlarının bağlantıları ve sonuçları PR #383 açıklamasının bu bölümünde (PR açıklaması bu rapordur; CI bağlantıları commit'ten sonra oluştuğu için yalnız orada dolduruldu):
+
+- iOS CI (PR): `verify`, `dart-checks`, `wind-acceptance`
+- `gh workflow run 375209577` (dart format fix), `test-diag.yml` (files=test), `analyze-diag.yml`
+- Code Review + Security review: PR yorumu
 
 🤖 Generated with [Claude Code](https://claude.com/claude-code)
 
