@@ -2,9 +2,11 @@ import 'package:flutter/widgets.dart';
 
 import '../services/level_calibration_preferences.dart';
 import 'adapters/camera_plugin_service.dart';
+import 'adapters/fallback_weather_provider.dart';
 import 'adapters/flutter_compass_heading_provider.dart';
 import 'adapters/geolocator_location_provider.dart';
 import 'adapters/google_elevation_provider.dart';
+import 'adapters/google_weather_provider.dart';
 import 'adapters/image_picker_photo_picker.dart';
 import 'adapters/met_no_weather_provider.dart';
 import 'adapters/nominatim_place_search.dart';
@@ -72,7 +74,12 @@ class ToolsServices {
 
   factory ToolsServices.production() => ToolsServices(
     location: const GeolocatorLocationProvider(),
-    weather: MetNoWeatherProvider(),
+    // Google Weather first, MET Norway when Google gives nothing (owner,
+    // 2026-10-17).
+    weather: FallbackWeatherProvider(
+      const GoogleWeatherProvider(),
+      MetNoWeatherProvider(),
+    ),
     heading: const FlutterCompassHeadingProvider(),
     tilt: const SensorsPlusTiltProvider(),
     camera: const CameraPluginService(),

@@ -28,6 +28,10 @@ class WeatherObservation {
   /// Human readable source name for attribution.
   final String sourceName;
 
+  /// Which service delivered the values (owner, 2026-10-17: Google first,
+  /// MET Norway as fallback; the notes on Hava Durumu name it).
+  final WeatherSource source;
+
   const WeatherObservation({
     required this.temperatureC,
     required this.humidityPercent,
@@ -39,10 +43,15 @@ class WeatherObservation {
     required this.fetchedAt,
     required this.sourceName,
     this.conditionCode,
+    this.source = WeatherSource.other,
   });
 }
 
 enum PressureKind { seaLevel, station }
+
+/// The service behind a [WeatherObservation]. [other] is any provider that
+/// does not say (test doubles); its note uses [WeatherObservation.sourceName].
+enum WeatherSource { google, metNorway, other }
 
 enum WeatherFailureKind {
   /// No network / DNS / connection failure.

@@ -486,6 +486,15 @@ extension _HavaDurumuView on _BallisticsScreenState {
                 }),
               ),
             ),
+            // The fetched wind as a note, same box as the Hava note (owner,
+            // 2026-10-17 20:40); last in the grid so no field re-parents.
+            if (_windSourceNote case final note?)
+              MenzilFullWidth(
+                child: MenzilNotice(
+                  key: const Key('environment-wind-source-note'),
+                  message: note,
+                ),
+              ),
           ],
         ),
       ),
