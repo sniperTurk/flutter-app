@@ -44,8 +44,10 @@ void main() {
     final body = jsonDecode(_body()) as Map<String, dynamic>;
     (body['wind'] as Map)['direction'] = {'degrees': 360};
     expect(
-      GoogleWeatherProvider.parse(jsonEncode(body), fetchedAt: fetched)
-          .windFromDeg,
+      GoogleWeatherProvider.parse(
+        jsonEncode(body),
+        fetchedAt: fetched,
+      ).windFromDeg,
       0,
     );
     expect(
@@ -76,7 +78,8 @@ void main() {
       final end = src.indexOf('// ---- Phone barometer', start);
       expect(src.substring(start, end), contains('obs.pressureHpa'));
     },
-    skip: 'D114-1 (ORTA): Google basıncı okunuyor ama sayfaya hiç '
+    skip:
+        'D114-1 (ORTA): Google basıncı okunuyor ama sayfaya hiç '
         'yazılmıyor; sahip kararı gerekli (deniz seviyesi → istasyon için '
         'irtifa gerekir).',
   );
