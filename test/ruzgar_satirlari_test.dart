@@ -130,6 +130,13 @@ void main() {
     await _show(tester);
     final dial = tester.widget<ScopeDialView>(find.byType(ScopeDialView));
     final bracket = _text(tester, _bracket);
+    // main 8cc3aab, same inputs: "Rüzgâr 6,2–9,3 m/s: yan düzeltme 24 klik
+    // L – 37 klik L." and "Rüzgâr etkisi: yakın %56 · orta %33 · uzak %11".
+    expect(bracket, 'Rüzgâr 6,2 m/s: 24 klik sol · 9,3 m/s: 37 klik sol');
+    expect(
+      _text(tester, _shares),
+      'Yana kayma: yakın %56 · orta %33 · uzak %11',
+    );
     final m = RegExp(
       r'^Rüzgâr 6,2 m/s: (\d+) klik (sağ|sol) · 9,3 m/s: (\d+) klik (sağ|sol)$',
     ).firstMatch(bracket);
@@ -177,7 +184,7 @@ void main() {
     // Same numbers as at 390 pt; only the size changes.
     expect(
       _text(tester, _bracket),
-      matches(RegExp(r'^Rüzgâr 6,2 m/s: \d+ klik (sağ|sol) · 9,3 m/s: ')),
+      'Rüzgâr 6,2 m/s: 24 klik sol · 9,3 m/s: 37 klik sol',
     );
   });
 
@@ -186,7 +193,10 @@ void main() {
     await _seed(windMax: '');
     await _show(tester);
     expect(find.byKey(_bracket), findsNothing);
-    expect(_text(tester, _shares), startsWith('Yana kayma: yakın %'));
+    expect(
+      _text(tester, _shares),
+      'Yana kayma: yakın %56 · orta %33 · uzak %11',
+    );
     _expectOneLineAbove(tester, _shares, 390, 1);
   });
 }
