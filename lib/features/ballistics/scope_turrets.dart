@@ -308,7 +308,7 @@ class _TurretMountPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    final d = MenzilColors.dark;
+    const d = MenzilColors.dark;
     final cx = size.width / 2;
     final path = Path()
       ..moveTo(cx - topWidth / 2, 0)

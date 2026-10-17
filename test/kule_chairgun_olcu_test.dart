@@ -152,8 +152,10 @@ void main() {
 
   test('ChairGun 199 × 60 on 402 pt → 194 × 58 on 390 pt; 320 pt size', () {
     final d390 = ScopeTurretGeometry.drum(390);
-    expect(d390.width, moreOrLessEquals(199 * 390 / 402, epsilon: 0.5));
-    expect(d390.height, moreOrLessEquals(60 * 390 / 402, epsilon: 0.5));
+    // 199 × 390 / 402 = 193,1 and 60 × 390 / 402 = 58,2; the owner set
+    // 194 × 58.
+    expect(d390.width, moreOrLessEquals(199 * 390 / 402, epsilon: 1));
+    expect(d390.height, moreOrLessEquals(60 * 390 / 402, epsilon: 1));
     expect(d390.width, 194);
     expect(d390.height, 58);
     final d320 = ScopeTurretGeometry.drum(320);
