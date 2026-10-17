@@ -171,27 +171,39 @@ void main() {
     });
   });
 
-  group('Mühimmat sıcaklığı: barut düzeltmesi (1,5 %/15 °C, ref 20, 35 °C)', () {
-    test('800 m/s → 812,0 m/s; mühimmat sıcaklığı hava yerine kullanılır', () {
-      final t = PowderTemperature.effectiveTempC(airC: 15, ammoC: 35);
-      expect(t, 35);
-      final f = PowderTemperature.factor(
-        coefPercentPer15C: 1.5,
-        referenceTempC: 20,
-        todayTempC: t,
+  group(
+    'Mühimmat sıcaklığı: barut düzeltmesi (1,5 %/15 °C, ref 20, 35 °C)',
+    () {
+      test(
+        '800 m/s → 812,0 m/s; mühimmat sıcaklığı hava yerine kullanılır',
+        () {
+          final t = PowderTemperature.effectiveTempC(airC: 15, ammoC: 35);
+          expect(t, 35);
+          final f = PowderTemperature.factor(
+            coefPercentPer15C: 1.5,
+            referenceTempC: 20,
+            todayTempC: t,
+          );
+          expect(800 * f, closeTo(812.0, 1e-9));
+        },
       );
-      expect(800 * f, closeTo(812.0, 1e-9));
-    });
 
-    test('eski kayıt: ammoTemp anahtarı aynen okunur, bulletLength korunur', () {
-      final s = ShotSettings.fromJson({'ammoTemp': '35', 'bulletLength': '31'});
-      expect(s.ammoTempText, '35');
-      expect(s.bulletLengthText, '31');
-      final back = s.toJson();
-      expect(back['ammoTemp'], '35');
-      expect(back['bulletLength'], '31');
-    });
-  });
+      test(
+        'eski kayıt: ammoTemp anahtarı aynen okunur, bulletLength korunur',
+        () {
+          final s = ShotSettings.fromJson({
+            'ammoTemp': '35',
+            'bulletLength': '31',
+          });
+          expect(s.ammoTempText, '35');
+          expect(s.bulletLengthText, '31');
+          final back = s.toJson();
+          expect(back['ammoTemp'], '35');
+          expect(back['bulletLength'], '31');
+        },
+      );
+    },
+  );
 
   group('ateşli: Profil uzunluğu, yoksa eski Pro değeri', () {
     testWidgets('(1) yalnız eski Pro 31,5 = Profil 31,5; (2) Profil kazanır; '
@@ -220,7 +232,9 @@ void main() {
   });
 
   group('PCP slug', () {
-    testWidgets('(4) uzunluk varken spin drift var, yokken yok', (tester) async {
+    testWidgets('(4) uzunluk varken spin drift var, yokken yok', (
+      tester,
+    ) async {
       Future<_Shot> s({double? p, String? l}) => _shot(
         tester,
         profile: _pProfile,
