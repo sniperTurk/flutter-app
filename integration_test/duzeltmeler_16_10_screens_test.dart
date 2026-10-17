@@ -150,9 +150,15 @@ void main() {
     Future<void> pickProfile(RifleProfile p) async {
       await tester.tap(find.byKey(const Key('top-bar-profile-button')));
       await settle();
-      // The open list's row (the button's own offstage items share the key).
+      // The open list's row: the button's own (offstage) items share the
+      // key and come first in the tree, the open list comes last.
       await tester.tap(
-        find.byKey(ValueKey(('top-bar-profile-item', p.id))).hitTestable(),
+        find
+            .descendant(
+              of: find.byKey(ValueKey(('top-bar-profile-item', p.id))),
+              matching: find.text(p.name),
+            )
+            .last,
       );
       await settle();
     }
