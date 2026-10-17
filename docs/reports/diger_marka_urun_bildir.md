@@ -158,7 +158,17 @@ pencere oldu; ürün sonra üreticinin verisiyle kataloğa eklenecek.
 - Hesap: Diğer marka ile .308 Win, 168 gr, BC 0,462 G1, 31,2 mm, 2650 fps
   kaydı, aynı değerlerle eski elle giriş kaydıyla aynı çözücü sonucunu verir
   (100/300/600/1000 m; düzeltme, düşüş, rüzgâr, hız birebir eşit).
-  [[HESAP_SAYILARI]] Ateşli altın sayılar (`test/core/hedef_golden_numbers_test.dart`)
+  CI'daki sayılar (her iki kayıt için aynı; 15 °C, 1013,25 hPa, %50, 4 m/s
+  90° rüzgâr, sıfır 100 m, nişangâh 45 mm):
+
+  | Mesafe | Düzeltme | Düşüş | Rüzgâr | Hız |
+  |---|---|---|---|---|
+  | 100 m | 0,000 mrad | 0,0000 m | −0,209 mrad | 743,57 m/s |
+  | 300 m | 1,590 mrad | 0,4770 m | −0,683 mrad | 624,09 m/s |
+  | 600 m | 5,406 mrad | 3,2438 m | −1,569 mrad | 468,97 m/s |
+  | 1000 m | 13,822 mrad | 13,8225 m | −3,088 mrad | 331,30 m/s |
+
+  Ateşli altın sayılar (`test/core/hedef_golden_numbers_test.dart`)
   değişmedi (dosyaya dokunulmadı; CI'da geçti).
 - Silinen özelliğe ait olduğu için yeniden yazılan/kaldırılan testler:
   `test/atesli_elle_muhimmat_test.dart` (Diğer listesi, Ağırlık listesi,
@@ -180,10 +190,64 @@ pencere oldu; ürün sonra üreticinin verisiyle kataloğa eklenecek.
 
 ## Ekran görüntüleri
 
-[[EKRANLAR]]
+Simülatör: iPhone 17 Pro, iOS 26.2, `sim-screens` run
+[39066806549](https://github.com/sniperTurk/flutter-app/actions/runs/39066806549),
+tur `integration_test/sim_screens_diger_marka_test.dart`, dal
+`feat/diger-marka-urun-bildir` (uygulama kodu f28c354e), çıkış kodu 0, 12 kare,
+adım hatası yok. 390 ve 320 pt, uygulama ekranın solunda o genişlikte bir
+kutuda (sağı siyah). Gönder'e hiç basılmadı (Vazgeç).
+
+| PCP 6,35, Diğer marka (390) | Ateşli .308 Win, Diğer marka (390) | Pencere (390) |
+|---|---|---|
+| ![01_pcp_diger_marka_390](https://raw.githubusercontent.com/sniperTurk/flutter-app/58fbb690ef90067971d80d261e7bb47b71ea1ca8/latest/01_pcp_diger_marka_390.png) | ![05_atesli_diger_marka_390](https://raw.githubusercontent.com/sniperTurk/flutter-app/58fbb690ef90067971d80d261e7bb47b71ea1ca8/latest/05_atesli_diger_marka_390.png) | ![03_dialog_bos_390](https://raw.githubusercontent.com/sniperTurk/flutter-app/58fbb690ef90067971d80d261e7bb47b71ea1ca8/latest/03_dialog_bos_390.png) |
+
+| PCP 6,35 (320) | Ateşli (320), kartın altı | Pencere (320) |
+|---|---|---|
+| ![11_pcp_diger_marka_320](https://raw.githubusercontent.com/sniperTurk/flutter-app/58fbb690ef90067971d80d261e7bb47b71ea1ca8/latest/11_pcp_diger_marka_320.png) | ![08_atesli_diger_marka_320_alt](https://raw.githubusercontent.com/sniperTurk/flutter-app/58fbb690ef90067971d80d261e7bb47b71ea1ca8/latest/08_atesli_diger_marka_320_alt.png) | ![09_dialog_bos_320](https://raw.githubusercontent.com/sniperTurk/flutter-app/58fbb690ef90067971d80d261e7bb47b71ea1ca8/latest/09_dialog_bos_320.png) |
+
+Diğer kareler: ![02_pcp_diger_marka_390_alt](https://raw.githubusercontent.com/sniperTurk/flutter-app/58fbb690ef90067971d80d261e7bb47b71ea1ca8/latest/02_pcp_diger_marka_390_alt.png) ![04_dialog_390](https://raw.githubusercontent.com/sniperTurk/flutter-app/58fbb690ef90067971d80d261e7bb47b71ea1ca8/latest/04_dialog_390.png)
+![06_atesli_diger_marka_390_alt](https://raw.githubusercontent.com/sniperTurk/flutter-app/58fbb690ef90067971d80d261e7bb47b71ea1ca8/latest/06_atesli_diger_marka_390_alt.png) ![07_atesli_diger_marka_320](https://raw.githubusercontent.com/sniperTurk/flutter-app/58fbb690ef90067971d80d261e7bb47b71ea1ca8/latest/07_atesli_diger_marka_320.png)
+![10_dialog_320](https://raw.githubusercontent.com/sniperTurk/flutter-app/58fbb690ef90067971d80d261e7bb47b71ea1ca8/latest/10_dialog_320.png) ![12_pcp_diger_marka_320_alt](https://raw.githubusercontent.com/sniperTurk/flutter-app/58fbb690ef90067971d80d261e7bb47b71ea1ca8/latest/12_pcp_diger_marka_320_alt.png)
+
+Onaylı çizimle karşılaştırma (dürüst farklar):
+
+- Aynı: Tip | Marka ("Diğer marka"), Model tam genişlik ve oku olmayan "Diğer marka
+  model 6,35", Ağırlık boş (gr) | BC, BC modeli | Mermi uzunluğu, bağlantı
+  kartın en altında, sola yaslı.
+- 320 pt'de kart, uygulamanın mevcut dar ekran düzeniyle tek sütuna iner
+  (her kutu kendi satırında); bu PR'dan önce de böyleydi.
+- 320 pt'de pencere kutusundaki örnek "örn. H&N Slug HP ..." diye kısalır
+  (kutu dar).
+- Klavye açıkken çekilen karelerde (04, 10) pencere klavyenin arkasında
+  kalıyor: tur, uygulamayı kendi `MediaQuery`'siyle dar bir kutuya koyduğu
+  için klavye yüksekliğini uygulamaya iletmiyor (turun sınırı). 04'te iOS'un
+  ilk klavye tanıtım kutusu da açıldı. Gerçek telefonda kontrolü ana oturum
+  TestFlight'ta yapacak.
+- Ateşli Diğer marka'da Ağırlık kutusunda gram karşılığı ("168 gr = 10,9 g")
+  ve BC'nin altında özet satırı görünür (bugünkü elle girişle aynı).
+
 
 ## CI bağlantıları
 
-[[CI]]
+Uygulama kodu f28c354e; sonraki commit yalnız bu rapor (docs, CI tetiklenmez).
+
+- iOS CI (PR, f28c354e): [run 39066089764](https://github.com/sniperTurk/flutter-app/actions/runs/39066089764):
+  `dart-checks` success (format, `flutter analyze --fatal-infos
+  --fatal-warnings`, 2519 test geçti, 4 atlanan), `wind-acceptance` success,
+  `verify` success (iOS Simulator derlemesi ve açılış testi dahil).
+- test-diag `files=test` (7c9fb309; f28c354e ile fark yalnız biçim):
+  [39065712539](https://github.com/sniperTurk/flutter-app/actions/runs/39065712539) success.
+- analyze-diag (7c9fb309): [39065714168](https://github.com/sniperTurk/flutter-app/actions/runs/39065714168) success.
+- format-fix (375209577) dalda çalıştırıldı; son biçim farkı elle düzeltildi.
+- Önceki kırmızılar: main'deki #389 + #395 birleşimi `profile_editor_rifle.dart`'ta
+  2 analyzer hatası bırakmıştı (bu PR'ın değil; PR'a en küçük düzeltme
+  taşındı, PR'da yorum var).
+- Code Review: bulgular (Diğer marka'dan listeye dönünce eski sayılar,
+  pencerenin gönderirken kapanabilmesi, kutuda ⓘ yok) düzeltildi. Security
+  review: HTTPS, 10 sn zaman aşımı, yalnız yazılan metin + tüfek türü +
+  kalibre + sürüm gönderiliyor, kişisel veri/konum/cihaz kimliği yok, metin
+  günlüğe yazılmıyor, 200 karakter sınırı, çift gönderim yok; açık bulgu
+  yok (zaman aşımında yineleme riski "Uç durumlar"da).
+
 
 🤖 Generated with [Claude Code](https://claude.com/claude-code)
