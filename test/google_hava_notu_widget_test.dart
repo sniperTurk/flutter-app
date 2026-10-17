@@ -193,7 +193,7 @@ void main() {
     });
   }
 
-  testWidgets('same values → same boxes and same Hava özeti, either source', (
+  testWidgets('same values → same boxes and same page texts, either source', (
     tester,
   ) async {
     Future<(List<String>, List<String>)> read(WeatherSource s) async {
@@ -209,13 +209,17 @@ void main() {
         ])
           _text(tester, k),
       ];
-      final card = find.byKey(const Key('environment-summary-card'));
+      // Every text the page draws (Hava özeti, warnings, …) except the two
+      // notes, which name the source on purpose.
       final summary = [
-        for (final t in tester.widgetList<Text>(
-          find.descendant(of: card, matching: find.byType(Text)),
+        for (final r in tester.widgetList<RichText>(
+          find.descendant(
+            of: find.byType(BallisticsScreen),
+            matching: find.byType(RichText),
+          ),
         ))
-          t.data ?? t.textSpan?.toPlainText() ?? '',
-      ];
+          r.text.toPlainText(),
+      ].where((t) => !t.contains('Google') && !t.contains('MET Norway')).toList();
       return (boxes, summary);
     }
 
@@ -223,7 +227,7 @@ void main() {
     final met = await read(WeatherSource.metNorway);
     expect(google.$1, ['18.5', '55', '', '', '4.2', '']);
     expect(met.$1, google.$1);
-    expect(google.$2, isNotEmpty);
+    expect(google.$2.length, greaterThan(20));
     expect(met.$2, google.$2);
   });
 }
