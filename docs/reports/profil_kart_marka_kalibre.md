@@ -88,4 +88,16 @@ editörde gördüğü adla aynı olsun diye editörün yolu izlendi.
 
 ## CI ve ekran görüntüleri
 
-(PR açıklamasında güncellenir.)
+- iOS CI (00155fc): verify, dart-checks, wind-acceptance başarılı:
+  https://github.com/sniperTurk/flutter-app/actions/runs/39048667515
+- Simülatör (sim-screens run 39059264965, ci/sim-screens 42d2c111):
+  - Profil, kayıtlı profil:
+    https://raw.githubusercontent.com/sniperTurk/flutter-app/42d2c111/latest/32_profil_kayitli.png
+  - Kaydırılmış:
+    https://raw.githubusercontent.com/sniperTurk/flutter-app/42d2c111/latest/33_profil_kayitli_2.png
+- Görülen: kartın ikinci satırı "Test Marka, 6,35 mm" (ekran turunun elle
+  yazılmış PCP tüfeği → marka + mm), tek satır; sıfır / fps / BC yok. İlk
+  satır (Profil + Aktif), üst bar, Profil ekle ve alttaki özet kartları
+  değişmedi. Bu tur yalnız bir PCP profili kaydediyor; katalog adı
+  (".308 Win" gibi) ve 320 pt görünümü simülatörde yok, widget testleriyle
+  ölçüldü.
