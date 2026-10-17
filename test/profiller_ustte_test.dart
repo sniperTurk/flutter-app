@@ -1,10 +1,10 @@
-// Profil → "Profiller" listesi en üstte (owner, 2026-10-15 12:49
-// "profilleri yukarı al, içi böyle yazılı olsun"; Profil.png on
-// design/clean-2026-10-15): the list comes before the Tüfek / Dürbün /
-// Mühimmat summaries; "Profil ekle" is amber with no icon (a "+" glyph
-// since 2026-10-17); each card shows its name (+ Aktif) and one summary
-// line "kalibre, sıfır N m|yd, hız,
-// BC x G1|G7"; the active card has a 4 pt amber left edge; ⋯ stays right.
+// Profil → "Profiller" listesi (owner, 2026-10-15 12:49 "profilleri
+// yukarı al, içi böyle yazılı olsun"; Profil.png on design/clean-2026-10-15).
+// Since 2026-10-17 19:14 the list sits below the Tüfek / Dürbün / Mühimmat
+// summaries and "Hava Durumu'na geç" is last. "Profil ekle" is amber with
+// no icon (a "+" glyph since 2026-10-17); each card shows its name
+// (+ Aktif) and one summary line "kalibre, sıfır N m|yd, hız, BC x G1|G7";
+// the active card has a 4 pt amber left edge; ⋯ stays right.
 // See docs/reports/profiller_ustte.md.
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -196,24 +196,28 @@ void main() {
     });
   });
 
-  testWidgets('the Profiller list is above the Tüfek section', (tester) async {
+  testWidgets('the Profiller list is below the Mühimmat card', (tester) async {
+    // Owner, 2026-10-17 19:14: cards first, then the list, button last.
     await _pump(tester);
     final header = tester.getRect(find.text('Profiller'));
-    final tufek = tester.getRect(find.text('Tüfek Marka/Model'));
-    expect(header.bottom, lessThan(tufek.top));
+    final ammo = tester.getRect(find.byKey(const Key('profile-summary-ammo')));
+    final weather = tester.getRect(
+      find.byKey(const Key('profile-continue-weather')),
+    );
+    expect(header.top, greaterThan(ammo.bottom));
     for (final id in ['m', 'y', 'n']) {
-      expect(tester.getRect(_row(id)).bottom, lessThan(tufek.top), reason: id);
+      final row = tester.getRect(_row(id));
+      expect(row.top, greaterThan(ammo.bottom), reason: id);
+      expect(row.bottom, lessThan(weather.top), reason: id);
     }
-    // Nothing of the active profile's summaries above the list.
     for (final k in [
       'profile-summary-rifle',
       'profile-summary-scope',
       'profile-summary-ammo',
-      'profile-continue-weather',
     ]) {
       expect(
-        tester.getRect(find.byKey(Key(k))).top,
-        greaterThan(tester.getRect(_row('n')).bottom),
+        tester.getRect(find.byKey(Key(k))).bottom,
+        lessThanOrEqualTo(header.top),
         reason: k,
       );
     }

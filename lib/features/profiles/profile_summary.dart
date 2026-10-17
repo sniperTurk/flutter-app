@@ -166,13 +166,12 @@ String _ammoModelName(Ammunition a) {
 class _ActiveProfileDetails extends StatelessWidget {
   final RifleProfile profile;
   final VoidCallback onEdit;
-  final VoidCallback? onContinue;
 
-  const _ActiveProfileDetails({
-    required this.profile,
-    required this.onEdit,
-    this.onContinue,
-  });
+  const _ActiveProfileDetails({required this.profile, required this.onEdit});
+
+  /// Space to put after a summary card so the drawn gap is MenzilSpace.xl:
+  /// [MenzilMetricGrid] ends with its own MenzilSpace.md bottom padding.
+  static const double cardGap = MenzilSpace.xl - MenzilSpace.md;
 
   @override
   Widget build(BuildContext context) {
@@ -200,8 +199,9 @@ class _ActiveProfileDetails extends StatelessWidget {
         // list below shows the active profile with its edit pencil.
         // Three cards (owner, 2026-10-13), each led by its marka and model
         // on one line. No section titles above them (owner, 2026-10-17):
-        // the lead label names the card ("Tüfek Marka/Model", ...), and the
-        // cards are spaced by MenzilSpace.lg, the gap above the first card.
+        // the lead label names the card ("Tüfek Marka/Model", ...). The
+        // cards are 20 pt apart as drawn (owner, 2026-10-17 19:14): each
+        // grid already ends with MenzilSpace.md, so [cardGap] adds the rest.
         MenzilMetricGrid(
           key: const Key('profile-summary-rifle'),
           columns: 2,
@@ -245,7 +245,7 @@ class _ActiveProfileDetails extends StatelessWidget {
             ),
           ],
         ),
-        const SizedBox(height: MenzilSpace.lg),
+        const SizedBox(height: cardGap),
         MenzilMetricGrid(
           key: const Key('profile-summary-scope'),
           columns: 2,
@@ -291,7 +291,7 @@ class _ActiveProfileDetails extends StatelessWidget {
               ),
           ],
         ),
-        const SizedBox(height: MenzilSpace.lg),
+        const SizedBox(height: cardGap),
         MenzilMetricGrid(
           key: const Key('profile-summary-ammo'),
           columns: 2,
@@ -322,20 +322,6 @@ class _ActiveProfileDetails extends StatelessWidget {
               MenzilMetric('Mühimmat türü', _firearmAmmoSourceName(ammo)),
           ],
         ),
-        Text(
-          'Katalog değerleri bilgi amaçlıdır. Mühimmatın BC ve G1/G7 modeli '
-          'varsa Atış hesabı sürüklenme çözücüsünü kullanır; yoksa vakum '
-          'temel hesap çalışır ve bu ekranda belirtilir.',
-          style: MenzilType.caption(MenzilColors.of(context).ink2),
-        ),
-        if (onContinue != null) ...[
-          const SizedBox(height: MenzilSpace.md),
-          MenzilPrimaryButton(
-            key: const Key('profile-continue-weather'),
-            label: 'Hava Durumu\'na geç',
-            onPressed: onContinue,
-          ),
-        ],
       ],
     );
   }

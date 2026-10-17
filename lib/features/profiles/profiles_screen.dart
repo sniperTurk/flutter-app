@@ -535,6 +535,7 @@ class _ProfilesScreenState extends State<ProfilesScreen> {
   Widget _content(BuildContext context) {
     final c = MenzilColors.of(context);
     final selected = _selected;
+    final onContinue = widget.embedded ? widget.onContinue : null;
     // First start (or every profile deleted): a welcome page instead of an
     // empty list (owner, 2026-10-10).
     if (items.isEmpty && widget.embedded) {
@@ -544,11 +545,21 @@ class _ProfilesScreenState extends State<ProfilesScreen> {
     }
     return MenzilPage(
       children: [
-        // The Profiller list is the top of the page (owner, 2026-10-15
-        // 12:49 "profilleri yukarı al"): "Profiller" left, Profil ekle right
-        // (amber); no "N kayıtlı profil" line. Owner, 2026-10-17 18:42
-        // "önerini yap": "Profiller" 20 pt (other headers stay 22) and a
-        // smaller "+ Profil ekle" (34 pt visible, 44+ pt tap target).
+        // Page order (owner, 2026-10-17 19:14; replaces 2026-10-15 12:49
+        // "profilleri yukarı al"): the active profile's Tüfek / Dürbün /
+        // Mühimmat cards, then the Profiller list, "Hava Durumu'na geç" last.
+        // Mühimmat → Profiller is 20 pt as drawn, like the card gaps.
+        if (selected != null) ...[
+          _ActiveProfileDetails(
+            profile: selected,
+            onEdit: () => _edit(selected),
+          ),
+          const SizedBox(height: _ActiveProfileDetails.cardGap),
+        ],
+        // "Profiller" left, Profil ekle right (amber); no "N kayıtlı
+        // profil" line. Owner, 2026-10-17 18:42 "önerini yap": "Profiller"
+        // 20 pt (other headers stay 22) and a smaller "+ Profil ekle"
+        // (34 pt visible, 44+ pt tap target).
         Padding(
           key: const Key('profiles-list-header'),
           padding: const EdgeInsets.only(bottom: MenzilSpace.sm),
@@ -671,14 +682,13 @@ class _ProfilesScreenState extends State<ProfilesScreen> {
             ],
           ),
         ],
-        // The active profile's Tüfek / Dürbün / Mühimmat summaries follow
-        // the list, with the next step one tap away.
-        if (selected != null) ...[
-          const SizedBox(height: MenzilSpace.lg),
-          _ActiveProfileDetails(
-            profile: selected,
-            onEdit: () => _edit(selected),
-            onContinue: widget.embedded ? widget.onContinue : null,
+        // The next step is the last thing on the page, below the list.
+        if (selected != null && onContinue != null) ...[
+          const SizedBox(height: MenzilSpace.md),
+          MenzilPrimaryButton(
+            key: const Key('profile-continue-weather'),
+            label: 'Hava Durumu\'na geç',
+            onPressed: onContinue,
           ),
         ],
       ],
