@@ -21,11 +21,15 @@
 | Profiller, ayarlar, kullanıcı katalog girdileri | `lib/services/*_store.dart` (SharedPreferences / UserDefaults) | Hayır | — | Cihazda |
 | Sürüklenme eğrisi dosyası (.drg/.csv) | `drag_curve_field.dart` (`file_selector`) | Hayır | — | Profil içinde cihazda |
 | DOPE kartı PDF | `ballistics_screen.dart` `Printing.sharePdf` | Yalnızca kullanıcı paylaş sayfasında bir hedef seçerse | Kullanıcının seçtiği uygulama | — |
+| Elle girilen dürbünün teknik değerleri (marka, model, birim, odak düzlemi, büyütme, mercek çapı, klik değeri, üst kule klik sayısı, retikül) | `lib/tools/adapters/cloudflare_product_report_service.dart` (2026-10-17) | Evet, yalnızca listede olmayan dürbün elle girilip profil kaydedilince, değerler değişmedikçe bir kez. Profil adı, konum, cihaz kimliği, kişisel veri **yok** (`kurulumKimligi: null`) | Sahibin Cloudflare servisi (`sniper-turk-urun-kutusu…workers.dev/urun`) → özel depo `sniperTurk/kullanici-urunleri` | Sunucuda saklanır (ürün kataloğunu geliştirmek için); cihazda yalnızca dönen kayıt kimliği ve değerlerin özeti (hash) |
 | Analitik, reklam, çökme raporu, hesap | **Uygulamanın kendi kodunda yok** | — | — | — |
 
-Ağ isteği yapan Dart kodu yalnızca iki adaptör: `met_no_weather_provider.dart`
-ve `nominatim_place_search.dart` (`grep -rl "http\." lib`). Harita karolarını
-`flutter_map` / Google Maps SDK indirir. Uygulamanın kendi sunucusu yok.
+Ağ isteği yapan Dart kodu: `met_no_weather_provider.dart`,
+`nominatim_place_search.dart`, `google_elevation_provider.dart` ve
+`cloudflare_product_report_service.dart` (`grep -rl "package:http" lib`).
+Harita karolarını `flutter_map` / Google Maps SDK indirir. Uygulamanın tek
+sunucu uç noktası, elle girilen dürbünlerin gönderildiği Cloudflare
+servisidir; kişiyle ilişkilendirilen veri almaz.
 
 ## 2. Üçüncü taraf SDK gizlilik bildirimleri (Xcode derlemesinden)
 
@@ -74,6 +78,7 @@ karşılaştırılmalı (bu ortamda Mac yok; çalıştırılmadı).
 | Diagnostics → Crash Data | Analytics | Google Maps SDK |
 | Diagnostics → Performance Data | Analytics | Google Maps SDK |
 | Usage Data → Product Interaction | Analytics | Google Maps SDK |
+| User Content → Other User Content | App Functionality | Elle girilen dürbünün teknik değerleri, Cloudflare servisine (2026-10-17); kişisel veri yok, kullanıcıya bağlanmaz |
 
 Gerekçeler:
 - Apple'ın tanımında "Coarse Location", üç ondalıktan **düşük** çözünürlüklü

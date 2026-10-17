@@ -50,6 +50,9 @@ _FLAGS_AT_BASE = {
 # turned on in a release workflow would ship a hidden feature.
 _ALLOWED_RELEASE_DEFINES = {
     'METNO_CONTACT', 'GOOGLE_MAPS_ENABLED', 'GOOGLE_MAPS_IOS_API_KEY',
+    # App version string for the product box (owner, 2026-10-17); not a UI
+    # flag. Its String.fromEnvironment default stays empty (checked above).
+    'SNIPER_TURK_APP_VERSION',
 }
 
 _BOOL_FLAG = re.compile(

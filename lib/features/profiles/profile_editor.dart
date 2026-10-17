@@ -1482,6 +1482,55 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     };
   }
 
+  /// The values the user entered on the typed scope, under the product
+  /// box's names (owner, 2026-10-17): empty ones are left out, numbers stay
+  /// numbers. Nothing else of the profile (name, rifle, ammunition, mount,
+  /// location) is included.
+  Map<String, Object> _typedScopeReportFields() {
+    final out = <String, Object>{};
+    void text(String key, String? value) {
+      final v = value?.trim() ?? '';
+      if (v.isNotEmpty) out[key] = v;
+    }
+
+    void number(String key, double? v) {
+      if (v == null) return;
+      out[key] = v == v.roundToDouble() && v.abs() < 1e15 ? v.toInt() : v;
+    }
+
+    text('marka', scopeBrand.text);
+    text('model', scopeModel.text);
+    if (_angularUnitSet) out['birim'] = _unitName(angularUnit);
+    if (firstFocalPlane != null) {
+      out['odakDuzlemi'] = firstFocalPlane! ? 'FFP' : 'SFP';
+    }
+    number('minBuyutme', _parse(scopeMinMag));
+    number('maxBuyutme', _parse(scopeMaxMag));
+    number('mercekCapi', _parse(scopeObjective));
+    number('klikDegeri', _parse(scopeClick));
+    number('ustKuleKlikSayisi', _parse(scopeTravelElevation));
+    text('retikul', scopeReticle);
+    return out;
+  }
+
+  /// Fire-and-forget: sends the typed scope of profile [profileId] to the
+  /// product box unless the same values were sent before. Only when the app
+  /// carries a product box (never in tests without one); errors are ignored.
+  void _reportTypedScope(String profileId) {
+    final service = context
+        .getInheritedWidgetOfExactType<ToolsServicesScope>()
+        ?.services
+        .productReports;
+    if (service == null) return;
+    final fields = _typedScopeReportFields();
+    if (fields.isEmpty) return;
+    unawaited(
+      ProductReportLedger(
+        service,
+      ).reportOnce(profileId, ProductReport(ProductReportKind.durbun, fields)),
+    );
+  }
+
   Future<void> _save() async {
     if (_saving) return;
     if (!_rifleValid || !_ammoValid || !_scopeValid) {
@@ -1575,6 +1624,9 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     }
     final id =
         widget.initial?.id ?? DateTime.now().microsecondsSinceEpoch.toString();
+    // A typed scope goes to the product box once (owner, 2026-10-17 22:11);
+    // the save neither waits for nor depends on it.
+    if (_scopeTyped) _reportTypedScope(id);
     Navigator.pop(
       context,
       RifleProfile(

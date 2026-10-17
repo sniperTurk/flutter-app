@@ -19,8 +19,9 @@ Geliştirici: [[SAHİP ADI]] · İletişim: Sekerbirol76@gmail.com
 
 ## Kısaca
 
-SNIPER TÜRK hesap istemez; reklam ve izleme (tracking) içermez. Uygulamanın
-bize ait bir sunucusu yoktur ve sizi tanımlayan bir veri bize gönderilmez.
+SNIPER TÜRK hesap istemez; reklam ve izleme (tracking) içermez. Sizi
+tanımlayan bir veri bize gönderilmez. Bize gelen tek bilgi, listede olmadığı
+için elle girdiğiniz dürbünün teknik değerleridir (bkz. bölüm 1).
 Bazı araçlar çalışmak için üçüncü taraf servislerine istek gönderir; bunlar
 aşağıda tek tek yazılıdır.
 
@@ -32,6 +33,13 @@ cihazınızda saklanır. Atış ayarlarına, sizin "konumdan doldur" seçtiğini
 Coriolis hesabı için **yaklaşık enlem** (iki ondalık, yaklaşık 1 km) ve ondan
 hesaplanan yerel yerçekimi değeri de dahildir. Bu veriler bize veya üçüncü
 taraflara gönderilmez. Uygulamayı silmek bu verileri siler.
+
+Tek istisna: listede olmayan bir dürbünü elle girip profili kaydettiğinizde,
+o dürbünün teknik değerleri (marka, model, birim, odak düzlemi, büyütme,
+mercek çapı, klik değeri, üst kule klik sayısı, retikül) ürün kataloğunu
+geliştirmek için bizim Cloudflare servisimize bir kez gönderilir ve saklanır.
+Profil adı, konum, cihaz kimliği veya kişisel veri gönderilmez. Elle girilen
+dürbün uygulamada yalnızca sizin profilinizde görünür.
 
 ## 2. Konum
 
@@ -93,7 +101,7 @@ sayfasında bir hedef seçerseniz o hedefe gider.
 ## 7. Üçüncü taraflar
 
 Yukarıda adı geçen servisler (MET Norway, Esri, Google, OpenStreetMap
-Nominatim) yalnızca ilgili özelliği çalıştırmak için kullanılır ve kendi
+Nominatim, Cloudflare) yalnızca ilgili özelliği çalıştırmak için kullanılır ve kendi
 gizlilik koşulları geçerlidir. Uygulamada reklam ağı, analiz aracı veya veri
 satışı yoktur. [[SAHİP ONAYI: Apple 5.1.1(i), verinin paylaşıldığı üçüncü
 tarafların bu politikadakiyle aynı veya eşit koruma sağladığının teyit
@@ -128,8 +136,10 @@ Developer: [[OWNER NAME]] · Contact: Sekerbirol76@gmail.com
 
 ## In short
 
-SNIPER TÜRK needs no account and contains no advertising or tracking. The
-app has no server of ours and sends no data that identifies you to us. Some
+SNIPER TÜRK needs no account and contains no advertising or tracking. It
+sends no data that identifies you to us. The only information we receive is
+the technical values of a scope you type in because it is not in the list
+(see section 1). Some
 tools contact third-party services to work; each one is listed below.
 
 ## 1. Data stored on your device
@@ -140,6 +150,13 @@ When you choose "fill from location", shot settings also include an
 **approximate latitude** (two decimals, about 1 km) for Coriolis and the
 local gravity value derived from it. None of this is sent to us or to third
 parties. Deleting the app deletes it.
+
+One exception: when you type in a scope that is not in the list and save the
+profile, that scope's technical values (brand, model, unit, focal plane,
+magnification, objective diameter, click value, turret clicks, reticle) are
+sent once to our Cloudflare service and stored to improve the product
+catalog. No profile name, location, device identifier or personal data is
+sent. In the app, a typed scope appears only in your own profile.
 
 ## 2. Location
 
@@ -200,8 +217,8 @@ choose in the share sheet.
 
 ## 7. Third parties
 
-The services named above (MET Norway, Esri, Google, OpenStreetMap Nominatim)
-are used only to run the related feature, and their own privacy terms apply.
+The services named above (MET Norway, Esri, Google, OpenStreetMap Nominatim,
+Cloudflare) are used only to run the related feature, and their own privacy terms apply.
 There are no ad networks, analytics tools or data sales in the app.
 [[OWNER APPROVAL: Apple guideline 5.1.1(i) asks the policy to confirm that
 third parties with access to user data provide the same or equal protection.

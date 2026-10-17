@@ -217,9 +217,14 @@ jobs:
           # Google Maps only when the key secret exists (else the Esri map).
           MAPS=false; [[ -n "${GOOGLE_MAPS_IOS_API_KEY:-}" ]] && MAPS=true
           echo "Google Maps enabled: $MAPS"
+          # App version for the product box (typed scope reports); only this
+          # build carries it, so test/simulator/CI builds never send.
+          VERSION_NAME="$(sed -n 's/^version: *\([^+ ]*\).*/\1/p' pubspec.yaml)"
+          [[ -n "$VERSION_NAME" ]] || { echo "pubspec version missing"; exit 1; }
           # Each TestFlight upload needs a unique build number.
           flutter build ios --release --no-codesign \
             --build-number="${GITHUB_RUN_NUMBER}" \
+            --dart-define=SNIPER_TURK_APP_VERSION="${VERSION_NAME}+${GITHUB_RUN_NUMBER}" \
             --dart-define=METNO_CONTACT="$METNO_CONTACT" \
             --dart-define=GOOGLE_MAPS_ENABLED="$MAPS" \
             --dart-define=GOOGLE_MAPS_IOS_API_KEY="${GOOGLE_MAPS_IOS_API_KEY:-}"
