@@ -144,74 +144,77 @@ void main() {
   tearDown(() => CatalogRepository.installUserCatalog(UserCatalog.empty));
 
   for (final (width, scale) in [(390.0, 1.0), (320.0, 1.0), (320.0, 1.3)]) {
-    testWidgets('$width pt, text ×$scale: "Hedefin yönü" on one line, beside or '
-        'under Hedef hızı, no overflow', (tester) async {
-      await _openTarget(tester, width: width, textScale: scale);
-      expect(tester.takeException(), isNull);
-      expect(_direction, findsOneWidget);
-      final label = find.descendant(
-        of: _direction,
-        matching: find.text('Hedefin yönü'),
-      );
-      expect(label, findsOneWidget);
-      expect(
-        find.descendant(of: _direction, matching: find.text('Yönü')),
-        findsNothing,
-      );
-      expect(find.text('Yönü'), findsNothing);
-      final speed = find.byKey(const Key('pro-target-speed'));
-      final speedLabel = find.descendant(
-        of: speed,
-        matching: find.text('Hedef hızı'),
-      );
-      if (width == 390 && scale == 1) {
-        // Same row: the two boxes and their labels share one top edge.
-        expect(
-          tester.getRect(_direction).top,
-          closeTo(tester.getRect(speed).top, 0.5),
+    testWidgets(
+      '$width pt, text ×$scale: "Hedefin yönü" on one line, beside or '
+      'under Hedef hızı, no overflow',
+      (tester) async {
+        await _openTarget(tester, width: width, textScale: scale);
+        expect(tester.takeException(), isNull);
+        expect(_direction, findsOneWidget);
+        final label = find.descendant(
+          of: _direction,
+          matching: find.text('Hedefin yönü'),
         );
+        expect(label, findsOneWidget);
         expect(
-          tester.getRect(label).top,
-          closeTo(tester.getRect(speedLabel).top, 0.5),
+          find.descendant(of: _direction, matching: find.text('Yönü')),
+          findsNothing,
         );
+        expect(find.text('Yönü'), findsNothing);
+        final speed = find.byKey(const Key('pro-target-speed'));
+        final speedLabel = find.descendant(
+          of: speed,
+          matching: find.text('Hedef hızı'),
+        );
+        if (width == 390 && scale == 1) {
+          // Same row: the two boxes and their labels share one top edge.
+          expect(
+            tester.getRect(_direction).top,
+            closeTo(tester.getRect(speed).top, 0.5),
+          );
+          expect(
+            tester.getRect(label).top,
+            closeTo(tester.getRect(speedLabel).top, 0.5),
+          );
+          expect(
+            tester.getRect(label).left,
+            greaterThan(tester.getRect(speed).right),
+          );
+        } else {
+          // Narrower than MenzilFieldGrid's two-column width (existing rule
+          // for every Pro grid): the box sits right under Hedef hızı.
+          expect(
+            tester.getRect(_direction).top,
+            greaterThan(tester.getRect(speed).bottom - 0.5),
+          );
+          expect(
+            tester.getRect(_direction).left,
+            closeTo(tester.getRect(speed).left, 0.5),
+          );
+        }
+        // One line: as tall as the one-line Hedef hızı label.
         expect(
-          tester.getRect(label).left,
-          greaterThan(tester.getRect(speed).right),
+          tester.getRect(label).height,
+          closeTo(tester.getRect(speedLabel).height, 0.5),
         );
-      } else {
-        // Narrower than MenzilFieldGrid's two-column width (existing rule
-        // for every Pro grid): the box sits right under Hedef hızı.
+        // Shown whole, not cut with "…".
         expect(
-          tester.getRect(_direction).top,
-          greaterThan(tester.getRect(speed).bottom - 0.5),
+          tester
+              .renderObject<RenderParagraph>(
+                find.descendant(of: label, matching: find.byType(RichText)),
+              )
+              .didExceedMaxLines,
+          isFalse,
         );
-        expect(
-          tester.getRect(_direction).left,
-          closeTo(tester.getRect(speed).left, 0.5),
-        );
-      }
-      // One line: as tall as the one-line Hedef hızı label.
-      expect(
-        tester.getRect(label).height,
-        closeTo(tester.getRect(speedLabel).height, 0.5),
-      );
-      // Shown whole, not cut with "…".
-      expect(
-        tester
-            .renderObject<RenderParagraph>(
-              find.descendant(of: label, matching: find.byType(RichText)),
-            )
-            .didExceedMaxLines,
-        isFalse,
-      );
-      // Options unchanged.
-      final select = tester.widget<MenzilSelect<bool>>(_direction);
-      expect(select.items.map((i) => (i.child as Text).data).toList(), [
-        'Seçiniz',
-        'Soldan sağa',
-        'Sağdan sola',
-      ]);
-    });
+        // Options unchanged.
+        final select = tester.widget<MenzilSelect<bool>>(_direction);
+        expect(select.items.map((i) => (i.child as Text).data).toList(), [
+          'Seçiniz',
+          'Soldan sağa',
+          'Sağdan sola',
+        ]);
+      },
+    );
   }
   // The title ⓘ sheet entry is checked word for word in
   // pro_info_popup_test.dart ('Hedefin yönü' in the target field list).
