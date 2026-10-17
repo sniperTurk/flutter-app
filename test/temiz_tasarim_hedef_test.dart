@@ -266,7 +266,10 @@ void main() {
         // R up / L down, the arrows inside the drum at its ends.
         final right = find.byTooltip('Rüzgâr kulesi 1 klik sağa');
         final left = find.byTooltip('Rüzgâr kulesi 1 klik sola');
-        expect(tester.getRect(right).top, moreOrLessEquals(box.top, epsilon: 0.5));
+        expect(
+          tester.getRect(right).top,
+          moreOrLessEquals(box.top, epsilon: 0.5),
+        );
         expect(
           tester.getRect(left).bottom,
           moreOrLessEquals(box.bottom, epsilon: 0.5),

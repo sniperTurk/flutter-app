@@ -299,9 +299,7 @@ void main() {
       }
     });
 
-    testWidgets('$name: no overflow with both turrets dialled', (
-      tester,
-    ) async {
+    testWidgets('$name: no overflow with both turrets dialled', (tester) async {
       await _open(tester, size, textScale: scale, dial: true);
       expect(tester.takeException(), isNull);
       expect(_dial(tester).elevationClicks, isNot(0));
@@ -358,17 +356,13 @@ void main() {
     expect(ti.height, moreOrLessEquals(si.width, epsilon: 0.01));
     expect(
       _drumPaint(ScopeDialKeys.elevationDrum),
-      paints..path(
-        color: danger,
-        includes: [Offset(ti.center.dx, ti.bottom - 1)],
-      ),
+      paints
+        ..path(color: danger, includes: [Offset(ti.center.dx, ti.bottom - 1)]),
     );
     expect(
       _drumPaint(ScopeDialKeys.windageDrumBox),
-      paints..path(
-        color: danger,
-        includes: [Offset(si.left + 1, si.center.dy)],
-      ),
+      paints
+        ..path(color: danger, includes: [Offset(si.left + 1, si.center.dy)]),
     );
   });
 }

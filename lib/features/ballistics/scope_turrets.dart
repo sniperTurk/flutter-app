@@ -301,7 +301,10 @@ class _TurretBarState extends State<_TurretBar> {
 class _TurretMountPainter extends CustomPainter {
   final double topWidth, bottomWidth;
 
-  const _TurretMountPainter({required this.topWidth, required this.bottomWidth});
+  const _TurretMountPainter({
+    required this.topWidth,
+    required this.bottomWidth,
+  });
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -491,22 +494,25 @@ class _TurretDrumState extends State<_TurretDrum> {
           plusAt = Offset(x, tap * 0.62);
           minusAt = Offset(x, length - tap * 0.62);
         }
-        Widget chevron(int delta, AxisDirection direction, Offset at) =>
-            Positioned(
-              left: at.dx - glyph / 2,
-              top: at.dy - glyph / 2,
-              width: glyph,
-              height: glyph,
-              child: IgnorePointer(
-                child: CustomPaint(
-                  key: ValueKey(
-                    '${widget.semanticName}-step-${delta > 0 ? 'plus' : 'minus'}',
-                  ),
-                  size: Size.square(glyph),
-                  painter: TurretChevronPainter(direction),
-                ),
+        Widget chevron(
+          int delta,
+          AxisDirection direction,
+          Offset at,
+        ) => Positioned(
+          left: at.dx - glyph / 2,
+          top: at.dy - glyph / 2,
+          width: glyph,
+          height: glyph,
+          child: IgnorePointer(
+            child: CustomPaint(
+              key: ValueKey(
+                '${widget.semanticName}-step-${delta > 0 ? 'plus' : 'minus'}',
               ),
-            );
+              size: Size.square(glyph),
+              painter: TurretChevronPainter(direction),
+            ),
+          ),
+        );
         // HDF-2: each chevron's tap area is at least 44 × 44 pt; it covers
         // the drum's end, never the three values in the middle.
         Widget hit(int delta, String label, {required bool start}) {
@@ -804,8 +810,14 @@ class _DrumPainter extends CustomPainter {
     final header = 10 * s;
     if (horizontal) {
       final y = thickness * 0.15;
-      _label(canvas, '← $positiveLetter', Offset(6 * s, y), d.ink2, header,
-          align: 0);
+      _label(
+        canvas,
+        '← $positiveLetter',
+        Offset(6 * s, y),
+        d.ink2,
+        header,
+        align: 0,
+      );
       _label(canvas, unitLabel, Offset(mid, y), d.ink2, header);
       _label(
         canvas,
