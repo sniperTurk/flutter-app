@@ -66,9 +66,9 @@ extension _RifleSection on _ProfileDialogState {
   bool get _caliberFromModel =>
       !_rifleManual && !_caliberAll && _rifleVariants.isNotEmpty;
 
-  /// Kalibre entries with the text of the closed box: [full] when it fits
-  /// the half-width box, [short] when it would have to shrink too much
-  /// (owner, 2026-10-13: Namlu çıkış hızı | Kalibre on one row).
+  /// Kalibre entries with the text of the closed box: [full], scaled down
+  /// when it does not fit the half-width box (owner, 2026-10-17). [short]
+  /// is no longer shown in the box.
   List<({DropdownMenuItem<String> item, String full, String short})>
   get _caliberChoices {
     final cal = _parse(rifleCaliber);
@@ -325,9 +325,11 @@ extension _RifleSection on _ProfileDialogState {
   ];
 
   /// Kalibre, a half box with Namlu çıkış hızı beside it (owner, 2026-10-16
-  /// 20:49–21:04: "Kalibre | Namlu çıkış hızı"). A long choice keeps its
-  /// size and wraps inside the box; the box grows (like the Model boxes,
-  /// #308).
+  /// 20:49–21:04: "Kalibre | Namlu çıkış hızı"). The closed box shows the
+  /// full name on ONE line, scaled down when it does not fit, never wrapped
+  /// or cut, so the box is as tall as Namlu çıkış hızı (owner, 2026-10-17
+  /// 17:54–17:57: "kalibre kutusu tek satır olacaktı"). The open list keeps
+  /// the full names.
   Widget _caliberField() {
     final choices = _caliberChoices;
     return KeyedSubtree(
@@ -345,16 +347,16 @@ extension _RifleSection on _ProfileDialogState {
         hint: 'Seçiniz',
         initialValue: _caliberKey,
         items: [for (final c in choices) c.item],
-        wrapSelected: true,
+        fitSelected: true,
         // The open list is as wide as the box, never wider (owner,
         // 2026-10-13: "kutudan dışarı çıkmasın"), so a long cartridge may
         // wrap there: its entry grows with it instead of keeping 48 pt and
         // spilling over the next one (a tap on its lower half chose
         // nothing).
         itemHeight: null,
+        // The full name, scaled down; no short form (owner, 2026-10-17:
+        // the closed box shows the chosen name).
         selectedLabels: [for (final c in choices) c.full],
-        // Kept for the box's short form; unused while the text wraps.
-        shortSelectedLabels: [for (final c in choices) c.short],
         onChanged: (v) => _update(() {
           final before = (rifleCaliber.text, _cartridge);
           _onCaliberKey(v);
@@ -523,7 +525,9 @@ extension _RifleSection on _ProfileDialogState {
           // Model and "Aradığın tüfek listede yok mu?" as before; then
           // Kalibre | Namlu çıkış hızı; Yiv oranı | Namlu yiv yönü; PCP only
           // Tüp basıncı | Regülatör basıncı; Sıfırlama mesafesi | Mesafe
-          // birimi; Sight height alone on the last row.
+          // birimi; Sight height alone on the last row, half width in the
+          // left column (owner, 2026-10-17 17:57: "Sight height gereksiz,
+          // aşağıda büyük kutusu var").
           ..._rifleNameFields(),
           _caliberField(),
           _velocityField(),
@@ -622,20 +626,18 @@ extension _RifleSection on _ProfileDialogState {
               distanceUnit = next;
             }),
           ),
-          MenzilFullWidth(
-            child: MenzilInput(
-              key: const Key('scope-sight-height'),
-              info: platform == WeaponPlatform.firearm
-                  ? ProfileFieldInfo.sightHeightFirearm
-                  : ProfileFieldInfo.sightHeight,
-              controller: sight,
-              label: 'Sight height',
-              unit: 'mm',
-              onChanged: (_) => _update(() {}),
-              errorText: sight.text.isNotEmpty && !_validSight
-                  ? '0–300 mm arasında geçerli bir değer girin.'
-                  : null,
-            ),
+          MenzilInput(
+            key: const Key('scope-sight-height'),
+            info: platform == WeaponPlatform.firearm
+                ? ProfileFieldInfo.sightHeightFirearm
+                : ProfileFieldInfo.sightHeight,
+            controller: sight,
+            label: 'Sight height',
+            unit: 'mm',
+            onChanged: (_) => _update(() {}),
+            errorText: sight.text.isNotEmpty && !_validSight
+                ? '0–300 mm arasında geçerli bir değer girin.'
+                : null,
           ),
         ],
       ),

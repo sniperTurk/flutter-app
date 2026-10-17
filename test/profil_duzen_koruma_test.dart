@@ -377,8 +377,9 @@ const _rifleBannerOrder = [
 
 /// Marka and Model: each alone on a full row, one left edge, one width, as
 /// wide as the two-box rows below; Kalibre the left box of the next row and
-/// Sight height alone, full width, last (two columns only; owner,
-/// 2026-10-16).
+/// Sight height alone last, a half box as wide as Sıfırlama mesafesi (two
+/// columns only; owner, 2026-10-16; Sight height half width: owner,
+/// 2026-10-17 17:57).
 void _rifleFullRows(WidgetTester tester) {
   Rect first(List<String> keys) => tester.getRect(
     keys
@@ -392,10 +393,11 @@ void _rifleFullRows(WidgetTester tester) {
   final twist = first(const ['rifle-twist-rate']);
   final direction = first(const ['rifle-twist-direction']);
   final sight = first(const ['scope-sight-height']);
-  for (final r in [model, sight]) {
-    expect((r.left - brand.left).abs(), lessThan(1), reason: '$r / $brand');
-    expect((r.width - brand.width).abs(), lessThan(1), reason: '$r / $brand');
-  }
+  final zero = first(const ['profile-zero']);
+  expect((model.left - brand.left).abs(), lessThan(1), reason: '$model');
+  expect((model.width - brand.width).abs(), lessThan(1), reason: '$model');
+  expect((sight.left - brand.left).abs(), lessThan(1), reason: '$sight');
+  expect((sight.width - zero.width).abs(), lessThan(1), reason: '$sight');
   // Kalibre | Namlu çıkış hızı: the two columns of Yiv oranı | yön.
   expect((caliber.left - twist.left).abs(), lessThan(1));
   expect((caliber.width - twist.width).abs(), lessThan(1));
@@ -601,6 +603,41 @@ void _wrapsAtNormalSize(WidgetTester tester, String key, String text) {
     tester.getSize(_box(key)).height,
     greaterThan(tester.getSize(_box('profile-platform')).height + 10),
     reason: 'the box did not grow',
+  );
+}
+
+/// The closed Kalibre box: [text] whole on ONE line, scaled down when it
+/// does not fit (never wrapped, never cut with "…"), as tall as Namlu çıkış
+/// hızı (owner, 2026-10-17 17:54–17:57).
+void _caliberOneLine(WidgetTester tester, String text) {
+  expect(
+    find.descendant(
+      of: find.byKey(const Key('rifle-caliber')),
+      matching: find.byKey(const Key('menzil-select-wrapped')),
+    ),
+    findsNothing,
+  );
+  final fit = find.descendant(
+    of: find.byKey(const Key('rifle-caliber')),
+    matching: find.byType(MenzilFitText),
+  );
+  expect(fit, findsOneWidget);
+  final shown = find.descendant(of: fit, matching: find.byType(Text));
+  expect(tester.widget<Text>(shown).data, text);
+  final p = tester.renderObject<RenderParagraph>(shown);
+  expect(p.maxLines, 1);
+  expect(p.overflow, isNot(TextOverflow.ellipsis));
+  expect(p.didExceedMaxLines, isFalse, reason: 'cut');
+  final box = tester.getRect(_box('rifle-caliber').first);
+  final rect = tester.getRect(shown);
+  expect(rect.left, greaterThanOrEqualTo(box.left));
+  expect(rect.right, lessThanOrEqualTo(box.right));
+  expect(
+    box.height,
+    moreOrLessEquals(
+      tester.getSize(_box('profile-velocity-fps').first).height,
+      epsilon: 0.5,
+    ),
   );
 }
 
@@ -1069,7 +1106,7 @@ void main() {
       expect(tester.takeException(), isNull);
     });
 
-    testWidgets('long Marka and Kalibre wrap at the normal size', (
+    testWidgets('long Marka wraps at the normal size; Kalibre one line', (
       tester,
     ) async {
       await _openNew(tester);
@@ -1088,7 +1125,8 @@ void main() {
         selectedValue<String>(tester, 'rifle-caliber'),
         '.338-378 Weatherby Mag',
       );
-      _wrapsAtNormalSize(tester, 'rifle-caliber', '.338-378 Weatherby Mag');
+      // Kalibre: one line, scaled down when needed (owner, 2026-10-17).
+      _caliberOneLine(tester, '.338-378 Weatherby Mag');
       _rifleFullRows(tester);
       expect(tester.takeException(), isNull);
     });
@@ -1156,14 +1194,16 @@ void main() {
         for (final k in ['rifle-brand-select', 'rifle-caliber']) {
           final r = tester.getRect(find.byKey(Key(k)));
           expect(r.right, lessThanOrEqualTo(card.right + 0.5), reason: k);
-          final p = tester.renderObject<RenderParagraph>(
-            find.descendant(
-              of: find.byKey(Key(k)),
-              matching: find.byKey(const Key('menzil-select-wrapped')),
-            ),
-          );
-          expect(p.didExceedMaxLines, isFalse, reason: k);
         }
+        final p = tester.renderObject<RenderParagraph>(
+          find.descendant(
+            of: find.byKey(const Key('rifle-brand-select')),
+            matching: find.byKey(const Key('menzil-select-wrapped')),
+          ),
+        );
+        expect(p.didExceedMaxLines, isFalse);
+        // Kalibre: one line (owner, 2026-10-17).
+        _caliberOneLine(tester, '.338-378 Weatherby Mag');
         await openRifleManual(tester);
         expect(_flat(_rifleLayout(tester)), _flat(_rifleTypedLayout));
         expect(tester.takeException(), isNull);

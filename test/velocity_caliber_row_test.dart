@@ -3,9 +3,10 @@
 // link is Kalibre | Namlu çıkış hızı, PCP and Ateşli Tüfek alike (Namlu
 // çıkış hızı stays on the Tüfek card for a PCP). This supersedes the
 // 2026-10-14 18:56–18:58 layout (Kalibre alone, Sıfırlama mesafesi | Namlu
-// çıkış hızı last), which this file pinned before. A long caliber keeps its
-// size and wraps inside its box, which grows (like the Model boxes, #308),
-// at every width and text size.
+// çıkış hızı last), which this file pinned before. A long caliber stays on
+// ONE line in its box, scaled down when it does not fit, and the box keeps
+// the height of Namlu çıkış hızı (owner, 2026-10-17 17:54–17:57: "kalibre
+// kutusu tek satır olacaktı"; it wrapped and grew before).
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -82,19 +83,22 @@ void _expectLayout(WidgetTester tester) {
   expect(twist.top, greaterThanOrEqualTo(v.bottom - 0.5));
 }
 
-/// The closed Kalibre box shows [text] whole, at the normal size, wrapped
-/// onto as many lines as it needs, inside the box.
-void _expectWraps(WidgetTester tester, String text) {
-  final shown = _in(
-    'rifle-caliber',
-    find.byKey(const Key('menzil-select-wrapped')),
+/// The closed Kalibre box shows [text] whole on ONE line (scaled down when
+/// it does not fit, never wrapped or cut), inside the box, which is as tall
+/// as Namlu çıkış hızı (owner, 2026-10-17).
+void _expectOneLine(WidgetTester tester, String text) {
+  expect(
+    _in('rifle-caliber', find.byKey(const Key('menzil-select-wrapped'))),
+    findsNothing,
   );
-  expect(shown, findsOneWidget);
+  final fit = _in('rifle-caliber', find.byType(MenzilFitText));
+  expect(fit, findsOneWidget);
+  final shown = find.descendant(of: fit, matching: find.byType(Text));
   final t = tester.widget<Text>(shown);
   expect(t.data, text);
-  expect(t.style?.fontSize, 15);
-  expect(_in('rifle-caliber', find.byType(MenzilFitText)), findsNothing);
   final p = tester.renderObject<RenderParagraph>(shown);
+  expect(p.maxLines, 1);
+  expect(p.overflow, isNot(TextOverflow.ellipsis));
   expect(p.didExceedMaxLines, isFalse);
   final rect = tester.getRect(shown);
   final box = tester.getRect(_in('rifle-caliber', find.byType(InputDecorator)));
@@ -102,6 +106,10 @@ void _expectWraps(WidgetTester tester, String text) {
   expect(rect.right, lessThanOrEqualTo(box.right));
   expect(rect.top, greaterThanOrEqualTo(box.top));
   expect(rect.bottom, lessThanOrEqualTo(box.bottom));
+  final v = tester.getRect(
+    _in('profile-velocity-fps', find.byType(InputDecorator)).first,
+  );
+  expect(box.height, moreOrLessEquals(v.height, epsilon: 0.5));
 }
 
 /// Picks [label] in the open Kalibre list. The list is as wide as the box
@@ -173,13 +181,13 @@ void main() {
         if (firearm) {
           // The longest cartridge name of the list.
           await _pickInLongList(tester, '.338-378 Weatherby Mag');
-          _expectWraps(tester, '.338-378 Weatherby Mag');
+          _expectOneLine(tester, '.338-378 Weatherby Mag');
         } else {
           // The owner's screenshot: Hatsan Hercules.
           await chooseInSelect(tester, 'rifle-brand-select', 'Hatsan');
           await chooseInSelect(tester, 'rifle-model-select', 'Hercules');
           await chooseInSelect(tester, 'rifle-caliber', '11.43 mm (.45)');
-          _expectWraps(tester, '11.43 mm (.45)');
+          _expectOneLine(tester, '11.43 mm (.45)');
         }
         _expectLayout(tester);
         // A velocity error stays in its own box; the layout holds.
@@ -218,7 +226,7 @@ void main() {
         // The last item of the long list.
         await _pickInLongList(tester, 'Fişeğim listede yok');
         _expectLayout(tester);
-        _expectWraps(tester, 'Fişeğim listede yok');
+        _expectOneLine(tester, 'Fişeğim listede yok');
         final c = tester.getRect(_key('rifle-caliber'));
         final v = tester.getRect(_key('profile-velocity-fps'));
         final model = tester.getRect(_key('rifle-model-select'));
@@ -237,7 +245,7 @@ void main() {
           '.308 in · 7,82 mm',
         );
         _expectLayout(tester);
-        _expectWraps(tester, 'Fişeğim listede yok');
+        _expectOneLine(tester, 'Fişeğim listede yok');
         expect(tester.takeException(), isNull);
       },
     );
