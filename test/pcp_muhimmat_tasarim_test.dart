@@ -1001,10 +1001,9 @@ void main() {
       expect('$up', _oldPcpGoldenOnMain);
     });
 
-    test('profile list summary shows its velocity', () {
+    test('profile list summary: brand, caliber; no velocity', () {
       final p = const ProfileCodec().decode(oldJson());
-      expect(profileListSummary(p), contains('886 fps'));
-      expect(profileListSummary(p), isNot(contains('girin')));
+      expect(profileListSummary(p), 'PCPM, 5,50 mm');
     });
   });
 }
