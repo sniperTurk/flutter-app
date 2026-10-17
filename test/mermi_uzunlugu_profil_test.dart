@@ -3,7 +3,8 @@
 // satırda (BC modeli solda), birim mm, ⓘ metni sahibin metni. Hesap profil
 // uzunluğunu kullanır; profilde yoksa eski sürümde Pro'ya yazılmış değer
 // (aynı profilin 'bulletLength' kaydı) kullanılır, sayılar değişmez.
-// Report: docs/reports/pro_barut_not.md.
+// Report: docs/reports/pro_barut_not.md; range 1–100 mm:
+// docs/reports/mermi_uzunlugu_100.md.
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
@@ -259,16 +260,59 @@ void main() {
     expect((await savedAmmo()).containsKey('lengthMm'), isFalse);
   });
 
-  testWidgets('a length outside 1–60 mm blocks saving', (tester) async {
+  // Owner, 2026-10-17 17:42 ("çıkart", D17D-1): the upper bound is the
+  // calculation's 100 mm (was 60 mm); the lower bound and the error style
+  // stay as they were.
+  testWidgets('a length outside 1–100 mm blocks saving, with the range '
+      'error under the box', (tester) async {
     await _openEdit(tester);
-    await enterRifleField(tester, 'ammo-length', '70');
-    await tester.pumpAndSettle();
     final button = find.widgetWithText(MenzilPrimaryButton, 'Güncelle');
-    expect(tester.widget<MenzilPrimaryButton>(button).onPressed, isNull);
-    await enterRifleField(tester, 'ammo-length', '60');
-    await tester.pumpAndSettle();
-    expect(tester.widget<MenzilPrimaryButton>(button).onPressed, isNotNull);
+    Finder error() => find.descendant(
+      of: find.byKey(const Key('ammo-length')),
+      matching: find.text('1–100 arasında bir değer girin.'),
+    );
+    for (final bad in ['100,1', '999', '0,5', '0']) {
+      await enterRifleField(tester, 'ammo-length', bad);
+      await tester.pumpAndSettle();
+      expect(
+        tester.widget<MenzilPrimaryButton>(button).onPressed,
+        isNull,
+        reason: bad,
+      );
+      expect(error(), findsOneWidget, reason: bad);
+    }
+    for (final good in ['1', '31,2', '60', '62', '70', '100']) {
+      await enterRifleField(tester, 'ammo-length', good);
+      await tester.pumpAndSettle();
+      expect(
+        tester.widget<MenzilPrimaryButton>(button).onPressed,
+        isNotNull,
+        reason: good,
+      );
+      expect(error(), findsNothing, reason: good);
+    }
+    expect(tester.takeException(), isNull);
   });
+
+  for (final len in [('62', 62.0), ('100', 100.0), ('31,2', 31.2)]) {
+    testWidgets('firearm: ${len.$1} mm is saved with the ammunition', (
+      tester,
+    ) async {
+      final store = await _openEdit(tester);
+      await enterRifleField(tester, 'ammo-length', len.$1);
+      await tester.pumpAndSettle();
+      final button = find.widgetWithText(MenzilPrimaryButton, 'Güncelle');
+      expect(tester.widget<MenzilPrimaryButton>(button).onPressed, isNotNull);
+      await tester.ensureVisible(button);
+      await tester.tap(button);
+      await tester.pumpAndSettle();
+      expect(tester.takeException(), isNull);
+      final saved = (await store.all()).single;
+      final entries = await ManualCatalogStore().all();
+      final ammo = entries.singleWhere((e) => e['id'] == saved.ammunitionId);
+      expect(ammo['lengthMm'], len.$2);
+    });
+  }
 
   for (final pcp in [false, true]) {
     testWidgets('${pcp ? 'PCP' : 'firearm'}: 320 pt, text scale 1.3, no '
@@ -389,6 +433,26 @@ void main() {
       );
       // Neither: no spin drift.
       expect((await shot(tester)).note, isNull);
+    });
+
+    testWidgets('Profil 62 mm and 100 mm are used by the stability / spin '
+        'drift calculation', (tester) async {
+      final l31 = await shot(tester, profileLength: 31);
+      expect(l31.note, isNotNull);
+      final l62 = await shot(tester, profileLength: 62);
+      final l100 = await shot(tester, profileLength: 100);
+      expect(l62.note, isNotNull);
+      expect(l100.note, isNotNull);
+      // A longer bullet is less stable: the result really changes.
+      expect(l62.note != l31.note || l62.right != l31.right, isTrue);
+      expect(l100.note != l62.note || l100.right != l62.right, isTrue);
+      // Same number as the old Pro box gave for the same length.
+      final legacy62 = await shot(tester, legacy: '62');
+      expect(l62.right, legacy62.right);
+      expect(l62.note, legacy62.note);
+      final legacy100 = await shot(tester, legacy: '100');
+      expect(l100.right, legacy100.right);
+      expect(l100.note, legacy100.note);
     });
 
     testWidgets('the old Pro value stays saved under its key', (tester) async {

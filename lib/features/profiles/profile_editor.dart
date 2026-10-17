@@ -1245,9 +1245,10 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     return g! < r.$1 || g > r.$2 ? _implausibleGrain : null;
   }
 
-  /// Mermi uzunluğu is optional; a typed one must be plausible (1–60 mm).
+  /// Mermi uzunluğu is optional; a typed one must be plausible (1–100 mm,
+  /// the calculation's limit, owner 2026-10-17 17:42: D17D-1).
   String? get _lengthError =>
-      ammoLength.text.trim().isEmpty ? null : _rangeError(ammoLength, 1, 60);
+      ammoLength.text.trim().isEmpty ? null : _rangeError(ammoLength, 1, 100);
 
   /// PCP: BC may be left empty (owner, 2026-10-12: most Turkish pellets
   /// publish none); a typed one is still range-checked.
