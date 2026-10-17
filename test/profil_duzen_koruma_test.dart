@@ -6,15 +6,15 @@
 // a row) for every way into the form: a new profile, Profili Düzenle of a
 // list item, of a profile saved before the 13 Oct catalog update (#235,
 // older names), of a typed item and of a Kopyala copy, plus save -> reopen
-// round trips. Also items 2-4 of the same task: Model boxes wrap instead of
-// shrinking, "Kaydetmek için eksik" names only boxes that are on screen,
+// round trips. Also items 2-4 of the same task: Model boxes never shrink
+// (since 2026-10-17 18:05 one line cut with "…" instead of wrapping),
+// "Kaydetmek için eksik" names only boxes that are on screen,
 // "Barut katsayısı" has no unit beside it.
 //
 // If one of these fails, a later change has silently undone an owner
 // decision: change the code back, or get the owner's word before changing
 // the test.
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sniper_turk/data/catalog_repository.dart';
@@ -28,6 +28,7 @@ import 'package:sniper_turk/ui/menzil_theme.dart';
 import 'package:sniper_turk/ui/menzil_widgets.dart';
 
 import 'support/rifle_form.dart';
+import 'support/select_one_line.dart';
 
 // ---- Old saved data (JSON as written before the 13 Oct catalog update) ---
 
@@ -567,73 +568,32 @@ const _hiddenScopeNames = [
   'Klik değeri',
 ];
 
-// ---- Item 2: Model text wraps at its normal size ----
+// ---- Item 2: closed select boxes, one line, cut with "…" ----
+// (owner, 2026-10-17 18:05; until then the Model, Marka and Kalibre boxes
+// wrapped and grew, owner 2026-10-14.)
 
 Finder _box(String key) => find.descendant(
   of: find.byKey(Key(key)),
   matching: find.byType(InputDecorator),
 );
 
-void _wrapsAtNormalSize(WidgetTester tester, String key, String text) {
-  final wrapped = find.descendant(
-    of: find.byKey(Key(key)),
-    matching: find.byKey(const Key('menzil-select-wrapped')),
-  );
-  expect(wrapped, findsOneWidget, reason: key);
-  final t = tester.widget<Text>(wrapped);
-  expect(t.data, text);
-  // Normal size, never scaled down.
-  expect(t.style?.fontSize, 15);
-  expect(
-    find.descendant(of: find.byKey(Key(key)), matching: find.byType(FittedBox)),
-    findsNothing,
-  );
-  expect(
-    find.descendant(
-      of: find.byKey(Key(key)),
-      matching: find.byType(MenzilFitText),
-    ),
-    findsNothing,
-  );
-  final p = tester.renderObject<RenderParagraph>(wrapped);
-  expect(p.didExceedMaxLines, isFalse, reason: 'cut');
-  // More than one line: the box grows instead.
-  expect(p.size.height, greaterThan(1.8 * 15), reason: 'one line only');
-  expect(
-    tester.getSize(_box(key)).height,
-    greaterThan(tester.getSize(_box('profile-platform')).height + 10),
-    reason: 'the box did not grow',
+/// The closed select [key] shows [text] on one line at the normal size, cut
+/// with "…" when it does not fit; the box has the standard height (Tür).
+void _oneLineAtNormalSize(WidgetTester tester, String key, String text) {
+  expectClosedOneLine(
+    tester,
+    key,
+    text,
+    standardHeight: tester.getSize(_box('profile-platform')).height,
   );
 }
 
-/// The closed Kalibre box: [text] whole on ONE line, scaled down when it
-/// does not fit (never wrapped, never cut with "…"), as tall as Namlu çıkış
-/// hızı (owner, 2026-10-17 17:54–17:57).
+/// The closed Kalibre box: [text] on ONE line, cut with "…" when it does
+/// not fit, as tall as Namlu çıkış hızı (owner, 2026-10-17 17:54–18:05).
 void _caliberOneLine(WidgetTester tester, String text) {
+  _oneLineAtNormalSize(tester, 'rifle-caliber', text);
   expect(
-    find.descendant(
-      of: find.byKey(const Key('rifle-caliber')),
-      matching: find.byKey(const Key('menzil-select-wrapped')),
-    ),
-    findsNothing,
-  );
-  final fit = find.descendant(
-    of: find.byKey(const Key('rifle-caliber')),
-    matching: find.byType(MenzilFitText),
-  );
-  expect(fit, findsOneWidget);
-  final shown = find.descendant(of: fit, matching: find.byType(Text));
-  expect(tester.widget<Text>(shown).data, text);
-  final p = tester.renderObject<RenderParagraph>(shown);
-  expect(p.maxLines, 1);
-  expect(p.overflow, isNot(TextOverflow.ellipsis));
-  expect(p.didExceedMaxLines, isFalse, reason: 'cut');
-  final box = tester.getRect(_box('rifle-caliber').first);
-  final rect = tester.getRect(shown);
-  expect(rect.left, greaterThanOrEqualTo(box.left));
-  expect(rect.right, lessThanOrEqualTo(box.right));
-  expect(
-    box.height,
+    tester.getSize(_box('rifle-caliber').first).height,
     moreOrLessEquals(
       tester.getSize(_box('profile-velocity-fps').first).height,
       epsilon: 0.5,
@@ -992,14 +952,14 @@ void main() {
     });
   });
 
-  group('Model boxes wrap at the normal size (like Mühimmat Model)', () {
+  group('Model boxes: one line, cut with "…" (like Mühimmat Model)', () {
     testWidgets('Dürbün Model', (tester) async {
       const line = 'ED-ELR Gen III 5-40x56 SFIR FFP Zero Stop MOA';
       await _openNew(tester);
       await chooseInSelect(tester, 'scope-brand-select', 'Discovery Optics');
       await chooseInSelect(tester, 'scope-model-select', line);
       expect(selectedValue<String>(tester, 'scope-model-select'), line);
-      _wrapsAtNormalSize(tester, 'scope-model-select', line);
+      _oneLineAtNormalSize(tester, 'scope-model-select', line);
       // The open list keeps the size too (no shrinking FittedBox).
       final box = find.byKey(const Key('scope-model-select'));
       await tester.ensureVisible(box);
@@ -1023,7 +983,7 @@ void main() {
       await chooseInSelect(tester, 'rifle-brand-select', 'Weatherby');
       await chooseInSelect(tester, 'rifle-model-select', model);
       expect(selectedValue<String>(tester, 'rifle-model-select'), model);
-      _wrapsAtNormalSize(tester, 'rifle-model-select', model);
+      _oneLineAtNormalSize(tester, 'rifle-model-select', model);
       expect(tester.takeException(), isNull);
     });
 
@@ -1031,11 +991,7 @@ void main() {
       await _openNew(tester);
       await chooseInSelect(tester, 'rifle-brand-select', 'Tikka');
       await chooseInSelect(tester, 'rifle-model-select', 'T3x UPR');
-      final wrapped = find.descendant(
-        of: find.byKey(const Key('rifle-model-select')),
-        matching: find.byKey(const Key('menzil-select-wrapped')),
-      );
-      expect(tester.widget<Text>(wrapped).data, 'T3x UPR');
+      _oneLineAtNormalSize(tester, 'rifle-model-select', 'T3x UPR');
       expect(
         tester.getSize(_box('rifle-model-select')).height,
         moreOrLessEquals(
@@ -1106,7 +1062,7 @@ void main() {
       expect(tester.takeException(), isNull);
     });
 
-    testWidgets('long Marka wraps at the normal size; Kalibre one line', (
+    testWidgets('long Marka and Kalibre: one line at the normal size', (
       tester,
     ) async {
       await _openNew(tester);
@@ -1115,7 +1071,7 @@ void main() {
         'rifle-brand-select',
         'Accuracy International',
       );
-      _wrapsAtNormalSize(
+      _oneLineAtNormalSize(
         tester,
         'rifle-brand-select',
         'Accuracy International',
@@ -1125,7 +1081,7 @@ void main() {
         selectedValue<String>(tester, 'rifle-caliber'),
         '.338-378 Weatherby Mag',
       );
-      // Kalibre: one line, scaled down when needed (owner, 2026-10-17).
+      // Kalibre: one line, cut with "…" when needed (owner, 2026-10-17).
       _caliberOneLine(tester, '.338-378 Weatherby Mag');
       _rifleFullRows(tester);
       expect(tester.takeException(), isNull);
@@ -1195,13 +1151,11 @@ void main() {
           final r = tester.getRect(find.byKey(Key(k)));
           expect(r.right, lessThanOrEqualTo(card.right + 0.5), reason: k);
         }
-        final p = tester.renderObject<RenderParagraph>(
-          find.descendant(
-            of: find.byKey(const Key('rifle-brand-select')),
-            matching: find.byKey(const Key('menzil-select-wrapped')),
-          ),
+        _oneLineAtNormalSize(
+          tester,
+          'rifle-brand-select',
+          'Accuracy International',
         );
-        expect(p.didExceedMaxLines, isFalse);
         // Kalibre: one line (owner, 2026-10-17).
         _caliberOneLine(tester, '.338-378 Weatherby Mag');
         await openRifleManual(tester);

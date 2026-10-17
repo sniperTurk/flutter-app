@@ -21,7 +21,6 @@ extension _RifleSection on _ProfileDialogState {
   static const _pcpCalibers = _ProfileDialogState._pcpCalibers;
   static const _popularCount = _ProfileDialogState._popularCount;
   static const _round1 = _ProfileDialogState._round1;
-  static const _shortCartridge = _ProfileDialogState._shortCartridge;
   static const _showRifleListedeYok = _ProfileDialogState._showRifleListedeYok;
   static const _trimDot = _ProfileDialogState._trimDot;
   static const _variantLabel = _ProfileDialogState._variantLabel;
@@ -66,35 +65,22 @@ extension _RifleSection on _ProfileDialogState {
   bool get _caliberFromModel =>
       !_rifleManual && !_caliberAll && _rifleVariants.isNotEmpty;
 
-  /// Kalibre entries with the text of the closed box: [full], scaled down
-  /// when it does not fit the half-width box (owner, 2026-10-17). [short]
-  /// is no longer shown in the box.
-  List<({DropdownMenuItem<String> item, String full, String short})>
-  get _caliberChoices {
+  /// Kalibre entries with the text of the closed box: [full], on one line
+  /// and cut with "…" when it does not fit the half-width box (owner,
+  /// 2026-10-17 18:05).
+  List<({DropdownMenuItem<String> item, String full})> get _caliberChoices {
     final cal = _parse(rifleCaliber);
-    final out =
-        <({DropdownMenuItem<String> item, String full, String short})>[];
-    void add(
-      String value,
-      Widget child,
-      String full, {
-      String? short,
-      bool enabled = true,
-    }) => out.add((
-      item: DropdownMenuItem(value: value, enabled: enabled, child: child),
-      full: full,
-      short: short ?? full,
-    ));
+    final out = <({DropdownMenuItem<String> item, String full})>[];
+    void add(String value, Widget child, String full, {bool enabled = true}) =>
+        out.add((
+          item: DropdownMenuItem(value: value, enabled: enabled, child: child),
+          full: full,
+        ));
     if (_caliberFromModel) {
       final variants = _rifleVariants;
       for (final (i, r) in variants.indexed) {
         final label = _variantLabel(r, variants);
-        add(
-          'v:$i',
-          Text(label, maxLines: 2),
-          label,
-          short: _shortCartridge(r.cartridge),
-        );
+        add('v:$i', Text(label, maxLines: 2), label);
       }
       add(_otherCaliberKey, const Text('Diğer kalibre'), 'Diğer kalibre');
       return out;
@@ -132,23 +118,16 @@ extension _RifleSection on _ProfileDialogState {
             ),
           ),
           name,
-          short: _shortCartridge(name),
         );
       }
       if (cal != null && !_caliberByDiameter && _cartridgeFor(cal) == null) {
         final mm = _trimDot(cal);
-        add(
-          'mm:$mm',
-          Text('$mm mm (kayıtlı)'),
-          '$mm mm (kayıtlı)',
-          short: '$mm mm',
-        );
+        add('mm:$mm', Text('$mm mm (kayıtlı)'), '$mm mm (kayıtlı)');
       }
       add(
         _noCartridgeKey,
         const Text('Fişeğim listede yok'),
         'Fişeğim listede yok',
-        short: 'Listede yok',
       );
       return out;
     }
@@ -157,12 +136,7 @@ extension _RifleSection on _ProfileDialogState {
     }
     if (cal != null && _caliberItem(cal) == null) {
       final mm = _trimDot(cal);
-      add(
-        'mm:$mm',
-        Text('$mm mm (kayıtlı)'),
-        '$mm mm (kayıtlı)',
-        short: '$mm mm',
-      );
+      add('mm:$mm', Text('$mm mm (kayıtlı)'), '$mm mm (kayıtlı)');
     }
     return out;
   }
@@ -326,10 +300,10 @@ extension _RifleSection on _ProfileDialogState {
 
   /// Kalibre, a half box with Namlu çıkış hızı beside it (owner, 2026-10-16
   /// 20:49–21:04: "Kalibre | Namlu çıkış hızı"). The closed box shows the
-  /// full name on ONE line, scaled down when it does not fit, never wrapped
-  /// or cut, so the box is as tall as Namlu çıkış hızı (owner, 2026-10-17
-  /// 17:54–17:57: "kalibre kutusu tek satır olacaktı"). The open list keeps
-  /// the full names.
+  /// chosen name on ONE line at the normal size, cut with "…" when it does
+  /// not fit, so the box is as tall as Namlu çıkış hızı (owner, 2026-10-17
+  /// 17:54–18:05: one rule for every select box). The open list keeps the
+  /// full names.
   Widget _caliberField() {
     final choices = _caliberChoices;
     return KeyedSubtree(
@@ -347,15 +321,14 @@ extension _RifleSection on _ProfileDialogState {
         hint: 'Seçiniz',
         initialValue: _caliberKey,
         items: [for (final c in choices) c.item],
-        fitSelected: true,
         // The open list is as wide as the box, never wider (owner,
         // 2026-10-13: "kutudan dışarı çıkmasın"), so a long cartridge may
         // wrap there: its entry grows with it instead of keeping 48 pt and
         // spilling over the next one (a tap on its lower half chose
         // nothing).
         itemHeight: null,
-        // The full name, scaled down; no short form (owner, 2026-10-17:
-        // the closed box shows the chosen name).
+        // The chosen name itself, on one line, cut with "…" when it does
+        // not fit (owner, 2026-10-17 18:05).
         selectedLabels: [for (final c in choices) c.full],
         onChanged: (v) => _update(() {
           final before = (rifleCaliber.text, _cartridge);
@@ -437,9 +410,6 @@ extension _RifleSection on _ProfileDialogState {
             label: 'Marka',
             hint: 'Seçiniz',
             initialValue: brand,
-            // A long brand keeps its size and wraps; the box grows (owner,
-            // 2026-10-14 18:58, like Model).
-            wrapSelected: true,
             items: [
               for (final b in brands)
                 DropdownMenuItem(value: b, child: Text(b)),
@@ -471,9 +441,6 @@ extension _RifleSection on _ProfileDialogState {
             label: 'Model',
             hint: 'Seçiniz',
             initialValue: model,
-            // A long model keeps its size and wraps; the box grows (owner,
-            // 2026-10-14: like Mühimmat Model).
-            wrapSelected: true,
             items: [
               for (final m in models)
                 DropdownMenuItem(value: m, child: Text(m, maxLines: 2)),
@@ -526,8 +493,7 @@ extension _RifleSection on _ProfileDialogState {
           // Kalibre | Namlu çıkış hızı; Yiv oranı | Namlu yiv yönü; PCP only
           // Tüp basıncı | Regülatör basıncı; Sıfırlama mesafesi | Mesafe
           // birimi; Sight height alone on the last row, half width in the
-          // left column (owner, 2026-10-17 17:57: "Sight height gereksiz,
-          // aşağıda büyük kutusu var").
+          // left column (owner, 2026-10-17 17:57: "Tabiki A").
           ..._rifleNameFields(),
           _caliberField(),
           _velocityField(),

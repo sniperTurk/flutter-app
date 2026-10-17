@@ -99,13 +99,6 @@ class _ProfileDialogState extends State<_ProfileDialog> {
   static const _otherCaliberKey = '!other';
   static const _noCartridgeKey = '!nodia';
 
-  /// The usual short form of a long cartridge name for the half-width
-  /// Kalibre box (".338-378 Weatherby Mag" → ".338-378 Wby Mag").
-  static String _shortCartridge(String name) => name
-      .replaceAll('Weatherby', 'Wby')
-      .replaceAll('Ackley Improved', 'AI')
-      .replaceAll(' Springfield', '');
-
   /// "Fişeğim listede yok": the bullet diameters of the list, one per inch
   /// size (.224 in · 5,69 mm), smallest first.
   static final List<double> _bulletDiameters = () {
