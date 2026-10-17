@@ -708,7 +708,9 @@ void main() {
         expect(
           find.descendant(
             of: _key('profile-pcp-velocity-max'),
-            matching: find.text('En düşük ve en yüksek hızın ikisini de girin.'),
+            matching: find.text(
+              'En düşük ve en yüksek hızın ikisini de girin.',
+            ),
           ),
           findsOneWidget,
         );
@@ -902,7 +904,10 @@ void main() {
       expect(canApply, isTrue);
       await _tapKey(tester, 'truing-apply');
       await _tapKey(tester, 'truing-confirm');
-      expect(find.textContaining('buradan tek bir hız yazılmaz'), findsOneWidget);
+      expect(
+        find.textContaining('buradan tek bir hız yazılmaz'),
+        findsOneWidget,
+      );
       expect(find.text('Doğrulanmış hız profile uygulandı.'), findsNothing);
       final saved = (await store.all()).single;
       expect(saved.muzzleVelocityMps, p.muzzleVelocityMps);
