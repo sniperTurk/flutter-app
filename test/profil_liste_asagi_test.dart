@@ -103,10 +103,7 @@ Rect _rect(WidgetTester tester, String key) =>
 /// own bottom padding.
 Rect _visibleCard(WidgetTester tester, String key) => tester.getRect(
   find
-      .descendant(
-        of: find.byKey(Key(key)),
-        matching: find.byType(DecoratedBox),
-      )
+      .descendant(of: find.byKey(Key(key)), matching: find.byType(DecoratedBox))
       .first,
 );
 

@@ -196,15 +196,11 @@ void main() {
     });
   });
 
-  testWidgets('the Profiller list is below the Mühimmat card', (
-    tester,
-  ) async {
+  testWidgets('the Profiller list is below the Mühimmat card', (tester) async {
     // Owner, 2026-10-17 19:14: cards first, then the list, button last.
     await _pump(tester);
     final header = tester.getRect(find.text('Profiller'));
-    final ammo = tester.getRect(
-      find.byKey(const Key('profile-summary-ammo')),
-    );
+    final ammo = tester.getRect(find.byKey(const Key('profile-summary-ammo')));
     final weather = tester.getRect(
       find.byKey(const Key('profile-continue-weather')),
     );
