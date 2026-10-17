@@ -663,75 +663,45 @@ extension _ProAyarlarView on _BallisticsScreenState {
               ),
             ],
           ),
-          if (_spinDriftOn) ...[
-            MenzilInput(
-              key: const Key('pro-bullet-length'),
-              controller: bulletLengthCtl,
-              label: 'Mermi uzunluğu',
-              unit: 'mm',
-              onChanged: (_) => _coriolisChanged(),
-            ),
-            if (profileResolution?.rifle.twistRateIn == null ||
-                profileResolution?.rifle.twistDirection == null)
-              const MenzilNotice(
-                tone: MenzilNoticeTone.warning,
-                message:
-                    'Profilde yiv yönü veya yiv oranı yok; spin drift '
-                    'hesaplanamaz.',
-              ),
-          ],
-          if (_isFirearm) ...[
-            // Mühimmat sıcaklığı (owner, 2026-10-16, design PR #366): moved
-            // here from Hava Durumu, next to the powder correction it feeds.
-            // Same box, saved value and calculation (empty = the air
-            // temperature); box in the left half, "isteğe bağlı" right. No ⓘ
-            // in the box (owner, 2026-10-16 21:17, #373): its text is listed
-            // in this section's title ⓘ sheet (ProInfoField above).
-            Row(
+          // Mermi uzunluğu | Mühimmat sıcaklığı side by side (owner,
+          // 2026-10-17, TestFlight 112), same two-box row as Yukarı | Sağ.
+          // Mühimmat sıcaklığı stays firearm-only (owner, 2026-10-16, #366;
+          // empty = the air temperature); on PCP Mermi uzunluğu keeps its
+          // full row. No ⓘ in the boxes (#373): their texts are in this
+          // section's title ⓘ sheet (ProInfoField above).
+          if (_isFirearm)
+            MenzilFieldGrid(
               key: const Key('pro-ammo-temp-row'),
-              crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                Expanded(
-                  child: MenzilInput(
-                    key: const Key('env-ammo-temp'),
-                    controller: ammoTempCtl,
-                    label: 'Mühimmat sıcaklığı',
-                    onChanged: (_) => _coriolisChanged(),
-                    unit: metric ? '°C' : '°F',
-                    keyboardType: const TextInputType.numberWithOptions(
-                      decimal: true,
-                      signed: true,
-                    ),
-                  ),
-                ),
-                const SizedBox(width: 10),
-                Expanded(
-                  child: Padding(
-                    // Level with the middle of the 46 pt box (the box keeps
-                    // MenzilSpace.md under it).
-                    padding: const EdgeInsets.only(bottom: MenzilSpace.md),
-                    // At least the box height; taller when large text
-                    // wraps "isteğe bağlı" (never cut off).
-                    child: ConstrainedBox(
-                      constraints: const BoxConstraints(
-                        minHeight: MenzilSpace.control,
-                      ),
-                      child: Align(
-                        alignment: AlignmentDirectional.centerStart,
-                        child: Text(
-                          'isteğe bağlı',
-                          key: const Key('pro-ammo-temp-optional'),
-                          textAlign: TextAlign.start,
-                          style: MenzilType.caption(c.ink2),
-                        ),
-                      ),
-                    ),
+                if (_spinDriftOn) _bulletLengthInput(),
+                MenzilInput(
+                  key: const Key('env-ammo-temp'),
+                  controller: ammoTempCtl,
+                  label: 'Mühimmat sıcaklığı',
+                  onChanged: (_) => _coriolisChanged(),
+                  unit: metric ? '°C' : '°F',
+                  keyboardType: const TextInputType.numberWithOptions(
+                    decimal: true,
+                    signed: true,
                   ),
                 ),
               ],
+            )
+          else if (_spinDriftOn)
+            _bulletLengthInput(),
+          if (_spinDriftOn &&
+              (profileResolution?.rifle.twistRateIn == null ||
+                  profileResolution?.rifle.twistDirection == null))
+            const MenzilNotice(
+              tone: MenzilNoticeTone.warning,
+              message:
+                  'Profilde yiv yönü veya yiv oranı yok; spin drift '
+                  'hesaplanamaz.',
             ),
+          if (_isFirearm) ...[
             // The values are entered on Profil > Mühimmat (2026-10-11); here
-            // only what is used and today's velocity.
+            // only what is used and today's velocity. Texts: owner,
+            // 2026-10-17 ("Yeni açıklama metin daha doğru ifade ediyor").
             Builder(
               builder: (context) {
                 final p = _powder;
@@ -740,16 +710,17 @@ extension _ProAyarlarView on _BallisticsScreenState {
                     : v.toString().replaceAll('.', ',');
                 final k = p.coef, t0 = p.referenceC;
                 final where = p.fromProfile
-                    ? 'Profil > Mühimmat\'tan değiştirilir.'
-                    : 'Önceki sürümde burada girildi; Profil > Mühimmat\'ta '
-                          'girin.';
+                    ? 'Değiştirmek için Profil → Mühimmat.'
+                    : 'Bu değerler eski sürümde burada girilmişti; artık '
+                          'Profil → Mühimmat\'ta değiştirilir.';
                 return Text(
                   k != null && t0 != null
-                      ? 'Katsayı %${n(k)} / 15 °C, hız ölçüm sıcaklığı '
-                            '${n(t0)} °C. $where'
-                      : 'Barut sıcaklık katsayısı ve hız ölçüm sıcaklığı '
-                            'Profil > Mühimmat\'ta girilir; girilmezse hız '
-                            'düzeltilmez.',
+                      ? 'Hesapta kullanılan: Barut katsayısı %${n(k)} / 15 °C, '
+                            'Hız ölçüm sıcaklığı ${n(t0)} °C. $where'
+                      : 'Mühimmat sıcaklığının hesaba girmesi için Profil → '
+                            'Mühimmat\'ta Barut katsayısı ve Hız ölçüm '
+                            'sıcaklığı kutularını doldurun. Bu iki kutu boşsa '
+                            'buraya yazılan sıcaklık hesabı değiştirmez.',
                   key: const Key('pro-powder-source'),
                   style: MenzilType.body(c.ink),
                 );
@@ -794,6 +765,16 @@ extension _ProAyarlarView on _BallisticsScreenState {
         ),
     ];
   }
+
+  /// Pro > Tüfek düzeltmeleri: Mermi uzunluğu (beside Mühimmat sıcaklığı on
+  /// a firearm, its own row on PCP).
+  Widget _bulletLengthInput() => MenzilInput(
+    key: const Key('pro-bullet-length'),
+    controller: bulletLengthCtl,
+    label: 'Mermi uzunluğu',
+    unit: 'mm',
+    onChanged: (_) => _coriolisChanged(),
+  );
 
   /// Pro > Tüfek düzeltmeleri, PCP: Kalan tüp basıncı, the regulator
   /// warning and the velocity used.

@@ -37,7 +37,6 @@ const _sectionOf = <String, String>{
   // Mühimmat sıcaklığı: Pro > Tüfek düzeltmeleri since 2026-10-16.
   'env-ammo-temp': 'rifle',
   'pro-ammo-temp-row': 'rifle',
-  'pro-ammo-temp-optional': 'rifle',
   'pro-powder-source': 'rifle',
   'pro-powder-today': 'rifle',
   'pro-tube-pressure': 'rifle',

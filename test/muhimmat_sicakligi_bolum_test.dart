@@ -1,13 +1,13 @@
 // Mühimmat sıcaklığı Pro Ayarlar'da (owner, 2026-10-16 20:06, design PR
 // #366 "onayladım"): Hava Durumu'ndaki bölüm kalktı; aynı kutu Pro >
-// Tüfek düzeltmeleri içinde, Mermi uzunluğu'nun altında, barut katsayısı
-// yazısının üstünde; kutu satırın sol yarısında, "isteğe bağlı" sağ
-// yarısında. Yalnız ateşli silahta. Anahtar, kayıt ve barut düzeltmesi
+// Tüfek düzeltmeleri içinde, barut katsayısı yazısının üstünde. 2026-10-17
+// (sahip, TestFlight 112): Mermi uzunluğu | Mühimmat sıcaklığı aynı satırda,
+// "isteğe bağlı" yazısı silindi (docs/reports/pro_barut_not.md). Yalnız
+// ateşli silahta. Anahtar, kayıt ve barut düzeltmesi
 // (boşsa hava sıcaklığı) değişmedi. Rapor: docs/reports/duzeltmeler_16_10.md.
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sniper_turk/data/catalog_repository.dart';
@@ -72,7 +72,6 @@ const _pcp = RifleProfile(
 
 const _ammoKey = Key('env-ammo-temp');
 const _row = Key('pro-ammo-temp-row');
-const _optional = Key('pro-ammo-temp-optional');
 
 Widget _app(
   RifleProfile p,
@@ -157,10 +156,9 @@ void main() {
     );
   });
 
-  testWidgets('firearm: Pro > Tüfek düzeltmeleri, under Mermi uzunluğu and '
-      'above the powder text; box left half, "isteğe bağlı" right half', (
-    tester,
-  ) async {
+  testWidgets('firearm: Pro > Tüfek düzeltmeleri, Mermi uzunluğu | '
+      'Mühimmat sıcaklığı on one row above the powder text, no '
+      '"isteğe bağlı"', (tester) async {
     await _size(tester, 390);
     await _pro(tester, _firearm);
     final box = find.byKey(_ammoKey);
@@ -173,25 +171,33 @@ void main() {
       ),
       findsOneWidget,
     );
-    final length = tester.getRect(find.byKey(const Key('pro-bullet-length')));
-    final powder = tester.getRect(find.byKey(const Key('pro-powder-source')));
-    final row = tester.getRect(find.byKey(_row));
-    expect(row.top, greaterThanOrEqualTo(length.bottom - 0.01));
-    expect(row.bottom, lessThanOrEqualTo(powder.top + 0.01));
-    // Box in the left half, "isteğe bağlı" in the right half of one row.
+    final up = tester.getRect(_textField(const Key('pro-zero-up')));
+    final right = tester.getRect(_textField(const Key('pro-zero-right')));
+    final length = tester.getRect(_textField(const Key('pro-bullet-length')));
     final field = tester.getRect(_textField(_ammoKey));
-    final opt = tester.getRect(find.byKey(_optional));
-    expect(field.left, moreOrLessEquals(row.left, epsilon: 0.5));
-    expect(field.width, moreOrLessEquals((row.width - 10) / 2, epsilon: 0.5));
-    expect(opt.left, greaterThanOrEqualTo(field.right + 10 - 0.5));
-    expect(opt.right, lessThanOrEqualTo(row.right + 0.01));
-    // Level with the box.
-    expect(opt.center.dy, moreOrLessEquals(field.center.dy, epsilon: 3));
-    expect(tester.widget<Text>(find.byKey(_optional)).data, 'isteğe bağlı');
+    final powder = tester.getRect(find.byKey(const Key('pro-powder-source')));
+    // One row: same top, Mermi uzunluğu left, the same two columns as
+    // Yukarı + / aşağı − | Sağ + / sol −.
+    expect(field.top, moreOrLessEquals(length.top, epsilon: 0.5));
+    expect(length.right, lessThan(field.left));
+    expect(length.left, moreOrLessEquals(up.left, epsilon: 0.5));
+    expect(length.width, moreOrLessEquals(up.width, epsilon: 0.5));
+    expect(field.left, moreOrLessEquals(right.left, epsilon: 0.5));
+    expect(field.width, moreOrLessEquals(right.width, epsilon: 0.5));
+    expect(length.top, greaterThan(up.bottom));
+    expect(powder.top, greaterThanOrEqualTo(field.bottom - 0.01));
     expect(
-      tester.widget<Text>(find.byKey(_optional)).style!.color,
-      const Color(0xFF9CB1C0),
+      tester.getRect(find.byKey(_row)).bottom,
+      lessThanOrEqualTo(powder.top + 0.01),
     );
+    // "isteğe bağlı" is gone.
+    expect(find.byKey(const Key('pro-ammo-temp-optional')), findsNothing);
+    expect(find.text('isteğe bağlı'), findsNothing);
+    // Units inside the boxes.
+    final lengthInput = tester.widget<MenzilInput>(
+      find.byKey(const Key('pro-bullet-length')),
+    );
+    expect(lengthInput.unit, 'mm');
     // Same label and unit as on Hava Durumu before. No ⓘ in the box (owner,
     // 2026-10-16 21:17, #373): its text lives in the section header's sheet.
     final input = tester.widget<MenzilInput>(box);
@@ -230,8 +236,16 @@ void main() {
     await _pro(tester, _pcp);
     expect(find.byKey(_ammoKey), findsNothing);
     expect(find.byKey(_row), findsNothing);
-    expect(find.byKey(_optional), findsNothing);
     expect(find.text('Mühimmat sıcaklığı'), findsNothing);
+    // Mermi uzunluğu keeps its own full row (as before 2026-10-17).
+    final length = tester.getRect(_textField(const Key('pro-bullet-length')));
+    final scale = tester.getRect(_textField(const Key('pro-turret-scale')));
+    final up = tester.getRect(_textField(const Key('pro-zero-up')));
+    expect(length.left, moreOrLessEquals(scale.left, epsilon: 0.5));
+    expect(length.width, moreOrLessEquals(scale.width, epsilon: 0.5));
+    expect(length.top, greaterThan(up.bottom));
+    expect(find.byKey(const Key('pro-powder-source')), findsNothing);
+    expect(tester.takeException(), isNull);
   });
 
   testWidgets('summary of the closed box counts an entered value', (
@@ -313,7 +327,7 @@ void main() {
       await tester.ensureVisible(find.byKey(_row));
       await tester.pumpAndSettle();
       expect(tester.takeException(), isNull);
-      expect(find.byKey(_optional), findsOneWidget);
+      expect(find.text('isteğe bağlı'), findsNothing);
       expect(
         tester.getRect(find.byKey(_row)).right,
         lessThanOrEqualTo(width + 0.01),
@@ -326,30 +340,4 @@ void main() {
       }
     });
   }
-
-  testWidgets('320 pt, text scale 2: "isteğe bağlı" is never cut off', (
-    tester,
-  ) async {
-    await _size(tester, 320, 844);
-    await _pro(tester, _firearm, scale: 2);
-    await tester.ensureVisible(find.byKey(_row));
-    await tester.pumpAndSettle();
-    expect(tester.takeException(), isNull);
-    final p = tester.renderObject<RenderParagraph>(
-      find.descendant(
-        of: find.byKey(_optional),
-        matching: find.byType(RichText),
-      ),
-    );
-    // Laid out as tall as its lines need (a fixed 46 pt box clipped the
-    // second line before).
-    expect(
-      p.size.height,
-      greaterThanOrEqualTo(p.getMinIntrinsicHeight(p.size.width) - 0.01),
-    );
-    expect(
-      tester.getRect(find.byKey(_optional)).bottom,
-      lessThanOrEqualTo(tester.getRect(find.byKey(_row)).bottom + 0.01),
-    );
-  });
 }
