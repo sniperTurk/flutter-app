@@ -17,7 +17,13 @@
 //         zero or shot after F3. Fixed 2026-10-15: not written there, the
 //         page says the speed comes from the pressure table.
 //   KUL-3 PRO_TUBE_PRESSURE on, Pro box empty: the Profil Tüp basıncı and
-//         table are ignored (skip, hidden flag).
+//         table are ignored (skip, hidden flag). Closed 2026-10-16: the
+//         flag, the Pro box and the table are deleted (owner), so its
+//         source-text test went with them.
+// Owner, 2026-10-16: the "Basınca göre hız" table is deleted; the pressures
+// are kept but not in the formula. Owner, 2026-10-17: a PCP calculates
+// with its Namlu çıkış hızı; the optional En düşük / En yüksek namlu çıkış
+// hızı are saved only. The F3 and KUL-2 guards below pin that rule.
 // The other tests are passing guards.
 import 'dart:io';
 import 'dart:math' as math;
@@ -129,6 +135,8 @@ RifleProfile _pcp({
   double? regulatorBar,
   bool withLowPoint = false,
   bool onePoint = false,
+  double? minMps,
+  double? maxMps,
 }) => RifleProfile(
   id: 'kul-pcp',
   name: 'PCP',
@@ -136,6 +144,8 @@ RifleProfile _pcp({
   ammunitionId: 'kul_ammo_pcp',
   scopeId: 'gazi-6-36',
   muzzleVelocityMps: profileMps,
+  pcpMinVelocityMps: minMps,
+  pcpMaxVelocityMps: maxMps,
   zeroRangeM: zeroM,
   sightHeightMm: 50,
   pressureBar: regulatorBar,
@@ -429,8 +439,8 @@ void main() {
       expect(v.requiredUp!.abs(), lessThan(0.05));
     });
 
-    testWidgets('regulated, tube below regulator: zero at the regulated '
-        'velocity, shot slower (dial UP), as the report says', (tester) async {
+    testWidgets('regulated, stored tube below regulator: still on zero (the '
+        'pressures are not in the formula since 2026-10-16)', (tester) async {
       // 120 bar < 150 bar regulator; table 100 → 240, 120 → 255 m/s.
       final v = await _shotView(
         tester,
@@ -442,11 +452,11 @@ void main() {
           withLowPoint: true,
         ),
       );
-      expect(v.requiredUp!, greaterThan(0.3));
+      expect(v.requiredUp!.abs(), lessThan(0.05));
     });
 
-    testWidgets('design guard: with a usable table the Profil Namlu çıkış '
-        'hızı does not enter the unregulated solve', (tester) async {
+    testWidgets('design guard: the Profil Namlu çıkış hızı enters the solve, '
+        'a saved table does not', (tester) async {
       final a = await _shotView(
         tester,
         _pcp(profileMps: 270, zeroM: 30, tubeBar: 120),
@@ -456,13 +466,28 @@ void main() {
         tester,
         _pcp(profileMps: 240, zeroM: 30, tubeBar: 120),
       );
-      expect(b.requiredUp!, closeTo(upA, 1e-9));
+      // Slower pellet, zeroed at 30 m: more drop at 100 m.
+      expect(b.requiredUp!, greaterThan(upA + 0.3));
+    });
+
+    testWidgets('design guard: with En düşük | En yüksek the Namlu çıkış '
+        'hızı still enters the solve, their mean does not', (tester) async {
+      final a = await _shotView(
+        tester,
+        _pcp(profileMps: 240, zeroM: 30, minMps: 260, maxMps: 280),
+      );
+      final b = await _shotView(
+        tester,
+        _pcp(profileMps: 240, zeroM: 30, onePoint: true),
+      );
+      expect(a.requiredUp!, closeTo(b.requiredUp!, 1e-9));
     });
   });
 
-  group('KUL-2 Doğrulama vs the F3 table velocity', () {
-    // Fixed (owner, 2026-10-15): with a usable table the trued velocity is
-    // not written; the page says the speed comes from the pressure table.
+  group('KUL-2 Doğrulama and the PCP velocity', () {
+    // Owner, 2026-10-16: the table is deleted. Owner, 2026-10-17: the Namlu
+    // çıkış hızı is trued and applied as before, with or without En düşük |
+    // En yüksek (saved only, kept as they were).
     Future<MemoryProfileStore> pumpTruing(
       WidgetTester tester,
       RifleProfile p,
@@ -506,41 +531,22 @@ void main() {
       await tester.pumpAndSettle();
     }
 
-    testWidgets('truing knows the PCP table: message, apply disabled with '
-        'its ⓘ, no "uygulandı", profile untouched', (tester) async {
+    testWidgets('with En düşük | En yüksek: the Namlu çıkış hızı is trued '
+        'and applied; the pair is kept', (tester) async {
       final store = await pumpTruing(
         tester,
-        _pcp(profileMps: 270, zeroM: 30, tubeBar: 120),
+        _pcp(
+          profileMps: 270,
+          zeroM: 30,
+          tubeBar: 120,
+          minMps: 250,
+          maxMps: 260,
+        ),
       );
-      expect(find.byKey(const Key('truing-pcp-table')), findsOneWidget);
-      expect(find.textContaining('Basınca göre hız'), findsOneWidget);
+      expect(find.textContaining('ortalama'), findsNothing);
+      expect(find.textContaining('Basınca göre hız'), findsNothing);
       await computeAt100(tester);
       expect(find.byKey(const Key('truing-result')), findsOneWidget);
-      final apply = find.byKey(const Key('truing-apply'));
-      await tester.ensureVisible(apply);
-      expect(tester.widget<MenzilSecondaryButton>(apply).onPressed, isNull);
-      expect(find.byKey(const Key('truing-apply-info')), findsOneWidget);
-      await tester.tap(apply, warnIfMissed: false);
-      await tester.pumpAndSettle();
-      expect(find.byKey(const Key('truing-confirm')), findsNothing);
-      expect(find.text('Doğrulanmış hız profile uygulandı.'), findsNothing);
-      final saved = (await store.all()).single;
-      expect(saved.muzzleVelocityMps, 270);
-      expect(saved.pressureVelocityTable, hasLength(2));
-      // The ⓘ explains why the button is off.
-      await tester.tap(find.byKey(const Key('truing-apply-info')));
-      await tester.pumpAndSettle();
-      expect(find.textContaining('düğme kapalı'), findsOneWidget);
-    });
-
-    testWidgets('one-point table (not usable): velocity is applied as '
-        'before', (tester) async {
-      final store = await pumpTruing(
-        tester,
-        _pcp(profileMps: 270, zeroM: 30, tubeBar: 120, onePoint: true),
-      );
-      expect(find.byKey(const Key('truing-pcp-table')), findsNothing);
-      await computeAt100(tester);
       final apply = find.byKey(const Key('truing-apply'));
       await tester.ensureVisible(apply);
       expect(tester.widget<MenzilSecondaryButton>(apply).onPressed, isNotNull);
@@ -548,8 +554,39 @@ void main() {
       await tester.pumpAndSettle();
       await tester.tap(find.byKey(const Key('truing-confirm')));
       await tester.pumpAndSettle();
-      expect((await store.all()).single.muzzleVelocityMps, closeTo(240, 0.5));
+      final saved = (await store.all()).single;
+      expect(saved.muzzleVelocityMps, closeTo(240, 0.5));
+      expect(saved.pcpMinVelocityMps, 250);
+      expect(saved.pcpMaxVelocityMps, 260);
+      expect(saved.pressureVelocityTable, hasLength(2));
     });
+
+    for (final onePoint in [false, true]) {
+      testWidgets('saved table (${onePoint ? 'one point' : 'usable'}), no En '
+          'düşük | En yüksek: velocity is applied, the table ignored', (
+        tester,
+      ) async {
+        final store = await pumpTruing(
+          tester,
+          _pcp(profileMps: 270, zeroM: 30, tubeBar: 120, onePoint: onePoint),
+        );
+        await computeAt100(tester);
+        final apply = find.byKey(const Key('truing-apply'));
+        await tester.ensureVisible(apply);
+        expect(
+          tester.widget<MenzilSecondaryButton>(apply).onPressed,
+          isNotNull,
+        );
+        await tester.tap(apply);
+        await tester.pumpAndSettle();
+        await tester.tap(find.byKey(const Key('truing-confirm')));
+        await tester.pumpAndSettle();
+        final saved = (await store.all()).single;
+        expect(saved.muzzleVelocityMps, closeTo(240, 0.5));
+        // The saved table is carried, never erased.
+        expect(saved.pressureVelocityTable, hasLength(onePoint ? 1 : 2));
+      });
+    }
 
     testWidgets('regulated PCP above the regulator: velocity is applied as '
         'before', (tester) async {
@@ -557,21 +594,11 @@ void main() {
         tester,
         _pcp(profileMps: 270, zeroM: 30, tubeBar: 200, regulatorBar: 150),
       );
-      expect(find.byKey(const Key('truing-pcp-table')), findsNothing);
       await computeAt100(tester);
       final apply = find.byKey(const Key('truing-apply'));
       await tester.ensureVisible(apply);
       expect(tester.widget<MenzilSecondaryButton>(apply).onPressed, isNotNull);
     });
-  });
-
-  group('KUL-3 hidden PRO_TUBE_PRESSURE with an empty Pro box', () {
-    test('the Profil Tüp basıncı is the fallback of the Pro box', () {
-      final src = File(
-        'lib/features/ballistics/ballistics_screen.dart',
-      ).readAsStringSync();
-      expect(src, contains('_parsed(tubePressureCtl) ?? p?.tubePressureBar'));
-    }, skip: 'KUL-3: flag on + empty Pro box ignores Profil tube/table');
   });
 
   group('F5 GA text', () {

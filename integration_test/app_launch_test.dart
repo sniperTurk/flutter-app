@@ -133,7 +133,7 @@ void main() {
     await tester.pumpAndSettle();
     await tester.tap(find.text('Sağ').last);
     await tester.pumpAndSettle();
-    // PCP ammo has no Marka | Model list (hidden 2026-10-13, PCP_AMMO_BRAND).
+    // PCP ammo (owner, 2026-10-16): Marka | Model optional, left empty.
     await tester.ensureVisible(find.byKey(const Key('ammo-type')));
     await tester.tap(find.byKey(const Key('ammo-type')));
     await tester.pumpAndSettle();

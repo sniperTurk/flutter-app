@@ -899,19 +899,34 @@ class MenzilInfoButton extends StatelessWidget {
 /// and the 46 pt box.
 ///
 /// In the compact variant the small label sits 5 pt above a 44 pt box; the
-/// unit and the ⓘ are inside the box at its right edge. The ⓘ keeps its
-/// 44 × 44 pt tap target (the box height), opens the field's explanation (a
-/// popup) and neither
-/// focuses the field nor opens a list. Dialogs open on their own route and
-/// so keep the regular layout.
+/// unit is inside the box at its right edge. The ⓘ is at the right end of
+/// the label row, like every other field (owner, 2026-10-17 11:21: "fps bar
+/// kutu içi, infolar sağ üst"); it keeps its 44 × 44 pt tap target, opens
+/// the field's explanation (a popup) and neither focuses the field nor
+/// opens a list. Dialogs open on their own route and so keep the regular
+/// layout.
 class MenzilCompactFields extends InheritedWidget {
   final bool enabled;
+
+  /// A field without an ⓘ still keeps the ⓘ's row height, so it lines up
+  /// with a neighbour that has one. Off where no box has an ⓘ beside a box
+  /// with one (Pro Ayarlar, Hava Durumu), so those labels stay as close to
+  /// their boxes as before.
+  final bool reserveInfo;
 
   const MenzilCompactFields({
     super.key,
     this.enabled = true,
+    this.reserveInfo = true,
     required super.child,
   });
+
+  /// [reserveInfo] of the enclosing [MenzilCompactFields].
+  static bool reservesInfo(BuildContext context) =>
+      context
+          .dependOnInheritedWidgetOfExactType<MenzilCompactFields>()
+          ?.reserveInfo ??
+      true;
 
   /// Whether fields at [context] use the compact variant.
   static bool of(BuildContext context) =>
@@ -922,13 +937,17 @@ class MenzilCompactFields extends InheritedWidget {
 
   @override
   bool updateShouldNotify(MenzilCompactFields oldWidget) =>
-      enabled != oldWidget.enabled;
+      enabled != oldWidget.enabled || reserveInfo != oldWidget.reserveInfo;
 }
 
-/// Small label straight above a compact box ([MenzilCompactFields]).
+/// Small label straight above a compact box ([MenzilCompactFields]), with
+/// the field's ⓘ at the right end of the row (owner, 2026-10-17). With an ⓘ
+/// the row is as tall as its 44 pt tap target; the label stays at the
+/// bottom, 5 pt above the box, and the icon is centred on the label text.
 class _CompactLabel extends StatelessWidget {
   final String label;
-  const _CompactLabel({required this.label});
+  final String? info;
+  const _CompactLabel({required this.label, this.info});
 
   @override
   Widget build(BuildContext context) {
@@ -937,57 +956,85 @@ class _CompactLabel extends StatelessWidget {
     final lineHeight =
         MediaQuery.textScalerOf(context).scale(style.fontSize!) *
         (style.height ?? 1.25);
+    final text = info;
+    final withInfo = text != null || MenzilCompactFields.reservesInfo(context);
+    // One line that shrinks only as far as it must: side-by-side labels,
+    // and so their boxes, always line up. The slot keeps the full one-line
+    // height even when the text shrinks.
+    final labelText = ExcludeSemantics(
+      child: SizedBox(
+        height: lineHeight,
+        child: Align(
+          alignment: AlignmentDirectional.bottomStart,
+          child: DefaultTextStyle.merge(
+            style: style,
+            child: MenzilFitText(label, minScale: 0.6),
+          ),
+        ),
+      ),
+    );
+    if (!withInfo) {
+      return Padding(
+        key: const ValueKey('menzil-compact-label'),
+        padding: const EdgeInsets.only(bottom: MenzilSpace.compactLabelGap),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [Expanded(child: labelText)],
+        ),
+      );
+    }
+    final rowHeight = math.max(_infoTarget, lineHeight);
+    // The icon's centre sits on the label text's centre.
+    final iconPad = math.max(0.0, (lineHeight - _infoIcon) / 2);
     return Padding(
       key: const ValueKey('menzil-compact-label'),
       padding: const EdgeInsets.only(bottom: MenzilSpace.compactLabelGap),
-      child: ExcludeSemantics(
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.end,
+      child: SizedBox(
+        height: rowHeight,
+        child: Stack(
           children: [
-            // One line that shrinks only as far as it must: side-by-side
-            // labels, and so their boxes, always line up.
-            // The slot keeps the full one-line height even when the text
-            // shrinks, so neighbouring boxes start at the same height.
-            Expanded(
-              child: SizedBox(
-                height: lineHeight,
-                child: Align(
-                  alignment: AlignmentDirectional.bottomStart,
-                  child: DefaultTextStyle.merge(
-                    style: style,
-                    child: MenzilFitText(label, minScale: 0.6),
-                  ),
-                ),
-              ),
+            PositionedDirectional(
+              start: 0,
+              end: _LabelWithInfo._reserve,
+              bottom: 0,
+              child: labelText,
+            ),
+            PositionedDirectional(
+              end: 0,
+              top: 0,
+              bottom: 0,
+              child: text != null
+                  ? MenzilInfoButton(
+                      title: label,
+                      text: text,
+                      alignment: Alignment.bottomCenter,
+                      padding: EdgeInsets.only(bottom: iconPad),
+                    )
+                  : const SizedBox(width: _infoTarget),
             ),
           ],
         ),
       ),
     );
   }
+
+  static const double _infoTarget = 44;
+  static const double _infoIcon = 18;
 }
 
-/// Unit and ⓘ inside a compact box, at its right edge: as tall as the box,
-/// so the ⓘ's tap target is 44 × 44 pt.
+/// Unit inside a compact box, at its right edge: as tall as the box. The ⓘ
+/// is in the label row ([_CompactLabel], owner 2026-10-17).
 class _CompactTrailing extends StatelessWidget {
-  final String title;
   final String? unit;
-  final String? info;
 
-  /// Shown after the ⓘ (the arrow of a list box).
+  /// Shown after the unit (the arrow of a list box).
   final Widget? after;
 
-  const _CompactTrailing({
-    required this.title,
-    required this.unit,
-    required this.info,
-    this.after,
-  });
+  const _CompactTrailing({required this.unit, this.after});
 
   @override
   Widget build(BuildContext context) {
     final c = MenzilColors.of(context);
-    final text = info;
     return SizedBox(
       height: MenzilSpace.compactControl,
       child: Row(
@@ -1002,15 +1049,13 @@ class _CompactTrailing extends StatelessWidget {
                 style: MenzilType.unit(c.ink2),
               ),
             ),
-          if (text != null)
-            IconTheme.merge(
-              data: const IconThemeData(size: 18),
-              child: MenzilInfoButton(title: title, text: text),
-            )
-          else if (after == null)
-            // Space after the unit when there is no ⓘ.
-            const SizedBox(width: 12),
-          ?after,
+          if (after == null)
+            // Space after the unit, as in a regular box.
+            const SizedBox(width: 12)
+          else ...[
+            if (unit != null) const SizedBox(width: 4),
+            after!,
+          ],
         ],
       ),
     );
@@ -1177,7 +1222,8 @@ class MenzilFieldLabel extends StatelessWidget {
   }
 }
 
-/// Text input: label row (label + unit) above a rounded, high-contrast field.
+/// Text input: label row (label + ⓘ) above a rounded, high-contrast field
+/// with the unit inside it at the right (owner, 2026-10-16).
 /// [semanticLabel] gives VoiceOver the full label including the unit.
 class MenzilInput extends StatelessWidget {
   final TextEditingController controller;
@@ -1201,7 +1247,7 @@ class MenzilInput extends StatelessWidget {
   final int minLines;
   final int maxLines;
 
-  /// Compact variant (label above a 44 pt box, unit and ⓘ inside it). Null
+  /// Compact variant (label and ⓘ above a 44 pt box, unit inside it). Null
   /// follows the enclosing [MenzilCompactFields] (off when there is none).
   final bool? compact;
 
@@ -1233,8 +1279,9 @@ class MenzilInput extends StatelessWidget {
       (maxLines > 1 ? TextInputAction.newline : TextInputAction.next);
 
   /// Hava Durumu / Pro Ayarlar ([MenzilCompactFields], owner "Fikir 4",
-  /// 2026-10-13): small label 5 pt above a 44 pt box; the unit and the ⓘ sit
-  /// inside the box on the right. The box gets its 44 pt from the trailing
+  /// 2026-10-13): small label 5 pt above a 44 pt box, the ⓘ at the right
+  /// end of the label row (owner, 2026-10-17); the unit sits inside the box
+  /// on the right. The box gets its 44 pt from the trailing
   /// part (as tall as the box); the text needs less up to text scale 1.3 and
   /// the box grows only beyond that. Errors stay below the box.
   Widget _buildCompact(BuildContext context) {
@@ -1245,7 +1292,7 @@ class MenzilInput extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         mainAxisSize: MainAxisSize.min,
         children: [
-          _CompactLabel(label: label),
+          _CompactLabel(label: label, info: info),
           Semantics(
             label: semanticLabel,
             child: TextField(
@@ -1277,11 +1324,7 @@ class MenzilInput extends StatelessWidget {
                   4,
                   8,
                 ),
-                suffixIcon: _CompactTrailing(
-                  title: label,
-                  unit: unit,
-                  info: info,
-                ),
+                suffixIcon: _CompactTrailing(unit: unit),
                 suffixIconConstraints: const BoxConstraints(
                   minHeight: MenzilSpace.compactControl,
                 ),
@@ -1305,12 +1348,13 @@ class MenzilInput extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         mainAxisSize: MainAxisSize.min,
         children: [
+          // The unit is inside the box at its right, not in the label row
+          // (owner, 2026-10-16 20:49–21:04, approved Temiz Tasarım); the ⓘ
+          // stays at the right of the label row.
           _LabelWithInfo(
             title: label,
             info: info,
-            label: ExcludeSemantics(
-              child: MenzilFieldLabel(label: label, unit: unit),
-            ),
+            label: ExcludeSemantics(child: MenzilFieldLabel(label: label)),
           ),
           Semantics(
             label: semanticLabel,
@@ -1337,10 +1381,38 @@ class MenzilInput extends StatelessWidget {
                 helperText: helperText,
                 errorText: errorText,
                 counterText: maxLength == null ? null : '',
+                suffixIcon: unit == null ? null : _InputUnit(unit!),
+                // As small as the unit: the box keeps its height and the
+                // typed value ends where the unit starts (never under it).
+                suffixIconConstraints: const BoxConstraints(),
               ),
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+/// The unit of a regular [MenzilInput], inside the box at its right edge
+/// (owner, 2026-10-16). VoiceOver reads it with the field's label
+/// ([MenzilInput.semanticLabel]), so it is excluded here.
+class _InputUnit extends StatelessWidget {
+  final String unit;
+  const _InputUnit(this.unit);
+
+  @override
+  Widget build(BuildContext context) {
+    final c = MenzilColors.of(context);
+    return Padding(
+      padding: const EdgeInsetsDirectional.only(start: 6, end: 12),
+      child: ExcludeSemantics(
+        child: Text(
+          unit,
+          key: const ValueKey('menzil-input-unit'),
+          maxLines: 1,
+          style: MenzilType.unit(c.ink2),
+        ),
       ),
     );
   }
@@ -1370,7 +1442,7 @@ class MenzilSelect<T> extends StatefulWidget {
   /// Shown under the box in the error colour (e.g. a max below the min).
   final String? errorText;
 
-  /// Compact variant (label above a 44 pt box; unit, ⓘ and arrow inside).
+  /// Compact variant (label and ⓘ above a 44 pt box; unit and arrow inside).
   /// Null follows the enclosing [MenzilCompactFields] (off when none).
   final bool? compact;
 
@@ -1621,14 +1693,14 @@ class MenzilSelectState<T> extends State<MenzilSelect<T>>
         mainAxisSize: MainAxisSize.min,
         children: [
           if (compact)
-            _CompactLabel(label: w.label)
+            _CompactLabel(label: w.label, info: w.info)
           else
+            // The unit is inside the box, left of the arrow (owner,
+            // 2026-10-17: "fps bar kutu içi"); the ⓘ at the row's right.
             _LabelWithInfo(
               title: w.label,
               info: w.info,
-              label: ExcludeSemantics(
-                child: MenzilFieldLabel(label: w.label, unit: w.unit),
-              ),
+              label: ExcludeSemantics(child: MenzilFieldLabel(label: w.label)),
             ),
           Semantics(
             label: w.semanticLabel ?? w.label,
@@ -1668,8 +1740,7 @@ class MenzilSelectState<T> extends State<MenzilSelect<T>>
                       child: GestureDetector(
                         // The list is opened here, under the box ([_open]);
                         // Flutter's own list (onChanged null below) would lie
-                        // over the box. The ⓘ inside a compact box keeps its
-                        // own tap.
+                        // over the box.
                         behavior: HitTestBehavior.opaque,
                         onTap: w.onChanged == null ? null : _open,
                         child: DropdownButton<T>(
@@ -1770,7 +1841,7 @@ class MenzilSelectState<T> extends State<MenzilSelect<T>>
                           // after the arrow, so the text still starts 16 pt and
                           // the arrow ends 16 pt inside the box, as before.
                           // Compact (Fikir 4): no vertical padding; the 44 pt
-                          // trailing part (unit, ⓘ, arrow) sets the box height.
+                          // trailing part (unit, arrow) sets the box height.
                           padding: compact
                               ? const EdgeInsetsDirectional.only(end: 4)
                               : const EdgeInsetsDirectional.fromSTEB(
@@ -1779,21 +1850,35 @@ class MenzilSelectState<T> extends State<MenzilSelect<T>>
                                   12,
                                   13,
                                 ),
-                          // Compact: the ⓘ sits left of the arrow, inside the
-                          // box. Its own button takes the tap, so it opens the
-                          // explanation and never the list. A dense button is as tall
-                          // as its icon size: 44 pt.
+                          // Compact: the unit left of the arrow; a dense
+                          // button is as tall as its icon size: 44 pt.
+                          // Regular: a unit sits left of the arrow too.
                           icon: compact
                               ? _CompactTrailing(
-                                  title: w.label,
                                   unit: w.unit,
-                                  info: w.info,
                                   after: IconTheme.merge(
                                     data: const IconThemeData(size: 24),
                                     child: arrow,
                                   ),
                                 )
-                              : arrow,
+                              : w.unit == null
+                              ? arrow
+                              : Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    ExcludeSemantics(
+                                      child: Text(
+                                        w.unit!,
+                                        key: const ValueKey(
+                                          'menzil-select-unit',
+                                        ),
+                                        style: MenzilType.unit(c.ink2),
+                                      ),
+                                    ),
+                                    const SizedBox(width: 4),
+                                    arrow,
+                                  ],
+                                ),
                           iconSize: compact ? MenzilSpace.compactControl : 24,
                           // The closed box's text: 15 pt, regular (owner,
                           // 2026-10-11).

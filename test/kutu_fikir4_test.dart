@@ -1,8 +1,13 @@
 // Kutu "Fikir 4" (owner, 2026-10-13): on Hava Durumu and Pro Ayarlar the
-// small label sits ≤ 8 pt above a 44 pt box; the unit and the ⓘ are inside
-// the box on the right; the ⓘ keeps a 44 × 44 pt tap target, opens the same
-// popup and neither focuses the field nor opens a list. Every other page
-// (Profil here) keeps the 44 pt label row and the 46 pt box.
+// small label sits ≤ 8 pt above a 44 pt box; the unit is inside the box on
+// the right; the ⓘ is at the right end of the label row since 2026-10-17
+// (owner: "fps bar kutu içi, infolar sağ üst"), keeps a 44 × 44 pt tap
+// target, opens the same popup and neither focuses the field nor opens a
+// list. Every other page
+// (Profil here) keeps the 44 pt label row (label and ⓘ) and the 46 pt box,
+// with the unit inside the box at its right since 2026-10-16 (owner,
+// approved Temiz Tasarım), except the PCP Mühimmat card, which uses the
+// compact boxes since 2026-10-16 (test/pcp_muhimmat_tasarim_test.dart).
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:sniper_turk/features/ballistics/ballistics_screen.dart';
@@ -77,8 +82,8 @@ Future<void> _pump(
   await tester.pumpAndSettle();
 }
 
-/// Label text bottom to box top, box height, ⓘ inside the box with a
-/// 44 × 44 pt target, unit inside the box left of the ⓘ.
+/// Label text bottom to box top, box height, ⓘ at the right end of the
+/// label row with a 44 × 44 pt target, unit inside the box at its right.
 void _expectCompactInput(
   WidgetTester tester,
   Key key, {
@@ -113,20 +118,24 @@ void _expectCompactInput(
     );
     return;
   }
-  final info = _infoIn(field);
-  expect(info, findsOneWidget, reason: '$key ⓘ inside the box');
+  expect(_infoIn(field), findsNothing, reason: '$key no ⓘ in the box');
+  final info = _infoIn(find.byKey(key));
+  expect(info, findsOneWidget, reason: '$key ⓘ in the label row');
   final infoRect = tester.getRect(info);
   expect(infoRect.width, greaterThanOrEqualTo(44 - 0.01), reason: '$key ⓘ');
   expect(infoRect.height, greaterThanOrEqualTo(44 - 0.01), reason: '$key ⓘ');
-  expect(infoRect.right, lessThanOrEqualTo(box.right + 0.01));
-  expect(infoRect.top, greaterThanOrEqualTo(box.top - 0.01));
-  expect(infoRect.bottom, lessThanOrEqualTo(box.bottom + 0.01));
+  // Above the box, its right edge on the box's right edge.
+  expect((infoRect.right - box.right).abs(), lessThanOrEqualTo(1));
+  expect(infoRect.bottom, lessThanOrEqualTo(box.top + 0.01));
+  expect(infoRect.center.dy, lessThan(box.top), reason: '$key ⓘ row');
   final unitText = find.descendant(of: field, matching: find.text(unit));
   expect(unitText, findsOneWidget, reason: '$key unit inside the box');
   final unitRect = tester.getRect(unitText);
-  // Right before the ⓘ, at the right of the box.
-  expect(unitRect.right, lessThanOrEqualTo(infoRect.left + 0.01));
-  expect(infoRect.left - unitRect.right, lessThan(1), reason: '$key unit');
+  // Inside the box, at its right.
+  expect(unitRect.right, lessThanOrEqualTo(box.right + 0.01));
+  expect(unitRect.left, greaterThan(box.center.dx), reason: '$key unit');
+  expect(unitRect.top, greaterThanOrEqualTo(box.top - 0.01));
+  expect(unitRect.bottom, lessThanOrEqualTo(box.bottom + 0.01));
   // No unit in a label row any more.
   expect(
     find.descendant(of: find.byKey(key), matching: find.text(unit)),
@@ -145,7 +154,7 @@ Future<void> _scrollThrough(WidgetTester tester) async {
 
 void main() {
   group('Hava Durumu', () {
-    testWidgets('label ≤ 8 pt above a 44 pt box; unit and ⓘ inside', (
+    testWidgets('label ≤ 8 pt above a 44 pt box; unit inside, ⓘ top right', (
       tester,
     ) async {
       await _pump(tester, BallisticsView.environment);
@@ -195,16 +204,13 @@ void main() {
         label: 'Rüzgâr yönü',
         unit: 'saat',
       );
-      // No 44 pt label row: no ⓘ outside a box.
+      // No ⓘ inside a box any more (owner, 2026-10-17).
       for (final k in [
         BallisticsFieldKeys.temperature,
         BallisticsFieldKeys.pressure,
         BallisticsFieldKeys.wind,
       ]) {
-        expect(
-          _infoIn(find.byKey(k)).evaluate().length,
-          _infoIn(_field(k)).evaluate().length,
-        );
+        expect(_infoIn(_field(k)), findsNothing, reason: '$k');
       }
       // Measurements for docs/reports/kutu_fikir4.md.
       final box = tester.getRect(_field(BallisticsFieldKeys.temperature));
@@ -250,7 +256,7 @@ void main() {
     ) async {
       await _pump(tester, BallisticsView.environment);
       final field = _field(BallisticsFieldKeys.temperature);
-      await tester.tap(_infoIn(field));
+      await tester.tap(_infoIn(find.byKey(BallisticsFieldKeys.temperature)));
       await tester.pumpAndSettle();
       expect(find.byType(AlertDialog), findsOneWidget);
       expect(
@@ -330,7 +336,11 @@ void main() {
       expect(tester.takeException(), isNull);
       final box = tester.getRect(_field(BallisticsFieldKeys.temperature));
       expect(box.height, moreOrLessEquals(44, epsilon: 0.01));
-      expect(_infoIn(_field(BallisticsFieldKeys.temperature)), findsOneWidget);
+      expect(_infoIn(_field(BallisticsFieldKeys.temperature)), findsNothing);
+      expect(
+        _infoIn(find.byKey(BallisticsFieldKeys.temperature)),
+        findsOneWidget,
+      );
     });
   });
 
@@ -383,11 +393,19 @@ void main() {
       await tester.pumpAndSettle();
       final error = find.textContaining('arasında olmalı');
       expect(error, findsOneWidget);
+      // The unit part inside the box is as tall as the box (44 pt).
       final trailing = tester.getRect(
-        find.descendant(of: field, matching: find.byType(MenzilInfoButton)),
+        find
+            .ancestor(
+              of: find.descendant(of: field, matching: find.text('m')),
+              matching: find.byWidgetPredicate(
+                (w) => w is SizedBox && w.height == MenzilSpace.compactControl,
+              ),
+            )
+            .first,
       );
       final top = tester.getTopLeft(field).dy;
-      // The box is still 44 pt (its ⓘ fills it); the error is under it.
+      // The box is still 44 pt; the error is under it.
       expect(trailing.height, moreOrLessEquals(44, epsilon: 0.01));
       expect(trailing.top, moreOrLessEquals(top, epsilon: 0.01));
       expect(tester.getRect(error).top, greaterThanOrEqualTo(top + 44 - 0.01));
@@ -503,9 +521,8 @@ void main() {
     expect(newWhole.height, lessThan(oldWhole.height));
   });
 
-  testWidgets('Profil keeps the old layout: 44 pt label row, 46 pt box', (
-    tester,
-  ) async {
+  testWidgets('Profil keeps the 44 pt label row and the 46 pt box outside '
+      'the PCP Mühimmat card; the unit is inside the box', (tester) async {
     tester.view.physicalSize = const Size(430 * 3, 2600 * 3);
     tester.view.devicePixelRatio = 3;
     addTearDown(tester.view.reset);
@@ -519,6 +536,7 @@ void main() {
     await tester.tap(find.byTooltip('Yeni profil'));
     await tester.pumpAndSettle();
     await chooseInSelect(tester, 'profile-platform', 'PCP Tüfek');
+    // Tüp basıncı, on the Tüfek card since 2026-10-16.
     const key = Key('profile-tube-pressure');
     await tester.ensureVisible(find.byKey(key));
     await tester.pumpAndSettle();
@@ -537,8 +555,19 @@ void main() {
     );
     expect(box.top - whole.top, greaterThanOrEqualTo(44 - 0.01));
     expect(box.height, greaterThanOrEqualTo(MenzilSpace.control - 0.01));
+    // The unit sits inside the box at its right (owner, 2026-10-16), not in
+    // the label row.
+    final unit = find.descendant(of: field, matching: find.text('bar'));
+    expect(unit, findsOneWidget);
+    final u = tester.getRect(unit);
+    expect(u.left, greaterThanOrEqualTo(box.left));
+    expect(u.right, lessThanOrEqualTo(box.right));
+    expect(u.center.dx, greaterThan(box.center.dx));
     expect(
-      find.descendant(of: field, matching: find.text('bar')),
+      find.descendant(
+        of: find.byType(MenzilFieldLabel),
+        matching: find.text('bar'),
+      ),
       findsNothing,
     );
     // A Profil select keeps its label row too.

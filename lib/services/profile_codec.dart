@@ -22,6 +22,8 @@ class ProfileCodec {
         'pressureVelocity': [
           for (final pt in p.pressureVelocityTable) {'bar': pt.bar, 'mps': pt.mps},
         ],
+        'pcpMinVelocityMps': p.pcpMinVelocityMps,
+        'pcpMaxVelocityMps': p.pcpMaxVelocityMps,
         'angularUnit': p.angularUnit.name,
         'distanceUnit': p.distanceUnit.name,
         'mountCantMoa': p.mountCantMoa,
@@ -96,9 +98,11 @@ class ProfileCodec {
     } else {
       throw const FormatException('Invalid profile field: pressureBar');
     }
-    // PCP tüp basıncı and basınca göre hız (2026-10-12) are absent in older
-    // profiles: none. A present malformed value is corruption (it would
-    // silently change the field velocity).
+    // PCP tüp basıncı (2026-10-12) is absent in older profiles: none. A
+    // present malformed value is corruption. The "Basınca göre hız" table is
+    // deleted (2026-10-16) but a saved one is still read and written back
+    // unchanged, so the user's data is never erased; nothing calculates
+    // with it.
     final tubeRaw = j['tubePressureBar'];
     final double? tubePressureBar;
     if (tubeRaw == null) {
@@ -129,6 +133,25 @@ class ProfileCodec {
         table.add(PressureVelocityPoint(bar: bar.toDouble(), mps: mps.toDouble()));
       }
       table.sort((a, b) => a.bar.compareTo(b.bar));
+    }
+    // PCP En düşük / En yüksek namlu çıkış hızı (owner, 2026-10-16) are
+    // optional, each on its own, and absent in older profiles: none. They
+    // are saved only; every calculation uses Namlu çıkış hızı (owner,
+    // 2026-10-17). Both present come lowest first, as ProfileInput saves
+    // them; anything else is corruption.
+    double? optionalVelocity(String key) {
+      final value = j[key];
+      if (value == null) return null;
+      if (value is num && value.toDouble().isFinite && value > 0 &&
+          value.toDouble() <= ProductionLimits.maxMuzzleVelocityMps) {
+        return value.toDouble();
+      }
+      throw FormatException('Invalid profile field: $key');
+    }
+    final pcpMin = optionalVelocity('pcpMinVelocityMps');
+    final pcpMax = optionalVelocity('pcpMaxVelocityMps');
+    if (pcpMin != null && pcpMax != null && pcpMin > pcpMax) {
+      throw const FormatException('Invalid profile field: pcpVelocity');
     }
     // mountCantMoa is absent in profiles saved before the field existed:
     // those are normal (0 MOA) mounts. A present malformed value is
@@ -174,6 +197,8 @@ class ProfileCodec {
       pressureBar: pressureBar,
       tubePressureBar: tubePressureBar,
       pressureVelocityTable: List.unmodifiable(table),
+      pcpMinVelocityMps: pcpMin,
+      pcpMaxVelocityMps: pcpMax,
       angularUnit: unit,
       distanceUnit: distanceUnit,
       mountCantMoa: mountCantMoa,

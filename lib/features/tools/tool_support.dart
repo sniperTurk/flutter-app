@@ -46,12 +46,10 @@ abstract final class ToolProfileUpdate {
       platform: platform,
       // An older profile's pressure is kept as it was (no longer asked).
       pressureText: base.pressureBar?.toString(),
-      // Tüp basıncı and basınca göre hız are kept as they were.
+      // Tüp basıncı and the PCP velocities are kept as they were.
       tubePressureText: base.tubePressureBar?.toString(),
-      pressureTable: [
-        for (final pt in base.pressureVelocityTable)
-          (pt.bar.toString(), UnitSystem.mpsToFps(pt.mps).toString()),
-      ],
+      pcpMinVelocityText: base.pcpMinVelocityMps?.toString(),
+      pcpMaxVelocityText: base.pcpMaxVelocityMps?.toString(),
       mountCantMoa: base.mountCantMoa,
       powderCoefText: (powderCoef ?? base.powderTempCoefPercentPer15C)
           ?.toString(),
@@ -69,11 +67,11 @@ abstract final class ToolProfileUpdate {
       sightHeightMm: input.sightHeightMm,
       pressureBar: input.pressureBar,
       tubePressureBar: input.tubePressureBar,
-      // Validated above; the stored points are kept bit for bit (an
-      // m/s → fps → m/s round trip could change the last digit).
-      pressureVelocityTable: input.pressureVelocityTable.isEmpty
-          ? const []
-          : base.pressureVelocityTable,
+      // The deleted "Basınca göre hız" table (2026-10-16): carried as it
+      // was so the saved data is not erased; nothing reads it.
+      pressureVelocityTable: base.pressureVelocityTable,
+      pcpMinVelocityMps: input.pcpMinVelocityMps,
+      pcpMaxVelocityMps: input.pcpMaxVelocityMps,
       angularUnit: base.angularUnit,
       distanceUnit: base.distanceUnit,
       mountCantMoa: input.mountCantMoa,

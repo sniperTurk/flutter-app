@@ -1,6 +1,8 @@
 // PCP tüp ve regülatör basıncı on the profile (owner, 2026-10-12):
 // validation, storage, catalog coherence and the tools keep the values;
 // a firearm never has them; older profiles read the same as before.
+// The "Basınca göre hız" table input is deleted (owner, 2026-10-16); a
+// saved table is still decoded and carried, never read.
 import 'package:flutter_test/flutter_test.dart';
 import 'package:sniper_turk/core/profile_input.dart';
 import 'package:sniper_turk/data/profile_catalog_integrity.dart';
@@ -8,6 +10,8 @@ import 'package:sniper_turk/features/tools/tool_support.dart';
 import 'package:sniper_turk/models/domain.dart';
 import 'package:sniper_turk/services/profile_codec.dart';
 
+/// A PCP profile saved before 2026-10-16: pressures and a "Basınca göre
+/// hız" table, no En düşük / En yüksek namlu çıkış hızı.
 const _pcp = RifleProfile(
   id: 'p',
   name: 'P',
@@ -29,7 +33,6 @@ ProfileInput _validate({
   WeaponPlatform platform = WeaponPlatform.pcp,
   String? regulator,
   String? tube,
-  List<(String, String)> table = const [],
 }) => ProfileInput.validate(
   name: 'P',
   muzzleVelocityText: '270',
@@ -38,7 +41,6 @@ ProfileInput _validate({
   platform: platform,
   pressureText: regulator,
   tubePressureText: tube,
-  pressureTable: table,
 );
 
 void main() {
@@ -47,20 +49,12 @@ void main() {
       final i = _validate();
       expect(i.pressureBar, isNull);
       expect(i.tubePressureBar, isNull);
-      expect(i.pressureVelocityTable, isEmpty);
     });
 
-    test('values kept; comma decimals; fps stored as m/s', () {
-      final i = _validate(
-        regulator: '150',
-        tube: '250,5',
-        table: const [('120', '836,6'), ('', ''), ('150', '885,8')],
-      );
+    test('values kept; comma decimals', () {
+      final i = _validate(regulator: '150', tube: '250,5');
       expect(i.pressureBar, 150);
       expect(i.tubePressureBar, 250.5);
-      expect(i.pressureVelocityTable.length, 2);
-      expect(i.pressureVelocityTable.first.bar, 120);
-      expect(i.pressureVelocityTable.first.mps, closeTo(255, 0.01));
     });
 
     test('regulator must be below the tube pressure', () {
@@ -74,24 +68,9 @@ void main() {
       );
     });
 
-    test('a half row, a duplicate pressure or a bad value is rejected', () {
-      expect(
-        () => _validate(table: const [('120', '')]),
-        throwsFormatException,
-      );
-      expect(
-        () => _validate(table: const [('120', '800'), ('120', '850')]),
-        throwsFormatException,
-      );
-      expect(
-        () => _validate(table: const [('501', '800'), ('120', '850')]),
-        throwsFormatException,
-      );
-      expect(
-        () => _validate(table: const [('100', '50'), ('120', '850')]),
-        throwsFormatException,
-      );
+    test('a bad tube pressure is rejected', () {
       expect(() => _validate(tube: '0'), throwsFormatException);
+      expect(() => _validate(tube: '501'), throwsFormatException);
     });
 
     test('a firearm never stores them', () {
@@ -99,11 +78,9 @@ void main() {
         platform: WeaponPlatform.firearm,
         regulator: '150',
         tube: '250',
-        table: const [('120', '800'), ('150', '850')],
       );
       expect(i.pressureBar, isNull);
       expect(i.tubePressureBar, isNull);
-      expect(i.pressureVelocityTable, isEmpty);
     });
   });
 
@@ -171,11 +148,36 @@ void main() {
     });
   });
 
-  test('Hız Doğrulama keeps the PCP pressure data', () {
+  test('a tool update keeps the PCP pressure data and the saved table', () {
     final updated = ToolProfileUpdate.apply(_pcp, muzzleVelocityMps: 272);
     expect(updated.muzzleVelocityMps, closeTo(272, 1e-9));
     expect(updated.pressureBar, 150);
     expect(updated.tubePressureBar, 250);
     expect(updated.pressureVelocityTable, _pcp.pressureVelocityTable);
+  });
+
+  test('a PCP with En düşük / En yüksek: a tool writes the Namlu çıkış '
+      'hızı (owner, 2026-10-17); every update keeps both', () {
+    const p = RifleProfile(
+      id: 'p2',
+      name: 'P2',
+      rifleId: 'hatsan-hercules-635',
+      ammunitionId: 'gmaz-51',
+      scopeId: 'gazi-6-36',
+      muzzleVelocityMps: 265,
+      pcpMinVelocityMps: 260,
+      pcpMaxVelocityMps: 270,
+      zeroRangeM: 30,
+      sightHeightMm: 60,
+    );
+    final trued = ToolProfileUpdate.apply(p, muzzleVelocityMps: 272);
+    expect(trued.muzzleVelocityMps, closeTo(272, 1e-9));
+    expect(trued.pcpMinVelocityMps, 260);
+    expect(trued.pcpMaxVelocityMps, 270);
+    final updated = ToolProfileUpdate.apply(p, sightHeightMm: 55);
+    expect(updated.sightHeightMm, 55);
+    expect(updated.pcpMinVelocityMps, 260);
+    expect(updated.pcpMaxVelocityMps, 270);
+    expect(updated.muzzleVelocityMps, 265);
   });
 }

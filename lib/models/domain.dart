@@ -271,9 +271,19 @@ class RifleProfile {
   /// PCP tüp basıncı (dolum basıncı) in bar; null = not given / firearm.
   final double? tubePressureBar;
 
-  /// PCP basınca göre hız: the user's chronograph points (tube pressure in
-  /// bar, velocity in m/s); empty = none. See [PcpPressure].
+  /// PCP "Basınca göre hız" points saved before 2026-10-16 (tube pressure
+  /// in bar, velocity in m/s). The feature is deleted (owner, 2026-10-16):
+  /// the table is only carried so a re-save does not erase the user's saved
+  /// data; NOTHING reads it for a calculation.
   final List<PressureVelocityPoint> pressureVelocityTable;
+
+  /// PCP En düşük / En yüksek namlu çıkış hızı in m/s (owner, 2026-10-16:
+  /// the lowest and highest of 10 chronograph shots, Mühimmat card).
+  /// Optional, each on its own, and always null on a firearm. Saved and
+  /// loaded only: owner 2026-10-17 ("namlu çıkış hızından yapsın
+  /// hesaplamayı"), every calculation uses the Tüfek card's Namlu çıkış
+  /// hızı [muzzleVelocityMps].
+  final double? pcpMinVelocityMps, pcpMaxVelocityMps;
   final AngularUnit angularUnit;
 
   /// Metre or yard for every distance shown for this profile.
@@ -303,6 +313,8 @@ class RifleProfile {
     this.pressureBar,
     this.tubePressureBar,
     this.pressureVelocityTable = const [],
+    this.pcpMinVelocityMps,
+    this.pcpMaxVelocityMps,
     this.angularUnit = AngularUnit.mrad,
     this.distanceUnit = DistanceUnit.meter,
     this.mountCantMoa = 0,

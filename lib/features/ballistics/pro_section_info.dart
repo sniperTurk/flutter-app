@@ -197,20 +197,6 @@ abstract final class ProSectionInfo {
       'PCP\'de 200 m\'nin ötesinde, slug ile anlamlıdır; yakın mesafede '
       'açmana gerek yok. Diabolo pellet için hesaplanmaz.';
 
-  static const pcpPressure = ProExplain(
-    title: 'Tüp basıncı',
-    what: 'PCP tüfekte her atışta tüpteki hava biraz azalır, basınç düşer.',
-    why:
-        'Regülatörsüz tüfekte hız basınca göre değişir. Regülatörlü tüfekte '
-        'tüp regülatör basıncının altına inince regülatör devre dışı kalır ve '
-        'hız düşer. Örneğin bir saçmada hız 10 m/s düşerse 50 m\'de yaklaşık '
-        '1,2 cm, 75 m\'de 2,8 cm aşağı vurur.',
-    how:
-        'Manometreden kalan basıncı oku ve kutuya yaz. Profil > Mühimmat\'ta '
-        'kronografla ölçtüğün basınca göre hız değerleri varsa hız onlardan '
-        'bulunur. Boş bırakırsan profil hızı kullanılır.',
-  );
-
   static const powder = ProExplain(
     title: 'Barut sıcaklığı',
     what:

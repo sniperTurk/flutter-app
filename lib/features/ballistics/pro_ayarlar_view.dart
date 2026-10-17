@@ -10,6 +10,7 @@ extension _ProAyarlarView on _BallisticsScreenState {
   /// The Pro Ayarlar page (BallisticsView.pro).
   Widget _proAyarlarPage(BuildContext context) {
     return MenzilCompactFields(
+      reserveInfo: false,
       child: MenzilPage(
         key: const PageStorageKey('ballistics-pro'),
         children: _proSection(context),
@@ -134,9 +135,6 @@ extension _ProAyarlarView on _BallisticsScreenState {
       // Mühimmat sıcaklığı is in this box since 2026-10-16 (owner): an
       // entered value is one setting on.
       _isFirearm && ammoTempCtl.text.trim().isNotEmpty,
-      _isPcp &&
-          _BallisticsScreenState._showProTubePressure &&
-          tubePressureCtl.text.trim().isNotEmpty,
     ].where((x) => x).length;
     return n == 0 ? 'kapalı' : '$n ayar açık';
   }
@@ -601,8 +599,6 @@ extension _ProAyarlarView on _BallisticsScreenState {
             note: _isFirearm ? null : ProSectionInfo.spinDriftPcpNote,
           ),
           if (_isFirearm) const ProInfoEntry(ProSectionInfo.powder),
-          if (_isPcp && _BallisticsScreenState._showProTubePressure)
-            const ProInfoEntry(ProSectionInfo.pcpPressure),
         ],
         fields: [
           const ProInfoField(
@@ -620,11 +616,6 @@ extension _ProAyarlarView on _BallisticsScreenState {
             const ProInfoField(
               'Mühimmat sıcaklığı',
               EnvironmentFieldInfo.ammoTemperature,
-            ),
-          if (_isPcp && _BallisticsScreenState._showProTubePressure)
-            const ProInfoField(
-              'Kalan tüp basıncı',
-              EnvironmentFieldInfo.tubePressure,
             ),
         ],
         children: [
@@ -774,10 +765,6 @@ extension _ProAyarlarView on _BallisticsScreenState {
               },
             ),
           ],
-          // PCP tüp basıncı (owner, 2026-10-12): never on a firearm; hidden
-          // behind PRO_TUBE_PRESSURE (owner, 2026-10-14: asked on Profil).
-          if (_isPcp && _BallisticsScreenState._showProTubePressure)
-            ..._pcpPressureProFields(c),
         ],
       ),
       // Garmin saati (owner, 2026-10-16: moved from Araçlar, "isteğe
@@ -791,66 +778,6 @@ extension _ProAyarlarView on _BallisticsScreenState {
           key: const Key('pro-continue-shot'),
           label: 'Hedef\'e geç',
           onPressed: widget.onContinueToShot,
-        ),
-    ];
-  }
-
-  /// Pro > Tüfek düzeltmeleri, PCP: Kalan tüp basıncı, the regulator
-  /// warning and the velocity used.
-  List<Widget> _pcpPressureProFields(MenzilColors c) {
-    final typed = tubePressureCtl.text.trim();
-    final tube = _parsed(tubePressureCtl);
-    final bad =
-        typed.isNotEmpty &&
-        (tube == null ||
-            tube <= 0 ||
-            tube > ProductionLimits.maxPcpPressureBar);
-    final v0 = widget.profile?.muzzleVelocityMps;
-    final r = v0 == null || bad ? null : _pcpVelocity(v0);
-    final fill = widget.profile?.tubePressureBar;
-    return [
-      MenzilFieldGrid(
-        children: [
-          MenzilInput(
-            key: const Key('pro-tube-pressure'),
-            controller: tubePressureCtl,
-            label: 'Kalan tüp basıncı',
-            unit: 'bar',
-            errorText: bad
-                ? '0 ile ${ProductionLimits.maxPcpPressureBar.toStringAsFixed(0)} '
-                      'arasında olmalı.'
-                : null,
-            onChanged: (_) => _coriolisChanged(),
-          ),
-        ],
-      ),
-      if (!bad && tube != null && fill != null && tube > fill)
-        const MenzilNotice(
-          key: Key('pro-pcp-above-fill'),
-          tone: MenzilNoticeTone.warning,
-          message:
-              'Kalan basınç, profildeki tüp basıncından yüksek; manometreyi '
-              'kontrol edin.',
-        ),
-      if (r != null && r.regulatorBypassed)
-        MenzilNotice(
-          key: const Key('pro-pcp-regulator'),
-          tone: MenzilNoticeTone.warning,
-          message: r.fromTable
-              ? 'Tüp basıncı regülatör basıncının altında: regülatör devre '
-                    'dışı, hız düşer. Hız, basınca göre hız ölçümlerinden '
-                    'alındı.'
-              : 'Tüp basıncı regülatör basıncının altında: regülatör devre '
-                    'dışı, hız düşer. Bu basınç için ölçüm yok; hesap profil '
-                    'hızıyla yapılıyor. Profil > Mühimmat\'ta basınca göre '
-                    'hız ölçümü girin.',
-        ),
-      if (r != null && v0 != null && r.mps != v0)
-        Text(
-          'Kullanılan hız: ${UnitSystem.mpsToFps(r.mps).toStringAsFixed(0)} '
-          'fps (profil ${UnitSystem.mpsToFps(v0).toStringAsFixed(0)} fps).',
-          key: const Key('pro-pcp-velocity'),
-          style: MenzilType.body(c.ink),
         ),
     ];
   }

@@ -46,7 +46,9 @@ class ProfileCatalogIntegrity {
     if (rifle.platform == WeaponPlatform.firearm &&
         (profile.pressureBar != null ||
             profile.tubePressureBar != null ||
-            profile.pressureVelocityTable.isNotEmpty)) {
+            profile.pressureVelocityTable.isNotEmpty ||
+            profile.pcpMinVelocityMps != null ||
+            profile.pcpMaxVelocityMps != null)) {
       return null;
     }
 
