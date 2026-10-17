@@ -9,21 +9,18 @@ import 'package:sniper_turk/features/profiles/profiles_screen.dart';
 import 'package:sniper_turk/models/domain.dart';
 
 void main() {
-  test(
-    'D114-0: every Profil helper the Kalibre box calls still exists',
-    () {
-      final rifle = File(
-        'lib/features/profiles/profile_editor_rifle.dart',
-      ).readAsStringSync();
-      final lib = [
-        for (final f in Directory('lib/features/profiles').listSync())
-          if (f is File && f.path.endsWith('.dart')) f.readAsStringSync(),
-      ].join('\n');
-      if (rifle.contains('_shortCartridge(')) {
-        expect(lib, contains('static String _shortCartridge('));
-      }
-    },
-  );
+  test('D114-0: every Profil helper the Kalibre box calls still exists', () {
+    final rifle = File(
+      'lib/features/profiles/profile_editor_rifle.dart',
+    ).readAsStringSync();
+    final lib = [
+      for (final f in Directory('lib/features/profiles').listSync())
+        if (f is File && f.path.endsWith('.dart')) f.readAsStringSync(),
+    ].join('\n');
+    if (rifle.contains('_shortCartridge(')) {
+      expect(lib, contains('static String _shortCartridge('));
+    }
+  });
 
   test(
     'D114-2: Profiller listesi shows the velocity the calculation uses',
