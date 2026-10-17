@@ -69,6 +69,8 @@ Future<void> _pump(
     host(
       Scaffold(
         body: BallisticsScreen(
+          // A new screen (new state) for each pump, so each source fetches.
+          key: ValueKey('$source-$width-$textScale-$auto'),
           profile: _profile,
           view: BallisticsView.environment,
           autoWeather: auto,
@@ -228,6 +230,8 @@ void main() {
 
     final google = await read(WeatherSource.google);
     final met = await read(WeatherSource.metNorway);
+    // The second screen really fetched from the MET fake.
+    expect(_message(tester, _ruzgar), startsWith('MET Norway rüzgâr verisi'));
     expect(google.$1, ['18.5', '55', '', '', '4.2', '']);
     expect(met.$1, google.$1);
     expect(google.$2.length, greaterThan(20));
