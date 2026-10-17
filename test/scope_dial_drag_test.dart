@@ -88,7 +88,22 @@ void main() {
     await tester.tap(find.byKey(ScopeDialKeys.dialSolution));
     await tester.pumpAndSettle();
     expect(_impact(tester), 'Vuruş noktası: artı işaretinde');
-    expect(find.textContaining('klik sol'), findsOneWidget);
+    // Under the scope ("Kule: … klik sol"), and since 2026-10-16 also in
+    // the compact click line above it ("Yan kule N klik sol").
+    expect(
+      find.descendant(
+        of: find.byType(ScopeDialView),
+        matching: find.textContaining('klik sol'),
+      ),
+      findsOneWidget,
+    );
+    expect(
+      find.descendant(
+        of: find.byKey(TurretSolutionRow.windageKey),
+        matching: find.textContaining('klik sol'),
+      ),
+      findsOneWidget,
+    );
     // The right (windage) turret slides open by itself (owner, 2026-10-09).
     expect(find.byKey(const ValueKey('windage-open')), findsOneWidget);
   });

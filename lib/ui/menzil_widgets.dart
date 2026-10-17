@@ -1430,27 +1430,8 @@ class MenzilSelectState<T> extends State<MenzilSelect<T>>
   /// The closed box (the list button); the open list hangs under it.
   final GlobalKey _boxKey = GlobalKey();
 
-  /// The open list, while it is open.
-  _MenzilMenuRoute<T>? _menu;
-
-  /// True while [_open] waits for the keyboard to go away.
-  bool _opening = false;
-
-  /// A tap on the box ends typing in another box, as Flutter's own list
-  /// button did by taking the focus: the keyboard closes first and the list
-  /// is placed once it is gone (at most about half a second), so it is
-  /// never laid out against a keyboard that is about to disappear.
-  Future<void> _closeKeyboard() async {
-    FocusManager.instance.primaryFocus?.unfocus();
-    // The window's own insets: a Scaffold hides the keyboard from the
-    // MediaQuery of its body.
-    for (var i = 0; i < 60; i++) {
-      if (!mounted) return;
-      if (View.of(context).viewInsets.bottom == 0) return;
-      WidgetsBinding.instance.scheduleFrame();
-      await WidgetsBinding.instance.endOfFrame;
-    }
-  }
+  /// The open list (shared with the top-bar profile button).
+  final MenzilSelectMenu<T> _menu = MenzilSelectMenu<T>();
 
   /// The value currently picked (null: "Seçiniz"); read by tests.
   T? get value => _value;
@@ -1469,27 +1450,15 @@ class MenzilSelectState<T> extends State<MenzilSelect<T>>
   @override
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
-    _closeMenu();
+    _menu.close();
     super.dispose();
   }
 
-  /// Window width when the list opened.
-  double? _openWidth;
-
-  /// A rotation or a resized window moves the box: the list closes. The
-  /// keyboard coming or going changes the metrics too, but not the width;
-  /// that keeps the list open (it closed the list under the user's finger
-  /// on the iOS Simulator).
+  /// A rotation or a resized window moves the box: the list closes (see
+  /// [MenzilSelectMenu.metricsChanged]).
   @override
   void didChangeMetrics() {
-    if (_menu == null || !mounted) return;
-    if (View.of(context).physicalSize.width != _openWidth) _closeMenu();
-  }
-
-  void _closeMenu() {
-    final menu = _menu;
-    _menu = null;
-    if (menu != null && menu.isActive) menu.navigator?.removeRoute(menu);
+    if (mounted) _menu.metricsChanged(context);
   }
 
   @override
@@ -1500,94 +1469,31 @@ class MenzilSelectState<T> extends State<MenzilSelect<T>>
     }
   }
 
-  /// Opens the list UNDER the box, [MenzilSelect.menuGap] below it and
-  /// exactly as wide as the box (owner, 2026-10-15). When the screen has
-  /// too little room below, the page scrolls up first so the list still
-  /// opens downward (before, Flutter laid the list over the box and opened
-  /// it upward near the bottom of the screen).
+  /// True while [_open] waits for the keyboard to go away.
+  bool _opening = false;
+
+  /// Opens the list UNDER the box (see [MenzilSelectMenu.show]), once the
+  /// keyboard is gone.
   Future<void> _open() async {
     final w = widget;
-    if (w.onChanged == null || w.items.isEmpty || _menu != null || _opening) {
+    if (w.onChanged == null || w.items.isEmpty || _menu.isOpen || _opening) {
       return;
     }
     _opening = true;
     try {
-      await _closeKeyboard();
+      await MenzilSelectMenu.closeKeyboard(context);
     } finally {
       _opening = false;
     }
     if (!mounted) return;
-    if (_menu != null) return;
-    final navigator = Navigator.of(context);
-    final box = _boxKey.currentContext?.findRenderObject();
-    final navBox = navigator.context.findRenderObject();
-    if (box is! RenderBox || navBox is! RenderBox || !box.hasSize) return;
-    var rect = box.localToGlobal(Offset.zero, ancestor: navBox) & box.size;
-    final mq = MediaQuery.of(context);
-    final bottom =
-        navBox.size.height -
-        math.max(mq.padding.bottom, mq.viewInsets.bottom) -
-        MenzilSpace.sm;
-    final itemH = w.itemHeight ?? kMinInteractiveDimension;
-    final want = math.min(
-      MenzilSelect.menuMaxHeight,
-      w.items.length * itemH + _DropdownMenu.listPadding * 2,
-    );
-    var room = bottom - rect.bottom - MenzilSelect.menuGap;
-    if (room < want) {
-      final position = Scrollable.maybeOf(context)?.position;
-      if (position != null &&
-          position.axis == Axis.vertical &&
-          !axisDirectionIsReversed(position.axisDirection)) {
-        final target = math.min(
-          position.maxScrollExtent,
-          position.pixels + (want - room),
-        );
-        final moved = target - position.pixels;
-        if (moved > 0) {
-          position.jumpTo(target);
-          rect = rect.shift(Offset(0, -moved));
-          room += moved;
-        }
-      }
-    }
-    final c = MenzilColors.of(context);
-    final menu = _MenzilMenuRoute<T>(
-      anchor: rect,
-      maxHeight: room.clamp(
-        kMinInteractiveDimension,
-        MenzilSelect.menuMaxHeight,
-      ),
-      items: [
-        for (final it in w.items)
-          DropdownMenuItem<T>(
-            key: it.key,
-            value: it.value,
-            enabled: it.enabled,
-            onTap: it.onTap,
-            alignment: it.alignment,
-            // List entries in regular weight (owner, 2026-10-11).
-            child: DefaultTextStyle.merge(
-              style: const TextStyle(fontWeight: FontWeight.w400),
-              child: it.child,
-            ),
-          ),
-      ],
+    final pending = _menu.show(
+      context,
+      box: () => _boxKey.currentContext?.findRenderObject(),
+      items: w.items,
       itemHeight: w.itemHeight,
-      // Entries a bit smaller and not bold (owner, 2026-10-11).
-      style: TextStyle(fontSize: 15, fontWeight: FontWeight.w400, color: c.ink),
-      color: c.surface,
-      borderColor: c.line,
-      capturedThemes: InheritedTheme.capture(
-        from: context,
-        to: navigator.context,
-      ),
-      barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
     );
-    _menu = menu;
-    _openWidth = View.of(context).physicalSize.width;
-    final result = await navigator.push(menu);
-    if (identical(_menu, menu)) _menu = null;
+    if (pending == null) return;
+    final result = await pending;
     if (!mounted || result == null) return;
     setState(() => _value = result.value);
     widget.onChanged?.call(result.value);
@@ -1858,6 +1764,145 @@ class MenzilSelectState<T> extends State<MenzilSelect<T>>
         ],
       ),
     );
+  }
+}
+
+/// The open list of every [MenzilSelect], for any box: under the box,
+/// [MenzilSelect.menuGap] below it and exactly as wide, in the same route,
+/// surface, border, corner, rows, text and fade (owner, 2026-10-15). Used by
+/// [MenzilSelect] itself and by the top bar's profile button (owner,
+/// 2026-10-16 20:07: "Profil seçici select diğer selectler gibi açılacak").
+class MenzilSelectMenu<T> {
+  _MenzilMenuRoute<T>? _route;
+
+  /// Window width when the list opened.
+  double? _openWidth;
+
+  /// True while the list is open.
+  bool get isOpen => _route != null;
+
+  /// A tap on the box ends typing in another box, as Flutter's own list
+  /// button did by taking the focus: the keyboard closes first and the list
+  /// is placed once it is gone (at most about half a second), so it is
+  /// never laid out against a keyboard that is about to disappear.
+  /// Callers wait for this before [show] (MenzilSelect does).
+  static Future<void> closeKeyboard(BuildContext context) async {
+    FocusManager.instance.primaryFocus?.unfocus();
+    // The window's own insets: a Scaffold hides the keyboard from the
+    // MediaQuery of its body.
+    for (var i = 0; i < 60; i++) {
+      if (!context.mounted) return;
+      if (View.of(context).viewInsets.bottom == 0) return;
+      WidgetsBinding.instance.scheduleFrame();
+      await WidgetsBinding.instance.endOfFrame;
+    }
+  }
+
+  /// Closes the list, if it is open.
+  void close() {
+    final menu = _route;
+    _route = null;
+    if (menu != null && menu.isActive) menu.navigator?.removeRoute(menu);
+  }
+
+  /// A rotation or a resized window moves the box: the list closes. The
+  /// keyboard coming or going changes the metrics too, but not the width;
+  /// that keeps the list open (it closed the list under the user's finger
+  /// on the iOS Simulator).
+  void metricsChanged(BuildContext context) {
+    if (_route == null) return;
+    if (View.of(context).physicalSize.width != _openWidth) close();
+  }
+
+  /// Shows the list of [items] UNDER [box], [MenzilSelect.menuGap] below
+  /// it and exactly as wide as the box (owner, 2026-10-15); call it once
+  /// [closeKeyboard] is done. When the screen has too little room below,
+  /// the page scrolls up first so the list still opens downward. Returns
+  /// null when the list cannot open (already open, nothing to show);
+  /// otherwise a future with null when closed without a pick, or the
+  /// picked value.
+  Future<({T? value})?>? show(
+    BuildContext context, {
+    required RenderObject? Function() box,
+    required List<DropdownMenuItem<T>> items,
+    double? itemHeight = kMinInteractiveDimension,
+  }) {
+    if (items.isEmpty || _route != null) return null;
+    final navigator = Navigator.of(context);
+    final anchor = box();
+    final navBox = navigator.context.findRenderObject();
+    if (anchor is! RenderBox || navBox is! RenderBox || !anchor.hasSize) {
+      return null;
+    }
+    var rect =
+        anchor.localToGlobal(Offset.zero, ancestor: navBox) & anchor.size;
+    final mq = MediaQuery.of(context);
+    final bottom =
+        navBox.size.height -
+        math.max(mq.padding.bottom, mq.viewInsets.bottom) -
+        MenzilSpace.sm;
+    final itemH = itemHeight ?? kMinInteractiveDimension;
+    final want = math.min(
+      MenzilSelect.menuMaxHeight,
+      items.length * itemH + _DropdownMenu.listPadding * 2,
+    );
+    var room = bottom - rect.bottom - MenzilSelect.menuGap;
+    if (room < want) {
+      final position = Scrollable.maybeOf(context)?.position;
+      if (position != null &&
+          position.axis == Axis.vertical &&
+          !axisDirectionIsReversed(position.axisDirection)) {
+        final target = math.min(
+          position.maxScrollExtent,
+          position.pixels + (want - room),
+        );
+        final moved = target - position.pixels;
+        if (moved > 0) {
+          position.jumpTo(target);
+          rect = rect.shift(Offset(0, -moved));
+          room += moved;
+        }
+      }
+    }
+    final c = MenzilColors.of(context);
+    final menu = _MenzilMenuRoute<T>(
+      anchor: rect,
+      maxHeight: room.clamp(
+        kMinInteractiveDimension,
+        MenzilSelect.menuMaxHeight,
+      ),
+      items: [
+        for (final it in items)
+          DropdownMenuItem<T>(
+            key: it.key,
+            value: it.value,
+            enabled: it.enabled,
+            onTap: it.onTap,
+            alignment: it.alignment,
+            // List entries in regular weight (owner, 2026-10-11).
+            child: DefaultTextStyle.merge(
+              style: const TextStyle(fontWeight: FontWeight.w400),
+              child: it.child,
+            ),
+          ),
+      ],
+      itemHeight: itemHeight,
+      // Entries a bit smaller and not bold (owner, 2026-10-11).
+      style: TextStyle(fontSize: 15, fontWeight: FontWeight.w400, color: c.ink),
+      color: c.surface,
+      borderColor: c.line,
+      capturedThemes: InheritedTheme.capture(
+        from: context,
+        to: navigator.context,
+      ),
+      barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
+    );
+    _route = menu;
+    _openWidth = View.of(context).physicalSize.width;
+    return navigator.push(menu).then((result) {
+      if (identical(_route, menu)) _route = null;
+      return result == null ? null : (value: result.value);
+    });
   }
 }
 

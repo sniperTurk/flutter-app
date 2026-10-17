@@ -159,7 +159,15 @@ void main() {
     await tester.drag(drum, const Offset(60, 0));
     await tester.pumpAndSettle();
     expect(find.textContaining('Kule: 0 klik'), findsNothing);
-    expect(find.textContaining('klik yukarı'), findsOneWidget);
+    // The "Kule:" line under the scope (the Hedef click line above the
+    // scope, since 2026-10-16, shows the required solution, not the drum).
+    expect(
+      find.descendant(
+        of: find.byType(ScopeDialView),
+        matching: find.textContaining('klik yukarı'),
+      ),
+      findsOneWidget,
+    );
   });
 
   testWidgets('the scope works as soon as Atış opens, without Hesapla', (
