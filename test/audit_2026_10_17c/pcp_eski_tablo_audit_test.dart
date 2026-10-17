@@ -11,7 +11,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:sniper_turk/core/pcp_pressure.dart';
 import 'package:sniper_turk/core/unit_system.dart';
 import 'package:sniper_turk/data/catalog_repository.dart';
 import 'package:sniper_turk/data/user_catalog.dart';
