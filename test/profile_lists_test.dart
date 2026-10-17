@@ -351,22 +351,24 @@ void main() {
     expect(t, contains('birden çok retikül'));
   });
 
-  testWidgets('PCP mühimmat: Tip | Ağırlık, BC | BC modeli; no Marka', (
-    tester,
-  ) async {
+  testWidgets('PCP mühimmat: Tip | Ağırlık, BC, BC modeli | Mermi '
+      'uzunluğu; no Marka', (tester) async {
     await _openNew(tester);
     // Owner, 2026-10-13: PCP asks no Marka/Model.
     expect(find.byKey(const Key('ammo-brand-select')), findsNothing);
     expect(find.byKey(const Key('ammo-brand')), findsNothing);
-    // Owner, 2026-10-13 23:32: Uzunluk only in Pro > Mermi uzunluğu.
-    expect(find.byKey(const Key('ammo-length')), findsNothing);
     Rect r(String k) => tester.getRect(find.byKey(Key(k)));
-    // Owner, 2026-10-14: BC | BC modeli share a row, so Tip | Ağırlık.
     expect((r('ammo-type').top - r('ammo-grain').top).abs(), lessThan(1));
     expect(r('ammo-type').right, lessThan(r('ammo-grain').left));
     expect(r('ammo-grain').bottom, lessThanOrEqualTo(r('ammo-bc').top));
-    expect((r('ammo-bc').top - r('ammo-bc-model').top).abs(), lessThan(1));
-    expect(r('ammo-bc').right, lessThan(r('ammo-bc-model').left));
+    // Owner, 2026-10-17 11:34: BC modeli | Mermi uzunluğu share a row
+    // (BC modeli left), under BC.
+    expect(r('ammo-bc').bottom, lessThanOrEqualTo(r('ammo-bc-model').top));
+    expect(
+      (r('ammo-bc-model').top - r('ammo-length').top).abs(),
+      lessThan(0.5),
+    );
+    expect(r('ammo-bc-model').right, lessThan(r('ammo-length').left));
     expect(find.byKey(const Key('ammo-bands-title')), findsNothing);
   });
 

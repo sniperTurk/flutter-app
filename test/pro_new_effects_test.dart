@@ -324,6 +324,13 @@ void main() {
     testWidgets('a crosswind from the left drops a right-twist bullet', (
       tester,
     ) async {
+      // Mermi uzunluğu comes from Profil > Mühimmat since 2026-10-17.
+      CatalogRepository.installUserCatalog(
+        UserCatalog.fromManualEntries([
+          _rifle,
+          {..._ammo, 'lengthMm': 31},
+        ]),
+      );
       await sized(tester);
       await tester.pumpWidget(app(BallisticsView.environment));
       await tester.pumpAndSettle();
@@ -344,7 +351,7 @@ void main() {
 
       await tester.pumpWidget(app(BallisticsView.pro));
       await tester.pumpAndSettle();
-      await openProFor(tester, const Key('pro-bullet-length'));
+      await openProFor(tester, const Key('pro-powder-source'));
       // A firearm profile sees powder temperature, not the PCP note.
       expect(find.byKey(const Key('pro-powder-source')), findsOneWidget);
       expect(find.byKey(const Key('pro-spin-pcp-note')), findsNothing);
@@ -360,7 +367,6 @@ void main() {
       expect(find.byKey(const Key('pro-spin-pcp-note')), findsNothing);
       await tester.tap(find.text('Kapat'));
       await tester.pumpAndSettle();
-      await type(tester, const Key('pro-bullet-length'), '31');
 
       await tester.pumpWidget(app(BallisticsView.shot));
       await tester.pumpAndSettle();

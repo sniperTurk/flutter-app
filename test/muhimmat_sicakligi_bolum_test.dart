@@ -1,8 +1,10 @@
 // Mühimmat sıcaklığı Pro Ayarlar'da (owner, 2026-10-16 20:06, design PR
 // #366 "onayladım"): Hava Durumu'ndaki bölüm kalktı; aynı kutu Pro >
 // Tüfek düzeltmeleri içinde, barut katsayısı yazısının üstünde. 2026-10-17
-// (sahip, TestFlight 112): Mermi uzunluğu | Mühimmat sıcaklığı aynı satırda,
-// "isteğe bağlı" yazısı silindi (docs/reports/pro_barut_not.md). Yalnız
+// (sahip, TestFlight 112): "isteğe bağlı" yazısı silindi. 2026-10-17 11:41
+// (sahip): Mühimmat sıcaklığı Tüfek düzeltmeleri'nin hemen altında kendi
+// bölümünde; kutunun üstünde etiket yok (B seçeneği), Mermi uzunluğu Profil
+// > Mühimmat'a taşındı (docs/reports/pro_barut_not.md). Yalnız
 // ateşli silahta. Anahtar, kayıt ve barut düzeltmesi
 // (boşsa hava sıcaklığı) değişmedi. Rapor: docs/reports/duzeltmeler_16_10.md.
 import 'dart:convert';
@@ -98,17 +100,19 @@ Future<void> _size(WidgetTester tester, double width, [double h = 3000]) async {
 Finder _textField(Key key) =>
     find.descendant(of: find.byKey(key), matching: find.byType(TextField));
 
-/// Pro Ayarlar with Tüfek düzeltmeleri open.
+/// Pro Ayarlar with the box [section] open (Mühimmat sıcaklığı by default).
 Future<void> _pro(
   WidgetTester tester,
   RifleProfile p, {
   double scale = 1,
+  String section = 'ammo-temp',
 }) async {
   await tester.pumpWidget(
     _app(p, BallisticsView.pro, scale: scale, dark: true),
   );
   await tester.pumpAndSettle();
-  final header = find.byKey(const Key('pro-section-rifle'));
+  final header = find.byKey(Key('pro-section-$section'));
+  if (header.evaluate().isEmpty) return;
   await tester.ensureVisible(header);
   await tester.pumpAndSettle();
   await tapProHeader(tester, header);
@@ -156,52 +160,48 @@ void main() {
     );
   });
 
-  testWidgets('firearm: Pro > Tüfek düzeltmeleri, Mermi uzunluğu | '
-      'Mühimmat sıcaklığı on one row above the powder text, no '
-      '"isteğe bağlı"', (tester) async {
+  testWidgets('firearm: own Mühimmat sıcaklığı box right after Tüfek '
+      'düzeltmeleri; no label, no ⓘ, left half, above the powder text', (
+    tester,
+  ) async {
     await _size(tester, 390);
     await _pro(tester, _firearm);
     final box = find.byKey(_ammoKey);
     expect(box, findsOneWidget);
-    // Inside the Tüfek düzeltmeleri box.
+    final section = find.byKey(const Key('pro-box-ammo-temp'));
+    expect(find.descendant(of: section, matching: box), findsOneWidget);
+    expect(
+      find.descendant(of: find.byKey(const Key('pro-box-rifle')), matching: box),
+      findsNothing,
+    );
+    // Directly after Tüfek düzeltmeleri.
+    final rifle = tester.getRect(find.byKey(const Key('pro-box-rifle')));
+    final own = tester.getRect(section);
+    expect(own.top, greaterThan(rifle.bottom - 0.01));
+    expect(own.top - rifle.bottom, lessThan(MenzilSpace.sm + MenzilSpace.md));
+    // Title.
     expect(
       find.descendant(
-        of: find.byKey(const Key('pro-box-rifle')),
-        matching: box,
+        of: find.byKey(const Key('pro-section-ammo-temp')),
+        matching: find.text('Mühimmat sıcaklığı'),
       ),
       findsOneWidget,
     );
-    final up = tester.getRect(_textField(const Key('pro-zero-up')));
-    final right = tester.getRect(_textField(const Key('pro-zero-right')));
-    final length = tester.getRect(_textField(const Key('pro-bullet-length')));
-    final field = tester.getRect(_textField(_ammoKey));
-    final powder = tester.getRect(find.byKey(const Key('pro-powder-source')));
-    // One row: same top, Mermi uzunluğu left, the same two columns as
-    // Yukarı + / aşağı − | Sağ + / sol −.
-    expect(field.top, moreOrLessEquals(length.top, epsilon: 0.5));
-    expect(length.right, lessThan(field.left));
-    expect(length.left, moreOrLessEquals(up.left, epsilon: 0.5));
-    expect(length.width, moreOrLessEquals(up.width, epsilon: 0.5));
-    expect(field.left, moreOrLessEquals(right.left, epsilon: 0.5));
-    expect(field.width, moreOrLessEquals(right.width, epsilon: 0.5));
-    expect(length.top, greaterThan(up.bottom));
-    expect(powder.top, greaterThanOrEqualTo(field.bottom - 0.01));
+    // No label above the box (option B) and no ⓘ in or at it.
     expect(
-      tester.getRect(find.byKey(_row)).bottom,
-      lessThanOrEqualTo(powder.top + 0.01),
+      find.descendant(
+        of: box,
+        matching: find.byKey(const ValueKey('menzil-compact-label')),
+      ),
+      findsNothing,
     );
-    // "isteğe bağlı" is gone.
-    expect(find.byKey(const Key('pro-ammo-temp-optional')), findsNothing);
-    expect(find.text('isteğe bağlı'), findsNothing);
-    // Units inside the boxes.
-    final lengthInput = tester.widget<MenzilInput>(
-      find.byKey(const Key('pro-bullet-length')),
+    expect(
+      find.descendant(of: section, matching: find.text('Mühimmat sıcaklığı')),
+      findsOneWidget, // the title only
     );
-    expect(lengthInput.unit, 'mm');
-    // Same label and unit as on Hava Durumu before. No ⓘ in the box (owner,
-    // 2026-10-16 21:17, #373): its text lives in the section header's sheet.
     final input = tester.widget<MenzilInput>(box);
-    expect(input.label, 'Mühimmat sıcaklığı');
+    expect(input.showLabel, isFalse);
+    expect(input.label, 'Mühimmat sıcaklığı'); // VoiceOver
     expect(input.unit, '°C');
     expect(input.info, isNull);
     expect(
@@ -215,35 +215,134 @@ void main() {
       ),
       findsNothing,
     );
-    // Listed in the Tüfek düzeltmeleri header ⓘ sheet with the same text.
-    await tester.tap(find.byKey(const Key('pro-info-rifle')));
-    await tester.pumpAndSettle();
-    final sheet = find.byKey(const Key('pro-info-sheet'));
-    expect(sheet, findsOneWidget);
-    final listed = tester
-        .widgetList<ProInfoFieldEntry>(
-          find.descendant(of: sheet, matching: find.byType(ProInfoFieldEntry)),
-        )
-        .where((e) => e.field.label == 'Mühimmat sıcaklığı')
-        .toList();
-    expect(listed, hasLength(1));
-    expect(listed.single.field.text, EnvironmentFieldInfo.ammoTemperature);
+    // Unit inside the box.
+    final field = tester.getRect(_textField(_ammoKey));
+    final unit = tester.getRect(
+      find.descendant(
+        of: box,
+        matching: find.byKey(const ValueKey('menzil-compact-unit')),
+      ),
+    );
+    expect(field.contains(unit.center), isTrue);
+    // Half width: the left column of a two-column row (as Yukarı + /
+    // aşağı − in Tüfek düzeltmeleri).
+    final row = tester.getRect(find.byKey(_row));
+    expect(field.left, moreOrLessEquals(row.left, epsilon: 0.5));
+    expect(
+      field.width,
+      moreOrLessEquals((row.width - MenzilSpace.md) / 2, epsilon: 0.5),
+    );
+    // The approved note under the box.
+    final powder = tester.getRect(find.byKey(const Key('pro-powder-source')));
+    expect(powder.top, greaterThanOrEqualTo(field.bottom - 0.01));
+    expect(
+      find.descendant(
+        of: section,
+        matching: find.byKey(const Key('pro-powder-source')),
+      ),
+      findsOneWidget,
+    );
+    expect(find.text('isteğe bağlı'), findsNothing);
     expect(tester.takeException(), isNull);
   });
 
-  testWidgets('PCP: no Mühimmat sıcaklığı on Pro', (tester) async {
+  testWidgets('firearm: the box title ⓘ opens the Mühimmat sıcaklığı text', (
+    tester,
+  ) async {
+    await _size(tester, 390);
+    await _pro(tester, _firearm);
+    final info = find.byKey(const Key('pro-info-ammo-temp'));
+    expect(info, findsOneWidget);
+    await tester.tap(info);
+    await tester.pumpAndSettle();
+    final sheet = find.byKey(const Key('pro-info-sheet'));
+    expect(sheet, findsOneWidget);
+    expect(
+      tester
+          .widget<Text>(
+            find.descendant(
+              of: sheet,
+              matching: find.byKey(const Key('pro-info-text')),
+            ),
+          )
+          .data,
+      EnvironmentFieldInfo.ammoTemperature,
+    );
+    expect(
+      tester
+          .widget<Text>(
+            find.descendant(
+              of: sheet,
+              matching: find.byKey(const Key('pro-info-title')),
+            ),
+          )
+          .data,
+      'Mühimmat sıcaklığı',
+    );
+    expect(tester.takeException(), isNull);
+  });
+
+  testWidgets('firearm: Tüfek düzeltmeleri keeps Gerçek / yazan and '
+      'Yukarı | Sağ only; no Mermi uzunluğu, no Mühimmat sıcaklığı', (
+    tester,
+  ) async {
+    await _size(tester, 390);
+    await _pro(tester, _firearm, section: 'rifle');
+    final rifle = find.byKey(const Key('pro-box-rifle'));
+    for (final k in const [
+      'pro-turret-scale',
+      'pro-zero-up',
+      'pro-zero-right',
+    ]) {
+      expect(
+        find.descendant(of: rifle, matching: find.byKey(Key(k))),
+        findsOneWidget,
+        reason: k,
+      );
+    }
+    expect(
+      find.descendant(of: rifle, matching: find.byType(MenzilInput)),
+      findsNWidgets(3),
+    );
+    expect(find.byKey(const Key('pro-bullet-length')), findsNothing);
+    expect(
+      find.descendant(of: rifle, matching: find.text('Mermi uzunluğu')),
+      findsNothing,
+    );
+    expect(
+      find.descendant(of: rifle, matching: find.byKey(_ammoKey)),
+      findsNothing,
+    );
+    expect(
+      find.descendant(
+        of: rifle,
+        matching: find.byKey(const Key('pro-powder-source')),
+      ),
+      findsNothing,
+    );
+    // Its ⓘ sheet lists neither box any more.
+    await tester.tap(find.byKey(const Key('pro-info-rifle')));
+    await tester.pumpAndSettle();
+    final labels = tester
+        .widgetList<ProInfoFieldEntry>(find.byType(ProInfoFieldEntry))
+        .map((e) => e.field.label)
+        .toList();
+    expect(labels, ['Gerçek / yazan', 'Yukarı + / aşağı −', 'Sağ + / sol −']);
+    expect(tester.takeException(), isNull);
+  });
+
+  testWidgets('PCP: no Mühimmat sıcaklığı box and no Mermi uzunluğu on Pro', (
+    tester,
+  ) async {
     await _size(tester, 430);
-    await _pro(tester, _pcp);
+    await _pro(tester, _pcp, section: 'rifle');
+    expect(find.byKey(const Key('pro-box-ammo-temp')), findsNothing);
+    expect(find.byKey(const Key('pro-section-ammo-temp')), findsNothing);
     expect(find.byKey(_ammoKey), findsNothing);
     expect(find.byKey(_row), findsNothing);
     expect(find.text('Mühimmat sıcaklığı'), findsNothing);
-    // Mermi uzunluğu keeps its own full row (as before 2026-10-17).
-    final length = tester.getRect(_textField(const Key('pro-bullet-length')));
-    final scale = tester.getRect(_textField(const Key('pro-turret-scale')));
-    final up = tester.getRect(_textField(const Key('pro-zero-up')));
-    expect(length.left, moreOrLessEquals(scale.left, epsilon: 0.5));
-    expect(length.width, moreOrLessEquals(scale.width, epsilon: 0.5));
-    expect(length.top, greaterThan(up.bottom));
+    expect(find.byKey(const Key('pro-bullet-length')), findsNothing);
+    expect(find.text('Mermi uzunluğu'), findsNothing);
     expect(find.byKey(const Key('pro-powder-source')), findsNothing);
     expect(tester.takeException(), isNull);
   });
@@ -255,10 +354,15 @@ void main() {
     await _pro(tester, _firearm);
     await tester.enterText(_textField(_ammoKey), '30');
     await tester.pumpAndSettle();
-    await tapProHeader(tester, find.byKey(const Key('pro-section-rifle')));
+    await tapProHeader(tester, find.byKey(const Key('pro-section-ammo-temp')));
+    expect(
+      tester.widget<Text>(find.byKey(const Key('pro-summary-ammo-temp'))).data,
+      '1 ayar açık',
+    );
+    // No longer counted in Tüfek düzeltmeleri.
     expect(
       tester.widget<Text>(find.byKey(const Key('pro-summary-rifle'))).data,
-      '1 ayar açık',
+      'kapalı',
     );
   });
 

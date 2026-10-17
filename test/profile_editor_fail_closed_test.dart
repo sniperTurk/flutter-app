@@ -410,15 +410,16 @@ void _unitsAndFirearmTests() {
     await tester.tap(find.byTooltip('Yeni profil'));
     await tester.pumpAndSettle();
     await chooseInSelect(tester, 'profile-platform', 'PCP Tüfek');
-    // PCP asks no Marka (owner, 2026-10-13) and no Uzunluk (owner,
-    // 2026-10-13 23:32: only Pro > Mermi uzunluğu): type a weight.
+    // PCP asks no Marka (owner, 2026-10-13); Mermi uzunluğu is asked on
+    // both rifle types (owner, 2026-10-17): type a weight and a length.
     expect(find.byKey(const Key('ammo-brand-select')), findsNothing);
-    expect(find.byKey(const Key('ammo-length')), findsNothing);
     await enterRifleField(tester, 'ammo-grain', '33,95');
+    await enterRifleField(tester, 'ammo-length', '10,4');
     await chooseInSelect(tester, 'profile-platform', 'Ateşli Tüfek');
     // The typed PCP values are gone; the firearm lists are offered again.
     expect(find.text('33,95'), findsNothing);
-    expect(find.byKey(const Key('ammo-length')), findsNothing);
+    expect(find.text('10,4'), findsNothing);
+    expect(find.byKey(const Key('ammo-length')), findsOneWidget);
     expect(find.byKey(const Key('ammo-brand-select')), findsOneWidget);
   });
 }

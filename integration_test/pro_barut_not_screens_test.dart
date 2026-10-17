@@ -1,9 +1,10 @@
-// Screenshots for "Pro barut notu" (owner, 2026-10-17, TestFlight 112):
-// Pro > Tüfek düzeltmeleri open with Mermi uzunluğu | Mühimmat sıcaklığı
-// on one row and the new powder note, for a firearm without Barut
-// katsayısı / Hız ölçüm sıcaklığı (note case 1), a firearm with both
-// (case 2) and a PCP profile (Mermi uzunluğu on its own row, no Mühimmat
-// sıcaklığı). Report: docs/reports/pro_barut_not.md.
+// Screenshots for "Pro barut notu" (owner, 2026-10-17, TestFlight 112) and
+// "Mermi uzunluğu profile, Mühimmat sıcaklığı bölümü" (owner, 2026-10-17
+// 11:34–11:41): Profil > Mühimmat with BC modeli | Mermi uzunluğu (firearm
+// filled, PCP); Pro > Tüfek düzeltmeleri open (no Mermi uzunluğu) and the
+// new Mühimmat sıcaklığı box open with the powder note (firearm without
+// and with Barut katsayısı / Hız ölçüm sıcaklığı); Pro on PCP (no
+// Mühimmat sıcaklığı box). Report: docs/reports/pro_barut_not.md.
 //
 // Run by .github/workflows/sim-screens.yml with
 //   test=integration_test/pro_barut_not_screens_test.dart device=iPhone 16e
@@ -40,6 +41,31 @@ const _ammo = <String, dynamic>{
   'ammoType': 'bullet',
   'bc': 0.243,
   'bcModel': 'g7',
+  'lengthMm': 31.2,
+};
+const _pcpRifle = <String, dynamic>{
+  'id': 'manual_rifle_sim_pcp',
+  'kind': 'rifle',
+  'platform': 'pcp',
+  'brand': 'Test',
+  'model': 'PCP 6.35',
+  'caliberMm': 6.35,
+  'twistDirection': 'right',
+  'twistRateIn': 17,
+  'regulatorBar': 120,
+};
+const _pcpAmmo = <String, dynamic>{
+  'id': 'manual_ammo_sim_pcp',
+  'kind': 'ammo',
+  'platform': 'pcp',
+  'brand': 'Test slug',
+  'model': '',
+  'caliberMm': 6.35,
+  'grain': 33.95,
+  'ammoType': 'slug',
+  'bc': 0.08,
+  'bcModel': 'g1',
+  'lengthMm': 10.4,
 };
 
 const _noCoef = RifleProfile(
@@ -67,8 +93,8 @@ const _withCoef = RifleProfile(
 const _pcp = RifleProfile(
   id: 'sim-pcp',
   name: 'PCP',
-  rifleId: 'hatsan-hercules-635',
-  ammunitionId: 'gmaz-51',
+  rifleId: 'manual_rifle_sim_pcp',
+  ammunitionId: 'manual_ammo_sim_pcp',
   scopeId: 'gazi-6-36',
   muzzleVelocityMps: 270,
   zeroRangeM: 25,
@@ -82,6 +108,8 @@ void main() {
     await (await SharedPreferences.getInstance()).clear();
     await ManualCatalogStore().upsert(_rifle);
     await ManualCatalogStore().upsert(_ammo);
+    await ManualCatalogStore().upsert(_pcpRifle);
+    await ManualCatalogStore().upsert(_pcpAmmo);
     for (final p in [_noCoef, _withCoef, _pcp]) {
       await PersistentProfileStore().save(p);
     }
@@ -165,20 +193,36 @@ void main() {
       await settle();
     }
 
-    Future<void> proRifle(String name) async {
+    /// Opens the Pro box [id] (one open at a time) and scrolls it to the
+    /// top.
+    Future<void> proBox(String id) async {
       await openTab('Pro');
       await wait(1);
-      final header = find.byKey(const Key('pro-section-rifle'));
+      final header = find.byKey(Key('pro-section-$id'));
       await tester.ensureVisible(header);
       await settle();
-      if (find.byKey(const Key('pro-bullet-length')).evaluate().isEmpty) {
+      if (find.byKey(Key('pro-summary-$id')).evaluate().isNotEmpty) {
         final hh = tester.getSize(header).height;
         await tester.tapAt(tester.getTopLeft(header) + Offset(12, hh / 2));
         await settle();
       }
       await Scrollable.ensureVisible(tester.element(header), alignment: 0.05);
       await settle();
+    }
+
+    Future<void> proRifle(String name) async {
+      await proBox('rifle');
       rect('$name:mermi_uzunlugu', find.byKey(const Key('pro-bullet-length')));
+      rect('$name:gercek_yazan', find.byKey(const Key('pro-turret-scale')));
+      rect('$name:yukari', find.byKey(const Key('pro-zero-up')));
+      rect('$name:sag', find.byKey(const Key('pro-zero-right')));
+      rect('$name:muhimmat_kutusu', find.byKey(const Key('pro-box-ammo-temp')));
+      await shot(name);
+    }
+
+    Future<void> proAmmoTemp(String name) async {
+      await proBox('ammo-temp');
+      rect('$name:bolum', find.byKey(const Key('pro-box-ammo-temp')));
       rect('$name:muhimmat_sicakligi', find.byKey(const Key('env-ammo-temp')));
       rect('$name:not', find.byKey(const Key('pro-powder-source')));
       final note = find.byKey(const Key('pro-powder-source'));
@@ -188,16 +232,64 @@ void main() {
       await shot(name);
     }
 
+    /// Profil > Düzenle of [p] scrolled to BC modeli | Mermi uzunluğu.
+    Future<void> profileAmmo(RifleProfile p, String name) async {
+      await openTab('Profil');
+      await wait(1);
+      // The ⋯ menu on the row of [p] (nearest to its name).
+      final menus = find.byTooltip('Profil işlemleri');
+      final names = find.text(p.name);
+      var index = 0;
+      if (names.evaluate().isNotEmpty) {
+        final y = tester.getCenter(names.last).dy;
+        var best = double.infinity;
+        for (var i = 0; i < menus.evaluate().length; i++) {
+          final d = (tester.getCenter(menus.at(i)).dy - y).abs();
+          if (d < best) {
+            best = d;
+            index = i;
+          }
+        }
+      }
+      await tester.ensureVisible(menus.at(index));
+      await settle();
+      await tester.tap(menus.at(index));
+      await settle();
+      await tester.tap(find.text('Düzenle').last);
+      await settle();
+      final pair = find.byKey(const Key('ammo-bc-model-length-row'));
+      await tester.ensureVisible(pair);
+      await settle();
+      await Scrollable.ensureVisible(tester.element(pair), alignment: 0.55);
+      await settle();
+      rect('$name:bc_modeli', find.byKey(const Key('ammo-bc-model')));
+      rect('$name:mermi_uzunlugu', find.byKey(const Key('ammo-length')));
+      await shot(name);
+      tester
+          .state<NavigatorState>(find.byType(Navigator).first)
+          .popUntil((route) => route.isFirst);
+      await settle();
+    }
+
     app.main();
     await wait(3);
     final view = tester.view;
     final width = view.physicalSize.width / view.devicePixelRatio;
     debugPrint('SIMRECT:ekran:0,0,${width.toStringAsFixed(1)}');
 
-    await step('pro_atesli_not1', () => proRifle('pro_atesli_not1'));
-    await step('pro_atesli_not2', () async {
+    await step('profil_muhimmat_atesli', () async {
+      await profileAmmo(_noCoef, 'profil_muhimmat_atesli');
+    });
+    await step('profil_muhimmat_pcp', () async {
+      await profileAmmo(_pcp, 'profil_muhimmat_pcp');
+    });
+    await step('pro_atesli_tufek', () => proRifle('pro_atesli_tufek'));
+    await step('pro_atesli_muhimmat_not1', () async {
+      await proAmmoTemp('pro_atesli_muhimmat_not1');
+    });
+    await step('pro_atesli_muhimmat_not2', () async {
       await pickProfile(_withCoef);
-      await proRifle('pro_atesli_not2');
+      await proAmmoTemp('pro_atesli_muhimmat_not2');
     });
     await step('pro_pcp', () async {
       await pickProfile(_pcp);

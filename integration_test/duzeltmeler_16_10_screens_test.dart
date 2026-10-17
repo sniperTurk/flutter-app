@@ -255,7 +255,7 @@ void main() {
       await step('pro_$size', () async {
         await openTab('Pro');
         await wait(1);
-        final header = find.byKey(const Key('pro-section-rifle'));
+        final header = find.byKey(const Key('pro-section-ammo-temp'));
         await tester.ensureVisible(header);
         await settle();
         if (find.byKey(const Key('pro-ammo-temp-row')).evaluate().isEmpty) {
@@ -272,10 +272,10 @@ void main() {
         await shot('pro_$size');
       });
 
-      // The Tüfek düzeltmeleri header ⓘ sheet lists Mühimmat sıcaklığı (the
-      // box has no ⓘ of its own, owner 2026-10-16 21:17, #373).
+      // The Mühimmat sıcaklığı box title ⓘ explains it (its own box since
+      // 2026-10-17; the box has no ⓘ of its own).
       await step('pro_bilgi_$size', () async {
-        final info = find.byKey(const Key('pro-info-rifle'));
+        final info = find.byKey(const Key('pro-info-ammo-temp'));
         await tester.ensureVisible(info);
         await settle();
         await tester.tap(info);

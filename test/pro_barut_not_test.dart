@@ -1,6 +1,7 @@
-// Pro barut notu (owner, 2026-10-17 10:28–10:35, TestFlight 112): on Pro >
-// Tüfek düzeltmeleri the powder note under Mermi uzunluğu | Mühimmat
-// sıcaklığı reads exactly the owner-approved texts for its three cases.
+// Pro barut notu (owner, 2026-10-17 10:28–10:35, TestFlight 112): the
+// powder note under the Mühimmat sıcaklığı box (its own Pro box since
+// 2026-10-17 11:41) reads exactly the owner-approved texts for its three
+// cases.
 // Report: docs/reports/pro_barut_not.md.
 import 'dart:convert';
 
@@ -151,19 +152,17 @@ void main() {
     expect(tester.getRect(find.byKey(_note)).right, lessThanOrEqualTo(320));
   });
 
-  testWidgets('320 pt, text scale 1: Mermi uzunluğu | Mühimmat sıcaklığı '
-      'lay out like Yukarı + / aşağı − | Sağ + / sol −', (tester) async {
+  testWidgets('320 pt, text scale 1: the Mühimmat sıcaklığı box sits in '
+      'the column of Yukarı + / aşağı −', (tester) async {
     await _noteText(tester, _firearm(), width: 320);
     Rect r(String k) => tester.getRect(
       find.descendant(of: find.byKey(Key(k)), matching: find.byType(TextField)),
     );
-    final up = r('pro-zero-up'), right = r('pro-zero-right');
-    final length = r('pro-bullet-length'), temp = r('env-ammo-temp');
-    expect(length.left, moreOrLessEquals(up.left, epsilon: 0.5));
-    expect(temp.left, moreOrLessEquals(right.left, epsilon: 0.5));
-    expect(temp.width, moreOrLessEquals(right.width, epsilon: 0.5));
-    final pairSideBySide = (up.top - right.top).abs() < 0.5;
-    expect((length.top - temp.top).abs() < 0.5, pairSideBySide);
+    final temp = r('env-ammo-temp');
+    await openProFor(tester, const Key('pro-zero-up'));
+    final up = r('pro-zero-up');
+    expect(temp.left, moreOrLessEquals(up.left, epsilon: 0.5));
+    expect(temp.width, moreOrLessEquals(up.width, epsilon: 0.5));
     expect(tester.takeException(), isNull);
   });
 }

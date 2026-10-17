@@ -142,11 +142,15 @@ void main() {
           .widget<ScopeDialView>(find.byType(ScopeDialView))
           .requiredRight;
 
-      await tester.pumpWidget(app(BallisticsView.pro));
-      await tester.pumpAndSettle();
-      await openProFor(tester, const Key('pro-bullet-length'));
-      await type(tester, const Key('pro-bullet-length'), '31');
-
+      // Mermi uzunluğu is on Profil > Mühimmat since 2026-10-17: the same
+      // profile with a 31 mm bullet, opened afresh.
+      await tester.pumpWidget(const SizedBox());
+      CatalogRepository.installUserCatalog(
+        UserCatalog.fromManualEntries([
+          _rifle,
+          {..._ammo, 'lengthMm': 31},
+        ]),
+      );
       await tester.pumpWidget(app(BallisticsView.shot));
       await tester.pumpAndSettle();
       final on = tester

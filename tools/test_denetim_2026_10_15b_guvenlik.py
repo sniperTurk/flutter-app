@@ -168,7 +168,9 @@ class Flg1FlagsDefaultOff(unittest.TestCase):
         return found
 
     def test_flags_found(self):
-        self.assertGreaterEqual(len(self._flags()), 14)
+        # 14 at the audit; PROFILE_AMMO_LENGTH deleted 2026-10-17 (owner:
+        # Mermi uzunluğu back on Profil, removed features are deleted).
+        self.assertGreaterEqual(len(self._flags()), 13)
 
     def test_every_bool_flag_defaults_false(self):
         for path, name, default in self._flags():

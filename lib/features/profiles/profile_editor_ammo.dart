@@ -21,8 +21,6 @@ extension _AmmoSection on _ProfileDialogState {
   static const _parse = _ProfileDialogState._parse;
   static const _showAmmoListedeYok = _ProfileDialogState._showAmmoListedeYok;
   static const _showPcpAmmoBrand = _ProfileDialogState._showPcpAmmoBrand;
-  static const _showProfileAmmoLength =
-      _ProfileDialogState._showProfileAmmoLength;
   static const _trimDot = _ProfileDialogState._trimDot;
 
   /// BC model choices per rifle type (owner, 2026-10-10: the other public
@@ -196,7 +194,7 @@ extension _AmmoSection on _ProfileDialogState {
       ammoBrand,
       ammoModel,
       ammoGrain,
-      if (_showProfileAmmoLength) ammoLength,
+      ammoLength,
       ammoBc,
     ].any((c) => c.text.trim().isNotEmpty);
     if (typed) {
@@ -431,11 +429,9 @@ extension _AmmoSection on _ProfileDialogState {
     required Widget modelText,
   }) {
     final firearm = platform == WeaponPlatform.firearm;
-    // PCP rows (owner, 2026-10-14: BC | BC modeli): Tip | Ağırlık, BC |
-    // BC modeli; with Uzunluk, Tip takes its row and Ağırlık | Uzunluk.
-    if (!firearm && !_showPcpAmmoBrand) {
-      return [_showProfileAmmoLength ? MenzilFullWidth(child: type) : type];
-    }
+    // PCP rows: Tip | Ağırlık, BC; BC modeli | Mermi uzunluğu (owner,
+    // 2026-10-17).
+    if (!firearm && !_showPcpAmmoBrand) return [type];
     // PCP: Marka | Tip; firearm: Mühimmat türü | Marka. Model gets a row.
     List<Widget> arrange(Widget brand, Widget model) => [
       if (firearm) ...[type, brand] else ...[brand, type],
@@ -919,18 +915,6 @@ extension _AmmoSection on _ProfileDialogState {
               onChanged: (_) => _update(() {}),
               errorText: _shown(_grainError, ammoGrain),
             ),
-          // Uzunluk | BC on PCP (owner, 2026-10-13); hidden behind
-          // PROFILE_AMMO_LENGTH (owner, 2026-10-13 23:32).
-          if (platform == WeaponPlatform.pcp && _showProfileAmmoLength)
-            MenzilInput(
-              key: const Key('ammo-length'),
-              controller: ammoLength,
-              label: 'Uzunluk',
-              unit: 'mm',
-              info: ProfileFieldInfo.ammoLength,
-              onChanged: (_) => _update(() {}),
-              errorText: _shown(_lengthError, ammoLength),
-            ),
           if (!_customCurve)
             MenzilInput(
               key: const Key('ammo-bc'),
@@ -960,6 +944,14 @@ extension _AmmoSection on _ProfileDialogState {
           // BC modeli so the two stay on one row (owner, 2026-10-14).
           if (_bcPlausibilityWarning != null && platform != WeaponPlatform.pcp)
             _bcWarningNotice,
+          // BC modeli | Mermi uzunluğu on one row, firearm and PCP (owner,
+          // 2026-10-17 11:34: the length is a property of the bullet; moved
+          // here from Pro). Their own full-width grid keeps the pair on one
+          // row whatever comes before them.
+          MenzilFullWidth(
+            key: const Key('ammo-bc-model-length-row'),
+            child: MenzilFieldGrid(
+              children: [
           KeyedSubtree(
             key: const Key('ammo-bc-model'),
             child: MenzilSelect<String>(
@@ -1004,6 +996,18 @@ extension _AmmoSection on _ProfileDialogState {
                   if (ammoBcModel != was) _factoryBcForModel();
                 }
               }),
+            ),
+          ),
+          MenzilInput(
+            key: const Key('ammo-length'),
+            controller: ammoLength,
+            label: 'Mermi uzunluğu',
+            unit: 'mm',
+            info: ProfileFieldInfo.ammoLength,
+            onChanged: (_) => _update(() {}),
+            errorText: _shown(_lengthError, ammoLength),
+          ),
+              ],
             ),
           ),
           if (_bcPlausibilityWarning != null && platform == WeaponPlatform.pcp)

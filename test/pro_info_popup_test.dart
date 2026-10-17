@@ -140,13 +140,13 @@ Map<String, Map<String, String>> _fields({required bool pcp}) => {
     'BC hatası': EnvironmentFieldInfo.bcError,
     'Atış sayısı': EnvironmentFieldInfo.wezShotCount,
   },
-  'rifle': {
+  'rifle': const {
     'Gerçek / yazan': EnvironmentFieldInfo.turretScale,
     'Yukarı + / aşağı −': EnvironmentFieldInfo.zeroUp,
     'Sağ + / sol −': EnvironmentFieldInfo.zeroRight,
-    'Mermi uzunluğu': EnvironmentFieldInfo.bulletLength,
-    // In this box since 2026-10-16 (owner, design PR #366), firearm only.
-    if (!pcp) 'Mühimmat sıcaklığı': EnvironmentFieldInfo.ammoTemperature,
+    // Owner, 2026-10-17 11:34–11:41: Mermi uzunluğu moved to Profil >
+    // Mühimmat; Mühimmat sıcaklığı has its own box (its title ⓘ shows one
+    // paragraph, test/muhimmat_sicakligi_bolum_test.dart).
   },
 };
 

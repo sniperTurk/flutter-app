@@ -242,11 +242,6 @@ class _ActiveProfileDetails extends StatelessWidget {
             if (ammo != null) ...[
               MenzilMetric('Tip', _ammoTypeName(ammo.type)),
               MenzilMetric('Ağırlık', _trimNum(ammo.grain), 'gr'),
-              // Hidden with the Profil box (owner, 2026-10-13 23:32): the
-              // length is asked only in Pro > Mermi uzunluğu.
-              if (ammo.lengthMm != null &&
-                  _ProfileDialogState._showProfileAmmoLength)
-                MenzilMetric('Uzunluk', _trimNum(ammo.lengthMm!), 'mm'),
             ],
             MenzilMetric(
               'BC / model',

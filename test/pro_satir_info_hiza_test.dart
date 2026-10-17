@@ -71,7 +71,8 @@ const _profile = RifleProfile(
   sightHeightMm: 45,
 );
 
-/// The six collapsible rows of the owner's screenshot, in page order.
+/// The six collapsible rows of the owner's screenshot, in page order, and
+/// Mühimmat sıcaklığı (its own box since 2026-10-17, firearm only).
 const _titles = <String, String>{
   'angle': 'Açı',
   'wind': 'Rüzgâr düzeltmesi',
@@ -79,6 +80,7 @@ const _titles = <String, String>{
   'gravity': 'Yerçekimi',
   'target': 'Hareketli hedef',
   'rifle': 'Tüfek düzeltmeleri',
+  'ammo-temp': 'Mühimmat sıcaklığı',
 };
 
 Widget _app({double textScale = 1}) => MaterialApp(

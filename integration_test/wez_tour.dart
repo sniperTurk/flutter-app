@@ -157,10 +157,18 @@ Future<void> runWezTour(
   logNumbers('1atis');
 
   // Sonra: 3 atış (ortak rüzgâr hatasıyla), uzun mermi Sg ≈ 1.27.
+  // Mermi uzunluğu is on Profil > Mühimmat since 2026-10-17: the same
+  // profile with a 38 mm bullet, opened afresh.
+  CatalogRepository.installUserCatalog(
+    UserCatalog.fromManualEntries([
+      _rifle,
+      {..._ammo, 'lengthMm': 38},
+    ]),
+  );
+  await tester.pumpWidget(const SizedBox());
   await tester.pumpWidget(app(BallisticsView.pro));
   await settle();
   await shots(3);
-  await type(const Key('pro-bullet-length'), '38');
   await hedef('hedef_3atis_sg_sinirda');
   logNumbers('3atis');
   await hedef('hedef_sg_uyarisi', focus: const Key('shot-stability-marginal'));
@@ -176,6 +184,13 @@ Future<void> runWezTour(
   await settle();
 
   // Sonra: 1000 m, transonik uyarısı; çok uzun mermi Sg < 1.
+  CatalogRepository.installUserCatalog(
+    UserCatalog.fromManualEntries([
+      _rifle,
+      {..._ammo, 'lengthMm': 45},
+    ]),
+  );
+  await tester.pumpWidget(const SizedBox());
   await tester.pumpWidget(app(BallisticsView.pro));
   await settle();
   await tester.enterText(
@@ -186,7 +201,6 @@ Future<void> runWezTour(
     '1000',
   );
   await tester.pump();
-  await type(const Key('pro-bullet-length'), '45');
   await hedef('hedef_1000m_transonik', focus: const Key('shot-transonic'));
 
   // Atış sayısı açıklaması: kutuda ⓘ yok (owner, 2026-10-16 21:17);

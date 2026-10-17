@@ -83,7 +83,16 @@ const _infoText =
     'saatten mesafe de gönderebilirsiniz. Kullanmazsanız hiçbir ayarınız ve '
     'hesabınız değişmez.';
 
-const _boxes = ['angle', 'wind', 'coriolis', 'gravity', 'target', 'rifle'];
+// Mühimmat sıcaklığı is the last box on a firearm since 2026-10-17 (owner).
+const _boxes = [
+  'angle',
+  'wind',
+  'coriolis',
+  'gravity',
+  'target',
+  'rifle',
+  'ammo-temp',
+];
 
 Widget _app({double textScale = 1}) => MaterialApp(
   theme: MenzilTheme.dark(),
@@ -138,7 +147,8 @@ void main() {
     expect(ProSectionInfo.garmin, _infoText);
   });
 
-  testWidgets('with the bridge: last row after Tüfek düzeltmeleri, before '
+  testWidgets('with the bridge: last row after the last box (Mühimmat '
+      'sıcaklığı on a firearm), before '
       'Hedef\'e geç, with ⓘ and "isteğe bağlı"', (tester) async {
     await _size(tester, 390);
     _bridge(1);
@@ -147,17 +157,17 @@ void main() {
     final row = find.byKey(const Key('tool-garmin'));
     expect(row, findsOneWidget);
     final tile = tester.widget<MenzilToolTile>(find.byType(MenzilToolTile));
-    final rifle = tester.getRect(find.byKey(const Key('pro-box-rifle')));
+    final rifle = tester.getRect(find.byKey(const Key('pro-box-ammo-temp')));
     final garmin = tester.getRect(
       find.ancestor(of: row, matching: find.byType(MenzilCard)).first,
     );
     final next = tester.getRect(find.byKey(const Key('pro-continue-shot')));
     // Card rects include their bottom margin (the Pro boxes' 8 pt gap):
-    // the row follows Tüfek düzeltmeleri directly, then the usual 10 pt.
+    // the row follows the last box directly, then the usual 10 pt.
     expect(garmin.top, closeTo(rifle.bottom, 0.5));
     expect(next.top - garmin.bottom, closeTo(MenzilSpace.md, 0.5));
     final rifleMargin = tester
-        .widget<MenzilCard>(find.byKey(const Key('pro-box-rifle')))
+        .widget<MenzilCard>(find.byKey(const Key('pro-box-ammo-temp')))
         .margin;
     expect(tile.margin, rifleMargin);
     expect(
@@ -221,9 +231,9 @@ void main() {
     expect(find.byKey(const Key('pro-info-garmin')), findsNothing);
     final without = _tops(tester);
     final summaries = _summaries(tester);
-    // No space taken: Tüfek düzeltmeleri (its rect includes its 8 pt
-    // margin), then the usual 10 pt before Hedef'e geç.
-    final rifle = tester.getRect(find.byKey(const Key('pro-box-rifle')));
+    // No space taken: the last box (its rect includes its 8 pt margin),
+    // then the usual 10 pt before Hedef'e geç.
+    final rifle = tester.getRect(find.byKey(const Key('pro-box-ammo-temp')));
     expect(without['continue']! - rifle.bottom, closeTo(MenzilSpace.md, 0.5));
 
     // The same page with the bridge: every row above keeps its place and

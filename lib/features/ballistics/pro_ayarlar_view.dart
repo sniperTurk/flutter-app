@@ -36,6 +36,7 @@ extension _ProAyarlarView on _BallisticsScreenState {
     required List<Widget> children,
     List<ProInfoEntry> info = const [],
     List<ProInfoField> fields = const [],
+    String? infoText,
   }) {
     final c = MenzilColors.of(context);
     final open = _proOpen == id;
@@ -67,7 +68,7 @@ extension _ProAyarlarView on _BallisticsScreenState {
                     c.ink,
                     size: 18,
                   ).copyWith(fontWeight: FontWeight.w400),
-                  info: info.isEmpty
+                  info: info.isEmpty && infoText == null
                       ? null
                       : proRowInfoButton(
                           key: Key('pro-info-$id'),
@@ -77,6 +78,7 @@ extension _ProAyarlarView on _BallisticsScreenState {
                             title: title,
                             entries: info,
                             fields: fields,
+                            text: infoText,
                           ),
                         ),
                   value: summary,
@@ -125,21 +127,24 @@ extension _ProAyarlarView on _BallisticsScreenState {
 
   /// Counts only what is entered in this box's own fields (owner,
   /// 2026-10-15): spin drift has no switch any more and the powder values
-  /// come from Profil > Mühimmat, so neither is counted here.
+  /// come from Profil > Mühimmat, so neither is counted here. Mühimmat
+  /// sıcaklığı has its own box since 2026-10-17 ([_summaryAmmoTemp]).
   String _summaryRifle() {
     final zero = _zeroOffsetMrad;
     final n = [
       turretScaleCtl.text.trim().isNotEmpty,
       zero.up != 0 || zero.right != 0,
-      // Mühimmat sıcaklığı is in this box since 2026-10-16 (owner): an
-      // entered value is one setting on.
-      _isFirearm && ammoTempCtl.text.trim().isNotEmpty,
       _isPcp &&
           _BallisticsScreenState._showProTubePressure &&
           tubePressureCtl.text.trim().isNotEmpty,
     ].where((x) => x).length;
     return n == 0 ? 'kapalı' : '$n ayar açık';
   }
+
+  /// Mühimmat sıcaklığı box: the same words Tüfek düzeltmeleri used for
+  /// this value until 2026-10-17 (an entered value is one setting on).
+  String _summaryAmmoTemp() =>
+      ammoTempCtl.text.trim().isEmpty ? 'kapalı' : '1 ayar açık';
 
   /// Rüzgâr düzeltmesi (en yüksek rüzgâr, rüzgâr bölgeleri): back on Pro
   /// Ayarlar after Açı (owner, 2026-10-12; it was on Hava Durumu since
@@ -611,16 +616,6 @@ extension _ProAyarlarView on _BallisticsScreenState {
           ),
           const ProInfoField('Yukarı + / aşağı −', EnvironmentFieldInfo.zeroUp),
           const ProInfoField('Sağ + / sol −', EnvironmentFieldInfo.zeroRight),
-          if (_spinDriftOn)
-            const ProInfoField(
-              'Mermi uzunluğu',
-              EnvironmentFieldInfo.bulletLength,
-            ),
-          if (_isFirearm)
-            const ProInfoField(
-              'Mühimmat sıcaklığı',
-              EnvironmentFieldInfo.ammoTemperature,
-            ),
           if (_isPcp && _BallisticsScreenState._showProTubePressure)
             const ProInfoField(
               'Kalan tüp basıncı',
@@ -663,32 +658,9 @@ extension _ProAyarlarView on _BallisticsScreenState {
               ),
             ],
           ),
-          // Mermi uzunluğu | Mühimmat sıcaklığı side by side (owner,
-          // 2026-10-17, TestFlight 112), same two-box row as Yukarı | Sağ.
-          // Mühimmat sıcaklığı stays firearm-only (owner, 2026-10-16, #366;
-          // empty = the air temperature); on PCP Mermi uzunluğu keeps its
-          // full row. No ⓘ in the boxes (#373): their texts are in this
-          // section's title ⓘ sheet (ProInfoField above).
-          if (_isFirearm)
-            MenzilFieldGrid(
-              key: const Key('pro-ammo-temp-row'),
-              children: [
-                if (_spinDriftOn) _bulletLengthInput(),
-                MenzilInput(
-                  key: const Key('env-ammo-temp'),
-                  controller: ammoTempCtl,
-                  label: 'Mühimmat sıcaklığı',
-                  onChanged: (_) => _coriolisChanged(),
-                  unit: metric ? '°C' : '°F',
-                  keyboardType: const TextInputType.numberWithOptions(
-                    decimal: true,
-                    signed: true,
-                  ),
-                ),
-              ],
-            )
-          else if (_spinDriftOn)
-            _bulletLengthInput(),
+          // Mermi uzunluğu moved to Profil > Mühimmat (owner, 2026-10-17
+          // 11:34); Mühimmat sıcaklığı has its own box below. The spin drift
+          // warning stays here, with spin drift in this box's ⓘ.
           if (_spinDriftOn &&
               (profileResolution?.rifle.twistRateIn == null ||
                   profileResolution?.rifle.twistDirection == null))
@@ -698,7 +670,42 @@ extension _ProAyarlarView on _BallisticsScreenState {
                   'Profilde yiv yönü veya yiv oranı yok; spin drift '
                   'hesaplanamaz.',
             ),
-          if (_isFirearm) ...[
+          // PCP tüp basıncı (owner, 2026-10-12): never on a firearm; hidden
+          // behind PRO_TUBE_PRESSURE (owner, 2026-10-14: asked on Profil).
+          if (_isPcp && _BallisticsScreenState._showProTubePressure)
+            ..._pcpPressureProFields(c),
+        ],
+      ),
+      // Mühimmat sıcaklığı: its own box right after Tüfek düzeltmeleri
+      // (owner, 2026-10-17 11:41: "ayrı bir kutu alan aç diğerleri ile
+      // karışmasın"), firearm only. The box has no label (option B: the
+      // box title says it) and no ⓘ; its text opens from the title ⓘ.
+      // Same box, saved value and calculation as before (empty = the air
+      // temperature).
+      if (_isFirearm)
+        _proBox(
+          id: 'ammo-temp',
+          title: 'Mühimmat sıcaklığı',
+          summary: _summaryAmmoTemp(),
+          infoText: EnvironmentFieldInfo.ammoTemperature,
+          children: [
+            MenzilFieldGrid(
+              key: const Key('pro-ammo-temp-row'),
+              children: [
+                MenzilInput(
+                  key: const Key('env-ammo-temp'),
+                  controller: ammoTempCtl,
+                  label: 'Mühimmat sıcaklığı',
+                  showLabel: false,
+                  onChanged: (_) => _coriolisChanged(),
+                  unit: metric ? '°C' : '°F',
+                  keyboardType: const TextInputType.numberWithOptions(
+                    decimal: true,
+                    signed: true,
+                  ),
+                ),
+              ],
+            ),
             // The values are entered on Profil > Mühimmat (2026-10-11); here
             // only what is used and today's velocity. Texts: owner,
             // 2026-10-17 ("Yeni açıklama metin daha doğru ifade ediyor").
@@ -745,12 +752,7 @@ extension _ProAyarlarView on _BallisticsScreenState {
               },
             ),
           ],
-          // PCP tüp basıncı (owner, 2026-10-12): never on a firearm; hidden
-          // behind PRO_TUBE_PRESSURE (owner, 2026-10-14: asked on Profil).
-          if (_isPcp && _BallisticsScreenState._showProTubePressure)
-            ..._pcpPressureProFields(c),
-        ],
-      ),
+        ),
       // Garmin saati (owner, 2026-10-16: moved from Araçlar, "isteğe
       // bağlı"): only in builds with the iOS Garmin bridge; elsewhere it
       // builds nothing and takes no space. Not a setting: no summary counts
@@ -765,16 +767,6 @@ extension _ProAyarlarView on _BallisticsScreenState {
         ),
     ];
   }
-
-  /// Pro > Tüfek düzeltmeleri: Mermi uzunluğu (beside Mühimmat sıcaklığı on
-  /// a firearm, its own row on PCP).
-  Widget _bulletLengthInput() => MenzilInput(
-    key: const Key('pro-bullet-length'),
-    controller: bulletLengthCtl,
-    label: 'Mermi uzunluğu',
-    unit: 'mm',
-    onChanged: (_) => _coriolisChanged(),
-  );
 
   /// Pro > Tüfek düzeltmeleri, PCP: Kalan tüp basıncı, the regulator
   /// warning and the velocity used.

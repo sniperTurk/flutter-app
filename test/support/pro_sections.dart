@@ -33,12 +33,12 @@ const _sectionOf = <String, String>{
   'pro-turret-scale': 'rifle',
   'pro-zero-up': 'rifle',
   'pro-zero-right': 'rifle',
-  'pro-bullet-length': 'rifle',
-  // Mühimmat sıcaklığı: Pro > Tüfek düzeltmeleri since 2026-10-16.
-  'env-ammo-temp': 'rifle',
-  'pro-ammo-temp-row': 'rifle',
-  'pro-powder-source': 'rifle',
-  'pro-powder-today': 'rifle',
+  // Mühimmat sıcaklığı: its own Pro box since 2026-10-17 (owner); Mermi
+  // uzunluğu moved to Profil > Mühimmat.
+  'env-ammo-temp': 'ammo-temp',
+  'pro-ammo-temp-row': 'ammo-temp',
+  'pro-powder-source': 'ammo-temp',
+  'pro-powder-today': 'ammo-temp',
   'pro-tube-pressure': 'rifle',
   'pro-pcp-regulator': 'rifle',
   'pro-pcp-velocity': 'rifle',

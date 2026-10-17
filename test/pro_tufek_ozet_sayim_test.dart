@@ -106,10 +106,10 @@ void main() {
     await type(tester, const Key('pro-zero-up'), '1');
     expect(await summary(tester), '2 ayar açık');
 
-    // Mühimmat sıcaklığı is in this box since 2026-10-16 (owner): an
-    // entered value counts.
+    // Mühimmat sıcaklığı has its own box since 2026-10-17 (owner): it is
+    // counted there, not here.
     await type(tester, const Key('env-ammo-temp'), '30');
-    expect(await summary(tester), '3 ayar açık');
+    expect(await summary(tester), '2 ayar açık');
 
     // Clearing the boxes brings it back to "kapalı".
     await type(tester, const Key('pro-turret-scale'), '');

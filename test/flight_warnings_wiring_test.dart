@@ -1,13 +1,15 @@
 // Ö5 (owner, 2026-10-11): Sg and transonic notices on the shot panel.
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sniper_turk/data/catalog_repository.dart';
 import 'package:sniper_turk/data/user_catalog.dart';
 import 'package:sniper_turk/features/ballistics/ballistics_screen.dart';
 import 'package:sniper_turk/models/domain.dart';
+import 'package:sniper_turk/services/shot_settings_store.dart';
 import 'package:sniper_turk/ui/menzil_theme.dart';
-
-import 'support/pro_sections.dart';
 
 const _rifle = <String, dynamic>{
   'id': 'manual_rifle_fx',
@@ -58,25 +60,35 @@ void main() {
     ),
   );
 
-  Future<void> type(WidgetTester tester, Key key, String v) async {
-    await openProFor(tester, key);
-    final f = find.descendant(
-      of: find.byKey(key),
-      matching: find.byType(TextField),
-    );
-    await tester.ensureVisible(f);
-    await tester.enterText(f, v);
-    await tester.pump();
-  }
-
+  /// The shot panel for the profile, its ammunition saved with Mermi
+  /// uzunluğu [lengthMm] (Profil > Mühimmat since 2026-10-17) and
+  /// optionally an old Pro > Mermi uzunluğu value [legacyProLength].
   Future<void> shotWith(
     WidgetTester tester, {
     String? lengthMm,
     String? rangeM,
+    String? legacyProLength,
   }) async {
     tester.view.physicalSize = const Size(430, 3000) * 3;
     tester.view.devicePixelRatio = 3;
     addTearDown(tester.view.reset);
+    SharedPreferences.setMockInitialValues({
+      if (legacyProLength != null)
+        ShotSettingsStore.keyFor(_profile.id): jsonEncode(
+          ShotSettings(bulletLengthText: legacyProLength).toJson(),
+        ),
+    });
+    CatalogRepository.installUserCatalog(
+      UserCatalog.fromManualEntries([
+        _rifle,
+        {
+          ..._ammo,
+          if (lengthMm != null) 'lengthMm': double.parse(lengthMm),
+        },
+      ]),
+    );
+    // A fresh screen, so the profile and its saved settings load again.
+    await tester.pumpWidget(const SizedBox());
     await tester.pumpWidget(app(BallisticsView.pro));
     await tester.pumpAndSettle();
     if (rangeM != null) {
@@ -88,9 +100,6 @@ void main() {
         rangeM,
       );
       await tester.pump();
-    }
-    if (lengthMm != null) {
-      await type(tester, const Key('pro-bullet-length'), lengthMm);
     }
     await tester.pumpWidget(app(BallisticsView.shot));
     await tester.pumpAndSettle();
@@ -126,21 +135,15 @@ void main() {
     expect(find.byKey(marginal), findsNothing);
   });
 
-  testWidgets('kayıtlı mühimmat uzunluğu Sg\'ye girmez, yalnız Pro kutusu', (
-    tester,
-  ) async {
-    // Owner, 2026-10-13 23:32: the length comes only from Pro > Mermi
-    // uzunluğu; a length saved with the ammunition (45 mm, Sg < 1 if it
-    // were used) changes nothing while the Pro box is empty.
-    CatalogRepository.installUserCatalog(
-      UserCatalog.fromManualEntries([
-        _rifle,
-        {..._ammo, 'lengthMm': 45},
-      ]),
-    );
-    await shotWith(tester);
+  testWidgets('Profil uzunluğu kullanılır; eski Pro değeri yalnız '
+      'profilde uzunluk yoksa', (tester) async {
+    // Owner, 2026-10-17 11:34: Mermi uzunluğu is on Profil > Mühimmat; an
+    // old Pro value (45 mm, Sg < 1) is used only without a Profil length.
+    await shotWith(tester, lengthMm: '31', legacyProLength: '45');
     expect(find.byKey(unstable), findsNothing);
     expect(find.byKey(marginal), findsNothing);
+    await shotWith(tester, legacyProLength: '45');
+    expect(find.byKey(unstable), findsOneWidget);
     await shotWith(tester, lengthMm: '45');
     expect(find.byKey(unstable), findsOneWidget);
   });
