@@ -608,7 +608,7 @@ void main() {
         out.write('$label: text=${r.width.toStringAsFixed(1)}x${r.height.toStringAsFixed(1)} '
             'box=${box.width.toStringAsFixed(1)} weight=${w.style?.fontWeight} size=${w.style?.fontSize} | ');
       }
-      fail(out.toString());
+      expect(out.toString().replaceAll('\n', ' '), 'x');
     });
   });
 
