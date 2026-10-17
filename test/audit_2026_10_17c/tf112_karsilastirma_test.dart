@@ -52,25 +52,24 @@ const _windProfile = RifleProfile(
 /// An old PCP profile (saved before 2026-10-16) with a "Basınca göre hız"
 /// table. Namlu çıkış hızı 280 m/s; table 120 bar 250 m/s, 200 bar
 /// 275 m/s; Tüp basıncı 160 bar.
-RifleProfile _tabled({double? regulatorBar, bool table = true}) =>
-    RifleProfile(
-      id: 'p-den17c-tablo',
-      name: 'Eski tablolu PCP',
-      rifleId: 'hatsan-hercules-635',
-      ammunitionId: 'c-den17c-slug',
-      scopeId: 'gazi-6-36',
-      muzzleVelocityMps: 280,
-      zeroRangeM: 30,
-      sightHeightMm: 60,
-      tubePressureBar: 160,
-      pressureBar: regulatorBar,
-      pressureVelocityTable: table
-          ? const [
-              PressureVelocityPoint(bar: 120, mps: 250),
-              PressureVelocityPoint(bar: 200, mps: 275),
-            ]
-          : const [],
-    );
+RifleProfile _tabled({double? regulatorBar, bool table = true}) => RifleProfile(
+  id: 'p-den17c-tablo',
+  name: 'Eski tablolu PCP',
+  rifleId: 'hatsan-hercules-635',
+  ammunitionId: 'c-den17c-slug',
+  scopeId: 'gazi-6-36',
+  muzzleVelocityMps: 280,
+  zeroRangeM: 30,
+  sightHeightMm: 60,
+  tubePressureBar: 160,
+  pressureBar: regulatorBar,
+  pressureVelocityTable: table
+      ? const [
+          PressureVelocityPoint(bar: 120, mps: 250),
+          PressureVelocityPoint(bar: 200, mps: 275),
+        ]
+      : const [],
+);
 
 Future<void> _seedWind(String profileId) async {
   SharedPreferences.setMockInitialValues({});
@@ -129,9 +128,7 @@ void main() {
   });
   tearDown(() => CatalogRepository.installUserCatalog(UserCatalog.empty));
 
-  testWidgets('#383: wind line numbers pinned (6,2 / 9,3 m/s)', (
-    tester,
-  ) async {
+  testWidgets('#383: wind line numbers pinned (6,2 / 9,3 m/s)', (tester) async {
     await _seedWind(_windProfile.id);
     await _show(tester, _windProfile);
     final bracket = _textOf(tester, 'shot-wind-bracket');

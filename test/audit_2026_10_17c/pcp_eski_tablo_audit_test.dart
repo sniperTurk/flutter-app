@@ -54,25 +54,22 @@ const _table = [
   PressureVelocityPoint(bar: 200, mps: 275),
 ];
 
-RifleProfile _old({
-  bool table = true,
-  double? minMps,
-  double? maxMps,
-}) => RifleProfile(
-  id: 'den17c-eski',
-  name: 'Eski Tablolu',
-  rifleId: 'manual_rifle_den17c',
-  ammunitionId: 'manual_ammo_den17c',
-  scopeId: 'gazi-6-36',
-  muzzleVelocityMps: UnitSystem.fpsToMps(900),
-  zeroRangeM: 30,
-  sightHeightMm: 50,
-  tubePressureBar: 250,
-  pressureBar: 150,
-  pressureVelocityTable: table ? _table : const [],
-  pcpMinVelocityMps: minMps,
-  pcpMaxVelocityMps: maxMps,
-);
+RifleProfile _old({bool table = true, double? minMps, double? maxMps}) =>
+    RifleProfile(
+      id: 'den17c-eski',
+      name: 'Eski Tablolu',
+      rifleId: 'manual_rifle_den17c',
+      ammunitionId: 'manual_ammo_den17c',
+      scopeId: 'gazi-6-36',
+      muzzleVelocityMps: UnitSystem.fpsToMps(900),
+      zeroRangeM: 30,
+      sightHeightMm: 50,
+      tubePressureBar: 250,
+      pressureBar: 150,
+      pressureVelocityTable: table ? _table : const [],
+      pcpMinVelocityMps: minMps,
+      pcpMaxVelocityMps: maxMps,
+    );
 
 /// The JSON as TestFlight 112 wrote it: no En düşük / En yüksek keys.
 Map<String, dynamic> _oldJson() =>
