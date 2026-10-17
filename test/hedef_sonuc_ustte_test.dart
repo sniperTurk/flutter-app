@@ -247,9 +247,8 @@ void main() {
     handle.dispose();
   });
 
-  testWidgets('accent lines: amber for Üst kule, cyan for Yan kule', (
-    tester,
-  ) async {
+  testWidgets('accent line: none for Üst kule (2026-10-17), cyan for Yan '
+      'kule', (tester) async {
     await _show(tester, _moaMetric);
     Color accent(Key key) {
       final box = tester.widget<DecoratedBox>(
@@ -265,7 +264,15 @@ void main() {
       return border.left.color;
     }
 
-    expect(accent(TurretSolutionRow.elevationKey), const Color(0xFFF5B031));
+    // Owner, 2026-10-17: "Solda bulunan çizgiyi kaldır." No bar on the
+    // Üst kule half (test/hedef_klik_satiri_test.dart checks the layout).
+    expect(
+      find.descendant(
+        of: find.byKey(TurretSolutionRow.elevationKey),
+        matching: find.byType(DecoratedBox),
+      ),
+      findsNothing,
+    );
     expect(accent(TurretSolutionRow.windageKey), const Color(0xFF4CC3E8));
     // Compact (owner, 2026-10-16): labels 12,5 pt grey, the clicks 15 pt
     // semibold with tabular figures; no 34 pt number any more.

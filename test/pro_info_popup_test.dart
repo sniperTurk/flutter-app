@@ -132,7 +132,7 @@ Map<String, Map<String, String>> _fields({required bool pcp}) => {
   'gravity': const {'Yerçekimi': EnvironmentFieldInfo.gravity},
   'target': const {
     'Hedef hızı': EnvironmentFieldInfo.targetSpeed,
-    'Yönü': EnvironmentFieldInfo.targetDirection,
+    'Hedefin yönü': EnvironmentFieldInfo.targetDirection,
     'Grup çapı': EnvironmentFieldInfo.group,
     'Hız farkı': EnvironmentFieldInfo.sd,
     'Hedef çapı': EnvironmentFieldInfo.targetSize,

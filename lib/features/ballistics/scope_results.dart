@@ -77,8 +77,12 @@ extension _ScopeResults on ScopeDialView {
 
 /// Hedef: the REQUIRED turret solution at the selected range, one compact
 /// line directly under the distance slider and above the reticle card:
-/// "▌Üst kule 39 klik yukarı   ▌Yan kule 4 klik sağ" (owner, 2026-10-16,
-/// design PR #366; replaces the big two-column row of #330). It shows what
+/// "Üst kule 39 klik yukarı ▌Yan kule 4 klik sağ" (owner, 2026-10-16,
+/// design PR #366; replaces the big two-column row of #330). Since
+/// 2026-10-17 (owner: "Üst kule klik sayısını sağ çizgiye yasla. Solda
+/// bulunan çizgiyi kaldır.") the Üst kule half has no bar and is
+/// right-aligned so it ends [dividerGap] before the blue bar, which is
+/// now the divider between the two. It shows what
 /// the turrets must be set to ("Kuleleri kur"), not what is dialled now; no
 /// calculation of its own: [requiredUp] / [requiredRight] are the scope
 /// view's numbers. The required angle (MRAD/MOA) stays in VoiceOver; the
@@ -125,6 +129,15 @@ class TurretSolutionRow extends StatelessWidget {
   /// Height of the line (the design's 22 pt); larger text makes it taller.
   static const double lineHeight = 22;
 
+  /// Gap between the end of the Üst kule text and the blue bar: the same
+  /// 5 pt as between the blue bar and "Yan kule" (the 8 pt padding starts
+  /// at the bar's left edge, under the 3 pt bar).
+  static const double dividerGap = 5;
+
+  /// Space between the two halves (the design's 12 pt; unchanged, so the
+  /// Yan kule half keeps its place and width).
+  static const double _halfGap = 12;
+
   /// "yukarı" / "aşağı" / "sağ" / "sol" for a non-zero [clicks].
   static String _direction(int clicks, String pos, String neg) =>
       clicks == 0 ? '' : (clicks > 0 ? pos : neg);
@@ -150,13 +163,34 @@ class TurretSolutionRow extends StatelessWidget {
 
     Widget part({
       required Key key,
-      required Color accent,
+      // null: no bar, text right-aligned against the next half's bar.
+      required Color? accent,
       required String title,
       required int clicks,
       required String detail,
       required String direction,
     }) {
       final big = '${clicks.abs()} klik';
+      final end = accent == null;
+      // One line, never wrapped: on a narrow screen or at a large text
+      // size it is set smaller instead.
+      final line = FittedBox(
+        fit: BoxFit.scaleDown,
+        alignment: end ? Alignment.centerRight : Alignment.centerLeft,
+        child: Text.rich(
+          TextSpan(
+            children: [
+              TextSpan(text: '$title ', style: word),
+              TextSpan(text: big, style: number),
+              if (direction.isNotEmpty)
+                TextSpan(text: ' $direction', style: word),
+            ],
+          ),
+          maxLines: 1,
+          softWrap: false,
+          textAlign: end ? TextAlign.right : TextAlign.left,
+        ),
+      );
       return Semantics(
         key: key,
         container: true,
@@ -164,36 +198,31 @@ class TurretSolutionRow extends StatelessWidget {
         child: ExcludeSemantics(
           child: ConstrainedBox(
             constraints: const BoxConstraints(minHeight: lineHeight),
-            child: Align(
-              alignment: Alignment.centerLeft,
-              child: DecoratedBox(
-                decoration: BoxDecoration(
-                  border: Border(left: BorderSide(color: accent, width: 3)),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 8),
-                  // One line, never wrapped: on a narrow screen or at a
-                  // large text size it is set smaller instead.
-                  child: FittedBox(
-                    fit: BoxFit.scaleDown,
+            child: accent == null
+                ? Align(
+                    alignment: Alignment.centerRight,
+                    // The half ends _halfGap before the blue bar; moved
+                    // right by the difference so the text ends dividerGap
+                    // before it, inside the space between the halves.
+                    child: Transform.translate(
+                      offset: const Offset(_halfGap - dividerGap, 0),
+                      child: line,
+                    ),
+                  )
+                : Align(
                     alignment: Alignment.centerLeft,
-                    child: Text.rich(
-                      TextSpan(
-                        children: [
-                          TextSpan(text: '$title ', style: word),
-                          TextSpan(text: big, style: number),
-                          if (direction.isNotEmpty)
-                            TextSpan(text: ' $direction', style: word),
-                        ],
+                    child: DecoratedBox(
+                      decoration: BoxDecoration(
+                        border: Border(
+                          left: BorderSide(color: accent, width: 3),
+                        ),
                       ),
-                      maxLines: 1,
-                      softWrap: false,
-                      textAlign: TextAlign.left,
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 8),
+                        child: line,
+                      ),
                     ),
                   ),
-                ),
-              ),
-            ),
           ),
         ),
       );
@@ -209,7 +238,7 @@ class TurretSolutionRow extends StatelessWidget {
           Expanded(
             child: part(
               key: elevationKey,
-              accent: c.amber,
+              accent: null,
               title: 'Üst kule',
               clicks: upClicks,
               detail: upDetail,
@@ -217,7 +246,7 @@ class TurretSolutionRow extends StatelessWidget {
             ),
           ),
           // 12 pt between the halves, as in the design.
-          const SizedBox(width: 12),
+          const SizedBox(width: _halfGap),
           Expanded(
             child: part(
               key: windageKey,
