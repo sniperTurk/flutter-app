@@ -9,7 +9,8 @@
 //                   mu?" · Ağırlık | BC · BC modeli · En düşük | En yüksek
 //                   namlu çıkış hızı (optional). No pressures, no "Basınca
 //                   göre hız".
-//   MenzilInput:    the unit inside the box at its right; ⓘ in the label row.
+//   MenzilInput:    the unit inside the box at its right; ⓘ at the right end
+//                   of the label row, compact boxes too (owner, 2026-10-17).
 //
 // Velocity used by every calculation (RifleProfile.velocityMps): En düşük
 // and En yüksek both given → their mean; both empty → the Tüfek card's
@@ -485,7 +486,8 @@ void main() {
       expect(tester.takeException(), isNull);
     });
 
-    testWidgets('units and ⓘ inside the compact boxes (approved design)', (
+    testWidgets('units inside the compact boxes, ⓘ at the right end of the '
+        'label row (owner, 2026-10-17)', (
       tester,
     ) async {
       await _openNew(tester, pcp: true);
@@ -505,8 +507,8 @@ void main() {
           matching: find.byType(MenzilInfoButton),
         );
         final i = tester.getRect(info);
-        expect(i.top, greaterThanOrEqualTo(box.top - 0.5), reason: key);
-        expect(i.bottom, lessThanOrEqualTo(box.bottom + 0.5), reason: key);
+        expect(i.bottom, lessThanOrEqualTo(box.top + 0.5), reason: key);
+        expect((i.right - box.right).abs(), lessThanOrEqualTo(1), reason: key);
       }
     });
   });

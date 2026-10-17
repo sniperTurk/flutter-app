@@ -870,7 +870,8 @@ extension _AmmoSection on _ProfileDialogState {
           MenzilSpace.xxs,
         ),
         // PCP (owner, 2026-10-16, the approved design): the Hava Durumu
-        // boxes, with the unit and the ⓘ inside each box at its right; the
+        // boxes, with the unit inside each box at its right and the ⓘ at the
+        // right end of the label row (owner, 2026-10-17); the
         // firearm card is unchanged.
         child: MenzilCompactFields(
           enabled: pcp,

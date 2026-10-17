@@ -9,8 +9,10 @@ extension _HavaDurumuView on _BallisticsScreenState {
   /// The Hava Durumu page (BallisticsView.environment).
   Widget _havaDurumuPage(BuildContext context) {
     // Hava Durumu and Pro Ayarlar only: compact boxes (label above a
-    // 44 pt box, unit and ⓘ inside; owner "Fikir 4", 2026-10-13).
+    // 44 pt box, unit inside, ⓘ at the label row's right; owner "Fikir 4",
+    // 2026-10-13, ⓘ moved 2026-10-17).
     return MenzilCompactFields(
+      reserveInfo: false,
       child: MenzilPage(
         key: const PageStorageKey('ballistics-environment'),
         children: [
@@ -89,6 +91,7 @@ extension _HavaDurumuView on _BallisticsScreenState {
     final c = MenzilColors.of(context);
     // Compact boxes on Hava Durumu (owner "Fikir 4", 2026-10-13).
     return MenzilCompactFields(
+      reserveInfo: false,
       child: MenzilPage(
         key: const PageStorageKey('ballistics-environment-empty'),
         children: [

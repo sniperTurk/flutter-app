@@ -1300,7 +1300,8 @@ void main() {
   });
 
   group('Mühimmat: Barut katsayısı', () {
-    testWidgets('no unit beside the label; Hız ölçüm sıcaklığı keeps °C', (
+    testWidgets('no unit beside the label; Hız ölçüm sıcaklığı keeps °C '
+        'inside its box (owner, 2026-10-17)', (
       tester,
     ) async {
       await _openNew(tester);
@@ -1314,7 +1315,26 @@ void main() {
       expect(label('profile-powder-coef').unit, isNull);
       expect(find.text('%/15 °C'), findsNothing);
       expect(label('profile-powder-temp').label, 'Hız ölçüm sıcaklığı');
-      expect(label('profile-powder-temp').unit, '°C');
+      // °C stays, inside the box left of the arrow, not in the label row
+      // (owner, 2026-10-17: "fps bar kutu içi").
+      expect(label('profile-powder-temp').unit, isNull);
+      final tempBox = tester.getRect(
+        find.descendant(
+          of: find.byKey(const Key('profile-powder-temp')),
+          matching: find.byType(InputDecorator),
+        ),
+      );
+      final celsius = find.descendant(
+        of: find.byKey(const Key('profile-powder-temp')),
+        matching: find.byKey(const ValueKey('menzil-select-unit')),
+      );
+      expect(celsius, findsOneWidget);
+      expect(tester.widget<Text>(celsius).data, '°C');
+      final cr = tester.getRect(celsius);
+      expect(cr.left, greaterThan(tempBox.center.dx));
+      expect(cr.right, lessThanOrEqualTo(tempBox.right));
+      expect(cr.top, greaterThanOrEqualTo(tempBox.top));
+      expect(cr.bottom, lessThanOrEqualTo(tempBox.bottom));
       // The unit is explained in its ⓘ.
       expect(find.byTooltip('Bilgi: Barut katsayısı'), findsOneWidget);
     });

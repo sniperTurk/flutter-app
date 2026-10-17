@@ -10,6 +10,7 @@ extension _ProAyarlarView on _BallisticsScreenState {
   /// The Pro Ayarlar page (BallisticsView.pro).
   Widget _proAyarlarPage(BuildContext context) {
     return MenzilCompactFields(
+      reserveInfo: false,
       child: MenzilPage(
         key: const PageStorageKey('ballistics-pro'),
         children: _proSection(context),
