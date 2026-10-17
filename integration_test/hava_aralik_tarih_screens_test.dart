@@ -116,7 +116,10 @@ void main() {
       rect('$name hour12', find.byKey(const ValueKey('wind-clock-12')));
       rect('$name windLabel', find.byKey(const ValueKey('wind-clock-label')));
       rect('$name windDate', find.byKey(const ValueKey('wind-clock-date')));
-      rect('$name proButton', find.byKey(const Key('environment-continue-pro')));
+      rect(
+        '$name proButton',
+        find.byKey(const Key('environment-continue-pro')),
+      );
       rect('$name Hava özeti', header('Hava özeti'));
     }
 
@@ -172,10 +175,7 @@ void main() {
         final button = find.byKey(const Key('environment-continue-pro'));
         await tester.ensureVisible(button);
         await settle();
-        await Scrollable.ensureVisible(
-          tester.element(button),
-          alignment: 1,
-        );
+        await Scrollable.ensureVisible(tester.element(button), alignment: 1);
         await settle();
         rects('${name}_alt');
         await shot('${name}_dugme');

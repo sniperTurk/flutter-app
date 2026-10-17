@@ -578,7 +578,10 @@ class MenzilSectionHeader extends StatelessWidget {
   /// With [textGapAbove]: the ⓘ right after the title, built with where its
   /// icon sits inside its 44 × 44 pt target ([alignment], [padding]) so the
   /// icon stays centred on the title's first line.
-  final Widget Function(AlignmentGeometry alignment, EdgeInsetsGeometry padding)?
+  final Widget Function(
+    AlignmentGeometry alignment,
+    EdgeInsetsGeometry padding,
+  )?
   titleInfo;
 
   const MenzilSectionHeader(
@@ -631,10 +634,7 @@ class MenzilSectionHeader extends StatelessWidget {
         Flexible(
           child: Padding(
             padding: EdgeInsets.only(top: top, bottom: textGapBelow),
-            child: Semantics(
-              header: true,
-              child: Text(title, style: style),
-            ),
+            child: Semantics(header: true, child: Text(title, style: style)),
           ),
         ),
         if (info != null)

@@ -88,8 +88,10 @@ Finder _headerText(String title) => find.descendant(
   matching: find.text(title),
 );
 
-Finder _header(String title) =>
-    find.ancestor(of: _headerText(title), matching: find.byType(MenzilSectionHeader));
+Finder _header(String title) => find.ancestor(
+  of: _headerText(title),
+  matching: find.byType(MenzilSectionHeader),
+);
 
 Future<void> _setDirection(WidgetTester tester, String hour) async {
   await tester.ensureVisible(_field(BallisticsFieldKeys.windDirection));
@@ -135,7 +137,8 @@ void _expectSection(
     ),
   );
   // The icon sits on the title's first line.
-  final lineHeight = tester.widget<Text>(_headerText(title)).style!.fontSize! *
+  final lineHeight =
+      tester.widget<Text>(_headerText(title)).style!.fontSize! *
       MediaQuery.textScalerOf(tester.element(_headerText(title))).scale(1) *
       1.1;
   expect(
@@ -150,7 +153,11 @@ void _expectSection(
 void main() {
   setUp(() => SharedPreferences.setMockInitialValues({}));
 
-  for (final (width, scale) in const [(390.0, 1.0), (320.0, 1.0), (320.0, 1.3)]) {
+  for (final (width, scale) in const [
+    (390.0, 1.0),
+    (320.0, 1.0),
+    (320.0, 1.3),
+  ]) {
     final why = '$width pt ×$scale';
 
     testWidgets('wind label on line 1, date on line 2, both left ($why)', (
@@ -300,7 +307,10 @@ void main() {
     await tester.pumpAndSettle();
     final warning = find.byKey(const Key('environment-pressure-warning'));
     expect(warning, findsOneWidget);
-    final alt = _edge(tester, find.byKey(const Key('environment-altitude-card')));
+    final alt = _edge(
+      tester,
+      find.byKey(const Key('environment-altitude-card')),
+    );
     final box = tester.getRect(
       find.descendant(of: warning, matching: find.byType(DecoratedBox)).first,
     );
