@@ -1,6 +1,7 @@
 // Profil (owner, 2026-10-09): summary boxes in the owner's order with the
-// new names, no Regülatör / Odak düzlemi / Klik değeri boxes, "Sniper Türk"
-// in the top bar and a compact profile selector.
+// new names, no Regülatör / Odak düzlemi boxes, "Sniper Türk" in the top
+// bar and a compact profile selector. Klik değeri is the Dürbün card's last
+// metric since 2026-10-17 (owner: "ekle").
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:sniper_turk/data/catalog_repository.dart';
@@ -133,6 +134,8 @@ void main() {
       'Dürbün Marka/Model',
       'Dürbün ayağı',
       'Dürbün üst kule',
+      // Klik değeri last in the Dürbün card (owner, 2026-10-17: "ekle").
+      'Klik değeri',
       'Mühimmat Marka/Model',
       'Tip',
       'Ağırlık',
@@ -155,14 +158,15 @@ void main() {
     expect(find.text('260 klik'), findsOneWidget); // 26 mrad / 0.1
     expect(find.text('50 gr'), findsOneWidget);
     expect(find.text('Pellet'), findsOneWidget);
-    // Gone: separate Regülatör, Odak düzlemi, Klik değeri, Çap, Ağırlık,
-    // Büyütme, Kule ayar aralığı and Namlu boxes.
+    // The click the calculation uses, in the editor's format.
+    expect(find.text('0,1 MRAD'), findsOneWidget);
+    // Gone: separate Regülatör, Odak düzlemi, Çap, Ağırlık, Büyütme, Kule
+    // ayar aralığı and Namlu boxes (Klik değeri is back since 2026-10-17).
     for (final gone in const [
       'Namlu uzunluğu',
       'Namlu boyu',
       'Regülatör',
       'Odak düzlemi',
-      'Klik değeri',
       'Çap',
       'Büyütme',
       'Kule ayar aralığı',
