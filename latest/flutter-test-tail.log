@@ -29,43 +29,24 @@ Downloading packages...
 Got dependencies!
 26 packages have newer versions incompatible with dependency constraints.
 Try `flutter pub outdated` for more information.
-00:00 +0: loading /Users/runner/work/flutter-app/flutter-app/integration_test/pro_barut_not_screens_test.dart
+00:00 +0: loading /Users/runner/work/flutter-app/flutter-app/integration_test/ruzgar_satirlari_screens_test.dart
 The following plugins do not support Swift Package Manager for ios:
   - flutter_compass
   - google_maps_flutter_ios
 This will become an error in a future version of Flutter. Please contact the plugin maintainers to request Swift Package Manager adoption.
 Running Xcode build...                                          
-Xcode build done.                                           151.1s
-00:00 +0: Pro barut notu screenshots
-SIMRECT:ekran:0,0,390.0
-SIMRECT:profil_muhimmat_atesli:bc_modeli:28.0,385.0,190.0,494.0
-SIMRECT:profil_muhimmat_atesli:mermi_uzunlugu:200.0,385.0,362.0,493.0
-SIMSCREEN:01_profil_muhimmat_atesli
-SIMRECT:profil_muhimmat_pcp:bc_modeli:28.0,396.7,190.0,505.7
-SIMRECT:profil_muhimmat_pcp:mermi_uzunlugu:200.0,396.7,362.0,504.7
-SIMSCREEN:02_profil_muhimmat_pcp
-SIMRECT:pro_atesli_tufek:mermi_uzunlugu:yok
-SIMRECT:pro_atesli_tufek:gercek_yazan:28.0,415.8,362.0,490.4
-SIMRECT:pro_atesli_tufek:yukari:28.0,490.4,190.0,565.0
-SIMRECT:pro_atesli_tufek:sag:200.0,490.4,362.0,565.0
-SIMRECT:pro_atesli_tufek:muhimmat_kutusu:14.0,587.0,376.0,671.0
-SIMSCREEN:03_pro_atesli_tufek
-SIMRECT:pro_atesli_muhimmat_not1:bolum:14.0,425.0,376.0,671.0
-SIMRECT:pro_atesli_muhimmat_not1:muhimmat_sicakligi:28.0,495.0,190.0,549.0
-SIMRECT:pro_atesli_muhimmat_not1:not:28.0,549.0,362.0,649.0
-SIMTEXT:pro_atesli_muhimmat_not1:Mühimmat sıcaklığının hesaba girmesi için Profil → Mühimmat'ta Barut katsayısı ve Hız ölçüm sıcaklığı kutularını doldurun. Bu iki kutu boşsa buraya yazılan sıcaklık hesabı değiştirmez.
-SIMSCREEN:04_pro_atesli_muhimmat_not1
-SIMRECT:pro_atesli_muhimmat_not2:bolum:14.0,465.0,376.0,671.0
-SIMRECT:pro_atesli_muhimmat_not2:muhimmat_sicakligi:28.0,535.0,190.0,589.0
-SIMRECT:pro_atesli_muhimmat_not2:not:28.0,589.0,362.0,649.0
-SIMTEXT:pro_atesli_muhimmat_not2:Hesapta kullanılan: Barut katsayısı %1,5 / 15 °C, Hız ölçüm sıcaklığı 21 °C. Değiştirmek için Profil → Mühimmat.
-SIMSCREEN:05_pro_atesli_muhimmat_not2
-SIMRECT:pro_pcp:mermi_uzunlugu:yok
-SIMRECT:pro_pcp:gercek_yazan:28.0,499.8,362.0,574.4
-SIMRECT:pro_pcp:yukari:28.0,574.4,190.0,649.0
-SIMRECT:pro_pcp:sag:200.0,574.4,362.0,649.0
-SIMRECT:pro_pcp:muhimmat_kutusu:yok
-SIMSCREEN:06_pro_pcp
+Xcode build done.                                           110.0s
+00:00 +0: Hedef wind lines at 390 and 320 pt
+SIMTEXT:hedef_ruzgar_390 impact: Vuruş noktası: 38,6 cm aşağı · 24,3 cm sağ | 28.0,198.6,362.0,218.6
+SIMTEXT:hedef_ruzgar_390 bracket: Rüzgâr 6,2–9,3 m/s: yan düzeltme 24 klik L – 37 klik L. | 28.0,398.6,362.0,438.6
+SIMTEXT:hedef_ruzgar_390 shares: Rüzgâr etkisi: yakın %56 · orta %33 · uzak %11 | 28.0,444.6,362.0,484.6
+SIMTEXT:hedef_ruzgar_390 workings: InkWell | 28.0,334.6,362.0,390.6
+SIMSCREEN:01_hedef_ruzgar_390
+SIMTEXT:hedef_ruzgar_320 impact: Vuruş noktası: 38,6 cm aşağı · 24,3 cm sağ | 63.0,292.2,327.0,332.2
+SIMTEXT:hedef_ruzgar_320 bracket: Rüzgâr 6,2–9,3 m/s: yan düzeltme 24 klik L – 37 klik L. | 63.0,529.2,327.0,569.2
+SIMTEXT:hedef_ruzgar_320 shares: Rüzgâr etkisi: yakın %56 · orta %33 · uzak %11 | 63.0,575.2,327.0,615.2
+SIMTEXT:hedef_ruzgar_320 workings: InkWell | 63.0,465.2,327.0,521.2
+SIMSCREEN:02_hedef_ruzgar_320
 SIMSCREEN_DONE failures=0
-01:30 +1: (tearDownAll)
-01:35 +1: All tests passed!
+01:10 +1: (tearDownAll)
+01:15 +1: All tests passed!
