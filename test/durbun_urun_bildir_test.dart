@@ -383,8 +383,14 @@ void main() {
       const c = ProductReport(ProductReportKind.durbun, {'a': 2, 'b': 'x'});
       const d = ProductReport(ProductReportKind.muhimmat, {'a': 1, 'b': 'x'});
       expect(ProductReportLedger.hashOf(a), ProductReportLedger.hashOf(b));
-      expect(ProductReportLedger.hashOf(a), isNot(ProductReportLedger.hashOf(c)));
-      expect(ProductReportLedger.hashOf(a), isNot(ProductReportLedger.hashOf(d)));
+      expect(
+        ProductReportLedger.hashOf(a),
+        isNot(ProductReportLedger.hashOf(c)),
+      );
+      expect(
+        ProductReportLedger.hashOf(a),
+        isNot(ProductReportLedger.hashOf(d)),
+      );
     });
 
     test('per profile: the same scope on two profiles is sent per profile '
