@@ -73,23 +73,23 @@ extension _RifleSection on _ProfileDialogState {
   /// showed it before (cartridge name, or "<mm> mm (kayıtlı)"); null when
   /// the profile did not open with one, a model caliber is chosen or
   /// Kalibre is empty.
-  ({String full, String short})? get _savedOffModelCaliber {
+  String? get _savedOffModelCaliber {
     if (!_offModelSaved || _rifleVariant != null) return null;
     final cal = _parse(rifleCaliber);
     if (cal == null) return null;
     final mm = _trimDot(cal);
-    final saved = (full: '$mm mm (kayıtlı)', short: '$mm mm');
+    final saved = '$mm mm (kayıtlı)';
     if (platform == WeaponPlatform.firearm) {
       final c = _cartridge;
       final name = c != null && _firearmCartridges.any((e) => e.$1 == c)
           ? c
           : _cartridgeFor(cal);
-      return name == null ? saved : (full: name, short: _shortCartridge(name));
+      return name ?? saved;
     }
     final item = _caliberItem(cal);
     if (item == null) return saved;
     final name = _pcpCalibers.firstWhere((e) => e.$1 == item).$2;
-    return (full: name, short: name);
+    return name;
   }
 
   /// Kalibre entries with the text of the closed box: [full], on one line
@@ -111,12 +111,7 @@ extension _RifleSection on _ProfileDialogState {
       }
       final saved = _savedOffModelCaliber;
       if (saved != null) {
-        add(
-          _savedCaliberKey,
-          Text(saved.full, maxLines: 2),
-          saved.full,
-          short: saved.short,
-        );
+        add(_savedCaliberKey, Text(saved, maxLines: 2), saved);
       }
       return out;
     }
