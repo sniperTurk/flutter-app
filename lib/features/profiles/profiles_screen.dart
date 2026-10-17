@@ -687,7 +687,7 @@ enum _ProfileAction { edit, copy, delete }
 class _ProfileRow extends StatelessWidget {
   final RifleProfile profile;
 
-  /// "6,35 mm, sıfır 25 m, 900 fps, BC 0,08 G1" ([profileListSummary]).
+  /// "Accuracy International, .308 Win" ([profileListSummary]).
   final String summary;
   final bool active;
   final VoidCallback onTap;
@@ -813,14 +813,7 @@ class _ProfileRow extends StatelessWidget {
         if (summary.isNotEmpty)
           Padding(
             padding: const EdgeInsets.only(top: 3),
-            child: Text(
-              summary,
-              key: const Key('profile-row-summary'),
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
-              textAlign: TextAlign.start,
-              style: MenzilType.caption(c.ink2),
-            ),
+            child: ProfileRowSummary(summary),
           ),
       ],
     ),
@@ -882,29 +875,90 @@ class _ProfileRow extends StatelessWidget {
 }
 
 /// One-line summary of a saved profile for its card in the Profiller list
-/// (owner, 2026-10-15): "kalibre, sıfır N m|yd, hız, BC x G1|G7", e.g.
-/// "6,35 mm, sıfır 25 m, 900 fps, BC 0,08 G1". The zero is in the
-/// profile's own distance unit, the velocity in the Profil page's unit
-/// ([_ProfileUnits]); a part whose value is missing is left out. Read only:
-/// nothing here is saved or feeds the solver.
+/// (owner, 2026-10-17): "Tüfek markası, kalibre adı", e.g.
+/// "Accuracy International, .308 Win". The caliber is the name the profile
+/// editor shows for the saved rifle ([_listCartridgeName]); without a name
+/// it is the rifle's caliber in mm ("7,82 mm"). Without a brand only the
+/// caliber is shown; an unknown rifle gives "". No sıfır, hız or BC. Read
+/// only: nothing here is saved or feeds the solver.
 String profileListSummary(RifleProfile p) {
   final rifle = CatalogRepository.allRifles
       .where((r) => r.id == p.rifleId)
       .firstOrNull;
-  final ammo = CatalogRepository.allAmmunition
-      .where((a) => a.id == p.ammunitionId)
-      .firstOrNull;
-  bool ok(double? v) => v != null && v.isFinite && v > 0;
-  const units = _ProfileUnits();
-  final bc = ammo?.ballisticCoefficient;
-  return [
-    if (ok(rifle?.caliberMm))
-      '${rifle!.caliberMm.toStringAsFixed(2).replaceAll('.', ',')} mm',
-    if (ok(p.zeroRangeM)) 'sıfır ${_zeroValue(p)} ${p.distanceUnit.symbol}',
-    if (ok(p.muzzleVelocityMps)) units.velocity(p.muzzleVelocityMps),
-    if (ok(bc))
-      _joinSummary(['BC', _trimNum(bc!), ammo!.ballisticModel?.label ?? '']),
-  ].join(', ');
+  if (rifle == null) return '';
+  final listed = _listRifleOf(rifle);
+  final brand = (listed?.brand ?? rifle.brand).trim();
+  final name = _listCartridgeName(rifle, listed);
+  final mm = rifle.caliberMm;
+  final caliber =
+      name ??
+      (mm.isFinite && mm > 0
+          ? '${mm.toStringAsFixed(2).replaceAll('.', ',')} mm'
+          : '');
+  return [brand, caliber].where((s) => s.isNotEmpty).join(', ');
+}
+
+/// The list rifle a saved [r] opens as in the profile editor: the same
+/// Marka + Model, else the tolerant match of older names
+/// ([ProfileCatalogMatch.rifle]); null for a typed rifle.
+LibraryRifle? _listRifleOf(Rifle r) {
+  final lib = [
+    for (final x in RifleLibrary.all)
+      if (x.platform == r.platform) x,
+  ];
+  final same = lib.where((x) => x.brand == r.brand && x.model == r.model);
+  return same.firstOrNull ??
+      ProfileCatalogMatch.rifle(r.brand, r.model, r.caliberMm, lib);
+}
+
+/// The Kalibre name the profile editor shows for a saved [r]:
+/// [RiflePickerScreen.cartridgeName], replaced by the cartridge of the list
+/// variant with the saved caliber (and yiv) when [listed] has one. PCP
+/// rifles have no cartridge name.
+String? _listCartridgeName(Rifle r, LibraryRifle? listed) {
+  var name = RiflePickerScreen.cartridgeName(r);
+  if (listed == null) return name;
+  final variants = [
+    for (final x in RifleLibrary.all)
+      if (x.platform == r.platform &&
+          x.brand == listed.brand &&
+          x.model == listed.model &&
+          (x.diameterMm - r.caliberMm).abs() < 0.005)
+        x,
+  ];
+  final variant =
+      variants
+          .where(
+            (x) =>
+                (name == null || x.cartridge == name) &&
+                (x.twistRateIn == null || x.twistRateIn == r.twistRateIn),
+          )
+          .firstOrNull ??
+      variants.firstOrNull;
+  if (variant != null) {
+    name = variant.platform == WeaponPlatform.firearm
+        ? variant.cartridge
+        : null;
+  }
+  return name;
+}
+
+/// The grey second line of a Profiller card: always one line, the end cut
+/// with "…" (owner, 2026-10-17).
+class ProfileRowSummary extends StatelessWidget {
+  final String text;
+
+  const ProfileRowSummary(this.text, {super.key});
+
+  @override
+  Widget build(BuildContext context) => Text(
+    text,
+    key: const Key('profile-row-summary'),
+    maxLines: 1,
+    overflow: TextOverflow.ellipsis,
+    textAlign: TextAlign.start,
+    style: MenzilType.caption(MenzilColors.of(context).ink2),
+  );
 }
 
 /// Profil summary tile for Dürbün ayağı: "0 MOA", "15 MOA", "30 MOA" —
