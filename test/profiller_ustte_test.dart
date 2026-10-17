@@ -2,8 +2,9 @@
 // "profilleri yukarı al, içi böyle yazılı olsun"; Profil.png on
 // design/clean-2026-10-15): the list comes before the Tüfek / Dürbün /
 // Mühimmat summaries; "Profil ekle" is amber and text only; each card shows
-// its name (+ Aktif) and one summary line "kalibre, sıfır N m|yd, hız,
-// BC x G1|G7"; the active card has a 4 pt amber left edge; ⋯ stays right.
+// its name (+ Aktif) and one summary line, since 2026-10-17 "Tüfek markası,
+// kalibre adı" (docs/reports/profil_kart_marka_kalibre.md); the active card
+// has a 4 pt amber left edge; ⋯ stays right.
 // See docs/reports/profiller_ustte.md.
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -138,25 +139,19 @@ void main() {
   tearDown(() => CatalogRepository.installUserCatalog(UserCatalog.empty));
 
   group('profileListSummary', () {
-    test('metric profile: mm, sıfır m, fps, BC G1', () {
-      expect(
-        profileListSummary(_metric),
-        '6,35 mm, sıfır 25 m, 900 fps, BC 0,08 G1',
-      );
+    test('PCP profile: brand and the mm caliber', () {
+      expect(profileListSummary(_metric), 'Hatsan, 6,35 mm');
     });
 
-    test('yard profile: zero in yd, BC G7', () {
-      expect(
-        profileListSummary(_yard),
-        '7,62 mm, sıfır 100,0 yd, 2600 fps, BC 0,243 G7',
-      );
+    test('firearm profile: brand and the cartridge name', () {
+      expect(profileListSummary(_yard), 'ATA Arms, .308 Win');
     });
 
-    test('missing BC: the BC part is left out', () {
-      expect(profileListSummary(_noBc), '6,35 mm, sıfır 25 m, 900 fps');
+    test('the BC does not change the line', () {
+      expect(profileListSummary(_noBc), 'Hatsan, 6,35 mm');
     });
 
-    test('unknown rifle: the caliber part is left out', () {
+    test('unknown rifle: nothing shown', () {
       const p = RifleProfile(
         id: 'u',
         name: 'Bilinmeyen',
@@ -167,31 +162,7 @@ void main() {
         zeroRangeM: 25,
         sightHeightMm: 60,
       );
-      expect(profileListSummary(p), 'sıfır 25 m, 900 fps');
-    });
-
-    test('a BC without a drag model shows the BC only', () {
-      CatalogRepository.installUserCatalog(
-        const UserCatalog(
-          ammunition: [
-            Ammunition(
-              id: 'test_slug_g1',
-              brand: 'Test',
-              model: 'Slug',
-              platform: WeaponPlatform.pcp,
-              caliberMm: 6.35,
-              grain: 33.95,
-              type: AmmunitionType.slug,
-              ballisticCoefficient: 0.08,
-              userEntered: true,
-            ),
-          ],
-        ),
-      );
-      expect(
-        profileListSummary(_metric),
-        '6,35 mm, sıfır 25 m, 900 fps, BC 0,08',
-      );
+      expect(profileListSummary(p), '');
     });
   });
 
@@ -239,18 +210,9 @@ void main() {
 
   testWidgets('cards show the summary line under the name', (tester) async {
     await _pump(tester);
-    expect(
-      tester.widget<Text>(_summaryOf('m')).data,
-      '6,35 mm, sıfır 25 m, 900 fps, BC 0,08 G1',
-    );
-    expect(
-      tester.widget<Text>(_summaryOf('y')).data,
-      '7,62 mm, sıfır 100,0 yd, 2600 fps, BC 0,243 G7',
-    );
-    expect(
-      tester.widget<Text>(_summaryOf('n')).data,
-      '6,35 mm, sıfır 25 m, 900 fps',
-    );
+    expect(tester.widget<Text>(_summaryOf('m')).data, 'Hatsan, 6,35 mm');
+    expect(tester.widget<Text>(_summaryOf('y')).data, 'ATA Arms, .308 Win');
+    expect(tester.widget<Text>(_summaryOf('n')).data, 'Hatsan, 6,35 mm');
     for (final id in ['m', 'y', 'n']) {
       final name = tester.getRect(
         find.descendant(
