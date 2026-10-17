@@ -36,11 +36,7 @@ void main() {
 
     test('every TestFlight 112 value is still offered', () {
       for (final v in tf112) {
-        expect(
-          ProductionLimits.mountCantOptionsMoa,
-          contains(v),
-          reason: '$v',
-        );
+        expect(ProductionLimits.mountCantOptionsMoa, contains(v), reason: '$v');
       }
     });
 
