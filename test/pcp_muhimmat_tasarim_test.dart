@@ -17,7 +17,11 @@
 // editor shows "En düşük ve en yüksek hızın ikisini de girin." on the empty
 // box and does not save (like Barut sıcaklığı). Older PCP profiles load with
 // their Namlu çıkış hızı and calculate as on main.
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sniper_turk/core/ballistic_engine.dart';
@@ -572,23 +576,33 @@ void main() {
       });
     }
 
-    testWidgets('labels fit on one line at 390 pt', (tester) async {
+    // With the test font every glyph is 12,5 pt wide, so these labels can
+    // never fit on one line and comparing them with "Yiv oranı" only held
+    // while that one wrapped too (rebase 17.10, #367 widened the label
+    // row). Measured with the app's own Inter font as the iPhone stand-in
+    // (as durbun_listeleri_test.dart does): every label one line.
+    testWidgets('labels fit on one line at 390 pt (iPhone font stand-in)', (
+      tester,
+    ) async {
+      await _loadStandIn();
       await _openNew(tester, pcp: true);
-      final one = tester.getRect(
-        find.descendant(
-          of: _key('rifle-twist-rate'),
-          matching: find.text('Yiv oranı'),
-        ),
-      );
       for (final (key, label) in const [
+        ('rifle-twist-rate', 'Yiv oranı'),
         ('profile-zero', 'Sıfırlama mesafesi'),
         ('profile-velocity-fps', 'Namlu çıkış hızı'),
         ('profile-regulator-pressure', 'Regülatör basıncı'),
       ]) {
-        final r = tester.getRect(
-          find.descendant(of: _key(key), matching: find.text(label)),
+        final text = find.descendant(
+          of: find.descendant(
+            of: _key(key),
+            matching: find.byType(MenzilFieldLabel),
+          ),
+          matching: find.text(label),
         );
-        expect((r.height - one.height).abs(), lessThan(1), reason: label);
+        expect(text, findsOneWidget, reason: key);
+        final p = tester.renderObject<RenderParagraph>(text);
+        // One line of the 12,5 pt label (line height 1,25).
+        expect(p.size.height, lessThan(12.5 * 1.25 * 1.5), reason: label);
       }
     });
   });
@@ -939,3 +953,21 @@ void main() {
 /// the same case run there (test-diag run 38947080076 on branch
 /// tmp/pcp-eski-golden-main = main + one printing test).
 const _oldPcpGoldenOnMain = '6.142636207799528';
+
+/// The app's Inter font under the test's text and display family names,
+/// so label widths match the iPhone (copied from durbun_listeleri_test).
+Future<void> _loadStandIn() async {
+  final files = Directory('assets/fonts')
+      .listSync()
+      .whereType<File>()
+      .where((f) => f.uri.pathSegments.last.startsWith('Inter-'))
+      .toList();
+  expect(files, isNotEmpty);
+  for (final name in {MenzilType.textFamily, MenzilType.displayFamily}) {
+    final loader = FontLoader(name);
+    for (final f in files) {
+      loader.addFont(Future.value(ByteData.sublistView(f.readAsBytesSync())));
+    }
+    await loader.load();
+  }
+}
