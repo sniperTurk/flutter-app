@@ -79,9 +79,7 @@ void _checkLayout(WidgetTester tester, {required String tag}) {
   final bar = tester.getRect(
     _in(TurretSolutionRow.windageKey, DecoratedBox).first,
   );
-  final rightText = tester.getRect(
-    _in(TurretSolutionRow.windageKey, RichText),
-  );
+  final rightText = tester.getRect(_in(TurretSolutionRow.windageKey, RichText));
   // Only the blue bar is left; no orange bar.
   expect(_bars(tester), [_cyan], reason: tag);
   expect(_bars(tester), isNot(contains(_amber)), reason: tag);
