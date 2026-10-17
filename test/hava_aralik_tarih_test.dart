@@ -317,7 +317,8 @@ void main() {
     // İrtifa card → warning as before (10 pt).
     expect(box.top - alt.bottom, moreOrLessEquals(10, epsilon: _eps));
     final text = tester.getRect(_headerText('Rüzgâr'));
-    expect(text.top - box.bottom, greaterThanOrEqualTo(20 - _eps));
+    // Warning → Rüzgâr title: the same 20 pt as card → title.
+    expect(text.top - box.bottom, moreOrLessEquals(20, epsilon: _eps));
     final wind = _edge(tester, _cardOf(BallisticsFieldKeys.wind));
     expect(wind.top - text.bottom, moreOrLessEquals(8, epsilon: _eps));
     final info = tester.getRect(find.byKey(const Key('environment-wind-info')));
