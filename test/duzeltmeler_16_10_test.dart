@@ -468,6 +468,35 @@ void main() {
       expect(tester.takeException(), isNull);
     });
 
+    // Rebase 17.10 (#367 on #370): the shared list keeps the app-wide
+    // 8-row cap here too and stays as wide as the pill.
+    testWidgets('12 profiles: 8 rows, scrolls inside, never wider than the '
+        'pill', (tester) async {
+      _phone(tester);
+      await _home(tester, [
+        for (var i = 1; i <= 12; i++) _pcp('p$i', 'Profil $i'),
+      ]);
+      final pill = tester.getRect(
+        find.byKey(const Key('top-bar-profile-button')),
+      );
+      await tester.tap(find.byKey(const Key('top-bar-profile-button')));
+      await tester.pumpAndSettle();
+      final row = find.text('Profil 2').last;
+      final list = tester.getRect(_listSurface(row));
+      expect(
+        list.height,
+        closeTo(MenzilSelect.menuHeightFor(8, kMinInteractiveDimension), 0.5),
+      );
+      expect(list.width, lessThanOrEqualTo(pill.width + 0.01));
+      final scroll = tester
+          .widget<ListView>(
+            find.ancestor(of: row, matching: find.byType(ListView)).first,
+          )
+          .controller!;
+      expect(scroll.position.maxScrollExtent, greaterThan(0));
+      expect(tester.takeException(), isNull);
+    });
+
     for (final (width, scale) in const [
       (390.0, 1.0),
       (320.0, 1.0),

@@ -211,9 +211,10 @@ Finder _prefix(String p) => find.byWidgetPredicate(
 final Map<String, Finder> _scopeParts = {
   'Marka': find.byKey(const Key('scope-brand-select')),
   'Marka (yazılı)': find.byKey(const Key('scope-brand')),
+  'Model (yazılı)': find.byKey(const Key('scope-model')),
   'Listeden seç': find.byKey(const Key('scope-back-to-list')),
   'Birim': _prefix('scope-filter-unit-'),
-  'Odak': _prefix('scope-filter-ffp-'),
+  'Odak düzlemi (filtre)': _prefix('scope-filter-ffp-'),
   'Tüp': _prefix('scope-filter-tube-'),
   'Büyütme': _prefix('scope-filter-mag-'),
   'Model': find.byKey(const Key('scope-model-select')),
@@ -276,21 +277,12 @@ List<String> _layout(WidgetTester tester, Map<String, Finder> parts) {
 List<String> _scopeLayout(WidgetTester t) => _layout(t, _scopeParts);
 List<String> _rifleLayout(WidgetTester t) => _layout(t, _rifleParts);
 
-/// Dürbün of a list scope before a Marka is chosen.
+/// Dürbün of a list scope, approved design (Temiz Tasarım, 2026-10-15;
+/// owner 2026-10-16): Marka, the four filters in their place (closed until
+/// a Marka is chosen), Model, then the boxes the record does not fill.
 const _scopeNewLayout = [
   'Marka',
-  'Model',
-  // Owner, 2026-10-15: Üst kule klik sayısı | Dürbün ayağı (ayak sağda).
-  'Üst kule klik sayısı | Dürbün ayağı',
-  'Retikül',
-  'Dürbün: …',
-  'Aradığın dürbün listede yok mu?',
-];
-
-/// Dürbün after a Marka in a new profile: the four filters, then Model.
-const _scopeFilterLayout = [
-  'Marka',
-  'Birim | Odak',
+  'Birim | Odak düzlemi (filtre)',
   'Tüp | Büyütme',
   'Model',
   // Owner, 2026-10-15: Üst kule klik sayısı | Dürbün ayağı (ayak sağda).
@@ -300,21 +292,27 @@ const _scopeFilterLayout = [
   'Aradığın dürbün listede yok mu?',
 ];
 
-/// Profili Düzenle of a list scope: filters hidden until Marka changes, the
-/// five record values hidden (owner, 2026-10-13).
+/// Dürbün after a Marka: the same rows (the filters were there already).
+const _scopeFilterLayout = _scopeNewLayout;
+
+/// Profili Düzenle of a list scope: the same rows as Profil Oluştur (owner,
+/// 2026-10-16: both pages follow the approved design); the five record
+/// values stay hidden.
 const _scopeEditLayout = _scopeNewLayout;
 
-/// The typed scope ("Aradığın dürbün listede yok mu?" / no list match).
+/// The typed scope ("Aradığın dürbün listede yok mu?" / no list match),
+/// owner 2026-10-16: Marka | Model side by side, "Listeden seç" last; rows
+/// 2–4 in the order of 2026-10-16 22:14–22:49.
 const _scopeTypedLayout = [
-  'Marka (yazılı)',
-  'Listeden seç',
+  'Marka (yazılı) | Model (yazılı)',
+  'Dürbün birimi | Odak düzlemi',
   'Minimum büyütme | Maksimum büyütme',
-  'Mercek çapı | Odak düzlemi',
-  'Dürbün birimi | Klik değeri',
+  'Mercek çapı | Klik değeri',
   // Owner, 2026-10-15: Üst kule klik sayısı | Dürbün ayağı (ayak sağda).
   'Üst kule klik sayısı | Dürbün ayağı',
   'Retikül',
   'Dürbün: …',
+  'Listeden seç',
 ];
 
 /// Tüfek from the lists (new profile and every list rifle on edit). Owner,
@@ -500,6 +498,7 @@ const Map<String, Map<String, List<String>>> _bannerBoxes = {
   'Dürbün': {
     'Marka': ['scope-brand-select', 'scope-brand'],
     'Model': ['scope-model-select'],
+    'Dürbün modeli': ['scope-model'],
     'Min. büyütme': ['scope-min-mag'],
     'Maks. büyütme': ['scope-max-mag'],
     'Mercek çapı': ['scope-objective'],
@@ -640,6 +639,8 @@ void main() {
       // The typed scope from the link, and back.
       await openScopeManual(tester);
       expect(_scopeLayout(tester), _scopeTypedLayout);
+      await tester.ensureVisible(find.byKey(const Key('scope-back-to-list')));
+      await tester.pumpAndSettle();
       await tester.tap(find.byKey(const Key('scope-back-to-list')));
       await tester.pumpAndSettle();
       expect(_scopeLayout(tester), _scopeNewLayout);
@@ -685,7 +686,7 @@ void main() {
       expect(selectedValue<String>(tester, 'rifle-brand-select'), 'Hatsan');
       expect(selectedValue<String>(tester, 'rifle-model-select'), 'Hercules');
       expect(selectedValue<bool?>(tester, 'rifle-origin'), isTrue);
-      // A changed Marka brings the filters back (owner, 2026-10-13).
+      // Another Marka keeps the same rows.
       await chooseInSelect(tester, 'scope-brand-select', 'Element Optics');
       expect(_scopeLayout(tester), _scopeFilterLayout);
     });
@@ -800,6 +801,14 @@ void main() {
       );
       expect(_scopeLayout(tester), _scopeTypedLayout);
       expect(_typed(tester, 'scope-brand'), 'Atölyem Optik');
+      // Saved before Dürbün modeli existed: the box is empty, the rest as
+      // before (owner, 2026-10-16); the old profile still saves without it.
+      expect(_typed(tester, 'scope-model'), '');
+      expect(
+        _missing(tester)['Dürbün'] ?? const <String>[],
+        isNot(contains('Dürbün modeli')),
+      );
+      expect(_designation(tester), 'Dürbün: Atölyem Optik 4-16x44 SFP');
       expect(selectedValue<double>(tester, 'scope-min-mag'), 4);
       expect(selectedValue<double>(tester, 'scope-max-mag'), 16);
       expect(selectedValue<double>(tester, 'scope-objective'), 44);
@@ -899,6 +908,7 @@ void main() {
       ]) {
         expect(dur, contains(n), reason: n);
       }
+      expect(dur.take(2), ['Marka', 'Dürbün modeli']);
       expect(dur, isNot(contains('Model')));
       _bannerNamesVisibleBoxes(tester);
     });
@@ -1140,19 +1150,31 @@ void main() {
     const mil = ['Christmas tree (MIL)', 'MIL çizgili', 'Mil-Dot', 'Duplex'];
     const moa = ['MOA çizgili', 'Duplex'];
 
+    // The plain patterns in the list (owner, 2026-10-16: the typed list
+    // also offers every catalog reticle name after them, and starts with
+    // a "Seçiniz" row).
+    List<String?> plain(WidgetTester tester) {
+      final r = _reticles(tester);
+      expect(r.first, isNull, reason: 'first row is Seçiniz');
+      return [
+        for (final n in r)
+          if (all.contains(n)) n,
+      ];
+    }
+
     testWidgets('Profil Oluştur: Seçiniz lists all 5; MRAD 4; MOA 2', (
       tester,
     ) async {
       await _openNew(tester);
       await openScopeManual(tester);
       expect(selectedValue<AngularUnit>(tester, 'scope-unit'), isNull);
-      expect(_reticles(tester), all);
+      expect(plain(tester), all);
       await chooseInSelect(tester, 'scope-unit', 'MRAD');
-      expect(_reticles(tester), mil);
+      expect(plain(tester), mil);
       await chooseInSelect(tester, 'scope-unit', 'MOA');
-      expect(_reticles(tester), moa);
+      expect(plain(tester), moa);
       await chooseInSelect(tester, 'scope-unit', 'SMOA');
-      expect(_reticles(tester), moa);
+      expect(plain(tester), moa);
     });
 
     testWidgets('Profili Düzenle: hidden MOA unit, box Seçiniz -> all 5', (
@@ -1170,11 +1192,11 @@ void main() {
       );
       await openScopeManual(tester);
       expect(selectedValue<AngularUnit>(tester, 'scope-unit'), isNull);
-      expect(_reticles(tester), all);
+      expect(plain(tester), all);
       await chooseInSelect(tester, 'scope-unit', 'MRAD');
-      expect(_reticles(tester), mil);
+      expect(plain(tester), mil);
       await chooseInSelect(tester, 'scope-unit', 'MOA');
-      expect(_reticles(tester), moa);
+      expect(plain(tester), moa);
     });
 
     testWidgets('a chosen reticle is never cleared by the unit', (
@@ -1188,11 +1210,7 @@ void main() {
         selectedValue<String>(tester, 'scope-reticle'),
         'Christmas tree (MIL)',
       );
-      expect(_reticles(tester), [
-        'Christmas tree (MIL)',
-        'MOA çizgili',
-        'Duplex',
-      ]);
+      expect(plain(tester), ['Christmas tree (MIL)', 'MOA çizgili', 'Duplex']);
     });
 
     testWidgets('a saved generic reticle stays listed and selected', (
@@ -1241,7 +1259,7 @@ void main() {
       ) async {
         await _openNewScaled(tester, width: 320, scale: scale);
         await openScopeManual(tester);
-        expect(_reticles(tester), all);
+        expect(plain(tester), all);
         await chooseInSelect(tester, 'scope-reticle', 'Duplex');
         expect(selectedValue<String>(tester, 'scope-reticle'), 'Duplex');
         expect(tester.takeException(), isNull);
