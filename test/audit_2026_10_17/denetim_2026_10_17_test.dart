@@ -99,6 +99,9 @@ Future<void> _type(WidgetTester tester, Key key, String v) async {
   await tester.pump();
 }
 
+String? _today(WidgetTester tester) =>
+    tester.widget<Text>(find.byKey(const Key('pro-powder-today'))).data;
+
 ScopeDialView _dial(WidgetTester tester) =>
     tester.widget<ScopeDialView>(find.byType(ScopeDialView));
 
@@ -161,21 +164,23 @@ void main() {
     });
     tearDown(() => CatalogRepository.installUserCatalog(UserCatalog.empty));
 
-    testWidgets('35 °C typed in Pro gives exactly the 816 m/s solution', (
+    // The zero stays solved with the zeroing-day velocity (800 m/s) and
+    // only the shot uses today's velocity (ballistics_screen.dart:2026-2041),
+    // so the shown velocity is the number checked against the hand value.
+    testWidgets('35 °C typed in Pro: velocity 816 m/s = 2677 fps', (
       tester,
     ) async {
       await _sized(tester);
-      final typed = await _up(
-        tester,
-        _firearm(coef: 1.5, refC: 15),
-        ammo: '35',
-      );
-      await tester.pumpWidget(const SizedBox());
-      SharedPreferences.setMockInitialValues({});
-      // Independent reference: the same rifle at the hand-calculated
-      // 816 m/s with no powder correction at all.
-      final reference = await _up(tester, _firearm(id: 'p-d17-ref', mv: 816));
-      expect(typed, closeTo(reference, 1e-9));
+      final p = _firearm(coef: 1.5, refC: 15);
+      final plain = await _up(tester, p);
+      final warm = await _up(tester, p, ammo: '35');
+      // 816 / 0.3048 = 2677.2 fps; 800 / 0.3048 = 2624.7 fps.
+      await tester.pumpWidget(_app(p, BallisticsView.pro));
+      await tester.pumpAndSettle();
+      await openProFor(tester, const Key('pro-powder-today'));
+      expect(_today(tester), 'Bugünkü hız: 2677 fps (profil 2625 fps).');
+      // A warmer cartridge is faster: less elevation at 600 m.
+      expect(warm, lessThan(plain));
     });
 
     testWidgets('empty → air temperature: same as no correction at T0', (
@@ -190,7 +195,7 @@ void main() {
     });
 
     testWidgets('a value saved before the move (old install) loads into the '
-        'Pro box and drives the correction', (tester) async {
+        'Pro box and gives the same result as typing it', (tester) async {
       await _sized(tester);
       final p = _firearm(id: 'p-d17-old', coef: 1.5, refC: 15);
       // TestFlight 110 saved the box under the same key ('ammoTemp', °C).
@@ -208,12 +213,17 @@ void main() {
         ),
       );
       expect(field.controller!.text, '35');
+      expect(_today(tester), 'Bugünkü hız: 2677 fps (profil 2625 fps).');
       final loaded = await _up(tester, p);
 
       await tester.pumpWidget(const SizedBox());
       SharedPreferences.setMockInitialValues({});
-      final reference = await _up(tester, _firearm(id: 'p-d17-ref2', mv: 816));
-      expect(loaded, closeTo(reference, 1e-9));
+      final typed = await _up(
+        tester,
+        _firearm(id: 'p-d17-typed', coef: 1.5, refC: 15),
+        ammo: '35',
+      );
+      expect(loaded, closeTo(typed, 1e-9));
     });
 
     testWidgets('PCP: a saved cartridge temperature changes nothing and '
