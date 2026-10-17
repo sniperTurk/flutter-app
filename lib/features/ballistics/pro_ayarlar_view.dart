@@ -722,7 +722,7 @@ extension _ProAyarlarView on _BallisticsScreenState {
             ),
             Builder(
               builder: (context) {
-                final v0 = widget.profile?.muzzleVelocityMps;
+                final v0 = widget.profile?.velocityMps;
                 final t = _parsed(temperature);
                 if (v0 == null || t == null) return const SizedBox.shrink();
                 final today = _powderAdjusted(

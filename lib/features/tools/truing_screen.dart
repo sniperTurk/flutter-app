@@ -264,8 +264,10 @@ class _TruingScreenState extends State<TruingScreen> {
     try {
       base = BallisticInput(
         // The Tüfek card's Namlu çıkış hızı, PCP too (owner, 2026-10-17).
-        muzzleVelocityMps: p.muzzleVelocityMps * f,
-        zeroMuzzleVelocityMps: f == 1 ? null : p.muzzleVelocityMps,
+        // The velocity Hedef uses (RifleProfile.velocityMps): a PCP with En
+        // düşük | En yüksek solves every mode with their mean.
+        muzzleVelocityMps: p.velocityMps * f,
+        zeroMuzzleVelocityMps: f == 1 ? null : p.velocityMps,
         grain: ammo.grain,
         zeroRangeM: p.zeroRangeM,
         sightHeightMm: p.sightHeightMm,
@@ -321,7 +323,7 @@ class _TruingScreenState extends State<TruingScreen> {
         final result = f == 1
             ? today
             : TruingResult(
-                baseMps: p.muzzleVelocityMps,
+                baseMps: p.velocityMps,
                 truedMps: double.parse((today.truedMps / f).toStringAsFixed(1)),
                 rangeM: today.rangeM,
                 predictedMrad: today.predictedMrad,
@@ -700,7 +702,7 @@ class _TruingScreenState extends State<TruingScreen> {
               child: Text(
                 '${p.name}\n'
                 '${res.ammunition.displayName}\n'
-                'Namlu çıkış hızı: ${_fps(p.muzzleVelocityMps)}'
+                'Namlu çıkış hızı: ${_fps(p.velocityMps)}'
                 ' · Sıfır: ${ToolFormat.dec(p.distanceUnit.fromMeters(p.zeroRangeM), 0)} ${p.distanceUnit.symbol}',
                 style: MenzilType.body(c.ink),
               ),

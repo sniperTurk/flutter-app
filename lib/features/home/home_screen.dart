@@ -791,7 +791,8 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
         profile.ammunitionId,
         profile.scopeId,
         profile.muzzleVelocityMps,
-        // PCP En düşük | En yüksek (2026-10-16), saved only.
+        // PCP En düşük | En yüksek (2026-10-16): their mean is the velocity
+        // Hedef uses (RifleProfile.velocityMps).
         profile.pcpMinVelocityMps,
         profile.pcpMaxVelocityMps,
         profile.zeroRangeM,
