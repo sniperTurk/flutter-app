@@ -1,9 +1,9 @@
 # Simulator screenshots
 
-- Source: `design/kule-5-secenek` @ `53100e05a250d9871b6a9248e87d845520a32fb8`
-- Run: https://github.com/sniperTurk/flutter-app/actions/runs/39064769437
+- Source: `feat/diger-marka-urun-bildir` @ `53100e05a250d9871b6a9248e87d845520a32fb8`
+- Run: https://github.com/sniperTurk/flutter-app/actions/runs/39066806549
 - flutter test exit code: 0 (0 = every step passed)
-- Device: iPhone 16e / iOS 26.2
+- Device: iPhone 17 Pro / iOS 26.2
 
 ```
 install: 0
@@ -14,15 +14,15 @@ flutter test exit: 0
 screenshots: 12
 ```
 
-- [01_bugun_390.png](https://raw.githubusercontent.com/sniperTurk/flutter-app/ci/sim-screens/latest/01_bugun_390.png)
-- [02_bugun_320.png](https://raw.githubusercontent.com/sniperTurk/flutter-app/ci/sim-screens/latest/02_bugun_320.png)
-- [03_secenek_1_390.png](https://raw.githubusercontent.com/sniperTurk/flutter-app/ci/sim-screens/latest/03_secenek_1_390.png)
-- [04_secenek_1_320.png](https://raw.githubusercontent.com/sniperTurk/flutter-app/ci/sim-screens/latest/04_secenek_1_320.png)
-- [05_secenek_2_390.png](https://raw.githubusercontent.com/sniperTurk/flutter-app/ci/sim-screens/latest/05_secenek_2_390.png)
-- [06_secenek_2_320.png](https://raw.githubusercontent.com/sniperTurk/flutter-app/ci/sim-screens/latest/06_secenek_2_320.png)
-- [07_secenek_3_390.png](https://raw.githubusercontent.com/sniperTurk/flutter-app/ci/sim-screens/latest/07_secenek_3_390.png)
-- [08_secenek_3_320.png](https://raw.githubusercontent.com/sniperTurk/flutter-app/ci/sim-screens/latest/08_secenek_3_320.png)
-- [09_secenek_4_390.png](https://raw.githubusercontent.com/sniperTurk/flutter-app/ci/sim-screens/latest/09_secenek_4_390.png)
-- [10_secenek_4_320.png](https://raw.githubusercontent.com/sniperTurk/flutter-app/ci/sim-screens/latest/10_secenek_4_320.png)
-- [11_secenek_5_390.png](https://raw.githubusercontent.com/sniperTurk/flutter-app/ci/sim-screens/latest/11_secenek_5_390.png)
-- [12_secenek_5_320.png](https://raw.githubusercontent.com/sniperTurk/flutter-app/ci/sim-screens/latest/12_secenek_5_320.png)
+- [01_pcp_diger_marka_390.png](https://raw.githubusercontent.com/sniperTurk/flutter-app/ci/sim-screens/latest/01_pcp_diger_marka_390.png)
+- [02_pcp_diger_marka_390_alt.png](https://raw.githubusercontent.com/sniperTurk/flutter-app/ci/sim-screens/latest/02_pcp_diger_marka_390_alt.png)
+- [03_dialog_bos_390.png](https://raw.githubusercontent.com/sniperTurk/flutter-app/ci/sim-screens/latest/03_dialog_bos_390.png)
+- [04_dialog_390.png](https://raw.githubusercontent.com/sniperTurk/flutter-app/ci/sim-screens/latest/04_dialog_390.png)
+- [05_atesli_diger_marka_390.png](https://raw.githubusercontent.com/sniperTurk/flutter-app/ci/sim-screens/latest/05_atesli_diger_marka_390.png)
+- [06_atesli_diger_marka_390_alt.png](https://raw.githubusercontent.com/sniperTurk/flutter-app/ci/sim-screens/latest/06_atesli_diger_marka_390_alt.png)
+- [07_atesli_diger_marka_320.png](https://raw.githubusercontent.com/sniperTurk/flutter-app/ci/sim-screens/latest/07_atesli_diger_marka_320.png)
+- [08_atesli_diger_marka_320_alt.png](https://raw.githubusercontent.com/sniperTurk/flutter-app/ci/sim-screens/latest/08_atesli_diger_marka_320_alt.png)
+- [09_dialog_bos_320.png](https://raw.githubusercontent.com/sniperTurk/flutter-app/ci/sim-screens/latest/09_dialog_bos_320.png)
+- [10_dialog_320.png](https://raw.githubusercontent.com/sniperTurk/flutter-app/ci/sim-screens/latest/10_dialog_320.png)
+- [11_pcp_diger_marka_320.png](https://raw.githubusercontent.com/sniperTurk/flutter-app/ci/sim-screens/latest/11_pcp_diger_marka_320.png)
+- [12_pcp_diger_marka_320_alt.png](https://raw.githubusercontent.com/sniperTurk/flutter-app/ci/sim-screens/latest/12_pcp_diger_marka_320_alt.png)
