@@ -7,6 +7,9 @@
 // the horizontal line, slide-in and L-R are unchanged; the turret stays in
 // the scope card and on screen.
 // Report: docs/reports/yan_kule_konum.md.
+// Kule ChairGun ölçüsü (owner, 2026-10-18 01:25): the side drum is now the
+// ChairGun-size top drum turned 90° with its arrows inside; it still ends on
+// the reticle's right edge (docs/reports/kule_chairgun_olcu.md).
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
@@ -37,8 +40,10 @@ const _profile = RifleProfile(
 const _right = 'Rüzgâr kulesi 1 klik sağa';
 const _left = 'Rüzgâr kulesi 1 klik sola';
 
-/// The drum box's corner radius (scope_turrets.dart, windageDrumBox).
-const _boxRadius = 14.0;
+/// The drum's corner radius (scope_turrets.dart, _DrumPainter): 6 pt on
+/// the 58 pt design drum, scaled with its thickness.
+double _boxRadius(Rect box) =>
+    6 * box.width / ScopeTurretGeometry.designThickness;
 
 Future<void> _open(
   WidgetTester tester,
@@ -82,15 +87,14 @@ int _clicks(WidgetTester tester) =>
 
 /// Right edge of the rounded drum box at height [y].
 double _boxRightAt(Rect box, double y) {
-  final dy = y < box.top + _boxRadius
-      ? box.top + _boxRadius - y
-      : y > box.bottom - _boxRadius
-      ? y - (box.bottom - _boxRadius)
+  final r = _boxRadius(box);
+  final dy = y < box.top + r
+      ? box.top + r - y
+      : y > box.bottom - r
+      ? y - (box.bottom - r)
       : 0.0;
   if (dy <= 0) return box.right;
-  return box.right -
-      _boxRadius +
-      math.sqrt(math.max(0, _boxRadius * _boxRadius - dy * dy));
+  return box.right - r + math.sqrt(math.max(0, r * r - dy * dy));
 }
 
 void main() {
@@ -134,38 +138,37 @@ void main() {
       }
     });
 
-    testWidgets('$name: box on the reticle edge, same size, zero on the '
-        'line, inside the card and the screen', (tester) async {
+    testWidgets('$name: box on the reticle edge, ChairGun size, zero on '
+        'the line, inside the card and the screen', (tester) async {
       await _open(tester, size, textScale: scale);
       final reticle = tester.getRect(find.byKey(ScopeDialKeys.reticle));
-      final k = reticle.width / 334;
       final box = tester.getRect(find.byKey(ScopeDialKeys.windageDrumBox));
       final column = tester.getRect(find.byKey(ScopeDialKeys.windageDrum));
-      // Moved 4·k pt right: the box ends on the reticle's right edge
-      // (it ended 4·k pt inside it), its size unchanged.
+      // Kule ChairGun ölçüsü (owner, 2026-10-18 01:25): the top drum turned
+      // 90°, T × L, the box is the whole turret (arrows inside), its right
+      // edge on the reticle's right edge.
+      final drum = ScopeTurretGeometry.drum(size.width);
       expect(box.right, moreOrLessEquals(reticle.right, epsilon: 0.5));
-      expect(box.width, moreOrLessEquals(66 * k, epsilon: 0.5));
-      expect(box.height, moreOrLessEquals(180 * k, epsilon: 0.5));
-      expect(column.width, moreOrLessEquals(74 * k, epsilon: 0.5));
+      expect(box.width, moreOrLessEquals(drum.height, epsilon: 0.5));
+      expect(box.height, moreOrLessEquals(drum.width, epsilon: 0.5));
+      expect(column.width, moreOrLessEquals(box.width, epsilon: 0.5));
+      expect(column.height, moreOrLessEquals(box.height, epsilon: 0.5));
       // Zero on the reticle's horizontal line.
       expect(box.center.dy, moreOrLessEquals(reticle.center.dy, epsilon: 0.5));
       expect(
         column.center.dy,
         moreOrLessEquals(reticle.center.dy, epsilon: 0.5),
       );
-      // Box still centred under its arrows.
+      // The arrows are inside the box, at its ends.
       final up = tester.getRect(find.byTooltip(_right));
       final down = tester.getRect(find.byTooltip(_left));
-      expect(up.center.dx, moreOrLessEquals(box.center.dx, epsilon: 0.5));
-      expect(down.center.dx, moreOrLessEquals(box.center.dx, epsilon: 0.5));
-      expect(up.bottom, lessThanOrEqualTo(box.top));
-      expect(down.top, greaterThanOrEqualTo(box.bottom));
-      // Covers less of the reticle than before (left edge 4·k pt further
-      // right), never its centre.
-      expect(box.left, moreOrLessEquals(reticle.right - 66 * k, epsilon: 0.5));
-      expect(box.left, greaterThan(reticle.center.dx + 60 * k));
-      // Only the column's empty margin passes the reticle square; it stays
-      // inside the scope card's padding and on screen.
+      expect(up.top, moreOrLessEquals(box.top, epsilon: 0.5));
+      expect(down.bottom, moreOrLessEquals(box.bottom, epsilon: 0.5));
+      expect(up.left, greaterThanOrEqualTo(box.left - 0.01));
+      expect(down.right, lessThanOrEqualTo(box.right + 0.01));
+      // Never over the reticle's centre.
+      expect(box.left, greaterThan(reticle.center.dx));
+      // Inside the scope card and on screen.
       final card = tester.getRect(
         find
             .ancestor(
@@ -173,10 +176,6 @@ void main() {
               matching: find.byType(MenzilCard),
             )
             .first,
-      );
-      expect(
-        column.right - reticle.right,
-        moreOrLessEquals(4 * k, epsilon: 0.5),
       );
       expect(column.right, lessThanOrEqualTo(card.right - 1));
       expect(column.right, lessThanOrEqualTo(size.width));
@@ -227,7 +226,10 @@ void main() {
     final reticle = tester.getRect(find.byKey(ScopeDialKeys.reticle));
     final moving = tester.getRect(find.byKey(ScopeDialKeys.windageDrumBox));
     // Mid-slide: still right of its resting place.
-    expect(moving.left, greaterThan(reticle.right - 66 * reticle.width / 334));
+    expect(
+      moving.left,
+      greaterThan(reticle.right - ScopeTurretGeometry.drum(390).height),
+    );
     await tester.pumpAndSettle();
     final box = tester.getRect(find.byKey(ScopeDialKeys.windageDrumBox));
     expect(box.right, moreOrLessEquals(reticle.right, epsilon: 0.5));

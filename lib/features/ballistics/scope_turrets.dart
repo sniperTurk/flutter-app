@@ -86,11 +86,54 @@ extension _ScopeTurretButtons on ScopeDialView {
   }
 }
 
-/// Turrets around the scope, as in ChairGun: the elevation drum sits on top
-/// (its zero right above the reticle's vertical line); "L-R" slides the
-/// windage drum in from the right over the scope's right edge, its zero on
-/// the reticle's horizontal line. Tapping "L-R" again slides it away, so the
-/// scope keeps the whole width.
+/// Turret size (owner, 2026-10-18 01:25): ChairGun's turret almost one to
+/// one. Its drum is 199 × 60 pt on a 402 pt screen, so 194 × 58 pt on a
+/// 390 pt phone. Both turrets are the same drum; the side one is the top one
+/// turned 90°. The drum scales with the screen width but is never thinner
+/// than [minThickness].
+abstract final class ScopeTurretGeometry {
+  static const double designScreenWidth = 390,
+      designLength = 194,
+      designThickness = 58,
+      minThickness = 44;
+
+  /// Each end of a drum holds a step chevron (owner, 2026-10-17 21:07: the
+  /// step arrows are inside the drum). Its tap area is this long along the
+  /// drum and as thick as the drum, clear of the three values.
+  static const double arrowTap = 44;
+
+  /// The darker trapezoid mount under the top drum: its height as a share
+  /// of the drum's thickness, its top and bottom widths as shares of the
+  /// drum's length.
+  static const double mountHeightShare = 0.22,
+      mountTopShare = 0.42,
+      mountBottomShare = 0.58;
+
+  /// Length × thickness of the drum on a [screenWidth] pt wide screen, as
+  /// the top drum lies. The side drum is the same size, turned.
+  static Size drum(double screenWidth) {
+    final k = screenWidth / designScreenWidth;
+    return Size(
+      math.max(3 * arrowTap, designLength * k),
+      math.max(minThickness, designThickness * k),
+    );
+  }
+
+  static double mountHeight(double thickness) => thickness * mountHeightShare;
+
+  /// Side drum: the values sit across its thickness between the ticks (on
+  /// the left) and the unit column (on the right), centred at
+  /// [sideValuesCentreShare].
+  static const double sideValuesLeftShare = 0.27, sideValuesRightShare = 0.80;
+  static const double sideValuesCentreShare =
+      (sideValuesLeftShare + sideValuesRightShare) / 2;
+}
+
+/// Turrets around the scope, as in ChairGun: the elevation drum sits on top,
+/// centred on the reticle's vertical line and joined to the scope by its
+/// mount; "L-R" slides the windage drum in from the right, its right edge on
+/// the reticle's right edge and its zero on the horizontal line. Tapping
+/// "L-R" again slides it away, so the scope keeps the whole width.
 class _TurretBar extends StatefulWidget {
   final Widget elevation, windage, reticle;
   final double side;
@@ -112,144 +155,192 @@ class _TurretBar extends StatefulWidget {
 class _TurretBarState extends State<_TurretBar> {
   bool _windage = false;
 
+  /// The round L-R button at the right end of the top row, and the least
+  /// room kept between it and the top drum.
+  static const double toggleSize = 48, toggleGap = 4;
+
   @override
   void didUpdateWidget(covariant _TurretBar old) {
     super.didUpdateWidget(old);
     if (widget.revealToken != old.revealToken) _windage = true;
   }
 
-  /// Top row (owner, 2026-10-15): [empty 48][‹ 28][drum 1fr][› 28][L-R 48],
-  /// 4 pt apart. The empty slot balances L-R, so the drum and its zero sit
-  /// over the reticle's vertical line.
-  static const double slot = 48, gap = 4, rowHeight = 84;
-
-  /// The side turret on the 334 pt reticle of the approved design (390 pt
-  /// phone). Owner, 2026-10-15 12:52: the drum box is smaller, 66 × 180 pt,
-  /// while its arrows stay exactly where they were: a 74 pt wide column, the
-  /// arrows 30 pt tall (74 × 30 pt hit areas) at its ends, 296 pt apart
-  /// outside to outside. The box is centred between them, 28 pt from each.
-  /// Everything scales with the reticle size.
-  static const double designSide = 334,
-      sideColumnWidth = 74,
-      sideBoxWidth = 66,
-      sideBoxHeight = 180,
-      sideArrowHeight = 30,
-      sideArrowGap = 28;
-
   @override
   Widget build(BuildContext context) {
     final c = MenzilColors.of(context);
     final side = widget.side;
-    final k = side / designSide;
-    final columnWidth = sideColumnWidth * k;
-    final columnHeight =
-        (sideBoxHeight + 2 * (sideArrowHeight + sideArrowGap)) * k;
-    // Owner, 2026-10-16 21:08: "Sağ kulenin sağ tarafında dürbün beyazlığı
-    // var … Kuleyi biraz sağa al." The box sits centred in its column, 4 pt
-    // (× k) in from the column's edges, so a sliver of the scope circle
-    // showed to its right. The whole turret (box and arrows) moves right by
-    // that inset: the box's right edge lands on the reticle square's right
-    // edge, over the circle's outer edge. Only the empty margin of the
-    // column reaches past the square, into the card's padding; the square
-    // still clips its painting.
-    final columnInset = (sideColumnWidth - sideBoxWidth) / 2 * k;
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        SizedBox(
-          height: rowHeight,
-          child: Row(
-            children: [
-              const SizedBox(width: slot + gap),
-              Expanded(child: widget.elevation),
-              const SizedBox(width: gap),
-              Semantics(
-                button: true,
-                toggled: _windage,
-                label: _windage
-                    ? 'Rüzgâr kulesini gizle'
-                    : 'Rüzgâr kulesini göster',
-                child: ExcludeSemantics(
-                  child: SizedBox.square(
-                    dimension: slot,
-                    // A plain button like the others (owner, 2026-10-12):
-                    // white on navy in Koyu, dark on light in Açık.
-                    child: Material(
-                      key: ScopeDialKeys.turretToggle,
-                      color: c.surface,
-                      shape: CircleBorder(side: BorderSide(color: c.line)),
-                      child: InkWell(
-                        customBorder: const CircleBorder(),
-                        onTap: () => setState(() => _windage = !_windage),
-                        child: Center(
-                          child: Text(
-                            'L-R',
-                            style: TextStyle(
-                              color: c.ink,
-                              fontWeight: FontWeight.w700,
-                              fontSize: 15,
+    final drum = ScopeTurretGeometry.drum(MediaQuery.sizeOf(context).width);
+    final thickness = drum.height;
+    final mount = ScopeTurretGeometry.mountHeight(thickness);
+    return LayoutBuilder(
+      builder: (context, box) {
+        // Never longer than the reticle, nor into the L-R button (the top
+        // drum is centred, so L-R's room is kept on both sides). Both
+        // drums get the same length.
+        final room = box.maxWidth - 2 * (toggleSize + toggleGap);
+        final length = math.min(drum.width, math.min(side, room));
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            SizedBox(
+              height: thickness + mount,
+              child: Stack(
+                clipBehavior: Clip.none,
+                children: [
+                  Positioned(
+                    left: 0,
+                    right: 0,
+                    top: thickness,
+                    height: mount,
+                    child: CustomPaint(
+                      painter: _TurretMountPainter(
+                        topWidth: length * ScopeTurretGeometry.mountTopShare,
+                        bottomWidth:
+                            length * ScopeTurretGeometry.mountBottomShare,
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    left: (box.maxWidth - length) / 2,
+                    top: 0,
+                    width: length,
+                    height: thickness,
+                    child: widget.elevation,
+                  ),
+                  Positioned(
+                    right: 0,
+                    top: math.max(0, (thickness - toggleSize) / 2),
+                    width: toggleSize,
+                    height: toggleSize,
+                    child: Semantics(
+                      button: true,
+                      toggled: _windage,
+                      label: _windage
+                          ? 'Rüzgâr kulesini gizle'
+                          : 'Rüzgâr kulesini göster',
+                      child: ExcludeSemantics(
+                        // A plain button like the others (owner,
+                        // 2026-10-12): white on navy in Koyu, dark on light
+                        // in Açık.
+                        child: Material(
+                          key: ScopeDialKeys.turretToggle,
+                          color: c.surface,
+                          shape: CircleBorder(side: BorderSide(color: c.line)),
+                          child: InkWell(
+                            customBorder: const CircleBorder(),
+                            onTap: () => setState(() => _windage = !_windage),
+                            child: Center(
+                              child: Text(
+                                'L-R',
+                                style: TextStyle(
+                                  color: c.ink,
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: 15,
+                                ),
+                              ),
                             ),
                           ),
                         ),
                       ),
                     ),
                   ),
+                ],
+              ),
+            ),
+            Center(
+              child: SizedBox.square(
+                dimension: side,
+                child: Stack(
+                  children: [
+                    Positioned.fill(child: widget.reticle),
+                    // Windage drum: right edge on the reticle's right edge,
+                    // vertically centred so its zero meets the horizontal
+                    // line.
+                    Positioned(
+                      right: 0,
+                      top: (side - length) / 2,
+                      height: length,
+                      width: thickness,
+                      child: ClipRect(
+                        child: AnimatedSwitcher(
+                          duration: const Duration(milliseconds: 260),
+                          switchInCurve: Curves.easeOutCubic,
+                          switchOutCurve: Curves.easeInCubic,
+                          transitionBuilder: (child, animation) =>
+                              SlideTransition(
+                                position: Tween(
+                                  begin: const Offset(1, 0),
+                                  end: Offset.zero,
+                                ).animate(animation),
+                                child: child,
+                              ),
+                          child: _windage
+                              ? KeyedSubtree(
+                                  key: const ValueKey('windage-open'),
+                                  child: widget.windage,
+                                )
+                              : const SizedBox.shrink(
+                                  key: ValueKey('windage-closed'),
+                                ),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
-            ],
-          ),
-        ),
-        const SizedBox(height: MenzilSpace.xs),
-        Center(
-          child: SizedBox.square(
-            dimension: side,
-            child: Stack(
-              children: [
-                Positioned.fill(child: widget.reticle),
-                // Windage drum at the right edge, vertically centred on the
-                // reticle so its zero meets the horizontal line; its arrows
-                // sit above and below the drum box.
-                Positioned(
-                  right: -columnInset,
-                  top: (side - columnHeight) / 2,
-                  height: columnHeight,
-                  width: columnWidth,
-                  child: ClipRect(
-                    child: AnimatedSwitcher(
-                      duration: const Duration(milliseconds: 260),
-                      switchInCurve: Curves.easeOutCubic,
-                      switchOutCurve: Curves.easeInCubic,
-                      transitionBuilder: (child, animation) => SlideTransition(
-                        position: Tween(
-                          begin: const Offset(1, 0),
-                          end: Offset.zero,
-                        ).animate(animation),
-                        child: child,
-                      ),
-                      child: _windage
-                          ? KeyedSubtree(
-                              key: const ValueKey('windage-open'),
-                              child: widget.windage,
-                            )
-                          : const SizedBox.shrink(
-                              key: ValueKey('windage-closed'),
-                            ),
-                    ),
-                  ),
-                ),
-              ],
             ),
-          ),
-        ),
-      ],
+          ],
+        );
+      },
     );
   }
 }
 
-/// A turret drum that the user drags (or steps with buttons) one click at a
-/// time. Horizontal drum: dragging right dials UP. Vertical drum: dragging
-/// down dials RIGHT — the numbers on the drum move toward the pointer the
-/// way a real turret's markings do.
+/// The top turret's darker trapezoid mount, centred, narrow under the drum
+/// and wider where it meets the scope.
+class _TurretMountPainter extends CustomPainter {
+  final double topWidth, bottomWidth;
+
+  const _TurretMountPainter({
+    required this.topWidth,
+    required this.bottomWidth,
+  });
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    const d = MenzilColors.dark;
+    final cx = size.width / 2;
+    final path = Path()
+      ..moveTo(cx - topWidth / 2, 0)
+      ..lineTo(cx + topWidth / 2, 0)
+      ..lineTo(cx + bottomWidth / 2, size.height)
+      ..lineTo(cx - bottomWidth / 2, size.height)
+      ..close();
+    final rect = Rect.fromLTWH(
+      cx - bottomWidth / 2,
+      0,
+      bottomWidth,
+      size.height,
+    );
+    final dark = Color.lerp(d.bg, Colors.black, 0.45)!;
+    canvas.drawPath(
+      path,
+      Paint()
+        ..shader = LinearGradient(
+          colors: [dark, d.bg, dark],
+        ).createShader(rect),
+    );
+  }
+
+  @override
+  bool shouldRepaint(covariant _TurretMountPainter old) =>
+      old.topWidth != topWidth || old.bottomWidth != bottomWidth;
+}
+
+/// A turret drum that the user drags (or steps with its end chevrons) one
+/// click at a time. Horizontal drum: dragging right dials UP. Vertical drum:
+/// dragging down dials RIGHT — the markings on the drum move toward the
+/// pointer the way a real turret's do.
 class _TurretDrum extends StatefulWidget {
   final Axis axis;
   final int clicks;
@@ -285,13 +376,6 @@ class _TurretDrum extends StatefulWidget {
 
 class _TurretDrumState extends State<_TurretDrum> {
   static const double pixelsPerClick = 9;
-
-  /// The top drum is 78 pt tall (U/D header, values, ticks) and its arrows
-  /// 28 pt wide (owner, 2026-10-15).
-  static const double drumHeight = 78, arrowWidth = 28;
-
-  /// Smallest tap area of a step arrow (HDF-2, owner 2026-10-15 22:29).
-  static const double minTap = 44;
   double _carry = 0;
 
   /// The value last handed to [onChanged] that the parent has not built
@@ -371,210 +455,132 @@ class _TurretDrumState extends State<_TurretDrum> {
 
   @override
   Widget build(BuildContext context) {
-    final c = MenzilColors.of(context);
     final horizontal = widget.axis == Axis.horizontal;
-    final drum = GestureDetector(
-      behavior: HitTestBehavior.opaque,
-      onHorizontalDragStart: horizontal ? (_) => _carry = 0 : null,
-      onHorizontalDragUpdate: horizontal ? (d) => _drag(d.delta.dx) : null,
-      onVerticalDragStart: horizontal ? null : (_) => _carry = 0,
-      onVerticalDragUpdate: horizontal ? null : (d) => _drag(d.delta.dy),
-      child: CustomPaint(
-        painter: _DrumPainter(
-          colors: c,
-          axis: widget.axis,
-          clicks: _value,
-          clickValue: widget.clickValue,
-          unitLabel: widget.unitLabel,
-          positiveLetter: widget.positiveLetter,
-          negativeLetter: widget.negativeLetter,
-          pixelsPerClick: pixelsPerClick,
-        ),
-        child: const SizedBox.expand(),
-      ),
-    );
 
-    // Step arrows (owner, 2026-10-15): only the chevron, no box, white with
-    // a thin dark edge so it shows on the light reticle and the dark card.
-    // VoiceOver steps the drum through its slider actions below.
-    Widget glyph(int delta, AxisDirection direction, double w, double h) =>
-        SizedBox(
-          width: w,
-          height: h,
-          child: Center(
+    // Drag handlers along the drum's own axis; the chevron areas use them
+    // too, so a drag that starts on a chevron still turns the drum.
+    Widget dragArea({VoidCallback? onTap, required Widget child}) =>
+        GestureDetector(
+          behavior: HitTestBehavior.opaque,
+          excludeFromSemantics: true,
+          onTap: onTap,
+          onHorizontalDragStart: horizontal ? (_) => _carry = 0 : null,
+          onHorizontalDragUpdate: horizontal ? (d) => _drag(d.delta.dx) : null,
+          onVerticalDragStart: horizontal ? null : (_) => _carry = 0,
+          onVerticalDragUpdate: horizontal ? null : (d) => _drag(d.delta.dy),
+          child: child,
+        );
+
+    final up = '${widget.semanticName} 1 klik ${widget.positiveWord}';
+    final down = '${widget.semanticName} 1 klik ${widget.negativeWord}';
+
+    final body = LayoutBuilder(
+      builder: (context, box) {
+        final size = box.biggest;
+        final length = horizontal ? size.width : size.height;
+        final thickness = horizontal ? size.height : size.width;
+        final tap = math.min(ScopeTurretGeometry.arrowTap, length / 3);
+        final s = thickness / ScopeTurretGeometry.designThickness;
+        final glyph = 14 * s;
+        // Chevron centres: top drum ‹ left / › right on the values row;
+        // side drum ^ top / v bottom in the values column, below "↑ R" and
+        // above "L ↓".
+        final Offset plusAt, minusAt;
+        if (horizontal) {
+          plusAt = Offset(tap / 2, thickness / 2);
+          minusAt = Offset(length - tap / 2, thickness / 2);
+        } else {
+          final x = _DrumPainter.sideValuesCentre(thickness);
+          plusAt = Offset(x, tap * 0.62);
+          minusAt = Offset(x, length - tap * 0.62);
+        }
+        Widget chevron(
+          int delta,
+          AxisDirection direction,
+          Offset at,
+        ) => Positioned(
+          left: at.dx - glyph / 2,
+          top: at.dy - glyph / 2,
+          width: glyph,
+          height: glyph,
+          child: IgnorePointer(
             child: CustomPaint(
               key: ValueKey(
                 '${widget.semanticName}-step-${delta > 0 ? 'plus' : 'minus'}',
               ),
-              size: const Size.square(24),
+              size: Size.square(glyph),
               painter: TurretChevronPainter(direction),
             ),
           ),
         );
-
-    // HDF-2 (owner, 2026-10-15 22:29 "görünüş aynı, alan büyük"; 22:31):
-    // each arrow's invisible tap area is at least [minTap] pt, laid over
-    // the unchanged chevron. It keeps the arrow's own [core] cell and grows
-    // only toward the drum ([coreFirst]: the core comes first along
-    // [axis]), never toward L-R or another control. Where it lies over the
-    // top drum the drum still drags ([dragStrip]).
-    Widget hit(
-      int delta,
-      String label, {
-      required Axis axis,
-      required double core,
-      required bool coreFirst,
-      bool dragStrip = false,
-    }) {
-      Widget area({bool drag = false}) => GestureDetector(
-        behavior: HitTestBehavior.opaque,
-        excludeFromSemantics: true,
-        onTap: () => _set(_value + delta),
-        onHorizontalDragStart: drag ? (_) => _carry = 0 : null,
-        onHorizontalDragUpdate: drag ? (d) => _drag(d.delta.dx) : null,
-        child: const SizedBox.expand(),
-      );
-      final coreCell = axis == Axis.horizontal
-          ? SizedBox(width: core, child: area())
-          : SizedBox(height: core, child: area());
-      final strip = Expanded(child: area(drag: dragStrip));
-      return Tooltip(
-        message: label,
-        excludeFromSemantics: true,
-        child: Flex(
-          direction: axis,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: coreFirst ? [coreCell, strip] : [strip, coreCell],
-        ),
-      );
-    }
-
-    final up = '${widget.semanticName} 1 klik ${widget.positiveWord}';
-    final down = '${widget.semanticName} 1 klik ${widget.negativeWord}';
-    final Widget body;
-    if (horizontal) {
-      // ‹ drum ›, 28 pt arrows 4 pt from the drum (owner, 2026-10-15).
-      body = LayoutBuilder(
-        builder: (context, box) {
-          // Tap areas grow from the arrow's 28 pt column toward the drum,
-          // so the right one ends 4 pt before L-R.
-          final w = math.max(arrowWidth, math.min(minTap, box.maxWidth / 2));
-          return Stack(
-            children: [
-              Row(
-                children: [
-                  glyph(1, AxisDirection.left, arrowWidth, drumHeight),
-                  const SizedBox(width: _TurretBarState.gap),
-                  Expanded(
-                    child: SizedBox(height: drumHeight, child: drum),
-                  ),
-                  const SizedBox(width: _TurretBarState.gap),
-                  glyph(-1, AxisDirection.right, arrowWidth, drumHeight),
-                ],
-              ),
-              Positioned(
-                left: 0,
-                top: 0,
-                bottom: 0,
-                width: w,
-                child: hit(
-                  1,
-                  up,
-                  axis: Axis.horizontal,
-                  core: arrowWidth,
-                  coreFirst: true,
-                  dragStrip: true,
-                ),
-              ),
-              Positioned(
-                right: 0,
-                top: 0,
-                bottom: 0,
-                width: w,
-                child: hit(
-                  -1,
-                  down,
-                  axis: Axis.horizontal,
-                  core: arrowWidth,
-                  coreFirst: false,
-                  dragStrip: true,
-                ),
-              ),
-            ],
+        // HDF-2: each chevron's tap area is at least 44 × 44 pt; it covers
+        // the drum's end, never the three values in the middle.
+        Widget hit(int delta, String label, {required bool start}) {
+          final area = Tooltip(
+            message: label,
+            excludeFromSemantics: true,
+            child: dragArea(
+              onTap: () => _set(_value + delta),
+              child: const SizedBox.expand(),
+            ),
           );
-        },
-      );
-    } else {
-      // Long, slim drum box; the arrows sit outside it, above and below,
-      // as wide as the column. The narrower box is centred under them.
-      body = LayoutBuilder(
-        builder: (context, box) {
-          final k = box.maxWidth / _TurretBarState.sideColumnWidth;
-          final arrow = _TurretBarState.sideArrowHeight * k;
-          final gap = _TurretBarState.sideArrowGap * k;
-          // Tap areas grow from the arrow toward the box, never into it:
-          // 44 pt fits in arrow + gap down to a 254 pt reticle.
-          final h = math.max(arrow, math.min(minTap, arrow + gap));
-          return Stack(
+          return horizontal
+              ? Positioned(
+                  left: start ? 0 : null,
+                  right: start ? null : 0,
+                  top: 0,
+                  bottom: 0,
+                  width: tap,
+                  child: area,
+                )
+              : Positioned(
+                  top: start ? 0 : null,
+                  bottom: start ? null : 0,
+                  left: 0,
+                  right: 0,
+                  height: tap,
+                  child: area,
+                );
+        }
+
+        return SizedBox.expand(
+          key: horizontal ? null : ScopeDialKeys.windageDrumBox,
+          child: Stack(
             children: [
-              Column(
-                children: [
-                  glyph(1, AxisDirection.up, box.maxWidth, arrow),
-                  SizedBox(height: gap),
-                  Expanded(
-                    child: Center(
-                      child: SizedBox(
-                        width: _TurretBarState.sideBoxWidth * k,
-                        child: DecoratedBox(
-                          key: ScopeDialKeys.windageDrumBox,
-                          decoration: BoxDecoration(
-                            color: c.surface2,
-                            borderRadius: BorderRadius.circular(14),
-                            border: Border.all(color: c.line),
-                          ),
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(14),
-                            child: drum,
-                          ),
-                        ),
-                      ),
+              Positioned.fill(
+                child: dragArea(
+                  child: CustomPaint(
+                    painter: _DrumPainter(
+                      axis: widget.axis,
+                      clicks: _value,
+                      clickValue: widget.clickValue,
+                      unitLabel: widget.unitLabel,
+                      positiveLetter: widget.positiveLetter,
+                      negativeLetter: widget.negativeLetter,
+                      pixelsPerClick: pixelsPerClick,
+                      arrowTap: tap,
                     ),
+                    child: const SizedBox.expand(),
                   ),
-                  SizedBox(height: gap),
-                  glyph(-1, AxisDirection.down, box.maxWidth, arrow),
-                ],
-              ),
-              Positioned(
-                left: 0,
-                right: 0,
-                top: 0,
-                height: h,
-                child: hit(
-                  1,
-                  up,
-                  axis: Axis.vertical,
-                  core: arrow,
-                  coreFirst: true,
                 ),
               ),
-              Positioned(
-                left: 0,
-                right: 0,
-                bottom: 0,
-                height: h,
-                child: hit(
-                  -1,
-                  down,
-                  axis: Axis.vertical,
-                  core: arrow,
-                  coreFirst: false,
-                ),
+              chevron(
+                1,
+                horizontal ? AxisDirection.left : AxisDirection.up,
+                plusAt,
               ),
+              chevron(
+                -1,
+                horizontal ? AxisDirection.right : AxisDirection.down,
+                minusAt,
+              ),
+              hit(1, up, start: true),
+              hit(-1, down, start: false),
             ],
-          );
-        },
-      );
-    }
+          ),
+        );
+      },
+    );
 
     return Semantics(
       container: true,
@@ -590,8 +596,15 @@ class _TurretDrumState extends State<_TurretDrum> {
   }
 }
 
+/// ChairGun's turret drum in the navy palette (owner, 2026-10-18 01:25:
+/// only the colours are ours). Top drum, top to bottom: "← U · unit · D →",
+/// the previous (dimmed) / CURRENT (bold, larger) / next (dimmed) values,
+/// then the ticks with the red index at the bottom centre pointing up. The
+/// side drum is the same turned 90°: ticks and the red index on the left,
+/// the values next to them, the unit written down the right side, "↑ R" at
+/// the top end and "L ↓" at the bottom end. The colours are the dark
+/// (navy) theme's in both app themes, like the light scope inside.
 class _DrumPainter extends CustomPainter {
-  final MenzilColors colors;
   final Axis axis;
   final int clicks;
   final double clickValue;
@@ -599,8 +612,10 @@ class _DrumPainter extends CustomPainter {
   final String positiveLetter, negativeLetter;
   final double pixelsPerClick;
 
+  /// Length of each end's chevron tap area; the values stay between them.
+  final double arrowTap;
+
   const _DrumPainter({
-    required this.colors,
     required this.axis,
     required this.clicks,
     required this.clickValue,
@@ -608,11 +623,24 @@ class _DrumPainter extends CustomPainter {
     required this.positiveLetter,
     required this.negativeLetter,
     required this.pixelsPerClick,
+    required this.arrowTap,
   });
 
-  /// Clicks between labelled major ticks: a whole number of units (1, 2, 5,
-  /// 10… mrad / MOA) far enough apart that the labels never overlap
-  /// (owner, 2026-10-11: 1/2 MOA labels ran into each other).
+  static MenzilColors get palette => MenzilColors.dark;
+
+  /// Value sizes on the 58 pt design drum: current 22 pt, neighbours 18 pt.
+  static const double currentSize = 22, neighbourSize = 18;
+
+  /// Side drum: the values sit between the ticks and the unit column.
+  static double sideValuesLeft(double thickness) =>
+      thickness * ScopeTurretGeometry.sideValuesLeftShare;
+  static double sideValuesRight(double thickness) =>
+      thickness * ScopeTurretGeometry.sideValuesRightShare;
+  static double sideValuesCentre(double thickness) =>
+      thickness * ScopeTurretGeometry.sideValuesCentreShare;
+
+  /// Clicks between long ticks: a whole number of units (1, 2, 5, 10…
+  /// mrad / MOA) far enough apart to read.
   int get _major {
     final perUnit = math.max(1, (1 / clickValue).round());
     for (final units in const [1, 2, 5, 10, 20, 50, 100]) {
@@ -622,160 +650,269 @@ class _DrumPainter extends CustomPainter {
     return perUnit * 100;
   }
 
-  void _text(
+  String _letter(int v) =>
+      v == 0 ? '' : (v > 0 ? positiveLetter : negativeLetter);
+
+  /// The angle of [v] clicks: up to three decimals, trailing zeros dropped,
+  /// decimal comma (0,25 · 1,1 · 0,125 · 3).
+  String _number(int v) {
+    var t = (v * clickValue).abs().toStringAsFixed(3);
+    t = t.replaceFirst(RegExp(r'0+$'), '');
+    if (t.endsWith('.')) t = t.substring(0, t.length - 1);
+    return t.replaceAll('.', ',');
+  }
+
+  TextPainter _value(int v, double size, Color color, FontWeight weight) {
+    TextStyle style(double fs) => TextStyle(
+      fontFamily: MenzilType.familyFor(fs),
+      fontFeatures: MenzilType.tabular,
+      color: color,
+      fontSize: fs,
+      fontWeight: weight,
+      height: 1.0,
+    );
+    final letter = _letter(v);
+    return TextPainter(
+      text: TextSpan(
+        text: _number(v),
+        style: style(size),
+        children: [
+          if (letter.isNotEmpty)
+            TextSpan(text: letter, style: style(size * 0.72)),
+        ],
+      ),
+      textDirection: TextDirection.ltr,
+    )..layout();
+  }
+
+  void _label(
     Canvas canvas,
     String s,
     Offset center,
     Color color,
     double size, {
-    FontWeight weight = FontWeight.w600,
+    double align = 0.5,
   }) {
     final tp = TextPainter(
       text: TextSpan(
         text: s,
         style: TextStyle(
           fontFamily: MenzilType.familyFor(size),
-          fontFeatures: MenzilType.tabular,
           color: color,
           fontSize: size,
-          fontWeight: weight,
+          fontWeight: FontWeight.w600,
+          height: 1.0,
         ),
       ),
       textDirection: TextDirection.ltr,
     )..layout();
-    tp.paint(canvas, center - Offset(tp.width / 2, tp.height / 2));
+    tp.paint(canvas, center - Offset(tp.width * align, tp.height / 2));
   }
-
-  String _letter(int v) =>
-      v == 0 ? '' : (v > 0 ? positiveLetter : negativeLetter);
 
   @override
   void paint(Canvas canvas, Size size) {
+    final d = palette;
+    final horizontal = axis == Axis.horizontal;
+    final length = horizontal ? size.width : size.height;
+    final thickness = horizontal ? size.height : size.width;
+    final s = thickness / ScopeTurretGeometry.designThickness;
+    final mid = length / 2;
     final rect = Offset.zero & size;
-    final rrect = RRect.fromRectAndRadius(rect, const Radius.circular(10));
+    final rrect = RRect.fromRectAndRadius(rect, Radius.circular(6 * s));
+
+    // Cylinder: dark at both ends, a lighter band in the middle.
     canvas.drawRRect(
       rrect,
       Paint()
         ..shader = LinearGradient(
-          begin: axis == Axis.horizontal
-              ? Alignment.centerLeft
-              : Alignment.topCenter,
-          end: axis == Axis.horizontal
-              ? Alignment.centerRight
-              : Alignment.bottomCenter,
-          colors: [colors.surface2, colors.line, colors.surface2],
+          begin: horizontal ? Alignment.centerLeft : Alignment.topCenter,
+          end: horizontal ? Alignment.centerRight : Alignment.bottomCenter,
+          colors: [d.bg, d.surface2, d.line, d.surface2, d.bg],
+          stops: const [0, 0.28, 0.5, 0.72, 1],
         ).createShader(rect),
     );
     canvas.save();
     canvas.clipRRect(rrect);
 
-    final horizontal = axis == Axis.horizontal;
-    final length = horizontal ? size.width : size.height;
-    final across = horizontal ? size.height : size.width;
-    final mid = length / 2;
-    final tick = Paint()
-      ..color = colors.ink
-      ..strokeWidth = 1.2;
+    // Ticks across the length: long at the whole units, short between.
+    // Values above the current setting sit before the index, so dragging
+    // toward the index increases the setting.
+    final longTick = Paint()
+      ..color = d.ink
+      ..strokeWidth = 1.4 * s;
+    final shortTick = Paint()
+      ..color = d.ink2
+      ..strokeWidth = 1.0 * s;
     final reach = (mid / pixelsPerClick).ceil() + 1;
-    final label = colors.ink;
     for (var v = clicks - reach; v <= clicks + reach; v++) {
-      // Values above the current setting sit before the pointer, so dragging
-      // toward the pointer increases the setting.
       final p = mid - (v - clicks) * pixelsPerClick;
       final major = v % _major == 0;
-      final len = major ? across * 0.30 : across * 0.16;
+      final len = thickness * (major ? 0.26 : 0.13);
+      final paint = major ? longTick : shortTick;
       if (horizontal) {
         canvas.drawLine(
           Offset(p, size.height),
           Offset(p, size.height - len),
-          tick,
+          paint,
         );
-        if (major) {
-          final value = (v * clickValue).abs();
-          final letter = _letter(v);
-          _text(
-            canvas,
-            '${ScopeDialView._trim(value)}$letter',
-            Offset(p, size.height * 0.40),
-            label,
-            15,
-          );
-        }
       } else {
-        canvas.drawLine(Offset(0, p), Offset(len, p), tick);
-        if (major) {
-          final value = (v * clickValue).abs();
-          final letter = _letter(v);
-          _text(
-            canvas,
-            '${ScopeDialView._trim(value)}$letter',
-            Offset(size.width * 0.62, p),
-            label,
-            13,
-          );
-        }
+        canvas.drawLine(Offset(0, p), Offset(len, p), paint);
       }
+    }
+
+    // Values: previous / CURRENT / next, the current one centred on the
+    // index line. They shrink together only when they would not fit
+    // between the chevron areas.
+    final previous = clicks + 1, next = clicks - 1;
+    var cur = _value(clicks, currentSize * s, d.ink, FontWeight.w700);
+    var prev = _value(previous, neighbourSize * s, d.ink2, FontWeight.w600);
+    var nxt = _value(next, neighbourSize * s, d.ink2, FontWeight.w600);
+    final gap = 6 * s;
+    final free = length - 2 * arrowTap - 4 * s;
+    double fit;
+    if (horizontal) {
+      final need = cur.width + 2 * gap + 2 * math.max(prev.width, nxt.width);
+      fit = math.min(1.0, free / need);
+    } else {
+      final across = sideValuesRight(thickness) - sideValuesLeft(thickness);
+      final wide = math.max(cur.width, math.max(prev.width, nxt.width));
+      final need = cur.height + 2 * gap + 2 * math.max(prev.height, nxt.height);
+      fit = math.min(1.0, math.min(across / wide, free / need));
+    }
+    if (fit < 1) {
+      cur = _value(clicks, currentSize * s * fit, d.ink, FontWeight.w700);
+      prev = _value(previous, neighbourSize * s * fit, d.ink2, FontWeight.w600);
+      nxt = _value(next, neighbourSize * s * fit, d.ink2, FontWeight.w600);
+    }
+    final g = gap * fit;
+    if (horizontal) {
+      final y = thickness / 2;
+      final n = math.max(prev.width, nxt.width);
+      final step = cur.width / 2 + g + n / 2;
+      void at(TextPainter tp, double x) =>
+          tp.paint(canvas, Offset(x - tp.width / 2, y - tp.height / 2));
+      at(cur, mid);
+      at(prev, mid - step);
+      at(nxt, mid + step);
+    } else {
+      final x = sideValuesCentre(thickness);
+      final n = math.max(prev.height, nxt.height);
+      final step = cur.height / 2 + g + n / 2;
+      void at(TextPainter tp, double y) =>
+          tp.paint(canvas, Offset(x - tp.width / 2, y - tp.height / 2));
+      at(cur, mid);
+      at(prev, mid - step);
+      at(nxt, mid + step);
+    }
+
+    // Header: "← U · unit · D →" on top; on the side drum "↑ R" and "L ↓"
+    // at the ends and the unit written down the right side.
+    final header = 10 * s;
+    if (horizontal) {
+      final y = thickness * 0.15;
+      _label(
+        canvas,
+        '← $positiveLetter',
+        Offset(6 * s, y),
+        d.ink2,
+        header,
+        align: 0,
+      );
+      _label(canvas, unitLabel, Offset(mid, y), d.ink2, header);
+      _label(
+        canvas,
+        '$negativeLetter →',
+        Offset(length - 6 * s, y),
+        d.ink2,
+        header,
+        align: 1,
+      );
+    } else {
+      _label(
+        canvas,
+        '↑ $positiveLetter',
+        Offset(thickness / 2, arrowTap * 0.22),
+        d.ink2,
+        header,
+      );
+      _label(
+        canvas,
+        '$negativeLetter ↓',
+        Offset(thickness / 2, length - arrowTap * 0.22),
+        d.ink2,
+        header,
+      );
+      canvas.save();
+      canvas.translate(thickness - 8 * s, mid);
+      canvas.rotate(math.pi / 2);
+      _label(canvas, unitLabel, Offset.zero, d.ink2, header);
+      canvas.restore();
     }
     canvas.restore();
 
-    // Fixed pointer.
-    final pointer = Paint()..color = colors.danger;
+    // Edge of the drum.
+    canvas.drawRRect(
+      rrect.deflate(0.5),
+      Paint()
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = 1
+        ..color = d.line,
+    );
+
+    // Fixed red index on the zero line.
+    final r = horizontal ? TurretIndex.top(size) : TurretIndex.side(size);
     final path = Path();
     if (horizontal) {
       path
-        ..moveTo(mid - 7, size.height)
-        ..lineTo(mid + 7, size.height)
-        ..lineTo(mid, size.height - 11)
+        ..moveTo(r.left, r.bottom)
+        ..lineTo(r.right, r.bottom)
+        ..lineTo(r.center.dx, r.top)
         ..close();
-      _text(
-        canvas,
-        '← $positiveLetter   $unitLabel   $negativeLetter →',
-        Offset(mid, 10),
-        colors.ink2,
-        10,
-      );
     } else {
-      // Inside the box, clear of its edge (owner, 2026-10-15 12:53).
-      final r = SideTurretPointer.rect(size);
       path
         ..moveTo(r.left, r.top)
         ..lineTo(r.left, r.bottom)
-        ..lineTo(r.right, mid)
+        ..lineTo(r.right, r.center.dy)
         ..close();
-      _text(canvas, '↑$positiveLetter', Offset(size.width / 2, 10), label, 11);
-      _text(
-        canvas,
-        '$negativeLetter↓',
-        Offset(size.width / 2, size.height - 10),
-        label,
-        11,
-      );
     }
-    canvas.drawPath(path, pointer);
+    canvas.drawPath(path, Paint()..color = d.danger);
   }
 
   @override
   bool shouldRepaint(covariant _DrumPainter old) =>
       old.clicks != clicks ||
       old.clickValue != clickValue ||
-      old.colors != colors ||
+      old.axis != axis ||
+      old.arrowTap != arrowTap ||
       old.unitLabel != unitLabel;
 }
 
-/// The side turret's red pointer, in the drum box's own coordinates
-/// (owner, 2026-10-15 12:53: the pointer sits fully inside the box). It
-/// points at the drum's centre line, the reticle's horizontal line, from
-/// [inset] pt inside the box's edge.
-abstract final class SideTurretPointer {
-  /// Clear space between the box's outer edge (1 pt border included) and
-  /// the pointer.
-  static const double inset = 5;
+/// The red index triangles, in the drum's own coordinates. Top drum: base
+/// on the bottom edge, pointing up at the reticle's vertical line. Side
+/// drum: base on the left edge, pointing right at the horizontal line.
+/// Sizes are for the 58 pt design drum and scale with its thickness.
+abstract final class TurretIndex {
+  static const double width = 12, depth = 10, inset = 1;
 
-  /// Pointer depth (base to tip) and height, as before.
-  static const double depth = 11, height = 14;
+  static Rect top(Size drum) {
+    final s = drum.height / ScopeTurretGeometry.designThickness;
+    return Rect.fromLTWH(
+      drum.width / 2 - width * s / 2,
+      drum.height - inset * s - depth * s,
+      width * s,
+      depth * s,
+    );
+  }
 
-  static Rect rect(Size box) =>
-      Rect.fromLTWH(inset, box.height / 2 - height / 2, depth, height);
+  static Rect side(Size drum) {
+    final s = drum.width / ScopeTurretGeometry.designThickness;
+    return Rect.fromLTWH(
+      inset * s,
+      drum.height / 2 - width * s / 2,
+      depth * s,
+      width * s,
+    );
+  }
 }
 
 /// "Kuleleri sıfırla". It is shown as selected only after the user pressed
