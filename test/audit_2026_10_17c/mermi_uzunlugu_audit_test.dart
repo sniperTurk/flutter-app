@@ -94,7 +94,9 @@ Future<({double right, String? note})> _shot(
   await tester.pumpAndSettle();
   final note = find.byKey(const Key('shot-spin-drift'));
   return (
-    right: tester.widget<ScopeDialView>(find.byType(ScopeDialView)).requiredRight,
+    right: tester
+        .widget<ScopeDialView>(find.byType(ScopeDialView))
+        .requiredRight,
     note: note.evaluate().isEmpty ? null : tester.widget<Text>(note).data,
   );
 }
