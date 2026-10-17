@@ -169,10 +169,7 @@ void _expectGeometry(WidgetTester tester, {required String where}) {
 void _expectCentred(WidgetTester tester, String id, {required String where}) {
   final centre = tester.getRect(_header(id)).center.dy;
   final parts = <String, Finder>{
-    'title': find.descendant(
-      of: _header(id),
-      matching: find.text(_boxes[id]!),
-    ),
+    'title': find.descendant(of: _header(id), matching: find.text(_boxes[id]!)),
     'ⓘ': find.byKey(Key('pro-info-$id')),
     'summary': find.byKey(Key('pro-summary-$id')),
     'chevron': find.descendant(
