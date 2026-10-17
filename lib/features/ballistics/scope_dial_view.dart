@@ -13,6 +13,7 @@ import '../../ui/menzil_widgets.dart';
 
 part 'scope_reticle.dart';
 part 'scope_results.dart';
+part 'scope_turret_designs.dart';
 part 'scope_turrets.dart';
 part 'scope_workings.dart';
 

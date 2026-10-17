@@ -136,8 +136,45 @@ class _TurretBarState extends State<_TurretBar> {
       sideArrowHeight = 30,
       sideArrowGap = 28;
 
+  /// The "L-R" button that shows and hides the side (windage) turret.
+  Widget toggle(MenzilColors c) => Semantics(
+    button: true,
+    toggled: _windage,
+    label: _windage ? 'Rüzgâr kulesini gizle' : 'Rüzgâr kulesini göster',
+    child: ExcludeSemantics(
+      child: SizedBox.square(
+        dimension: slot,
+        // A plain button like the others (owner, 2026-10-12):
+        // white on navy in Koyu, dark on light in Açık.
+        child: Material(
+          key: ScopeDialKeys.turretToggle,
+          color: c.surface,
+          shape: CircleBorder(side: BorderSide(color: c.line)),
+          child: InkWell(
+            customBorder: const CircleBorder(),
+            onTap: () => setState(() => _windage = !_windage),
+            child: Center(
+              child: Text(
+                'L-R',
+                style: TextStyle(
+                  color: c.ink,
+                  fontWeight: FontWeight.w700,
+                  fontSize: 15,
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+    ),
+  );
+
   @override
   Widget build(BuildContext context) {
+    // Design-only turret options (scope_turret_designs.dart); the app
+    // never sets one, so it always takes the shipped path below.
+    final design = TurretStyleScope.designOf(context);
+    if (design != null) return designBuild(context, design);
     final c = MenzilColors.of(context);
     final side = widget.side;
     final k = side / designSide;
@@ -163,39 +200,7 @@ class _TurretBarState extends State<_TurretBar> {
               const SizedBox(width: slot + gap),
               Expanded(child: widget.elevation),
               const SizedBox(width: gap),
-              Semantics(
-                button: true,
-                toggled: _windage,
-                label: _windage
-                    ? 'Rüzgâr kulesini gizle'
-                    : 'Rüzgâr kulesini göster',
-                child: ExcludeSemantics(
-                  child: SizedBox.square(
-                    dimension: slot,
-                    // A plain button like the others (owner, 2026-10-12):
-                    // white on navy in Koyu, dark on light in Açık.
-                    child: Material(
-                      key: ScopeDialKeys.turretToggle,
-                      color: c.surface,
-                      shape: CircleBorder(side: BorderSide(color: c.line)),
-                      child: InkWell(
-                        customBorder: const CircleBorder(),
-                        onTap: () => setState(() => _windage = !_windage),
-                        child: Center(
-                          child: Text(
-                            'L-R',
-                            style: TextStyle(
-                              color: c.ink,
-                              fontWeight: FontWeight.w700,
-                              fontSize: 15,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
+              toggle(c),
             ],
           ),
         ),
@@ -451,8 +456,13 @@ class _TurretDrumState extends State<_TurretDrum> {
 
     final up = '${widget.semanticName} 1 klik ${widget.positiveWord}';
     final down = '${widget.semanticName} 1 klik ${widget.negativeWord}';
+    // Design-only turret options (scope_turret_designs.dart); null in the
+    // app.
+    final design = TurretStyleScope.designOf(context);
     final Widget body;
-    if (horizontal) {
+    if (design != null) {
+      body = designBody(context, design, upLabel: up, downLabel: down);
+    } else if (horizontal) {
       // ‹ drum ›, 28 pt arrows 4 pt from the drum (owner, 2026-10-15).
       body = LayoutBuilder(
         builder: (context, box) {
