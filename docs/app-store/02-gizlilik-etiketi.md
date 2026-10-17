@@ -8,7 +8,7 @@
 
 | Veri / izin | Nerede | Cihazdan çıkıyor mu? | Nereye | Saklama |
 |---|---|---|---|---|
-| Konum (GPS, düşük doğruluk `LocationAccuracy.low`) | `lib/tools/adapters/geolocator_location_provider.dart` | Hava için: **evet**, enlem/boylam **2 ondalığa (~1 km)** yuvarlanır (`WeatherPolicy.roundCoordinate`) | `api.met.no` (MET Norway) | Uygulamada yalnızca bellek önbelleği (`_cache`, `Expires`'a kadar) |
+| Konum (GPS, düşük doğruluk `LocationAccuracy.low`) | `lib/tools/adapters/geolocator_location_provider.dart` | Hava için: **evet**, enlem/boylam **2 ondalığa (~1 km)** yuvarlanır (`WeatherPolicy.roundCoordinate`) | Önce `weather.googleapis.com` (Google Weather API, `google_weather_provider.dart`); Google yanıt vermezse `api.met.no` (MET Norway) (`fallback_weather_provider.dart`, 2026-10-17) | Google: saklanmaz; MET: uygulamada yalnızca bellek önbelleği (`_cache`, `Expires`'a kadar) |
 | Konum → Coriolis enlemi | `ballistics_screen.dart` `_latitudeFromGps` | Hayır | — | Enlem 2 ondalık metin olarak **cihazda** saklanır (`shot_settings_store.dart` `latitude`) |
 | Konum → yerel yerçekimi | `ballistics_screen.dart` (Gravity.at) | Hayır | — | Hesaplanan yerçekimi değeri cihazda saklanır (`gravity`) |
 | Konum → Haritadan mesafe (ekran açılınca haritayı konuma getirir) | `map_distance_screen.dart` `_locate()` | Dolaylı: görüntülenen harita bölgesinin karoları istenir | Esri `server.arcgisonline.com` **veya** Google Maps SDK (derleme `GOOGLE_MAPS_ENABLED=true` ise) | Uygulama saklamaz |
@@ -23,8 +23,9 @@
 | DOPE kartı PDF | `ballistics_screen.dart` `Printing.sharePdf` | Yalnızca kullanıcı paylaş sayfasında bir hedef seçerse | Kullanıcının seçtiği uygulama | — |
 | Analitik, reklam, çökme raporu, hesap | **Uygulamanın kendi kodunda yok** | — | — | — |
 
-Ağ isteği yapan Dart kodu yalnızca iki adaptör: `met_no_weather_provider.dart`
-ve `nominatim_place_search.dart` (`grep -rl "http\." lib`). Harita karolarını
+Ağ isteği yapan Dart kodu (`grep -rl "http\." lib`): `met_no_weather_provider.dart`,
+`google_weather_provider.dart` (2026-10-17) ve `nominatim_place_search.dart`
+(ayrıca İrtifa → Haritadan için `google_elevation_provider.dart`). Harita karolarını
 `flutter_map` / Google Maps SDK indirir. Uygulamanın kendi sunucusu yok.
 
 ## 2. Üçüncü taraf SDK gizlilik bildirimleri (Xcode derlemesinden)
@@ -70,14 +71,14 @@ karşılaştırılmalı (bu ortamda Mac yok; çalıştırılmadı).
 
 | Kategori → Tür | Amaç | Kaynak |
 |---|---|---|
-| Location → Coarse Location | App Functionality | Hava verisi için api.met.no'ya ~1 km yuvarlanmış konum (sahip kararı 2026-10-06; `release/RELEASE_CHECKLIST.md`) |
+| Location → Coarse Location | App Functionality | Hava verisi için ~1 km yuvarlanmış konum: önce Google Weather API (weather.googleapis.com), yedek api.met.no (sahip kararı 2026-10-06 ve 2026-10-17; `release/RELEASE_CHECKLIST.md`) |
 | Diagnostics → Crash Data | Analytics | Google Maps SDK |
 | Diagnostics → Performance Data | Analytics | Google Maps SDK |
 | Usage Data → Product Interaction | Analytics | Google Maps SDK |
 
 Gerekçeler:
 - Apple'ın tanımında "Coarse Location", üç ondalıktan **düşük** çözünürlüklü
-  konumdur; MET Norway'e giden değer iki ondalıktır → Coarse. Precise
+  konumdur; Google Weather API'ye ve MET Norway'e giden değer iki ondalıktır → Coarse. Precise
   Location **beyan edilmez**: hassas konum hiçbir yere gönderilmiyor.
 - Harita karo istekleri ve Nominatim aramaları, isteği o anda karşılamak için
   yapılır ve uygulama sahibi bunlara erişmez. Apple'ın "collect" tanımı

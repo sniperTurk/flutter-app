@@ -61,6 +61,7 @@ import 'scope_cant_screen.dart';
 import 'scope_dial_view.dart';
 import 'wind_clock_picker.dart';
 import 'wind_guide.dart';
+import 'wind_source_note.dart';
 
 part 'ballistics_shared_rows.dart';
 part 'hava_durumu_view.dart';
@@ -1247,6 +1248,11 @@ class _BallisticsScreenState extends State<BallisticsScreen>
   String? _weatherStatus;
   bool _weatherFailed = false;
 
+  /// Rüzgâr card note (owner, 2026-10-17): the fetched wind direction,
+  /// degrees and speed as the service gave them. Shown only after a fetch;
+  /// the wind clock is never set from it. Cleared by Sıfırla.
+  String? _windSourceNote;
+
   /// The weather button turns orange ("…alındı") after a successful fill
   /// and offers "Sıfırla" (owner, 2026-10-12). Typing into a field it
   /// filled turns it back: the values on screen are no longer the service's.
@@ -1374,6 +1380,7 @@ class _BallisticsScreenState extends State<BallisticsScreen>
       _weatherWasReset = true;
       _weatherStatus = null;
       _weatherFailed = false;
+      _windSourceNote = null;
       _shotCache.clear();
       _holdSamples = null;
     });
@@ -1497,6 +1504,7 @@ class _BallisticsScreenState extends State<BallisticsScreen>
     String status;
     var failed = false;
     String? windBefore;
+    String? windNote;
     try {
       final fix = await services.location.current();
       if (fix is! LocationFix) {
@@ -1538,6 +1546,7 @@ class _BallisticsScreenState extends State<BallisticsScreen>
             'Hava verisi konumdan dolduruldu (${obs.sourceName}, $hh:$mm). '
             'Basınç için "Basınç al", irtifa için İrtifa kartı. Rüzgâr '
             'yönünü siz seçin.';
+        windNote = windSourceNote(obs);
       }
     } on WeatherFailure {
       failed = true;
@@ -1555,6 +1564,7 @@ class _BallisticsScreenState extends State<BallisticsScreen>
         _weatherFilled = true;
         _weatherWasReset = false;
         _weatherFetchedAtMs = _clock.now().millisecondsSinceEpoch;
+        _windSourceNote = windNote;
       }
     });
     if (!failed) {

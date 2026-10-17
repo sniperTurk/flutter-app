@@ -116,6 +116,8 @@ class KeyOnlyFromSecretsTest(unittest.TestCase):
 
 class DartKeyHandlingTest(unittest.TestCase):
     ADAPTER = "lib/tools/adapters/google_elevation_provider.dart"
+    # Hava verisi from Google (owner, 2026-10-17): the second key reader.
+    WEATHER_ADAPTER = "lib/tools/adapters/google_weather_provider.dart"
 
     def test_only_the_adapter_reads_the_key(self):
         users = []
@@ -123,7 +125,7 @@ class DartKeyHandlingTest(unittest.TestCase):
             text = path.read_text(encoding="utf-8")
             if KEY_NAME in text or "keyFromBuild" in text:
                 users.append(path.relative_to(ROOT).as_posix())
-        self.assertEqual([self.ADAPTER], users)
+        self.assertEqual(sorted([self.ADAPTER, self.WEATHER_ADAPTER]), sorted(users))
 
     def test_adapter_never_logs_or_stores(self):
         src = (ROOT / self.ADAPTER).read_text(encoding="utf-8")
@@ -147,6 +149,49 @@ class DartKeyHandlingTest(unittest.TestCase):
         src = (ROOT / self.ADAPTER).read_text(encoding="utf-8")
         body = src[src.index("Future<ElevationResult> elevation(") :]
         self.assertLess(body.index("ElevationFailure.noKey"), body.index("await _once("))
+
+
+class GoogleWeatherKeyHandlingTest(unittest.TestCase):
+    """The Google Weather adapter (2026-10-17) holds the same key."""
+
+    ADAPTER = DartKeyHandlingTest.WEATHER_ADAPTER
+
+    def _src(self):
+        return (ROOT / self.ADAPTER).read_text(encoding="utf-8")
+
+    def test_adapter_never_logs_or_stores(self):
+        src = self._src()
+        for banned in (
+            "print(",
+            "debugPrint(",
+            "log(",
+            "SharedPreferences",
+            "developer",
+            "toString()",
+        ):
+            self.assertNotIn(banned, src, banned)
+
+    def test_failures_never_carry_the_url_or_an_exception_text(self):
+        src = self._src()
+        # Every WeatherFailure message is a literal; the only interpolation
+        # allowed is the HTTP status code.
+        for m in re.finditer(r"WeatherFailure\(\s*WeatherFailureKind\.\w+,\s*'([^']*)'", src):
+            interp = re.findall(r"\$\{?(\w+)", m.group(1))
+            self.assertTrue(all(v == "code" for v in interp), m.group(0))
+        self.assertNotRegex(src, r"on \w+ catch \(e")
+
+    def test_no_request_without_a_key_comes_first(self):
+        src = self._src()
+        body = src[src.index("Future<WeatherObservation> fetch(") :]
+        self.assertLess(
+            body.index("WeatherFailureKind.notConfigured"), body.index(".get(")
+        )
+
+    def test_bundle_header_and_rounded_location(self):
+        src = self._src()
+        self.assertIn("'X-Ios-Bundle-Identifier': bundleId", src)
+        self.assertIn("static const bundleId = 'com.sniperturk.sniperTurk';", src)
+        self.assertEqual(2, src.count("WeatherPolicy.roundCoordinate("))
 
 
 def dart_fixed1(x: float) -> str:
