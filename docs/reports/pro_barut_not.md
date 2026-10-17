@@ -57,7 +57,7 @@ Simülatör: iPhone 16e (390 pt), iOS 26.2, `sim-screens` run [39014730169](http
 Ekranda görülen: Mermi uzunluğu (mm) | Mühimmat sıcaklığı (°C) Yukarı | Sağ satırıyla aynı hizada; "isteğe bağlı" yok; not metni onaylı metinle aynı. PCP'de düzen önceki gibi (yiv bilgisi olmayan katalog tüfeğinde spin drift uyarısı, önceki gibi). Onaylı ayrı bir çizim yok; karşılaştırma sahibin TestFlight 112 ekran görüntüsündeki sözlerine göre.
 
 ## CI
-Son kod commit'i 27df26b (bundan sonraki commit yalnız bu rapor; `docs/**` değişikliği iOS CI'ı tetiklemez):
+Son kod commit'i 27df26b; sonraki commit'ler yalnız bu raporu değiştirir. iOS CI PR'ın son commit'inde de çalışır; sonucu PR'ın Checks sekmesinde. 27df26b sonuçları:
 - iOS CI (PR): [run 39014931793](https://github.com/sniperTurk/flutter-app/actions/runs/39014931793) — `verify` success, `dart-checks` success, `wind-acceptance` success, `ios-simulator` atlandı (isteğe bağlı iş).
 - test-diag (tüm `test`): [39014926238](https://github.com/sniperTurk/flutter-app/actions/runs/39014926238) success. İlk commit 82056a2'de de: [39014727322](https://github.com/sniperTurk/flutter-app/actions/runs/39014727322) success.
 - analyze-diag: [39014927900](https://github.com/sniperTurk/flutter-app/actions/runs/39014927900) success.
