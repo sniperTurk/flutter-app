@@ -89,7 +89,7 @@ Ayrı bir inceleme ajanı farkı okudu (kod + güvenlik/gizlilik). Yüksek ya da
   - `verify`: atlandı (dart-checks kırmızı olduğu için).
 - Main'e geçmeden önce, yalnızca bu PR'ın testleri çalıştırıldı: `durbun_urun_bildir_test.dart`, `den17b_1_kule_klik_test.dart`, `durbun_girisi_tasarim_test.dart`. Hepsi **geçti** (çıkış kodu 0): https://github.com/sniperTurk/flutter-app/actions/runs/39063207395
 - Biçim düzeltme (375209577, `format-fix`): değişiklik yok. İlk çalıştırma bir biçim commit'i ekledi.
-- Tüm test klasörü (test-diag `files=test`): https://github.com/sniperTurk/flutter-app/actions/runs/39063702246. Main derlenmediği için profil testleri bu çalıştırmada da kırılacak.
+- Tüm test klasörü (test-diag `files=test`): https://github.com/sniperTurk/flutter-app/actions/runs/39063702246. Sonuç **başarısız**: profil ekranını açan dosyalar main'deki derleme hatası yüzünden yüklenemedi (ör. `atesli_elle_muhimmat_test.dart`, `scope_form_sade_test.dart`, `ekran_boyutu_test.dart`). Ayrıca `truing_shared_record_test.dart` düştü (`_pickMode`, satır 140); bu PR o akışa dokunmuyor, main düzelince yeniden bakılacak.
 
 Main düzelince bu dal main ile birleştirilip `verify`, `dart-checks` ve `wind-acceptance` yeniden çalıştırılacak. Hepsi geçmeden "yeşil" denmeyecek.
 
