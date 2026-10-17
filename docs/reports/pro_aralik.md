@@ -1,6 +1,6 @@
 # Pro Ayarlar aralıkları
 
-Dal: `fix/pro-aralik` (main @ 2101b3f'dan) · Taslak PR #399 (birleştirilmedi, TestFlight yok).
+Dal: `fix/pro-aralik` (main @ 53100e0 üzerine rebase edildi; ilk hali 2101b3f'dan) · Taslak PR #399 (birleştirilmedi, TestFlight yok).
 
 ## Sahibin kararı (İstanbul, 17.10.2026, TestFlight 113, ekran görüntüsü 20:54)
 20:55 "Bu sayfadaki aralık mesafelerini düzelteceğiz", 20:58 "20 pt yap", 20:59 "açılır olanları 60 yap", 21:01 "tamam böyle düzenle".
@@ -48,14 +48,18 @@ Sahibin ekran görüntüsündeki ölçülere göre sayfa daha sıkı; ⓘ'nin 44
 - **İnceleme:** Code Review eklentisi taslak PR'ları incelemiyor (ilk adımda durur). Yerine ayrı bir inceleme ajanı diff'i hata ve güvenlik için okudu: yüksek/orta bulgu yok; düşük bulgular yukarıdaki uç durumlarda (küçük yazıda ≈1 pt kayma, açık başlık 60/62, paylaşılan bileşen kuralının kopyası, ekran turunun doğrulama yapmaması). Güvenlik: diff'te giriş, kayıt, ağ, izin veya gizli bilgi yok. Taslak "hazır" yapılınca Code Review / Security review eklentileri yeniden çalıştırılmalı.
 
 ## Ekran görüntüleri
-Simülatör sırası dolu (başka oturumların sim-screens koşuları sürüyor); boşalınca `sim-screens.yml ref=fix/pro-aralik test=integration_test/sim_screens_pro_aralik_test.dart` gönderilecek ve sonuç buraya eklenecek.
+**Henüz yok (BLOCKED).** Simülatör sırası 19:38'den beri doluydu; 19:38'de gönderdiğim koşu ([39063328414](https://github.com/sniperTurk/flutter-app/actions/runs/39063328414)) başka bir koşu sıraya girince iptal edildi. Rebase sonrası dal main'in derleme hatası yüzünden derlenmiyor (aşağıda), bu yüzden simülatör yapısı da kurulamaz. Main düzelince `sim-screens.yml ref=fix/pro-aralik test=integration_test/sim_screens_pro_aralik_test.dart` gönderilecek; görüntüler ve SIMMEASURE ölçüleri buraya eklenecek.
 
 ## CI bağlantıları
-Kod commit'i `3a3a083` üzerinde (rapor commit'leri yalnız bu dosyayı değiştirir; yeni koşular PR sayfasında):
-- iOS CI (PR koşusu) [39057619000](https://github.com/sniperTurk/flutter-app/actions/runs/39057619000): **verify ✅**, **dart-checks ✅** (biçim, `flutter analyze --fatal-infos --fatal-warnings`, tüm birim/widget testleri, Python takımı, G1/G7 kapısı), **wind-acceptance ✅**, ios-simulator atlandı (iş akışı kuralı).
+**Rebase sonrası (head 3b0bf09, main 53100e0 üzerinde): KIRMIZI, bu PR'dan değil.** iOS CI [39064600443](https://github.com/sniperTurk/flutter-app/actions/runs/39064600443): dart-checks → Static analysis ❌ (`lib/features/profiles/profile_editor_rifle.dart:87` `_shortCartridge` yok, `:118` `short:` parametresi yok). Sebep: #395 bu ikisini sildi, sonra birleşen #389 kullanıyor; main'in kendisi derlenmiyor. Bu PR o dosyaya dokunmuyor; düzeltme önerisi PR yorumunda. Biçim ✅, wind-acceptance ✅, testler ve verify çalışmadı (atlandı).
+
+**Rebase öncesi (kod commit'i 3a3a083, main 2101b3f üzerinde): YEŞİL.**
+- iOS CI [39057619000](https://github.com/sniperTurk/flutter-app/actions/runs/39057619000): verify ✅, dart-checks ✅ (biçim, `flutter analyze --fatal-infos --fatal-warnings`, tüm birim/widget testleri, Python takımı, G1/G7 kapısı), wind-acceptance ✅, ios-simulator atlandı (iş akışı kuralı).
 - test-diag `files=test` [39057728667](https://github.com/sniperTurk/flutter-app/actions/runs/39057728667): ✅
 - analyze-diag [39057619872](https://github.com/sniperTurk/flutter-app/actions/runs/39057619872): ✅
-- format-fix (375209577) [39057191061](https://github.com/sniperTurk/flutter-app/actions/runs/39057191061) (1 biçim commit'i: d565414) ve [39057529183](https://github.com/sniperTurk/flutter-app/actions/runs/39057529183) (değişiklik yok).
+- format-fix (375209577) [39057191061](https://github.com/sniperTurk/flutter-app/actions/runs/39057191061) (1 biçim commit'i) ve [39057529183](https://github.com/sniperTurk/flutter-app/actions/runs/39057529183) (değişiklik yok).
 - Kırmızı kontrol (main kodu + yeni test): [39057197764](https://github.com/sniperTurk/flutter-app/actions/runs/39057197764) ❌ beklendiği gibi.
+
+Rebase'de çakışma olmadı; bu PR'ın değiştirdiği dosyalarda main'den gelen tek değişiklik `pro_ayarlar_view.dart`'ta `muzzleVelocityMps` → `velocityMps` (#388), korundu.
 
 — Claude Code
