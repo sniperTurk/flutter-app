@@ -10,7 +10,7 @@ import 'support/select_one_line.dart';
 void main() {
   testWidgets('diag heights', (tester) async {
     final out = <String>[];
-    for (final (w, s) in const [(390.0, 1.0), (320.0, 1.3)]) {
+    for (final (w, s) in const [(320.0, 1.3), (390.0, 1.0)]) {
       tester.view.physicalSize = Size(w * 3, 2600 * 3);
       tester.view.devicePixelRatio = 3;
       tester.platformDispatcher.textScaleFactorTestValue = s;
@@ -26,20 +26,17 @@ void main() {
       await tester.pumpAndSettle();
       await chooseInSelect(tester, 'profile-platform', 'Ateşli Tüfek');
       for (final k in [
-        'profile-platform',
         'rifle-caliber',
         'profile-velocity-fps',
-        'rifle-twist-rate',
-        'rifle-twist-direction',
         'profile-zero',
         'profile-distance-unit',
         'scope-sight-height',
       ]) {
-        out.add('$w/$s $k ${selectBox(tester, k).height}');
+        out.add('$s $k ${selectBox(tester, k).height}');
       }
       Navigator.of(tester.element(find.byKey(const Key('profile-zero')))).pop();
       await tester.pumpAndSettle();
     }
-    fail('HEIGHTS ${out.join(' | ')}');
+    fail(out.join('\n'));
   });
 }
