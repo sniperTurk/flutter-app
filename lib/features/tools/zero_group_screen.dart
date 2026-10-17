@@ -217,7 +217,8 @@ class _ZeroGroupScreenState extends State<ZeroGroupScreen> {
             MenzilSelect<double>(
               key: const Key('zg-grid'),
               label: 'Kare boyu',
-              unit: 'cm',
+              // Each choice already reads "1 cm": no separate unit in the
+              // box (owner, 2026-10-17: units inside the box, once).
               initialValue: _gridCm,
               info: ZeroGroupFieldInfo.grid,
               items: [

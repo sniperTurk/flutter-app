@@ -1841,7 +1841,7 @@ class MenzilSelectState<T> extends State<MenzilSelect<T>>
                           // after the arrow, so the text still starts 16 pt and
                           // the arrow ends 16 pt inside the box, as before.
                           // Compact (Fikir 4): no vertical padding; the 44 pt
-                          // trailing part (unit, ⓘ, arrow) sets the box height.
+                          // trailing part (unit, arrow) sets the box height.
                           padding: compact
                               ? const EdgeInsetsDirectional.only(end: 4)
                               : const EdgeInsetsDirectional.fromSTEB(
