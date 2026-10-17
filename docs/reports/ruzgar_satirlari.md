@@ -68,7 +68,18 @@ Sahip yazıların Hesap dökümü'ne ait sanıldığını, okuyanın açılır m
 
 Simülatör (sim-screens, iPhone 16e, 390 pt ve 320 pt çerçeve), `integration_test/ruzgar_satirlari_screens_test.dart`:
 
-EKRAN_GORUNTULERI
+| | Önce (main) | Sonra (bu dal) |
+|---|---|---|
+| 390 pt | ![önce 390](ruzgar_satirlari/once_390.png) | ![sonra 390](ruzgar_satirlari/sonra_390.png) |
+| 320 pt | ![önce 320](ruzgar_satirlari/once_320.png) | ![sonra 320](ruzgar_satirlari/sonra_320.png) |
+
+Görülen farklar:
+- Önce: iki yazı Hesap dökümü'nün altında, her biri 2 satır ("… 24 klik L / – 37 klik L.", "… uzak / %11").
+- Sonra: iki yazı gri paragrafla Hesap dökümü arasında, her biri tek satır. Hesap dökümü kartın son satırı.
+- 390 pt'de iki satır da kutudan biraz uzun olduğu için yaklaşık %95 boyuta küçülüyor (yükseklik 19,1 pt; Vuruş noktası satırı 20 pt). 320 pt'de daha çok küçülüyor (15,1 pt), ama okunuyor. Rakam kesilmiyor.
+- Ölçülen konumlar (SIMTEXT, 390 pt): Vuruş noktası üst kenarı 198,6 · Rüzgâr 330,6–349,7 · Yana kayma 355,7–375,2 · Hesap dökümü 385,2.
+- Not: sim-screens README'sindeki "Source … @ sha" alanı main'in sha'sını gösteriyor (iş akışı main'den başlatıldı). Fotoğraflanan kod ise `ref` girdisindeki daldır; bunu ekrandaki yeni metinler de doğruluyor.
+- Önce: run https://github.com/sniperTurk/flutter-app/actions/runs/39021329980 (geçici dal `tmp/ruzgar-satirlari-once` = main 8cc3aab + yalnız bu ekran testi). Sonra: run https://github.com/sniperTurk/flutter-app/actions/runs/39024389235.
 
 ## CI
 
