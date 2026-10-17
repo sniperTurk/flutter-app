@@ -736,10 +736,11 @@ class _DesignDrumPainter extends CustomPainter {
 
   /// Clicks between labelled ticks: a whole number of units, at least
   /// [TurretDesign.majorSpacing] pt apart. In a short window (a narrow
-  /// phone) the spacing drops to what still leaves one whole label in view
-  /// wherever the drum stands: at most [length] − [label] pt, never under
-  /// [label] pt, so labels do not run into each other.
-  int _major(double length, double label) {
+  /// phone, or the side drum) the spacing drops so that a label is always
+  /// in view: at most [room] pt (the window less one label), never under
+  /// [label] pt, so labels do not run into each other. If no spacing fits
+  /// both, the closest one that keeps labels apart is used.
+  int _major(double room, double label) {
     final perUnit = math.max(1, (1 / clickValue).round());
     final steps = [
       for (final units in const [1, 2, 5, 10, 20, 50, 100]) perUnit * units,
@@ -748,17 +749,16 @@ class _DesignDrumPainter extends CustomPainter {
       (n) => n * pixelsPerClick >= design.majorSpacing,
       orElse: () => steps.last,
     );
-    if (wanted * pixelsPerClick <= length - label) return wanted;
+    if (wanted * pixelsPerClick <= room) return wanted;
     // Half units (0,5 mrad) only as a fallback for short windows.
     final fallback = [
       if (perUnit.isEven && perUnit > 1) perUnit ~/ 2,
       ...steps,
     ];
-    final fitting = fallback.where(
-      (n) =>
-          n * pixelsPerClick <= length - label && n * pixelsPerClick >= label,
-    );
-    return fitting.isEmpty ? wanted : fitting.last;
+    final apart = fallback.where((n) => n * pixelsPerClick >= label);
+    if (apart.isEmpty) return wanted;
+    final fitting = apart.where((n) => n * pixelsPerClick <= room);
+    return fitting.isEmpty ? apart.first : fitting.last;
   }
 
   /// Draws [s] centred on [center]; shrinks it to [maxWidth] if needed.
@@ -866,9 +866,11 @@ class _DesignDrumPainter extends CustomPainter {
       ..color = ink
       ..strokeWidth = 1.2;
     final reach = (mid / pixelsPerClick).ceil() + 1;
-    // Room a label needs along the drum (width on the top drum, height on
-    // the side one), with a small margin.
-    final major = _major(length, horizontal ? 34 : 24);
+    // Room a label needs along the drum: 34 pt wide on the top drum, 24 pt
+    // tall on the side one. The side drum keeps two labels in view.
+    final major = horizontal
+        ? _major(length - 34, 34)
+        : _major((length - 24) / 2, 24);
     final numberSize = horizontal ? design.numberSize : design.numberSize - 2;
     for (var v = clicks - reach; v <= clicks + reach; v++) {
       // Values above the current setting sit before the pointer, so dragging
