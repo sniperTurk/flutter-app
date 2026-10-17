@@ -1,7 +1,7 @@
 # Simulator screenshots
 
-- Source: `fix/pro-barut-not` @ `5703cbfbb4ff6381dcb02e942aafdf701887e21f`
-- Run: https://github.com/sniperTurk/flutter-app/actions/runs/39026830000
+- Source: `fix/pro-barut-not` @ `be7be4b69abdb75f51cf69c060602ecb48c61ab8`
+- Run: https://github.com/sniperTurk/flutter-app/actions/runs/39035853790
 - flutter test exit code: 0 (0 = every step passed)
 - Device: iPhone 16e / iOS 26.2
 
