@@ -130,6 +130,7 @@ void main() {
     final coef35 = await solve(tester, _withCoef, '35');
     final noCoefEmpty = await solve(tester, _noCoef, '');
     final noCoef35 = await solve(tester, _noCoef, '35');
+    final lines = <String>[];
     for (final (name, r) in [
       ('katsayili_bos', coefEmpty),
       ('katsayili_35', coef35),
@@ -138,7 +139,9 @@ void main() {
     ]) {
       // ignore: avoid_print
       print('BARUT_SAYI:$name:up600=${r.$1.toStringAsFixed(6)}:${r.$2}');
+      lines.add('$name=${r.$1}:${r.$2}');
     }
+    expect(lines.join(' | '), 'MAIN');
 
     // With Barut katsayısı 1,5 %/15 °C and Hız ölçüm sıcaklığı 20 °C, a
     // 35 °C cartridge: 800 × (1 + 0,015 × 15 / 15) = 812 m/s.
