@@ -118,7 +118,7 @@ Kod içeren son commit `0acf9f4` (güncel main eee7673 üstünde), iOS CI çalı
 - `wind-acceptance`: başarılı ([iş](https://github.com/sniperTurk/flutter-app/actions/runs/38985570886/job/117256201339)).
 - `verify`: başarılı ([iş](https://github.com/sniperTurk/flutter-app/actions/runs/38985570886/job/117260267519)): Python regresyon takımı, G1/G7 kapısı, bağımsız çözücü karşılaştırması, iOS Simulator derlemesi ve açılış duman testi, imzasız cihaz derlemesi ve App Store arşivi.
 
-Rebase'den önceki uç `26b0169` üzerinde de üçü başarılıydı: [38965299625](https://github.com/sniperTurk/flutter-app/actions/runs/38965299625). Bu rapor ve görüntülerin eklendiği son commit yalnız belge ve PNG içeriyor; onun CI sonucu PR'ın Checks sekmesinde. Simulator, TestFlight, cihaz, imzalama denenmedi; yalnız yukarıdaki ekran turu Simulator'de çalıştı.
+Rebase'den önceki uç `26b0169` üzerinde de üçü başarılıydı: [38965299625](https://github.com/sniperTurk/flutter-app/actions/runs/38965299625). Bu rapor ve görüntülerin eklendiği son commit yalnız belge ve PNG içeriyor; onun CI sonucu PR'ın Checks sekmesinde. TestFlight, gerçek cihaz ve imzalama denenmedi; Simulator'de yalnız `verify`'ın açılış duman testi ve yukarıdaki ekran turu çalıştı.
 
 ## Notlar
 - Önceki oturumda bir başkasının bekleyen "Simulator screenshots" çalışması (38941387154) o oturumun başlattığı çalışma yüzünden iptal olmuştu; sahibi yeniden başlatmalı. Bu oturumda hiçbir çalışma iptal edilmedi; bu oturumun bir çalışması (38967011983) başka bir oturumun gönderdiği çalışma yüzünden iptal oldu.
