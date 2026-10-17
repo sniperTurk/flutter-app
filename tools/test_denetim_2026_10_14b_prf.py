@@ -273,7 +273,6 @@ class RepositoryFacts(unittest.TestCase):
         flags = {
             "SCOPE_LISTEDE_YOK": SCREEN,
             "RIFLE_LISTEDE_YOK": SCREEN,
-            "AMMO_LISTEDE_YOK": SCREEN,
             "AMMO_BC_BANDS_TYPED": SCREEN,
         }
         for flag, path in flags.items():

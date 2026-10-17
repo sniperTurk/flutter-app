@@ -434,11 +434,8 @@ Future<void> _fillAllButTur(WidgetTester tester) async {
   await chooseTwistDirection(tester, 'Sağ');
   await fillScopeForm(tester);
   await chooseInSelect(tester, 'ammo-source', 'Fabrika fişeği');
-  await openAmmoManual(tester);
-  await chooseInSelect(tester, 'ammo-brand-pick', 'Diğer');
-  await enterRifleField(tester, 'ammo-brand', 'Atölye Fişek');
-  await enterRifleField(tester, 'ammo-model', 'Özel 1');
-  await chooseInSelect(tester, 'ammo-grain-select', 'Listede yok');
+  // Typed round: Marka "Diğer marka" since 2026-10-17.
+  await chooseOtherAmmoBrand(tester);
   await enterRifleField(tester, 'ammo-grain', '173');
   await enterRifleField(tester, 'ammo-bc', '0,5');
   await chooseInSelect(tester, 'ammo-bc-model', 'G7');

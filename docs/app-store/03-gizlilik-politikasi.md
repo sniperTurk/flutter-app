@@ -19,10 +19,11 @@ Geliştirici: [[SAHİP ADI]] · İletişim: Sekerbirol76@gmail.com
 
 ## Kısaca
 
-SNIPER TÜRK hesap istemez; reklam ve izleme (tracking) içermez. Uygulamanın
-bize ait bir sunucusu yoktur ve sizi tanımlayan bir veri bize gönderilmez.
-Bazı araçlar çalışmak için üçüncü taraf servislerine istek gönderir; bunlar
-aşağıda tek tek yazılıdır.
+SNIPER TÜRK hesap istemez; reklam ve izleme (tracking) içermez. Sizi
+tanımlayan bir veri bize gönderilmez. Bize yalnızca, siz "Gönder"e
+bastığınızda, listede bulamadığınız mühimmat için yazdığınız metin gelir
+(bölüm 6). Bazı araçlar çalışmak için üçüncü taraf servislerine istek
+gönderir; bunlar aşağıda tek tek yazılıdır.
 
 ## 1. Cihazınızda saklanan veriler
 
@@ -90,11 +91,20 @@ Kendi sürüklenme eğrisi dosyanızı (.drg/.csv) seçerseniz dosya cihazda
 okunur ve profilinizde saklanır. DOPE kartı PDF'i, yalnızca siz paylaş
 sayfasında bir hedef seçerseniz o hedefe gider.
 
+**"Aradığın mühimmat listede yok mu?"** (Profil → Mühimmat): Bu pencereye
+yazdığınız metin (marka, model, ağırlık), tüfek türü (PCP / ateşli),
+Tüfek bölümündeki kalibre ve uygulama sürümü, yalnızca siz **Gönder**'e
+bastığınızda bize ait Cloudflare servisine
+(sniper-turk-urun-kutusu.sekerbirol76.workers.dev) gönderilir ve ürün
+kataloğunu geliştirmek için saklanır. Konum, profil bilgisi, cihaz kimliği
+veya kişisel veri gönderilmez. Gönder'e basmazsanız hiçbir şey gönderilmez;
+gönderim profilinizi değiştirmez. Metne kişisel bilgi yazmayın.
+
 ## 7. Üçüncü taraflar
 
 Yukarıda adı geçen servisler (MET Norway, Esri, Google, OpenStreetMap
-Nominatim) yalnızca ilgili özelliği çalıştırmak için kullanılır ve kendi
-gizlilik koşulları geçerlidir. Uygulamada reklam ağı, analiz aracı veya veri
+Nominatim; mühimmat bildirimi için Cloudflare) yalnızca ilgili özelliği
+çalıştırmak için kullanılır ve kendi gizlilik koşulları geçerlidir. Uygulamada reklam ağı, analiz aracı veya veri
 satışı yoktur. [[SAHİP ONAYI: Apple 5.1.1(i), verinin paylaşıldığı üçüncü
 tarafların bu politikadakiyle aynı veya eşit koruma sağladığının teyit
 edilmesini istiyor. Bu cümlenin hukuki uygunluğunu sahip değerlendirmelidir.]]
@@ -128,9 +138,11 @@ Developer: [[OWNER NAME]] · Contact: Sekerbirol76@gmail.com
 
 ## In short
 
-SNIPER TÜRK needs no account and contains no advertising or tracking. The
-app has no server of ours and sends no data that identifies you to us. Some
-tools contact third-party services to work; each one is listed below.
+SNIPER TÜRK needs no account and contains no advertising or tracking. It
+sends no data that identifies you to us. The only thing we receive is the
+text you write about ammunition you did not find in the lists, when you tap
+"Gönder" (section 6). Some tools contact third-party services to work; each
+one is listed below.
 
 ## 1. Data stored on your device
 
@@ -198,10 +210,20 @@ If you pick your own drag curve file (.drg/.csv) it is read on the device and
 stored in your profile. The DOPE card PDF goes only to the destination you
 choose in the share sheet.
 
+**"Aradığın mühimmat listede yok mu?"** (Profile → Ammunition): the text you
+type in this window (brand, model, weight), the gun type (PCP / firearm), the
+caliber shown in the Rifle section and the app version are sent to our
+Cloudflare service (sniper-turk-urun-kutusu.sekerbirol76.workers.dev) only
+when you tap **Gönder** (Send), and stored to improve the product catalog. No
+location, profile data, device identifier or personal data is sent. Nothing
+is sent unless you tap Send, and sending does not change your profile. Do not
+write personal information in the text.
+
 ## 7. Third parties
 
-The services named above (MET Norway, Esri, Google, OpenStreetMap Nominatim)
-are used only to run the related feature, and their own privacy terms apply.
+The services named above (MET Norway, Esri, Google, OpenStreetMap Nominatim;
+Cloudflare for the ammunition report) are used only to run the related
+feature, and their own privacy terms apply.
 There are no ad networks, analytics tools or data sales in the app.
 [[OWNER APPROVAL: Apple guideline 5.1.1(i) asks the policy to confirm that
 third parties with access to user data provide the same or equal protection.

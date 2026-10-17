@@ -14,6 +14,7 @@
 | Konum → Haritadan mesafe (ekran açılınca haritayı konuma getirir) | `map_distance_screen.dart` `_locate()` | Dolaylı: görüntülenen harita bölgesinin karoları istenir | Esri `server.arcgisonline.com` **veya** Google Maps SDK (derleme `GOOGLE_MAPS_ENABLED=true` ise) | Uygulama saklamaz |
 | Konum → "Özel konum için mesafe" | `calculators_screen.dart` | Hayır | — | Saklanmaz |
 | Yer arama metni | `lib/tools/adapters/nominatim_place_search.dart` | Evet, yalnızca arama düğmesine basınca | `nominatim.openstreetmap.org` | Uygulama saklamaz |
+| "Aradığın mühimmat listede yok mu?" metni (kullanıcının yazdığı marka/model/ağırlık) + tüfek türü + kalibre + uygulama sürümü (2026-10-17) | `lib/tools/adapters/cloudflare_product_report.dart`, `lib/features/profiles/ammo_report.dart` | Evet, yalnızca kullanıcı **Gönder**'e basınca; konum, profil, cihaz kimliği yok | Bize ait Cloudflare servisi `sniper-turk-urun-kutusu.sekerbirol76.workers.dev` | Ürün kataloğunu geliştirmek için özel depoda saklanır |
 | Kamera (Sight Height, tüfek eğimi ölçümü) | `camera_plugin_service.dart`, `incline_measure_screen.dart` | Hayır | — | Fotoğraf bellekte işlenir, kaydedilmez |
 | Galeriden tek fotoğraf (PHPicker) | `image_picker_photo_picker.dart` | Hayır | — | Kaydedilmez |
 | İvmeölçer (su terazisi, atış açısı, dürbün eğimi) | `sensors_plus_tilt_provider.dart` | Hayır | — | Su terazisi kalibrasyonu cihazda (`level_calibration_preferences.dart`) |
@@ -23,9 +24,11 @@
 | DOPE kartı PDF | `ballistics_screen.dart` `Printing.sharePdf` | Yalnızca kullanıcı paylaş sayfasında bir hedef seçerse | Kullanıcının seçtiği uygulama | — |
 | Analitik, reklam, çökme raporu, hesap | **Uygulamanın kendi kodunda yok** | — | — | — |
 
-Ağ isteği yapan Dart kodu yalnızca iki adaptör: `met_no_weather_provider.dart`
-ve `nominatim_place_search.dart` (`grep -rl "http\." lib`). Harita karolarını
-`flutter_map` / Google Maps SDK indirir. Uygulamanın kendi sunucusu yok.
+Ağ isteği yapan Dart kodu adaptörlerdedir: `met_no_weather_provider.dart`,
+`nominatim_place_search.dart`, `google_elevation_provider.dart` ve (2026-10-17)
+`cloudflare_product_report.dart`. Harita karolarını `flutter_map` / Google
+Maps SDK indirir. Uygulamanın bize ait tek servisi mühimmat bildirimini alan
+Cloudflare servisidir.
 
 ## 2. Üçüncü taraf SDK gizlilik bildirimleri (Xcode derlemesinden)
 
@@ -71,6 +74,7 @@ karşılaştırılmalı (bu ortamda Mac yok; çalıştırılmadı).
 | Kategori → Tür | Amaç | Kaynak |
 |---|---|---|
 | Location → Coarse Location | App Functionality | Hava verisi için api.met.no'ya ~1 km yuvarlanmış konum (sahip kararı 2026-10-06; `release/RELEASE_CHECKLIST.md`) |
+| User Content → Other User Content | App Functionality (ürün kataloğunu geliştirme; sahip "Other Purposes" da seçebilir) | "Aradığın mühimmat listede yok mu?" metni, yalnızca Gönder'e basınca; kimlik yok, kullanıcıya bağlanmaz (2026-10-17) |
 | Diagnostics → Crash Data | Analytics | Google Maps SDK |
 | Diagnostics → Performance Data | Analytics | Google Maps SDK |
 | Usage Data → Product Interaction | Analytics | Google Maps SDK |

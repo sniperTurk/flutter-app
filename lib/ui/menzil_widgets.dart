@@ -1374,6 +1374,11 @@ class MenzilInput extends StatelessWidget {
   /// [label].
   final bool showLabel;
 
+  /// A filled box the user cannot type in or open (Profil → Mühimmat →
+  /// Model after "Diğer marka", owner 2026-10-17): same look, no keyboard,
+  /// no cursor, no list.
+  final bool readOnly;
+
   const MenzilInput({
     super.key,
     required this.controller,
@@ -1394,6 +1399,7 @@ class MenzilInput extends StatelessWidget {
     this.maxLines = 1,
     this.compact,
     this.showLabel = true,
+    this.readOnly = false,
   });
 
   String get semanticLabel => unit == null ? label : '$label ($unit)';
@@ -1423,6 +1429,9 @@ class MenzilInput extends StatelessWidget {
               controller: controller,
               focusNode: focusNode,
               enabled: enabled,
+              readOnly: readOnly,
+              canRequestFocus: !readOnly,
+              enableInteractiveSelection: !readOnly,
               keyboardType: keyboardType,
               textInputAction: _action,
               minLines: minLines,
@@ -1486,6 +1495,9 @@ class MenzilInput extends StatelessWidget {
               controller: controller,
               focusNode: focusNode,
               enabled: enabled,
+              readOnly: readOnly,
+              canRequestFocus: !readOnly,
+              enableInteractiveSelection: !readOnly,
               keyboardType: keyboardType,
               textInputAction: _action,
               minLines: minLines,

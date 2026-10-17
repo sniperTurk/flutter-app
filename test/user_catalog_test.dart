@@ -562,10 +562,9 @@ void main() {
           .controller!
           .text;
       expect(text('rifle-brand'), 'Atölye');
-      // PCP Marka/Model are shown again (owner, 2026-10-16): a personal
-      // pellet opens in the typed boxes with its own names; BC prefills.
-      expect(text('ammo-brand'), 'Kendi');
-      expect(text('ammo-model'), 'Diabolo');
+      // A personal pellet opens as "Diğer marka" (owner, 2026-10-17) with
+      // its own names in the filled Model box; BC prefills.
+      expect(text('ammo-model-other'), 'Kendi Diabolo');
       expect(text('ammo-bc'), '0.03');
       expect(text('scope-brand'), 'Optik');
       expect(find.text('Dürbün: Optik 4-16x44 SFP'), findsOneWidget);

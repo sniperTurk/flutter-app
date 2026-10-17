@@ -6,11 +6,11 @@
 //                   Mesafe birimi · Sight height (alone, last; half width, owner
 //                   2026-10-17).
 //   Tüfek, Ateşli:  the same without Tüp basıncı | Regülatör basıncı.
-//   Mühimmat, PCP:  Tip | Marka · Model · "Aradığın mühimmat listede yok
-//                   mu?" · Ağırlık | BC · BC modeli | Mermi uzunluğu
-//                   (PR #379, owner 2026-10-17) · En düşük | En yüksek
-//                   namlu çıkış hızı (optional). No pressures, no "Basınca
-//                   göre hız".
+//   Mühimmat, PCP:  Tip | Marka · Model · Ağırlık | BC · BC modeli |
+//                   Mermi uzunluğu (PR #379, owner 2026-10-17) · En düşük |
+//                   En yüksek namlu çıkış hızı (optional) · "Aradığın
+//                   mühimmat listede yok mu?" last (owner, 2026-10-17
+//                   21:33–21:51). No pressures, no "Basınca göre hız".
 //   MenzilInput:    the unit inside the box at its right; ⓘ at the right end
 //                   of the label row, compact boxes too (owner, 2026-10-17).
 //
@@ -208,11 +208,12 @@ const _firearmRifleRows = [
 const _pcpAmmoRows = [
   ['ammo-type', 'ammo-brand-select'],
   ['ammo-model-select'],
-  ['ammo-not-listed'],
   ['ammo-grain', 'ammo-bc'],
   // BC modeli | Mermi uzunluğu (owner, 2026-10-17 11:34, PR #379).
   ['ammo-bc-model', 'ammo-length'],
   ['profile-pcp-velocity-min', 'profile-pcp-velocity-max'],
+  // Last, below every box (owner, 2026-10-17 21:33–21:51).
+  ['ammo-not-listed'],
 ];
 
 /// Sight height is the last box of the Tüfek card, a half box in the left
@@ -478,15 +479,22 @@ void main() {
       expect(selectedValue<String>(tester, 'ammo-brand-select'), 'H&N');
     });
 
-    testWidgets('typed entry: Tip on top, Marka | Model typed', (tester) async {
+    testWidgets('Diğer marka: Tip | Marka, Model filled on its own row', (
+      tester,
+    ) async {
       await _openNew(tester, pcp: true);
       await chooseInSelect(tester, 'ammo-type', 'Slug');
-      await openAmmoManual(tester);
+      await chooseOtherAmmoBrand(tester);
       expect(selectedValue<AmmunitionType>(tester, 'ammo-type'), isNotNull);
-      final b = _rect(tester, 'ammo-brand'), m = _rect(tester, 'ammo-model');
-      expect((b.top - m.top).abs(), lessThan(1));
-      expect(b.right, lessThan(m.left));
-      expect(_key('ammo-back-to-list'), findsOneWidget);
+      final t = _rect(tester, 'ammo-type');
+      final b = _rect(tester, 'ammo-brand-select');
+      expect((t.top - b.top).abs(), lessThan(1));
+      expect(t.right, lessThan(b.left));
+      expect(
+        _rect(tester, 'ammo-model-other').top,
+        greaterThanOrEqualTo(b.bottom - 0.5),
+      );
+      expect(_key('ammo-back-to-list'), findsNothing);
       expect(tester.takeException(), isNull);
     });
 

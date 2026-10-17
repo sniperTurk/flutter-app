@@ -63,7 +63,9 @@ Future<Map<String, int>> _factoryListed(WidgetTester tester) async {
   final out = <String, int>{};
   final brands = [
     for (final i in _select<String>(tester, 'ammo-brand-select').items)
-      if (i.value != null && !i.value!.startsWith('!')) i.value!,
+      // "Diğer marka" (__other, owner 2026-10-17) has no Model list.
+      if (i.value != null && !i.value!.startsWith('!') && i.value != '__other')
+        i.value!,
   ];
   for (final b in brands) {
     await _pick<String>(tester, 'ammo-brand-select', b);
@@ -114,9 +116,18 @@ void main() {
             }
           }
           if (expected.isEmpty) {
-            // No listed round of this cartridge: the typed entry, no list.
-            expect(find.byKey(const Key('ammo-brand-select')), findsNothing);
-            expect(find.byKey(const Key('ammo-brand-pick')), findsOneWidget);
+            // No listed round of this cartridge: only "Diğer marka"
+            // (owner, 2026-10-17).
+            expect(
+              [
+                for (final i in _select<String>(
+                  tester,
+                  'ammo-brand-select',
+                ).items)
+                  i.value,
+              ],
+              ['__other'],
+            );
           } else {
             expect(await _factoryListed(tester), expected);
           }
