@@ -817,9 +817,9 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     tubePressure = TextEditingController(
       text: p?.tubePressureBar == null ? '' : _trimNum(p!.tubePressureBar!),
     );
-    // Optional; an older PCP profile has no saved pair: both boxes open
-    // empty and it calculates with its Namlu çıkış hızı as before (owner,
-    // 2026-10-16).
+    // Optional, each on its own; an older PCP profile has none: both boxes
+    // open empty. Saved only; the calculation uses Namlu çıkış hızı (owner,
+    // 2026-10-17).
     pcpMinVelocity = TextEditingController(
       text: p?.pcpMinVelocityMps == null ? '' : _fpsText(p!.pcpMinVelocityMps!),
     );
@@ -1512,8 +1512,8 @@ class _ProfileDialogState extends State<_ProfileDialog> {
         platform: platform,
         // PCP only (ProfileInput drops them on a firearm): Regülatör
         // basıncı (empty = unregulated), Tüp basıncı, and the optional En
-        // düşük / En yüksek namlu çıkış hızı (a pair, checked in
-        // [_ammoValid]; both empty = none).
+        // düşük / En yüksek namlu çıkış hızı (each optional on its own,
+        // saved only).
         pressureText: regulatorPressure.text,
         tubePressureText: tubePressure.text,
         pcpMinVelocityText: pcp && pcpMinVelocity.text.trim().isNotEmpty

@@ -284,8 +284,8 @@ extension _RifleSection on _ProfileDialogState {
   );
 
   /// Namlu çıkış hızı, required, Ateşli and PCP: a half box beside Kalibre
-  /// on the first Tüfek row (owner, 2026-10-16 20:49–21:04). On a PCP with
-  /// En düşük | En yüksek on the Mühimmat card their mean is used instead.
+  /// on the first Tüfek row (owner, 2026-10-16 20:49–21:04). Every
+  /// calculation uses it, PCP too (owner, 2026-10-17).
   Widget _velocityField() => MenzilInput(
     key: const Key('profile-velocity-fps'),
     controller: velocity,

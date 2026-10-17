@@ -467,4 +467,82 @@ Ara koşular:
 Bu rapor commit'inde main (#380 DEN17B-1, #381 Hedefin yönü) birleştirildi; çakışma olmadı. Bu commit'in CI sonuçları PR açıklamasında.
 
 
+## Hız şimdilik Tüfek kartından (17.10)
+
+Sahip, 17.10.2026 13:14–13:21 (İstanbul): "Kutuları koy, aç; namlu çıkış hızından yapsın hesaplamayı." · "Testleri arka planda yapacaksın, sanki yeni özellik ekliyor gibi; testler başarılı olunca yükleyeceksin." · ⓘ için: "şu an bir kullanıcı yok ki".
+
+Bu bölüm, yukarıdaki "Hesapta kullanılan hız" bölümünün yerini alır. Ortalama (830/860 → 845) bu PR'da yok; daha sonra ayrı ve tam test edilmiş bir özellik olarak gelecek.
+
+### Ne
+
+- **Hesapta kullanılan hız:** Her hesap PCP'de de Tüfek kartındaki Namlu çıkış hızıyla yapılır. En düşük ve En yüksek ne girilmiş olursa olsun sonuç değişmez. Bu, Hedef, DOPE, Pro, Hız Doğrulama, MPBR, kronograf, PDF ve saat için geçerli.
+- **Kutular duruyor:** En düşük | En yüksek namlu çıkış hızı kutuları yerinde. Gösterilir, kaydedilir ve Profili Düzenle'de geri gelir. Anahtarlar aynı: `pcpMinVelocityMps` ve `pcpMaxVelocityMps`.
+- **Uyarı kalktı:** "En düşük ve en yüksek hızın ikisini de girin." uyarısı ve kaydı engellemesi silindi. İki kutu da isteğe bağlı. Biri, ikisi ya da hiçbiri girilse de profil kaydedilir.
+- **Değişmeyenler:** ⓘ metinleri, düzen, etiketler, sıra ve birimler değişmedi. "Basınca göre hız" silinmiş hâliyle kalıyor: eski tablolu PCP profilleri Tüfek kartındaki hızla hesaplanır.
+
+### Nasıl
+
+- **Ortalama silindi.** `RifleProfile.velocityMps` ve `hasPcpVelocityRange` koddan silindi; bayrakla gizlenmedi. Hedef (`ballistics_screen.dart`), Hız Doğrulama (`truing_screen.dart`) ve MPBR (`mpbr_screen.dart`) yeniden `muzzleVelocityMps` okuyor.
+- **Hız Doğrulama eskisi gibi.** Ortalamaya ait bilgi kutusu, kapalı "profile uygula" düğmesi ve onun ⓘ'si silindi. Bunlar yalnız ortalama varken görünüyordu. Artık PCP'de de doğrulanan hız, onay sonrası Tüfek kartındaki hıza yazılır, ateşli tüfekteki gibi.
+- **Araçlar hız yazabiliyor.** `ToolProfileUpdate`'teki "PCP'de tek hız yazılmaz" engeli silindi. Kronograf ve Hız Doğrulama yeniden Namlu çıkış hızını yazabiliyor; En düşük ve En yüksek olduğu gibi korunuyor.
+- **Her kutu tek başına geçerli.** `ProfileInput`, `ProfileCodec` ve editör her kutuyu ayrı ayrı kabul ediyor. Aralık kuralı aynı: 100–4900 fps. İkisi birlikte girilmişse "En düşük hızdan küçük olamaz." kuralı duruyor. Kaydedilmiş bir çiftte en düşük değer en yüksekten büyükse kayıt bozuk sayılıyor.
+
+### Neden
+
+Sahip, hesabın şimdilik Tüfek kartındaki hızla yapılmasını istedi. Ortalama, ayrı bir özellik olarak sonra eklenecek. Tek kutu uyarısı da ortalamaya aitti; ortalamayla birlikte kalktı.
+
+### Uç durumlar
+
+- **Yalnız biri girilmiş:** Uyarı çıkmaz, Kaydet açık kalır. Değer kaydedilir ve geri yüklenir.
+- **İkisi de girilmiş, En düşük > En yüksek:** Eskisi gibi hata verir ve kayıt beklemeye alınır.
+- **Eski PCP profili:** Hem pressure-table'lı olanlar hem de kutuları hiç olmayanlar Tüfek kartındaki hızla hesaplanır. Kayıtlı veri silinmez.
+- **ⓘ metni ile hesap arasındaki fark (bilerek değiştirilmedi):** En düşük ve En yüksek kutularının ⓘ'si hâlâ "Değerler doğru girilmediğinde hesaplanan klikler ve isabet tahmini yanlış çıkar" diyor. Bu değerler şimdilik hesaba girmiyor. Sahip ⓘ metinlerinin değişmemesini istedi.
+- **Eski sürüme dönüş:** Bu sürümde yalnız bir hızı kaydedilmiş bir PCP profili, eski bir TestFlight sürümünde (çift isteyen eski okuyucu) açılmaz. Profil karantinaya alınır; veri silinmez. Bu sürüm eski kayıtları sorunsuz okur.
+
+### Testler
+
+**Değiştirilen testler:**
+
+- **`test/pcp_muhimmat_tasarim_test.dart`:** Ortalama ve uyarı testleri silindi; yerine şunlar geldi:
+  - PCP, Tüfek 900 fps, En düşük 830 / En yüksek 860: Hedef sonucu, ikisi boşken alınan 900 fps sonucuyla birebir aynı (`requiredUp`). Yalnız En düşük ya da yalnız En yüksek girildiğinde de aynı. 845 fps sonucundan 0,1'den fazla ayrılıyor, yani ortalama kullanılmıyor.
+  - Yalnız biri girildiğinde uyarı yok ve eksik listesi boş. 830/860, yalnız 830, yalnız 860 ve ikisi boş için kaydet, kodlayıcıyla oku ve Profili Düzenle'de kutulara geri gelme testleri var.
+  - `ProfileInput`: her kutu tek başına geçerli; ters çift hata verir; ateşli tüfekte kutular yok sayılır.
+  - Codec: tek değer gidip geliyor; ters çift bozuk kayıt sayılıyor.
+  - Hız Doğrulama 830/860, boş ve yalnız 830 için: "Namlu çıkış hızı: 900 fps" yazıyor, 900 doğrulanıyor, "profile uygula" açık.
+- **`test/audit_2026_10_15c/kul10_pcp_hiz_test.dart` (KUL-10):** Sayılar aynı. Tüfek 255 m/s, Hedef'in hızı. En düşük 265 / En yüksek 275 m/s; ortalamaları 270 m/s ve kullanılmamalı. Hız Doğrulama'nın BC'si 255 m/s'de çözülüyor.
+- **`test/audit_2026_10_14b/turret_zero_cleanup_audit_test.dart`:**
+  - "Ortalama girer" koruması tersine çevrildi: En düşük | En yüksek varken de Namlu çıkış hızı giriyor.
+  - "Truing PCP ortalamasını bilir, düğme kapalı" testi değişti. Yeni hâli: hız doğrulanıp yazılıyor, En düşük, En yüksek ve kayıtlı tablo korunuyor.
+  - Silinen anahtara (`truing-pcp-mean`) bakan iki satır kaldırıldı.
+- **`test/pcp_pressure_profile_test.dart`:** "Araç PCP'de tek hız yazmaz" testi değişti. Yeni hâli: araç Namlu çıkış hızını yazıyor, En düşük ve En yüksek korunuyor.
+- **`integration_test/sim_screens_pcp_kartlar_test.dart`:**
+  - Dürbün önce dolduruluyor; böylece yalnız En düşük girildiğinde Kaydet'in açık olduğu ölçülüp çekilebiliyor (yeni görüntü `pcp_tek_hiz_kaydet_390`).
+  - Uyarının olmadığı da kontrol ediliyor.
+
+**Değişmeyenler:**
+
+- Ateşli tüfek golden sayılarına ve formül testlerine dokunulmadı.
+- Eski PCP golden testi (`_oldPcpGoldenOnMain`) aynı.
+- Testler gevşetilmedi. Silinen tek şey ortalama ve uyarı doğrulamaları; bu değişiklik onları bilerek kaldırıyor.
+
+**Yerel:**
+
+- `python3 tools/offline_dart_lint.py`: PASS, 426 dosya, 0 sorun.
+- `python3 -m unittest discover -s tools -p 'test_*.py'`: 915 test, OK (1 atlandı).
+- Flutter SDK bu ortamda yok; Flutter testleri CI'da koştu.
+
+### Ekran görüntüleri ve CI
+
+Ekran görüntüleri (390 pt) ve CI bağlantıları PR açıklamasında. Yalnız gerçekten başarılı biten işler "başarılı" yazılır.
+
+### Gözden geçirme (Code Review + Security)
+
+Ayrı bir inceleme ajanı diff'i okudu. Kalan hiçbir hesap yolu En düşük ya da En yüksek okumuyor. Kayıt ve yükleme tek değerle doğru çalışıyor. Güvenlik açısından yeni bir sorun yok: bozuk JSON eskisi kadar sıkı reddediliyor.
+
+Bulgular:
+
+- ⓘ metni ile hesap arasındaki fark (yukarıda); sahip kararı.
+- Eski sürüme dönüş (yukarıda).
+- Eskimiş üç kod yorumu vardı; düzeltildi.
+
 🤖 Generated with [Claude Code](https://claude.com/claude-code)
