@@ -817,9 +817,9 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     tubePressure = TextEditingController(
       text: p?.tubePressureBar == null ? '' : _trimNum(p!.tubePressureBar!),
     );
-    // Optional, each on its own; an older PCP profile has none: both boxes
-    // open empty. Saved only; the calculation uses Namlu çıkış hızı (owner,
-    // 2026-10-17).
+    // Optional pair; an older PCP profile has none: both boxes open empty
+    // and the calculation uses the Tüfek card's Namlu çıkış hızı. A profile
+    // saved with only one opens with it and asks for the other.
     pcpMinVelocity = TextEditingController(
       text: p?.pcpMinVelocityMps == null ? '' : _fpsText(p!.pcpMinVelocityMps!),
     );
@@ -856,16 +856,28 @@ class _ProfileDialogState extends State<_ProfileDialog> {
 
   // ---- PCP namlu çıkış hızları (owner, 2026-10-16) ----------------------
 
-  /// Both optional, each on its own (owner, 2026-10-17): any combination
-  /// saves, and the calculation uses the Tüfek card's Namlu çıkış hızı.
-  /// A typed value has Namlu çıkış hızı's plausible range (100–4900 fps).
-  String? _pcpVelocityBoxError(TextEditingController box) =>
-      box.text.trim().isEmpty ? null : _rangeError(box, 100, 4900);
+  /// Optional pair (owner, 2026-10-16), like Barut sıcaklığı: both empty
+  /// is fine (the Tüfek card's Namlu çıkış hızı is used); one alone is an
+  /// error on the empty box and blocks saving. Same plausible range as
+  /// Namlu çıkış hızı (100–4900 fps).
+  static const pcpVelocityPairError =
+      'En düşük ve en yüksek hızın ikisini de girin.';
 
-  String? get _pcpMinVelocityError => _pcpVelocityBoxError(pcpMinVelocity);
+  String? _pcpVelocityBoxError(
+    TextEditingController box,
+    TextEditingController other,
+  ) {
+    if (box.text.trim().isEmpty) {
+      return other.text.trim().isEmpty ? null : pcpVelocityPairError;
+    }
+    return _rangeError(box, 100, 4900);
+  }
+
+  String? get _pcpMinVelocityError =>
+      _pcpVelocityBoxError(pcpMinVelocity, pcpMaxVelocity);
 
   String? get _pcpMaxVelocityError {
-    final e = _pcpVelocityBoxError(pcpMaxVelocity);
+    final e = _pcpVelocityBoxError(pcpMaxVelocity, pcpMinVelocity);
     if (e != null) return e;
     final lo = _parse(pcpMinVelocity), hi = _parse(pcpMaxVelocity);
     if (_pcpMinVelocityError == null && lo != null && hi != null && lo > hi) {
@@ -874,7 +886,8 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     return null;
   }
 
-  /// A typed box's error shows as soon as either box holds text.
+  /// The pair's errors show as soon as either box holds text, so the empty
+  /// one says what is missing right away.
   String? _shownPcpVelocity(String? error) =>
       (_showErrors ||
           pcpMinVelocity.text.isNotEmpty ||
@@ -1502,15 +1515,16 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     try {
       input = ProfileInput.validate(
         name: name.text.trim().isEmpty ? _defaultName : name.text,
-        // The Tüfek card's Namlu çıkış hızı, PCP too (owner, 2026-10-16).
+        // The Tüfek card's Namlu çıkış hızı (PCP: used when the En düşük |
+        // En yüksek pair is empty).
         muzzleVelocityText: mpsText(velocity),
         zeroRangeText: _zeroMetersText,
         sightHeightText: sight.text,
         platform: platform,
         // PCP only (ProfileInput drops them on a firearm): Regülatör
         // basıncı (empty = unregulated), Tüp basıncı, and the optional En
-        // düşük / En yüksek namlu çıkış hızı (each optional on its own,
-        // saved only).
+        // düşük / En yüksek namlu çıkış hızı (optional pair; their mean is
+        // the calculation velocity, RifleProfile.velocityMps).
         pressureText: regulatorPressure.text,
         tubePressureText: tubePressure.text,
         pcpMinVelocityText: pcp && pcpMinVelocity.text.trim().isNotEmpty

@@ -318,8 +318,8 @@ abstract final class ProfileFieldInfo {
       'Hesap veya şifre gerekmez.';
 
   // PCP En düşük / En yüksek namlu çıkış hızı (owner, 2026-10-16, metinler
-  // sahibin onayladığı gibi; isteğe bağlı). Şimdilik yalnız kaydedilir;
-  // hesap Tüfek'teki Namlu çıkış hızıyla yapılır (owner, 2026-10-17).
+  // sahibin onayladığı gibi; isteğe bağlı). İkisi girilirse hesap
+  // ortalamayla, girilmezse Tüfek'teki Namlu çıkış hızıyla yapılır.
   static const pcpMinVelocity =
       'Tüfeğinizin 10 atıştaki en düşük hızıdır. Tüpünüz tam doluyken '
       'kronografla arka arkaya 10 atış yapın, 10 değerin en düşüğünü buraya '

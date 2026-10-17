@@ -284,8 +284,9 @@ extension _RifleSection on _ProfileDialogState {
   );
 
   /// Namlu çıkış hızı, required, Ateşli and PCP: a half box beside Kalibre
-  /// on the first Tüfek row (owner, 2026-10-16 20:49–21:04). Every
-  /// calculation uses it, PCP too (owner, 2026-10-17).
+  /// on the first Tüfek row (owner, 2026-10-16 20:49–21:04). The
+  /// calculation velocity, except a PCP with both En düşük | En yüksek
+  /// namlu çıkış hızı (their mean, RifleProfile.velocityMps).
   Widget _velocityField() => MenzilInput(
     key: const Key('profile-velocity-fps'),
     controller: velocity,

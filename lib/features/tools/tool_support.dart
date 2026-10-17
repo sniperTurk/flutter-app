@@ -37,6 +37,17 @@ abstract final class ToolProfileUpdate {
         (base.pressureBar != null
             ? WeaponPlatform.pcp
             : WeaponPlatform.firearm);
+    // A PCP with En düşük / En yüksek namlu çıkış hızı calculates with
+    // their mean (owner, 2026-10-16); one written velocity would change
+    // nothing there, so a tool does not write it.
+    if (muzzleVelocityMps != null && base.hasPcpVelocityRange) {
+      throw const FormatException(
+        'PCP\'de hesap, Profil > Mühimmat\'taki en düşük ve en yüksek '
+        'hızın ortalamasıyla yapılıyor; buradan tek bir hız yazılmaz.',
+      );
+    }
+    final pcpPair =
+        base.pcpMinVelocityMps != null && base.pcpMaxVelocityMps != null;
     final input = ProfileInput.validate(
       name: base.name,
       muzzleVelocityText: (muzzleVelocityMps ?? base.muzzleVelocityMps)
@@ -46,10 +57,12 @@ abstract final class ToolProfileUpdate {
       platform: platform,
       // An older profile's pressure is kept as it was (no longer asked).
       pressureText: base.pressureBar?.toString(),
-      // Tüp basıncı and the PCP velocities are kept as they were.
+      // Tüp basıncı and the PCP velocities are kept as they were. A pair is
+      // validated; a lone value (saved before the pair rule) is carried
+      // below unvalidated so the tool still works and nothing is erased.
       tubePressureText: base.tubePressureBar?.toString(),
-      pcpMinVelocityText: base.pcpMinVelocityMps?.toString(),
-      pcpMaxVelocityText: base.pcpMaxVelocityMps?.toString(),
+      pcpMinVelocityText: pcpPair ? base.pcpMinVelocityMps.toString() : null,
+      pcpMaxVelocityText: pcpPair ? base.pcpMaxVelocityMps.toString() : null,
       mountCantMoa: base.mountCantMoa,
       powderCoefText: (powderCoef ?? base.powderTempCoefPercentPer15C)
           ?.toString(),
@@ -70,8 +83,12 @@ abstract final class ToolProfileUpdate {
       // The deleted "Basınca göre hız" table (2026-10-16): carried as it
       // was so the saved data is not erased; nothing reads it.
       pressureVelocityTable: base.pressureVelocityTable,
-      pcpMinVelocityMps: input.pcpMinVelocityMps,
-      pcpMaxVelocityMps: input.pcpMaxVelocityMps,
+      pcpMinVelocityMps: pcpPair
+          ? input.pcpMinVelocityMps
+          : (platform == WeaponPlatform.pcp ? base.pcpMinVelocityMps : null),
+      pcpMaxVelocityMps: pcpPair
+          ? input.pcpMaxVelocityMps
+          : (platform == WeaponPlatform.pcp ? base.pcpMaxVelocityMps : null),
       angularUnit: base.angularUnit,
       distanceUnit: base.distanceUnit,
       mountCantMoa: input.mountCantMoa,
