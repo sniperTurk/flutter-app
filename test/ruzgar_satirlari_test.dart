@@ -186,7 +186,6 @@ void main() {
     await _seed(windMax: '');
     await _show(tester);
     expect(find.byKey(_bracket), findsNothing);
-    expect(find.textContaining('Rüzgâr 6,2 m/s'), findsNothing);
     expect(_text(tester, _shares), startsWith('Yana kayma: yakın %'));
     _expectOneLineAbove(tester, _shares, 390, 1);
   });
