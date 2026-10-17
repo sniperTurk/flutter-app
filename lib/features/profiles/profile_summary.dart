@@ -48,6 +48,39 @@ String _ammoTypeName(AmmunitionType t) => switch (t) {
   AmmunitionType.bullet => 'Mermi',
 };
 
+/// Firearm Tip box (owner, 2026-10-17: "Mermi 31.2 mm yazalım"): the
+/// bullet length next to the type, joined by a space like "BC / model"
+/// ("0,243 G7"); without a saved length the box stays "Tip" / "Mermi".
+MenzilMetric _firearmTypeMetric(Ammunition a) {
+  final length = a.lengthMm;
+  if (length == null || !length.isFinite || length <= 0) {
+    return MenzilMetric('Tip', _ammoTypeName(a.type));
+  }
+  return MenzilMetric(
+    'Tip / uzunluk',
+    '${_ammoTypeName(a.type)} ${_trimNum(length)}',
+    'mm',
+  );
+}
+
+/// Mühimmat türü as the Profil editor names it when it opens the profile
+/// (same rule as the editor): a listed bullet that is not a listed factory
+/// round is "El dolumu", anything else "Fabrika fişeği"; "—" without a
+/// saved ammunition, like "BC / model" without a value.
+String _firearmAmmoSourceName(Ammunition? a) {
+  if (a == null) return '—';
+  final inFactory = FactoryAmmoLibrary.all.any(
+    (f) => f.brand == a.brand && f.name == a.model,
+  );
+  final inLibrary = BulletLibrary.all.any(
+    (b) =>
+        b.platform == a.platform &&
+        b.brand == a.brand &&
+        _ProfileDialogState._modelOf(b) == a.model,
+  );
+  return inFactory || !inLibrary ? 'Fabrika fişeği' : 'El dolumu';
+}
+
 /// Dürbün Marka and a clean Dürbün Model for the summary (owner,
 /// 2026-10-11: no designation, reticle or unit repeated in the name).
 (String, String) _scopeBrandModel(ScopeOptic s) {
@@ -140,6 +173,8 @@ class _ActiveProfileDetails extends StatelessWidget {
     final scopeNames = scope == null ? null : _scopeBrandModel(scope);
     final reticle = scope == null ? null : _summaryReticle(scope);
     final ammoModel = ammo == null ? '' : _ammoModelName(ammo);
+    final firearm =
+        (rifle?.platform ?? ammo?.platform) == WeaponPlatform.firearm;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
@@ -240,7 +275,9 @@ class _ActiveProfileDetails extends StatelessWidget {
                 ),
           metrics: [
             if (ammo != null) ...[
-              MenzilMetric('Tip', _ammoTypeName(ammo.type)),
+              firearm
+                  ? _firearmTypeMetric(ammo)
+                  : MenzilMetric('Tip', _ammoTypeName(ammo.type)),
               MenzilMetric('Ağırlık', _trimNum(ammo.grain), 'gr'),
             ],
             MenzilMetric(
@@ -250,6 +287,9 @@ class _ActiveProfileDetails extends StatelessWidget {
                   : '${_trimNum(ballisticCoefficient)} $ballisticModelName'
                         .trim(),
             ),
+            // Last box of the card, firearm only (owner, 2026-10-17).
+            if (firearm)
+              MenzilMetric('Mühimmat türü', _firearmAmmoSourceName(ammo)),
           ],
         ),
         Text(
