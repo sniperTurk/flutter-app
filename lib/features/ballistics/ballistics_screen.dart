@@ -913,9 +913,10 @@ class _BallisticsScreenState extends State<BallisticsScreen>
   /// saved in Pro > Mermi uzunluğu (this profile's shot settings,
   /// 'bulletLength', still loaded into [bulletLengthCtl] and saved back
   /// unchanged) is used, so existing numbers stay the same. Null when
-  /// neither is given or plausible (0–100 mm).
+  /// neither is given or plausible (0–150 mm, the Profil box's limit,
+  /// owner 2026-10-17 18:10).
   double? get _bulletLengthMm {
-    bool ok(double? v) => v != null && v.isFinite && v > 0 && v <= 100;
+    bool ok(double? v) => v != null && v.isFinite && v > 0 && v <= 150;
     final profile = ammunition?.lengthMm;
     if (ok(profile)) return profile;
     final legacy = _parsed(bulletLengthCtl);
