@@ -218,12 +218,24 @@ void main() {
     expect(MenzilBrand.logoGap, 4);
   });
 
-  for (final width in const [390.0, 375.0]) {
-    testWidgets('$width pt: marka küçültülmez (FittedBox 1:1)', (tester) async {
+  // The test font draws every letter 1 em wide, so on phone widths the
+  // brand row hits the slot cap and scales down; logo and text then shrink
+  // by the same factor (square logo, gap 4 pt × scale).
+  for (final width in const [390.0, 375.0, 320.0]) {
+    testWidgets('$width pt: logo ve yazı birlikte küçülür, slotta kalır', (
+      tester,
+    ) async {
       await _pumpHome(tester, width: width);
+      expect(tester.takeException(), isNull);
+      final slot = tester.getRect(find.byKey(_titleSlot));
       final logo = tester.getRect(find.byKey(const Key('top-bar-brand-logo')));
-      expect(logo.width, moreOrLessEquals(44));
-      expect(logo.height, moreOrLessEquals(44));
+      final text = tester.getRect(find.byKey(const Key('top-bar-brand')));
+      final scale = logo.width / 44;
+      expect(scale, lessThanOrEqualTo(1 + 1e-6));
+      expect(logo.height, moreOrLessEquals(logo.width));
+      expect(text.left - logo.right, moreOrLessEquals(4 * scale));
+      expect(logo.left, moreOrLessEquals(slot.left));
+      expect(text.right, lessThanOrEqualTo(slot.right + 0.01));
     });
   }
 }

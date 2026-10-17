@@ -231,7 +231,9 @@ void main() {
     testWidgets('$name tema: logo markanın solunda, 44 pt, doğru görsel', (
       tester,
     ) async {
-      await _pumpHome(tester, theme: theme);
+      // Wide enough that the slot cap is not hit even with the 1 em wide
+      // test font, so the brand is drawn 1:1.
+      await _pumpHome(tester, theme: theme, width: 800);
       final logoFinder = find.byKey(const Key('top-bar-brand-logo'));
       expect(logoFinder, findsOneWidget);
       final image = tester.widget<Image>(logoFinder);
