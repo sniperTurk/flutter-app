@@ -198,7 +198,7 @@ void main() {
   testWidgets('the Profiller list is above the Tüfek section', (tester) async {
     await _pump(tester);
     final header = tester.getRect(find.text('Profiller'));
-    final tufek = tester.getRect(find.text('Tüfek bilgileri'));
+    final tufek = tester.getRect(find.text('Tüfek Marka/Model'));
     expect(header.bottom, lessThan(tufek.top));
     for (final id in ['m', 'y', 'n']) {
       expect(tester.getRect(_row(id)).bottom, lessThan(tufek.top), reason: id);

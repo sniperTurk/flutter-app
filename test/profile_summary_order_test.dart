@@ -97,8 +97,15 @@ void main() {
     expect(selector.width, lessThanOrEqualTo(slot.width + 0.01));
     expect(selector.right, moreOrLessEquals(slot.right));
 
-    // Three cards (owner, 2026-10-13): Tüfek, Dürbün and Mühimmat
-    // bilgileri, each led by marka and model on one line.
+    // Three cards (owner, 2026-10-13), each led by marka and model on one
+    // line; no section titles above them (owner, 2026-10-17).
+    for (final title in const [
+      'Tüfek bilgileri',
+      'Dürbün bilgileri',
+      'Mühimmat bilgileri',
+    ]) {
+      expect(find.text(title), findsNothing, reason: title);
+    }
     expect(find.textContaining('kişisel kayıt'), findsNothing);
     expect(find.text('Hatsan Hercules'), findsOneWidget);
     expect(find.text('GaziSniper 6-36 x 56 FFP · MRAD'), findsOneWidget);
@@ -116,17 +123,17 @@ void main() {
     }
 
     const order = [
-      'Tüfek bilgileri',
+      'Tüfek Marka/Model',
       'Yiv yönü',
       'Kalibre',
       'Yiv oranı',
       'Sight height',
       'Sıfırlama mesafesi',
       'Namlu çıkış hızı',
-      'Dürbün bilgileri',
+      'Dürbün Marka/Model',
       'Dürbün ayağı',
       'Dürbün üst kule',
-      'Mühimmat bilgileri',
+      'Mühimmat Marka/Model',
       'Tip',
       'Ağırlık',
       'BC / model',

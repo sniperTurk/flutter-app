@@ -143,13 +143,10 @@ class _ActiveProfileDetails extends StatelessWidget {
       children: [
         // No "Aktif profil" title or Düzenle here (owner, 2026-10-12): the
         // list below shows the active profile with its edit pencil.
-        // Three cards (owner, 2026-10-13): Tüfek, Dürbün and Mühimmat
-        // bilgileri, each led by its marka and model on one line.
-        const MenzilSectionHeader(
-          'Tüfek bilgileri',
-          size: 18,
-          padding: EdgeInsets.only(bottom: MenzilSpace.sm),
-        ),
+        // Three cards (owner, 2026-10-13), each led by its marka and model
+        // on one line. No section titles above them (owner, 2026-10-17):
+        // the lead label names the card ("Tüfek Marka/Model", ...), and the
+        // cards are spaced by MenzilSpace.lg, the gap above the first card.
         MenzilMetricGrid(
           key: const Key('profile-summary-rifle'),
           columns: 2,
@@ -158,7 +155,7 @@ class _ActiveProfileDetails extends StatelessWidget {
           lead: rifle == null
               ? null
               : MenzilMetric(
-                  'Marka / Model',
+                  'Tüfek Marka/Model',
                   _joinSummary([rifle.brand, rifle.model]),
                 ),
           metrics: [
@@ -193,7 +190,7 @@ class _ActiveProfileDetails extends StatelessWidget {
             ),
           ],
         ),
-        const MenzilSectionHeader('Dürbün bilgileri', size: 18),
+        const SizedBox(height: MenzilSpace.lg),
         MenzilMetricGrid(
           key: const Key('profile-summary-scope'),
           columns: 2,
@@ -202,7 +199,7 @@ class _ActiveProfileDetails extends StatelessWidget {
           // Marka, model and the scope's data on one line (owner,
           // 2026-10-13), e.g. "Barska … 6-36 x 56 FFP · MRAD".
           lead: MenzilMetric(
-            'Marka / Model',
+            'Dürbün Marka/Model',
             [
               if (scopeNames != null)
                 _joinSummary([
@@ -227,7 +224,7 @@ class _ActiveProfileDetails extends StatelessWidget {
               ),
           ],
         ),
-        const MenzilSectionHeader('Mühimmat bilgileri', size: 18),
+        const SizedBox(height: MenzilSpace.lg),
         MenzilMetricGrid(
           key: const Key('profile-summary-ammo'),
           columns: 2,
@@ -236,7 +233,7 @@ class _ActiveProfileDetails extends StatelessWidget {
           lead: ammo == null
               ? null
               : MenzilMetric(
-                  'Marka / Model',
+                  'Mühimmat Marka/Model',
                   _joinSummary([ammo.brand, ammoModel]),
                 ),
           metrics: [
