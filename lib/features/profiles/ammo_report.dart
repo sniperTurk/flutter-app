@@ -35,10 +35,7 @@ const double _grainPerGram = 15.4323584;
   final u = m.group(2)!.toLowerCase();
   final gram = u == 'g' || u.startsWith('gram');
   final grain = gram ? value * _grainPerGram : value;
-  return (
-    grain: (grain * 100).roundToDouble() / 100,
-    unit: gram ? 'g' : 'gr',
-  );
+  return (grain: (grain * 100).roundToDouble() / 100, unit: gram ? 'g' : 'gr');
 }
 
 /// The JSON body for the catalog inbox (`tur` "muhimmat").

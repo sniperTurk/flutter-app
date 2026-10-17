@@ -59,19 +59,22 @@ void main() {
         caliber: '6.35 mm (.25)',
         appVersion: '1.0.0+113',
       );
-      expect(jsonEncode(body), jsonEncode({
-        'tur': 'muhimmat',
-        'platform': 'ios',
-        'uygulamaSurumu': '1.0.0+113',
-        'kurulumKimligi': null,
-        'alanlar': {
-          'metin': '  H&N Slug HP 50 gr ',
-          'silah': 'pcp',
-          'kalibre': '6.35 mm (.25)',
-          'okunanAgirlikGr': 50.0,
-          'okunanBirim': 'gr',
-        },
-      }));
+      expect(
+        jsonEncode(body),
+        jsonEncode({
+          'tur': 'muhimmat',
+          'platform': 'ios',
+          'uygulamaSurumu': '1.0.0+113',
+          'kurulumKimligi': null,
+          'alanlar': {
+            'metin': '  H&N Slug HP 50 gr ',
+            'silah': 'pcp',
+            'kalibre': '6.35 mm (.25)',
+            'okunanAgirlikGr': 50.0,
+            'okunanBirim': 'gr',
+          },
+        }),
+      );
     });
 
     test('firearm, no caliber, unreadable weight', () {
@@ -194,7 +197,10 @@ void main() {
     });
 
     test('default timeout is 10 s', () {
-      expect(CloudflareProductReport.defaultTimeout, const Duration(seconds: 10));
+      expect(
+        CloudflareProductReport.defaultTimeout,
+        const Duration(seconds: 10),
+      );
     });
   });
 }

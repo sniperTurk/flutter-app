@@ -224,11 +224,7 @@ void main() {
       await choose('rifle-caliber', '6.35 mm (.25)');
       await choose('ammo-type', 'Pellet');
       await choose('ammo-brand-select', 'Diğer marka');
-      await card(
-        'profile-ammo-form',
-        'ammo-not-listed',
-        'pcp_diger_marka_$w',
-      );
+      await card('profile-ammo-form', 'ammo-not-listed', 'pcp_diger_marka_$w');
     }
 
     Future<void> firearmOther(String w) async {

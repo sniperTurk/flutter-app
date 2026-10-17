@@ -55,7 +55,8 @@ extension _AmmoSection on _ProfileDialogState {
 
   /// Firearm ammunition the shooter types: "Diğer marka" (owner,
   /// 2026-10-17).
-  bool get _typedFirearmAmmo => platform == WeaponPlatform.firearm && _ammoOther;
+  bool get _typedFirearmAmmo =>
+      platform == WeaponPlatform.firearm && _ammoOther;
 
   /// The Kalibre of the Tüfek card for the Diğer marka Model text: a
   /// cartridge as shown (".308 Win"), otherwise the millimetres without the

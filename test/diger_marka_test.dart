@@ -35,8 +35,7 @@ import 'support/tool_fakes.dart';
 
 Finder _key(String k) => find.byKey(Key(k));
 Rect _rect(WidgetTester tester, String k) => tester.getRect(_key(k).first);
-Finder _in(String key, Finder f) =>
-    find.descendant(of: _key(key), matching: f);
+Finder _in(String key, Finder f) => find.descendant(of: _key(key), matching: f);
 
 String _text(WidgetTester tester, String key) =>
     tester.widget<TextField>(_in(key, find.byType(TextField))).controller!.text;
@@ -451,7 +450,12 @@ void main() {
       await enterRifleField(tester, 'ammo-length', '31,2');
       await chooseInSelect(tester, 'profile-powder-coef', '1,5');
       await chooseInSelect(tester, 'profile-powder-temp', '21');
-      await fillShotValues(tester, velocityFps: '2650', zero: '100', sight: '45');
+      await fillShotValues(
+        tester,
+        velocityFps: '2650',
+        zero: '100',
+        sight: '45',
+      );
       expect(
         _in(
           'ammo-typed-summary',
@@ -708,7 +712,10 @@ void main() {
       await _openNew(tester, pcp: true, report: report);
       await _openDialog(tester);
       expect(
-        _in('ammo-report-dialog', find.text('Aradığın mühimmat listede yok mu?')),
+        _in(
+          'ammo-report-dialog',
+          find.text('Aradığın mühimmat listede yok mu?'),
+        ),
         findsOneWidget,
       );
       expect(
@@ -940,7 +947,12 @@ void main() {
       await enterRifleField(tester, 'ammo-bc', '0,462');
       await chooseInSelect(tester, 'ammo-bc-model', 'G1');
       await enterRifleField(tester, 'ammo-length', '31,2');
-      await fillShotValues(tester, velocityFps: '2650', zero: '100', sight: '45');
+      await fillShotValues(
+        tester,
+        velocityFps: '2650',
+        zero: '100',
+        sight: '45',
+      );
       await tester.tap(find.text('Kaydet'));
       await tester.pumpAndSettle();
       final saved = (await store.all()).single;
