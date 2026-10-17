@@ -275,7 +275,6 @@ class RepositoryFacts(unittest.TestCase):
             "RIFLE_LISTEDE_YOK": SCREEN,
             "AMMO_LISTEDE_YOK": SCREEN,
             "AMMO_BC_BANDS_TYPED": SCREEN,
-            "PRO_TUBE_PRESSURE": BALLISTICS,
         }
         for flag, path in flags.items():
             # profiles_screen.dart is one library in several part files.
@@ -346,12 +345,15 @@ class RepositoryFacts(unittest.TestCase):
         self.assertNotIn("PROFILE_AMMO_LENGTH", src)
         self.assertNotIn("_showProfileAmmoLength", src)
 
-    def test_pro_tube_pressure_off_uses_profile_value(self):
+    def test_pro_tube_pressure_deleted_and_not_in_formula(self):
+        # Owner, 2026-10-16: PRO_TUBE_PRESSURE, the Pro box and the
+        # "Basınca göre hız" velocity selection are deleted; the tube and
+        # regulator pressures do not enter the calculation.
         balli = library_text(BALLISTICS)
-        self.assertRegex(
-            balli,
-            r"final tube = _showProTubePressure\s*\?\s*_parsed\(tubePressureCtl\)\s*:\s*p\?\.tubePressureBar;",
-        )
+        self.assertNotRegex(balli, r"bool\.fromEnvironment\(\s*'PRO_TUBE_PRESSURE'")
+        self.assertNotIn("PcpPressure", balli)
+        self.assertNotIn("tubePressureBar", balli)
+        self.assertNotIn("pressureVelocityTable", balli)
 
 
 if __name__ == "__main__":

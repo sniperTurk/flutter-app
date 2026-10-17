@@ -194,7 +194,7 @@ void main() {
       await settle();
       await type('rifle-twist-rate', '16');
       await choose('rifle-twist-direction', 'Sağ');
-      // PCP ammo has no Marka | Model list (hidden 2026-10-13, PCP_AMMO_BRAND).
+      // PCP ammo (owner, 2026-10-16): Marka | Model optional, left empty.
       await choose('ammo-type', 'Slug');
       await type('ammo-grain', '33,95');
       await type('ammo-bc', '0,08');

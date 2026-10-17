@@ -33,7 +33,8 @@ class VacuumAngularSuppressionTest(unittest.TestCase):
         # is drawn only when `basis.drag` (owner, 2026-10-09; since the
         # 2026-10-11 audit it reads the value once, minus spin/zero offset).
         self.assertEqual(self.text.count('shot.windMrad'), 2)
-        notes = self.text.index('List<Widget> _extraShotNotes(')
+        # Since 2026-10-17 the wind lines are built in _windShotLines.
+        notes = self.text.index('List<Widget> _windShotLines(')
         bracket = self.text.index('shot.windMrad', notes)
         self.assertIn('basis.drag && windMax != null', self.text[notes:bracket])
         # Without drag the lateral value is the scope-cant geometry only

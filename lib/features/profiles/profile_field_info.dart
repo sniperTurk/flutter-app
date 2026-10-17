@@ -76,6 +76,20 @@ abstract final class ProfileFieldInfo {
   static const ammoBrandOther =
       'Listede olmayan markanın adı, kutunun üstünde yazdığı gibi. Örnek: '
       'kutuda "Atölye Fişek" yazıyorsa Atölye Fişek.';
+  // PCP Marka / Model (owner, 2026-10-16: always visible, Tip | Marka).
+  static const pcpAmmoBrand =
+      'Saçmanın veya slug\'ın markası. Önce Tip seçin: liste, Tüfek '
+      'bölümündeki kalibreye ve seçtiğiniz tipe göre gelir; Tip seçilene '
+      'kadar bu kutu açılmaz. Markayı seçince Model listesi gelir. '
+      'Aradığınız yoksa altındaki "Aradığın mühimmat listede yok mu?" ile '
+      'kendiniz yazın. Örnek: H&N.';
+  static const pcpAmmoBrandTyped =
+      'Listede olmayan saçmanın veya slug\'ın markası, kutunun üstünde '
+      'yazdığı gibi. Boş bırakabilirsiniz. Örnek: kutuda "H&N" yazıyorsa '
+      'H&N.';
+  static const pcpAmmoModelTyped =
+      'Saçmanın veya slug\'ın model adı, kutunun üstünde yazdığı gibi. Boş '
+      'bırakabilirsiniz. Örnek: Baracuda Match.';
   static const ammoModelTyped =
       'Fişeğin veya merminin model adı, kutunun üstünde yazdığı gibi. Aynı '
       'markanın başka mühimmatıyla karışmasın diye gerekli. Örnek: Gold '
@@ -303,27 +317,41 @@ abstract final class ProfileFieldInfo {
       'değişince Geri yükle ile aynı dosyayı seçin; hiçbir profil silinmez. '
       'Hesap veya şifre gerekmez.';
 
-  // PCP tüp ve regülatör basıncı (owner, 2026-10-12). Yalnızca PCP.
+  // PCP En düşük / En yüksek namlu çıkış hızı (owner, 2026-10-16, metinler
+  // sahibin onayladığı gibi; isteğe bağlı). Şimdilik yalnız kaydedilir;
+  // hesap Tüfek'teki Namlu çıkış hızıyla yapılır (owner, 2026-10-17).
+  static const pcpMinVelocity =
+      'Tüfeğinizin 10 atıştaki en düşük hızıdır. Tüpünüz tam doluyken '
+      'kronografla arka arkaya 10 atış yapın, 10 değerin en düşüğünü buraya '
+      'girin. En düşük değer son atışınız olmayabilir; hepsine bakın. '
+      'Kronografınız yoksa üreticinin verdiği hızdan biraz düşük, tahmini bir '
+      'değer girin. Değerler doğru girilmediğinde hesaplanan klikler ve isabet '
+      'tahmini yanlış çıkar; atışlarınız hedefin altına ya da üstüne gider. '
+      'Örnek: 830 fps.';
+  static const pcpMaxVelocity =
+      'Tüfeğinizin 10 atıştaki en yüksek hızıdır. Tüpünüz tam doluyken '
+      'kronografla arka arkaya 10 atış yapın, 10 değerin en yükseğini buraya '
+      'girin. En yüksek değer ilk atışınız olmayabilir; hepsine bakın. '
+      'Kronografınız yoksa üreticinin verdiği hızı ya da tahmini bir değer '
+      'girin. Değerler doğru girilmediğinde hesaplanan klikler ve isabet '
+      'tahmini yanlış çıkar; atışlarınız hedefin altına ya da üstüne gider. '
+      'Örnek: 860 fps.';
+
+  // PCP tüp ve regülatör basıncı (owner, 2026-10-16 metinleri). Yalnızca
+  // PCP; owner 2026-10-16: kept for future regulator use; not in the
+  // formula.
   static const tubePressure =
-      'Tüpü doldurduğunuz basınç, bar. Dolum sonrası manometreden okuyun ya '
-      'da kılavuzdaki en yüksek dolum basıncını yazın. Basınca göre hız '
-      'ölçümleri varsa hız bu basınca göre bulunur. Bilmiyorsanız boş '
-      'bırakın. Örnek: 250.';
+      'Regülatörsüz tüfekte tüp basıncı düştükçe hız da değişir. Hesabın '
+      'doğru olması için tüpünüzü her 10 atışta bir doldurun. Örnek: '
+      'tüpünüzü 300 bar\'a dolduruyorsanız 250 bar\'ın altında atış '
+      'yapmayın.';
   static const regulatorPressure =
-      'Regülatörün vanaya verdiği sabit basınç, bar. Kılavuzda ya da '
-      'regülatör manometresinde yazar. Tüp bu basıncın üstündeyken hız '
-      'sabittir; altına inince regülatör devre dışı kalır ve hız düşer. '
-      'Regülatörsüz tüfekte boş bırakın: boş kutu "regülatör yok" demektir '
-      '(ayrı bir seçim yok). Tüp basıncından küçük olmalı. Örnek: 150.';
-  static const pvBar =
-      'Kronografla hız ölçtüğünüz andaki tüp basıncı, bar (manometreden). '
-      'Her satır bir ölçümdür: basınç ve o basınçta ölçtüğünüz hız. En az '
-      'iki satır girilirse, Pro\'da yazdığınız kalan tüp basıncındaki hız '
-      'bu ölçümlerin arasından bulunur; ölçümlerin dışında en yakın ölçüm '
-      'kullanılır. Boş bırakırsanız profil hızı kullanılır. Örnek: 180.';
-  static const pvFps =
-      'O basınçta kronografla ölçtüğünüz namlu çıkış hızı, fps. Birkaç '
-      'atışın ortalamasını yazın. Basınçla birlikte girilir. Örnek: 870.';
+      'Regülatörlü tüfekte hız, tüp basıncı regülatör basıncının üstünde '
+      'kaldıkça sabittir. Hesabın doğru olması için tüp basıncınızın '
+      'regülatör basıncının altına inmemesine dikkat edin. Tüfeğinizde '
+      'regülatör yoksa bu kutuyu boş bırakın. Örnek: regülatörünüz 200 '
+      'bar\'a ayarlıysa tüp basıncınız 210 bar\'a inince '
+      'tüpünüzü doldurun.';
 
   // Mühimmat → Ek mühimmat bilgileri başlığının ⓘ'si (owner, 2026-10-14
   // 18:07–18:20: "Nedir?" / "Neden önemli?", uzun metin).

@@ -14,7 +14,6 @@ import 'package:sniper_turk/core/dope_ranges.dart';
 import 'package:sniper_turk/core/estimated_bc.dart';
 import 'package:sniper_turk/core/gravity.dart';
 import 'package:sniper_turk/core/parallax_range.dart';
-import 'package:sniper_turk/core/pcp_pressure.dart';
 import 'package:sniper_turk/core/powder_temperature.dart';
 import 'package:sniper_turk/core/scope_dial.dart';
 import 'package:sniper_turk/core/stability.dart';
@@ -292,31 +291,6 @@ void main() {
       expect([
         for (final m in BallisticModel.values) m.name,
       ], isNot(contains('ga')));
-    });
-
-    const table = [
-      PressureVelocityPoint(bar: 120, mps: 255),
-      PressureVelocityPoint(bar: 200, mps: 270),
-    ];
-
-    test('regulated: at or above the set pressure the profile velocity', () {
-      final v = PcpPressure.velocity(
-        profileMps: 270,
-        regulatorBar: 150,
-        tubeBar: 250,
-        table: table,
-      );
-      expect(v.mps, 270);
-      expect(v.regulatorBypassed, isFalse);
-    });
-
-    test('unregulated: linear between points, held at the ends', () {
-      double at(double bar) =>
-          PcpPressure.velocity(profileMps: 270, tubeBar: bar, table: table).mps;
-      expect(at(160), closeTo(262.5, 1e-9));
-      expect(at(100), 255);
-      expect(at(300), 270);
-      expect(PcpPressure.velocity(profileMps: 270, table: table).mps, 270);
     });
   });
 

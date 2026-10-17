@@ -195,12 +195,14 @@ void main() {
       'Üst kule klik sayısı',
       'Sight height',
       'Namlu çıkış hızı',
+      // PCP (owner, 2026-10-16): optional En düşük | En yüksek on the
+      // Mühimmat card; the "Basınca göre hız" rows are deleted.
+      'En düşük namlu çıkış hızı',
+      'En yüksek namlu çıkış hızı',
       'Sıfırlama mesafesi',
       // PCP tüp ve regülatör basıncı (owner, 2026-10-12), optional.
       'Tüp basıncı',
       'Regülatör basıncı',
-      '1. basınç',
-      '1. hız',
     ]) {
       expect(find.byTooltip('Bilgi: $label'), findsOneWidget, reason: label);
     }
@@ -410,9 +412,12 @@ void _unitsAndFirearmTests() {
     await tester.tap(find.byTooltip('Yeni profil'));
     await tester.pumpAndSettle();
     await chooseInSelect(tester, 'profile-platform', 'PCP Tüfek');
-    // PCP asks no Marka (owner, 2026-10-13); Mermi uzunluğu is asked on
-    // both rifle types (owner, 2026-10-17): type a weight and a length.
-    expect(find.byKey(const Key('ammo-brand-select')), findsNothing);
+    // PCP shows Marka (owner, 2026-10-16; it waits for Tip); Mermi uzunluğu
+    // is asked on both rifle types (owner, 2026-10-17): type a weight and
+    // a length.
+    expect(find.byKey(const Key('ammo-brand-select')), findsOneWidget);
+    expect(find.byKey(const Key('ammo-source')), findsNothing);
+    expect(find.byKey(const Key('ammo-length')), findsOneWidget);
     await enterRifleField(tester, 'ammo-grain', '33,95');
     await enterRifleField(tester, 'ammo-length', '10,4');
     await chooseInSelect(tester, 'profile-platform', 'Ateşli Tüfek');
@@ -421,5 +426,6 @@ void _unitsAndFirearmTests() {
     expect(find.text('10,4'), findsNothing);
     expect(find.byKey(const Key('ammo-length')), findsOneWidget);
     expect(find.byKey(const Key('ammo-brand-select')), findsOneWidget);
+    expect(find.byKey(const Key('ammo-source')), findsOneWidget);
   });
 }

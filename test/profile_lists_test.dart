@@ -162,14 +162,13 @@ void main() {
     expect((brand.width - model.width).abs(), lessThan(1));
     final caliber = tester.getRect(find.byKey(const Key('rifle-caliber')));
     expect(caliber.top, greaterThanOrEqualTo(model.bottom));
-    // Kalibre alone on its full row (owner, 2026-10-14 18:58); Namlu çıkış
-    // hızı moved beside Sıfırlama mesafesi.
-    expect((caliber.width - model.width).abs(), lessThan(1));
+    // Kalibre | Namlu çıkış hızı on one row (owner, 2026-10-16 20:49–21:04;
+    // Namlu çıkış hızı stays on the Tüfek card for a PCP).
     expect((caliber.left - model.left).abs(), lessThan(1));
     final v = tester.getRect(find.byKey(const Key('profile-velocity-fps')));
-    final zero = tester.getRect(find.byKey(const Key('profile-zero')));
-    expect((v.top - zero.top).abs(), lessThanOrEqualTo(1));
-    expect(zero.right, lessThan(v.left));
+    expect((v.top - caliber.top).abs(), lessThanOrEqualTo(1));
+    expect(caliber.right, lessThan(v.left));
+    expect((v.right - model.right).abs(), lessThan(1));
     // Tür | Üretim on one row.
     final tur = tester.getRect(find.byKey(const Key('profile-platform')));
     final origin = tester.getRect(find.byKey(const Key('rifle-origin')));
@@ -243,16 +242,17 @@ void main() {
     expect(_text(tester, 'profile-velocity-fps'), '2700');
     expect(_in('ammo-bc-model', find.text('G7')), findsOneWidget);
     // Ağırlık | BC is a row of two; Namlu çıkış hızı is on the rifle card,
-    // right of Sıfırlama mesafesi (owner, 2026-10-14 18:58), under Kalibre.
+    // right of Kalibre (owner, 2026-10-16 20:49–21:04), above Sıfırlama
+    // mesafesi.
     final g = tester.getRect(find.byKey(const Key('ammo-grain')));
     final bc = tester.getRect(find.byKey(const Key('ammo-bc')));
     expect((g.top - bc.top).abs(), lessThan(1));
     final v = tester.getRect(find.byKey(const Key('profile-velocity-fps')));
     final caliber = tester.getRect(find.byKey(const Key('rifle-caliber')));
     final zero = tester.getRect(find.byKey(const Key('profile-zero')));
-    expect(v.top, greaterThanOrEqualTo(caliber.bottom));
-    expect((v.top - zero.top).abs(), lessThanOrEqualTo(1));
-    expect(zero.right, lessThan(v.left));
+    expect((v.top - caliber.top).abs(), lessThanOrEqualTo(1));
+    expect(caliber.right, lessThan(v.left));
+    expect(zero.top, greaterThanOrEqualTo(v.bottom));
     // Another caliber empties the listed ammunition.
     await chooseInSelect(tester, 'rifle-caliber', '6.5 Creedmoor');
     expect(_text(tester, 'ammo-grain'), '');
@@ -351,26 +351,9 @@ void main() {
     expect(t, contains('birden çok retikül'));
   });
 
-  testWidgets('PCP mühimmat: Tip | Ağırlık, BC, BC modeli | Mermi '
-      'uzunluğu; no Marka', (tester) async {
-    await _openNew(tester);
-    // Owner, 2026-10-13: PCP asks no Marka/Model.
-    expect(find.byKey(const Key('ammo-brand-select')), findsNothing);
-    expect(find.byKey(const Key('ammo-brand')), findsNothing);
-    Rect r(String k) => tester.getRect(find.byKey(Key(k)));
-    expect((r('ammo-type').top - r('ammo-grain').top).abs(), lessThan(1));
-    expect(r('ammo-type').right, lessThan(r('ammo-grain').left));
-    expect(r('ammo-grain').bottom, lessThanOrEqualTo(r('ammo-bc').top));
-    // Owner, 2026-10-17 11:34: BC modeli | Mermi uzunluğu share a row
-    // (BC modeli left), under BC.
-    expect(r('ammo-bc').bottom, lessThanOrEqualTo(r('ammo-bc-model').top));
-    expect(
-      (r('ammo-bc-model').top - r('ammo-length').top).abs(),
-      lessThan(0.5),
-    );
-    expect(r('ammo-bc-model').right, lessThan(r('ammo-length').left));
-    expect(find.byKey(const Key('ammo-bands-title')), findsNothing);
-  });
+  // 'PCP mühimmat: Tip | Ağırlık, BC | BC modeli; no Marka' (2026-10-13/14)
+  // was replaced by the approved PCP card of 2026-10-16:
+  // test/pcp_muhimmat_tasarim_test.dart.
 
   testWidgets('Dürbün typed entry: values are picked from lists', (
     tester,

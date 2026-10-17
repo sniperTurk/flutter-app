@@ -102,13 +102,15 @@ void main() {
     expect(find.byKey(const Key('ammo-not-listed')), findsOneWidget);
   });
 
-  testWidgets('PCP: no link; Tip | Ağırlık | BC | BC modeli (G1)', (
-    tester,
-  ) async {
+  // Owner, 2026-10-16: the PCP card has the "listede yok mu?" link too
+  // (Tip | Marka, Model, link); its typed entry is Marka | Model typed, not
+  // the firearm brand list (test/pcp_muhimmat_tasarim_test.dart).
+  testWidgets('PCP: the link, no firearm typed parts; Tip, Ağırlık, BC, '
+      'BC modeli (G1)', (tester) async {
     await _openNew(tester);
     await chooseInSelect(tester, 'profile-platform', 'PCP Tüfek');
     await chooseInSelect(tester, 'rifle-caliber', '5.50 mm (.22)');
-    expect(find.byKey(const Key('ammo-not-listed')), findsNothing);
+    expect(find.byKey(const Key('ammo-not-listed')), findsOneWidget);
     expect(find.byKey(const Key('ammo-brand-pick')), findsNothing);
     expect(find.byKey(const Key('ammo-grain-select')), findsNothing);
     expect(find.byKey(const Key('ammo-typed-summary')), findsNothing);

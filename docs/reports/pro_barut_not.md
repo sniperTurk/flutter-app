@@ -2,6 +2,14 @@
 
 Dal: `fix/pro-barut-not` (main @ 8cc3aab'dan) · Taslak PR (birleştirilmedi, TestFlight yok).
 
+## Rebase 17.10 16:10
+main @ be7be4b (#368 PCP kartları / birimler kutuda, #382, #383) bu dala birleştirildi (merge commit; geçmiş yeniden yazılmadı). Çakışmalar:
+- **#368'in kararları korundu:** birimler kutunun içinde, ⓘ etiket satırının sağ ucunda (kompakt düzende de), PCP Mühimmat: Tip | Marka · Model · Listede yok · Ağırlık | BC · … · En düşük | En yüksek namlu çıkış hızı (hız hep Tüfek kartından), "Basınca göre hız" ve `PRO_TUBE_PRESSURE` / `PCP_AMMO_BRAND` silinmiş halde.
+- **Bu PR'ın amacı aynen yeniden uygulandı:** Profil → Mühimmat'ta ateşli silah ve PCP için **BC modeli | Mermi uzunluğu** satırı (#368 PCP düzeninde Ağırlık | BC'den sonraki satır; satırda iki kutu); "mm" kutunun içinde; ⓘ metni değişmedi. `PROFILE_AMMO_LENGTH` silindi. Pro'da Tüfek düzeltmeleri'nden Mermi uzunluğu ve Mühimmat sıcaklığı çıktı, ayrı "Mühimmat sıcaklığı" bölümü (yalnız ateşli, etiketsiz °C kutusu, onaylı not). Hesap: profil uzunluğu, yoksa eski Pro değeri.
+- `MenzilInput.showLabel` #368'in `_CompactLabel(label, info)` çağrısıyla birleştirildi (etiketsiz kutuda ⓘ satırı da çizilmez).
+- Testler: #368'in `test/pcp_muhimmat_tasarim_test.dart` satır listesine `ammo-bc-model | ammo-length` satırı, `test/info_etiket_satiri_test.dart` listesine Mermi uzunluğu (mm, ⓘ sağ üst) eklendi; `bc_modeli_secim_test`, `profile_editor_fail_closed_test` iki tarafın beklentilerini birlikte ölçüyor; `profile_lists_test`'teki eski PCP düzen testi #368'deki gibi `pcp_muhimmat_tasarim_test`'e taşınmış halde kaldı; bayrak sayısı alt sınırı 10 (#368: 3, bu PR: 1 bayrak silindi). Hiçbir test zayıflatılmadı.
+- Yerel: `offline_dart_lint` PASS, Python 915 test OK (1 atlandı). CI ve ekran görüntüleri aşağıda (rebase sonrası).
+
 ## Mermi uzunluğu profile, Mühimmat sıcaklığı bölümü (17.10 11:41)
 
 ### Sahibin kararı (İstanbul, 17.10.2026 11:34–11:41, çizim üzerinden)

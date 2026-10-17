@@ -179,7 +179,7 @@ void main() {
     await tester.ensureVisible(field);
     // The stored 270 m/s is shown as fps.
     expect(tester.widget<TextField>(field).controller!.text, '885.8');
-    // No unit label next to the field (owner, 2026-10-09); ⓘ says fps.
+    // The unit fps is inside the box (owner, 2026-10-16); ⓘ says it too.
     expect(find.byTooltip('Bilgi: Namlu çıkış hızı'), findsOneWidget);
     await tester.enterText(field, '6000');
     await tester.pump();

@@ -463,13 +463,19 @@ class _ProfileDialogState extends State<_ProfileDialog> {
   late final TextEditingController powderTemp;
   bool _powderAutoFilled = false;
 
-  /// PCP tüp ve regülatör basıncı (bar) and basınca göre hız rows (bar |
-  /// fps), as typed; PCP only, all optional (owner, 2026-10-12). An empty
-  /// regülatör basıncı means an unregulated rifle.
+  /// PCP tüp ve regülatör basıncı (bar), as typed; PCP only, optional
+  /// (owner, 2026-10-12). An empty regülatör basıncı means an unregulated
+  /// rifle. Owner 2026-10-16: kept for future regulator use; not in the
+  /// formula (do not delete them as unused).
   late final TextEditingController tubePressure;
   late final TextEditingController regulatorPressure;
-  late final List<TextEditingController> pvBar;
-  late final List<TextEditingController> pvFps;
+
+  /// PCP En düşük / En yüksek namlu çıkış hızı (fps), as typed, Mühimmat
+  /// card; optional, both or neither (owner, 2026-10-16). With both the
+  /// calculation uses their mean, otherwise the Tüfek card's Namlu çıkış
+  /// hızı.
+  late final TextEditingController pcpMinVelocity;
+  late final TextEditingController pcpMaxVelocity;
 
   /// Dürbün ayağı in MOA, picked from [ProductionLimits.mountCantOptionsMoa].
   late double mountCant;
@@ -811,15 +817,15 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     tubePressure = TextEditingController(
       text: p?.tubePressureBar == null ? '' : _trimNum(p!.tubePressureBar!),
     );
-    final pv = p?.pressureVelocityTable ?? const <PressureVelocityPoint>[];
-    pvBar = [
-      for (var i = 0; i < PcpPressure.tableRows; i++)
-        TextEditingController(text: i < pv.length ? _trimNum(pv[i].bar) : ''),
-    ];
-    pvFps = [
-      for (var i = 0; i < PcpPressure.tableRows; i++)
-        TextEditingController(text: i < pv.length ? _fpsText(pv[i].mps) : ''),
-    ];
+    // Optional, each on its own; an older PCP profile has none: both boxes
+    // open empty. Saved only; the calculation uses Namlu çıkış hızı (owner,
+    // 2026-10-17).
+    pcpMinVelocity = TextEditingController(
+      text: p?.pcpMinVelocityMps == null ? '' : _fpsText(p!.pcpMinVelocityMps!),
+    );
+    pcpMaxVelocity = TextEditingController(
+      text: p?.pcpMaxVelocityMps == null ? '' : _fpsText(p!.pcpMaxVelocityMps!),
+    );
   }
 
   // ---- PCP tüp ve regülatör basıncı (owner, 2026-10-12) -----------------
@@ -844,38 +850,41 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     return null;
   }
 
-  bool _pvRowEmpty(int i) =>
-      pvBar[i].text.trim().isEmpty && pvFps[i].text.trim().isEmpty;
+  bool get _pcpPressureValid =>
+      platform != WeaponPlatform.pcp ||
+      (_tubePressureError == null && _regulatorPressureError == null);
 
-  String? _pvBarError(int i) {
-    if (_pvRowEmpty(i)) return null;
-    final e = _rangeError(
-      pvBar[i],
-      _minPcpBar,
-      ProductionLimits.maxPcpPressureBar,
-    );
+  // ---- PCP namlu çıkış hızları (owner, 2026-10-16) ----------------------
+
+  /// Both optional, each on its own (owner, 2026-10-17): any combination
+  /// saves, and the calculation uses the Tüfek card's Namlu çıkış hızı.
+  /// A typed value has Namlu çıkış hızı's plausible range (100–4900 fps).
+  String? _pcpVelocityBoxError(TextEditingController box) =>
+      box.text.trim().isEmpty ? null : _rangeError(box, 100, 4900);
+
+  String? get _pcpMinVelocityError => _pcpVelocityBoxError(pcpMinVelocity);
+
+  String? get _pcpMaxVelocityError {
+    final e = _pcpVelocityBoxError(pcpMaxVelocity);
     if (e != null) return e;
-    for (var j = 0; j < i; j++) {
-      if (_parse(pvBar[j]) == _parse(pvBar[i])) {
-        return 'Bu basınç başka satırda var.';
-      }
+    final lo = _parse(pcpMinVelocity), hi = _parse(pcpMaxVelocity);
+    if (_pcpMinVelocityError == null && lo != null && hi != null && lo > hi) {
+      return 'En düşük hızdan küçük olamaz.';
     }
     return null;
   }
 
-  String? _pvFpsError(int i) =>
-      _pvRowEmpty(i) ? null : _rangeError(pvFps[i], 100, 4900);
+  /// A typed box's error shows as soon as either box holds text.
+  String? _shownPcpVelocity(String? error) =>
+      (_showErrors ||
+          pcpMinVelocity.text.isNotEmpty ||
+          pcpMaxVelocity.text.isNotEmpty)
+      ? error
+      : null;
 
-  bool get _pcpPressureValid {
-    if (platform != WeaponPlatform.pcp) return true;
-    if (_tubePressureError != null || _regulatorPressureError != null) {
-      return false;
-    }
-    for (var i = 0; i < PcpPressure.tableRows; i++) {
-      if (_pvBarError(i) != null || _pvFpsError(i) != null) return false;
-    }
-    return true;
-  }
+  bool get _pcpVelocityValid =>
+      platform != WeaponPlatform.pcp ||
+      (_pcpMinVelocityError == null && _pcpMaxVelocityError == null);
 
   /// Barut sıcaklığı is optional; given, both boxes and the bands of
   /// [PowderTemperature] apply.
@@ -948,12 +957,13 @@ class _ProfileDialogState extends State<_ProfileDialog> {
       (_brandError == null, 'Marka'),
       (_modelError == null, 'Model'),
       (_caliberError == null, 'Kalibre'),
+      (_velocityError == null, 'Namlu çıkış hızı'),
       (_twistError == null, 'Yiv oranı'),
       (twistDirection != null, 'Yiv yönü'),
-      (_validSight, 'Sight height'),
-      (_distanceUnitSet, 'Mesafe birimi'),
+      if (platform == WeaponPlatform.pcp) (_pcpPressureValid, 'Basınç'),
       (_zeroError == null, 'Sıfırlama mesafesi'),
-      (_velocityError == null, 'Namlu çıkış hızı'),
+      (_distanceUnitSet, 'Mesafe birimi'),
+      (_validSight, 'Sight height'),
     ]);
     // Only boxes the user can see are named (owner, 2026-10-14): a catalog
     // scope not chosen yet is "Model", not the five hidden boxes its record
@@ -990,8 +1000,11 @@ class _ProfileDialogState extends State<_ProfileDialog> {
         (_bcModelForSave != null, 'BC modeli'),
         (_bandsValid, 'Hıza göre BC'),
       ],
+      if (platform == WeaponPlatform.pcp) ...[
+        (_pcpMinVelocityError == null, 'En düşük namlu çıkış hızı'),
+        (_pcpMaxVelocityError == null, 'En yüksek namlu çıkış hızı'),
+      ],
       if (platform == WeaponPlatform.firearm) (_powderValid, 'Barut sıcaklığı'),
-      if (platform == WeaponPlatform.pcp) (_pcpPressureValid, 'Basınç'),
     ]);
     return out;
   }
@@ -1022,7 +1035,9 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     powderTemp.dispose();
     tubePressure.dispose();
     regulatorPressure.dispose();
-    for (final c in [...ammoBandFps, ...ammoBandBc, ...pvBar, ...pvFps]) {
+    pcpMinVelocity.dispose();
+    pcpMaxVelocity.dispose();
+    for (final c in [...ammoBandFps, ...ammoBandBc]) {
       c.dispose();
     }
     name.dispose();
@@ -1086,7 +1101,8 @@ class _ProfileDialogState extends State<_ProfileDialog> {
       _modelError == null &&
       _caliberError == null &&
       _twistError == null &&
-      twistDirection != null;
+      twistDirection != null &&
+      _pcpPressureValid;
 
   String? get _scopeBrandError => _textError(scopeBrand);
 
@@ -1312,7 +1328,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
           : _bcError == null && _bandsValid && _bcModelForSave != null) &&
       _effectiveAmmoType != null &&
       _powderValid &&
-      _pcpPressureValid;
+      _pcpVelocityValid;
 
   /// Sectional density for a custom curve, from the grain and the caliber.
   double? get _curveSd {
@@ -1477,23 +1493,30 @@ class _ProfileDialogState extends State<_ProfileDialog> {
       });
       return;
     }
-    final mps = UnitSystem.fpsToMps(_parse(velocity)!);
+    final pcp = platform == WeaponPlatform.pcp;
+    String mpsText(TextEditingController c) =>
+        UnitSystem.fpsToMps(_parse(c)!).toString();
     final ProfileInput input;
     try {
       input = ProfileInput.validate(
         name: name.text.trim().isEmpty ? _defaultName : name.text,
-        muzzleVelocityText: mps.toString(),
+        // The Tüfek card's Namlu çıkış hızı, PCP too (owner, 2026-10-16).
+        muzzleVelocityText: mpsText(velocity),
         zeroRangeText: _zeroMetersText,
         sightHeightText: sight.text,
         platform: platform,
         // PCP only (ProfileInput drops them on a firearm): Regülatör
-        // basıncı (empty = unregulated), Tüp basıncı, basınca göre hız.
+        // basıncı (empty = unregulated), Tüp basıncı, and the optional En
+        // düşük / En yüksek namlu çıkış hızı (each optional on its own,
+        // saved only).
         pressureText: regulatorPressure.text,
         tubePressureText: tubePressure.text,
-        pressureTable: [
-          for (var i = 0; i < PcpPressure.tableRows; i++)
-            (pvBar[i].text, pvFps[i].text),
-        ],
+        pcpMinVelocityText: pcp && pcpMinVelocity.text.trim().isNotEmpty
+            ? mpsText(pcpMinVelocity)
+            : null,
+        pcpMaxVelocityText: pcp && pcpMaxVelocity.text.trim().isNotEmpty
+            ? mpsText(pcpMaxVelocity)
+            : null,
         mountCantMoa: mountCant,
         // Firearms only; ProfileInput drops it on PCP.
         powderCoefText: powderCoef.text,
@@ -1554,7 +1577,13 @@ class _ProfileDialogState extends State<_ProfileDialog> {
         sightHeightMm: input.sightHeightMm,
         pressureBar: input.pressureBar,
         tubePressureBar: input.tubePressureBar,
-        pressureVelocityTable: input.pressureVelocityTable,
+        // The deleted "Basınca göre hız" table (2026-10-16): a saved one
+        // is carried as it was (not erased, not read).
+        pressureVelocityTable: platform == WeaponPlatform.pcp
+            ? widget.initial?.pressureVelocityTable ?? const []
+            : const [],
+        pcpMinVelocityMps: input.pcpMinVelocityMps,
+        pcpMaxVelocityMps: input.pcpMaxVelocityMps,
         angularUnit: angularUnit,
         distanceUnit: distanceUnit,
         mountCantMoa: input.mountCantMoa,
@@ -1588,11 +1617,6 @@ class _ProfileDialogState extends State<_ProfileDialog> {
       : b.name;
 
   static const _manualKey = '__manual';
-
-  /// PCP Marka | Model lists, hidden (owner, 2026-10-13: "Pellet marka
-  /// bullet marka almanın hiç bir faydası yok"; hidden, not removed). PCP
-  /// asks only Tip, Ağırlık and BC.
-  static const bool _showPcpAmmoBrand = bool.fromEnvironment('PCP_AMMO_BRAND');
 
   @override
   Widget build(BuildContext context) {
