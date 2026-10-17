@@ -6,7 +6,8 @@
 //                   Mesafe birimi · Sight height (alone, last).
 //   Tüfek, Ateşli:  the same without Tüp basıncı | Regülatör basıncı.
 //   Mühimmat, PCP:  Tip | Marka · Model · "Aradığın mühimmat listede yok
-//                   mu?" · Ağırlık | BC · BC modeli · En düşük | En yüksek
+//                   mu?" · Ağırlık | BC · BC modeli | Mermi uzunluğu
+//                   (PR #379, owner 2026-10-17) · En düşük | En yüksek
 //                   namlu çıkış hızı (optional). No pressures, no "Basınca
 //                   göre hız".
 //   MenzilInput:    the unit inside the box at its right; ⓘ at the right end
@@ -208,7 +209,8 @@ const _pcpAmmoRows = [
   ['ammo-model-select'],
   ['ammo-not-listed'],
   ['ammo-grain', 'ammo-bc'],
-  ['ammo-bc-model'],
+  // BC modeli | Mermi uzunluğu (owner, 2026-10-17 11:34, PR #379).
+  ['ammo-bc-model', 'ammo-length'],
   ['profile-pcp-velocity-min', 'profile-pcp-velocity-max'],
 ];
 

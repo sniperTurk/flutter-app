@@ -885,7 +885,7 @@ class _BallisticsScreenState extends State<BallisticsScreen>
   }
 
   /// Gyroscopic stability (Miller), length in calibres and twist direction,
-  /// or null when data is missing (no BC, Pro bullet length or twist).
+  /// or null when data is missing (no BC, bullet length or twist).
   ///
   /// Not for a diabolo pellet (formula audit 2026-10-13): a pellet is
   /// drag-stabilised (its centre of pressure sits behind the centre of
@@ -907,14 +907,19 @@ class _BallisticsScreenState extends State<BallisticsScreen>
     return (sg: sg, lCal: lCal, dir: dir);
   }
 
-  /// Bullet length for Sg (mm): only the Pro "Mermi uzunluğu" box. The
-  /// Profil > Mühimmat length fallback (formula audit 2026-10-13, #264) was
-  /// withdrawn by the owner (2026-10-13 23:32): that box is hidden, so a
-  /// saved profile length the user cannot see must never change spin
-  /// drift or Sg. Null when the box is empty or not plausible (0–100 mm).
+  /// Bullet length for Sg (mm): Profil > Mühimmat > Mermi uzunluğu (owner,
+  /// 2026-10-17 11:34: a property of the bullet, moved there from Pro).
+  /// When the profile's ammunition has none, the value an older version
+  /// saved in Pro > Mermi uzunluğu (this profile's shot settings,
+  /// 'bulletLength', still loaded into [bulletLengthCtl] and saved back
+  /// unchanged) is used, so existing numbers stay the same. Null when
+  /// neither is given or plausible (0–100 mm).
   double? get _bulletLengthMm {
-    final v = _parsed(bulletLengthCtl);
-    return v != null && v.isFinite && v > 0 && v <= 100 ? v : null;
+    bool ok(double? v) => v != null && v.isFinite && v > 0 && v <= 100;
+    final profile = ammunition?.lengthMm;
+    if (ok(profile)) return profile;
+    final legacy = _parsed(bulletLengthCtl);
+    return ok(legacy) ? legacy : null;
   }
 
   /// Miller Sg at the muzzle (Ö5), or null without bullet length or twist.

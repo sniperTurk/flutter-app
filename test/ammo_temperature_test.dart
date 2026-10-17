@@ -145,14 +145,14 @@ void main() {
           .requiredUp!;
     }
 
-    /// Where the box lives: Pro Ayarlar (Tüfek düzeltmeleri opened by
-    /// [type] / [openProFor]).
+    /// Where the box lives: Pro Ayarlar (its Mühimmat sıcaklığı box opened
+    /// by [type] / [openProFor]).
     Future<void> environment(WidgetTester tester, RifleProfile p) async {
       await tester.pumpWidget(app(p, BallisticsView.pro));
       await tester.pumpAndSettle();
     }
 
-    testWidgets('firearm: in Pro Tüfek düzeltmeleri, not on Hava Durumu; '
+    testWidgets('firearm: in its own Pro box, not on Hava Durumu; '
         'not on PCP', (tester) async {
       await sized(tester);
       await tester.pumpWidget(app(_firearm(), BallisticsView.environment));
@@ -163,9 +163,18 @@ void main() {
       await environment(tester, _firearm());
       await openProFor(tester, _ammoKey);
       expect(find.byKey(_ammoKey), findsOneWidget);
+      // Its own box since 2026-10-17 (owner): the title says it, the box
+      // has no label (option B).
       expect(
         find.descendant(
           of: find.byKey(_ammoKey),
+          matching: find.text('Mühimmat sıcaklığı'),
+        ),
+        findsNothing,
+      );
+      expect(
+        find.descendant(
+          of: find.byKey(const Key('pro-section-ammo-temp')),
           matching: find.text('Mühimmat sıcaklığı'),
         ),
         findsOneWidget,

@@ -37,6 +37,7 @@ extension _ProAyarlarView on _BallisticsScreenState {
     required List<Widget> children,
     List<ProInfoEntry> info = const [],
     List<ProInfoField> fields = const [],
+    String? infoText,
   }) {
     final c = MenzilColors.of(context);
     final open = _proOpen == id;
@@ -68,7 +69,7 @@ extension _ProAyarlarView on _BallisticsScreenState {
                     c.ink,
                     size: 18,
                   ).copyWith(fontWeight: FontWeight.w400),
-                  info: info.isEmpty
+                  info: info.isEmpty && infoText == null
                       ? null
                       : proRowInfoButton(
                           key: Key('pro-info-$id'),
@@ -78,6 +79,7 @@ extension _ProAyarlarView on _BallisticsScreenState {
                             title: title,
                             entries: info,
                             fields: fields,
+                            text: infoText,
                           ),
                         ),
                   value: summary,
@@ -126,18 +128,21 @@ extension _ProAyarlarView on _BallisticsScreenState {
 
   /// Counts only what is entered in this box's own fields (owner,
   /// 2026-10-15): spin drift has no switch any more and the powder values
-  /// come from Profil > Mühimmat, so neither is counted here.
+  /// come from Profil > Mühimmat, so neither is counted here. Mühimmat
+  /// sıcaklığı has its own box since 2026-10-17 ([_summaryAmmoTemp]).
   String _summaryRifle() {
     final zero = _zeroOffsetMrad;
     final n = [
       turretScaleCtl.text.trim().isNotEmpty,
       zero.up != 0 || zero.right != 0,
-      // Mühimmat sıcaklığı is in this box since 2026-10-16 (owner): an
-      // entered value is one setting on.
-      _isFirearm && ammoTempCtl.text.trim().isNotEmpty,
     ].where((x) => x).length;
     return n == 0 ? 'kapalı' : '$n ayar açık';
   }
+
+  /// Mühimmat sıcaklığı box: the same words Tüfek düzeltmeleri used for
+  /// this value until 2026-10-17 (an entered value is one setting on).
+  String _summaryAmmoTemp() =>
+      ammoTempCtl.text.trim().isEmpty ? 'kapalı' : '1 ayar açık';
 
   /// Rüzgâr düzeltmesi (en yüksek rüzgâr, rüzgâr bölgeleri): back on Pro
   /// Ayarlar after Açı (owner, 2026-10-12; it was on Hava Durumu since
@@ -607,16 +612,6 @@ extension _ProAyarlarView on _BallisticsScreenState {
           ),
           const ProInfoField('Yukarı + / aşağı −', EnvironmentFieldInfo.zeroUp),
           const ProInfoField('Sağ + / sol −', EnvironmentFieldInfo.zeroRight),
-          if (_spinDriftOn)
-            const ProInfoField(
-              'Mermi uzunluğu',
-              EnvironmentFieldInfo.bulletLength,
-            ),
-          if (_isFirearm)
-            const ProInfoField(
-              'Mühimmat sıcaklığı',
-              EnvironmentFieldInfo.ammoTemperature,
-            ),
         ],
         children: [
           // Owner, 2026-10-12: boxes first; the explanations are only in the
@@ -654,75 +649,53 @@ extension _ProAyarlarView on _BallisticsScreenState {
               ),
             ],
           ),
-          if (_spinDriftOn) ...[
-            MenzilInput(
-              key: const Key('pro-bullet-length'),
-              controller: bulletLengthCtl,
-              label: 'Mermi uzunluğu',
-              unit: 'mm',
-              onChanged: (_) => _coriolisChanged(),
+          // Mermi uzunluğu moved to Profil > Mühimmat (owner, 2026-10-17
+          // 11:34); Mühimmat sıcaklığı has its own box below. The spin drift
+          // warning stays here, with spin drift in this box's ⓘ.
+          if (_spinDriftOn &&
+              (profileResolution?.rifle.twistRateIn == null ||
+                  profileResolution?.rifle.twistDirection == null))
+            const MenzilNotice(
+              tone: MenzilNoticeTone.warning,
+              message:
+                  'Profilde yiv yönü veya yiv oranı yok; spin drift '
+                  'hesaplanamaz.',
             ),
-            if (profileResolution?.rifle.twistRateIn == null ||
-                profileResolution?.rifle.twistDirection == null)
-              const MenzilNotice(
-                tone: MenzilNoticeTone.warning,
-                message:
-                    'Profilde yiv yönü veya yiv oranı yok; spin drift '
-                    'hesaplanamaz.',
-              ),
-          ],
-          if (_isFirearm) ...[
-            // Mühimmat sıcaklığı (owner, 2026-10-16, design PR #366): moved
-            // here from Hava Durumu, next to the powder correction it feeds.
-            // Same box, saved value and calculation (empty = the air
-            // temperature); box in the left half, "isteğe bağlı" right. No ⓘ
-            // in the box (owner, 2026-10-16 21:17, #373): its text is listed
-            // in this section's title ⓘ sheet (ProInfoField above).
-            Row(
+        ],
+      ),
+      // Mühimmat sıcaklığı: its own box right after Tüfek düzeltmeleri
+      // (owner, 2026-10-17 11:41: "ayrı bir kutu alan aç diğerleri ile
+      // karışmasın"), firearm only. The box has no label (option B: the
+      // box title says it) and no ⓘ; its text opens from the title ⓘ.
+      // Same box, saved value and calculation as before (empty = the air
+      // temperature).
+      if (_isFirearm)
+        _proBox(
+          id: 'ammo-temp',
+          title: 'Mühimmat sıcaklığı',
+          summary: _summaryAmmoTemp(),
+          infoText: EnvironmentFieldInfo.ammoTemperature,
+          children: [
+            MenzilFieldGrid(
               key: const Key('pro-ammo-temp-row'),
-              crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                Expanded(
-                  child: MenzilInput(
-                    key: const Key('env-ammo-temp'),
-                    controller: ammoTempCtl,
-                    label: 'Mühimmat sıcaklığı',
-                    onChanged: (_) => _coriolisChanged(),
-                    unit: metric ? '°C' : '°F',
-                    keyboardType: const TextInputType.numberWithOptions(
-                      decimal: true,
-                      signed: true,
-                    ),
-                  ),
-                ),
-                const SizedBox(width: 10),
-                Expanded(
-                  child: Padding(
-                    // Level with the middle of the 46 pt box (the box keeps
-                    // MenzilSpace.md under it).
-                    padding: const EdgeInsets.only(bottom: MenzilSpace.md),
-                    // At least the box height; taller when large text
-                    // wraps "isteğe bağlı" (never cut off).
-                    child: ConstrainedBox(
-                      constraints: const BoxConstraints(
-                        minHeight: MenzilSpace.control,
-                      ),
-                      child: Align(
-                        alignment: AlignmentDirectional.centerStart,
-                        child: Text(
-                          'isteğe bağlı',
-                          key: const Key('pro-ammo-temp-optional'),
-                          textAlign: TextAlign.start,
-                          style: MenzilType.caption(c.ink2),
-                        ),
-                      ),
-                    ),
+                MenzilInput(
+                  key: const Key('env-ammo-temp'),
+                  controller: ammoTempCtl,
+                  label: 'Mühimmat sıcaklığı',
+                  showLabel: false,
+                  onChanged: (_) => _coriolisChanged(),
+                  unit: metric ? '°C' : '°F',
+                  keyboardType: const TextInputType.numberWithOptions(
+                    decimal: true,
+                    signed: true,
                   ),
                 ),
               ],
             ),
             // The values are entered on Profil > Mühimmat (2026-10-11); here
-            // only what is used and today's velocity.
+            // only what is used and today's velocity. Texts: owner,
+            // 2026-10-17 ("Yeni açıklama metin daha doğru ifade ediyor").
             Builder(
               builder: (context) {
                 final p = _powder;
@@ -731,16 +704,17 @@ extension _ProAyarlarView on _BallisticsScreenState {
                     : v.toString().replaceAll('.', ',');
                 final k = p.coef, t0 = p.referenceC;
                 final where = p.fromProfile
-                    ? 'Profil > Mühimmat\'tan değiştirilir.'
-                    : 'Önceki sürümde burada girildi; Profil > Mühimmat\'ta '
-                          'girin.';
+                    ? 'Değiştirmek için Profil → Mühimmat.'
+                    : 'Bu değerler eski sürümde burada girilmişti; artık '
+                          'Profil → Mühimmat\'ta değiştirilir.';
                 return Text(
                   k != null && t0 != null
-                      ? 'Katsayı %${n(k)} / 15 °C, hız ölçüm sıcaklığı '
-                            '${n(t0)} °C. $where'
-                      : 'Barut sıcaklık katsayısı ve hız ölçüm sıcaklığı '
-                            'Profil > Mühimmat\'ta girilir; girilmezse hız '
-                            'düzeltilmez.',
+                      ? 'Hesapta kullanılan: Barut katsayısı %${n(k)} / 15 °C, '
+                            'Hız ölçüm sıcaklığı ${n(t0)} °C. $where'
+                      : 'Mühimmat sıcaklığının hesaba girmesi için Profil → '
+                            'Mühimmat\'ta Barut katsayısı ve Hız ölçüm '
+                            'sıcaklığı kutularını doldurun. Bu iki kutu boşsa '
+                            'buraya yazılan sıcaklık hesabı değiştirmez.',
                   key: const Key('pro-powder-source'),
                   style: MenzilType.body(c.ink),
                 );
@@ -765,8 +739,7 @@ extension _ProAyarlarView on _BallisticsScreenState {
               },
             ),
           ],
-        ],
-      ),
+        ),
       // Garmin saati (owner, 2026-10-16: moved from Araçlar, "isteğe
       // bağlı"): only in builds with the iOS Garmin bridge; elsewhere it
       // builds nothing and takes no space. Not a setting: no summary counts

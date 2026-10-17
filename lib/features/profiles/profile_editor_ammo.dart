@@ -20,8 +20,6 @@ extension _AmmoSection on _ProfileDialogState {
   static const _otherKey = _ProfileDialogState._otherKey;
   static const _parse = _ProfileDialogState._parse;
   static const _showAmmoListedeYok = _ProfileDialogState._showAmmoListedeYok;
-  static const _showProfileAmmoLength =
-      _ProfileDialogState._showProfileAmmoLength;
   static const _trimDot = _ProfileDialogState._trimDot;
 
   /// BC model choices per rifle type (owner, 2026-10-10: the other public
@@ -198,7 +196,7 @@ extension _AmmoSection on _ProfileDialogState {
       ammoBrand,
       ammoModel,
       ammoGrain,
-      if (_showProfileAmmoLength) ammoLength,
+      ammoLength,
       ammoBc,
     ].any((c) => c.text.trim().isNotEmpty);
     if (typed) {
@@ -884,11 +882,11 @@ extension _AmmoSection on _ProfileDialogState {
   /// The Mühimmat card's boxes, top to bottom.
   ///
   /// Firearm (owner, 2026-10-11): Mühimmat türü | Marka, Model on its own
-  /// row, then Ağırlık | BC, BC modeli. Namlu çıkış hızı is on the Tüfek
+  /// row, then Ağırlık | BC, BC modeli | Mermi uzunluğu. Namlu çıkış hızı is on the Tüfek
   /// card since 2026-10-13.
   ///
   /// PCP (owner, 2026-10-16): Tip | Marka; Model; "Aradığın mühimmat
-  /// listede yok mu?"; Ağırlık | BC; BC modeli (| Uzunluk when shown); En
+  /// listede yok mu?"; Ağırlık | BC; BC modeli | Mermi uzunluğu; En
   /// düşük | En yüksek namlu çıkış hızı. Tüp basıncı | Regülatör basıncı
   /// are on the Tüfek card (owner, 2026-10-16 20:49–21:04).
   List<Widget> _ammoFields(MenzilColors c) {
@@ -977,22 +975,27 @@ extension _AmmoSection on _ProfileDialogState {
         ),
       // Firearm: the warning under BC as before; PCP: under BC modeli.
       if (_bcPlausibilityWarning != null && !pcp) _bcWarningNotice,
-      // PCP: BC modeli | Uzunluk while PROFILE_AMMO_LENGTH shows Uzunluk
-      // (hidden, owner 2026-10-13 23:32); otherwise BC modeli takes the row.
-      if (pcp && !_showProfileAmmoLength)
-        MenzilFullWidth(child: bcModel)
-      else
-        bcModel,
-      if (pcp && _showProfileAmmoLength)
-        MenzilInput(
-          key: const Key('ammo-length'),
-          controller: ammoLength,
-          label: 'Uzunluk',
-          unit: 'mm',
-          info: ProfileFieldInfo.ammoLength,
-          onChanged: (_) => _update(() {}),
-          errorText: _shown(_lengthError, ammoLength),
+      // BC modeli | Mermi uzunluğu on one row, firearm and PCP (owner,
+      // 2026-10-17 11:34: the length is a property of the bullet; moved
+      // here from Pro). Their own full-width grid keeps the pair on one
+      // row whatever comes before them.
+      MenzilFullWidth(
+        key: const Key('ammo-bc-model-length-row'),
+        child: MenzilFieldGrid(
+          children: [
+            bcModel,
+            MenzilInput(
+              key: const Key('ammo-length'),
+              controller: ammoLength,
+              label: 'Mermi uzunluğu',
+              unit: 'mm',
+              info: ProfileFieldInfo.ammoLength,
+              onChanged: (_) => _update(() {}),
+              errorText: _shown(_lengthError, ammoLength),
+            ),
+          ],
         ),
+      ),
       if (_bcPlausibilityWarning != null && pcp) _bcWarningNotice,
       if (pcp) ..._pcpVelocityFields(),
       if (_customCurve)

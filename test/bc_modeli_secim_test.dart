@@ -276,9 +276,9 @@ void main() {
 
   group('PCP BC modeli box', () {
     // Owner, 2026-10-16 (approved PCP card): Tip | Marka, Model, …,
-    // Ağırlık | BC, then BC modeli on its own row.
+    // Ağırlık | BC, then BC modeli | Mermi uzunluğu (owner, 2026-10-17).
     testWidgets('shown, G1 selected, every table listed, Ağırlık | BC, '
-        'BC modeli below', (tester) async {
+        'BC modeli | Mermi uzunluğu below', (tester) async {
       await _openNew(tester);
       expect(find.byKey(const Key('ammo-bc-model')), findsOneWidget);
       expect(selectedValue<String>(tester, 'ammo-bc-model'), 'g1');
@@ -298,6 +298,13 @@ void main() {
         lessThan(1),
       );
       expect(r('ammo-type').bottom, lessThanOrEqualTo(r('ammo-grain').top));
+      // Owner, 2026-10-17 11:34: BC modeli | Mermi uzunluğu share a row
+      // (BC modeli left) under BC.
+      expect(
+        (r('ammo-length').top - r('ammo-bc-model').top).abs(),
+        lessThan(1),
+      );
+      expect(r('ammo-bc-model').right, lessThan(r('ammo-length').left));
       expect(_info(tester, 'ammo-bc-model'), ProfileFieldInfo.bcModel);
     });
 

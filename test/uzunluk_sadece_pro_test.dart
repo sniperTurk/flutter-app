@@ -1,8 +1,8 @@
-// Owner, 2026-10-13 23:32 ("Profilden çıkartın"): the bullet length is
-// asked only in Pro > Mermi uzunluğu. The Profil > Mühimmat "Uzunluk" box
-// is hidden (PROFILE_AMMO_LENGTH, default off), the summary shows no
-// Uzunluk line, and a length saved before is kept, never lost.
-// Report: docs/reports/uzunluk_sadece_pro.md.
+// Owner, 2026-10-13 23:32 ("Profilden çıkartın") hid the Profil length;
+// owner, 2026-10-17 11:34 ("al bunu oraya") moved it back: Profil >
+// Mühimmat > Mermi uzunluğu (firearm and PCP), the hiding flag deleted. The
+// summary still shows no Uzunluk line, and a length saved before is shown
+// and kept, never lost. Report: docs/reports/pro_barut_not.md.
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
@@ -116,14 +116,19 @@ void main() {
     );
   });
 
-  testWidgets('an old profile with a saved length opens without the box and '
-      'keeps the length when saved', (tester) async {
+  testWidgets('an old profile with a saved length opens with it in Mermi '
+      'uzunluğu and keeps the length when saved', (tester) async {
     final store = await _pump(tester);
     await tester.tap(find.text(_profile.name).first);
     await tester.pumpAndSettle();
     expect(find.text('Profili Düzenle'), findsOneWidget);
-    // PCP Mühimmat: no Uzunluk box and no Uzunluk ⓘ.
-    expect(find.byKey(const Key('ammo-length')), findsNothing);
+    // PCP Mühimmat: the saved length in Mermi uzunluğu.
+    final length = find.descendant(
+      of: find.byKey(const Key('ammo-length')),
+      matching: find.byType(TextField),
+    );
+    expect(length, findsOneWidget);
+    expect(tester.widget<TextField>(length).controller!.text, '10.5');
     expect(find.byKey(const Key('ammo-grain')), findsOneWidget);
     final update = find.widgetWithText(MenzilPrimaryButton, 'Güncelle');
     expect(tester.widget<MenzilPrimaryButton>(update).onPressed, isNotNull);
