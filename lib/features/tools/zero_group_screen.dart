@@ -217,9 +217,15 @@ class _ZeroGroupScreenState extends State<ZeroGroupScreen> {
             MenzilSelect<double>(
               key: const Key('zg-grid'),
               label: 'Kare boyu',
-              // Each choice already reads "1 cm": no separate unit in the
-              // box (owner, 2026-10-17: units inside the box, once).
+              unit: 'cm',
               initialValue: _gridCm,
+              // The closed box shows the number; its unit is beside it in
+              // the box (owner, 2026-10-17), so "cm" is not shown twice.
+              // The open list keeps "1 cm".
+              selectedLabels: [
+                for (final g in _gridSizes)
+                  ToolFormat.dec(g, g == g.roundToDouble() ? 0 : 1),
+              ],
               info: ZeroGroupFieldInfo.grid,
               items: [
                 for (final g in _gridSizes)
