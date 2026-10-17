@@ -357,7 +357,12 @@ extension _ScopeSection on _ProfileDialogState {
             DropdownMenuItem(value: v, child: Text(name)),
         ],
         onChanged: (v) => _update(() {
-          scopeClick.text = v == null ? '' : _trimNum(v);
+          final next = v == null ? '' : _trimNum(v);
+          // Üst kule klik sayısı was counted in the old click: with another
+          // click (or none) it would mean another travel, so it is asked
+          // again (DEN17B-1; owner, 2026-10-17). The same click keeps it.
+          if (next != scopeClick.text) scopeTravelElevation.clear();
+          scopeClick.text = next;
         }),
       ),
     );
@@ -609,6 +614,7 @@ extension _ScopeSection on _ProfileDialogState {
       onChanged: (v) => _update(() {
         _angularUnitSet = v != null;
         final next = v ?? AngularUnit.mrad;
+        final clickBefore = scopeClick.text;
         // A catalog scope's click follows the unit (0.1 MRAD,
         // 1/4 MOA; owner, 2026-10-09).
         if (_scopeManual) {
@@ -620,6 +626,12 @@ extension _ScopeSection on _ProfileDialogState {
           }
         } else if (next != angularUnit) {
           scopeClick.text = _trimNum(_defaultClick(next));
+        }
+        // A typed scope's Üst kule klik sayısı was counted in the click the
+        // unit change emptied or replaced: it is asked again (DEN17B-1).
+        // A catalog scope keeps its own travel.
+        if (_scopeTyped && scopeClick.text != clickBefore) {
+          scopeTravelElevation.clear();
         }
         angularUnit = next;
       }),
