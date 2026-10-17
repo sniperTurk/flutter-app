@@ -3,4 +3,4 @@ grant location: 0
 grant location-always: 0
 simulated location: 0
 flutter test exit: 0
-screenshots: 3
+screenshots: 42
