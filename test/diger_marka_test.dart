@@ -27,6 +27,7 @@ import 'package:sniper_turk/features/profiles/profiles_screen.dart';
 import 'package:sniper_turk/models/domain.dart';
 import 'package:sniper_turk/services/profile_store.dart';
 import 'package:sniper_turk/tools/ports/product_report.dart';
+import 'package:sniper_turk/tools/tools_services.dart';
 import 'package:sniper_turk/ui/menzil_theme.dart';
 import 'package:sniper_turk/ui/menzil_widgets.dart';
 
@@ -106,13 +107,6 @@ Future<void> _openNew(
     'profile-platform',
     pcp ? 'PCP Tüfek' : 'Ateşli Tüfek',
   );
-}
-
-/// PCP 6,35 mm, Tip Pellet, Marka "Diğer marka".
-Future<void> _pcpOther(WidgetTester tester, {String type = 'Pellet'}) async {
-  await chooseInSelect(tester, 'rifle-caliber', '6.35 mm (.25)');
-  await chooseInSelect(tester, 'ammo-type', type);
-  await chooseOtherAmmoBrand(tester);
 }
 
 /// Ateşli, .308 Win, Fabrika fişeği, Marka "Diğer marka".

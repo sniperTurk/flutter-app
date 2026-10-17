@@ -522,6 +522,7 @@ extension _AmmoSection on _ProfileDialogState {
             keyboardType: TextInputType.text,
             readOnly: true,
             maxLines: 2,
+            textInputAction: TextInputAction.done,
           )
         : KeyedSubtree(
             key: const Key('ammo-model-select'),
