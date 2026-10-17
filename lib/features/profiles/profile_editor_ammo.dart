@@ -520,8 +520,8 @@ extension _AmmoSection on _ProfileDialogState {
             controller: _otherModelView,
             label: 'Model',
             keyboardType: TextInputType.text,
+            // One line, as every closed list box (owner, 2026-10-17 18:05).
             readOnly: true,
-            maxLines: 2,
             textInputAction: TextInputAction.done,
           )
         : KeyedSubtree(
