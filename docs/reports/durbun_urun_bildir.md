@@ -41,7 +41,7 @@ Sahip kararları, 17.10.2026 (İstanbul): 22:09 "daha önce yaptığımız (elle
 - Worker ve `sniperTurk/kullanici-urunleri` deposu değiştirilmedi.
 - Kimlik listesini gösteren ekran (sonraki görev).
 - Yeni paket eklenmedi (`package_info_plus` doğrudan bağımlılık olsaydı `pubspec.lock` kayardı); sürüm TestFlight derleme bayrağıyla geliyor.
-- **Mühimmat görevi ile birleştirme**: `feat/diger-marka-urun-bildir` bu dal açılırken main'e girmemişti (origin'de dal da yoktu), bu yüzden port/adaptör burada açıldı. Port tür bağımsız (`ProductReportKind.muhimmat` hazır); **iki görevin port/adaptörü tek bir tanede birleştirilmelidir** — hangisi sonra birleşirse diğerininkini kullanmalı.
+- **Mühimmat görevi ile birleştirme**: `feat/diger-marka-urun-bildir` bu dal açılırken main'e girmemişti (origin'de dal da yoktu), bu yüzden port/adaptör burada açıldı. Port tür bağımsız (`ProductReportKind.muhimmat` hazır); **iki görevin port/adaptörü tek bir tanede birleştirilmelidir** — hangisi sonra birleşirse diğerininkini kullanmalı. Not: mühimmat görevi bu sırada #402 olarak açıldı. Orada `lib/tools/ports/product_report.dart` (`ProductReportSender`, `ProductReportFailure(kind, message)`) ve `lib/tools/adapters/cloudflare_product_report.dart` var. Bu PR'daki `ProductReportFailure` aynı adı taşıyor ama yapısı farklı, ve iki PR da `tools_services.dart` ile `tool_fakes.dart` dosyalarını değiştiriyor. Bu yüzden ikinci birleşen PR'da çakışma olur ve tek porta indirilmelidir.
 
 ## Ayrıca değişen
 
