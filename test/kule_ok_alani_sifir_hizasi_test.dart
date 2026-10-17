@@ -6,6 +6,10 @@
 // "0" label, zero tick and red pointer sit on the reticle's horizontal line,
 // the top turret's on its vertical line (±0,5 pt).
 // Report: docs/reports/kule_ok_alani_sifir_hizasi.md.
+// Kule ChairGun ölçüsü (owner, 2026-10-18 01:25; 2026-10-17 21:07): the
+// arrows moved inside the ChairGun-size drums; the sizes and places below
+// follow docs/reports/kule_chairgun_olcu.md, the 44 pt rule and the zero
+// alignment are unchanged.
 import 'dart:math' as math;
 import 'dart:ui' as ui;
 
@@ -142,45 +146,41 @@ void main() {
       final name = '${width.toInt()} pt, text ×$scale';
 
       testWidgets('$name: arrow tap areas ≥ 44 × 44, not over L-R or other '
-          'controls; glyphs unchanged', (tester) async {
+          'controls; chevrons inside the drum', (tester) async {
         await _open(tester, Size(width, 2400), textScale: scale);
         expect(tester.takeException(), isNull);
         final reticle = tester.getRect(find.byKey(ScopeDialKeys.reticle));
-        final k = reticle.width / 334;
         final turret = tester.getRect(find.byKey(ScopeDialKeys.elevationDrum));
         final toggle = tester.getRect(find.byKey(ScopeDialKeys.turretToggle));
         final box = tester.getRect(find.byKey(ScopeDialKeys.windageDrumBox));
 
-        // (a) sizes. Top: 44 pt wide, the old 78 pt height kept. Side: the
-        // 74 pt column wide, 44 pt tall where arrow + gap holds it.
+        // (a) sizes. Kule ChairGun ölçüsü (owner, 2026-10-18 01:25;
+        // arrows inside the drum since 2026-10-17 21:07): each area is
+        // 44 pt along the drum and as thick as the drum, at its end.
+        final drum = ScopeTurretGeometry.drum(width);
         for (final tip in [_elevUp, _elevDown]) {
           final r = _rect(tester, tip);
           expect(r.width, moreOrLessEquals(44, epsilon: 0.01), reason: tip);
-          expect(r.height, moreOrLessEquals(78, epsilon: 0.01), reason: tip);
+          expect(
+            r.height,
+            moreOrLessEquals(drum.height, epsilon: 0.01),
+            reason: tip,
+          );
+          expect(r.height, greaterThanOrEqualTo(44), reason: tip);
         }
-        final sideH = (30 * k + 28 * k).clamp(30 * k, 44.0);
         for (final tip in [_windRight, _windLeft]) {
           final r = _rect(tester, tip);
-          expect(r.width, moreOrLessEquals(74 * k, epsilon: 0.5), reason: tip);
+          expect(
+            r.width,
+            moreOrLessEquals(drum.height, epsilon: 0.5),
+            reason: tip,
+          );
           expect(r.width, greaterThanOrEqualTo(44), reason: tip);
-          expect(r.height, moreOrLessEquals(sideH, epsilon: 0.5), reason: tip);
-          // Yan kule konum (owner, 2026-10-16 21:08): the column moved 4·k pt
-          // right, its empty margin past the reticle square, which bounds
-          // hit testing. The part a finger can hit is still ≥ 44 pt wide.
-          expect(
-            r.right - reticle.right,
-            moreOrLessEquals(4 * k, epsilon: 0.5),
-            reason: tip,
-          );
-          expect(
-            math.min(r.right, reticle.right) - r.left,
-            greaterThanOrEqualTo(44),
-            reason: tip,
-          );
+          expect(r.height, moreOrLessEquals(44, epsilon: 0.5), reason: tip);
+          // The side drum ends on the reticle's right edge: the whole area
+          // lies on the reticle square, where taps land.
+          expect(r.right, lessThanOrEqualTo(reticle.right + 0.5), reason: tip);
         }
-        // On every supported phone (reticle ≥ 254 pt) the side fits 44.
-        expect(reticle.width, greaterThanOrEqualTo(254));
-        expect(sideH, moreOrLessEquals(44, epsilon: 0.01));
 
         // (b) no overlap with L-R, the drum box, the reticle's eye button,
         // the turret buttons, the zoom row or (top) the reticle.
@@ -211,56 +211,39 @@ void main() {
           _noOverlap(a, reticle, '$n vs reticle');
         }
         for (final (n, a) in [('˄', right), ('˅', left)]) {
-          _noOverlap(a, box, '$n vs drum box');
+          expect(
+            a.left >= box.left - 0.01 &&
+                a.right <= box.right + 0.01 &&
+                a.top >= box.top - 0.01 &&
+                a.bottom <= box.bottom + 0.01,
+            isTrue,
+            reason: '$n inside the drum box',
+          );
         }
         _noOverlap(up, down, '‹ vs ›');
 
-        // (c) glyphs: 24 pt chevrons exactly where main draws them. As on
-        // main, a side chevron is never taller than its 30·k pt cell
-        // (23,7 pt on a 320 pt phone).
-        final sideGlyph = math.min(24.0, 30 * k);
-        Rect at(Offset c, [double h = 24]) =>
-            Rect.fromCenter(center: c, width: 24, height: h);
-        for (final (key, want) in [
-          (
-            'Yükseklik kulesi-step-plus',
-            at(Offset(turret.left + 14, turret.center.dy)),
-          ),
-          (
-            'Yükseklik kulesi-step-minus',
-            at(Offset(turret.right - 14, turret.center.dy)),
-          ),
-          (
-            'Rüzgâr kulesi-step-plus',
-            at(
-              Offset(reticle.right - 33 * k, reticle.center.dy - 133 * k),
-              sideGlyph,
-            ),
-          ),
-          (
-            'Rüzgâr kulesi-step-minus',
-            at(
-              Offset(reticle.right - 33 * k, reticle.center.dy + 133 * k),
-              sideGlyph,
-            ),
-          ),
+        // (c) chevrons inside their own tap areas, inside the drum.
+        for (final (key, area, drumRect) in [
+          ('Yükseklik kulesi-step-plus', up, turret),
+          ('Yükseklik kulesi-step-minus', down, turret),
+          ('Rüzgâr kulesi-step-plus', right, box),
+          ('Rüzgâr kulesi-step-minus', left, box),
         ]) {
           final g = _glyph(tester, key);
-          expect(
-            g.left,
-            moreOrLessEquals(want.left, epsilon: 0.5),
-            reason: key,
-          );
-          expect(g.top, moreOrLessEquals(want.top, epsilon: 0.5), reason: key);
-          expect(g.width, moreOrLessEquals(24, epsilon: 0.01), reason: key);
-          expect(
-            g.height,
-            moreOrLessEquals(want.height, epsilon: 0.01),
-            reason: key,
-          );
+          for (final outer in [area, drumRect]) {
+            expect(
+              g.left >= outer.left - 0.01 &&
+                  g.right <= outer.right + 0.01 &&
+                  g.top >= outer.top - 0.01 &&
+                  g.bottom <= outer.bottom + 0.01,
+              isTrue,
+              reason: '$key $g in $outer',
+            );
+          }
         }
-        // Top row layout unchanged: [48][4][‹ 28][4][drum][4][› 28][4][L-R].
-        expect(toggle.left - turret.right, moreOrLessEquals(4, epsilon: 0.5));
+        // The top drum is centred over the reticle's vertical line, clear
+        // of L-R.
+        expect(toggle.left, greaterThanOrEqualTo(turret.right));
         expect(toggle.width, moreOrLessEquals(48, epsilon: 0.01));
         expect(
           turret.center.dx,
@@ -355,10 +338,14 @@ void main() {
         final sideFinder = _drumPaint(ScopeDialKeys.windageDrumBox).first;
         final side = tester.getRect(sideFinder);
         final s = _record(sideFinder);
-        // Value labels are centred at 62 % of the width (headers at 50 %).
+        // Value labels are centred in the values column (headers at 50 %).
         final values = [
           for (final l in s.labels)
-            if ((l.center.dx - side.width * 0.62).abs() < 0.5) l,
+            if ((l.center.dx -
+                        side.width * ScopeTurretGeometry.sideValuesCentreShare)
+                    .abs() <
+                0.5)
+              l,
         ]..sort((a, b) => a.center.dy.compareTo(b.center.dy));
         final zero = values.reduce(
           (a, b) =>
@@ -397,7 +384,7 @@ void main() {
           moreOrLessEquals(lineY, epsilon: 0.5),
           reason: 'zero tick',
         );
-        final pointer = SideTurretPointer.rect(side.size).shift(side.topLeft);
+        final pointer = TurretIndex.side(side.size).shift(side.topLeft);
         expect(pointer.center.dy, moreOrLessEquals(lineY, epsilon: 0.5));
         expect(s.paths, isNotEmpty);
         expect(
@@ -412,7 +399,7 @@ void main() {
         final t = _record(topFinder);
         final topValues = [
           for (final l in t.labels)
-            if ((l.center.dy - top.height * 0.40).abs() < 0.5) l,
+            if ((l.center.dy - top.height / 2).abs() < 0.5) l,
         ];
         final topZero = topValues.reduce(
           (a, b) =>
@@ -440,7 +427,7 @@ void main() {
       'it', (tester) async {
     await _open(tester, const Size(390, 2400));
     final up = _rect(tester, _elevUp);
-    // The part of the area over the drum (beyond the 28 pt arrow + 4 pt).
+    // Inside the chevron's area, near its inner edge.
     final start = Offset(up.left + 40, up.center.dy);
     await tester.dragFrom(start, const Offset(120, 0));
     await tester.pumpAndSettle();

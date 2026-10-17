@@ -176,7 +176,11 @@ void main() {
       }
     });
 
-    testWidgets('top turret row: [48][‹ 28][drum][› 28][L-R 48], centred', (
+    // Kule ChairGun ölçüsü (owner, 2026-10-18 01:25): the top row of the
+    // clean design ([48][‹ 28][drum][› 28][L-R 48]) and the slim side box
+    // with its arrows outside became ChairGun's drum, 194 × 58 pt on a
+    // 390 pt phone, with the arrows inside (owner, 2026-10-17 21:07).
+    testWidgets('top turret: ChairGun drum centred, ‹ › inside, L-R right', (
       tester,
     ) async {
       await _size(tester, const Size(390, 2400));
@@ -189,16 +193,14 @@ void main() {
         turret.center.dx,
         moreOrLessEquals(reticle.center.dx, epsilon: 0.5),
       );
-      // L-R: 48 pt, 4 pt right of the turret; an empty 48 pt slot balances
-      // it on the left.
+      expect(turret.width, moreOrLessEquals(194, epsilon: 0.5));
+      expect(turret.height, moreOrLessEquals(58, epsilon: 0.5));
+      // L-R: 48 pt, at the row's right end, clear of the drum.
       expect(toggle.width, moreOrLessEquals(48, epsilon: 0.01));
       expect(toggle.height, moreOrLessEquals(48, epsilon: 0.01));
-      expect(toggle.left - turret.right, moreOrLessEquals(4, epsilon: 0.5));
-      final rowLeft = 2 * reticle.center.dx - toggle.right;
-      expect(turret.left - rowLeft, moreOrLessEquals(48 + 4, epsilon: 0.5));
-      // ‹ and ›: chevrons centred in 28 pt columns at the drum's ends; their
-      // tap areas are 44 pt wide (HDF-2, owner 2026-10-15 22:29), 78 pt
-      // tall, and grow toward the drum.
+      expect(toggle.left, greaterThan(turret.right));
+      // ‹ and ›: chevrons at the drum's ends inside it; their tap areas are
+      // 44 pt wide (HDF-2) and as tall as the drum.
       final up = tester.getRect(
         find.byTooltip('Yükseklik kulesi 1 klik yukarı'),
       );
@@ -207,7 +209,7 @@ void main() {
       );
       expect(up.width, moreOrLessEquals(44, epsilon: 0.01));
       expect(down.width, moreOrLessEquals(44, epsilon: 0.01));
-      expect(up.height, moreOrLessEquals(78, epsilon: 0.01));
+      expect(up.height, moreOrLessEquals(turret.height, epsilon: 0.01));
       expect(up.left, moreOrLessEquals(turret.left, epsilon: 0.5));
       expect(down.right, moreOrLessEquals(turret.right, epsilon: 0.5));
       final upGlyph = tester.getRect(
@@ -216,17 +218,19 @@ void main() {
       final downGlyph = tester.getRect(
         find.byKey(const ValueKey('Yükseklik kulesi-step-minus')),
       );
-      expect(
-        upGlyph.center.dx,
-        moreOrLessEquals(turret.left + 14, epsilon: 0.5),
-      );
+      expect(upGlyph.center.dx, moreOrLessEquals(up.center.dx, epsilon: 0.5));
       expect(
         downGlyph.center.dx,
-        moreOrLessEquals(turret.right - 14, epsilon: 0.5),
+        moreOrLessEquals(down.center.dx, epsilon: 0.5),
       );
-      // The drum between the 28 pt arrow columns is wide enough for
-      // 2U · 0 · 2D (2 MOA labels 72 pt either side of the zero).
-      expect(turret.width - 2 * (28 + 4), greaterThan(2 * 72 + 16));
+      for (final (key, dir) in [
+        ('Yükseklik kulesi-step-plus', AxisDirection.left),
+        ('Yükseklik kulesi-step-minus', AxisDirection.right),
+      ]) {
+        final paint = tester.widget<CustomPaint>(find.byKey(ValueKey(key)));
+        final painter = paint.painter! as TurretChevronPainter;
+        expect(painter.direction, dir);
+      }
       // Directions unchanged: ‹ dials U (up), › dials D (down).
       expect(_readout(tester), startsWith('Kule: 0 klik yukarı'));
       await _tap(tester, find.byTooltip('Yükseklik kulesi 1 klik yukarı'));
@@ -237,45 +241,43 @@ void main() {
     });
 
     for (final width in [390.0, 430.0]) {
-      testWidgets('side turret on a $width pt phone: long, slim, arrows '
-          'outside the drum box', (tester) async {
+      testWidgets('side turret on a $width pt phone: the top drum turned, '
+          'arrows inside it', (tester) async {
         await _size(tester, Size(width, 2400));
         await _show(tester, BallisticsView.shot);
         expect(find.byKey(ScopeDialKeys.windageDrum), findsNothing);
         await _tap(tester, find.byKey(ScopeDialKeys.turretToggle));
         final reticle = tester.getRect(find.byKey(ScopeDialKeys.reticle));
         final box = tester.getRect(find.byKey(ScopeDialKeys.windageDrumBox));
-        // 66 × 180 pt on the design's 334 pt reticle (yan kule küçük, owner
-        // 2026-10-15 12:52; was 74 × 224); scales with it.
-        final k = reticle.width / 334;
-        expect(box.width, moreOrLessEquals(66 * k, epsilon: 0.5));
-        expect(box.height, moreOrLessEquals(180 * k, epsilon: 0.5));
-        expect(box.height / box.width, greaterThan(2.6));
+        final top = tester.getRect(find.byKey(ScopeDialKeys.elevationDrum));
+        expect(box.width, moreOrLessEquals(top.height, epsilon: 0.5));
+        expect(box.height, moreOrLessEquals(top.width, epsilon: 0.5));
         if (width == 390) {
-          expect(box.width, moreOrLessEquals(66, epsilon: 1.5));
-          expect(box.height, moreOrLessEquals(180, epsilon: 4));
+          expect(box.width, moreOrLessEquals(58, epsilon: 0.5));
+          expect(box.height, moreOrLessEquals(194, epsilon: 0.5));
         }
-        // Zero on the reticle's horizontal line; the box sits centred in
-        // the 74 pt arrow column at the right edge.
+        // Zero on the reticle's horizontal line, right edge on the
+        // reticle's right edge.
         expect(
           box.center.dy,
           moreOrLessEquals(reticle.center.dy, epsilon: 0.5),
         );
-        // Yan kule konum (owner, 2026-10-16 21:08): the turret moved 4·k pt
-        // right, so the box ends on the reticle's right edge.
         expect(box.right, moreOrLessEquals(reticle.right, epsilon: 0.5));
-        // R up / L down, the arrows above and below the box, not in it.
+        // R up / L down, the arrows inside the drum at its ends.
         final right = find.byTooltip('Rüzgâr kulesi 1 klik sağa');
         final left = find.byTooltip('Rüzgâr kulesi 1 klik sola');
-        expect(tester.getRect(right).bottom, lessThanOrEqualTo(box.top));
-        expect(tester.getRect(left).top, greaterThanOrEqualTo(box.bottom));
+        expect(tester.getRect(right).top, moreOrLessEquals(box.top, epsilon: 0.5));
+        expect(
+          tester.getRect(left).bottom,
+          moreOrLessEquals(box.bottom, epsilon: 0.5),
+        );
         for (final arrow in [right, left]) {
           expect(
             find.descendant(
               of: find.byKey(ScopeDialKeys.windageDrumBox),
               matching: arrow,
             ),
-            findsNothing,
+            findsOneWidget,
           );
           // No box or background: only the chevron.
           for (final type in [Material, DecoratedBox, Ink, Container]) {

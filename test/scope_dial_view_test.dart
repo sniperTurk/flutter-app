@@ -69,9 +69,9 @@ void main() {
     final drum = tester.getRect(find.byKey(ScopeDialKeys.windageDrum));
     // Its zero is on the reticle's horizontal line, at the right edge.
     expect(drum.center.dy, closeTo(reticle.center.dy, 0.5));
-    // Since 2026-10-16 (yan kule konum) the column's empty 4·k pt margin
-    // reaches past the reticle; the drum box ends on the reticle's edge.
-    expect(drum.right, closeTo(reticle.right + 4 * reticle.width / 334, 0.5));
+    // Kule ChairGun ölçüsü (owner, 2026-10-18 01:25): the drum is the
+    // whole turret (arrows inside) and ends on the reticle's edge.
+    expect(drum.right, closeTo(reticle.right, 0.5));
     expect(
       tester.getRect(find.byKey(ScopeDialKeys.windageDrumBox)).right,
       closeTo(reticle.right, 0.5),
