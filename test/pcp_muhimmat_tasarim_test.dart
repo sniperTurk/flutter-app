@@ -487,9 +487,7 @@ void main() {
     });
 
     testWidgets('units inside the compact boxes, ⓘ at the right end of the '
-        'label row (owner, 2026-10-17)', (
-      tester,
-    ) async {
+        'label row (owner, 2026-10-17)', (tester) async {
       await _openNew(tester, pcp: true);
       for (final (key, unit) in const [
         ('ammo-grain', 'gr'),

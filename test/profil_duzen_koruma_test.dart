@@ -1301,9 +1301,7 @@ void main() {
 
   group('Mühimmat: Barut katsayısı', () {
     testWidgets('no unit beside the label; Hız ölçüm sıcaklığı keeps °C '
-        'inside its box (owner, 2026-10-17)', (
-      tester,
-    ) async {
+        'inside its box (owner, 2026-10-17)', (tester) async {
       await _openNew(tester);
       MenzilFieldLabel label(String key) => tester.widget<MenzilFieldLabel>(
         find.descendant(

@@ -399,8 +399,7 @@ void main() {
             .ancestor(
               of: find.descendant(of: field, matching: find.text('m')),
               matching: find.byWidgetPredicate(
-                (w) =>
-                    w is SizedBox && w.height == MenzilSpace.compactControl,
+                (w) => w is SizedBox && w.height == MenzilSpace.compactControl,
               ),
             )
             .first,
