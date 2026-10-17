@@ -32,7 +32,7 @@ The following plugins do not support Swift Package Manager for ios:
   - google_maps_flutter_ios
 This will become an error in a future version of Flutter. Please contact the plugin maintainers to request Swift Package Manager adoption.
 Running Xcode build...                                          
-Xcode build done.                                           88.2s
+Xcode build done.                                           103.2s
 00:00 +0: Düzeltmeler 16.10 screenshots
 SIMRECT:ekran_390:0,0,390.0,847.9
 SIMRECT:profil_390:profil_ekle:268.1,128.1,376.0,176.1
@@ -79,5 +79,5 @@ SIMRECT:hedef_320:alt_menu:0.0,607.7,320.0,695.7
 SIMSCREEN:19_hedef_320
 SIMSCREEN:20_kalibre_select_320
 SIMSCREEN_DONE failures=0
-04:11 +1: (tearDownAll)
-04:18 +1: All tests passed!
+04:12 +1: (tearDownAll)
+04:21 +1: All tests passed!
