@@ -135,22 +135,26 @@ Future<void> runWezTour(
     );
   }
 
-  await tester.pumpWidget(app(BallisticsView.pro));
-  await settle();
-  // 600 m, 30 cm target (radius ≈ 0.25 mrad), 4 cm group at 100 m
-  // (σ ≈ 0.13 mrad), wind bracket up to 3 m/s (shared wind error).
-  await tester.enterText(
-    find.descendant(
-      of: find.byKey(const Key('pro-shot-range')),
-      matching: find.byType(TextField),
-    ),
-    '600',
-  );
-  await tester.pump();
-  await type(const Key('pro-group'), '4');
-  await type(const Key('pro-target-size'), '30');
-  // Rüzgâr düzeltmesi is on Pro Ayarlar (owner, 2026-10-12).
-  await type(const Key('pro-wind-max'), '3');
+  /// 600 m, 30 cm target (radius ≈ 0.25 mrad), 4 cm group at 100 m
+  /// (σ ≈ 0.13 mrad), wind bracket up to 3 m/s (shared wind error).
+  Future<void> setup600() async {
+    await tester.pumpWidget(app(BallisticsView.pro));
+    await settle();
+    await tester.enterText(
+      find.descendant(
+        of: find.byKey(const Key('pro-shot-range')),
+        matching: find.byType(TextField),
+      ),
+      '600',
+    );
+    await tester.pump();
+    await type(const Key('pro-group'), '4');
+    await type(const Key('pro-target-size'), '30');
+    // Rüzgâr düzeltmesi is on Pro Ayarlar (owner, 2026-10-12).
+    await type(const Key('pro-wind-max'), '3');
+  }
+
+  await setup600();
 
   // Önce: 1 atış, mermi uzunluğu yok (no notice, as on main).
   await hedef('hedef_1atis_uyarisiz');
@@ -166,8 +170,7 @@ Future<void> runWezTour(
     ]),
   );
   await tester.pumpWidget(const SizedBox());
-  await tester.pumpWidget(app(BallisticsView.pro));
-  await settle();
+  await setup600();
   await shots(3);
   await hedef('hedef_3atis_sg_sinirda');
   logNumbers('3atis');
