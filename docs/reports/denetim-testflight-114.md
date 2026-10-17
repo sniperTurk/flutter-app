@@ -54,6 +54,10 @@ D114-0 bir derleme hatası; hesap bulgularının hiçbiri sayının yanlış hes
 - main iOS CI (push, 53100e05): **başarısız** — https://github.com/sniperTurk/flutter-app/actions/runs/39063391136
 - #400 + denetim testi (audit/testflight-114-pr400), test-diag: **başarılı** — https://github.com/sniperTurk/flutter-app/actions/runs/39064594338
 - PR #400'ün kendi iOS CI'ı (run 39064038950): `wind-acceptance` başarılı, `dart-checks` **başarısız**, `verify` atlandı — https://github.com/sniperTurk/flutter-app/actions/runs/39064038950 (nedeni bu denetimde incelenmedi; PR CI main ile birleştirilmiş hâli derlediği için D114-0 olabilir, doğrulanmadı).
-- Bu PR'ın iOS CI'ı (`verify`, `dart-checks`, `wind-acceptance`): main kırık olduğu için `verify`/`dart-checks`'in kırmızı olması bekleniyor; sonuç aşağıya eklenecek.
+- Bu PR'ın iOS CI'ı (run 39065747124, commit 4881e10a) — https://github.com/sniperTurk/flutter-app/actions/runs/39065747124
+  - `wind-acceptance`: **başarılı**
+  - `dart-checks`: **başarısız**. `dart format` 453 dosya, 0 değişiklik; Python 915 test OK; G1/G7 üretim kapısı OK; `flutter analyze` yalnız D114-0'ın iki hatasıyla düştü (bu PR'ın dosyalarında hata yok). Testler bu yüzden koşmadı.
+  - `verify`: **atlandı** (dart-checks kırmızı olduğu için). Yeşil değil.
+  - Bu kırmızı bu PR'dan değil, main'den (D114-0). Denetim yalnız rapor olduğu için düzeltme bu PR'a konmadı; ayrı görev gerekiyor.
 
 🤖 Generated with [Claude Code](https://claude.com/claude-code)
