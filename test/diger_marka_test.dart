@@ -305,10 +305,16 @@ void main() {
       expect(selectedValue<bool>(tester, 'ammo-source'), isTrue);
       await _tapModelBox(tester);
       expect(_openMenuItems, findsNothing);
-      // Back to a listed brand: the Model list again.
+      // Back to a listed brand: the Model list again; typed values go, so
+      // nothing is saved under Hornady without a Model.
+      await enterRifleField(tester, 'ammo-grain', '175');
+      await enterRifleField(tester, 'ammo-bc', '0,5');
       await chooseInSelect(tester, 'ammo-brand-select', 'Hornady');
       expect(_key('ammo-model-select'), findsOneWidget);
       expect(_key('ammo-model-other'), findsNothing);
+      expect(_text(tester, 'ammo-grain'), '');
+      expect(_text(tester, 'ammo-bc'), '');
+      expect(selectedValue<bool>(tester, 'ammo-source'), isTrue);
       expect(tester.takeException(), isNull);
     });
 
@@ -732,6 +738,12 @@ void main() {
       expect(field.decoration!.hintText, 'örn. H&N Slug HP 50 gr');
       expect(field.decoration!.helperText, isNull);
       expect(field.maxLength, 200);
+      expect(
+        tester
+            .widget<MenzilInput>(_key('ammo-report-text'))
+            .info,
+        AmmoReportDialog.textInfo,
+      );
       // Left-aligned body and title.
       expect(
         tester.widget<Text>(_key('ammo-report-body')).textAlign,

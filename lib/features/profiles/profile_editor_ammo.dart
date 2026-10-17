@@ -506,7 +506,14 @@ extension _AmmoSection on _ProfileDialogState {
                   if (!_ammoOther) _pickOtherBrand();
                   return;
                 }
-                _ammoOther = false;
+                // Back from "Diğer marka": the typed values go too, so no
+                // stale weight or BC is saved under a listed brand without
+                // a Model; Tip / Mühimmat türü stay.
+                if (_ammoOther) {
+                  final type = ammoType;
+                  _clearAmmo();
+                  if (platform == WeaponPlatform.pcp) ammoType = type;
+                }
                 ammoBrand.text = v;
                 ammoModel.text = '';
               }),
@@ -867,6 +874,8 @@ extension _AmmoSection on _ProfileDialogState {
     final sender = ToolsServicesScope.of(context).productReport;
     final sent = await showDialog<bool>(
       context: context,
+      // Closed only by Vazgeç or a sent report, never mid-send.
+      barrierDismissible: false,
       builder: (_) => AmmoReportDialog(
         send: (text) => sender.send(
           ammoReportBody(

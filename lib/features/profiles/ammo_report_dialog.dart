@@ -18,6 +18,11 @@ class AmmoReportDialog extends StatefulWidget {
       'Şu an Marka kutusundaki "Diğer marka" seçeneğiyle devam edebilirsin. '
       'Listede olmayan mühimmatı bize yaz: marka, model, ağırlık. Üreticinin '
       'bilgileriyle listeye en kısa zamanda eklemeye çalışacağız.';
+  /// ⓘ of the box (CLAUDE.md: every typed value has one).
+  static const textInfo =
+      'Listede bulamadığın mühimmatın markası, modeli ve ağırlığı, kutunun '
+      'üstünde yazdığı gibi. Ağırlığı gr veya g ile yaz. Örnek: H&N Slug HP '
+      '50 gr.';
   static const failure =
       'Şu an gönderilemedi. İnternet bağlantını kontrol edip tekrar dene.';
 
@@ -78,6 +83,7 @@ class _AmmoReportDialogState extends State<AmmoReportDialog> {
           controller: _text,
           label: 'Marka, model, ağırlık',
           hintText: 'örn. H&N Slug HP 50 gr',
+          info: AmmoReportDialog.textInfo,
           keyboardType: TextInputType.text,
           textInputAction: TextInputAction.done,
           maxLength: ammoReportMaxLength,

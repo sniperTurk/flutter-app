@@ -114,8 +114,14 @@ pencere oldu; ürün sonra üreticinin verisiyle kataloğa eklenecek.
   şaşırtan seçenek buydu: veri değişmiyor, kullanıcı kendi yazdığı adı
   görüyor. Marka seçilmeden kaydedilmiş eski PCP mühimmatı ("Özel yapım")
   da böyle açılır.
-- Diğer marka'dan listedeki bir markaya dönülürse Model listesi geri gelir;
-  yazılmış ağırlık/BC model seçilince üzerine yazılır.
+- Diğer marka'dan listedeki bir markaya dönülürse Model listesi geri gelir
+  ve yazılmış ağırlık, BC, BC modeli, uzunluk silinir (Tip / Mühimmat türü
+  kalır); böylece Model seçilmeden eski sayılar listedeki markayla
+  kaydedilemez (Code Review bulgusu, düzeltildi).
+- Pencere gönderim sürerken dışına dokunarak kapanmaz (yalnız Vazgeç veya
+  başarılı gönderim). 10 sn zaman aşımında istek sunucuya yine ulaşmış
+  olabilir; tekrar denenirse kutuda aynı bildirim iki kez görünebilir
+  (worker'da tekrar ayıklama yok; worker'a dokunulmadı).
 - Fabrika fişeğinden gelen namlu çıkış hızı ve barut değerleri Tüfek/Ek
   mühimmat kartında olduğu için Diğer marka seçince silinmez (bugünkü elle
   giriş de silmiyordu).
@@ -128,8 +134,11 @@ pencere oldu; ürün sonra üreticinin verisiyle kataloğa eklenecek.
 
 - Tüfek ve dürbün "listede yok" akışları, katalog, hesap, diğer sayfalar,
   worker ve `sniperTurk/kullanici-urunleri` deposu değişmedi.
-- Pencere kutusunda ⓘ yok: açıklama pencerenin kendi metni (sahibin
-  çizimi). Ağırlık okuma yalnız gönderilen bilgiye eklenir, uygulamada
+- Pencere kutusuna CLAUDE.md'deki "her yazılan değerin ⓘ'si" kuralı için kısa
+  bir ⓘ eklendi (sahibin metninde yoktu; istenmezse silinir): "Listede
+  bulamadığın mühimmatın markası, modeli ve ağırlığı, kutunun üstünde
+  yazdığı gibi. Ağırlığı gr veya g ile yaz. Örnek: H&N Slug HP 50 gr."
+- Ağırlık okuma yalnız gönderilen bilgiye eklenir, uygulamada
   kullanılmaz.
 - Testlerden ve CI'dan gerçek worker'a istek atılmadı; simülatör turunda da
   Gönder'e basılmaz (Vazgeç). Uçtan uca kontrol ana oturumda TestFlight'ta.
