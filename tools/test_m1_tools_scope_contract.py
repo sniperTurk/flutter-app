@@ -22,6 +22,9 @@ ALLOWED_PACKAGE_FILES = {
     # Hava Durumu → İrtifa → "Haritadan" (owner, 2026-10-14): Google Maps
     # Elevation API, on the button only.
     'lib/tools/adapters/google_elevation_provider.dart',
+    # Hava Durumu weather from Google first (owner, 2026-10-17), on the
+    # weather button only; MET Norway stays the fallback.
+    'lib/tools/adapters/google_weather_provider.dart',
 }
 ACCEPTANCE_SHA256 = '1d861282a0ed6bca503ec8fa7c11eb423c2d5d9704b0d383c51cfd1b7c67927d'
 

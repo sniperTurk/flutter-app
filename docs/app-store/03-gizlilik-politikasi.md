@@ -39,8 +39,10 @@ Konum izni yalnızca uygulama açıkken ve yalnızca sizin başlattığınız
 işlemlerde kullanılır; arka planda konum kullanılmaz:
 
 - **Hava Durumu / Hava & Rüzgâr:** Konumunuz iki ondalığa (yaklaşık 1 km)
-  yuvarlanarak Norveç Meteoroloji Enstitüsü'nün hava servisine (MET Norway,
-  api.met.no) gönderilir ve o noktanın hava verisi alınır. Uygulama bu konumu
+  yuvarlanarak önce Google'ın hava servisine (Google Maps Platform Weather
+  API, weather.googleapis.com) gönderilir ve o noktanın hava verisi alınır.
+  Google yanıt vermezse aynı yuvarlanmış konum Norveç Meteoroloji
+  Enstitüsü'nün hava servisine (MET Norway, api.met.no) gönderilir. Uygulama bu konumu
   saklamaz; gelen hava değerleri (sıcaklık, basınç, nem, rüzgâr) hesapta
   kullanılmak üzere ekrandaki alanlara doldurulur.
 - **Coriolis ve yerel yerçekimi:** Konumdan enlem ve irtifa okunur, hesap
@@ -147,8 +149,10 @@ Location is used only while the app is open and only for actions you start;
 it is never used in the background:
 
 - **Weather / Weather & Wind:** your location, rounded to two decimals (about
-  1 km), is sent to the Norwegian Meteorological Institute (MET Norway,
-  api.met.no) to fetch the weather for that point. The app does not store
+  1 km), is first sent to Google's weather service (Google Maps Platform
+  Weather API, weather.googleapis.com) to fetch the weather for that point.
+  If Google does not answer, the same rounded location is sent to the
+  Norwegian Meteorological Institute (MET Norway, api.met.no). The app does not store
   this location; the returned weather values (temperature, pressure,
   humidity, wind) are filled into the on-screen fields for the calculation.
 - **Coriolis and local gravity:** latitude and altitude are read from your

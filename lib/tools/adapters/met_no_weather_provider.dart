@@ -182,6 +182,7 @@ class MetNoWeatherProvider implements WeatherProvider {
         validAt: DateTime.parse(pick['time'] as String).toUtc(),
         fetchedAt: now,
         sourceName: 'MET Norway (CC BY 4.0)',
+        source: WeatherSource.metNorway,
       );
     } on WeatherFailure {
       rethrow;
