@@ -254,10 +254,10 @@ extension _RifleSection on _ProfileDialogState {
   }
 
   /// A listed ammunition belongs to its caliber: another caliber empties
-  /// it. A Diğer marka one stays; its Model text follows the new Kalibre.
+  /// it (a typed one stays).
   void _keepAmmoInCaliber((String, String?) before) {
     if (before == (rifleCaliber.text, _cartridge)) return;
-    if (!_ammoOther && ammoBrand.text.isNotEmpty) _clearAmmo();
+    if (!_ammoManual && ammoBrand.text.isNotEmpty) _clearAmmo();
   }
 
   /// Empties the rifle part chosen from the lists.
