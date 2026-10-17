@@ -4,7 +4,7 @@
 -- iOS 26.0 --
 -- iOS 26.1 --
 -- iOS 26.2 --
-    iPhone 17 Pro (E952A9B0-CC78-435C-BF08-06AD47FE1076) (Booted) 
+    iPhone 16e (1ECD563C-BBBB-42E5-9A9F-648809113BF6) (Booted) 
 -- tvOS 18.5 --
 -- tvOS 26.1 --
 -- tvOS 26.2 --
