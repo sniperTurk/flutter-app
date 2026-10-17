@@ -1494,6 +1494,15 @@ class MenzilSelect<T> extends StatefulWidget {
   /// Space between the box and its open list (owner, 2026-10-15).
   static const double menuGap = 4;
 
+  /// Vertical padding of the closed box and the line height of its text:
+  /// together they make the box exactly as tall as a [MenzilInput] beside
+  /// it (49 pt at the normal text size, 55 pt at ×1.3), so the boxes of a
+  /// row line up (owner, 2026-10-17: "equal to neighbours in its row"). A
+  /// dense list button is at least 24 pt high, which with 13 pt padding made
+  /// it 1 pt taller than the typed boxes.
+  static const double _padV = 12.5;
+  static const double _lineHeight = 20 / 13;
+
   /// Rows an open list shows at most (owner, 2026-10-16 22:25–22:28:
   /// "Select belli standartta açılsın, içine kayma ekle … 8 ya da 10
   /// yap"). Every list in the app opens at the same height: 8 rows of
@@ -1764,9 +1773,9 @@ class MenzilSelectState<T> extends State<MenzilSelect<T>>
                             ? const EdgeInsetsDirectional.only(end: 4)
                             : const EdgeInsetsDirectional.fromSTEB(
                                 0,
-                                13,
+                                MenzilSelect._padV,
                                 12,
-                                13,
+                                MenzilSelect._padV,
                               ),
                         // Compact: the unit left of the arrow; a dense
                         // button is as tall as its icon size: 44 pt.
@@ -1797,9 +1806,11 @@ class MenzilSelectState<T> extends State<MenzilSelect<T>>
                               ),
                         iconSize: compact ? MenzilSpace.compactControl : 24,
                         // The closed box's text: 15 pt, regular (owner,
-                        // 2026-10-11).
+                        // 2026-10-11), with the line height that keeps the
+                        // box as tall as a MenzilInput ([_lineHeight]).
                         style: TextStyle(
                           fontSize: 15,
+                          height: MenzilSelect._lineHeight,
                           fontWeight: FontWeight.w400,
                           color: c.ink,
                         ),
