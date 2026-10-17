@@ -1,6 +1,6 @@
 // Hedef klik satırı (owner, 2026-10-17 11:51–11:52 Istanbul, TestFlight 112:
 // "Üst kule klik sayısını sağ çizgiye yasla. Solda bulunan çizgiyi
-// kaldır." then "yap"). The Üst kule half has no bar and ends 8 pt before
+// kaldır." then "yap"). The Üst kule half has no bar and ends 5 pt before
 // the blue bar; the Yan kule half is unchanged. Report:
 // docs/reports/hedef_klik_satiri.md.
 import 'package:flutter/material.dart';
@@ -83,8 +83,9 @@ void _checkLayout(WidgetTester tester, {required String tag}) {
   // Only the blue bar is left; no orange bar.
   expect(_bars(tester), [_cyan], reason: tag);
   expect(_bars(tester), isNot(contains(_amber)), reason: tag);
-  // Üst kule text ends 8 pt before the blue bar (same gap as blue bar's
-  // right edge to "Yan kule": 3 pt bar + 8 pt padding).
+  // Üst kule text ends 5 pt before the blue bar, the same gap as from the
+  // blue bar's right edge to "Yan kule" (8 pt padding under a 3 pt bar,
+  // as on main).
   final gapUp = bar.left - upText.right;
   final gapRight = rightText.left - (bar.left + 3);
   expect(
@@ -92,7 +93,7 @@ void _checkLayout(WidgetTester tester, {required String tag}) {
     moreOrLessEquals(TurretSolutionRow.dividerGap, epsilon: 0.5),
     reason: tag,
   );
-  expect(gapRight, moreOrLessEquals(8, epsilon: 0.5), reason: tag);
+  expect(gapRight, moreOrLessEquals(5, epsilon: 0.5), reason: tag);
   // Text inside the line, nothing drawn left of the row.
   expect(upText.left, greaterThanOrEqualTo(row.left - 0.01), reason: tag);
   expect(rightText.right, lessThanOrEqualTo(row.right + 0.01), reason: tag);
@@ -131,7 +132,7 @@ void _checkLayout(WidgetTester tester, {required String tag}) {
 void main() {
   setUp(() => SharedPreferences.setMockInitialValues({}));
 
-  testWidgets('390 pt: no bar left of Üst kule, text ends 8 pt before the '
+  testWidgets('390 pt: no bar left of Üst kule, text ends 5 pt before the '
       'blue bar, Yan kule unchanged', (tester) async {
     await _hedef(tester);
     expect(tester.takeException(), isNull);

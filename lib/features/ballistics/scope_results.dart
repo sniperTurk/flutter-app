@@ -130,8 +130,9 @@ class TurretSolutionRow extends StatelessWidget {
   static const double lineHeight = 22;
 
   /// Gap between the end of the Üst kule text and the blue bar: the same
-  /// 8 pt as between the blue bar and "Yan kule".
-  static const double dividerGap = 8;
+  /// 5 pt as between the blue bar and "Yan kule" (the 8 pt padding starts
+  /// at the bar's left edge, under the 3 pt bar).
+  static const double dividerGap = 5;
 
   /// Space between the two halves (the design's 12 pt; unchanged, so the
   /// Yan kule half keeps its place and width).
