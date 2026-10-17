@@ -246,6 +246,41 @@ Görüntüler, `ci/sim-screens` dalının a96550a commit'inde kalıcı olarak du
 6. **Ondalık ayırıcı farklı.** Profil Oluştur'da listeden gelen Ağırlık ve BC virgüllü ("21,14", "0,039"); Profili Düzenle'de noktalı ("21.14", "0.039"). Bu fark main'de de var; bu PR'da değiştirilmedi.
 7. **Ekranın sağ tarafı siyah.** 390 ve 320 pt görüntülerinde uygulama ekranın solunda duruyor (yukarıdaki yöntem yüzünden).
 
+## Rebase 17.10
+
+main ilerlediği için PR çakışıyordu. main'deki yeni iki commit (#371 yan kule, #370 Düzeltmeler 16.10) bu dala birleştirildi (merge commit 7569163; geçmiş yeniden yazılmadı, zorla gönderim yok). #369, #372 ve #373 zaten dalın tabanındaydı.
+
+Sonra #367 (Dürbün girişi: liste sırası, 8 satırlık açılır liste, Dürbün modeli zorunlu) main'e girdi (2231591). O da birleştirildi (merge commit 9412125); çakışma çıkmadı. Ortak dosyalarda (`menzil_widgets.dart`, `profile_editor.dart`, test yardımcıları) iki tarafın değişikliği de duruyor.
+
+- **Tek çakışma `pro_ayarlar_view.dart`'ta.** main (#370) Mühimmat sıcaklığı kutusunu Hava Durumu'ndan Pro → Tüfek düzeltmeleri'ne taşıdı; bu PR aynı yerdeki "Kalan tüp basıncı" kutusunu siliyordu. İkisi birden tutuldu: Mühimmat sıcaklığı kutusu, sayımı ("N ayar açık") ve başlık ⓘ'sindeki metni main'deki gibi duruyor; Kalan tüp basıncı silinmiş olarak kaldı.
+- **main'in kararları korundu.** Mühimmat sıcaklığı Pro'da, ateşli silahta; kutunun içinde ⓘ yok (#373 kuralı), metni bölüm başlığının ⓘ'sinde. Hedef tıklama satırı, Profil ekle eni, üst çubuktaki profil seçici main'deki gibi.
+- **Birim kutunun içinde.** Bu PR'ın ortak `MenzilInput` değişikliği (birim kutunun içinde sağda) taşınan Mühimmat sıcaklığı kutusuna da kendiliğinden uygulanıyor: "°C" / "°F" kutunun içinde sağda, kutuda ⓘ yok. Ek kod gerekmedi.
+- **Bu PR'ın amacı değişmedi.** PCP Tüfek ve Mühimmat satırları, hız seçimi (ortalama / Tüfek kartı hızı / tek değer uyarısı), "Basınca göre hız" yok, KUL-10 testi atlanmadan çalışıyor. Hesapta başka değişiklik yok, test gevşetilmedi.
+- **Eski regülatörsüz PCP profilleri.** main'de regülatörsüz bir PCP profilinde basınca göre hız tablosu varsa hız, profildeki tüp basıncına göre tablodan bulunuyordu. Bu PR'la tablo silindiği için bu profiller artık Tüfek kartındaki Namlu çıkış hızını kullanıyor. Kayıtlı tablo silinmiyor; eski kayıtlar açılmaya devam ediyor, yalnız hesaba girmiyor.
+
+### Yerel
+
+- `python3 tools/offline_dart_lint.py`: 415 dosya, 0 sorun.
+- `python3 -m unittest discover -s tools -p 'test_*.py'`: 915 test, başarılı (1 atlanan: PRE-1 denetim bulgusu, main'de de atlanıyor, bu PR'la ilgisi yok).
+
+### CI (7569163)
+
+| İş | Sonuç | Bağlantı |
+|---|---|---|
+| iOS CI / verify | başarılı | https://github.com/sniperTurk/flutter-app/actions/runs/38996922629/job/117297372178 |
+| iOS CI / dart-checks | başarılı | https://github.com/sniperTurk/flutter-app/actions/runs/38996922629/job/117294174809 |
+| iOS CI / wind-acceptance | başarılı | https://github.com/sniperTurk/flutter-app/actions/runs/38996922629/job/117294174986 |
+| iOS CI / ios-simulator | atlandı (iş akışı bu olayda çalıştırmıyor) | aynı koşu |
+| test-diag (`files=test`) | başarılı | https://github.com/sniperTurk/flutter-app/actions/runs/38996980913 |
+| analyze-diag | başarılı | https://github.com/sniperTurk/flutter-app/actions/runs/38996982761 |
+| format-fix (375209577) | başarılı, değişiklik yok | https://github.com/sniperTurk/flutter-app/actions/runs/38996979480 |
+
+İlk iOS CI koşusu 03:04'te (UTC) main'de başlayan TestFlight tarafından iptal edildi (TestFlight macOS koşularını boşaltıyor); aynı koşu yeniden çalıştırıldı ve yukarıdaki sonuçlar o yeniden koşunun. İki simülatör turu da başka görevlerin tur istekleriyle sıradan düştü; yeniden istendi.
+
+### Ekran görüntüleri (rebase sonrası)
+
+SIM_PLACEHOLDER
+
 ## CI
 
 Aşağıdaki koşular rebase sonrası commit **7a7ac21** üzerinde (main f46ab8f'in üstünde). Sonra gelen a1a5006 yalnız simülatör turunu düzeltiyor; bu raporun commit'i ise yalnız bu dosyayı değiştiriyor. Son commit'in (HEAD) CI sonuçları, raporu yeniden değiştirmemek için PR açıklamasında. Önceki 8 commit tek commit'te toplandı. Rebase'te tek çakışma `pro_ayarlar_view.dart`'taydı: #373 silinen `_pcpPressureProFields`'i değiştirmişti; fonksiyon silinmiş olarak bırakıldı.
