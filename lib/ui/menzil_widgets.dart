@@ -1922,7 +1922,14 @@ class MenzilSelectMenu<T> {
       1,
       MenzilSelect.menuRows,
     );
-    final maxHeight = math.min(want, MenzilSelect.menuHeightFor(fit, itemH));
+    // Rows that grow with their text ([itemHeight] null, e.g. a wrapped
+    // profile name) are at least 48 pt: the cap is 8 such rows, and the
+    // list (shrink-wrapped) is only as tall as its rows when they are
+    // fewer, so a short list of tall rows is never cut.
+    final cap = itemHeight == null
+        ? MenzilSelect.menuHeightFor(MenzilSelect.menuRows, itemH)
+        : want;
+    final maxHeight = math.min(cap, MenzilSelect.menuHeightFor(fit, itemH));
     final c = MenzilColors.of(context);
     final menu = _MenzilMenuRoute<T>(
       anchor: rect,
