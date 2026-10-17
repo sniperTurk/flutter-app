@@ -103,8 +103,12 @@ void main() {
       final dial = tester.widget<ScopeDialView>(find.byType(ScopeDialView));
       debugPrint('PROBE max=$max bracket: ${_text(tester, _bracket)}');
       debugPrint('PROBE max=$max shares: ${_text(tester, _shares)}');
-      debugPrint(
-        'PROBE max=$max right=${dial.requiredRight} click=${dial.clickValue}',
+      // Fails on purpose: the Actual line carries main's texts.
+      expect(
+        'PROBE max=$max | ${_text(tester, _bracket)} | '
+        '${_text(tester, _shares)} | right=${dial.requiredRight} '
+        'click=${dial.clickValue}',
+        'x',
       );
     });
   }
