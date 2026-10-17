@@ -52,16 +52,18 @@ RifleProfile _firearm({double? k, double? t0}) => RifleProfile(
 
 const _source = Key('pro-powder-source');
 const _today = Key('pro-powder-today');
-const _ammoKey = Key('env-ammo-temp');
-
-Widget _app(RifleProfile p, double scale) => MaterialApp(
+Widget _app(
+  RifleProfile p,
+  double scale, {
+  BallisticsView view = BallisticsView.pro,
+}) => MaterialApp(
   theme: MenzilTheme.light(),
   builder: (context, c) => MediaQuery(
     data: MediaQuery.of(context).copyWith(textScaler: TextScaler.linear(scale)),
     child: c!,
   ),
   home: Scaffold(
-    body: BallisticsScreen(profile: p, view: BallisticsView.pro),
+    body: BallisticsScreen(profile: p, view: view),
   ),
 );
 
@@ -70,23 +72,27 @@ Future<void> _open(
   RifleProfile p, {
   required double width,
   required double scale,
-  String? ammoTemp,
+  String? airTemp,
 }) async {
   tester.view.physicalSize = Size(width, 3000) * 3;
   tester.view.devicePixelRatio = 3;
   addTearDown(tester.view.reset);
-  await tester.pumpWidget(_app(p, scale));
-  await tester.pumpAndSettle();
-  await openProFor(tester, _source);
-  if (ammoTemp != null) {
+  if (airTemp != null) {
+    // "Bugünkü hız" needs Hava sıcaklığı (Hava Durumu); the cartridge
+    // temperature follows it while Mühimmat sıcaklığı is empty.
+    await tester.pumpWidget(_app(p, scale, view: BallisticsView.environment));
+    await tester.pumpAndSettle();
     final f = find.descendant(
-      of: find.byKey(_ammoKey),
+      of: find.byKey(BallisticsFieldKeys.temperature),
       matching: find.byType(TextField),
     );
     await tester.ensureVisible(f);
-    await tester.enterText(f, ammoTemp);
+    await tester.enterText(f, airTemp);
     await tester.pumpAndSettle();
   }
+  await tester.pumpWidget(_app(p, scale));
+  await tester.pumpAndSettle();
+  await openProFor(tester, _source);
   expect(tester.takeException(), isNull);
 }
 
@@ -133,7 +139,7 @@ void main() {
           _firearm(k: 1, t0: 10),
           width: width,
           scale: scale,
-          ammoTemp: '5',
+          airTemp: '5',
         );
         expect(
           tester.widget<Text>(find.byKey(_source)).data,
