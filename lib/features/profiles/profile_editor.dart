@@ -130,6 +130,12 @@ class _ProfileDialogState extends State<_ProfileDialog> {
   /// The chosen rifle variant (one caliber of a model), or null.
   LibraryRifle? _rifleVariant;
 
+  /// Profili Düzenle: the saved caliber is none of the saved model's
+  /// calibers (picked before 2026-10-17 through the removed "Diğer
+  /// kalibre"); Kalibre shows it as its value until another rifle or
+  /// caliber is chosen.
+  bool _offModelSaved = false;
+
   /// Kalibre "Fişeğim listede yok": the bullet diameter is picked instead.
   bool _caliberByDiameter = false;
 
@@ -564,12 +570,12 @@ class _ProfileDialogState extends State<_ProfileDialog> {
           rifleModel.text,
           initialRifle?.caliberMm,
         );
-        // A saved caliber that is none of the model's calibers stays as
-        // saved and is shown as the Kalibre value (owner, 2026-10-17).
         if (_rifleVariant != null) {
           _cartridge = _rifleVariant!.platform == WeaponPlatform.firearm
               ? _rifleVariant!.cartridge
               : null;
+        } else {
+          _offModelSaved = true;
         }
       }
     }
@@ -1756,6 +1762,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                         rifleModel.text = '';
                       }
                       _rifleVariant = null;
+                      _offModelSaved = false;
                       _caliberByDiameter = false;
                       // A caliber of the other list does not carry over:
                       // a firearm cartridge is not a PCP caliber and no
