@@ -328,4 +328,143 @@ Ara koşular (rebase öncesi):
 
 Code Review ve Security review yapıldı: https://github.com/sniperTurk/flutter-app/pull/368#issuecomment-6222636244. Eşiği geçen bulgu yok. Eşik altındaki iki not "Bilerek yapılmayanlar"da.
 
+## ⓘ etiket satırının sağında (17.10)
+
+İstek: sahip, 17.10.2026 11:18–11:21 (İstanbul). #368 ile TestFlight 112 yan yana gösterildi. Sahip: "Hayır fps bar kutu içi, infolar sağ üst". Plan onaylandı ("Aç").
+
+### Ne
+
+- **ⓘ kutunun içinden çıktı.** Artık etiket satırının sağ ucunda duruyor, kutunun sağ üstünde. TestFlight 112 ve main'deki yeriyle aynı.
+  - Bu, ortak `MenzilInput` ve `MenzilSelect`'in kompakt düzeninde değişti (`MenzilCompactFields`). Kompakt düzeni şu sayfalar kullanıyor: PCP Mühimmat kartı, Hava Durumu ve Pro Ayarlar'daki Atış mesafesi.
+  - Normal düzende ⓘ zaten etiket satırının sağındaydı. Profil Tüfek, Dürbün ve Ateşli Mühimmat kartları değişmedi. Bu ekran görüntüleri öncekilerle bayt bayt aynı.
+- **Birimler kutunun içinde kaldı** (fps, bar, gr, mm, m, °C, %, m/s, saat, hPa…). Kutunun sağ kenarında duruyorlar. Etiket satırında birim yok.
+- **Normal `MenzilSelect`'in birimi de kutunun içine alındı, okun soluna.** Bu birim önceden etiket satırındaydı. Bu iki kutuyu etkiliyor:
+  - Profil → Ek mühimmat bilgileri → Hız ölçüm sıcaklığı (°C)
+  - Araçlar → Sıfır Grubu → Kare boyu (cm). Burada kapalı kutu yalnız sayıyı gösteriyor ("1  cm ▾"), böylece "cm" iki kez yazılmıyor. Açılan listede yine "1 cm" yazıyor.
+- **Pro Ayarlar bölüm kutularında ⓘ yok** (sahibin istisnası). Açıklamaları bölüm başlığının ⓘ'sinde kalmaya devam ediyor.
+- **Hava Durumu'nda hiçbir ⓘ silinmedi.** Yalnız yerleri değişti:
+  - Sıcaklık, Bağıl nem, Rüzgâr hızı ve Rüzgâr yönü ⓘ'leri etiket satırının sağına taşındı.
+  - Rüzgâr başlığının ⓘ'si yerinde duruyor.
+  - Rüzgâr gözlemi ⓘ'si de korunuyor; o kutu bayrakla gizli olduğu sürece görünmüyor.
+- Şunlar değişmedi: etiket metinleri, kutuların sırası, her satırda iki kutu kuralı, değerler, kayıt anahtarları ve hesaplar.
+
+### Nasıl
+
+- `lib/ui/menzil_widgets.dart`, `_CompactLabel`: kutunun hemen üstündeki küçük etiket artık ⓘ'yi de taşıyor.
+  - Satır, ⓘ'nin dokunma alanı kadar yüksek: 44 pt.
+  - Etiket satırın altında; kutuyla arası önceki gibi 5 pt.
+  - ⓘ simgesinin ortası etiket yazısının ortasına hizalı.
+  - ⓘ'nin dokunma alanı 44 pt genişlikte ve sağ kenarı kutunun sağ kenarında.
+  - Etiket ⓘ'nin altına girmesin diye sağda 37 pt boş kalıyor. Normal düzende de aynı.
+- `_CompactTrailing` artık yalnız birimi gösteriyor (liste kutusunda birim ve ok). Kutu 44 pt yüksekliğini koruyor.
+- `MenzilCompactFields.reserveInfo` (varsayılan: açık): ⓘ'si olmayan bir kutu da aynı satır yüksekliğini tutuyor. Böylece yan yana iki kutu aynı hizada başlıyor.
+  - Pro Ayarlar ve Hava Durumu'nda kapalı. Orada ⓘ'li ve ⓘ'siz kutu yan yana gelmiyor; bu sayede ⓘ'siz kutular (Pro bölüm kutuları, İstasyon basıncı, İrtifa) eskisi gibi sıkı kalıyor.
+- `MenzilSelect`, normal düzen: etiket satırına birim verilmiyor. Birim, okla birlikte kutunun içinde çiziliyor (`menzil-select-unit`).
+- VoiceOver:
+  - ⓘ'nin etiketi hâlâ "Bilgi: <etiket>".
+  - Alanın etiketi hâlâ "<etiket> (<birim>)".
+  - Kutudaki birim yazısı ayrıca okunmuyor; birim zaten alanın etiketinde okunuyor.
+- Frontend Design eklentisi kullanıldı. Yeni bir görsel dil eklenmedi; uygulamanın kendi ⓘ yeri ve ölçüleri kullanıldı.
+
+### Neden
+
+Sahip ⓘ'yi kutunun sağ üstünde, birimi kutunun içinde istedi. TestFlight 112'deki yer bu.
+
+### Uç durumlar
+
+- **Kart uzadı.** Kompakt satırda ⓘ'nin 44 pt dokunma alanı etiket satırını yükseltiyor. Bu yüzden PCP Mühimmat kartı ve Hava Durumu'nun Sıcaklık/Rüzgâr satırları uzadı, her satır yaklaşık 20 pt.
+  - Etiket ile kutu arasındaki 5 pt değişmedi. Boşluk etiketin üstünde açılıyor.
+- **Uzun etiketler küçülüyor.** Etiketlere sağda 37 pt yer ayrıldığı için uzun etiketler biraz daha küçük yazılıyor. Yine tek satır kalıyorlar, taşmıyor, "…" çıkmıyor. Örnek: 390 pt'de "En düşük namlu çıkış hızı".
+- **Dar ekranda tek sütun.** 320 pt'de, yazı büyüklüğü 1,3'te ve dar ekranlarda satırlar eskisi gibi tek sütuna iniyor. Bu, ortak `MenzilFieldGrid` kuralı; değişmedi.
+- **Birimli `wrapSelected` kutusu yok.** `wrapSelected` (kayan uzun seçim) kullanan bir liste kutusunun birimi yok. Birimli böyle bir kutu eklenirse uzun yazı birimin altına girebilir. Bugün böyle bir kutu yok.
+- **Sağdan sola diller.** `PositionedDirectional` kullanıldığı için ⓘ bu dillerde sol üstte duruyor.
+
+### Testler
+
+- Yeni: `test/info_etiket_satiri_test.dart`. 390 pt, 320 pt ve 320 pt + yazı 1,3 için kontrol edilenler:
+  - **Alanlar:**
+    - PCP Mühimmat: Tip, Marka, Ağırlık, BC, BC modeli, En düşük, En yüksek.
+    - PCP Tüfek: Kalibre, Namlu çıkış hızı, Tüp basıncı, Regülatör basıncı.
+    - Hava Durumu: Sıcaklık, Bağıl nem, Rüzgâr hızı, Rüzgâr yönü.
+  - **Her alanda ⓘ:**
+    - kutunun dışında ve üstünde;
+    - sağ kenarı kutunun sağ kenarına 1 pt'den yakın;
+    - ortası etiket satırında ve etiket yazısının hizasında;
+    - dokunma alanı en az 44×44 pt; "Bilgi: …" etiketi var;
+    - etiket ⓘ'nin altına girmiyor.
+  - **Birim:** kutunun içinde, sağ yarıda.
+  - **Hizalama:** yan yana kutular aynı yükseklikte.
+  - **Ayrıca:**
+    - Ateşli Tüfek kartı da aynı düzende.
+    - ⓘ açıklamayı açıyor, alana odaklanmıyor.
+    - Pro bölüm kutularında (Hedef hızı, BC hatası, Atış sayısı) ⓘ yok.
+    - Pro'da 320 pt + 1,3'te taşma yok.
+- Kurala göre güncellenenler: eski "ⓘ kutunun içinde" kontrolleri tersine çevrildi; hiçbiri gevşetilmedi.
+  - `test/kutu_fikir4_test.dart`:
+    - ⓘ etiket satırının sağında, kutuda değil.
+    - Birim kutunun sağında.
+    - Hata yazısı kutunun altında; kutu yine 44 pt (artık birimin 44 pt'lik parçasıyla ölçülüyor).
+  - `test/pcp_muhimmat_tasarim_test.dart`: kompakt kutuda ⓘ kutunun üstünde ve sağa hizalı.
+  - `test/profil_duzen_koruma_test.dart`: Hız ölçüm sıcaklığının °C'si etiket satırında değil, kutunun içinde. Konumu ölçülüyor.
+- #368'in hesap testleri değişmedi ve geçiyor: hız ortalaması 830/860 → 845, Tüfek kartına düşüş, tek hız uyarısı, KUL-10.
+- `tools/test_denetim_2026_10_15b_pre.py` (`unit: 'cm'` regresyon koruması) bir ara düştü. Neden: Kare boyu'ndan birimi kaldırmıştım. Birim geri kondu; çift "cm" kapalı kutuda kısa metinle çözüldü. Test gevşetilmedi.
+
+### Yerel
+
+- `python3 tools/offline_dart_lint.py`: PASS, 426 Dart dosyası, 0 sorun (main birleştirildikten sonra).
+- `python3 -m unittest discover -s tools -p 'test_*.py'`: 915 test, OK (1 atlandı; bilerek atlanan PRE-1). Bu koşu 3ea4bf6'da yapıldı. Kare boyu düzeltmesinden sonra düşen modül (`tools.test_denetim_2026_10_15b_pre`) yerelde yeniden çalıştı: OK.
+- Bu ortamda Flutter SDK kurulamadı. Dart SDK indirmesi vekil sunucuda 403 verdi. Bu yüzden widget testleri yalnız CI'da çalıştı.
+
+### Ekran görüntüleri
+
+Simülatör turu: `integration_test/sim_screens_pcp_kartlar_test.dart`, iPhone 17 Pro, sim-screens iş akışı.
+
+- Yeni koşu: https://github.com/sniperTurk/flutter-app/actions/runs/39022132218. Dal bf51f0a'daydı; flutter test çıkış kodu 0, 27 görüntü. Görüntüler `ci/sim-screens` b1333ba'da. README "@ 8cc3aab" yazıyor; çekilen dal fix/pcp-muhimmat-tasarim.
+- Önceki koşu (39017853853) uygulama açılış ekranında takıldı. Hiçbir test başlamadı, zaman aşımına uğradı.
+- Bir koşu da (39020270842) sıradayken başka bir koşu yüzünden iptal oldu. sim-screens iş akışında aynı anda yalnız bir koşu sırada bekleyebiliyor.
+
+Önceki #368 görüntüleri `ci/sim-screens` 3c3e6a9'da; yeniler b1333ba'da. Sol sütun önceki, sağ sütun yeni:
+
+| Ekran | Önceki #368 (3c3e6a9) | Yeni (b1333ba) |
+|---|---|---|
+| PCP Tüfek kartı 390 | [01](https://raw.githubusercontent.com/sniperTurk/flutter-app/3c3e6a90a585275d2c3c59508e9b67bcf6113e27/latest/01_pcp_tufek_390.png) | [01](https://raw.githubusercontent.com/sniperTurk/flutter-app/b1333bad5273d79035a000535846f1e3224437cf/latest/01_pcp_tufek_390.png), [02 alt](https://raw.githubusercontent.com/sniperTurk/flutter-app/b1333bad5273d79035a000535846f1e3224437cf/latest/02_pcp_tufek_390_alt.png) |
+| PCP Tüfek kartı 320 | [17](https://raw.githubusercontent.com/sniperTurk/flutter-app/3c3e6a90a585275d2c3c59508e9b67bcf6113e27/latest/17_pcp_tufek_320.png) | [17](https://raw.githubusercontent.com/sniperTurk/flutter-app/b1333bad5273d79035a000535846f1e3224437cf/latest/17_pcp_tufek_320.png) |
+| PCP Mühimmat kartı (dolu) 390 | [05](https://raw.githubusercontent.com/sniperTurk/flutter-app/3c3e6a90a585275d2c3c59508e9b67bcf6113e27/latest/05_pcp_muhimmat_390.png), [06 alt](https://raw.githubusercontent.com/sniperTurk/flutter-app/3c3e6a90a585275d2c3c59508e9b67bcf6113e27/latest/06_pcp_muhimmat_390_alt.png) | [05](https://raw.githubusercontent.com/sniperTurk/flutter-app/b1333bad5273d79035a000535846f1e3224437cf/latest/05_pcp_muhimmat_390.png), [06 alt](https://raw.githubusercontent.com/sniperTurk/flutter-app/b1333bad5273d79035a000535846f1e3224437cf/latest/06_pcp_muhimmat_390_alt.png) |
+| PCP Mühimmat kartı 320 | [19](https://raw.githubusercontent.com/sniperTurk/flutter-app/3c3e6a90a585275d2c3c59508e9b67bcf6113e27/latest/19_pcp_muhimmat_320.png), [20 alt](https://raw.githubusercontent.com/sniperTurk/flutter-app/3c3e6a90a585275d2c3c59508e9b67bcf6113e27/latest/20_pcp_muhimmat_320_alt.png) | [19](https://raw.githubusercontent.com/sniperTurk/flutter-app/b1333bad5273d79035a000535846f1e3224437cf/latest/19_pcp_muhimmat_320.png), [20 alt](https://raw.githubusercontent.com/sniperTurk/flutter-app/b1333bad5273d79035a000535846f1e3224437cf/latest/20_pcp_muhimmat_320_alt.png) |
+| Ateşli Tüfek kartı 390 | [07](https://raw.githubusercontent.com/sniperTurk/flutter-app/3c3e6a90a585275d2c3c59508e9b67bcf6113e27/latest/07_atesli_tufek_390.png) | [07](https://raw.githubusercontent.com/sniperTurk/flutter-app/b1333bad5273d79035a000535846f1e3224437cf/latest/07_atesli_tufek_390.png) |
+| Hava Durumu üstü 390 | [09](https://raw.githubusercontent.com/sniperTurk/flutter-app/3c3e6a90a585275d2c3c59508e9b67bcf6113e27/latest/09_hava_durumu_390.png) | [09](https://raw.githubusercontent.com/sniperTurk/flutter-app/b1333bad5273d79035a000535846f1e3224437cf/latest/09_hava_durumu_390.png), [10](https://raw.githubusercontent.com/sniperTurk/flutter-app/b1333bad5273d79035a000535846f1e3224437cf/latest/10_hava_durumu_390_2.png) |
+| Hava Durumu üstü 320 | [23](https://raw.githubusercontent.com/sniperTurk/flutter-app/3c3e6a90a585275d2c3c59508e9b67bcf6113e27/latest/23_hava_durumu_320.png) | [23](https://raw.githubusercontent.com/sniperTurk/flutter-app/b1333bad5273d79035a000535846f1e3224437cf/latest/23_hava_durumu_320.png) |
+
+Görünen farkların hepsi:
+
+1. **PCP Mühimmat:** Tip, Marka, Ağırlık, BC, BC modeli, En düşük ve En yüksek'in ⓘ'si kutudan çıktı; etiket satırının sağ ucunda, kutunun sağ kenarı hizasında. "gr" ve "fps" kutunun sağında kaldı ve artık kutunun en sağına yaslı; önceden ⓘ'nin solundaydı.
+2. **PCP Mühimmat kartı uzadı.** Her kutu satırı yaklaşık 20 pt uzun; boşluk etiketin üstünde. 390 pt'de kartın sonu (En düşük | En yüksek) aşağı kaydı. Etiket ile kutu arası aynı.
+3. **Hız etiketleri küçüldü.** 390 pt'de "En düşük namlu çıkış hızı" ve "En yüksek namlu çıkış hızı" biraz daha küçük yazıyla tek satırda; sağda ⓘ'ye yer ayrıldı.
+4. **Hava Durumu:** Sıcaklık ve Bağıl nem'in ⓘ'si etiket satırının sağında; °C ve % kutunun en sağında. Bu satır biraz uzadı, alttaki kartlar aşağı kaydı. Rüzgâr hızı ve Rüzgâr yönü de aynı biçimde, ikinci görüntüde (10).
+5. **Değişmeyenler:** İstasyon basıncı ve İrtifa (ⓘ'leri kart başlığında) aynı sıkılıkta.
+6. **Tüfek kartları değişmedi.** PCP Tüfek 390/320 ve Ateşli Tüfek 390 görüntüleri öncekilerle bayt bayt aynı; zaten normal düzendeydiler.
+7. **320 pt'de tek sütun:** Mühimmat satırları eskisi gibi tek sütun. Ekranın sağı, dar genişlik yöntemi yüzünden siyah.
+
+### CI (bf51f0a: main 8cc3aab + bu PR)
+
+| İş | Sonuç | Bağlantı |
+|---|---|---|
+| iOS CI / verify | başarılı | https://github.com/sniperTurk/flutter-app/actions/runs/39020745687/job/117365174564 |
+| iOS CI / dart-checks | başarılı | https://github.com/sniperTurk/flutter-app/actions/runs/39020745687/job/117361882803 |
+| iOS CI / wind-acceptance | başarılı | https://github.com/sniperTurk/flutter-app/actions/runs/39020745687/job/117361882587 |
+| iOS CI / ios-simulator | atlandı (iş akışı bu olayda çalıştırmıyor) | aynı koşu |
+| test-diag (`files=test`, bütün testler) | başarılı | https://github.com/sniperTurk/flutter-app/actions/runs/39020742911 |
+| analyze-diag | başarılı | https://github.com/sniperTurk/flutter-app/actions/runs/39020744708 |
+| format-fix (375209577) | başarılı; test dosyalarında 3 biçim düzeltmesi yaptı (266ea24) | https://github.com/sniperTurk/flutter-app/actions/runs/39017828682 |
+| Simülatör turu | başarılı, 27 görüntü | https://github.com/sniperTurk/flutter-app/actions/runs/39022132218 |
+
+Ara koşular:
+
+- **3ea4bf6 (dart-checks düştü):** biçim yüzündendi; format-fix düzeltti.
+- **ddc3f8f (dart-checks düştü):** Kare boyu `unit: 'cm'` regresyon koruması düştü; bf51f0a'da düzeltildi.
+- **266ea24 (iOS CI bekledi):** format-fix bot commit'inde iOS CI "action_required" durumunda kaldı.
+
+Bu rapor commit'inde main (#380 DEN17B-1, #381 Hedefin yönü) birleştirildi; çakışma olmadı. Bu commit'in CI sonuçları PR açıklamasında.
+
+
 🤖 Generated with [Claude Code](https://claude.com/claude-code)
