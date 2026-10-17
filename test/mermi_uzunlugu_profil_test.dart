@@ -3,7 +3,8 @@
 // satırda (BC modeli solda), birim mm, ⓘ metni sahibin metni. Hesap profil
 // uzunluğunu kullanır; profilde yoksa eski sürümde Pro'ya yazılmış değer
 // (aynı profilin 'bulletLength' kaydı) kullanılır, sayılar değişmez.
-// Report: docs/reports/pro_barut_not.md.
+// Report: docs/reports/pro_barut_not.md; range 1–150 mm:
+// docs/reports/mermi_uzunlugu_100.md.
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
@@ -259,16 +260,65 @@ void main() {
     expect((await savedAmmo()).containsKey('lengthMm'), isFalse);
   });
 
-  testWidgets('a length outside 1–60 mm blocks saving', (tester) async {
+  // Owner, 2026-10-17 17:42 ("çıkart", D17D-1): the upper bound was raised
+  // from 60 mm; 2026-10-17 18:10 ("150 mm yap sınırı"): 150 mm, the same as
+  // the calculation. The lower bound and the error style stay as they were.
+  testWidgets('a length outside 1–150 mm blocks saving, with the range '
+      'error under the box', (tester) async {
     await _openEdit(tester);
-    await enterRifleField(tester, 'ammo-length', '70');
-    await tester.pumpAndSettle();
     final button = find.widgetWithText(MenzilPrimaryButton, 'Güncelle');
-    expect(tester.widget<MenzilPrimaryButton>(button).onPressed, isNull);
-    await enterRifleField(tester, 'ammo-length', '60');
-    await tester.pumpAndSettle();
-    expect(tester.widget<MenzilPrimaryButton>(button).onPressed, isNotNull);
+    Finder error() => find.descendant(
+      of: find.byKey(const Key('ammo-length')),
+      matching: find.text('1–150 arasında bir değer girin.'),
+    );
+    for (final bad in ['150,1', '999', '0,5', '0']) {
+      await enterRifleField(tester, 'ammo-length', bad);
+      await tester.pumpAndSettle();
+      expect(
+        tester.widget<MenzilPrimaryButton>(button).onPressed,
+        isNull,
+        reason: bad,
+      );
+      expect(error(), findsOneWidget, reason: bad);
+    }
+    for (final good in ['1', '31,2', '60', '62', '70', '100', '120', '150']) {
+      await enterRifleField(tester, 'ammo-length', good);
+      await tester.pumpAndSettle();
+      expect(
+        tester.widget<MenzilPrimaryButton>(button).onPressed,
+        isNotNull,
+        reason: good,
+      );
+      expect(error(), findsNothing, reason: good);
+    }
+    expect(tester.takeException(), isNull);
   });
+
+  for (final len in [
+    ('62', 62.0),
+    ('100', 100.0),
+    ('120', 120.0),
+    ('150', 150.0),
+    ('31,2', 31.2),
+  ]) {
+    testWidgets('firearm: ${len.$1} mm is saved with the ammunition', (
+      tester,
+    ) async {
+      final store = await _openEdit(tester);
+      await enterRifleField(tester, 'ammo-length', len.$1);
+      await tester.pumpAndSettle();
+      final button = find.widgetWithText(MenzilPrimaryButton, 'Güncelle');
+      expect(tester.widget<MenzilPrimaryButton>(button).onPressed, isNotNull);
+      await tester.ensureVisible(button);
+      await tester.tap(button);
+      await tester.pumpAndSettle();
+      expect(tester.takeException(), isNull);
+      final saved = (await store.all()).single;
+      final entries = await ManualCatalogStore().all();
+      final ammo = entries.singleWhere((e) => e['id'] == saved.ammunitionId);
+      expect(ammo['lengthMm'], len.$2);
+    });
+  }
 
   for (final pcp in [false, true]) {
     testWidgets('${pcp ? 'PCP' : 'firearm'}: 320 pt, text scale 1.3, no '
@@ -389,6 +439,65 @@ void main() {
       );
       // Neither: no spin drift.
       expect((await shot(tester)).note, isNull);
+    });
+
+    testWidgets('Profil 62, 100, 120 and 150 mm are used by the stability / '
+        'spin drift calculation, Sg as Miller says', (tester) async {
+      final l31 = await shot(tester, profileLength: 31);
+      expect(l31.note, isNotNull);
+      const lengths = [62.0, 100.0, 120.0, 150.0];
+      final r = <double, ({double right, String? note})>{31: l31};
+      for (final len in lengths) {
+        final res = await shot(tester, profileLength: len);
+        expect(res.note, isNotNull, reason: '$len');
+        // Same number as the old Pro box gives for the same length.
+        final legacy = await shot(tester, legacy: len.toStringAsFixed(0));
+        expect(res.right, legacy.right, reason: '$len');
+        expect(res.note, legacy.note, reason: '$len');
+        r[len] = res;
+      }
+      // A longer bullet is less stable, so the spin drift to the right gets
+      // smaller and the required right correction grows: strictly ordered.
+      final ordered = [31.0, ...lengths];
+      for (var i = 1; i < ordered.length; i++) {
+        expect(
+          r[ordered[i]]!.right,
+          greaterThan(r[ordered[i - 1]]!.right),
+          reason: '${ordered[i - 1]} → ${ordered[i]}',
+        );
+      }
+      // Spin drift is linear in Sg (1.25 · (Sg + 1.2) · t^1.83, same t for
+      // every length) and Miller Sg ∝ 1 / (l · (1 + l²)), l = length /
+      // calibre, with grain, twist, velocity and air unchanged. So the
+      // differences of the required correction keep the ratio of that term.
+      double f(double mm) {
+        final l = mm / 7.62;
+        return 1 / (l * (1 + l * l));
+      }
+
+      final shown =
+          (r[150]!.right - r[120]!.right) / (r[120]!.right - r[100]!.right);
+      final formula = (f(150) - f(120)) / (f(120) - f(100));
+      expect(shown, moreOrLessEquals(formula, epsilon: 1e-6 + formula * 1e-4));
+      final shown2 =
+          (r[100]!.right - r[62]!.right) / (r[62]!.right - r[31]!.right);
+      final formula2 = (f(100) - f(62)) / (f(62) - f(31));
+      expect(
+        shown2,
+        moreOrLessEquals(formula2, epsilon: 1e-6 + formula2 * 1e-4),
+      );
+    });
+
+    testWidgets('a length above 150 mm is not used by the calculation', (
+      tester,
+    ) async {
+      // Only an older saved value or a hand-edited record can hold one (the
+      // Profil box refuses it): no spin drift, as with no length.
+      expect((await shot(tester, legacy: '150.1')).note, isNull);
+      expect((await shot(tester, legacy: '999')).note, isNull);
+      expect((await shot(tester, profileLength: 150.1)).note, isNull);
+      // 150 mm itself is used.
+      expect((await shot(tester, legacy: '150')).note, isNotNull);
     });
 
     testWidgets('the old Pro value stays saved under its key', (tester) async {
