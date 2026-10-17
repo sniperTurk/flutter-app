@@ -4,7 +4,8 @@
 // line, no button row under the list; Yedekle / Geri yükle hidden behind
 // PROFILE_BACKUP_BUTTONS (not removed).
 // See docs/reports/profiller_listesi.md.
-// Owner, 2026-10-15 12:49: Profil ekle has no "+" and the "N kayıtlı
+// Owner, 2026-10-15 12:49: Profil ekle had no "+" (back since 2026-10-17
+// 18:42 as a text glyph, test/profil_ekle_kucuk_test.dart) and the "N kayıtlı
 // profil" line is gone; the summary line and amber edge are covered by
 // test/profiller_ustte_test.dart (docs/reports/profiller_ustte.md).
 import 'dart:io';
@@ -140,7 +141,8 @@ void main() {
       find.descendant(of: add, matching: find.text('Profil ekle')),
       findsOneWidget,
     );
-    // Text only (owner, 2026-10-15: no icon, no "+").
+    // No icon (owner, 2026-10-15); the "+" is a text glyph since
+    // 2026-10-17 (test/profil_ekle_kucuk_test.dart).
     expect(find.descendant(of: add, matching: find.byType(Icon)), findsNothing);
     expect(tester.widget<MenzilPrimaryButton>(add).amber, isTrue);
     final b = tester.getRect(add);
