@@ -291,6 +291,7 @@ void main() {
 
   testWidgets('old profile with an off-model caliber opens unchanged; '
       'Güncelle keeps it', (tester) async {
+    _seed();
     final before = _solverInputs(_profile());
     final store = await _openSaved(tester);
     expect(selectedValue<String>(tester, 'rifle-brand-select'), 'Heym');
