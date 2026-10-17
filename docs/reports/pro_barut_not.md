@@ -48,10 +48,22 @@ Sahip TestFlight 112'de iki kutunun alt alta ve "isteğe bağlı" yazısının g
 - Yerelde Flutter SDK kurulamadı (Dart SDK indirmesi proxy'de 403): Flutter testleri yalnız CI'da çalıştı.
 
 ## Ekran görüntüsü
-SIM_PLACEHOLDER
+Simülatör: iPhone 16e (390 pt), iOS 26.2, `sim-screens` run [39014730169](https://github.com/sniperTurk/flutter-app/actions/runs/39014730169), tur `integration_test/pro_barut_not_screens_test.dart`, çıkış kodu 0. Uygulama kodu 82056a2 (sonraki commit yalnız test + rapor). Ölçülen kutular (SIMRECT, pt): ateşli silahta Mermi uzunluğu 28–190, Mühimmat sıcaklığı 200–362, ikisinin de üst kenarı aynı (474,4); PCP'de Mermi uzunluğu 28–362 (tam satır).
+
+| Ateşli, not 1 (katsayı yok) | Ateşli, not 2 (profilden) | PCP |
+|---|---|---|
+| ![not1](https://raw.githubusercontent.com/sniperTurk/flutter-app/1d3c07914be92596a97f26c95b82f245189a1aa4/latest/01_pro_atesli_not1.png) | ![not2](https://raw.githubusercontent.com/sniperTurk/flutter-app/1d3c07914be92596a97f26c95b82f245189a1aa4/latest/02_pro_atesli_not2.png) | ![pcp](https://raw.githubusercontent.com/sniperTurk/flutter-app/1d3c07914be92596a97f26c95b82f245189a1aa4/latest/03_pro_pcp.png) |
+
+Ekranda görülen: Mermi uzunluğu (mm) | Mühimmat sıcaklığı (°C) Yukarı | Sağ satırıyla aynı hizada; "isteğe bağlı" yok; not metni onaylı metinle aynı. PCP'de düzen önceki gibi (yiv bilgisi olmayan katalog tüfeğinde spin drift uyarısı, önceki gibi). Onaylı ayrı bir çizim yok; karşılaştırma sahibin TestFlight 112 ekran görüntüsündeki sözlerine göre.
 
 ## CI
-CI_PLACEHOLDER
+Son kod commit'i 27df26b (bundan sonraki commit yalnız bu rapor; `docs/**` değişikliği iOS CI'ı tetiklemez):
+- iOS CI (PR): [run 39014931793](https://github.com/sniperTurk/flutter-app/actions/runs/39014931793) — `verify` success, `dart-checks` success, `wind-acceptance` success, `ios-simulator` atlandı (isteğe bağlı iş).
+- test-diag (tüm `test`): [39014926238](https://github.com/sniperTurk/flutter-app/actions/runs/39014926238) success. İlk commit 82056a2'de de: [39014727322](https://github.com/sniperTurk/flutter-app/actions/runs/39014727322) success.
+- analyze-diag: [39014927900](https://github.com/sniperTurk/flutter-app/actions/runs/39014927900) success.
+- format-fix (375209577): [39014924729](https://github.com/sniperTurk/flutter-app/actions/runs/39014924729) — biçim değişikliği gerekmedi.
+- Code Review + Security review: PR yorumunda (engelleyici bulgu yok).
+- TestFlight çalıştırılmadı.
 
 ## Not
 - Sayı karşılaştırması için açılan geçici dal `tmp/pro-barut-sayi-main` silinemedi (bu oturumdan dal silme izni yok); güvenle silinebilir.
