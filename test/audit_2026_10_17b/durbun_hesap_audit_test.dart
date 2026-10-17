@@ -137,11 +137,11 @@ void main() {
       for (final moa in ProductionLimits.mountCantOptionsMoa) {
         final mrad = moa * mradPerMoa;
         expect(
-          ScopeDialMath.mountCantClicks(m, 0.1, AngularUnit.mrad),
+          ScopeDialMath.mountCantClicks(moa, 0.1, AngularUnit.mrad),
           (mrad / 0.1 + 1e-9).floor(),
         );
         expect(
-          ScopeDialMath.mountCantClicks(m, 0.25, AngularUnit.smoa),
+          ScopeDialMath.mountCantClicks(moa, 0.25, AngularUnit.smoa),
           (mrad / (1000 / 3600) / 0.25 + 1e-9).floor(),
         );
       }
