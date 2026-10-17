@@ -171,7 +171,7 @@ void main() {
 
     expect(
       tester.getSemantics(_add),
-      containsSemantics(label: 'Profil ekle', isButton: true),
+      isSemantics(label: 'Profil ekle', isButton: true),
     );
     expect(find.bySemanticsLabel('Profil ekle'), findsOneWidget);
     expect(find.bySemanticsLabel(RegExp(r'\+')), findsNothing);
