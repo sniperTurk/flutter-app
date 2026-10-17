@@ -166,6 +166,11 @@ class ScopeDialView extends StatelessWidget {
   /// Firearm selected: the notes say "mermi" instead of "saçma".
   final bool firearm;
 
+  /// Result lines shown between the readout paragraph and "Hesap dökümü"
+  /// (owner, 2026-10-17: the two wind lines, so they are not read as part
+  /// of the collapsible workings).
+  final List<Widget> aboveWorkings;
+
   const ScopeDialView({
     super.key,
     required this.unit,
@@ -206,6 +211,7 @@ class ScopeDialView extends StatelessWidget {
     this.belowButtons,
     this.reticle,
     this.firearm = false,
+    this.aboveWorkings = const [],
   });
 
   /// Target radius as a true angle in [unit] (null when the range is unknown).
@@ -588,6 +594,10 @@ class ScopeDialView extends StatelessWidget {
             ],
             const SizedBox(height: MenzilSpace.md),
             _readout(context, dialedUp, dialedRight, impact),
+            for (final line in aboveWorkings) ...[
+              const SizedBox(height: MenzilSpace.xs),
+              line,
+            ],
             const SizedBox(height: MenzilSpace.md),
             _workings(context, dialedUp, dialedRight, impact),
           ],

@@ -163,7 +163,8 @@ ScopeDialView _dial(WidgetTester tester) =>
 (int, int) _bracketClicks(WidgetTester tester) {
   final text = tester.widget<Text>(find.byKey(_bracket)).data!;
   final m = RegExp(
-    r'yan düzeltme (\d+) klik(?: [RL])? – (\d+) klik',
+    r'^Rüzgâr [\d,]+ m/s: (\d+) klik(?: sağ| sol)? · '
+    r'[\d,]+ m/s: (\d+) klik(?: sağ| sol)?$',
   ).firstMatch(text);
   expect(m, isNotNull, reason: text);
   return (int.parse(m!.group(1)!), int.parse(m.group(2)!));

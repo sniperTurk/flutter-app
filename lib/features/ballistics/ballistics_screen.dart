@@ -2328,9 +2328,12 @@ class _BallisticsScreenState extends State<BallisticsScreen>
     );
   }
 
-  /// Rüzgâr aralığı and hareketli hedef lines under the scope (owner,
-  /// 2026-10-09). Empty unless set on Pro Ayarlar.
-  List<Widget> _extraShotNotes(TrajectoryPoint? shot) {
+  /// The two wind lines between the readout and "Hesap dökümü" (owner,
+  /// 2026-10-17): "Rüzgâr 6,2 m/s: 4 klik sağ · 9,3 m/s: 6 klik sağ" and
+  /// "Yana kayma: yakın % · orta % · uzak %". Same numbers and conditions
+  /// as the earlier lines under the card; each stays on one line and
+  /// shrinks instead of wrapping (never cut).
+  List<Widget> _windShotLines(TrajectoryPoint? shot) {
     final basis = _basis;
     final click = _scopeClickValue;
     if (shot == null || basis == null) return const [];
@@ -2339,7 +2342,21 @@ class _BallisticsScreenState extends State<BallisticsScreen>
     String clicks(double mrad) => click == null
         ? '${unit.fromMrad(mrad.abs()).toStringAsFixed(2).replaceAll('.', ',')} ${unit.label}'
         : '${(unit.fromMrad(mrad.abs()) / click / _turretScale).round()} klik';
-    final lines = <Widget>[..._flightWarnings(shot, basis)];
+    Widget oneLine(String text, Key key) => Align(
+      alignment: AlignmentDirectional.centerStart,
+      child: FittedBox(
+        fit: BoxFit.scaleDown,
+        alignment: AlignmentDirectional.centerStart,
+        child: Text(
+          text,
+          key: key,
+          maxLines: 1,
+          softWrap: false,
+          style: MenzilType.body(c.ink),
+        ),
+      ),
+    );
+    final lines = <Widget>[];
     final windMax = _windMaxMps;
     final wind = basis.environment.windMps;
     if (basis.drag && windMax != null && windMax > wind) {
@@ -2371,17 +2388,16 @@ class _BallisticsScreenState extends State<BallisticsScreen>
         // windMrad > 0: dial RIGHT (the shot went left). Same windage as
         // the turret: spin drift and the right zero offset are taken off
         // (audit 2026-10-11).
-        String side(double m) => m.abs() < 1e-9 ? '' : (m > 0 ? ' R' : ' L');
+        String side(double m) =>
+            m.abs() < 1e-9 ? '' : (m > 0 ? ' sağ' : ' sol');
         final off = (_spinDriftMrad(shot, basis) ?? 0) + _zeroOffsetMrad.right;
         final lo = shot.windMrad - off, up = hi.windMrad - off;
+        final u = metric ? 'm/s' : 'mph';
         lines.add(
-          Text(
-            'Rüzgâr ${_windLabel(wind)}–${_windLabel(windMax)} '
-            '${metric ? 'm/s' : 'mph'}: yan düzeltme '
-            '${clicks(lo)}${side(lo)} – '
-            '${clicks(up)}${side(up)}.',
-            key: const Key('shot-wind-bracket'),
-            style: MenzilType.body(c.ink),
+          oneLine(
+            'Rüzgâr ${_windLabel(wind)} $u: ${clicks(lo)}${side(lo)} · '
+            '${_windLabel(windMax)} $u: ${clicks(up)}${side(up)}',
+            const Key('shot-wind-bracket'),
           ),
         );
       } on ArgumentError {
@@ -2394,14 +2410,28 @@ class _BallisticsScreenState extends State<BallisticsScreen>
     final shares = basis.drag ? _windZoneSharesAt(basis) : null;
     if (shares != null) {
       lines.add(
-        Text(
-          'Rüzgâr etkisi: yakın %${shares.nearPct} · '
+        oneLine(
+          'Yana kayma: yakın %${shares.nearPct} · '
           'orta %${shares.midPct} · uzak %${shares.farPct}',
-          key: const Key('shot-wind-zone-shares'),
-          style: MenzilType.body(c.ink),
+          const Key('shot-wind-zone-shares'),
         ),
       );
     }
+    return lines;
+  }
+
+  /// Flight warnings, spin drift, WEZ and hareketli hedef lines under the
+  /// scope (owner, 2026-10-09); the wind lines are in [_windShotLines].
+  List<Widget> _extraShotNotes(TrajectoryPoint? shot) {
+    final basis = _basis;
+    final click = _scopeClickValue;
+    if (shot == null || basis == null) return const [];
+    final c = MenzilColors.of(context);
+    final unit = _scopeUnit;
+    String clicks(double mrad) => click == null
+        ? '${unit.fromMrad(mrad.abs()).toStringAsFixed(2).replaceAll('.', ',')} ${unit.label}'
+        : '${(unit.fromMrad(mrad.abs()) / click / _turretScale).round()} klik';
+    final lines = <Widget>[..._flightWarnings(shot, basis)];
     final spin = _spinDriftMrad(shot, basis);
     if (spin != null) {
       final m = Units.mradToLinear(spin.abs(), _shotRangeM);
@@ -2972,11 +3002,24 @@ class _BallisticsScreenState extends State<BallisticsScreen>
     final click = _scopeClickValue;
     if (s == null || click == null) {
       _withdrawWatch();
-      return const MenzilNotice(
+      const notice = MenzilNotice(
         tone: MenzilNoticeTone.warning,
         message:
             'Bu dürbünün klik değeri katalogda yok; kule simülasyonu '
             'gösterilemiyor. Dürbünü Profil sekmesinden kontrol edin.',
+      );
+      // No scope view: the wind lines still show, under the notice.
+      final wind = _windShotLines(shot);
+      if (wind.isEmpty) return notice;
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          notice,
+          for (final line in wind) ...[
+            const SizedBox(height: MenzilSpace.xs),
+            line,
+          ],
+        ],
       );
     }
     final unit = _scopeUnit;
@@ -3154,6 +3197,7 @@ class _BallisticsScreenState extends State<BallisticsScreen>
       distanceUnit: _distanceUnit,
       metric: metric,
       targetDiameterM: _targetDiameterM,
+      aboveWorkings: _windShotLines(shot),
     );
   }
 
