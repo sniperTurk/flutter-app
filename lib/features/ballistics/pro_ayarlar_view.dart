@@ -476,7 +476,7 @@ extension _ProAyarlarView on _BallisticsScreenState {
         ],
         fields: const [
           ProInfoField('Hedef hızı', EnvironmentFieldInfo.targetSpeed),
-          ProInfoField('Yönü', EnvironmentFieldInfo.targetDirection),
+          ProInfoField('Hedefin yönü', EnvironmentFieldInfo.targetDirection),
           ProInfoField('Grup çapı', EnvironmentFieldInfo.group),
           ProInfoField('Hız farkı', EnvironmentFieldInfo.sd),
           ProInfoField('Hedef çapı', EnvironmentFieldInfo.targetSize),
@@ -499,7 +499,7 @@ extension _ProAyarlarView on _BallisticsScreenState {
               ),
               MenzilSelect<bool>(
                 key: ValueKey('pro-target-direction-$_targetMovesRight'),
-                label: 'Yönü',
+                label: 'Hedefin yönü',
                 initialValue: _targetMovesRight,
                 // "Seçiniz" stays in the list so a choice can be taken back
                 // (owner, 2026-10-10).
