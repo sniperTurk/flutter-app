@@ -624,8 +624,8 @@ class MenzilSectionHeader extends StatelessWidget {
     // One-line height; a wrapped title only makes the header taller.
     final height = top + lineHeight + textGapBelow;
     final centre = top + lineHeight / 2;
-    final targetTop = (centre - _infoTarget / 2).clamp(
-      0.0,
+    final targetTop = math.min(
+      math.max(0.0, centre - _infoTarget / 2),
       math.max(0.0, height - _infoTarget),
     );
     return Row(
