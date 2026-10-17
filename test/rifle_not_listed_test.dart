@@ -219,8 +219,9 @@ void main() {
     expect(_text(tester, 'ammo-grain'), '');
   });
 
-  // Owner, 2026-10-14 (fix/atesli-elle-muhimmat): the ammo "Listede yok"
-  // item is hidden too; the typed round opens from its own link.
+  // Owner, 2026-10-14 (fix/atesli-elle-muhimmat): no ammo "Listede yok"
+  // item; since 2026-10-17 the typed round is Marka "Diğer marka" and the
+  // link sends the product to us.
   testWidgets('Ateşli: Mühimmat Marka has the link, not "Listede yok"', (
     tester,
   ) async {

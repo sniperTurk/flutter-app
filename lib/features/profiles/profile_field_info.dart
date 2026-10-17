@@ -64,41 +64,23 @@ abstract final class ProfileFieldInfo {
       'Merminin (çekirdeğin) ağırlığı, grain olarak (1 grain = 0,0648 g). '
       'Kutunun üstünde yazar. Örnek: .223 için 55 gr, .308 için 168 gr, '
       '6.5 Creedmoor için 140 gr.';
-  // Elle girilen ateşli mühimmat (owner, 2026-10-14).
+  // Mühimmat Marka, "Diğer marka" (owner, 2026-10-17).
   static const ammoBrandPick =
-      'Fişeğin veya merminin markası. Kutunun üstünde yazar. Listede '
-      'uygulamanın bildiği tüm markalar var. Örnek: Federal, Hornady, Sellier '
-      '& Bellot. Markanız listede yoksa en alttaki "Diğer"i seçip yazın.';
+      'Fişeğin veya merminin markası. Kutunun üstünde yazar. Liste, Tüfek '
+      'bölümündeki kalibreye göre gelir. Örnek: Federal, Hornady. Markanız '
+      'listede yoksa en alttaki "Diğer marka"yı seçin; ağırlık, BC ve diğer '
+      'değerleri kendiniz yazarsınız.';
   static const ammoNothingListed =
-      'Bu kalibre için listede henüz hazır ürün yok; bu yüzden mühimmat elle '
-      'giriliyor. Ağırlık, BC ve hız kutuda veya üreticinin sitesinde yazar. '
-      'Kendi doldurduğunuz fişekse Mühimmat türünde El dolumu seçin.';
-  static const ammoBrandOther =
-      'Listede olmayan markanın adı, kutunun üstünde yazdığı gibi. Örnek: '
-      'kutuda "Atölye Fişek" yazıyorsa Atölye Fişek.';
+      'Bu kalibre için listede henüz hazır ürün yok. "Diğer marka"yı seçip '
+      'ağırlığı ve BC\'yi kendiniz yazın; bu değerler kutuda veya üreticinin '
+      'sitesinde yazar.';
   // PCP Marka / Model (owner, 2026-10-16: always visible, Tip | Marka).
   static const pcpAmmoBrand =
       'Saçmanın veya slug\'ın markası. Önce Tip seçin: liste, Tüfek '
       'bölümündeki kalibreye ve seçtiğiniz tipe göre gelir; Tip seçilene '
       'kadar bu kutu açılmaz. Markayı seçince Model listesi gelir. '
-      'Aradığınız yoksa altındaki "Aradığın mühimmat listede yok mu?" ile '
-      'kendiniz yazın. Örnek: H&N.';
-  static const pcpAmmoBrandTyped =
-      'Listede olmayan saçmanın veya slug\'ın markası, kutunun üstünde '
-      'yazdığı gibi. Boş bırakabilirsiniz. Örnek: kutuda "H&N" yazıyorsa '
-      'H&N.';
-  static const pcpAmmoModelTyped =
-      'Saçmanın veya slug\'ın model adı, kutunun üstünde yazdığı gibi. Boş '
-      'bırakabilirsiniz. Örnek: Baracuda Match.';
-  static const ammoModelTyped =
-      'Fişeğin veya merminin model adı, kutunun üstünde yazdığı gibi. Aynı '
-      'markanın başka mühimmatıyla karışmasın diye gerekli. Örnek: Gold '
-      'Medal Sierra MatchKing, ELD Match.';
-  static const grainPick =
-      'Merminin (çekirdeğin) ağırlığı. Kutudaki gr değeridir; gram değil '
-      '(1 gr = 0,0648 g, parantezde gram karşılığı var). Listede bu kalibre '
-      'için üreticilerin verdiği ağırlıklar var. Örnek: .308 için 168 gr '
-      '(10,9 g). Kutudaki değer listede yoksa "Listede yok"u seçip yazın.';
+      'Aradığınız yoksa en alttaki "Diğer marka"yı seçip değerleri kendiniz '
+      'yazın. Örnek: H&N.';
   static const grainTyped =
       'Kutudaki gr değeridir; gram değil. Kutunun yanındaki gram karşılığı '
       'size yardımcı olur: 168 gr = 10,9 g. Bu kalibre için mantıksız bir '

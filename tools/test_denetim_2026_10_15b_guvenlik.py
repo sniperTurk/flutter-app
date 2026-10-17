@@ -48,8 +48,11 @@ _FLAGS_AT_BASE = {
 
 # The only --dart-define names a release/TestFlight build may pass. A UI flag
 # turned on in a release workflow would ship a hidden feature.
+# APP_BUILD_NUMBER (2026-10-17): the TestFlight build number for the
+# "uygulamaSurumu" of a product report; a number, not a UI flag.
 _ALLOWED_RELEASE_DEFINES = {
     'METNO_CONTACT', 'GOOGLE_MAPS_ENABLED', 'GOOGLE_MAPS_IOS_API_KEY',
+    'APP_BUILD_NUMBER',
 }
 
 _BOOL_FLAG = re.compile(
@@ -170,8 +173,9 @@ class Flg1FlagsDefaultOff(unittest.TestCase):
     def test_flags_found(self):
         # 14 at the audit; PCP_AMMO_BRAND and PRO_TUBE_PRESSURE (two reads)
         # were deleted on 2026-10-16 and PROFILE_AMMO_LENGTH on 2026-10-17
-        # (owner: delete, do not hide; Mermi uzunluğu back on Profil).
-        self.assertGreaterEqual(len(self._flags()), 10)
+        # (owner: delete, do not hide; Mermi uzunluğu back on Profil);
+        # AMMO_LISTEDE_YOK on 2026-10-17 ("Diğer marka" replaces it).
+        self.assertGreaterEqual(len(self._flags()), 9)
 
     def test_every_bool_flag_defaults_false(self):
         for path, name, default in self._flags():

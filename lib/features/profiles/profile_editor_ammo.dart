@@ -7,19 +7,16 @@ extension _AmmoSection on _ProfileDialogState {
   // The editor's static members under their own names, so the moved
   // code reads exactly as it did inside the class (an extension does
   // not see the static members of its type unqualified).
-  static List<String> get _allFirearmAmmoBrands =>
-      _ProfileDialogState._allFirearmAmmoBrands;
   static const _byName = _ProfileDialogState._byName;
   static const _customKey = _ProfileDialogState._customKey;
   static const _factoryLabel = _ProfileDialogState._factoryLabel;
   static const _grainLabel = _ProfileDialogState._grainLabel;
-  static const _grainOtherKey = _ProfileDialogState._grainOtherKey;
   static const _gramText = _ProfileDialogState._gramText;
-  static const _manualKey = _ProfileDialogState._manualKey;
   static const _modelOf = _ProfileDialogState._modelOf;
+  static const _noCartridgeKey = _ProfileDialogState._noCartridgeKey;
+  static const _otherBrandName = _ProfileDialogState._otherBrandName;
   static const _otherKey = _ProfileDialogState._otherKey;
   static const _parse = _ProfileDialogState._parse;
-  static const _showAmmoListedeYok = _ProfileDialogState._showAmmoListedeYok;
   static const _trimDot = _ProfileDialogState._trimDot;
 
   /// BC model choices per rifle type (owner, 2026-10-10: the other public
@@ -56,18 +53,82 @@ extension _AmmoSection on _ProfileDialogState {
     return [...list, (m, m.label)];
   }
 
-  /// Firearm ammunition the shooter types (link or nothing listed here).
+  /// Firearm ammunition the shooter types: "Diğer marka" (owner,
+  /// 2026-10-17).
   bool get _typedFirearmAmmo =>
-      platform == WeaponPlatform.firearm && (_ammoManual || _ammoListEmpty);
+      platform == WeaponPlatform.firearm && _ammoOther;
 
-  /// The firearm Marka list has nothing for this Kalibre (Fabrika fişeği
-  /// without a Kalibre lists every round, so it is never empty).
-  bool get _ammoListEmpty {
-    if (platform != WeaponPlatform.firearm) return false;
-    if (_factoryAmmo) {
-      return _parse(rifleCaliber) != null && _factoryHere.isEmpty;
+  /// The Kalibre of the Tüfek card for the Diğer marka Model text: a
+  /// cartridge as shown (".308 Win"), otherwise the millimetres without the
+  /// unit, Turkish comma ("6,35", "5,50"); null without a Kalibre.
+  String? get _otherCaliberText {
+    final cal = _parse(rifleCaliber);
+    if (cal == null) return null;
+    final c = _shownCartridge;
+    return c ?? cal.toStringAsFixed(2).replaceAll('.', ',');
+  }
+
+  /// The cartridge the firearm Kalibre box shows, if any.
+  String? get _shownCartridge {
+    if (platform != WeaponPlatform.firearm) return null;
+    final key = _caliberKey;
+    if (key == null) return null;
+    if (key.startsWith('v:')) {
+      final i = int.tryParse(key.substring(2));
+      final v = _rifleVariants;
+      return i != null && i < v.length ? v[i].cartridge : null;
     }
-    return _libraryHere.isEmpty;
+    if (key.startsWith('mm:') || key.startsWith('!') || key.startsWith('#')) {
+      return null;
+    }
+    return key;
+  }
+
+  /// "Diğer marka model 6,35" / "Diğer marka model .308 Win"; "Diğer marka
+  /// model" without a Kalibre (owner, 2026-10-17 21:53).
+  String get _otherAmmoModelText {
+    final c = _otherCaliberText;
+    return c == null ? 'Diğer marka model' : 'Diğer marka model $c';
+  }
+
+  /// Keeps the Diğer marka Model text and the read-only box in step with
+  /// the Kalibre (run after every [_update]). An older typed record keeps
+  /// its saved Marka and Model; the box shows both.
+  void _syncOtherAmmoModel() {
+    if (!_ammoOther) return;
+    final own = ammoBrand.text == _otherBrandName;
+    if (own && ammoModel.text != _otherAmmoModelText) {
+      ammoModel.text = _otherAmmoModelText;
+    }
+    final shown = own
+        ? ammoModel.text
+        : '${ammoBrand.text.trim()} ${ammoModel.text.trim()}'.trim();
+    if (_otherModelView.text != shown) _otherModelView.text = shown;
+  }
+
+  /// "Diğer marka" picked (owner, 2026-10-17 21:26–21:31): nothing from the
+  /// catalog is filled; Tip (PCP) and Mühimmat türü stay.
+  void _pickOtherBrand() {
+    final type = ammoType;
+    _clearAmmo();
+    if (platform == WeaponPlatform.pcp) ammoType = type;
+    _ammoOther = true;
+    ammoBrand.text = _otherBrandName;
+    ammoModel.text = _otherAmmoModelText;
+  }
+
+  /// The Kalibre text of the Tüfek card for the report ("6.35 mm (.25)",
+  /// ".308 Win"); a bullet diameter as "7,82 mm"; null without a Kalibre.
+  String? get _reportCaliberText {
+    final cal = _parse(rifleCaliber);
+    if (cal == null) return null;
+    final key = _caliberKey;
+    if (key != null && key != _noCartridgeKey) {
+      for (final c in _caliberChoices) {
+        if (c.item.value == key) return c.full;
+      }
+    }
+    return '${cal.toStringAsFixed(2).replaceAll('.', ',')} mm';
   }
 
   /// Maker weights (grain) in the app's data for this Kalibre: the factory
@@ -123,18 +184,12 @@ extension _AmmoSection on _ProfileDialogState {
     }
     final cal = _parse(rifleCaliber)!;
     final caliber = _cartridge ?? '${_trimNum(cal)} mm';
-    final name = '${ammoBrand.text.trim()} ${ammoModel.text.trim()}';
+    // "Diğer marka model .308 Win" already names the brand.
+    final name = ammoBrand.text == _otherBrandName
+        ? ammoModel.text.trim()
+        : '${ammoBrand.text.trim()} ${ammoModel.text.trim()}';
     return '$name · $caliber · ${_grainLabel(g)} · '
         'BC ${_trimNum(bc)} ${model.name.toUpperCase()}';
-  }
-
-  /// Opens the typed entry from the "listede yok mu?" link. A PCP keeps its
-  /// Tip (owner, 2026-10-16: Tip stays in its place above the typed boxes).
-  void _openAmmoManual() {
-    final type = ammoType;
-    _clearAmmo();
-    if (platform == WeaponPlatform.pcp) ammoType = type;
-    _ammoManual = true;
   }
 
   /// A typed BC far outside every manufacturer BC of its kind in the
@@ -188,53 +243,12 @@ extension _AmmoSection on _ProfileDialogState {
     ),
   );
 
-  /// Back from typed ammunition to the list (owner, 2026-10-12): asks
-  /// before the typed values go and keeps Tip, so the brand list shows the
-  /// listed pellets or slugs of this Kalibre.
-  Future<void> _backToAmmoList() async {
-    final typed = [
-      ammoBrand,
-      ammoModel,
-      ammoGrain,
-      ammoLength,
-      ammoBc,
-    ].any((c) => c.text.trim().isNotEmpty);
-    if (typed) {
-      final ok = await showDialog<bool>(
-        context: context,
-        builder: (context) => AlertDialog(
-          title: const Text('Listeye dönülsün mü?'),
-          content: const Text('Girdiğiniz mühimmat bilgileri silinecek.'),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.pop(context, false),
-              child: const Text('Vazgeç'),
-            ),
-            TextButton(
-              onPressed: () => Navigator.pop(context, true),
-              child: const Text('Listeye dön'),
-            ),
-          ],
-        ),
-      );
-      if (ok != true || !mounted) return;
-    }
-    _update(() {
-      final type = ammoType;
-      _clearAmmo();
-      ammoType = type;
-      _ammoListToken++;
-    });
-  }
-
   /// Empties the ammunition part of the form (another rifle type).
   void _clearAmmo() {
     ammo = null;
     ammoBrand.text = '';
     ammoModel.text = '';
-    _ammoManual = false;
-    _ammoBrandOther = false;
-    _grainOther = false;
+    _ammoOther = false;
     ammoGrain.text = '';
     ammoLength.text = '';
     ammoBc.text = '';
@@ -250,7 +264,7 @@ extension _AmmoSection on _ProfileDialogState {
 
   /// Fills the ammunition from a library record (list or library screen).
   void _applyBullet(LibraryBullet b, double? cal) {
-    _ammoManual = false;
+    _ammoOther = false;
     {
       ammoBrand.text = b.brand;
       ammoModel.text = b.name.toLowerCase().startsWith(b.brand.toLowerCase())
@@ -280,12 +294,6 @@ extension _AmmoSection on _ProfileDialogState {
       }
     }
   }
-
-  /// PCP: no listed pellet or slug for this Kalibre and Tip.
-  bool get _noPcpForCaliber =>
-      platform == WeaponPlatform.pcp &&
-      _parse(rifleCaliber) != null &&
-      _libraryHere.isEmpty;
 
   /// Library records for this rifle type and caliber (Marka/Model lists).
   List<LibraryBullet> get _libraryHere {
@@ -317,13 +325,6 @@ extension _AmmoSection on _ProfileDialogState {
           a,
     ];
   }
-
-  /// Fabrika fişeği with a Kalibre that has no listed round.
-  bool get _noFactoryForCaliber =>
-      platform == WeaponPlatform.firearm &&
-      _factoryAmmo &&
-      _parse(rifleCaliber) != null &&
-      _factoryHere.isEmpty;
 
   /// The manufacturer note of the listed factory round now in the form
   /// (e.g. "BC G1/G7 etiketi olmadan verilmiş; G1 kabul edildi…"), added to
@@ -370,7 +371,7 @@ extension _AmmoSection on _ProfileDialogState {
   /// round with a maker BC: the maker's BC for the new model when the
   /// record has one, otherwise an empty box; never the other curve's number.
   void _factoryBcForModel() {
-    if (platform != WeaponPlatform.firearm || !_factoryAmmo || _ammoManual) {
+    if (platform != WeaponPlatform.firearm || !_factoryAmmo || _ammoOther) {
       return;
     }
     for (final a in _factoryHere) {
@@ -395,7 +396,7 @@ extension _AmmoSection on _ProfileDialogState {
       _cartridge = a.cartridge;
       rifleCaliber.text = _trimDot(a.diameterMm);
     }
-    _ammoManual = false;
+    _ammoOther = false;
     ammoBrand.text = a.brand;
     ammoModel.text = a.name;
     ammoGrain.text = _trimNum(a.grain);
@@ -422,122 +423,34 @@ extension _AmmoSection on _ProfileDialogState {
     }
   }
 
-  /// Marka | Model of the ammunition: two lists side by side (factory
-  /// cartridges or the bullet library for this caliber); the typed boxes
-  /// only after "Listede yok" or when nothing is listed here.
-  List<Widget> _ammoNameFields({
-    required Widget type,
-    required Widget brandText,
-    required Widget modelText,
-  }) {
+  /// Marka | Model of the ammunition (owner, 2026-10-16/17): Tip (PCP) or
+  /// Mühimmat türü | Marka, then Model on its own row. Marka lists the
+  /// factory cartridges or the bullet library for this caliber, "Diğer
+  /// marka" last; after "Diğer marka" Model is a filled box that does not
+  /// open ("Diğer marka model 6,35").
+  List<Widget> _ammoNameFields({required Widget type}) {
     final firearm = platform == WeaponPlatform.firearm;
-    // Firearm: Mühimmat türü | Marka; PCP (owner, 2026-10-16, the approved
-    // design): Tip | Marka. Model gets its own row on both.
-    List<Widget> arrange(Widget brand, Widget model) => [
-      type,
-      brand,
-      MenzilFullWidth(child: model),
-    ];
-    final factory = platform == WeaponPlatform.firearm && _factoryAmmo;
+    final factory = firearm && _factoryAmmo;
     final fHere = factory ? _factoryHere : const <FactoryAmmo>[];
     final lHere = factory ? const <LibraryBullet>[] : _libraryHere;
-    // Without a Kalibre the factory list shows every round (picking one
-    // fills the Kalibre), so it is never treated as empty.
-    final noCaliber = factory && _parse(rifleCaliber) == null;
-    final empty = !noCaliber && (factory ? fHere.isEmpty : lHere.isEmpty);
-    if (firearm && (_ammoManual || empty)) {
-      // Typed firearm round (owner, 2026-10-14): Marka from the list of
-      // every known brand ("Diğer" types it), Model typed.
-      final brandPick = KeyedSubtree(
-        key: const Key('ammo-brand-pick'),
-        child: MenzilSelect<String>(
-          key: ValueKey(
-            'ammo-brand-pick-$_ammoBrandOther-${_ammoBrandOther ? '' : ammoBrand.text}',
-          ),
-          label: 'Marka',
-          hint: 'Seçiniz',
-          info: empty
-              ? '${ProfileFieldInfo.ammoBrandPick}\n\n'
-                    '${ProfileFieldInfo.ammoNothingListed}'
-              : ProfileFieldInfo.ammoBrandPick,
-          initialValue: _ammoBrandOther
-              ? _otherKey
-              : (_allFirearmAmmoBrands.contains(ammoBrand.text)
-                    ? ammoBrand.text
-                    : null),
-          items: [
-            for (final b in _allFirearmAmmoBrands)
-              DropdownMenuItem(value: b, child: Text(b)),
-            const DropdownMenuItem(value: _otherKey, child: Text('Diğer')),
-          ],
-          errorText: _ammoBrandOther
-              ? null
-              : _shownSelect(_ammoBrandError, ammoBrand),
-          onChanged: (v) => _update(() {
-            if (v == null) return;
-            final other = v == _otherKey;
-            if (other && _ammoBrandOther) return;
-            _ammoBrandOther = other;
-            ammoBrand.text = other ? '' : v;
-          }),
-        ),
-      );
-      return [
-        type,
-        brandPick,
-        if (_ammoBrandOther) ...[
-          brandText,
-          modelText,
-        ] else
-          MenzilFullWidth(child: modelText),
-        if (!empty)
-          MenzilFullWidth(
-            child: Align(
-              alignment: Alignment.centerLeft,
-              child: TextButton.icon(
-                key: const Key('ammo-back-to-list'),
-                onPressed: _backToAmmoList,
-                icon: const Icon(Icons.list_alt, size: 18),
-                label: const Text('Listeye dön'),
-              ),
-            ),
-          ),
-      ];
-    }
-    if (_ammoManual || empty) {
-      // PCP typed entry (owner, 2026-10-16): Tip stays on top, then the
-      // typed Marka | Model side by side.
-      return [
-        MenzilFullWidth(child: type),
-        brandText,
-        modelText,
-        if (!empty)
-          MenzilFullWidth(
-            child: Align(
-              alignment: Alignment.centerLeft,
-              child: TextButton.icon(
-                key: const Key('ammo-back-to-list'),
-                onPressed: _backToAmmoList,
-                icon: const Icon(Icons.list_alt, size: 18),
-                // "Listeden seç" read like a model list for a brand that is
-                // not listed (owner, 2026-10-12).
-                label: const Text('Listeye dön'),
-              ),
-            ),
-          ),
-      ];
-    }
+    final other = _ammoOther;
     final brands = {
       if (factory)
         for (final a in fHere) a.brand
       else
         for (final b in lHere) b.brand,
     }.toList()..sort(_byName);
-    final brand = brands.contains(ammoBrand.text) ? ammoBrand.text : null;
+    // Without a Kalibre the factory list shows every round (picking one
+    // fills the Kalibre), so it is never treated as empty.
+    final noCaliber = factory && _parse(rifleCaliber) == null;
+    final empty = !noCaliber && brands.isEmpty;
+    final brand = other
+        ? _otherKey
+        : (brands.contains(ammoBrand.text) ? ammoBrand.text : null);
     final labels = <String>[];
     final picks = <void Function()>[];
     var modelIndex = -1;
-    if (factory) {
+    if (!other && factory) {
       for (final a in fHere) {
         if (a.brand != brand) continue;
         if (a.name == ammoModel.text && _parse(ammoGrain) == a.grain) {
@@ -546,7 +459,7 @@ extension _AmmoSection on _ProfileDialogState {
         labels.add(_factoryLabel(a));
         picks.add(() => _applyFactory(a));
       }
-    } else {
+    } else if (!other) {
       for (final b in lHere) {
         if (b.brand != brand) continue;
         if (_modelOf(b) == ammoModel.text && _parse(ammoGrain) == b.grain) {
@@ -562,152 +475,107 @@ extension _AmmoSection on _ProfileDialogState {
     // waits ("Seçiniz", not tappable) until Tip is chosen, because the list
     // is the pellets or slugs of this Kalibre. The rule is in its ⓘ.
     final waitsForType = !firearm && ammoType == null;
+    final info = firearm
+        ? ProfileFieldInfo.ammoBrandPick
+        : ProfileFieldInfo.pcpAmmoBrand;
     final brandSelect = KeyedSubtree(
       key: const Key('ammo-brand-select'),
       child: MenzilSelect<String>(
         key: ValueKey(
           'ammo-brand-select-${platform.name}-$factory-'
-          '${rifleCaliber.text}-$brand-$_ammoListToken-$ammoType',
+          '${rifleCaliber.text}-$brand-$ammoType',
         ),
         label: 'Marka',
         hint: 'Seçiniz',
-        info: firearm ? null : ProfileFieldInfo.pcpAmmoBrand,
+        // Nothing listed for this Kalibre: the ⓘ says why only "Diğer
+        // marka" is there (owner, 2026-10-12: the empty list must say why).
+        info: empty ? '$info\n\n${ProfileFieldInfo.ammoNothingListed}' : info,
         initialValue: brand,
         items: [
           for (final b in brands) DropdownMenuItem(value: b, child: Text(b)),
-          // Firearm: hidden behind AMMO_LISTEDE_YOK (owner, 2026-10-14);
-          // the link under Model opens the typed entry (PCP too since
-          // 2026-10-16).
-          if (firearm && _showAmmoListedeYok)
-            const DropdownMenuItem(
-              value: _manualKey,
-              child: Text('Listede yok'),
-            ),
+          const DropdownMenuItem(
+            value: _otherKey,
+            child: Text(_otherBrandName),
+          ),
         ],
         onChanged: waitsForType
             ? null
             : (v) => _update(() {
-                if (v == _manualKey) {
-                  _clearAmmo();
-                  _ammoManual = true;
+                if (v == null) return;
+                if (v == _otherKey) {
+                  if (!_ammoOther) _pickOtherBrand();
                   return;
                 }
-                ammoBrand.text = v ?? '';
+                // Back from "Diğer marka": the typed values go too, so no
+                // stale weight or BC is saved under a listed brand without
+                // a Model; Tip / Mühimmat türü stay.
+                if (_ammoOther) {
+                  final type = ammoType;
+                  _clearAmmo();
+                  if (platform == WeaponPlatform.pcp) ammoType = type;
+                }
+                ammoBrand.text = v;
                 ammoModel.text = '';
               }),
       ),
     );
-    final modelSelect = KeyedSubtree(
-      key: const Key('ammo-model-select'),
-      child: MenzilSelect<int>(
-        key: ValueKey(
-          'ammo-model-select-$factory-$brand-${rifleCaliber.text}-$modelIndex',
-        ),
-        label: 'Model',
-        hint: 'Seçiniz',
-        initialValue: modelIndex < 0 ? null : modelIndex,
-        items: [
-          for (final (k, text) in labels.indexed)
-            DropdownMenuItem(value: k, child: Text(text, maxLines: 2)),
-        ],
-        onChanged: (k) {
-          if (k == null) return;
-          _update(picks[k]);
-        },
-      ),
-    );
-    return [
-      ...arrange(brandSelect, modelSelect),
-      // Owner, 2026-10-14: like the scope's link (#269), the typed firearm
-      // round opens from here instead of a "Listede yok" item; the PCP
-      // pellet or slug too since 2026-10-16.
-      MenzilFullWidth(
-        child: Align(
-          alignment: Alignment.centerLeft,
-          child: TextButton(
-            key: const Key('ammo-not-listed'),
-            onPressed: () => _update(_openAmmoManual),
-            child: const Text('Aradığın mühimmat listede yok mu?'),
-          ),
-        ),
-      ),
-    ];
+    final Widget model = other
+        // Filled, no chevron, not a list on tap (owner, 2026-10-17 21:30–
+        // 21:31: "select işaretini kaldır", "dolu gelecek kutu").
+        ? MenzilInput(
+            key: const Key('ammo-model-other'),
+            controller: _otherModelView,
+            label: 'Model',
+            keyboardType: TextInputType.text,
+            // One line, as every closed list box (owner, 2026-10-17 18:05).
+            readOnly: true,
+            textInputAction: TextInputAction.done,
+          )
+        : KeyedSubtree(
+            key: const Key('ammo-model-select'),
+            child: MenzilSelect<int>(
+              key: ValueKey(
+                'ammo-model-select-$factory-$brand-${rifleCaliber.text}-'
+                '$modelIndex',
+              ),
+              label: 'Model',
+              hint: 'Seçiniz',
+              initialValue: modelIndex < 0 ? null : modelIndex,
+              items: [
+                for (final (k, text) in labels.indexed)
+                  DropdownMenuItem(value: k, child: Text(text, maxLines: 2)),
+              ],
+              onChanged: (k) {
+                if (k == null) return;
+                _update(picks[k]);
+              },
+            ),
+          );
+    return [type, brandSelect, MenzilFullWidth(child: model)];
   }
 
-  /// Typed firearm Ağırlık (owner, 2026-10-14): the maker weights of this
-  /// Kalibre as "168 gr (10,9 g)"; "Listede yok" adds a typed grain box
-  /// under it that shows the grams and accepts only a plausible weight.
-  /// Without a Kalibre only a notice (no free typing).
-  List<Widget> _typedGrainFields() {
-    final cal = _parse(rifleCaliber);
-    if (cal == null) {
-      return const [
-        MenzilFullWidth(
-          child: MenzilNotice(
-            key: Key('ammo-grain-need-caliber'),
-            tone: MenzilNoticeTone.info,
-            message:
-                'Ağırlık listesi kalibreye göre gelir. Önce Tüfek bölümünde '
-                'Kalibre seçin.',
-          ),
-        ),
-      ];
-    }
-    final weights = _caliberWeights;
+  /// Ağırlık, typed (gr). Diğer marka, firearm: the gram equivalent in the
+  /// unit area and a weight plausible for this Kalibre, as the typed weight
+  /// before 2026-10-17.
+  Widget get _grainField {
+    final typed = _typedFirearmAmmo;
     final g = _parse(ammoGrain);
-    final select = KeyedSubtree(
-      key: const Key('ammo-grain-select'),
-      child: MenzilSelect<double>(
-        key: ValueKey(
-          'ammo-grain-select-$cal-$_grainOther-'
-          '${_grainOther ? '' : ammoGrain.text}',
-        ),
-        label: 'Ağırlık',
-        hint: 'Seçiniz',
-        info: ProfileFieldInfo.grainPick,
-        initialValue: _grainOther
-            ? _grainOtherKey
-            : (g != null && weights.contains(g) ? g : null),
-        items: [
-          for (final w in weights)
-            DropdownMenuItem(value: w, child: Text(_grainLabel(w))),
-          const DropdownMenuItem(
-            value: _grainOtherKey,
-            child: Text('Listede yok'),
-          ),
-        ],
-        errorText: _grainOther ? null : _shownSelect(_grainError, ammoGrain),
-        onChanged: (v) => _update(() {
-          if (v == null) return;
-          if (v == _grainOtherKey) {
-            if (!_grainOther) ammoGrain.text = '';
-            _grainOther = true;
-            return;
-          }
-          _grainOther = false;
-          ammoGrain.text = _trimNum(v);
-        }),
-      ),
+    return MenzilInput(
+      key: const Key('ammo-grain'),
+      info: platform == WeaponPlatform.pcp
+          ? ProfileFieldInfo.grain
+          : typed
+          ? ProfileFieldInfo.grainTyped
+          : ProfileFieldInfo.grainFirearm,
+      controller: ammoGrain,
+      focusNode: _grainFocus,
+      label: 'Ağırlık',
+      // The gram equivalent in the unit area, so a gram value typed as
+      // grain stands out (owner: "Ağırlığın doğru yazılması çok önemli").
+      unit: !typed || g == null || g <= 0 ? 'gr' : 'gr = ${_gramText(g)} g',
+      onChanged: (_) => _update(() {}),
+      errorText: _shown(_grainError, ammoGrain),
     );
-    if (!_grainOther) return [MenzilFullWidth(child: select)];
-    // Each on its own row: the gram text next to the unit and ⓘ does not
-    // fit a half-width box on a phone.
-    return [
-      MenzilFullWidth(child: select),
-      MenzilFullWidth(
-        child: MenzilInput(
-          key: const Key('ammo-grain'),
-          controller: ammoGrain,
-          label: 'Kutudaki ağırlık',
-          // The gram equivalent in the unit area, so a gram value typed as
-          // grain stands out (owner: "Ağırlığın doğru yazılması çok önemli").
-          unit: g == null || g <= 0 ? 'gr' : 'gr = ${_gramText(g)} g',
-          info: ProfileFieldInfo.grainTyped,
-          onChanged: (_) => _update(() {}),
-          errorText: _shown(_grainError, ammoGrain),
-        ),
-      ),
-    ];
   }
 
   /// BC modeli of a typed firearm round: G1 or G7 (owner, 2026-10-14); a
@@ -770,7 +638,7 @@ extension _AmmoSection on _ProfileDialogState {
       onChanged: (v) => _update(() {
         if (v == ammoType) return;
         // A listed model of the other type goes; the brand stays.
-        if (!_ammoManual && ammoModel.text.isNotEmpty) {
+        if (!_ammoOther && ammoModel.text.isNotEmpty) {
           final brand = ammoBrand.text;
           _clearAmmo();
           ammoBrand.text = brand;
@@ -882,74 +750,22 @@ extension _AmmoSection on _ProfileDialogState {
   /// The Mühimmat card's boxes, top to bottom.
   ///
   /// Firearm (owner, 2026-10-11): Mühimmat türü | Marka, Model on its own
-  /// row, then Ağırlık | BC, BC modeli | Mermi uzunluğu. Namlu çıkış hızı is on the Tüfek
-  /// card since 2026-10-13.
+  /// row, then Ağırlık | BC, BC modeli | Mermi uzunluğu. Namlu çıkış hızı
+  /// is on the Tüfek card since 2026-10-13.
   ///
-  /// PCP (owner, 2026-10-16): Tip | Marka; Model; "Aradığın mühimmat
-  /// listede yok mu?"; Ağırlık | BC; BC modeli | Mermi uzunluğu; En
-  /// düşük | En yüksek namlu çıkış hızı. Tüp basıncı | Regülatör basıncı
-  /// are on the Tüfek card (owner, 2026-10-16 20:49–21:04).
+  /// PCP (owner, 2026-10-16): Tip | Marka; Model; Ağırlık | BC; BC modeli |
+  /// Mermi uzunluğu; En düşük | En yüksek namlu çıkış hızı. Tüp basıncı |
+  /// Regülatör basıncı are on the Tüfek card (owner, 2026-10-16
+  /// 20:49–21:04).
+  ///
+  /// Both (owner, 2026-10-17 21:33–21:51): "Aradığın mühimmat listede yok
+  /// mu?" is the last element of the card, below every box.
   List<Widget> _ammoFields(MenzilColors c) {
     final pcp = platform == WeaponPlatform.pcp;
     final bcModel = _bcModelSelect;
     return [
-      ..._ammoNameFields(
-        type: pcp ? _pcpTypeSelect : _ammoSourceSelect,
-        brandText: MenzilInput(
-          key: const Key('ammo-brand'),
-          controller: ammoBrand,
-          label: 'Marka',
-          // The list has no factory round for this Kalibre: say so instead
-          // of a silently typed box (owner, 2026-10-11).
-          info: _typedFirearmAmmo
-              ? ProfileFieldInfo.ammoBrandOther
-              : _noFactoryForCaliber
-              ? 'Bu kalibre için listede henüz fabrika fişeği yok. '
-                    'Fişeğin markasını ve modelini kutunun üstünden okuyup '
-                    'yazın; ağırlık, BC ve hız kutuda veya üreticinin '
-                    'sitesinde yazar. Kendi doldurduğunuz fişekse Mühimmat '
-                    'türünde El dolumu seçin.'
-              : _noPcpForCaliber
-              // Owner, 2026-10-12: the empty list must say why.
-              ? 'Bu kalibre ve tipte listede henüz ürün yok. Markayı ve '
-                    'modeli kutunun üstünden okuyup yazın. BC bilinmiyorsa '
-                    'boş bırakabilirsiniz.'
-              : pcp
-              ? ProfileFieldInfo.pcpAmmoBrandTyped
-              : null,
-          keyboardType: TextInputType.text,
-          maxLength: 60,
-          onChanged: (_) => _update(() {}),
-          errorText: _shown(_ammoBrandError, ammoBrand),
-        ),
-        modelText: MenzilInput(
-          key: const Key('ammo-model'),
-          controller: ammoModel,
-          label: 'Model',
-          info: _typedFirearmAmmo
-              ? ProfileFieldInfo.ammoModelTyped
-              : pcp
-              ? ProfileFieldInfo.pcpAmmoModelTyped
-              : null,
-          keyboardType: TextInputType.text,
-          maxLength: 80,
-          onChanged: (_) => _update(() {}),
-          errorText: _shown(_ammoModelError, ammoModel),
-        ),
-      ),
-      if (_typedFirearmAmmo)
-        ..._typedGrainFields()
-      else
-        MenzilInput(
-          key: const Key('ammo-grain'),
-          info: pcp ? ProfileFieldInfo.grain : ProfileFieldInfo.grainFirearm,
-          controller: ammoGrain,
-          focusNode: _grainFocus,
-          label: 'Ağırlık',
-          unit: 'gr',
-          onChanged: (_) => _update(() {}),
-          errorText: _shown(_grainError, ammoGrain),
-        ),
+      ..._ammoNameFields(type: pcp ? _pcpTypeSelect : _ammoSourceSelect),
+      _grainField,
       if (!_customCurve)
         MenzilInput(
           key: const Key('ammo-bc'),
@@ -1032,6 +848,48 @@ extension _AmmoSection on _ProfileDialogState {
             ),
           ),
         ),
+      // Last, below every box, left-aligned (owner, 2026-10-17 21:33–21:51):
+      // opens the "bize yaz" dialog; it never changes the profile.
+      MenzilFullWidth(
+        child: Align(
+          alignment: Alignment.centerLeft,
+          child: TextButton(
+            key: const Key('ammo-not-listed'),
+            onPressed: _openAmmoReport,
+            child: const Text(
+              'Aradığın mühimmat listede yok mu?',
+              textAlign: TextAlign.left,
+            ),
+          ),
+        ),
+      ),
     ];
+  }
+
+  /// "Aradığın mühimmat listede yok mu?" → [AmmoReportDialog]; a sent
+  /// report closes it with a thank-you note.
+  Future<void> _openAmmoReport() async {
+    final firearm = platform == WeaponPlatform.firearm;
+    final caliber = _reportCaliberText;
+    final sender = ToolsServicesScope.of(context).productReport;
+    final sent = await showDialog<bool>(
+      context: context,
+      // Closed only by Vazgeç or a sent report, never mid-send.
+      barrierDismissible: false,
+      builder: (_) => AmmoReportDialog(
+        send: (text) => sender.send(
+          ammoReportBody(
+            text: text,
+            firearm: firearm,
+            caliber: caliber,
+            appVersion: appVersionText,
+          ),
+        ),
+      ),
+    );
+    if (sent != true || !mounted) return;
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(content: Text('Teşekkürler, bilgin bize ulaştı.')),
+    );
   }
 }

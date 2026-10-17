@@ -369,23 +369,9 @@ void _unitsAndFirearmTests() {
     await chooseInSelect(tester, 'rifle-caliber', '.308 Win');
     expect(tester.widget<TextField>(grain).decoration!.hintText, isNull);
     // Marka is a list of the firearm rounds for this caliber; a typed
-    // round opens from the "listede yok mu?" link (owner, 2026-10-14), a
-    // typed brand only after "Diğer", without a pellet example.
+    // round is Marka "Diğer marka" (owner, 2026-10-17), without a pellet
+    // example.
     expect(find.byKey(const Key('ammo-brand-select')), findsOneWidget);
-    await openAmmoManual(tester);
-    await chooseInSelect(tester, 'ammo-brand-pick', 'Diğer');
-    expect(
-      tester
-          .widget<TextField>(
-            find.descendant(
-              of: find.byKey(const Key('ammo-brand')),
-              matching: find.byType(TextField),
-            ),
-          )
-          .decoration!
-          .hintText,
-      isNull,
-    );
     // No pellet/slug choice for a firearm: Fabrika fişeği / El dolumu.
     expect(find.byKey(const Key('ammo-type')), findsNothing);
     expect(find.byKey(const Key('ammo-source')), findsOneWidget);
@@ -394,6 +380,22 @@ void _unitsAndFirearmTests() {
     await tester.tap(grainInfo);
     await tester.pumpAndSettle();
     expect(find.textContaining('.308 için 168 gr'), findsOneWidget);
+    await tester.tap(find.text('Tamam'));
+    await tester.pumpAndSettle();
+    await chooseOtherAmmoBrand(tester);
+    // The filled Model box carries no example either.
+    expect(
+      tester
+          .widget<TextField>(
+            find.descendant(
+              of: find.byKey(const Key('ammo-model-other')),
+              matching: find.byType(TextField),
+            ),
+          )
+          .decoration!
+          .hintText,
+      isNull,
+    );
   });
 
   testWidgets('switching to Ateşli tüfek empties the PCP ammunition', (

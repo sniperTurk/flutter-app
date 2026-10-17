@@ -220,6 +220,7 @@ jobs:
           # Each TestFlight upload needs a unique build number.
           flutter build ios --release --no-codesign \
             --build-number="${GITHUB_RUN_NUMBER}" \
+            --dart-define=APP_BUILD_NUMBER="${GITHUB_RUN_NUMBER}" \
             --dart-define=METNO_CONTACT="$METNO_CONTACT" \
             --dart-define=GOOGLE_MAPS_ENABLED="$MAPS" \
             --dart-define=GOOGLE_MAPS_IOS_API_KEY="${GOOGLE_MAPS_IOS_API_KEY:-}"

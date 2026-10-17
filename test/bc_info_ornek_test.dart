@@ -36,11 +36,9 @@ Future<Ammunition> _saveFirearmBc(WidgetTester tester, String bc) async {
   await fillRifleForm(tester, caliber: '.308 Win');
   await fillScopeForm(tester);
   await chooseInSelect(tester, 'ammo-source', 'Fabrika fişeği');
-  await openAmmoManual(tester);
-  await chooseInSelect(tester, 'ammo-brand-pick', 'Diğer');
-  await enterRifleField(tester, 'ammo-brand', 'Atölye Fişek');
-  await enterRifleField(tester, 'ammo-model', 'Özel 1');
-  await chooseInSelect(tester, 'ammo-grain-select', '168 gr (10,9 g)');
+  // Typed round: Marka "Diğer marka" since 2026-10-17.
+  await chooseOtherAmmoBrand(tester);
+  await enterRifleField(tester, 'ammo-grain', '168');
   await enterRifleField(tester, 'ammo-bc', bc);
   await chooseInSelect(tester, 'ammo-bc-model', 'G1');
   await fillShotValues(tester, velocityFps: '2650', zero: '100', sight: '45');

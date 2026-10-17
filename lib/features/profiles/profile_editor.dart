@@ -45,7 +45,10 @@ class _ProfileDialogState extends State<_ProfileDialog> {
   /// [setState] for the section extensions in the part files (Tüfek,
   /// Dürbün, Mühimmat, Ek mühimmat bilgileri): an extension may not call the
   /// protected [setState] itself.
-  void _update(VoidCallback fn) => setState(fn);
+  void _update(VoidCallback fn) => setState(() {
+    fn();
+    _syncOtherAmmoModel();
+  });
 
   /// Records the profile pointed at when the editor opened (built-in or
   /// personal). They only prefill the forms; everything is typed in.
@@ -410,16 +413,16 @@ class _ProfileDialogState extends State<_ProfileDialog> {
   /// Mühimmat Model, separate from Marka (owner, 2026-10-11).
   late final TextEditingController ammoModel;
 
-  /// True: Marka/Model are typed ("Listede yok"); false: picked from the
-  /// library lists (owner, 2026-10-11: typed names are mistyped).
-  bool _ammoManual = false;
+  /// "Diğer marka" is picked in the Mühimmat Marka list (owner, 2026-10-17;
+  /// PCP and firearm): no catalog value is filled, the Model box shows
+  /// "Diğer marka model <kalibre>" and the values are typed. An older
+  /// typed ammunition (not in the lists) opens in this state too, with its
+  /// saved Marka and Model.
+  bool _ammoOther = false;
 
-  /// Typed firearm ammunition (owner, 2026-10-14): Marka is picked from
-  /// every known brand; "Diğer" ([_ammoBrandOther]) opens the typed box.
-  /// Ağırlık is picked from the maker weights of this Kalibre; "Listede
-  /// yok" ([_grainOther]) opens a typed grain box with a plausibility range.
-  bool _ammoBrandOther = false;
-  bool _grainOther = false;
+  /// What the read-only Model box shows in the Diğer marka state; a mirror
+  /// of Marka / Model (not saved itself).
+  final TextEditingController _otherModelView = TextEditingController();
   late final TextEditingController ammoGrain;
 
   /// Mermi uzunluğu in mm, firearm and PCP (owner, 2026-10-17 11:34: a
@@ -713,19 +716,11 @@ class _ProfileDialogState extends State<_ProfileDialog> {
             _modelOf(b) == a0.model,
       );
       _factoryAmmo = inFactory || !inLibrary;
-      _ammoManual = !inFactory && !inLibrary;
+      // Not in the lists (a "Diğer marka" record, or one typed before
+      // 2026-10-17): the Diğer marka state with the saved names.
+      _ammoOther = !inFactory && !inLibrary;
     }
     ammoGrain = TextEditingController(text: num(a0?.grain));
-    // A saved typed firearm round comes back in the typed boxes with its
-    // values: an unknown brand as "Diğer" + typed, an unlisted weight as
-    // "Listede yok" + typed (owner, 2026-10-14).
-    if (a0 != null && _ammoManual && platform == WeaponPlatform.firearm) {
-      _ammoBrandOther =
-          ammoBrand.text.isNotEmpty &&
-          !_allFirearmAmmoBrands.contains(ammoBrand.text);
-      _grainOther =
-          a0.grain > 0 && !_caliberWeights.contains(_parse(ammoGrain));
-    }
     ammoLength = TextEditingController(text: num(a0?.lengthMm));
     ammoBc = TextEditingController(text: num(a0?.ballisticCoefficient));
     // Stored bands are fastest first: [(s1, main), (s2, bc1), (0, bc2)].
@@ -821,6 +816,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     pcpMaxVelocity = TextEditingController(
       text: p?.pcpMaxVelocityMps == null ? '' : _fpsText(p!.pcpMaxVelocityMps!),
     );
+    _syncOtherAmmoModel();
   }
 
   // ---- PCP tüp ve regülatör basıncı (owner, 2026-10-12) -----------------
@@ -1036,6 +1032,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     scopeTravelElevation.dispose();
     ammoBrand.dispose();
     ammoModel.dispose();
+    _otherModelView.dispose();
     ammoGrain.dispose();
     ammoLength.dispose();
     ammoBc.dispose();
@@ -1189,21 +1186,15 @@ class _ProfileDialogState extends State<_ProfileDialog> {
 
   // ---- Typed firearm ammunition (owner, 2026-10-14) ----------------------
 
-  /// "Diğer" in the typed Marka list; "Listede yok" in the Ağırlık list.
+  /// "Diğer marka", the last item of the Mühimmat Marka list (owner,
+  /// 2026-10-17), and the brand saved with it.
   static const _otherKey = '__other';
-  static const double _grainOtherKey = -1;
+  static const _otherBrandName = 'Diğer marka';
 
   /// Hız eşiğine göre BC for typed firearm ammunition, hidden (owner,
   /// 2026-10-14; hidden, not removed). Saved bands are kept and used.
   static const bool _showTypedBands = bool.fromEnvironment(
     'AMMO_BC_BANDS_TYPED',
-  );
-
-  /// The "Listede yok" item of the firearm ammo Marka list, hidden (owner,
-  /// 2026-10-14): the typed entry opens from the "Aradığın mühimmat listede
-  /// yok mu?" link instead.
-  static const bool _showAmmoListedeYok = bool.fromEnvironment(
-    'AMMO_LISTEDE_YOK',
   );
 
   /// Barut katsayısı (%/15 °C) and Hız ölçüm sıcaklığı (°C) lists.
@@ -1213,14 +1204,6 @@ class _ProfileDialogState extends State<_ProfileDialog> {
   static const List<double> _powderTempOptions = [
     -10, -5, 0, 5, 10, 15, 21, 25, 30, 35, 40, //
   ];
-
-  /// Every firearm ammunition brand the app knows (factory rounds and the
-  /// firearm bullets of the library), sorted.
-  static final List<String> _allFirearmAmmoBrands = {
-    for (final a in FactoryAmmoLibrary.all) a.brand,
-    for (final b in BulletLibrary.all)
-      if (b.platform == WeaponPlatform.firearm) b.brand,
-  }.toList()..sort(_byName);
 
   String? _weightsKey;
   List<double> _weightsCache = const [];
@@ -1236,21 +1219,15 @@ class _ProfileDialogState extends State<_ProfileDialog> {
       'Bu ağırlık bu kalibre için mantıklı değil. Kutudaki değeri kontrol '
       'edin.';
 
+  /// Diğer marka, firearm: a typed grain that is plausible for this
+  /// Kalibre (as the typed weight before 2026-10-17).
   String? get _typedGrainError {
     if (_parse(rifleCaliber) == null) return 'Önce Kalibre seçin.';
-    final g = _parse(ammoGrain);
-    if (!_grainOther) {
-      // Only a listed weight; a weight of another Kalibre (Kalibre changed
-      // after the pick) is not taken silently.
-      if (ammoGrain.text.trim().isEmpty) return 'Gerekli.';
-      return g != null && _caliberWeights.contains(g)
-          ? null
-          : 'Ağırlığı listeden seçin.';
-    }
     final e = _rangeError(ammoGrain, 1, 800);
     if (e != null) return e;
+    final g = _parse(ammoGrain)!;
     final r = _typedGrainRange!;
-    return g! < r.$1 || g > r.$2 ? _implausibleGrain : null;
+    return g < r.$1 || g > r.$2 ? _implausibleGrain : null;
   }
 
   /// Mermi uzunluğu is optional; a typed one must be plausible (1–150 mm,
@@ -1395,7 +1372,11 @@ class _ProfileDialogState extends State<_ProfileDialog> {
       'kind': 'ammo',
       'platform': platform.name,
       'brand': ammoBrand.text.trim(),
-      'model': ammoModel.text.trim(),
+      // Diğer marka: "Diğer marka model <kalibre>" of the Kalibre saved
+      // with it.
+      'model': _ammoOther && ammoBrand.text == _otherBrandName
+          ? _otherAmmoModelText
+          : ammoModel.text.trim(),
       // Caliber follows the rifle, so the pair can never mismatch.
       'caliberMm': _parse(rifleCaliber),
       'grain': _parse(ammoGrain),
@@ -1607,10 +1588,6 @@ class _ProfileDialogState extends State<_ProfileDialog> {
   /// Rebuilds the scope selects after "Listeden seç" (their initial value
   /// is read once).
   int _scopePickToken = 0;
-
-  /// Bumped when the ammunition list is shown again, so its selects start
-  /// fresh ("Seçiniz") instead of keeping "Listede yok".
-  int _ammoListToken = 0;
 
   /// Firearm ammunition: true = Fabrika fişeği (Marka/Model fill weight,
   /// BC and velocity), false = El dolumu (the bullet library; the shooter

@@ -402,10 +402,9 @@ void main() {
       await _openNew(tester);
       await chooseInSelect(tester, 'rifle-caliber', '.308 Win');
       await chooseInSelect(tester, 'ammo-source', 'Fabrika fişeği');
-      await openAmmoManual(tester);
-      await chooseInSelect(tester, 'ammo-brand-pick', 'Federal');
-      await enterRifleField(tester, 'ammo-model', 'Gold Medal');
-      await chooseInSelect(tester, 'ammo-grain-select', '168 gr (10,9 g)');
+      // Typed round: Marka "Diğer marka" since 2026-10-17.
+      await chooseOtherAmmoBrand(tester);
+      await enterRifleField(tester, 'ammo-grain', '168');
       await enterRifleField(tester, 'ammo-bc', '0,462');
       await chooseInSelect(tester, 'ammo-bc-model', 'G1');
       expect(find.byKey(const Key('ammo-bc-warning')), findsNothing);
@@ -425,11 +424,8 @@ void main() {
       await fillRifleForm(tester, caliber: '.308 Win');
       await fillScopeForm(tester);
       await chooseInSelect(tester, 'ammo-source', 'Fabrika fişeği');
-      await openAmmoManual(tester);
-      await chooseInSelect(tester, 'ammo-brand-pick', 'Diğer');
-      await enterRifleField(tester, 'ammo-brand', 'Atölye Fişek');
-      await enterRifleField(tester, 'ammo-model', 'Özel 2');
-      await chooseInSelect(tester, 'ammo-grain-select', 'Listede yok');
+      // Typed round: Marka "Diğer marka" since 2026-10-17.
+      await chooseOtherAmmoBrand(tester);
       await enterRifleField(tester, 'ammo-grain', '173,5');
       // 173,5 gr = 11,24 g: the unit text shows grams.
       expect(_in('ammo-grain', find.text('gr = 11,2 g')), findsOneWidget);

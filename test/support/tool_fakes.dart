@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:sniper_turk/tools/ports/camera_service.dart';
 import 'package:sniper_turk/tools/ports/photo_picker.dart';
 import 'package:sniper_turk/tools/ports/place_search.dart';
+import 'package:sniper_turk/tools/ports/product_report.dart';
 import 'package:sniper_turk/tools/ports/pressure_sensor.dart';
 import 'package:sniper_turk/tools/ports/clock.dart';
 import 'package:sniper_turk/tools/ports/elevation_provider.dart';
@@ -190,6 +191,20 @@ class TestPlaceSearch implements PlaceSearch {
   }
 }
 
+/// Records what "Aradığın mühimmat listede yok mu?" would send; never
+/// reaches the network. [failure] makes the next sends fail.
+class TestProductReport implements ProductReportSender {
+  final List<Map<String, Object?>> sent = [];
+  ProductReportFailure? failure;
+  Completer<void>? hold;
+  @override
+  Future<void> send(Map<String, Object?> body) async {
+    sent.add(body);
+    if (hold != null) await hold!.future;
+    if (failure != null) throw failure!;
+  }
+}
+
 ToolsServices testServices({
   LocationProvider? location,
   WeatherProvider? weather,
@@ -203,6 +218,7 @@ ToolsServices testServices({
   PressureSensor? pressure,
   PhoneAltitudeProvider? phoneAltitude,
   ElevationProvider? elevation,
+  ProductReportSender? productReport,
 }) => ToolsServices(
   location: location ?? TestLocation(const LocationFix(39.9, 32.8)),
   weather:
@@ -219,6 +235,7 @@ ToolsServices testServices({
   pressure: pressure ?? TestPressure(),
   phoneAltitude: phoneAltitude,
   elevation: elevation,
+  productReport: productReport ?? TestProductReport(),
 );
 
 Widget host(Widget child, {ToolsServices? services, double textScale = 1.0}) =>

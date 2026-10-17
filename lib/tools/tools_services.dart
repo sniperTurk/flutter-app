@@ -2,6 +2,7 @@ import 'package:flutter/widgets.dart';
 
 import '../services/level_calibration_preferences.dart';
 import 'adapters/camera_plugin_service.dart';
+import 'adapters/cloudflare_product_report.dart';
 import 'adapters/flutter_compass_heading_provider.dart';
 import 'adapters/geolocator_location_provider.dart';
 import 'adapters/google_elevation_provider.dart';
@@ -20,6 +21,7 @@ import 'ports/phone_altitude_provider.dart';
 import 'ports/photo_picker.dart';
 import 'ports/place_search.dart';
 import 'ports/pressure_sensor.dart';
+import 'ports/product_report.dart';
 import 'ports/tilt_provider.dart';
 import 'ports/vision_assist.dart';
 import 'ports/weather_provider.dart';
@@ -54,6 +56,10 @@ class ToolsServices {
   /// map service (the box stays empty with a short note).
   final ElevationProvider? elevation;
 
+  /// Profil → Mühimmat → "Aradığın mühimmat listede yok mu?" (owner,
+  /// 2026-10-17): sends the typed product to our catalog inbox.
+  final ProductReportSender productReport;
+
   const ToolsServices({
     required this.location,
     required this.weather,
@@ -68,6 +74,7 @@ class ToolsServices {
     this.pressure = const SensorsPlusPressureSensor(),
     this.phoneAltitude,
     this.elevation,
+    this.productReport = const CloudflareProductReport(),
   });
 
   factory ToolsServices.production() => ToolsServices(

@@ -109,10 +109,12 @@ Future<void> chooseInSelect(
 }
 
 /// Fills the profile editor's manual ammunition form (PCP slug by default).
+/// Firearm: Marka "Diğer marka" (owner, 2026-10-17), then the typed values;
+/// the saved name is "Diğer marka" / "Diğer marka model <kalibre>".
+/// PCP keeps the earlier flow (Tip, Ağırlık, BC typed, no name), so the
+/// saved record is "Özel yapım" as before.
 Future<void> fillAmmoForm(
   WidgetTester tester, {
-  String brand = 'Test Mühimmat',
-  String model = 'Test Slug',
   String? type = 'Slug',
   String grain = '33,95',
   String bc = '0,08',
@@ -122,41 +124,18 @@ Future<void> fillAmmoForm(
   if (find.byKey(const Key('ammo-source')).evaluate().isNotEmpty) {
     await chooseInSelect(tester, 'ammo-source', 'Fabrika fişeği');
   }
-  // Firearm: a typed round opens from the "listede yok mu?" link (owner,
-  // 2026-10-14). PCP (owner, 2026-10-16): Marka | Model are shown but
-  // optional; the helper keeps the earlier PCP flow (Tip, Ağırlık, BC
-  // typed, no name), so the saved record is "Özel yapım" as before.
   final pcp = find.byKey(const Key('ammo-type')).evaluate().isNotEmpty;
-  if (!pcp && find.byKey(const Key('ammo-not-listed')).evaluate().isNotEmpty) {
-    await openAmmoManual(tester);
-  }
-  // Typed firearm round: Marka from the list, "Diğer" types it.
-  if (find.byKey(const Key('ammo-brand-pick')).evaluate().isNotEmpty) {
-    await chooseInSelect(tester, 'ammo-brand-pick', 'Diğer');
-  }
-  if (!pcp && find.byKey(const Key('ammo-brand')).evaluate().isNotEmpty) {
-    await enterRifleField(tester, 'ammo-brand', brand);
-    await enterRifleField(tester, 'ammo-model', model);
-  }
+  if (!pcp) await chooseOtherAmmoBrand(tester);
   if (type != null) await chooseInSelect(tester, 'ammo-type', type);
-  // Typed firearm Ağırlık is a list; "Listede yok" types the grain.
-  if (find.byKey(const Key('ammo-grain-select')).evaluate().isNotEmpty) {
-    await chooseInSelect(tester, 'ammo-grain-select', 'Listede yok');
-  }
   await enterRifleField(tester, 'ammo-grain', grain);
   await enterRifleField(tester, 'ammo-bc', bc);
   await chooseBcModel(tester, bcModel);
 }
 
-/// Taps "Aradığın mühimmat listede yok mu?" under Mühimmat Model: the
-/// typed firearm round (owner, 2026-10-14: no "Listede yok" in the list).
-Future<void> openAmmoManual(WidgetTester tester) async {
-  final link = find.byKey(const Key('ammo-not-listed'));
-  await Scrollable.ensureVisible(tester.element(link), alignment: 0.5);
-  await tester.pumpAndSettle();
-  await tester.tap(link);
-  await tester.pumpAndSettle();
-}
+/// Picks "Diğer marka", the last item of the Mühimmat Marka list (owner,
+/// 2026-10-17): typed ammunition, Model filled and read-only.
+Future<void> chooseOtherAmmoBrand(WidgetTester tester) =>
+    chooseInSelect(tester, 'ammo-brand-select', 'Diğer marka');
 
 /// Picks the BC modeli (PCP shows it too since 2026-10-14, G1 by default).
 Future<void> chooseBcModel(WidgetTester tester, String label) async {

@@ -301,7 +301,12 @@ class _ActiveProfileDetails extends StatelessWidget {
               ? null
               : MenzilMetric(
                   'Mühimmat Marka/Model',
-                  _joinSummary([ammo.brand, ammoModel]),
+                  // "Diğer marka model 6,35" already names its brand
+                  // (owner, 2026-10-17).
+                  ammo.brand == 'Diğer marka' &&
+                          ammoModel.startsWith('Diğer marka')
+                      ? ammoModel
+                      : _joinSummary([ammo.brand, ammoModel]),
                 ),
           metrics: [
             if (ammo != null) ...[
