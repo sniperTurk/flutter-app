@@ -164,6 +164,7 @@ void main() {
           ('ammo-grain', 'Ağırlık', 'gr'),
           ('ammo-bc', 'BC', null),
           ('ammo-bc-model', 'BC modeli', null),
+          ('ammo-length', 'Mermi uzunluğu', 'mm'),
           ('profile-pcp-velocity-min', 'En düşük namlu çıkış hızı', 'fps'),
           ('profile-pcp-velocity-max', 'En yüksek namlu çıkış hızı', 'fps'),
         ]) {

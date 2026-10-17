@@ -4,11 +4,15 @@
 //    (tools/formul_denetimi_2026_10_13.py: range-stepped RK4, form-factor
 //    drag, ICAO dry air, secant zero) for the four loads the owner named.
 // 2. Miller Sg below the speed of sound (Courtney & Miller 2012).
-// 3. Spin drift: never for a diabolo pellet; the bullet length comes only
-//    from the Pro box (owner, 2026-10-13 23:32: the Profil length fallback
-//    from #264 was withdrawn, docs/reports/uzunluk_sadece_pro.md).
+// 3. Spin drift: never for a diabolo pellet; the bullet length comes from
+//    Profil > Mühimmat (owner, 2026-10-17 11:34, reversing 2026-10-13
+//    23:32), an old Pro value only without one
+//    (docs/reports/pro_barut_not.md).
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sniper_turk/core/ballistic_engine.dart';
 import 'package:sniper_turk/core/ballistic_input.dart';
 import 'package:sniper_turk/core/stability.dart';
@@ -16,9 +20,8 @@ import 'package:sniper_turk/data/catalog_repository.dart';
 import 'package:sniper_turk/data/user_catalog.dart';
 import 'package:sniper_turk/features/ballistics/ballistics_screen.dart';
 import 'package:sniper_turk/models/domain.dart';
+import 'package:sniper_turk/services/shot_settings_store.dart';
 import 'package:sniper_turk/ui/menzil_theme.dart';
-
-import 'support/pro_sections.dart';
 
 const _fps = 0.3048;
 const _tenMph = 10 * 0.44704;
@@ -121,7 +124,7 @@ const _slug = <String, dynamic>{
   'lengthMm': 10,
 };
 
-/// The same slug saved without a length (Profil box hidden).
+/// The same slug saved without a length.
 const _slugNoLength = <String, dynamic>{
   'id': 'manual_ammo_slug_nolen',
   'kind': 'ammo',
@@ -214,42 +217,41 @@ void main() {
     });
   });
 
-  group('spin drift: pellets excluded, only the Pro length used', () {
+  // Owner, 2026-10-17 11:34: Mermi uzunluğu is a property of the bullet and
+  // is entered on Profil > Mühimmat again (reverses 2026-10-13 23:32). The
+  // profile length is used; without one, a length an older version saved in
+  // Pro > Mermi uzunluğu (shot settings 'bulletLength') still is.
+  group('spin drift: pellets excluded, the Profil length used', () {
     tearDown(() => CatalogRepository.installUserCatalog(UserCatalog.empty));
 
     Future<void> pump(
       WidgetTester tester,
-      String ammoId,
-      BallisticsView view,
-    ) async {
+      String ammoId, {
+      String? legacyProLength,
+    }) async {
       tester.view.physicalSize = const Size(430, 3000) * 3;
       tester.view.devicePixelRatio = 3;
       addTearDown(tester.view.reset);
+      SharedPreferences.setMockInitialValues({
+        if (legacyProLength != null)
+          ShotSettingsStore.keyFor('p-$ammoId'): jsonEncode(
+            ShotSettings(bulletLengthText: legacyProLength).toJson(),
+          ),
+      });
+      // A fresh screen, so the profile and its saved settings load again.
+      await tester.pumpWidget(const SizedBox());
       await tester.pumpWidget(
         MaterialApp(
           theme: MenzilTheme.light(),
           home: Scaffold(
-            body: BallisticsScreen(profile: _pcpProfile(ammoId), view: view),
+            body: BallisticsScreen(
+              profile: _pcpProfile(ammoId),
+              view: BallisticsView.shot,
+            ),
           ),
         ),
       );
       await tester.pumpAndSettle();
-    }
-
-    Future<void> typeProLength(
-      WidgetTester tester,
-      String ammoId,
-      String text,
-    ) async {
-      await pump(tester, ammoId, BallisticsView.pro);
-      await openProFor(tester, const Key('pro-bullet-length'));
-      final f = find.descendant(
-        of: find.byKey(const Key('pro-bullet-length')),
-        matching: find.byType(TextField),
-      );
-      await tester.ensureVisible(f);
-      await tester.enterText(f, text);
-      await tester.pump();
     }
 
     String? spinNote(WidgetTester tester) {
@@ -257,56 +259,47 @@ void main() {
       return f.evaluate().isEmpty ? null : tester.widget<Text>(f).data;
     }
 
-    testWidgets('slug: a saved Profil length alone gives no spin drift', (
+    testWidgets('slug: the saved Profil length gives spin drift', (
       tester,
     ) async {
-      // Owner, 2026-10-13 23:32: the Profil box is hidden, so its saved
-      // length must not change spin drift / Sg; the Pro box is empty.
       CatalogRepository.installUserCatalog(
         UserCatalog.fromManualEntries([_pcpRifle, _slug]),
       );
-      await pump(tester, 'manual_ammo_slug', BallisticsView.shot);
-      expect(spinNote(tester), isNull);
+      await pump(tester, 'manual_ammo_slug');
+      expect(spinNote(tester), contains('sağa'));
     });
 
-    testWidgets('slug: the Pro box length is used, the Profil one ignored', (
-      tester,
-    ) async {
+    testWidgets('slug: the Profil length wins; an old Pro length is used '
+        'only without one', (tester) async {
       CatalogRepository.installUserCatalog(
         UserCatalog.fromManualEntries([_pcpRifle, _slug, _slugNoLength]),
       );
-      // Saved Profil length 10 mm, Pro box 12 mm.
-      await typeProLength(tester, 'manual_ammo_slug', '12');
-      await pump(tester, 'manual_ammo_slug', BallisticsView.shot);
-      final withSaved = spinNote(tester);
-      expect(withSaved, contains('sağa'));
-      // No saved length, Pro box 12 mm: the very same result.
-      await typeProLength(tester, 'manual_ammo_slug_nolen', '12');
-      await pump(tester, 'manual_ammo_slug_nolen', BallisticsView.shot);
-      expect(spinNote(tester), withSaved);
-      // Pro box 10 mm (= the saved Profil length) differs from 12 mm, so
-      // the 12 mm result above did not come from the Profil length.
-      await typeProLength(tester, 'manual_ammo_slug', '10');
-      await pump(tester, 'manual_ammo_slug', BallisticsView.shot);
-      expect(spinNote(tester), isNot(withSaved));
+      // Profil 10 mm, no Pro value.
+      await pump(tester, 'manual_ammo_slug');
+      final profile10 = spinNote(tester);
+      expect(profile10, contains('sağa'));
+      // Profil 10 mm and an old Pro 12 mm: the Profil length.
+      await pump(tester, 'manual_ammo_slug', legacyProLength: '12');
+      expect(spinNote(tester), profile10);
+      // No Profil length, old Pro 10 mm: the same result as Profil 10 mm.
+      await pump(tester, 'manual_ammo_slug_nolen', legacyProLength: '10');
+      expect(spinNote(tester), profile10);
+      // No Profil length, old Pro 12 mm: a different result, so the lines
+      // above did not ignore the length.
+      await pump(tester, 'manual_ammo_slug_nolen', legacyProLength: '12');
+      final legacy12 = spinNote(tester);
+      expect(legacy12, contains('sağa'));
+      expect(legacy12, isNot(profile10));
+      // Neither: no spin drift.
+      await pump(tester, 'manual_ammo_slug_nolen');
+      expect(spinNote(tester), isNull);
     });
 
-    testWidgets('pellet: no spin drift even with a typed length', (
-      tester,
-    ) async {
+    testWidgets('pellet: no spin drift even with a length', (tester) async {
       CatalogRepository.installUserCatalog(
         UserCatalog.fromManualEntries([_pcpRifle, _pellet]),
       );
-      await pump(tester, 'manual_ammo_pellet', BallisticsView.pro);
-      await openProFor(tester, const Key('pro-bullet-length'));
-      final f = find.descendant(
-        of: find.byKey(const Key('pro-bullet-length')),
-        matching: find.byType(TextField),
-      );
-      await tester.ensureVisible(f);
-      await tester.enterText(f, '8');
-      await tester.pump();
-      await pump(tester, 'manual_ammo_pellet', BallisticsView.shot);
+      await pump(tester, 'manual_ammo_pellet', legacyProLength: '8');
       expect(find.byKey(const Key('shot-spin-drift')), findsNothing);
     });
   });

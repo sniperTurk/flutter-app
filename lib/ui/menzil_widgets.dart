@@ -1251,6 +1251,11 @@ class MenzilInput extends StatelessWidget {
   /// follows the enclosing [MenzilCompactFields] (off when there is none).
   final bool? compact;
 
+  /// False draws no label above the compact box (Pro > Mühimmat sıcaklığı,
+  /// owner 2026-10-17: the section title says it). VoiceOver still reads
+  /// [label].
+  final bool showLabel;
+
   const MenzilInput({
     super.key,
     required this.controller,
@@ -1270,6 +1275,7 @@ class MenzilInput extends StatelessWidget {
     this.minLines = 1,
     this.maxLines = 1,
     this.compact,
+    this.showLabel = true,
   });
 
   String get semanticLabel => unit == null ? label : '$label ($unit)';
@@ -1292,7 +1298,7 @@ class MenzilInput extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         mainAxisSize: MainAxisSize.min,
         children: [
-          _CompactLabel(label: label, info: info),
+          if (showLabel) _CompactLabel(label: label, info: info),
           Semantics(
             label: semanticLabel,
             child: TextField(

@@ -52,11 +52,14 @@ abstract final class ProfileFieldInfo {
   static const grain =
       'Bir saçmanın veya merminin ağırlığı, grain olarak (1 grain = 0,0648 g). '
       'Kutunun üstünde yazar. Örnek: 25,39 gr pellet, 33,95 gr slug.';
+
+  /// Mermi uzunluğu, firearm and PCP (owner, 2026-10-17).
   static const ammoLength =
-      'Saçmanın veya slug\'ın boyu, milimetre olarak. Kumpasla ucundan '
-      'arkasına ölçülür ya da üreticinin sitesinde yazar. Boş '
-      'bırakılabilir; girilirse yiv oranıyla dengesi kontrol edilir. '
-      'Örnek: kumpasta 10,5 okunursa 10,5 yazın.';
+      'Merminin ucundan dibine boyu, milimetre olarak. Üreticinin sitesinde '
+      'ya da kutusunda yazar; kumpasla da ölçülebilir. Örnek: kumpasta 31,2 '
+      'okunursa 31,2 yazın. Spin drift hesaplamasının yapılabilmesi için yiv '
+      'yönü ve yiv oranının profil oluşturulurken girilmiş olması '
+      'gerekmektedir.';
   static const grainFirearm =
       'Merminin (çekirdeğin) ağırlığı, grain olarak (1 grain = 0,0648 g). '
       'Kutunun üstünde yazar. Örnek: .223 için 55 gr, .308 için 168 gr, '

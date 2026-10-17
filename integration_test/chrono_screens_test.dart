@@ -174,11 +174,11 @@ void main() {
       await tester.pageBack();
       await settle();
     });
-    // Mühimmat sıcaklığı is on Pro > Tüfek düzeltmeleri since 2026-10-16.
+    // Mühimmat sıcaklığı: its own Pro box since 2026-10-17.
     await step('pro_muhimmat_sicakligi', () async {
       await openTab('Pro');
       await wait(2);
-      final header = find.byKey(const Key('pro-section-rifle'));
+      final header = find.byKey(const Key('pro-section-ammo-temp'));
       await tester.ensureVisible(header);
       await settle();
       final h = tester.getSize(header).height;

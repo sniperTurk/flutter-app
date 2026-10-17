@@ -274,7 +274,6 @@ class RepositoryFacts(unittest.TestCase):
             "SCOPE_LISTEDE_YOK": SCREEN,
             "RIFLE_LISTEDE_YOK": SCREEN,
             "AMMO_LISTEDE_YOK": SCREEN,
-            "PROFILE_AMMO_LENGTH": SCREEN,
             "AMMO_BC_BANDS_TYPED": SCREEN,
         }
         for flag, path in flags.items():
@@ -332,13 +331,19 @@ class RepositoryFacts(unittest.TestCase):
         match = MATCH.read_text(encoding="utf-8")
         self.assertIn("if (saved.clickUnit != r.clickUnit) continue;", match)
 
-    def test_ammo_length_hidden_and_not_in_calculation(self):
+    def test_ammo_length_on_profile_old_pro_value_as_fallback(self):
+        # Owner, 2026-10-17 11:34: Mermi uzunluğu is on Profil > Mühimmat
+        # again (PROFILE_AMMO_LENGTH deleted); an old Pro value is used only
+        # when the profile's ammunition has no length.
         balli = library_text(BALLISTICS)
         self.assertIn("double? get _bulletLengthMm {", balli)
         i = balli.index("double? get _bulletLengthMm {")
-        self.assertIn("bulletLengthCtl", balli[i:i + 300])
+        body = balli[i:i + 400]
+        self.assertLess(body.index("ammunition?.lengthMm"), body.index("bulletLengthCtl"))
         src = library_text("lib/features/profiles/profiles_screen.dart")
-        self.assertIn("_showProfileAmmoLength ? _parse(ammoLength) : ammo?.lengthMm", src)
+        self.assertIn("double? get _savedLengthMm => _parse(ammoLength);", src)
+        self.assertNotIn("PROFILE_AMMO_LENGTH", src)
+        self.assertNotIn("_showProfileAmmoLength", src)
 
     def test_pro_tube_pressure_deleted_and_not_in_formula(self):
         # Owner, 2026-10-16: PRO_TUBE_PRESSURE, the Pro box and the
