@@ -73,9 +73,8 @@ Future<Map<String, Rect>> _profileRects(WidgetTester tester) async {
     final slot = tester.getRect(find.byKey(_titleSlot));
     expect(slot.left, MenzilSpace.gutter, reason: tab);
     // On Profil the logo starts the slot and the brand text ends inside it.
-    final first = tester.getRect(
-      find.byKey(Key(tab == 'Profil' ? 'top-bar-brand-logo' : 'top-bar-title')),
-    );
+    final firstKey = tab == 'Profil' ? 'top-bar-brand-logo' : 'top-bar-title';
+    final first = tester.getRect(find.byKey(Key(firstKey)));
     expect(first.left, moreOrLessEquals(slot.left), reason: tab);
     final shown = find.byKey(
       Key(tab == 'Profil' ? 'top-bar-brand' : 'top-bar-title'),

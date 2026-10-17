@@ -270,8 +270,10 @@ void main() {
     final handle = tester.ensureSemantics();
     await _pumpHome(tester);
     expect(find.bySemanticsLabel('Sniper Türk'), findsOneWidget);
-    expect(find.bySemanticsLabel(RegExp('logo', caseSensitive: false)),
-        findsNothing);
+    expect(
+      find.bySemanticsLabel(RegExp('logo', caseSensitive: false)),
+      findsNothing,
+    );
     final node = tester.getSemantics(find.bySemanticsLabel('Sniper Türk'));
     expect(node.label, 'Sniper Türk');
     handle.dispose();
