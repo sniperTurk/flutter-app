@@ -716,7 +716,7 @@ extension _ProAyarlarView on _BallisticsScreenState {
                             'sıcaklığı kutularını doldurun. Bu iki kutu boşsa '
                             'buraya yazılan sıcaklık hesabı değiştirmez.',
                   key: const Key('pro-powder-source'),
-                  style: MenzilType.body(c.ink),
+                  style: MenzilType.caption(c.ink2),
                 );
               },
             ),
@@ -734,7 +734,7 @@ extension _ProAyarlarView on _BallisticsScreenState {
                   'Bugünkü hız: ${UnitSystem.mpsToFps(today).toStringAsFixed(0)} '
                   'fps (profil ${UnitSystem.mpsToFps(v0).toStringAsFixed(0)} fps).',
                   key: const Key('pro-powder-today'),
-                  style: MenzilType.body(c.ink),
+                  style: MenzilType.caption(c.ink2),
                 );
               },
             ),
