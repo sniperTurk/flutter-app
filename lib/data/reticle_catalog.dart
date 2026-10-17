@@ -1,5 +1,6 @@
 import '../core/reticle.dart';
 import '../models/domain.dart';
+import 'catalog_repository.dart';
 import 'reticle_library.dart';
 
 /// Finds the manufacturer-sourced drawing of a scope's reticle
@@ -219,24 +220,66 @@ abstract final class ReticleCatalog {
 
   /// The reticle to draw on the Hedef screen: the scope's own reticle from
   /// its data when it is drawable, else the generic grid for the name.
+  ///
+  /// [typed]: a scope typed in by the user ("Aradığın dürbün listede yok
+  /// mu?"), whose Retikül was picked from every reticle name of the
+  /// catalog (owner, 2026-10-16). Its own brand names no data record, so
+  /// the record of the catalog scopes that carry this name is drawn when
+  /// they all lead to the same one; otherwise the generic grid of the
+  /// name and turret unit ([Reticles.forName]). The chosen name is shown.
   static ReticleSpec? forScope(
     String? name,
     AngularUnit turretUnit, {
     String? brand,
     String? model,
     String? source,
+    bool typed = false,
   }) {
     if (name == null || name.trim().isEmpty) return null;
     if (!Reticles.genericNames.contains(name)) {
-      final spec = find(
-        name,
-        turretUnit,
-        brand: brand,
-        model: model,
-        source: source,
-      )?.toSpec(displayName: name);
+      final record =
+          find(name, turretUnit, brand: brand, model: model, source: source) ??
+          (typed ? _ofCatalogScopes(name, turretUnit, brand ?? '') : null);
+      final spec = record?.toSpec(displayName: name);
       if (spec != null) return spec;
     }
     return Reticles.forName(name, turretUnit);
+  }
+
+  static final Map<String, ReticleData?> _byCatalogName = {};
+
+  /// The one data record that the catalog scopes carrying reticle [name]
+  /// lead to ([find] with each scope's brand, model and source); null
+  /// when none or more than one, and when [brand] is the brand of one of
+  /// those scopes (a scope of that maker keeps what [find] decided for it,
+  /// never another maker's drawing).
+  static ReticleData? _ofCatalogScopes(
+    String name,
+    AngularUnit turretUnit,
+    String brand,
+  ) {
+    final turret = turretUnit.moaFamily ? 'moa' : 'mil';
+    return _byCatalogName.putIfAbsent('$turret|$name|$brand', () {
+      final found = <String, ReticleData>{};
+      for (final s in CatalogRepository.scopes) {
+        // The list offers each name once whatever its letter case
+        // ("Center-X", "CENTER-X").
+        final lower = name.toLowerCase();
+        if (s.userEntered ||
+            !options(s.reticle).any((o) => o.toLowerCase() == lower)) {
+          continue;
+        }
+        if (brandMatches(s.brand, brand)) return null;
+        final r = find(
+          name,
+          turretUnit,
+          brand: s.brand,
+          model: s.model,
+          source: s.sourceDocument,
+        );
+        if (r != null) found[r.id] = r;
+      }
+      return found.length == 1 ? found.values.single : null;
+    });
   }
 }

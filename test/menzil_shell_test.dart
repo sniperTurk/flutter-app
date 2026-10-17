@@ -348,7 +348,7 @@ void main() {
     );
     await fillShotValues(tester);
     expect(
-      find.text('Dürbün: Test Optik 6-24x56 FFP'),
+      find.text('Dürbün: Test Optik X1 6-24x56 FFP'),
       findsOneWidget,
       reason: 'separate fields are shown as one designation line',
     );
@@ -395,7 +395,8 @@ void main() {
     );
     expect(scope.userEntered, isTrue);
     expect(scope.brand, 'Test Optik');
-    expect(scope.model, '6-24x56 FFP');
+    // Dürbün modeli before the designation (owner, 2026-10-16).
+    expect(scope.model, 'X1 6-24x56 FFP');
     expect(scope.minMagnification, 6);
     expect(scope.maxMagnification, 24);
     expect(scope.objectiveDiameterMm, 56);

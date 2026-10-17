@@ -394,14 +394,22 @@ void main() {
       _in('scope-travel-elevation', find.byType(TextField)),
       findsOneWidget,
     );
-    // Minimum | Maksimum and Dürbün birimi | Klik değeri side by side.
+    // Minimum | Maksimum, Dürbün birimi | Odak düzlemi and Mercek çapı |
+    // Klik değeri side by side (owner, 2026-10-16).
     Rect r(String k) => tester.getRect(find.byKey(Key(k)));
     expect(
       (r('scope-min-mag').top - r('scope-max-mag').top).abs(),
       lessThan(1),
     );
     expect(r('scope-min-mag').right, lessThan(r('scope-max-mag').left));
-    expect((r('scope-unit').top - r('scope-click').top).abs(), lessThan(1));
+    expect(
+      (r('scope-unit').top - r('scope-focal-plane').top).abs(),
+      lessThan(1),
+    );
+    expect(
+      (r('scope-objective').top - r('scope-click').top).abs(),
+      lessThan(1),
+    );
 
     // Klik değeri lists the clicks of the chosen unit.
     await chooseInSelect(tester, 'scope-unit', 'MRAD');

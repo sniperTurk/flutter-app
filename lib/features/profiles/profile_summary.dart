@@ -64,6 +64,8 @@ String _ammoTypeName(AmmunitionType t) => switch (t) {
         break;
       }
     }
+    // A typed scope's Dürbün modeli (owner, 2026-10-16: "Marka Model").
+    rest = '$rest ${_typedScopeModelOf(s)}';
   }
   var m = ScopePickerScreen.seriesOf(rest);
   final reticle = _summaryReticle(s);
