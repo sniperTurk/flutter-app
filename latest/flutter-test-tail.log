@@ -29,55 +29,15 @@ Downloading packages...
 Got dependencies!
 26 packages have newer versions incompatible with dependency constraints.
 Try `flutter pub outdated` for more information.
-00:00 +0: loading /Users/runner/work/flutter-app/flutter-app/integration_test/sim_screens_test.dart
+00:00 +0: loading /Users/runner/work/flutter-app/flutter-app/integration_test/ozet_klik_degeri_screens_test.dart
 The following plugins do not support Swift Package Manager for ios:
   - flutter_compass
   - google_maps_flutter_ios
 This will become an error in a future version of Flutter. Please contact the plugin maintainers to request Swift Package Manager adoption.
 Running Xcode build...                                          
-Xcode build done.                                           116.1s
-00:00 +0: screenshot tour of the main pages
-SIMSCREEN:01_profil_karsilama
-SIMSCREEN:02_hava_durumu_bos
-SIMSCREEN:03_hava_durumu_bos_2
-SIMSCREEN:04_hava_durumu_bos_3
-SIMSCREEN:05_pro_ayarlar_bos
-SIMSCREEN:06_pro_ayarlar_bos_2
-SIMSCREEN:07_hedef_bos
-SIMSCREEN:08_araclar
-SIMSCREEN:09_araclar_2
-SIMSCREEN:10_araclar_3
-SIMSCREEN:11_hesaplayicilar
-SIMSCREEN:12_hesaplayicilar_2
-SIMSCREEN:13_hesaplayicilar_3
-SIMSCREEN:14_profil_olustur_pcp
-SIMSCREEN:15_profil_olustur_pcp_2
-SIMSCREEN:16_profil_olustur_pcp_3
-SIMSCREEN:17_profil_olustur_pcp_4
-SIMSCREEN:18_profil_olustur_pcp_5
-SIMSCREEN:19_profil_olustur_atesli
-SIMSCREEN:20_profil_olustur_atesli_2
-SIMSCREEN:21_profil_olustur_atesli_3
-SIMSCREEN:22_profil_olustur_atesli_4
-SIMSCREEN:23_profil_olustur_atesli_5
-SIMSCREEN:24_profil_olustur_atesli_6
-SIMSCREEN:25_profil_retikul_liste
-SIMSCREEN:26_profil_olustur_dolu
-SIMSCREEN:27_profil_olustur_dolu_2
-SIMSCREEN:28_profil_olustur_dolu_3
-SIMSCREEN:29_profil_olustur_dolu_4
-SIMSCREEN:30_profil_olustur_dolu_5
-SIMSCREEN:31_profil_olustur_dolu_6
-SIMSCREEN:32_profil_kayitli
-SIMSCREEN:33_profil_kayitli_2
-SIMSCREEN:34_hava_durumu
-SIMSCREEN:35_hava_durumu_2
-SIMSCREEN:36_hava_durumu_3
-SIMSCREEN:37_pro_ayarlar
-SIMSCREEN:38_pro_ayarlar_2
-SIMSCREEN:39_hedef_atis
-SIMSCREEN:40_hedef_atis_2
-SIMSCREEN:41_hedef_atis_3
+Xcode build done.                                           122.3s
+00:00 +0: Özet klik değeri screenshot
+SIMSCREEN:01_profil_390_durbun_klik
 SIMSCREEN_DONE failures=0
-03:57 +1: (tearDownAll)
-04:04 +1: All tests passed!
+00:21 +1: (tearDownAll)
+00:25 +1: All tests passed!
