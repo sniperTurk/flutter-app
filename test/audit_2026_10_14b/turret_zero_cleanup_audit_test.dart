@@ -549,10 +549,7 @@ void main() {
       expect(find.byKey(const Key('truing-result')), findsOneWidget);
       final apply = find.byKey(const Key('truing-apply'));
       await tester.ensureVisible(apply);
-      expect(
-        tester.widget<MenzilSecondaryButton>(apply).onPressed,
-        isNotNull,
-      );
+      expect(tester.widget<MenzilSecondaryButton>(apply).onPressed, isNotNull);
       await tester.tap(apply);
       await tester.pumpAndSettle();
       await tester.tap(find.byKey(const Key('truing-confirm')));

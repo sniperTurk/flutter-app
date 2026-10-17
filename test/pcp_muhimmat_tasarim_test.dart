@@ -827,9 +827,7 @@ void main() {
     });
 
     testWidgets('Hedef: Tüfek 900 with 830 / 860 = Tüfek 900 with both '
-        'empty; only one entered = the same; not the 845 mean', (
-      tester,
-    ) async {
+        'empty; only one entered = the same; not the 845 mean', (tester) async {
       final empty = await _requiredUp(tester, _pcp(rifleFps: 900));
       final both = await _requiredUp(
         tester,
