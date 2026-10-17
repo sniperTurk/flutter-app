@@ -137,10 +137,7 @@ void main() {
         final impact = find.byKey(ScopeDialKeys.impactText);
         await tester.ensureVisible(impact);
         await settle();
-        await Scrollable.ensureVisible(
-          tester.element(impact),
-          alignment: 0.15,
-        );
+        await Scrollable.ensureVisible(tester.element(impact), alignment: 0.15);
         await settle();
         text('$name impact', ScopeDialKeys.impactText);
         text('$name bracket', const Key('shot-wind-bracket'));
