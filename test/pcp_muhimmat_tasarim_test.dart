@@ -591,6 +591,24 @@ void main() {
         expect((r.height - one.height).abs(), lessThan(1), reason: label);
       }
     });
+
+    testWidgets('DIAG label sizes', (tester) async {
+      await _openNew(tester, pcp: true);
+      final out = StringBuffer();
+      for (final (key, label) in const [
+        ('rifle-twist-rate', 'Yiv oranı'),
+        ('profile-zero', 'Sıfırlama mesafesi'),
+        ('profile-velocity-fps', 'Namlu çıkış hızı'),
+        ('profile-regulator-pressure', 'Regülatör basıncı'),
+      ]) {
+        final t = find.descendant(of: _key(key), matching: find.text(label));
+        final r = tester.getRect(t);
+        final box = tester.getRect(_key(key));
+        final w = tester.widget<Text>(t);
+        out.write('${label.substring(0, 3)}${r.width.round()}x${r.height.round()}/${box.width.round()}/${w.style?.fontWeight?.value} ');
+      }
+      expect(out.toString().replaceAll('\n', ' '), 'x');
+    });
   });
 
   group('owner ⓘ texts, word for word', () {
