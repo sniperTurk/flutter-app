@@ -691,7 +691,10 @@ class _TurretCapPainter extends CustomPainter {
       )..layout();
       tp.paint(
         canvas,
-        Offset(size.width * 0.76 - tp.width / 2, size.height / 2 - tp.height / 2),
+        Offset(
+          size.width * 0.76 - tp.width / 2,
+          size.height / 2 - tp.height / 2,
+        ),
       );
     }
   }
@@ -747,7 +750,10 @@ class _DesignDrumPainter extends CustomPainter {
     );
     if (wanted * pixelsPerClick <= length - label) return wanted;
     // Half units (0,5 mrad) only as a fallback for short windows.
-    final fallback = [if (perUnit.isEven && perUnit > 1) perUnit ~/ 2, ...steps];
+    final fallback = [
+      if (perUnit.isEven && perUnit > 1) perUnit ~/ 2,
+      ...steps,
+    ];
     final fitting = fallback.where(
       (n) =>
           n * pixelsPerClick <= length - label && n * pixelsPerClick >= label,
