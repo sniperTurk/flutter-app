@@ -18,6 +18,7 @@ class AmmoReportDialog extends StatefulWidget {
       'Şu an Marka kutusundaki "Diğer marka" seçeneğiyle devam edebilirsin. '
       'Listede olmayan mühimmatı bize yaz: marka, model, ağırlık. Üreticinin '
       'bilgileriyle listeye en kısa zamanda eklemeye çalışacağız.';
+
   /// ⓘ of the box (CLAUDE.md: every typed value has one).
   static const textInfo =
       'Listede bulamadığın mühimmatın markası, modeli ve ağırlığı, kutunun '

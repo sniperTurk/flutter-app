@@ -739,9 +739,7 @@ void main() {
       expect(field.decoration!.helperText, isNull);
       expect(field.maxLength, 200);
       expect(
-        tester
-            .widget<MenzilInput>(_key('ammo-report-text'))
-            .info,
+        tester.widget<MenzilInput>(_key('ammo-report-text')).info,
         AmmoReportDialog.textInfo,
       );
       // Left-aligned body and title.
