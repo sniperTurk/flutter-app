@@ -112,16 +112,46 @@ Kaynaklar:
 
 ## Ekran görüntüsü
 
-`integration_test/arken_sfp_screens_test.dart` (sim-screens, iPhone 16e, 390 pt) şu ekranları çekiyor:
-- Arken Optics / MOA / SFP, model listesi açık
-- OUTRIDER 2-12x42 seçili, Retikül listesi açık
-- Arken / MRAD, Odak düzlemi listesi açık
+Simülatör: sim-screens, iPhone 16e (390 pt), `integration_test/arken_sfp_screens_test.dart`. Çalışma: https://github.com/sniperTurk/flutter-app/actions/runs/39044764400 (flutter test exit 0, 5 görüntü).
 
-Görüntüler PR'a yorum olarak eklenir.
+Arken Optics → MOA → SFP, Model listesi açık. Listede LH-6 1-6x24 SFP · MOA, OUTRIDER 2-12x42 SFP · MOA ve OUTRIDER 3-18x50 SFP · MOA var:
+
+![Arken MOA SFP model listesi](https://raw.githubusercontent.com/sniperTurk/flutter-app/396e986d734cc3609f32e148680864da4111fd7f/latest/03_arken_moa_sfp_model_listesi.png)
+
+OUTRIDER 2-12x42 seçili, Retikül listesi açık (FDR, DLR); Üst kule klik sayısı 360 (90 MOA / 0,25):
+
+![OUTRIDER 2-12x42 retikül listesi](https://raw.githubusercontent.com/sniperTurk/flutter-app/396e986d734cc3609f32e148680864da4111fd7f/latest/04_arken_outrider_2_12_retikul_listesi.png)
+
+Arken Optics → MRAD, Odak düzlemi listesi açık: yalnız FFP.
+
+![Arken MRAD odak listesi](https://raw.githubusercontent.com/sniperTurk/flutter-app/396e986d734cc3609f32e148680864da4111fd7f/latest/05_arken_mrad_odak_listesi.png)
+
+Görülen, bu PR'dan önce de var olan bir davranış (değiştirilmedi, yalnız not):
+- Seçili bir modeli Birim süzgeci düşürünce Model "Seçiniz"e dönüyor.
+- Ama Üst kule klik sayısı kutusunda eski modelin 360 değeri kalıyor (son görüntü).
+- İstenirse ayrı görev olarak açılabilir.
 
 ## CI
 
-PR açıklamasında ve PR yorumlarında güncellenir. Çalışmayan ya da kırmızı biten hiçbir iş yeşil diye bildirilmez.
+Son kod commit'i 7b50edef8cd6b7529b7ba366ee62204d27e98661 üzerinde iOS CI: https://github.com/sniperTurk/flutter-app/actions/runs/39044765862
+- `verify`: success. https://github.com/sniperTurk/flutter-app/actions/runs/39044765862/job/117435352092
+- `dart-checks`: success. https://github.com/sniperTurk/flutter-app/actions/runs/39044765862/job/117431244531
+- `wind-acceptance`: success. https://github.com/sniperTurk/flutter-app/actions/runs/39044765862/job/117431244313
+- `ios-simulator`: skipped (yalnız elle istenince çalışır).
+
+Tanı işleri:
+- test-diag (`files=test`): success, flutter test exit 0. https://github.com/sniperTurk/flutter-app/actions/runs/39044760892
+- analyze-diag: success. https://github.com/sniperTurk/flutter-app/actions/runs/39044762722
+- Önceki commit'te analyze-diag bir hata buldu: ekran turunda `scopeCard` iki kez tanımlanmıştı. Düzeltildi.
+- Format-fix (375209577) bir biçim düzeltmesi üretti; bu düzeltme commit'e katıldı.
+
+Bu rapor commit'iyle iOS CI yeniden çalışır; sonucu PR yorumunda.
+
+Kod incelemesi ve güvenlik incelemesi PR yorumunda: https://github.com/sniperTurk/flutter-app/pull/390#issuecomment-6235682345
+- İki bulgu çıktı, ikisi de düzeltildi:
+  - MRAD ekran adımında yanlış kutu anahtarı.
+  - LH-6 ağırlığı gereksiz yere boşaltılmıştı.
+- Güvenlik bulgusu yok.
 
 ## Bilerek yapılmayan
 
