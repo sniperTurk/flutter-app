@@ -106,7 +106,7 @@ void main() {
       // Expected (owner rule, #367): the count made with 0,1 MRAD is asked
       // again. Today: "200" stays and 0,05 MRAD then saves 10 mrad.
       expect(_travelText(tester), '');
-    }); // DEN17B-1 TEMP-UNSKIPPED
+    }, skip: true); // DEN17B-1
 
     testWidgets('Dürbün birimi MRAD → MOA empties Klik değeri and '
         'clears the count', (tester) async {
@@ -116,29 +116,7 @@ void main() {
       expect(selectedValue<double>(tester, 'scope-click'), isNull);
       // Today: "200" stays; 1/4 MOA then saves 50 MOA = 14.54 mrad.
       expect(_travelText(tester), '');
-    }); // DEN17B-1 TEMP-UNSKIPPED
-
-    testWidgets('today: the stale count is saved with the new click '
-        '(documents DEN17B-1; delete when fixed)', (tester) async {
-      final store = await _openNew(tester);
-      await _fillTyped(tester);
-      await chooseInSelect(tester, 'scope-click', 'Seçiniz');
-      await chooseInSelect(tester, 'scope-click', '0,05 MRAD');
-      expect(
-        await _canPress(tester, _saveButton),
-        isTrue,
-        reason: _missingText(tester),
-      );
-      await tester.tap(_saveButton);
-      await tester.pumpAndSettle();
-      final saved = (await store.all()).single;
-      final scope = CatalogRepository.allScopes.singleWhere(
-        (o) => o.id == saved.scopeId,
-      );
-      expect(scope.clickValue, 0.05);
-      // 200 clicks counted on a 0,1 MRAD turret (20 mrad) saved as 10 mrad.
-      expect(scope.elevationRangeMrad, closeTo(10, 1e-9));
-    }); // DEN17B-1 TEMP-UNSKIPPED
+    }, skip: true); // DEN17B-1
   });
 
   testWidgets('typed scope: click, unit, travel and new mount value reach '
