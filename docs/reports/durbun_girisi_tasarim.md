@@ -2,6 +2,45 @@
 
 Dal: `fix/durbun-girisi-tasarim` · Taslak PR #367 · Birleştirme yok, TestFlight yok.
 
+## Rebase 17.10 (main `9db11e3` üstüne)
+
+**Ne yapıldı:** main (#370, #371; daha önce #369, #372, #373) bu dala birleştirildi (merge commit `3bddf27`, geçmiş yeniden yazılmadı). main'in bütün kararları olduğu gibi duruyor. Bu PR'ın Dürbün sırası, listeleri, "Seçiniz", 0–60/5 MOA ayak ve 8 satırlık liste kuralı değişmeden yeniden uygulandı.
+
+**Çakışma:** yalnız `lib/ui/menzil_widgets.dart`.
+- #370 açık listeyi ortak `MenzilSelectMenu` sınıfına taşıdı; üst çubuktaki profil seçici de onu kullanıyor.
+- Bu PR'ın 8 satır sınırı, tam satır sığdırma ve "seçili satır görünür açılır" kuralı `MenzilSelectMenu.show` içine taşındı. Böylece profil listesi de 8 satırla sınırlı ve genişliği hâlâ hap (düğme) kadar.
+- Eski 300 pt sınırı (`menuMaxHeight`) artık hiçbir yerde yok.
+- Profil listesine "seçili profile kaydır" eklenmedi (istenmedi); parametre isteğe bağlı, yalnız MenzilSelect veriyor.
+
+**Rebase sonrası bulunan ve düzeltilen hata (`8abf4cf`):** ilk test-diag'de main'in `duzeltmeler_16_10_test` "uzun adlar 320 pt ×1,3" testi kaldı.
+- Neden: satırları yazıyla büyüyen listelerde (`itemHeight: null`: profil listesi, Kalibre) yükseklik 3 × 48 pt'ye göre sınırlanıyordu. İki satıra kaydırılan uzun adlarla 3. profil listede görünmüyordu.
+- Düzeltme: büyüyen satırlı listelerde üst sınır 8 satırlık yükseklik. Liste yine satırları kadar kısa kalır. Sabit satırlı listeler (Dürbün listelerinin hepsi) değişmedi.
+- Test gevşetilmedi. Yeni test: 12 profilde üst çubuk listesi 8 satır yüksekliğinde, içinde kayıyor, haptan geniş değil.
+
+**Yerel:** `python3 tools/offline_dart_lint.py` PASS (416 Dart dosyası, 0 sorun). `python3 -m unittest discover -s tools -p 'test_*.py'` 915 test OK (1 atlandı). Bu ortamda Flutter SDK motor dosyaları indirilemedi (storage.googleapis.com 403); `flutter test/analyze/format` yalnız CI'da çalıştı.
+
+**CI (`8abf4cf`):**
+- `iOS CI` [run 38997833576](https://github.com/sniperTurk/flutter-app/actions/runs/38997833576): `verify` **success**, `dart-checks` **success**, `wind-acceptance` **success**, `ios-simulator` atlandı (iş akışı ayarı).
+- `flutter test` tüm paket, test-diag [run 38997830884](https://github.com/sniperTurk/flutter-app/actions/runs/38997830884): **success**.
+- `flutter analyze`, analyze-diag [run 38997832184](https://github.com/sniperTurk/flutter-app/actions/runs/38997832184): **success**.
+- Biçim, format-fix [run 38997833581](https://github.com/sniperTurk/flutter-app/actions/runs/38997833581): **success**, değişiklik gerekmedi.
+- `3bddf27` (düzeltmeden önce): test-diag [run 38996273190](https://github.com/sniperTurk/flutter-app/actions/runs/38996273190) **failure** (yukarıdaki hata); o ucun iOS CI'ı iptal edildi (aynı anda TestFlight çalışıyordu; iptali ben yapmadım).
+
+**Ekran görüntüleri (Simulator, `8abf4cf`):**
+- Dürbün turu, iPhone 16e / iOS 26.2, 390 pt, [run 39001595528](https://github.com/sniperTurk/flutter-app/actions/runs/39001595528), 17 görüntü, `flutter test exit: 0`; `ci/sim-screens` commit `05d0db4`:
+  - Elle giriş dolu: [06](https://github.com/sniperTurk/flutter-app/blob/05d0db43/latest/06_durbun_elle_dolu.png?raw=true), [07](https://github.com/sniperTurk/flutter-app/blob/05d0db43/latest/07_durbun_elle_dolu_alt.png?raw=true). Sıra onaylı sırayla aynı; Retikül Mil-Dot, "Dürbün: Benim Optik X5 Pro 5-25x56 FFP", "Listeden seç".
+  - Listeden seçim dolu: [14](https://github.com/sniperTurk/flutter-app/blob/05d0db43/latest/14_durbun_liste_dolu.png?raw=true), [15](https://github.com/sniperTurk/flutter-app/blob/05d0db43/latest/15_durbun_liste_dolu_alt.png?raw=true). Element Optics, MOA | FFP, Tüp ve Büyütme "Seçiniz", Titan 5-25x56 FFP MOA, 360 | 0 MOA.
+  - Açık listeler 8 satır: [03](https://github.com/sniperTurk/flutter-app/blob/05d0db43/latest/03_liste_minimum_buyutme.png?raw=true), [04](https://github.com/sniperTurk/flutter-app/blob/05d0db43/latest/04_liste_durbun_ayagi.png?raw=true), [05](https://github.com/sniperTurk/flutter-app/blob/05d0db43/latest/05_liste_retikul.png?raw=true).
+  - Görünen fark (dürüstçe): Dürbün kartı 2. turdaki görüntülerle aynı. Mühimmat kartında artık main'den gelen "Tüp basıncı | Regülatör basıncı" satırı görünüyor; bu PR'ın değişikliği değil.
+- Üst çubuk profil listesi açık, `duzeltmeler_16_10_screens_test`, iPhone 17 Pro / iOS 26.2 (390 pt ve 320 pt çizim), [run 39007638889](https://github.com/sniperTurk/flutter-app/actions/runs/39007638889), 20 görüntü, `flutter test exit: 0`; `ci/sim-screens` commit `384020a`:
+  - [02 (390 pt)](https://github.com/sniperTurk/flutter-app/blob/384020a3/latest/02_secici_390.png?raw=true), [12 (320 pt)](https://github.com/sniperTurk/flutter-app/blob/384020a3/latest/12_secici_320.png?raw=true), uzun ad: [04](https://github.com/sniperTurk/flutter-app/blob/384020a3/latest/04_secici_uzun_390.png?raw=true), [14](https://github.com/sniperTurk/flutter-app/blob/384020a3/latest/14_secici_uzun_320.png?raw=true).
+  - Liste düğmenin altında, düğmeden geniş değil; 3 profilin üçü de görünüyor (320 pt'de uzun ad iki satıra kayıyor).
+  - Görünen fark: yok. 6 seçici görüntüsü #370'in görüntüleriyle (`53862f2`) piksel piksel aynı.
+  - Turda yalnız 3 profil var; 8 satır sınırı bu görüntülerde görünmüyor, 12 profilli widget testiyle sınanıyor.
+- Simulator kuyruğu notu (dürüstçe): `sim-screens` aynı anda yalnız bir çalışma bekletiyor. Benim iki denememi başka oturumların çalışmaları iptal etti (38996289468, 38996313901, 38998435345, 38999318677); benim bir gönderimim de başka bir oturumun bekleyen çalışmasının (38998107774) yerini aldı. Seçici turunun iPhone 16e ile ilk denemesi ([39003822306](https://github.com/sniperTurk/flutter-app/actions/runs/39003822306)) "No tests ran" ile zaman aşımına uğradı (altyapı; #370'te de görülmüştü); #370'in kullandığı varsayılan cihazla tekrar çalıştı.
+
+TestFlight, gerçek cihaz, imzalama ve App Store çalıştırılmadı. Birleştirme yapılmadı.
+
 ## 2. tur — sahip kararları 16.10.2026 22:14–22:49 (İstanbul)
 
 ### Ne yapıldı
