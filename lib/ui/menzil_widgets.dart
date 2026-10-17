@@ -2463,6 +2463,19 @@ class MenzilPrimaryButton extends StatelessWidget {
   /// Space between icon and label when [iconLead] is set.
   static const double iconLabelGap = 5;
 
+  /// Smaller variant, used only by Profiller's "Profil ekle" (owner,
+  /// 2026-10-17 18:42 "önerini yap"): visible [compactHeight] pt, 14 pt bold
+  /// text, 12 pt on each side, 9 pt corners. The tap target stays at least
+  /// 44 pt: the transparent padding of [MaterialTapTargetSize.padded].
+  final bool compact;
+
+  /// With [compact]: a glyph before the label (e.g. "+"), 17 pt, not read
+  /// by VoiceOver (the button is announced by [label] only).
+  final String? leadingGlyph;
+
+  /// Visible height of a [compact] button.
+  static const double compactHeight = 34;
+
   const MenzilPrimaryButton({
     super.key,
     required this.label,
@@ -2472,6 +2485,8 @@ class MenzilPrimaryButton extends StatelessWidget {
     this.amber = false,
     this.oneLine = false,
     this.iconLead = 0,
+    this.compact = false,
+    this.leadingGlyph,
   });
 
   @override
@@ -2483,6 +2498,7 @@ class MenzilPrimaryButton extends StatelessWidget {
             foregroundColor: MenzilColors.onAmber,
           )
         : null;
+    if (compact) return _compact(style);
     final Widget text = oneLine
         ? FittedBox(
             fit: BoxFit.scaleDown,
@@ -2531,6 +2547,52 @@ class MenzilPrimaryButton extends StatelessWidget {
             label: text,
           );
     return expand ? SizedBox(width: double.infinity, child: button) : button;
+  }
+
+  Widget _compact(ButtonStyle? colours) {
+    final compactStyle = FilledButton.styleFrom(
+      minimumSize: const Size(0, compactHeight),
+      fixedSize: const Size.fromHeight(compactHeight),
+      maximumSize: const Size(double.infinity, compactHeight),
+      padding: const EdgeInsets.symmetric(horizontal: 12),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(9)),
+      textStyle: const TextStyle(
+        fontFamily: MenzilType.textFamily,
+        fontSize: 14,
+        fontWeight: FontWeight.w700,
+      ),
+      tapTargetSize: MaterialTapTargetSize.padded,
+      visualDensity: VisualDensity.standard,
+    );
+    final glyph = leadingGlyph;
+    Widget content = Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        if (glyph != null) ...[
+          ExcludeSemantics(
+            child: Text(
+              glyph,
+              style: const TextStyle(
+                fontSize: 17,
+                fontWeight: FontWeight.w700,
+                height: 1,
+              ),
+            ),
+          ),
+          const SizedBox(width: 4),
+        ],
+        Text(label, maxLines: 1, softWrap: false),
+      ],
+    );
+    // Large text: the "+" and label are set smaller together, never wrapped
+    // and never taller than the 34 pt button.
+    if (oneLine) content = FittedBox(fit: BoxFit.scaleDown, child: content);
+    final b = FilledButton(
+      style: compactStyle.merge(colours),
+      onPressed: onPressed,
+      child: content,
+    );
+    return expand ? SizedBox(width: double.infinity, child: b) : b;
   }
 }
 

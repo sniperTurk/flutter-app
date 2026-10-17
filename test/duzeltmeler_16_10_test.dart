@@ -3,6 +3,8 @@
 // owner at 20:07: "Profil seçici select diğer selectler gibi açılacak").
 //
 // 1. Profil ekle is only as wide as its text + 16 pt on each side.
+//    (Owner, 2026-10-17 18:42: now "+ Profil ekle" with 12 pt on each
+//    side and a 34 pt visible height; see test/profil_ekle_kucuk_test.dart.)
 // 2+3. Mühimmat sıcaklığı: the solver gets exactly main's numbers
 //    (golden values read from main e7b29bf with the same steps).
 // 4+6. Hedef: the compact click line; at 390×844 the distance control, the
@@ -124,32 +126,40 @@ void main() {
   group('1. Profil ekle', () {
     for (final width in const [320.0, 390.0]) {
       for (final scale in const [1.0, 1.3]) {
-        testWidgets('as wide as its text + 16 pt each side: '
+        testWidgets('as wide as "+ Profil ekle" + 12 pt each side: '
             '${width.toInt()} pt, ×$scale', (tester) async {
           _phone(tester, width: width, textScale: scale);
           await _home(tester, [_pcp('p1', 'Bir')]);
           expect(tester.takeException(), isNull);
           final add = find.byKey(const Key('profiles-add'));
           expect(tester.widget<MenzilPrimaryButton>(add).expand, isFalse);
-          final button = tester.getRect(add);
+          // The visible amber surface (owner, 2026-10-17: 34 pt high).
+          final button = tester.getRect(
+            find.descendant(of: add, matching: find.byType(Material)).first,
+          );
           final textFinder = find.descendant(
             of: add,
             matching: find.text('Profil ekle'),
           );
           final text = tester.getRect(textFinder);
+          final plus = tester.getRect(
+            find.descendant(of: add, matching: find.text('+')),
+          );
           final natural = tester
               .renderObject<RenderParagraph>(textFinder)
               .getMaxIntrinsicWidth(double.infinity);
           // No fixed 148 pt any more: narrower, the text drawn full size.
           expect(button.width, lessThan(148));
           expect(text.width, moreOrLessEquals(natural, epsilon: 0.5));
-          expect(text.left - button.left, moreOrLessEquals(16, epsilon: 0.5));
-          expect(button.right - text.right, moreOrLessEquals(16, epsilon: 0.5));
-          // One line, the same height as before (46 pt control, 48 pt tap
-          // target), same amber.
-          expect(text.height, lessThan(button.height / 2 + 4));
-          expect(button.height, greaterThanOrEqualTo(MenzilSpace.control));
-          expect(button.height, lessThanOrEqualTo(48));
+          expect(plus.left - button.left, moreOrLessEquals(12, epsilon: 0.5));
+          expect(button.right - text.right, moreOrLessEquals(12, epsilon: 0.5));
+          // One line inside the 34 pt button; the tap target stays 44-48
+          // pt; same amber.
+          expect(text.height, lessThanOrEqualTo(button.height));
+          expect(button.height, moreOrLessEquals(34, epsilon: 0.5));
+          final tap = tester.getRect(add);
+          expect(tap.height, greaterThanOrEqualTo(44));
+          expect(tap.height, lessThanOrEqualTo(48));
           expect(tester.widget<MenzilPrimaryButton>(add).amber, isTrue);
           // Same place: right end of the "Profiller" row, at the gutter.
           final header = tester.getRect(
