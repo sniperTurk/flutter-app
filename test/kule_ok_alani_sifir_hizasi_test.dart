@@ -164,6 +164,19 @@ void main() {
           expect(r.width, moreOrLessEquals(74 * k, epsilon: 0.5), reason: tip);
           expect(r.width, greaterThanOrEqualTo(44), reason: tip);
           expect(r.height, moreOrLessEquals(sideH, epsilon: 0.5), reason: tip);
+          // Yan kule konum (owner, 2026-10-16 21:08): the column moved 4·k pt
+          // right, its empty margin past the reticle square, which bounds
+          // hit testing. The part a finger can hit is still ≥ 44 pt wide.
+          expect(
+            r.right - reticle.right,
+            moreOrLessEquals(4 * k, epsilon: 0.5),
+            reason: tip,
+          );
+          expect(
+            math.min(r.right, reticle.right) - r.left,
+            greaterThanOrEqualTo(44),
+            reason: tip,
+          );
         }
         // On every supported phone (reticle ≥ 254 pt) the side fits 44.
         expect(reticle.width, greaterThanOrEqualTo(254));
@@ -220,14 +233,14 @@ void main() {
           (
             'Rüzgâr kulesi-step-plus',
             at(
-              Offset(reticle.right - 37 * k, reticle.center.dy - 133 * k),
+              Offset(reticle.right - 33 * k, reticle.center.dy - 133 * k),
               sideGlyph,
             ),
           ),
           (
             'Rüzgâr kulesi-step-minus',
             at(
-              Offset(reticle.right - 37 * k, reticle.center.dy + 133 * k),
+              Offset(reticle.right - 33 * k, reticle.center.dy + 133 * k),
               sideGlyph,
             ),
           ),
@@ -282,7 +295,18 @@ void main() {
           // At ×1.3 the page is taller than the view: bring the area in.
           await tester.ensureVisible(find.byTooltip(tip));
           await tester.pumpAndSettle();
-          final r = _rect(tester, tip);
+          final area = _rect(tester, tip);
+          // The side column's margin past the reticle square (yan kule
+          // konum, 2026-10-16) is not hit-testable; the rest of the area is.
+          final reticle = tester.getRect(find.byKey(ScopeDialKeys.reticle));
+          final r = drum == ScopeDialKeys.windageDrum
+              ? Rect.fromLTRB(
+                  area.left,
+                  area.top,
+                  math.min(area.right, reticle.right),
+                  area.bottom,
+                )
+              : area;
           for (final p in [
             _glyph(tester, glyphKey).center,
             r.center,

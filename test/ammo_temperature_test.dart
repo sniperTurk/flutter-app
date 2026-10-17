@@ -98,7 +98,9 @@ void main() {
     expect(t, contains('Örnek'));
   });
 
-  group('Hava Durumu', () {
+  // The box is on Pro > Tüfek düzeltmeleri since 2026-10-16 (owner, design
+  // PR #366); it was on Hava Durumu before. Behaviour unchanged.
+  group('Pro Ayarlar', () {
     setUp(() {
       SharedPreferences.setMockInitialValues({});
       CatalogRepository.installUserCatalog(
@@ -121,6 +123,7 @@ void main() {
     }
 
     Future<void> type(WidgetTester tester, Key key, String v) async {
+      await openProFor(tester, key);
       final f = find.descendant(
         of: find.byKey(key),
         matching: find.byType(TextField),
@@ -142,19 +145,24 @@ void main() {
           .requiredUp!;
     }
 
+    /// Where the box lives: Pro Ayarlar (Tüfek düzeltmeleri opened by
+    /// [type] / [openProFor]).
     Future<void> environment(WidgetTester tester, RifleProfile p) async {
-      await tester.pumpWidget(app(p, BallisticsView.environment));
+      await tester.pumpWidget(app(p, BallisticsView.pro));
       await tester.pumpAndSettle();
     }
 
-    testWidgets('firearm: in its own section under Hava; not on PCP', (
-      tester,
-    ) async {
+    testWidgets('firearm: in Pro Tüfek düzeltmeleri, not on Hava Durumu; '
+        'not on PCP', (tester) async {
       await sized(tester);
+      await tester.pumpWidget(app(_firearm(), BallisticsView.environment));
+      await tester.pumpAndSettle();
+      expect(find.byKey(_ammoKey), findsNothing);
+      expect(find.text('Mühimmat sıcaklığı'), findsNothing);
+
       await environment(tester, _firearm());
+      await openProFor(tester, _ammoKey);
       expect(find.byKey(_ammoKey), findsOneWidget);
-      // Moved out of the Hava card (owner, 2026-10-16): the box label and
-      // the new section title.
       expect(
         find.descendant(
           of: find.byKey(_ammoKey),
@@ -162,18 +170,6 @@ void main() {
         ),
         findsOneWidget,
       );
-      expect(
-        find.descendant(
-          of: find.byKey(const Key('environment-ammo-temp-card')),
-          matching: find.byKey(_ammoKey),
-        ),
-        findsOneWidget,
-      );
-      final air = tester.getTopLeft(
-        find.byKey(BallisticsFieldKeys.temperature),
-      );
-      final ammo = tester.getTopLeft(find.byKey(_ammoKey));
-      expect(ammo.dy, greaterThan(air.dy));
       final field = tester.widget<TextField>(
         find.descendant(
           of: find.byKey(_ammoKey),
@@ -185,6 +181,10 @@ void main() {
 
       await tester.pumpWidget(const SizedBox());
       await environment(tester, _pcp);
+      await openProFor(tester, _ammoKey);
+      expect(find.byKey(_ammoKey), findsNothing);
+      await tester.pumpWidget(app(_pcp, BallisticsView.environment));
+      await tester.pumpAndSettle();
       expect(find.byKey(_ammoKey), findsNothing);
     });
 
@@ -252,6 +252,7 @@ void main() {
 
       await tester.pumpWidget(const SizedBox());
       await environment(tester, p);
+      await openProFor(tester, _ammoKey);
       final field = tester.widget<TextField>(
         find.descendant(
           of: find.byKey(_ammoKey),

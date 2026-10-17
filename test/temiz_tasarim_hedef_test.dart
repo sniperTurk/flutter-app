@@ -261,10 +261,9 @@ void main() {
           box.center.dy,
           moreOrLessEquals(reticle.center.dy, epsilon: 0.5),
         );
-        expect(
-          box.right,
-          moreOrLessEquals(reticle.right - 4 * k, epsilon: 0.5),
-        );
+        // Yan kule konum (owner, 2026-10-16 21:08): the turret moved 4·k pt
+        // right, so the box ends on the reticle's right edge.
+        expect(box.right, moreOrLessEquals(reticle.right, epsilon: 0.5));
         // R up / L down, the arrows above and below the box, not in it.
         final right = find.byTooltip('Rüzgâr kulesi 1 klik sağa');
         final left = find.byTooltip('Rüzgâr kulesi 1 klik sola');
