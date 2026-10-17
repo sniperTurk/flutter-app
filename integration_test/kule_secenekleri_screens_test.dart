@@ -112,10 +112,10 @@ void main() {
             await tester.tap(toggle);
             await settle();
           }
-          // The scope (turret row + reticle) in the middle of the frame.
+          // The turret row near the top of the frame, the reticle below.
           await Scrollable.ensureVisible(
-            tester.element(find.byKey(ScopeDialKeys.reticle)),
-            alignment: 0.5,
+            tester.element(find.byKey(ScopeDialKeys.elevationDrum)),
+            alignment: 0.04,
           );
           await settle();
           await shot(name);

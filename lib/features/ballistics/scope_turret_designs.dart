@@ -283,7 +283,13 @@ class TurretDesign {
         gradient: LinearGradient(
           begin: across.$1,
           end: across.$2,
-          colors: [c.drumDark, c.drumLight, c.drumDark],
+          // A darker highlight than drumLight keeps the light numbers
+          // readable on the middle band.
+          colors: [
+            c.drumDark,
+            Color.lerp(c.drumDark, c.drumLight, 0.55)!,
+            c.drumDark,
+          ],
           stops: const [0.0, 0.42, 1.0],
         ),
       ),
@@ -294,15 +300,6 @@ class TurretDesign {
       ),
     };
   }
-
-  /// Plain tone behind the side drum's ↑R / L↓ letters, so the scale passes
-  /// under them instead of through them.
-  Color band(MenzilColors c) => switch (shading) {
-    TurretShading.gradient || TurretShading.flat => c.surface2,
-    TurretShading.recessed => c.bg,
-    TurretShading.metal => c.drumDark,
-    TurretShading.lightWindow => MenzilColors.scopeBgDim,
-  };
 }
 
 extension _TurretBarDesign on _TurretBarState {
@@ -428,6 +425,11 @@ extension _TurretDrumDesign on _TurretDrumState {
                   axis: widget.axis,
                   direction: direction,
                   start: delta > 0,
+                  letter: horizontal
+                      ? null
+                      : (delta > 0
+                            ? widget.positiveLetter
+                            : widget.negativeLetter),
                 ),
                 child: const SizedBox.expand(),
               ),
@@ -492,12 +494,18 @@ class _TurretCapPainter extends CustomPainter {
   /// True for the cap at the drum's start (left / top).
   final bool start;
 
+  /// The side drum's direction letter (R / L), drawn beside the arrow so
+  /// the scale window keeps its full length; null on the top drum, whose
+  /// U / D letters are in the window's header.
+  final String? letter;
+
   const _TurretCapPainter({
     required this.design,
     required this.colors,
     required this.axis,
     required this.direction,
     required this.start,
+    this.letter,
   });
 
   bool get _horizontal => axis == Axis.horizontal;
@@ -588,9 +596,16 @@ class _TurretCapPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final c = colors;
-    final centre = size.center(Offset.zero);
-    final across = _across(size);
-    final small = math.min(size.width, size.height);
+    final letter = this.letter;
+    // With a letter the arrow moves left of centre and the letter sits on
+    // its right, both inside the cap.
+    final centre = letter == null
+        ? size.center(Offset.zero)
+        : Offset(size.width * 0.38, size.height / 2);
+    final small = letter == null
+        ? math.min(size.width, size.height)
+        : math.min(size.height, size.width * 0.6);
+    final across = letter == null ? _across(size) : small;
     switch (design.arrow) {
       case TurretArrowLook.chevron:
         // The shipped chevron, as drawn beside the drum today.
@@ -657,6 +672,28 @@ class _TurretCapPainter extends CustomPainter {
         canvas.drawCircle(centre, r, _stroke(c.ink2, 1.5));
         canvas.drawPath(_chevron(centre, r * 0.9), _stroke(c.ink, 2.2));
     }
+    if (letter != null) {
+      final ink = switch (design.shading) {
+        TurretShading.metal => c.drumInk,
+        _ => c.ink,
+      };
+      final tp = TextPainter(
+        text: TextSpan(
+          text: letter,
+          style: TextStyle(
+            fontFamily: MenzilType.familyFor(13),
+            color: ink,
+            fontSize: 13,
+            fontWeight: FontWeight.w700,
+          ),
+        ),
+        textDirection: TextDirection.ltr,
+      )..layout();
+      tp.paint(
+        canvas,
+        Offset(size.width * 0.76 - tp.width / 2, size.height / 2 - tp.height / 2),
+      );
+    }
   }
 
   @override
@@ -664,11 +701,12 @@ class _TurretCapPainter extends CustomPainter {
       old.design != design ||
       old.colors != colors ||
       old.direction != direction ||
-      old.axis != axis;
+      old.axis != axis ||
+      old.letter != letter;
 }
 
 /// The scale window of a design drum: ticks, numbers, the U/D – unit header
-/// (top drum) or the ↑R / L↓ letters (side drum), and the red index mark.
+/// (top drum) and the red index mark.
 /// Same information as the shipped [_DrumPainter], drawn only inside the
 /// window, so the end caps never cover any of it.
 class _DesignDrumPainter extends CustomPainter {
@@ -694,17 +732,32 @@ class _DesignDrumPainter extends CustomPainter {
   });
 
   /// Clicks between labelled ticks: a whole number of units, at least
-  /// [TurretDesign.majorSpacing] pt apart.
-  int get _major {
+  /// [TurretDesign.majorSpacing] pt apart. In a short window (a narrow
+  /// phone) the spacing drops to what still leaves one whole label in view
+  /// wherever the drum stands: at most [length] − [label] pt, never under
+  /// [label] pt, so labels do not run into each other.
+  int _major(double length, double label) {
     final perUnit = math.max(1, (1 / clickValue).round());
-    for (final units in const [1, 2, 5, 10, 20, 50, 100]) {
-      final n = perUnit * units;
-      if (n * pixelsPerClick >= design.majorSpacing) return n;
-    }
-    return perUnit * 100;
+    final steps = [
+      for (final units in const [1, 2, 5, 10, 20, 50, 100]) perUnit * units,
+    ];
+    final wanted = steps.firstWhere(
+      (n) => n * pixelsPerClick >= design.majorSpacing,
+      orElse: () => steps.last,
+    );
+    if (wanted * pixelsPerClick <= length - label) return wanted;
+    // Half units (0,5 mrad) only as a fallback for short windows.
+    final fallback = [if (perUnit.isEven && perUnit > 1) perUnit ~/ 2, ...steps];
+    final fitting = fallback.where(
+      (n) =>
+          n * pixelsPerClick <= length - label && n * pixelsPerClick >= label,
+    );
+    return fitting.isEmpty ? wanted : fitting.last;
   }
 
   /// Draws [s] centred on [center]; shrinks it to [maxWidth] if needed.
+  /// With [within], a label that would not fit whole inside it is left out,
+  /// so the window never shows a number cut in half at its ends.
   void _text(
     Canvas canvas,
     String s,
@@ -712,6 +765,7 @@ class _DesignDrumPainter extends CustomPainter {
     Color color,
     double size, {
     double? maxWidth,
+    Rect? within,
     FontWeight weight = FontWeight.w600,
   }) {
     TextPainter layout(double fontSize) => TextPainter(
@@ -731,7 +785,17 @@ class _DesignDrumPainter extends CustomPainter {
     if (maxWidth != null && tp.width > maxWidth && tp.width > 0) {
       tp = layout(size * maxWidth / tp.width);
     }
-    tp.paint(canvas, center - Offset(tp.width / 2, tp.height / 2));
+    final topLeft = center - Offset(tp.width / 2, tp.height / 2);
+    if (within != null) {
+      final r = topLeft & Size(tp.width, tp.height);
+      final fits =
+          r.left >= within.left &&
+          r.top >= within.top &&
+          r.right <= within.right &&
+          r.bottom <= within.bottom;
+      if (!fits) return;
+    }
+    tp.paint(canvas, topLeft);
   }
 
   String _letter(int v) =>
@@ -796,7 +860,9 @@ class _DesignDrumPainter extends CustomPainter {
       ..color = ink
       ..strokeWidth = 1.2;
     final reach = (mid / pixelsPerClick).ceil() + 1;
-    final major = _major;
+    // Room a label needs along the drum (width on the top drum, height on
+    // the side one), with a small margin.
+    final major = _major(length, horizontal ? 34 : 24);
     final numberSize = horizontal ? design.numberSize : design.numberSize - 2;
     for (var v = clicks - reach; v <= clicks + reach; v++) {
       // Values above the current setting sit before the pointer, so dragging
@@ -820,11 +886,18 @@ class _DesignDrumPainter extends CustomPainter {
           horizontal ? Offset(p, across * 0.47) : Offset(across * 0.62, p),
           ink,
           numberSize,
+          within: Rect.fromLTWH(
+            0,
+            0,
+            horizontal ? length : across,
+            horizontal ? across : length,
+          ).deflate(1),
         );
       }
     }
 
-    // Header (top drum) or end letters (side drum), on a plain band.
+    // Header of the top drum. The side drum's R / L letters are in its
+    // end caps, beside the arrows.
     if (horizontal) {
       _text(
         canvas,
@@ -833,20 +906,6 @@ class _DesignDrumPainter extends CustomPainter {
         design.ink2(c),
         10,
         maxWidth: length - 6,
-      );
-    } else {
-      const band = 18.0;
-      final bandPaint = Paint()..color = design.band(c);
-      canvas
-        ..drawRect(Rect.fromLTWH(0, 0, across, band), bandPaint)
-        ..drawRect(Rect.fromLTWH(0, length - band, across, band), bandPaint);
-      _text(canvas, '↑$positiveLetter', Offset(across / 2, band / 2), ink, 11);
-      _text(
-        canvas,
-        '$negativeLetter↓',
-        Offset(across / 2, length - band / 2),
-        ink,
-        11,
       );
     }
     canvas.restore();
