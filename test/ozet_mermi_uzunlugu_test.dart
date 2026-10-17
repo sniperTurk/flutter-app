@@ -95,7 +95,7 @@ const _pcpAmmo = <String, dynamic>{
   'bcModel': 'g1',
   'lengthMm': 10.5,
 };
-const _pcpScope = <String, dynamic>{..._scope, 'platform': 'pcp'};
+final _pcpScope = <String, dynamic>{..._scope, 'platform': 'pcp'};
 
 const _profile = RifleProfile(
   id: 'p-mu',
