@@ -605,8 +605,7 @@ void main() {
         final r = tester.getRect(t);
         final box = tester.getRect(_key(key));
         final w = tester.widget<Text>(t);
-        out.write('$label: text=${r.width.toStringAsFixed(1)}x${r.height.toStringAsFixed(1)} '
-            'box=${box.width.toStringAsFixed(1)} weight=${w.style?.fontWeight} size=${w.style?.fontSize} | ');
+        out.write('${label.substring(0, 3)}${r.width.round()}x${r.height.round()}/${box.width.round()}/${w.style?.fontWeight?.value} ');
       }
       expect(out.toString().replaceAll('\n', ' '), 'x');
     });
