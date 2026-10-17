@@ -59,6 +59,32 @@ Eski düzeni/bayrağı doğrulayan ve güncellenen testler (zayıflatılmadı; a
 Yerel: `python3 tools/offline_dart_lint.py` → PASS (422 dosya, 0 sorun); `python3 -m unittest discover -s tools -p 'test_*.py'` → 915 test OK (1 atlandı). Flutter SDK yerelde kurulamadı (Dart SDK indirmesi proxy'de 403); Flutter testleri yalnız CI'da.
 
 
+### Ekran görüntüleri
+Simülatör: iPhone 16e (390 pt), `sim-screens` run [39026830000](https://github.com/sniperTurk/flutter-app/actions/runs/39026830000), tur `integration_test/pro_barut_not_screens_test.dart`, çıkış kodu 0, 6 kare, adım hatası yok. Uygulama kodu 47fd52c ile aynı (sonraki commit'ler yalnız rapor).
+Ölçülen kutular (SIMRECT, pt): Profil ateşli BC modeli 28–190 / Mermi uzunluğu 200–362, ikisinin üst kenarı 396,7; PCP aynı (396,7). Pro ateşli: Tüfek düzeltmeleri'nde Mermi uzunluğu yok; Mühimmat sıcaklığı bölümü Tüfek düzeltmeleri'nin hemen altında (Tüfek kartı bitişi + 8 pt), kutu 28–190 (sol yarı). Pro PCP: Mühimmat sıcaklığı bölümü yok.
+
+| Profil → Mühimmat, ateşli (dolu) | Profil → Mühimmat, PCP | Pro, Tüfek düzeltmeleri açık |
+|---|---|---|
+| ![](https://raw.githubusercontent.com/sniperTurk/flutter-app/9ac570ab7f98c3e65be3a9a4c4ea34b71ca6bf0d/latest/01_profil_muhimmat_atesli.png) | ![](https://raw.githubusercontent.com/sniperTurk/flutter-app/9ac570ab7f98c3e65be3a9a4c4ea34b71ca6bf0d/latest/02_profil_muhimmat_pcp.png) | ![](https://raw.githubusercontent.com/sniperTurk/flutter-app/9ac570ab7f98c3e65be3a9a4c4ea34b71ca6bf0d/latest/03_pro_atesli_tufek.png) |
+
+| Pro, Mühimmat sıcaklığı açık (not 1) | Pro, Mühimmat sıcaklığı açık (not 2) | Pro, PCP |
+|---|---|---|
+| ![](https://raw.githubusercontent.com/sniperTurk/flutter-app/9ac570ab7f98c3e65be3a9a4c4ea34b71ca6bf0d/latest/04_pro_atesli_muhimmat_not1.png) | ![](https://raw.githubusercontent.com/sniperTurk/flutter-app/9ac570ab7f98c3e65be3a9a4c4ea34b71ca6bf0d/latest/05_pro_atesli_muhimmat_not2.png) | ![](https://raw.githubusercontent.com/sniperTurk/flutter-app/9ac570ab7f98c3e65be3a9a4c4ea34b71ca6bf0d/latest/06_pro_pcp.png) |
+
+Ekranda görülen ve dürüstçe not edilen farklar:
+- **BC yalnız kalıyor:** ateşli "Listede yok" (elle) mühimmatta Kutudaki ağırlık tam satır olduğundan BC tek başına bir satırda, altında BC modeli | Mermi uzunluğu. PCP'de de (Tip | Ağırlık · BC · BC modeli | Mermi uzunluğu). Listeden seçilen ateşli mühimmatta Ağırlık | BC yan yana kalır. Bu, "BC modeli solda" kararının main düzenindeki sonucu; #368 PCP'de Ağırlık | BC yapıyor.
+- **Etiket iki satır:** "Mermi uzunluğu" etiketi sağdaki "mm" ve ⓘ yüzünden iki satıra kırılıyor (Regülatör basıncı / Hız ölçüm sıcaklığı gibi); kutular yine aynı hizada. Birim kutunun içine #368 ile girecek.
+- Onaylı çizimin PNG'si bu oturumda yoktu; karşılaştırma sahibin 11:34–11:41 sözlerine göre yapıldı.
+
+### CI
+- iOS CI (PR) kod commit'i 8bf68d8'de (uygulama kodu 47fd52c ile aynı, yalnız rapor eklendi): [run 39025082963](https://github.com/sniperTurk/flutter-app/actions/runs/39025082963) — `verify` success, `dart-checks` success, `wind-acceptance` success, `ios-simulator` atlandı (isteğe bağlı iş). Bu rapor commit'i yeni bir iOS CI çalıştırır; sonucu PR'ın Checks sekmesinde.
+- test-diag, tüm `test` (47fd52c): [39023117479](https://github.com/sniperTurk/flutter-app/actions/runs/39023117479) success. Değişen 17 test dosyası tek tek de çalıştırıldı (ad18f33), hepsi success (ör. `mermi_uzunlugu_profil_test.dart` [39021809066](https://github.com/sniperTurk/flutter-app/actions/runs/39021809066), `muhimmat_sicakligi_bolum_test.dart` [39021810691](https://github.com/sniperTurk/flutter-app/actions/runs/39021810691)); `wez_tour_smoke_test.dart` (47fd52c) [39023116043](https://github.com/sniperTurk/flutter-app/actions/runs/39023116043) success.
+- Ara bulgular ve düzeltmeleri: ilk tam koşuda `bc_modeli_secim_test` (eski PCP BC | BC modeli satırı), `pro_info_popup_test` (ⓘ sayfasının son kutusu) ve `wez_tour_smoke_test` (tur ekranı yeniden açınca 600 m kurulumu kayboluyordu) kırıldı; üçü yeni düzene göre güncellendi, hiçbir test zayıflatılmadı.
+- analyze-diag (ad18f33): [39022302337](https://github.com/sniperTurk/flutter-app/actions/runs/39022302337) success. 
+- format-fix (375209577): [39019762105](https://github.com/sniperTurk/flutter-app/actions/runs/39019762105) biçim commit'i 34718a1'i itti; sonraki [39022303667](https://github.com/sniperTurk/flutter-app/actions/runs/39022303667) değişiklik gerekmedi.
+- Code Review + Security review: [PR yorumu](https://github.com/sniperTurk/flutter-app/pull/379#issuecomment-6233014764) (engelleyici bulgu yok).
+- Birleştirme ve TestFlight yapılmadı.
+
 ---
 
 # Önceki adım: barut notu (17.10 10:35)
