@@ -22,14 +22,32 @@ String _scopeSummary(ScopeOptic s) {
   return [size, focal].where((p) => p.isNotEmpty).join(' ');
 }
 
+/// The click Hedef uses for this scope in the profile's unit: the catalog
+/// click when the units match, otherwise 0.1 MRAD / ¼ MOA / ¼ SMOA; null
+/// when the scope has no click value.
+double? _profileClick(ScopeOptic s, AngularUnit unit) {
+  if (!s.clickValue.isFinite || s.clickValue <= 0) return null;
+  return s.clickUnit == unit ? s.clickValue : unit.standardClick;
+}
+
 /// Total clicks of the top (elevation) turret in the profile's unit, with
-/// the same click Hedef uses (the catalog click when the units match,
-/// otherwise 0.1 MRAD / ¼ MOA / ¼ SMOA); null when the travel is unknown.
+/// the same click Hedef uses ([_profileClick]); null when the travel is
+/// unknown.
 int? _topTurretClicks(ScopeOptic s, AngularUnit unit) {
   final mrad = s.elevationRangeMrad;
-  if (mrad == null || mrad <= 0 || s.clickValue <= 0) return null;
-  final click = s.clickUnit == unit ? s.clickValue : unit.standardClick;
+  final click = _profileClick(s, unit);
+  if (mrad == null || mrad <= 0 || click == null) return null;
   return (unit.fromMrad(mrad) / click).round();
+}
+
+/// Klik değeri for the summary, in the Profil editor's list format
+/// ("0,1 MRAD", "1/4 MOA"); a click that list lacks (e.g. 0.2 MRAD) is
+/// shown as a number with a decimal comma ("0,2 MRAD").
+String _clickSummary(double click, AngularUnit unit) {
+  for (final (v, name) in _ProfileDialogState._clickOptions(unit)) {
+    if (v == click) return name;
+  }
+  return '${_trimNum(click)} ${unit.label}';
 }
 
 /// The zero in the profile's own distance unit ("25" m, "27,3" yd).
@@ -223,6 +241,18 @@ class _ActiveProfileDetails extends StatelessWidget {
                 'Dürbün üst kule',
                 '${_topTurretClicks(scope, profile.angularUnit)}',
                 'klik',
+              ),
+            // Klik değeri last in the Dürbün card (owner, 2026-10-17:
+            // "ekle"): the click the calculation uses; left out, like
+            // Dürbün üst kule, when the scope has none.
+            if (scope != null &&
+                _profileClick(scope, profile.angularUnit) != null)
+              MenzilMetric(
+                'Klik değeri',
+                _clickSummary(
+                  _profileClick(scope, profile.angularUnit)!,
+                  profile.angularUnit,
+                ),
               ),
           ],
         ),
