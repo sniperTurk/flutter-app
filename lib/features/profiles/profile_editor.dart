@@ -96,7 +96,6 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     return null;
   }
 
-  static const _otherCaliberKey = '!other';
   static const _noCartridgeKey = '!nodia';
 
   /// "Fişeğim listede yok": the bullet diameters of the list, one per inch
@@ -124,8 +123,11 @@ class _ProfileDialogState extends State<_ProfileDialog> {
   /// The chosen rifle variant (one caliber of a model), or null.
   LibraryRifle? _rifleVariant;
 
-  /// Kalibre: the whole cartridge list instead of the model's calibers.
-  bool _caliberAll = false;
+  /// Profili Düzenle: the saved caliber is none of the saved model's
+  /// calibers (picked before 2026-10-17 through the removed "Diğer
+  /// kalibre"); Kalibre shows it as its value until another rifle or
+  /// caliber is chosen.
+  bool _offModelSaved = false;
 
   /// Kalibre "Fişeğim listede yok": the bullet diameter is picked instead.
   bool _caliberByDiameter = false;
@@ -566,7 +568,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
               ? _rifleVariant!.cartridge
               : null;
         } else {
-          _caliberAll = true;
+          _offModelSaved = true;
         }
       }
     }
@@ -1769,7 +1771,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                         rifleModel.text = '';
                       }
                       _rifleVariant = null;
-                      _caliberAll = false;
+                      _offModelSaved = false;
                       _caliberByDiameter = false;
                       // A caliber of the other list does not carry over:
                       // a firearm cartridge is not a PCP caliber and no

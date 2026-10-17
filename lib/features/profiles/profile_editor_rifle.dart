@@ -16,7 +16,6 @@ extension _RifleSection on _ProfileDialogState {
   static const _firearmCartridges = _ProfileDialogState._firearmCartridges;
   static const _manualKey = _ProfileDialogState._manualKey;
   static const _noCartridgeKey = _ProfileDialogState._noCartridgeKey;
-  static const _otherCaliberKey = _ProfileDialogState._otherCaliberKey;
   static const _parse = _ProfileDialogState._parse;
   static const _pcpCalibers = _ProfileDialogState._pcpCalibers;
   static const _popularCount = _ProfileDialogState._popularCount;
@@ -24,6 +23,11 @@ extension _RifleSection on _ProfileDialogState {
   static const _showRifleListedeYok = _ProfileDialogState._showRifleListedeYok;
   static const _trimDot = _ProfileDialogState._trimDot;
   static const _variantLabel = _ProfileDialogState._variantLabel;
+
+  /// Kalibre key of a saved caliber that is not one of the chosen model's
+  /// calibers (picked before 2026-10-17 through the removed "Diğer
+  /// kalibre"): it stays the box's value, never changed silently.
+  static const _savedCaliberKey = '!saved';
 
   double? _caliberItem(double mm) {
     final list = platform == WeaponPlatform.firearm
@@ -43,7 +47,8 @@ extension _RifleSection on _ProfileDialogState {
         : const <LibraryRifle>[];
     if (variants.isNotEmpty) {
       final i = _rifleVariant == null ? -1 : variants.indexOf(_rifleVariant!);
-      return i < 0 ? null : 'v:$i';
+      if (i >= 0) return 'v:$i';
+      return _savedOffModelCaliber == null ? null : _savedCaliberKey;
     }
     if (platform == WeaponPlatform.firearm && _caliberByDiameter) {
       return _noCartridgeKey;
@@ -60,10 +65,32 @@ extension _RifleSection on _ProfileDialogState {
     return 'mm:${_trimDot(_caliberItem(cal) ?? cal)}';
   }
 
-  /// Kalibre shows the chosen model's calibers (owner, 2026-10-11) until
-  /// "Diğer kalibre" opens the whole list.
-  bool get _caliberFromModel =>
-      !_rifleManual && !_caliberAll && _rifleVariants.isNotEmpty;
+  /// Kalibre shows only the chosen model's calibers (owner, 2026-10-11;
+  /// "Diğer kalibre" removed, owner 2026-10-17).
+  bool get _caliberFromModel => !_rifleManual && _rifleVariants.isNotEmpty;
+
+  /// A saved caliber that is none of the model's calibers, as the box
+  /// showed it before (cartridge name, or "<mm> mm (kayıtlı)"); null when
+  /// the profile did not open with one, a model caliber is chosen or
+  /// Kalibre is empty.
+  ({String full, String short})? get _savedOffModelCaliber {
+    if (!_offModelSaved || _rifleVariant != null) return null;
+    final cal = _parse(rifleCaliber);
+    if (cal == null) return null;
+    final mm = _trimDot(cal);
+    final saved = (full: '$mm mm (kayıtlı)', short: '$mm mm');
+    if (platform == WeaponPlatform.firearm) {
+      final c = _cartridge;
+      final name = c != null && _firearmCartridges.any((e) => e.$1 == c)
+          ? c
+          : _cartridgeFor(cal);
+      return name == null ? saved : (full: name, short: _shortCartridge(name));
+    }
+    final item = _caliberItem(cal);
+    if (item == null) return saved;
+    final name = _pcpCalibers.firstWhere((e) => e.$1 == item).$2;
+    return (full: name, short: name);
+  }
 
   /// Kalibre entries with the text of the closed box: [full], on one line
   /// and cut with "…" when it does not fit the half-width box (owner,
@@ -82,7 +109,15 @@ extension _RifleSection on _ProfileDialogState {
         final label = _variantLabel(r, variants);
         add('v:$i', Text(label, maxLines: 2), label);
       }
-      add(_otherCaliberKey, const Text('Diğer kalibre'), 'Diğer kalibre');
+      final saved = _savedOffModelCaliber;
+      if (saved != null) {
+        add(
+          _savedCaliberKey,
+          Text(saved.full, maxLines: 2),
+          saved.full,
+          short: saved.short,
+        );
+      }
       return out;
     }
     if (platform == WeaponPlatform.firearm) {
@@ -143,11 +178,8 @@ extension _RifleSection on _ProfileDialogState {
 
   void _onCaliberKey(String? key) {
     if (key == null || key.startsWith('#')) return;
-    if (key == _otherCaliberKey) {
-      _caliberAll = true;
-      _rifleVariant = null;
-      return;
-    }
+    // The saved caliber stays as it is.
+    if (key == _savedCaliberKey) return;
     if (key.startsWith('v:')) {
       _applyRifleVariant(_rifleVariants[int.parse(key.substring(2))]);
       return;
@@ -195,7 +227,7 @@ extension _RifleSection on _ProfileDialogState {
 
   void _applyRifleVariant(LibraryRifle r) {
     _rifleVariant = r;
-    _caliberAll = false;
+    _offModelSaved = false;
     _caliberByDiameter = false;
     rifleCaliber.text = _trimDot(r.diameterMm);
     _cartridge = r.platform == WeaponPlatform.firearm ? r.cartridge : null;
@@ -236,7 +268,7 @@ extension _RifleSection on _ProfileDialogState {
   /// Empties the rifle part chosen from the lists.
   void _clearRifleChoice() {
     _rifleVariant = null;
-    _caliberAll = false;
+    _offModelSaved = false;
     _caliberByDiameter = false;
     _cartridge = null;
     rifleCaliber.text = '';
@@ -313,7 +345,7 @@ extension _RifleSection on _ProfileDialogState {
         key: ValueKey(
           'rifle-caliber-${platform.name}-${rifleCaliber.text}-'
           '$_cartridge-${rifleBrand.text}-${rifleModel.text}-'
-          '$_caliberAll-$_caliberByDiameter',
+          '$_offModelSaved-$_caliberByDiameter',
         ),
         info: platform == WeaponPlatform.firearm
             ? ProfileFieldInfo.caliberFirearm
