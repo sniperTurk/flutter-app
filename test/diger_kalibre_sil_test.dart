@@ -43,8 +43,8 @@ Finder _key(String key) => find.byKey(Key(key));
 
 Finder _in(String key, Finder f) => find.descendant(of: _key(key), matching: f);
 
-MenzilSelect<String> _caliberSelect(WidgetTester tester) => tester
-    .widget<MenzilSelect<String>>(
+MenzilSelect<String> _caliberSelect(WidgetTester tester) =>
+    tester.widget<MenzilSelect<String>>(
       _in('rifle-caliber', find.byType(MenzilSelect<String>)),
     );
 
