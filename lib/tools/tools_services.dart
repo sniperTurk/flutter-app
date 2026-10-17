@@ -2,6 +2,7 @@ import 'package:flutter/widgets.dart';
 
 import '../services/level_calibration_preferences.dart';
 import 'adapters/camera_plugin_service.dart';
+import 'adapters/cloudflare_product_report_service.dart';
 import 'adapters/flutter_compass_heading_provider.dart';
 import 'adapters/geolocator_location_provider.dart';
 import 'adapters/google_elevation_provider.dart';
@@ -20,6 +21,7 @@ import 'ports/phone_altitude_provider.dart';
 import 'ports/photo_picker.dart';
 import 'ports/place_search.dart';
 import 'ports/pressure_sensor.dart';
+import 'ports/product_report_service.dart';
 import 'ports/tilt_provider.dart';
 import 'ports/vision_assist.dart';
 import 'ports/weather_provider.dart';
@@ -54,6 +56,16 @@ class ToolsServices {
   /// map service (the box stays empty with a short note).
   final ElevationProvider? elevation;
 
+  /// Product box for products the user typed in (owner, 2026-10-17). Null:
+  /// nothing is sent (tests, simulator and CI builds).
+  final ProductReportService? productReports;
+
+  /// The app version a TestFlight / App Store build carries
+  /// (`--dart-define=SNIPER_TURK_APP_VERSION=1.0.0+<build>`, set only by
+  /// ios-testflight.yml). Empty in every other build, which therefore never
+  /// sends to the product box.
+  static const appVersion = String.fromEnvironment('SNIPER_TURK_APP_VERSION');
+
   const ToolsServices({
     required this.location,
     required this.weather,
@@ -68,6 +80,7 @@ class ToolsServices {
     this.pressure = const SensorsPlusPressureSensor(),
     this.phoneAltitude,
     this.elevation,
+    this.productReports,
   });
 
   factory ToolsServices.production() => ToolsServices(
@@ -83,6 +96,9 @@ class ToolsServices {
     levelCalibration: const PersistentLevelCalibrationStore(),
     phoneAltitude: GeolocatorLocationProvider.highAccuracy,
     elevation: const GoogleElevationProvider(),
+    productReports: appVersion.isEmpty
+        ? null
+        : CloudflareProductReportService(appVersion: appVersion),
   );
 }
 

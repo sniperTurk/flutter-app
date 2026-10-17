@@ -9,6 +9,7 @@ import 'package:sniper_turk/tools/ports/camera_service.dart';
 import 'package:sniper_turk/tools/ports/photo_picker.dart';
 import 'package:sniper_turk/tools/ports/place_search.dart';
 import 'package:sniper_turk/tools/ports/pressure_sensor.dart';
+import 'package:sniper_turk/tools/ports/product_report_service.dart';
 import 'package:sniper_turk/tools/ports/clock.dart';
 import 'package:sniper_turk/tools/ports/elevation_provider.dart';
 import 'package:sniper_turk/tools/ports/heading_provider.dart';
@@ -203,6 +204,7 @@ ToolsServices testServices({
   PressureSensor? pressure,
   PhoneAltitudeProvider? phoneAltitude,
   ElevationProvider? elevation,
+  ProductReportService? productReports,
 }) => ToolsServices(
   location: location ?? TestLocation(const LocationFix(39.9, 32.8)),
   weather:
@@ -219,6 +221,7 @@ ToolsServices testServices({
   pressure: pressure ?? TestPressure(),
   phoneAltitude: phoneAltitude,
   elevation: elevation,
+  productReports: productReports,
 );
 
 Widget host(Widget child, {ToolsServices? services, double textScale = 1.0}) =>
