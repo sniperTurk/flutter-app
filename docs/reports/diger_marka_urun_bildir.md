@@ -240,8 +240,9 @@ Uygulama kodu f28c354e; sonraki commit yalnız bu rapor (docs, CI tetiklenmez).
 - analyze-diag (7c9fb309): [39065714168](https://github.com/sniperTurk/flutter-app/actions/runs/39065714168) success.
 - format-fix (375209577) dalda çalıştırıldı; son biçim farkı elle düzeltildi.
 - Önceki kırmızılar: main'deki #389 + #395 birleşimi `profile_editor_rifle.dart`'ta
-  2 analyzer hatası bırakmıştı (bu PR'ın değil; PR'a en küçük düzeltme
-  taşındı, PR'da yorum var).
+  2 analyzer hatası bırakmıştı (bu PR'ın değil). Önce PR'a en küçük düzeltme
+  taşındı; main #404 ile düzeltilince dal main'e yeniden dayandırıldı ve bu
+  geçici düzeltme çıkarıldı (main'in hâli kullanılıyor).
 - Code Review: Code Review eklentisi taslak PR'ları incelemediği için aynı
   inceleme (hata + güvenlik) ayrı bir inceleme ajanıyla diff üzerinde yapıldı;
   ana oturum birleştirmeden önce eklentiyi yeniden çalıştırabilir. Bulgular (Diğer marka'dan listeye dönünce eski sayılar,
