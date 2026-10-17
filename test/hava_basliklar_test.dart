@@ -100,7 +100,7 @@ void main() {
   ) async {
     await _sized(tester);
 
-    // Profil summary header size (Tüfek bilgileri, PR #266).
+    // Profil summary header size (PR #266): 18.
     final store = MemoryProfileStore();
     await store.save(_profile);
     await tester.pumpWidget(
@@ -113,9 +113,11 @@ void main() {
       ),
     );
     await tester.pumpAndSettle();
-    expect(_header('Tüfek bilgileri'), findsOneWidget);
-    final profilSize = _size(tester, 'Tüfek bilgileri');
-    expect(profilSize, 18);
+    // The Profil summary titles are gone (owner, 2026-10-17); the Hava
+    // Durumu headers keep the size they had, 18.
+    expect(find.text('Tüfek bilgileri'), findsNothing);
+    expect(find.byKey(const Key('profile-summary-rifle')), findsOneWidget);
+    const profilSize = 18.0;
 
     // Hava Durumu.
     await tester.pumpWidget(
