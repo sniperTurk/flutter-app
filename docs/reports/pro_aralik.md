@@ -1,6 +1,6 @@
 # Pro Ayarlar aralıkları
 
-Dal: `fix/pro-aralik` (main @ 53100e0 üzerine rebase edildi; ilk hali 2101b3f'dan) · Taslak PR #399 (birleştirilmedi, TestFlight yok).
+Dal: `fix/pro-aralik` (main @ 53100e0 üzerine rebase edildi, sonra main'in #404 düzeltmesi birleştirildi: 19bfac7; ilk hali 2101b3f'dan) · Taslak PR #399 (birleştirilmedi, TestFlight yok).
 
 ## Sahibin kararı (İstanbul, 17.10.2026, TestFlight 113, ekran görüntüsü 20:54)
 20:55 "Bu sayfadaki aralık mesafelerini düzelteceğiz", 20:58 "20 pt yap", 20:59 "açılır olanları 60 yap", 21:01 "tamam böyle düzenle".
@@ -48,10 +48,30 @@ Sahibin ekran görüntüsündeki ölçülere göre sayfa daha sıkı; ⓘ'nin 44
 - **İnceleme:** Code Review eklentisi taslak PR'ları incelemiyor (ilk adımda durur). Yerine ayrı bir inceleme ajanı diff'i hata ve güvenlik için okudu: yüksek/orta bulgu yok; düşük bulgular yukarıdaki uç durumlarda (küçük yazıda ≈1 pt kayma, açık başlık 60/62, paylaşılan bileşen kuralının kopyası, ekran turunun doğrulama yapmaması). Güvenlik: diff'te giriş, kayıt, ağ, izin veya gizli bilgi yok. Taslak "hazır" yapılınca Code Review / Security review eklentileri yeniden çalıştırılmalı.
 
 ## Ekran görüntüleri
-**Henüz yok (BLOCKED).** Simülatör sırası 19:38'den beri doluydu; 19:38'de gönderdiğim koşu ([39063328414](https://github.com/sniperTurk/flutter-app/actions/runs/39063328414)) başka bir koşu sıraya girince iptal edildi. Rebase sonrası dal main'in derleme hatası yüzünden derlenmiyor (aşağıda), bu yüzden simülatör yapısı da kurulamaz. Main düzelince `sim-screens.yml ref=fix/pro-aralik test=integration_test/sim_screens_pro_aralik_test.dart` gönderilecek; görüntüler ve SIMMEASURE ölçüleri buraya eklenecek.
+Simülatör koşusu [39075298648](https://github.com/sniperTurk/flutter-app/actions/runs/39075298648) (iPhone 17 Pro, iOS 26.2; sayfa 390 ve 320 pt genişlikte çizildi; çıkış kodu 0). Görüntüler `ci/sim-screens` dalında, commit [1a55968](https://github.com/sniperTurk/flutter-app/tree/1a55968ac4653bec9b0589a630a39b694e4d8f0a/latest) (README'deki "Source … @ 6ccbed0" satırı iş akışının main sha'sını yazıyor; çizilen dal `fix/pro-aralik`).
+- [01 — 390 pt, tüm kutular kapalı](https://raw.githubusercontent.com/sniperTurk/flutter-app/1a55968ac4653bec9b0589a630a39b694e4d8f0a/latest/01_pro_aralik_390_kapali.png)
+- [02 — 320 pt, tüm kutular kapalı](https://raw.githubusercontent.com/sniperTurk/flutter-app/1a55968ac4653bec9b0589a630a39b694e4d8f0a/latest/02_pro_aralik_320_kapali.png)
+- [03 — 390 pt, Hareketli hedef açık](https://raw.githubusercontent.com/sniperTurk/flutter-app/1a55968ac4653bec9b0589a630a39b694e4d8f0a/latest/03_pro_aralik_390_target_acik.png)
+
+Simülatörde ölçülen (SIMMEASURE, gerçek iOS yazı tipi):
+| | 390 pt | 320 pt |
+|---|---|---|
+| Kart üstü → "Atış mesafesi" yazısı | 20,0 | 20,0 |
+| Kapalı kutu yüksekliği (7 kutunun her biri) | 60,0 | 60,0 |
+| Başlık dokunma alanı | 60,0 | 60,0 |
+| Kartlar arası | 8,0 | 8,0 |
+
+Onaylı değerlerden görünen farklar (dürüst liste):
+- Onaylı değerlerle fark yok: 20 / 60 / 8 (+1 pt çizgi ≈ 9) pt.
+- 320 pt'de özetler kısalıyor: Rüzgâr düzeltmesi "ka…", Tüfek düzeltmeleri "ka…", Mühimmat sıcaklığı "k…". Bu bu PR'dan değil: başlık satırının genişlik kuralı (`ProRowHeader`: önce özet kısalır, başlık tek satır kalır) değişmedi ve satırın yatay genişliği aynı (kartın sol/sağ 14 pt boşluğu korunuyor), bu yüzden main'de de aynı kısalma beklenir; main'in 320 pt görüntüsü bu koşuda çekilmedi.
+- 320 pt görüntüsünde sağdaki siyah alan, sayfanın 320 pt'lik bir çerçevede çizilmesinden (telefon 402 pt); uygulamanın parçası değil.
+- 03'te sayfa açık kutuya kaydırılmış; en üstte Rüzgâr kartının alt kenarı görünüyor (beklenen).
+- Atış mesafesi ⓘ simgesi yazının ortasıyla aynı hizada, kartın içinde; kartın üstünde boş satır yok.
 
 ## CI bağlantıları
-**Rebase sonrası (head 3b0bf09, main 53100e0 üzerinde): KIRMIZI, bu PR'dan değil.** iOS CI [39064600443](https://github.com/sniperTurk/flutter-app/actions/runs/39064600443): dart-checks → Static analysis ❌ (`lib/features/profiles/profile_editor_rifle.dart:87` `_shortCartridge` yok, `:118` `short:` parametresi yok). Sebep: #395 bu ikisini sildi, sonra birleşen #389 kullanıyor; main'in kendisi derlenmiyor. Bu PR o dosyaya dokunmuyor; düzeltme önerisi PR yorumunda. Biçim ✅, wind-acceptance ✅, testler ve verify çalışmadı (atlandı).
+**Güncel head 19bfac7 (main'in #404 düzeltmesi birleştirildi): YEŞİL.** iOS CI [39072355628](https://github.com/sniperTurk/flutter-app/actions/runs/39072355628): **verify ✅**, **dart-checks ✅** (biçim, analiz, tüm testler, Python, G1/G7), **wind-acceptance ✅**, ios-simulator atlandı (iş akışı kuralı).
+
+Önceki durum (geçmiş): rebase sonrası head 3b0bf09 / ffc9872'de dart-checks kırmızıydı ([39064600443](https://github.com/sniperTurk/flutter-app/actions/runs/39064600443)); sebep main'in kendisinin derlenmemesiydi (#389 + #395, `profile_editor_rifle.dart`), #404 ile giderildi.
 
 **Rebase öncesi (kod commit'i 3a3a083, main 2101b3f üzerinde): YEŞİL.**
 - iOS CI [39057619000](https://github.com/sniperTurk/flutter-app/actions/runs/39057619000): verify ✅, dart-checks ✅ (biçim, `flutter analyze --fatal-infos --fatal-warnings`, tüm birim/widget testleri, Python takımı, G1/G7 kapısı), wind-acceptance ✅, ios-simulator atlandı (iş akışı kuralı).
