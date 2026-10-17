@@ -1,7 +1,7 @@
 # Simulator screenshots
 
-- Source: `tmp/hedef-klik-once` @ `5703cbfbb4ff6381dcb02e942aafdf701887e21f`
-- Run: https://github.com/sniperTurk/flutter-app/actions/runs/39023350759
+- Source: `tmp/hedef-klik-sonra` @ `5703cbfbb4ff6381dcb02e942aafdf701887e21f`
+- Run: https://github.com/sniperTurk/flutter-app/actions/runs/39024343807
 - flutter test exit code: 0 (0 = every step passed)
 - Device: iPhone 16e / iOS 26.2
 

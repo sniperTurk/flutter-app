@@ -35,12 +35,12 @@ The following plugins do not support Swift Package Manager for ios:
   - google_maps_flutter_ios
 This will become an error in a future version of Flutter. Please contact the plugin maintainers to request Swift Package Manager adoption.
 Running Xcode build...                                          
-Xcode build done.                                           119.8s
+Xcode build done.                                           127.2s
 00:00 +0: Hedef click line at 390 pt
 SIMTEXT:[<'hedef-turret-solution'>]: Üst kule 39 klik yukarı | Yan kule 24 klik sol | 14.0,229.0,376.0,251.0
 SIMTEXT:[<'hedef-solution-elevation'>]: Üst kule 39 klik yukarı | 14.0,229.0,189.0,251.0
 SIMTEXT:[<'hedef-solution-windage'>]: Yan kule 24 klik sol | 201.0,229.0,376.0,251.0
 SIMSCREEN:01_hedef_klik_satiri_390
 SIMSCREEN_DONE failures=0
-00:50 +1: (tearDownAll)
+00:51 +1: (tearDownAll)
 01:01 +1: All tests passed!
