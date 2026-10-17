@@ -567,6 +567,20 @@ class MenzilSectionHeader extends StatelessWidget {
   /// 2026-10-13: "Başlıkları biraz küçültürmüsün").
   final double size;
 
+  /// Exact visible gaps (Hava Durumu only, owner 2026-10-17): the title text
+  /// starts [textGapAbove] below the header's top edge and ends
+  /// [textGapBelow] above its bottom edge; [padding] is not used. With
+  /// [titleInfo] the header is at least 44 pt tall so the ⓘ's whole tap
+  /// target lies inside it (any extra height goes above the text).
+  final double? textGapAbove;
+  final double textGapBelow;
+
+  /// With [textGapAbove]: the ⓘ right after the title, built with where its
+  /// icon sits inside its 44 × 44 pt target ([alignment], [padding]) so the
+  /// icon stays centred on the title's first line.
+  final Widget Function(AlignmentGeometry alignment, EdgeInsetsGeometry padding)?
+  titleInfo;
+
   const MenzilSectionHeader(
     this.title, {
     super.key,
@@ -578,11 +592,70 @@ class MenzilSectionHeader extends StatelessWidget {
       top: MenzilSpace.sm,
       bottom: MenzilSpace.sm,
     ),
-  });
+    this.textGapAbove,
+    this.textGapBelow = MenzilSpace.sm,
+    this.titleInfo,
+  }) : assert(
+         textGapAbove != null ||
+             (titleInfo == null && textGapBelow == MenzilSpace.sm),
+         'titleInfo and textGapBelow need textGapAbove',
+       ),
+       assert(
+         textGapAbove == null ||
+             (titleTrailing == null && trailing == null && subtitle == null),
+         'the exact-gap header takes only titleInfo',
+       );
+
+  static const double _infoTarget = 44;
+  static const double _infoIcon = 18;
+
+  Widget _withGaps(BuildContext context, MenzilColors c) {
+    final style = MenzilType.heading(c.ink, size: size);
+    final lineHeight =
+        MediaQuery.textScalerOf(context).scale(size) * (style.height ?? 1.1);
+    final info = titleInfo;
+    final minHeight = textGapAbove! + lineHeight + textGapBelow;
+    final top =
+        textGapAbove! +
+        (info == null ? 0.0 : math.max(0.0, _infoTarget - minHeight));
+    // One-line height; a wrapped title only makes the header taller.
+    final height = top + lineHeight + textGapBelow;
+    final centre = top + lineHeight / 2;
+    final targetTop = (centre - _infoTarget / 2).clamp(
+      0.0,
+      math.max(0.0, height - _infoTarget),
+    );
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Flexible(
+          child: Padding(
+            padding: EdgeInsets.only(top: top, bottom: textGapBelow),
+            child: Semantics(
+              header: true,
+              child: Text(title, style: style),
+            ),
+          ),
+        ),
+        if (info != null)
+          Padding(
+            padding: EdgeInsets.only(top: targetTop),
+            child: SizedBox(
+              height: _infoTarget,
+              child: info(
+                Alignment.topCenter,
+                EdgeInsets.only(top: centre - _infoIcon / 2 - targetTop),
+              ),
+            ),
+          ),
+      ],
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     final c = MenzilColors.of(context);
+    if (textGapAbove != null) return _withGaps(context, c);
     return Padding(
       padding: padding,
       child: Column(

@@ -19,7 +19,11 @@ extension _HavaDurumuView on _BallisticsScreenState {
           // The read-only "Konumdan canlı hava verisi" button was removed
           // (owner, 2026-10-12); the page stays in Araçlar. The fetch
           // buttons sit under the Hava Durumu boxes.
-          ..._environmentInputs(context, collapseShotInputs: true),
+          ..._environmentInputs(
+            context,
+            collapseShotInputs: true,
+            sectionGaps: true,
+          ),
           if (widget.onContinueToPro != null)
             MenzilPrimaryButton(
               key: const Key('environment-continue-pro'),
@@ -31,8 +35,9 @@ extension _HavaDurumuView on _BallisticsScreenState {
             )
           else
             MenzilPrimaryButton(label: 'Hesapla', onPressed: solve),
-          const SizedBox(height: MenzilSpace.md),
-          _atmosphereResult(context),
+          // Hava özeti 20 pt under the button, like every section title on
+          // this page (owner, 2026-10-17).
+          _atmosphereResult(context, gapAbove: MenzilSpace.xl),
         ],
       ),
     );
@@ -124,7 +129,11 @@ extension _HavaDurumuView on _BallisticsScreenState {
             ),
           ),
           const SizedBox(height: MenzilSpace.md),
-          ..._environmentInputs(context, collapseShotInputs: true),
+          ..._environmentInputs(
+            context,
+            collapseShotInputs: true,
+            sectionGaps: true,
+          ),
           MenzilPrimaryButton(
             key: const Key('environment-create-profile'),
             label: 'Profil oluştur',
@@ -140,9 +149,16 @@ extension _HavaDurumuView on _BallisticsScreenState {
   // Ortam
   // -------------------------------------------------------------------------
 
+  /// [sectionGaps] (the Hava Durumu pages, owner 2026-10-17 20:02/20:03):
+  /// a card's edge → the next section title's text 20 pt, the title's text
+  /// → its card 8 pt; the cards before a title drop their 10 pt margin and
+  /// the title holds the whole gap (its ⓘ's 44 pt target fits inside it).
+  /// The Rüzgâr card has no empty padding above its field labels. Balistik /
+  /// DOPE keeps the old layout.
   List<Widget> _environmentInputs(
     BuildContext context, {
     required bool collapseShotInputs,
+    bool sectionGaps = false,
   }) {
     // Only the full "Balistik / DOPE" view shows (and edits) these; the
     // shell takes them from Profil.
@@ -188,12 +204,18 @@ extension _HavaDurumuView on _BallisticsScreenState {
       ],
     );
 
+    // The card before a section title: no margin with [sectionGaps].
+    const beforeTitle = EdgeInsets.zero;
+    const cardMargin = EdgeInsets.only(bottom: MenzilSpace.md);
+    final gap = sectionGaps ? MenzilSpace.xl : null;
+    final warning = _pressureWarning;
     return [
       // No "Hava" title over the top card (owner, 2026-10-16 21:10: the top
       // bar already says "Hava Durumu"). The card is the page's first child,
       // MenzilPage's top padding (MenzilSpace.md, 10 pt) under the top bar,
       // like the first card on Pro Ayarlar.
       MenzilCard(
+        margin: sectionGaps ? beforeTitle : cardMargin,
         padding: const EdgeInsets.fromLTRB(
           MenzilSpace.lg,
           MenzilSpace.lg,
@@ -252,9 +274,11 @@ extension _HavaDurumuView on _BallisticsScreenState {
         'Basınç Ölçer',
         EnvironmentFieldInfo.barometerCard,
         infoKey: const Key('environment-barometer-info'),
+        gapAbove: gap,
       ),
       MenzilCard(
         key: const Key('environment-barometer-card'),
+        margin: sectionGaps ? beforeTitle : cardMargin,
         padding: const EdgeInsets.fromLTRB(
           MenzilSpace.lg,
           MenzilSpace.lg,
@@ -320,9 +344,12 @@ extension _HavaDurumuView on _BallisticsScreenState {
         'İrtifa',
         EnvironmentFieldInfo.altitudeCard,
         infoKey: const Key('environment-altitude-info'),
+        gapAbove: gap,
       ),
       MenzilCard(
         key: const Key('environment-altitude-card'),
+        // The pressure warning keeps its 10 pt under the card.
+        margin: sectionGaps && warning == null ? beforeTitle : cardMargin,
         padding: const EdgeInsets.fromLTRB(
           MenzilSpace.lg,
           MenzilSpace.lg,
@@ -380,32 +407,50 @@ extension _HavaDurumuView on _BallisticsScreenState {
       ),
       // Outside the field grid on purpose: inserting it between the fields
       // re-parented them and a typed value could be lost.
-      if (_pressureWarning != null)
+      if (warning != null)
         MenzilNotice(
           key: const Key('environment-pressure-warning'),
           tone: MenzilNoticeTone.warning,
-          message: _pressureWarning!,
+          message: warning,
         ),
       // Rüzgâr: its ⓘ opens the "Rüzgâr tahmini nasıl yapılır?" guide
       // (owner, 2026-10-15); the separate link was deleted (HDF-1).
-      MenzilSectionHeader(
-        'Rüzgâr',
-        size: 18,
-        padding: const EdgeInsets.only(
-          top: MenzilSpace.xxs,
-          bottom: MenzilSpace.sm,
+      if (gap == null)
+        MenzilSectionHeader(
+          'Rüzgâr',
+          size: 18,
+          padding: const EdgeInsets.only(
+            top: MenzilSpace.xxs,
+            bottom: MenzilSpace.sm,
+          ),
+          titleTrailing: MenzilInfoButton(
+            key: const Key('environment-wind-info'),
+            title: 'Rüzgâr',
+            tooltip: WindGuide.linkLabel,
+            onPressed: () => WindGuide.show(context, metric: metric),
+          ),
+        )
+      else
+        MenzilSectionHeader(
+          'Rüzgâr',
+          size: 18,
+          // The warning above already ends with its own 10 pt.
+          textGapAbove: warning == null ? gap : gap - MenzilSpace.md,
+          titleInfo: (alignment, padding) => MenzilInfoButton(
+            key: const Key('environment-wind-info'),
+            title: 'Rüzgâr',
+            tooltip: WindGuide.linkLabel,
+            alignment: alignment,
+            padding: padding,
+            onPressed: () => WindGuide.show(context, metric: metric),
+          ),
         ),
-        titleTrailing: MenzilInfoButton(
-          key: const Key('environment-wind-info'),
-          title: 'Rüzgâr',
-          tooltip: WindGuide.linkLabel,
-          onPressed: () => WindGuide.show(context, metric: metric),
-        ),
-      ),
       MenzilCard(
-        padding: const EdgeInsets.fromLTRB(
+        // No empty card padding above the field labels (owner, 2026-10-17):
+        // their row starts with the ⓘ's 44 pt tap target.
+        padding: EdgeInsets.fromLTRB(
           MenzilSpace.lg,
-          MenzilSpace.lg,
+          sectionGaps ? 0 : MenzilSpace.lg,
           MenzilSpace.lg,
           MenzilSpace.xxs,
         ),
@@ -512,7 +557,9 @@ extension _HavaDurumuView on _BallisticsScreenState {
     ];
   }
 
-  Widget _atmosphereResult(BuildContext context) {
+  /// [gapAbove]: Hava Durumu's exact 20 pt / 8 pt title gaps (owner,
+  /// 2026-10-17); null keeps the Balistik / DOPE layout.
+  Widget _atmosphereResult(BuildContext context, {double? gapAbove}) {
     final c = MenzilColors.of(context);
     if (airDensityKgM3 == null) return const SizedBox.shrink();
     // "Hava özeti" (owner, 2026-10-15): a title above the summary card, like
@@ -520,15 +567,23 @@ extension _HavaDurumuView on _BallisticsScreenState {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        const MenzilSectionHeader(
-          'Hava özeti',
-          key: Key('environment-summary-header'),
-          size: 18,
-          padding: EdgeInsets.only(
-            top: MenzilSpace.xxs,
-            bottom: MenzilSpace.sm,
+        if (gapAbove == null)
+          const MenzilSectionHeader(
+            'Hava özeti',
+            key: Key('environment-summary-header'),
+            size: 18,
+            padding: EdgeInsets.only(
+              top: MenzilSpace.xxs,
+              bottom: MenzilSpace.sm,
+            ),
+          )
+        else
+          MenzilSectionHeader(
+            'Hava özeti',
+            key: const Key('environment-summary-header'),
+            size: 18,
+            textGapAbove: gapAbove,
           ),
-        ),
         MenzilCard(
           key: const Key('environment-summary-card'),
           background: c.surface,
