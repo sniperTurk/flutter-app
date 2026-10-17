@@ -23,25 +23,22 @@ import 'package:sniper_turk/features/tools/tool_support.dart';
 import 'package:sniper_turk/models/domain.dart';
 import 'package:sniper_turk/services/profile_codec.dart';
 
-RifleProfile _pcp({
-  double muzzle = 300,
-  double? min,
-  double? max,
-}) => RifleProfile(
-  id: 'd114',
-  name: 'D114',
-  rifleId: 'd114-yok-rifle',
-  ammunitionId: 'd114-yok-ammo',
-  scopeId: 'd114-yok-scope',
-  muzzleVelocityMps: muzzle,
-  zeroRangeM: 30,
-  sightHeightMm: 50,
-  // An older profile's pressure: ToolProfileUpdate treats it as PCP when
-  // the rifle record is not in the catalog.
-  pressureBar: 150,
-  pcpMinVelocityMps: min,
-  pcpMaxVelocityMps: max,
-);
+RifleProfile _pcp({double muzzle = 300, double? min, double? max}) =>
+    RifleProfile(
+      id: 'd114',
+      name: 'D114',
+      rifleId: 'd114-yok-rifle',
+      ammunitionId: 'd114-yok-ammo',
+      scopeId: 'd114-yok-scope',
+      muzzleVelocityMps: muzzle,
+      zeroRangeM: 30,
+      sightHeightMm: 50,
+      // An older profile's pressure: ToolProfileUpdate treats it as PCP when
+      // the rifle record is not in the catalog.
+      pressureBar: 150,
+      pcpMinVelocityMps: min,
+      pcpMaxVelocityMps: max,
+    );
 
 void main() {
   group('#388 PCP En düşük | En yüksek → ortalama', () {
@@ -80,8 +77,7 @@ void main() {
       );
     });
 
-    test('firearm: typed PCP pair is dropped, velocity = Namlu çıkış hızı',
-        () {
+    test('firearm: typed PCP pair is dropped, velocity = Namlu çıkış hızı', () {
       final input = ProfileInput.validate(
         name: 'Ateşli',
         muzzleVelocityText: '800',
@@ -109,23 +105,25 @@ void main() {
       expect(_pcp(min: 260, max: 250).velocityMps, 300);
     });
 
-    test('Araçlar: pair → one velocity refused; lone value → written, kept',
-        () {
-      expect(
-        () => ToolProfileUpdate.apply(
-          _pcp(min: 250, max: 260),
+    test(
+      'Araçlar: pair → one velocity refused; lone value → written, kept',
+      () {
+        expect(
+          () => ToolProfileUpdate.apply(
+            _pcp(min: 250, max: 260),
+            muzzleVelocityMps: 270,
+          ),
+          throwsA(isA<FormatException>()),
+        );
+        final lone = ToolProfileUpdate.apply(
+          _pcp(min: 250),
           muzzleVelocityMps: 270,
-        ),
-        throwsA(isA<FormatException>()),
-      );
-      final lone = ToolProfileUpdate.apply(
-        _pcp(min: 250),
-        muzzleVelocityMps: 270,
-      );
-      expect(lone.muzzleVelocityMps, 270);
-      expect(lone.pcpMinVelocityMps, 250);
-      expect(lone.velocityMps, 270);
-    });
+        );
+        expect(lone.muzzleVelocityMps, 270);
+        expect(lone.pcpMinVelocityMps, 250);
+        expect(lone.velocityMps, 270);
+      },
+    );
 
     test(
       'D114-2: Profiller listesi shows the velocity the calculation uses',
@@ -135,7 +133,8 @@ void main() {
         final line = profileListSummary(_pcp(min: 250, max: 260));
         expect(line, contains('837 fps'));
       },
-      skip: 'D114-2 (ORTA): Profil özeti / Profiller listesi / Kronograf '
+      skip:
+          'D114-2 (ORTA): Profil özeti / Profiller listesi / Kronograf '
           'Tüfek kartındaki hızı gösteriyor, hesap ortalamayı kullanıyor.',
     );
   });
