@@ -2,9 +2,5 @@ install: 0
 grant location: 0
 grant location-always: 0
 simulated location: 0
-flutter test exit: 1
+flutter test exit: 0
 screenshots: 20
-failed step: SIMSTEP_FAIL:secici_kisa_320: The finder "Found 0 widgets with key [<(top-bar-profile-item, sim-short)>] (considering only hit-testable widgets with a RenderBox): []" (used in a call to "tap()") could not find any matching widgets.
-failed step: SIMSTEP_FAIL:secici_kisa_390: The finder "Found 0 widgets with key [<(top-bar-profile-item, sim-short)>] (considering only hit-testable widgets with a RenderBox): []" (used in a call to "tap()") could not find any matching widgets.
-failed step: SIMSTEP_FAIL:secici_uzun_320: The finder "Found 0 widgets with key [<(top-bar-profile-item, sim-long)>] (considering only hit-testable widgets with a RenderBox): []" (used in a call to "tap()") could not find any matching widgets.
-failed step: SIMSTEP_FAIL:secici_uzun_390: The finder "Found 0 widgets with key [<(top-bar-profile-item, sim-long)>] (considering only hit-testable widgets with a RenderBox): []" (used in a call to "tap()") could not find any matching widgets.
