@@ -41,7 +41,7 @@ D114-0 bir derleme hatası; hesap bulgularının hiçbiri sayının yanlış hes
 
 ## Testler (test/audit_testflight_114/)
 
-- `denetim_114_test.dart` (bu dal): #388 ortalama, eşit ikili, tek değer reddi, ateşli silahta düşürme, tek değerli eski profil yükleme (min ve max), ters ikili, Araçlar yazma kuralı; #387 Miller el hesabı ve 150 mm; #390 üretici değerleri. Profil kütüphanesini içe aktarmadığı için kırık main'de de çalışıyor: **12 test geçti** (CI).
+- `denetim_114_test.dart` (bu dal): #388 ortalama, eşit ikili, tek değer reddi, ateşli silahta düşürme, tek değerli eski profil yükleme (min ve max), ters ikili, Araçlar yazma kuralı; #387 Miller el hesabı ve 150 mm; #390 üretici değerleri. Profil kütüphanesini içe aktarmadığı için kırık main'de de çalışıyor: **11 test geçti** (CI).
 - `denetim_114_ozet_test.dart` (bu dal): **D114-0** kaynak testi `skip:` ve **D114-2** `skip:` (Profiller listesi hesap hızını göstermeli). Bu dosya Profil kütüphanesini içe aktardığı için D114-0 düzelene kadar yüklenemez; D114-0'ın düzeltmesi bunu da çözer.
 - `denetim_114_pr400_test.dart` (#400 head + bu test, dal `audit/testflight-114-pr400`, PR açılmadı; #400 birleşince eklenmeli): birimler, 360° → 0°, akla yatkın olmayan basınç reddi, basıncın İstasyon basıncına yazılmadığı (çift düzeltme yok). **D114-1** `skip:`.
 - D114-3 ve D114-4 için test eklenmedi (DÜŞÜK; davranış kasıtlı/sahip kararı).
