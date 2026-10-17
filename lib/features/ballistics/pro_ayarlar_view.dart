@@ -6,14 +6,95 @@ part of 'ballistics_screen.dart';
 ///
 /// Modül ayrımı (owner, 2026-10-15): ballistics_screen.dart'tan aynen
 /// taşındı; durum ve hesap ballistics_screen.dart'ta kalır.
+/// Card top edge → Atış mesafesi label top (owner, 2026-10-17 20:58: "20
+/// pt yap").
+const double _proRangeLabelTop = 20;
+
+/// The ⓘ tap target of a compact field's label row (`_CompactLabel`).
+const double _proRangeInfoTarget = 44;
+
+/// A closed Pro box: its header is the whole card (owner, 2026-10-17 20:59:
+/// "açılır olanları 60 yap").
+const double _proHeaderHeight = 60;
+
 extension _ProAyarlarView on _BallisticsScreenState {
   /// The Pro Ayarlar page (BallisticsView.pro).
   Widget _proAyarlarPage(BuildContext context) {
+    // The Atış mesafesi ⓘ target may reach above its card into the page's
+    // top padding ([_proRangeCard]); the padding gives up that much so the
+    // card stays where it was.
+    final overhang = _proRangeOverhang(context);
     return MenzilCompactFields(
       reserveInfo: false,
       child: MenzilPage(
         key: const PageStorageKey('ballistics-pro'),
+        padding: EdgeInsets.fromLTRB(
+          MenzilSpace.gutter,
+          math.max(0.0, MenzilSpace.md - overhang),
+          MenzilSpace.gutter,
+          MenzilSpace.xl,
+        ),
         children: _proSection(context),
+      ),
+    );
+  }
+
+  /// How far below the top of the compact Atış mesafesi field its label
+  /// starts: the label row is as tall as the ⓘ's 44 pt target (or the
+  /// label line, if taller) and the label sits at its bottom
+  /// ([MenzilInput] compact variant, `_CompactLabel`).
+  double _proRangeLabelOffset(BuildContext context) {
+    final style = MenzilType.label(MenzilColors.of(context).ink);
+    final line =
+        MediaQuery.textScalerOf(context).scale(style.fontSize!) *
+        (style.height ?? 1);
+    return math.max(_proRangeInfoTarget, line) - line;
+  }
+
+  /// The part of the Atış mesafesi field (its ⓘ target) above the card's
+  /// top edge once the label is [_proRangeLabelTop] below that edge.
+  double _proRangeOverhang(BuildContext context) =>
+      math.max(0.0, _proRangeLabelOffset(context) - _proRangeLabelTop);
+
+  /// The first Pro card: Atış mesafesi and Haritadan ölç (/ Paralakstan).
+  ///
+  /// Owner, 2026-10-17 20:55–21:01 ("aralık mesafelerini düzelteceğiz",
+  /// "20 pt yap"): card top edge → label top 20 pt (was ≈44 pt). The empty
+  /// space was the label row, as tall as the ⓘ's 44 pt target with the
+  /// label at its bottom, under the card's 14 pt padding. The label, box,
+  /// button and their gaps stay the same, and the ⓘ keeps its 44 × 44 pt
+  /// target: the card surface is drawn behind the content, so the top of
+  /// that target can reach past the card's edge into the page's top
+  /// padding and still take taps there.
+  Widget _proRangeCard(BuildContext context, Widget content) {
+    final overhang = _proRangeOverhang(context);
+    final top = math.max(
+      0.0,
+      _proRangeLabelTop - _proRangeLabelOffset(context),
+    );
+    return Padding(
+      padding: const EdgeInsets.only(bottom: MenzilSpace.sm),
+      child: Stack(
+        children: [
+          Positioned.fill(
+            top: overhang,
+            child: const MenzilCard(
+              key: Key('pro-range-card'),
+              margin: EdgeInsets.zero,
+              padding: EdgeInsets.zero,
+              child: SizedBox.expand(),
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.fromLTRB(
+              MenzilSpace.lg,
+              top,
+              MenzilSpace.lg,
+              MenzilSpace.lg,
+            ),
+            child: content,
+          ),
+        ],
       ),
     );
   }
@@ -44,6 +125,15 @@ extension _ProAyarlarView on _BallisticsScreenState {
     return MenzilCard(
       key: Key('pro-box-$id'),
       margin: const EdgeInsets.only(bottom: MenzilSpace.sm),
+      // No padding above and below the header: the header itself is the
+      // closed card's 60 pt (owner, 2026-10-17 20:59: "açılır olanları 60
+      // yap"; was 14 + 48 + 14). The open content keeps its 14 pt below.
+      padding: EdgeInsets.fromLTRB(
+        MenzilSpace.lg,
+        0,
+        MenzilSpace.lg,
+        open ? MenzilSpace.lg : 0,
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
@@ -56,9 +146,14 @@ extension _ProAyarlarView on _BallisticsScreenState {
               onTap: () => _update(() {
                 _proOpen = open ? null : id;
               }),
-              // 44 pt minimum tap target (VoiceOver / HIG).
-              child: ConstrainedBox(
-                constraints: const BoxConstraints(minHeight: 48),
+              // The whole 60 pt header is the tap target (≥ 44 pt, VoiceOver
+              // / HIG); its parts stay vertically centred.
+              child: Container(
+                constraints: const BoxConstraints(minHeight: _proHeaderHeight),
+                padding: const EdgeInsets.symmetric(
+                  vertical: (_proHeaderHeight - proInfoTarget) / 2,
+                ),
+                alignment: Alignment.center,
                 // [title][ⓘ][space][summary][⌄] (owner, 2026-10-16): the ⓘ
                 // right after the title with its own 44 pt target, which
                 // opens only the explanation; the rest of the line toggles.
@@ -230,10 +325,9 @@ extension _ProAyarlarView on _BallisticsScreenState {
         ? '${(m.abs() * 100).toStringAsFixed(1).replaceAll('.', ',')} cm'
         : '${UnitSystem.millimetersToInches(m.abs() * 1000).toStringAsFixed(1).replaceAll('.', ',')} in';
     return [
-      MenzilCard(
-        key: const Key('pro-range-card'),
-        margin: const EdgeInsets.only(bottom: MenzilSpace.sm),
-        child: Column(
+      _proRangeCard(
+        context,
+        Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             MenzilInput(
