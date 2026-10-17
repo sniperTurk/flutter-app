@@ -5,11 +5,12 @@
 // the truing range itself (about 0,8 mrad at 100 m).
 //
 // Owner, 2026-10-16: the "Basınca göre hız" table the original case was
-// built on is deleted. A PCP now calculates with RifleProfile.velocityMps:
-// the mean of En düşük / En yüksek namlu çıkış hızı when both are given,
-// else the Tüfek card's Namlu çıkış hızı. Same numbers as the original:
-// Hedef's velocity 255 m/s, the Namlu çıkış hızı box 270 m/s, 18 gr, G1
-// 0,031, zero 30 m, truing at 100 m. Un-skipped: it must pass.
+// built on is deleted. Owner, 2026-10-17: a PCP calculates with the Tüfek
+// card's Namlu çıkış hızı; En düşük / En yüksek namlu çıkış hızı are saved
+// only. Same numbers as the original: Hedef's velocity 255 m/s (now the
+// Namlu çıkış hızı), the other velocity 270 m/s (now the En düşük / En
+// yüksek mean, which must not be used), 18 gr, G1 0,031, zero 30 m,
+// truing at 100 m. Un-skipped: it must pass.
 //
 // References are hand calculations with the repository's own solver (the
 // original audit's tools/denetim_2026_10_15c_diger.py: 6,89 mrad at 255
@@ -54,17 +55,18 @@ const _k10Ammo = <String, dynamic>{
   'bcModel': 'g1',
 };
 
-/// Namlu çıkış hızı 270 m/s on the Tüfek card; En düşük 250 and En yüksek
-/// 260 m/s on the Mühimmat card: Hedef uses their mean, 255 m/s.
+/// Namlu çıkış hızı 255 m/s on the Tüfek card (what Hedef uses); En düşük
+/// 265 and En yüksek 275 m/s on the Mühimmat card (mean 270 m/s, saved
+/// only).
 const _k10Profile = RifleProfile(
   id: 'k10',
   name: 'K10 PCP',
   rifleId: 'manual_rifle_k10',
   ammunitionId: 'manual_ammo_k10',
   scopeId: 'gazi-6-36',
-  muzzleVelocityMps: 270,
-  pcpMinVelocityMps: 250,
-  pcpMaxVelocityMps: 260,
+  muzzleVelocityMps: 255,
+  pcpMinVelocityMps: 265,
+  pcpMaxVelocityMps: 275,
   zeroRangeM: 30,
   sightHeightMm: 50,
   tubePressureBar: 120,
@@ -122,7 +124,7 @@ void main() {
       final at270 = _correction(270, 0.031, 100);
       expect(at255, closeTo(6.89, 0.15));
       expect(at270, lessThan(at255 - 0.5));
-      expect(_k10Profile.velocityMps, 255);
+      expect(_k10Profile.muzzleVelocityMps, 255);
     });
 
     testWidgets('the applied BC reproduces the observation at the velocity '
@@ -168,7 +170,7 @@ void main() {
       // when the truing solved at 270 m/s).
       expect(bc, closeTo(0.031, 0.001));
       expect(
-        _correction(_k10Profile.velocityMps, bc, 100),
+        _correction(_k10Profile.muzzleVelocityMps, bc, 100),
         closeTo(observed, 0.05),
       );
     });

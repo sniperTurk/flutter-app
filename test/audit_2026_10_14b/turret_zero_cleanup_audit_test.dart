@@ -21,9 +21,9 @@
 //         flag, the Pro box and the table are deleted (owner), so its
 //         source-text test went with them.
 // Owner, 2026-10-16: the "Basınca göre hız" table is deleted; the pressures
-// are kept but not in the formula. A PCP calculates with its Namlu çıkış
-// hızı, or with the mean of the optional En düşük / En yüksek namlu çıkış
-// hızı. The F3 and KUL-2 guards below pin that rule.
+// are kept but not in the formula. Owner, 2026-10-17: a PCP calculates
+// with its Namlu çıkış hızı; the optional En düşük / En yüksek namlu çıkış
+// hızı are saved only. The F3 and KUL-2 guards below pin that rule.
 // The other tests are passing guards.
 import 'dart:io';
 import 'dart:math' as math;
@@ -470,24 +470,24 @@ void main() {
       expect(b.requiredUp!, greaterThan(upA + 0.3));
     });
 
-    testWidgets('design guard: with En düşük | En yüksek their mean enters '
-        'the solve, the Namlu çıkış hızı does not', (tester) async {
+    testWidgets('design guard: with En düşük | En yüksek the Namlu çıkış '
+        'hızı still enters the solve, their mean does not', (tester) async {
       final a = await _shotView(
         tester,
         _pcp(profileMps: 240, zeroM: 30, minMps: 260, maxMps: 280),
       );
       final b = await _shotView(
         tester,
-        _pcp(profileMps: 270, zeroM: 30, onePoint: true),
+        _pcp(profileMps: 240, zeroM: 30, onePoint: true),
       );
       expect(a.requiredUp!, closeTo(b.requiredUp!, 1e-9));
     });
   });
 
   group('KUL-2 Doğrulama and the PCP velocity', () {
-    // Owner, 2026-10-16: the table is deleted. With En düşük | En yüksek the
-    // mean is trued, shown and never written; without them the Namlu çıkış
-    // hızı is trued and applied as before.
+    // Owner, 2026-10-16: the table is deleted. Owner, 2026-10-17: the Namlu
+    // çıkış hızı is trued and applied as before, with or without En düşük |
+    // En yüksek (saved only, kept as they were).
     Future<MemoryProfileStore> pumpTruing(
       WidgetTester tester,
       RifleProfile p,
@@ -531,8 +531,8 @@ void main() {
       await tester.pumpAndSettle();
     }
 
-    testWidgets('truing knows the PCP mean: message, apply disabled with '
-        'its ⓘ, no "uygulandı", profile untouched', (tester) async {
+    testWidgets('with En düşük | En yüksek: the Namlu çıkış hızı is trued '
+        'and applied; the pair is kept', (tester) async {
       final store = await pumpTruing(
         tester,
         _pcp(
@@ -543,31 +543,25 @@ void main() {
           maxMps: 260,
         ),
       );
-      expect(find.byKey(const Key('truing-pcp-mean')), findsOneWidget);
-      expect(find.textContaining('ortalamasıyla yapılır'), findsOneWidget);
+      expect(find.textContaining('ortalama'), findsNothing);
       expect(find.textContaining('Basınca göre hız'), findsNothing);
       await computeAt100(tester);
       expect(find.byKey(const Key('truing-result')), findsOneWidget);
       final apply = find.byKey(const Key('truing-apply'));
       await tester.ensureVisible(apply);
-      expect(tester.widget<MenzilSecondaryButton>(apply).onPressed, isNull);
-      expect(find.byKey(const Key('truing-apply-info')), findsOneWidget);
-      await tester.tap(apply, warnIfMissed: false);
+      expect(
+        tester.widget<MenzilSecondaryButton>(apply).onPressed,
+        isNotNull,
+      );
+      await tester.tap(apply);
       await tester.pumpAndSettle();
-      expect(find.byKey(const Key('truing-confirm')), findsNothing);
-      expect(find.text('Doğrulanmış hız profile uygulandı.'), findsNothing);
+      await tester.tap(find.byKey(const Key('truing-confirm')));
+      await tester.pumpAndSettle();
       final saved = (await store.all()).single;
-      expect(saved.muzzleVelocityMps, 270);
+      expect(saved.muzzleVelocityMps, closeTo(240, 0.5));
       expect(saved.pcpMinVelocityMps, 250);
       expect(saved.pcpMaxVelocityMps, 260);
       expect(saved.pressureVelocityTable, hasLength(2));
-      // The ⓘ explains why the button is off.
-      await tester.tap(find.byKey(const Key('truing-apply-info')));
-      await tester.pumpAndSettle();
-      expect(
-        find.textContaining('tek bir hız profile yazılmaz'),
-        findsOneWidget,
-      );
     });
 
     for (final onePoint in [false, true]) {
@@ -579,7 +573,6 @@ void main() {
           tester,
           _pcp(profileMps: 270, zeroM: 30, tubeBar: 120, onePoint: onePoint),
         );
-        expect(find.byKey(const Key('truing-pcp-mean')), findsNothing);
         await computeAt100(tester);
         final apply = find.byKey(const Key('truing-apply'));
         await tester.ensureVisible(apply);
@@ -604,7 +597,6 @@ void main() {
         tester,
         _pcp(profileMps: 270, zeroM: 30, tubeBar: 200, regulatorBar: 150),
       );
-      expect(find.byKey(const Key('truing-pcp-mean')), findsNothing);
       await computeAt100(tester);
       final apply = find.byKey(const Key('truing-apply'));
       await tester.ensureVisible(apply);

@@ -12,12 +12,12 @@
 //   MenzilInput:    the unit inside the box at its right; ⓘ at the right end
 //                   of the label row, compact boxes too (owner, 2026-10-17).
 //
-// Velocity used by every calculation (RifleProfile.velocityMps): En düşük
-// and En yüksek both given → their mean; both empty → the Tüfek card's
-// Namlu çıkış hızı; only one → the Tüfek card's Namlu çıkış hızı, and the
-// editor shows "En düşük ve en yüksek hızın ikisini de girin." on the empty
-// box and does not save (like Barut sıcaklığı). Older PCP profiles load with
-// their Namlu çıkış hızı and calculate as on main.
+// Velocity used by every calculation (owner, 2026-10-17 13:14 Istanbul:
+// "Kutuları koy, aç; namlu çıkış hızından yapsın hesaplamayı."): always the
+// Tüfek card's Namlu çıkış hızı. En düşük | En yüksek are optional, each on
+// its own, shown, saved and loaded only; any combination saves, with no
+// "ikisini de girin" warning. Older PCP profiles load with their Namlu
+// çıkış hızı and calculate as on main.
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -673,29 +673,19 @@ void main() {
       expect(_missing(tester), isNot(contains('En yüksek')));
     });
 
-    testWidgets('only En düşük: the empty box says both are needed and '
-        'saving waits', (tester) async {
+    testWidgets('only one entered: no warning, nothing missing for them', (
+      tester,
+    ) async {
       await _openNew(tester, pcp: true);
       await enterRifleField(tester, 'profile-pcp-velocity-min', '830');
-      expect(
-        find.descendant(
-          of: _key('profile-pcp-velocity-max'),
-          matching: find.text('En düşük ve en yüksek hızın ikisini de girin.'),
-        ),
-        findsOneWidget,
-      );
-      expect(_missing(tester), contains('En yüksek namlu çıkış hızı'));
-      // Only En yüksek: the same on En düşük.
+      expect(find.textContaining('ikisini de girin'), findsNothing);
+      expect(_missing(tester), isNot(contains('En düşük')));
+      expect(_missing(tester), isNot(contains('En yüksek')));
       await enterRifleField(tester, 'profile-pcp-velocity-min', '');
       await enterRifleField(tester, 'profile-pcp-velocity-max', '860');
-      expect(
-        find.descendant(
-          of: _key('profile-pcp-velocity-min'),
-          matching: find.text('En düşük ve en yüksek hızın ikisini de girin.'),
-        ),
-        findsOneWidget,
-      );
-      expect(_missing(tester), contains('En düşük namlu çıkış hızı'));
+      expect(find.textContaining('ikisini de girin'), findsNothing);
+      expect(_missing(tester), isNot(contains('En düşük')));
+      expect(_missing(tester), isNot(contains('En yüksek')));
     });
 
     testWidgets('En düşük > En yüksek: Turkish error; range 100–4900 fps', (
@@ -717,8 +707,13 @@ void main() {
       expect(find.text('100–4900 arasında bir değer girin.'), findsNWidgets(2));
     });
 
-    for (final (minFps, maxFps) in const [('830', '860'), ('', '')]) {
-      testWidgets('saving Namlu çıkış hızı 950 with En düşük "$minFps" / En '
+    for (final (minFps, maxFps) in const [
+      ('830', '860'),
+      ('830', ''),
+      ('', '860'),
+      ('', ''),
+    ]) {
+      testWidgets('saving Namlu çıkış hızı 900 with En düşük "$minFps" / En '
           'yüksek "$maxFps"', (tester) async {
         final store = MemoryProfileStore();
         await _openNew(tester, pcp: true, store: store);
@@ -726,33 +721,43 @@ void main() {
         await fillScopeForm(tester);
         await enterRifleField(tester, 'scope-travel-elevation', '170');
         await fillAmmoForm(tester);
-        await fillShotValues(tester, velocityFps: '950');
+        await fillShotValues(tester, velocityFps: '900');
         await enterRifleField(tester, 'profile-tube-pressure', '250');
         await enterRifleField(tester, 'profile-regulator-pressure', '200');
         if (minFps.isNotEmpty) {
-          await fillPcpVelocities(tester, minFps: minFps, maxFps: maxFps);
+          await enterRifleField(tester, 'profile-pcp-velocity-min', minFps);
         }
+        if (maxFps.isNotEmpty) {
+          await enterRifleField(tester, 'profile-pcp-velocity-max', maxFps);
+        }
+        expect(find.textContaining('ikisini de girin'), findsNothing);
+        expect(_missing(tester), isEmpty);
         await tester.ensureVisible(find.text('Kaydet'));
         await tester.tap(find.text('Kaydet'));
         await tester.pumpAndSettle();
         final saved = (await store.all()).single;
         // Same saved keys as before for the Tüfek card's values.
-        expect(saved.muzzleVelocityMps, closeTo(_mps(950), 1e-9));
+        expect(saved.muzzleVelocityMps, closeTo(_mps(900), 1e-9));
         expect(saved.tubePressureBar, 250);
         expect(saved.pressureBar, 200);
-        if (minFps.isEmpty) {
-          expect(saved.pcpMinVelocityMps, isNull);
-          expect(saved.pcpMaxVelocityMps, isNull);
-          expect(saved.velocityMps, closeTo(_mps(950), 1e-9));
-        } else {
-          expect(saved.pcpMinVelocityMps, closeTo(_mps(830), 1e-9));
-          expect(saved.pcpMaxVelocityMps, closeTo(_mps(860), 1e-9));
-          expect(UnitSystem.mpsToFps(saved.velocityMps), closeTo(845, 1e-9));
-        }
+        expect(
+          saved.pcpMinVelocityMps,
+          minFps.isEmpty ? isNull : closeTo(_mps(830), 1e-9),
+        );
+        expect(
+          saved.pcpMaxVelocityMps,
+          maxFps.isEmpty ? isNull : closeTo(_mps(860), 1e-9),
+        );
+        // Saved and loaded back (codec round trip).
+        final again = const ProfileCodec().decode(
+          const ProfileCodec().encode(saved),
+        );
+        expect(again.pcpMinVelocityMps, saved.pcpMinVelocityMps);
+        expect(again.pcpMaxVelocityMps, saved.pcpMaxVelocityMps);
         // Profili Düzenle: every value comes back in its box.
         await tester.tap(find.text(saved.name).first);
         await tester.pumpAndSettle();
-        expect(_text(tester, 'profile-velocity-fps'), '950');
+        expect(_text(tester, 'profile-velocity-fps'), '900');
         expect(_text(tester, 'profile-pcp-velocity-min'), minFps);
         expect(_text(tester, 'profile-pcp-velocity-max'), maxFps);
         expect(_text(tester, 'profile-tube-pressure'), '250');
@@ -761,20 +766,12 @@ void main() {
     }
   });
 
-  group('the velocity every calculation uses', () {
-    test('RifleProfile.velocityMps and ProfileInput', () {
-      expect(
-        UnitSystem.mpsToFps(_pcp(minFps: 830, maxFps: 860).velocityMps),
-        closeTo(845, 1e-9),
-      );
-      expect(_pcp().velocityMps, _mps(950));
-      expect(_pcp(minFps: 830).velocityMps, _mps(950));
-      expect(_pcp(maxFps: 860).velocityMps, _mps(950));
-      expect(_pcp(minFps: 860, maxFps: 830).velocityMps, _mps(950));
+  group('the velocity every calculation uses: Tüfek Namlu çıkış hızı', () {
+    test('ProfileInput: each box on its own; the Tüfek velocity kept', () {
       ProfileInput v(String? min, String? max, WeaponPlatform p) =>
           ProfileInput.validate(
             name: 'P',
-            muzzleVelocityText: '${_mps(950)}',
+            muzzleVelocityText: '${_mps(900)}',
             zeroRangeText: '30',
             sightHeightText: '50',
             platform: p,
@@ -782,51 +779,77 @@ void main() {
             pcpMaxVelocityText: max,
           );
       final both = v('${_mps(830)}', '${_mps(860)}', WeaponPlatform.pcp);
-      expect(both.muzzleVelocityMps, _mps(950));
+      expect(both.muzzleVelocityMps, _mps(900));
       expect(both.pcpMinVelocityMps, _mps(830));
       expect(both.pcpMaxVelocityMps, _mps(860));
       final none = v(null, null, WeaponPlatform.pcp);
       expect(none.pcpMinVelocityMps, isNull);
-      expect(
-        () => v('${_mps(830)}', null, WeaponPlatform.pcp),
-        throwsA(
-          isA<FormatException>().having(
-            (e) => e.message,
-            'message',
-            'En düşük ve en yüksek hızın ikisini de girin.',
-          ),
-        ),
-      );
+      expect(none.pcpMaxVelocityMps, isNull);
+      final onlyMin = v('${_mps(830)}', null, WeaponPlatform.pcp);
+      expect(onlyMin.pcpMinVelocityMps, _mps(830));
+      expect(onlyMin.pcpMaxVelocityMps, isNull);
+      expect(onlyMin.muzzleVelocityMps, _mps(900));
+      final onlyMax = v(null, '${_mps(860)}', WeaponPlatform.pcp);
+      expect(onlyMax.pcpMinVelocityMps, isNull);
+      expect(onlyMax.pcpMaxVelocityMps, _mps(860));
       expect(
         () => v('${_mps(860)}', '${_mps(830)}', WeaponPlatform.pcp),
         throwsFormatException,
       );
       final fx = v('${_mps(830)}', '${_mps(860)}', WeaponPlatform.firearm);
       expect(fx.pcpMinVelocityMps, isNull);
-      expect(fx.muzzleVelocityMps, _mps(950));
+      expect(fx.muzzleVelocityMps, _mps(900));
     });
 
-    testWidgets('Hedef: 830 / 860 (Tüfek 950) = 845; empty = Tüfek 950; '
-        'only En düşük 830 = Tüfek 950', (tester) async {
-      final mean = await _requiredUp(
-        tester,
-        _pcp(rifleFps: 950, minFps: 830, maxFps: 860),
+    test('codec: only one saved loads back; a reversed pair is corruption', () {
+      for (final (lo, hi) in const [
+        (830.0, null),
+        (null, 860.0),
+        (830.0, 860.0),
+        (null, null),
+      ]) {
+        final p = const ProfileCodec().decode(
+          const ProfileCodec().encode(
+            _pcp(rifleFps: 900, minFps: lo, maxFps: hi),
+          ),
+        );
+        expect(p.muzzleVelocityMps, _mps(900));
+        expect(p.pcpMinVelocityMps, lo == null ? isNull : _mps(lo));
+        expect(p.pcpMaxVelocityMps, hi == null ? isNull : _mps(hi));
+      }
+      final reversed = Map<String, dynamic>.of(
+        const ProfileCodec().encode(_pcp(minFps: 830, maxFps: 860)),
+      )..['pcpMinVelocityMps'] = _mps(870);
+      expect(
+        () => const ProfileCodec().decode(reversed),
+        throwsFormatException,
       );
-      final at845 = await _requiredUp(tester, _pcp(rifleFps: 845));
-      final empty = await _requiredUp(tester, _pcp(rifleFps: 950));
-      final at950 = await _requiredUp(
+    });
+
+    testWidgets('Hedef: Tüfek 900 with 830 / 860 = Tüfek 900 with both '
+        'empty; only one entered = the same; not the 845 mean', (
+      tester,
+    ) async {
+      final empty = await _requiredUp(tester, _pcp(rifleFps: 900));
+      final both = await _requiredUp(
         tester,
-        _pcp(rifleFps: 700, minFps: 950, maxFps: 950),
+        _pcp(rifleFps: 900, minFps: 830, maxFps: 860),
       );
       final onlyMin = await _requiredUp(
         tester,
-        _pcp(rifleFps: 950, minFps: 830),
+        _pcp(rifleFps: 900, minFps: 830),
       );
-      expect(mean, closeTo(at845, 1e-9));
-      expect(empty, closeTo(at950, 1e-9));
-      expect(onlyMin, closeTo(empty, 1e-9));
-      // 845 and 950 fps are clearly different solutions.
-      expect((mean - empty).abs(), greaterThan(0.1));
+      final onlyMax = await _requiredUp(
+        tester,
+        _pcp(rifleFps: 900, maxFps: 860),
+      );
+      final at845 = await _requiredUp(tester, _pcp(rifleFps: 845));
+      expect(both, empty);
+      expect(onlyMin, empty);
+      expect(onlyMax, empty);
+      // 845 and 900 fps are clearly different solutions: the mean is not
+      // used.
+      expect((both - at845).abs(), greaterThan(0.1));
       expect(_key('shot-pcp-velocity-missing'), findsNothing);
     });
 
@@ -841,37 +864,21 @@ void main() {
       expect(pressures, closeTo(plain, 1e-12));
     });
 
-    testWidgets('Hız Doğrulama with 830 / 860: shows and trues 845, never '
-        'writes it', (tester) async {
-      final p = _pcp(rifleFps: 950, minFps: 830, maxFps: 860);
-      final store = await _pumpTruing(tester, p);
-      expect(find.textContaining('Namlu çıkış hızı: 845 fps'), findsOneWidget);
-      expect(_key('truing-pcp-mean'), findsOneWidget);
-      // Shot at exactly the mean: the trued velocity is the mean.
-      final canApply = await _trueVelocity(tester, 845);
-      expect(find.text('845 fps'), findsWidgets);
-      expect(canApply, isFalse);
-      final saved = (await store.all()).single;
-      expect(saved.muzzleVelocityMps, p.muzzleVelocityMps);
-      expect(saved.pcpMinVelocityMps, p.pcpMinVelocityMps);
-      expect(saved.pcpMaxVelocityMps, p.pcpMaxVelocityMps);
-    });
-
     for (final (label, profile) in [
-      ('empty', _pcp(rifleFps: 950)),
-      ('only En düşük 830', _pcp(rifleFps: 950, minFps: 830)),
+      ('830 / 860', _pcp(rifleFps: 900, minFps: 830, maxFps: 860)),
+      ('empty', _pcp(rifleFps: 900)),
+      ('only En düşük 830', _pcp(rifleFps: 900, minFps: 830)),
     ]) {
-      testWidgets('Hız Doğrulama, $label: uses the Tüfek 950 fps', (
+      testWidgets('Hız Doğrulama, $label: uses the Tüfek 900 fps', (
         tester,
       ) async {
         await _pumpTruing(tester, profile);
         expect(
-          find.textContaining('Namlu çıkış hızı: 950 fps'),
+          find.textContaining('Namlu çıkış hızı: 900 fps'),
           findsOneWidget,
         );
-        expect(_key('truing-pcp-mean'), findsNothing);
-        final canApply = await _trueVelocity(tester, 950);
-        expect(find.text('950 fps'), findsWidgets);
+        final canApply = await _trueVelocity(tester, 900);
+        expect(find.text('900 fps'), findsWidgets);
         // As on main: the Tüfek velocity may be applied (after confirm).
         expect(canApply, isTrue);
       });
@@ -900,7 +907,7 @@ void main() {
       final p = const ProfileCodec().decode(oldJson());
       expect(p.muzzleVelocityMps, closeTo(_mps(885.8), 1e-9));
       expect(p.pcpMinVelocityMps, isNull);
-      expect(p.velocityMps, p.muzzleVelocityMps);
+      expect(p.pcpMaxVelocityMps, isNull);
     });
 
     testWidgets('Profili Düzenle: Namlu çıkış hızı in its box, pair empty, '

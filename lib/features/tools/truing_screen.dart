@@ -55,18 +55,6 @@ abstract final class TruingFieldInfo {
       'düzeltmesi (sıfırdan itibaren, yukarı pozitif). Tık sayısını tık '
       'değeriyle çarpın: 0,1 MRAD dürbünde 42 tık = 4,2 MRAD. Tek atışla '
       'değil, en az 3–5 atışlık grubun ortasıyla ölçün.';
-
-  /// PCP (owner, 2026-10-16): the velocity is the mean of En düşük and En
-  /// yüksek namlu çıkış hızı; the trued mean is shown, never written.
-  static const pcpMean =
-      'PCP\'de hesap, Profil > Mühimmat\'taki en düşük ve en yüksek namlu '
-      'çıkış hızının ortalamasıyla yapılır. Burada bulunan hız bu '
-      'ortalamanın doğrulanmış hâlidir; profile yazılmaz.';
-  static const pcpMeanApply =
-      'PCP\'de namlu çıkış hızı, en düşük ve en yüksek hızın ortalamasıdır; '
-      'tek bir hız profile yazılmaz. Hızı düzeltmek için kronografla 10 atış '
-      'yapıp Profil > Mühimmat\'taki en düşük ve en yüksek hızı güncelleyin. '
-      'Örnek: 830 ve 860 fps girilirse hesap 845 fps ile yapılır.';
 }
 
 /// Hız Doğrulama (truing): the shooter fires at a known range beyond the
@@ -196,17 +184,6 @@ class _TruingScreenState extends State<TruingScreen> {
     }
   }
 
-  /// PCP with En düşük | En yüksek namlu çıkış hızı (owner, 2026-10-16):
-  /// every mode solves with their mean, as Hedef does; the trued velocity
-  /// is shown but never written to the profile (it is not one number
-  /// there). Without them the Tüfek card's Namlu çıkış hızı is trued and
-  /// "profile uygula" works as before.
-  bool get _pcpMeanVelocity {
-    final p = _profile, res = _resolution;
-    if (p == null || res == null) return false;
-    return res.rifle.platform == WeaponPlatform.pcp && p.hasPcpVelocityRange;
-  }
-
   /// Namlu çıkış hızı is always shown in fps, as on Profil (owner rule).
   static String _fps(double mps) =>
       '${UnitSystem.mpsToFps(mps).toStringAsFixed(0)} fps';
@@ -286,10 +263,9 @@ class _TruingScreenState extends State<TruingScreen> {
     final BallisticInput base;
     try {
       base = BallisticInput(
-        // The velocity Hedef uses (RifleProfile.velocityMps): a PCP with En
-        // düşük | En yüksek solves every mode with their mean (KUL-10).
-        muzzleVelocityMps: p.velocityMps * f,
-        zeroMuzzleVelocityMps: f == 1 ? null : p.velocityMps,
+        // The Tüfek card's Namlu çıkış hızı, PCP too (owner, 2026-10-17).
+        muzzleVelocityMps: p.muzzleVelocityMps * f,
+        zeroMuzzleVelocityMps: f == 1 ? null : p.muzzleVelocityMps,
         grain: ammo.grain,
         zeroRangeM: p.zeroRangeM,
         sightHeightMm: p.sightHeightMm,
@@ -345,7 +321,7 @@ class _TruingScreenState extends State<TruingScreen> {
         final result = f == 1
             ? today
             : TruingResult(
-                baseMps: p.velocityMps,
+                baseMps: p.muzzleVelocityMps,
                 truedMps: double.parse((today.truedMps / f).toStringAsFixed(1)),
                 rangeM: today.rangeM,
                 predictedMrad: today.predictedMrad,
@@ -631,7 +607,7 @@ class _TruingScreenState extends State<TruingScreen> {
 
   Future<void> _apply(TruingResult r, bool metric) async {
     final p = _profile;
-    if (p == null || _pcpMeanVelocity) return;
+    if (p == null) return;
     final ok = await showDialog<bool>(
       context: context,
       builder: (ctx) => AlertDialog(
@@ -724,7 +700,7 @@ class _TruingScreenState extends State<TruingScreen> {
               child: Text(
                 '${p.name}\n'
                 '${res.ammunition.displayName}\n'
-                'Namlu çıkış hızı: ${_fps(p.velocityMps)}'
+                'Namlu çıkış hızı: ${_fps(p.muzzleVelocityMps)}'
                 ' · Sıfır: ${ToolFormat.dec(p.distanceUnit.fromMeters(p.zeroRangeM), 0)} ${p.distanceUnit.symbol}',
                 style: MenzilType.body(c.ink),
               ),
@@ -766,12 +742,6 @@ class _TruingScreenState extends State<TruingScreen> {
                   _error = null;
                 }),
               ),
-              if (_mode == _TruingMode.velocity && _pcpMeanVelocity)
-                const MenzilNotice(
-                  key: Key('truing-pcp-mean'),
-                  tone: MenzilNoticeTone.info,
-                  message: TruingFieldInfo.pcpMean,
-                ),
               const MenzilSectionHeader(
                 '1 · Gözlem',
                 padding: EdgeInsets.only(bottom: MenzilSpace.sm),
@@ -1031,31 +1001,12 @@ class _TruingScreenState extends State<TruingScreen> {
               '%5’ten büyük bir değişim. Kronografla hızı ölçmek, sıfırı ve '
               'sight height değerini kontrol etmek iyi olur.',
         ),
-      if (_pcpMeanVelocity)
-        const Row(
-          children: [
-            Expanded(
-              child: MenzilSecondaryButton(
-                key: Key('truing-apply'),
-                label: 'Doğrulanmış hızı profile uygula',
-                icon: Icons.save_alt,
-                onPressed: null,
-              ),
-            ),
-            MenzilInfoButton(
-              key: Key('truing-apply-info'),
-              title: 'Hız profile yazılmaz',
-              text: TruingFieldInfo.pcpMeanApply,
-            ),
-          ],
-        )
-      else
-        MenzilSecondaryButton(
-          key: const Key('truing-apply'),
-          label: 'Doğrulanmış hızı profile uygula',
-          icon: Icons.save_alt,
-          onPressed: () => _apply(r, metric),
-        ),
+      MenzilSecondaryButton(
+        key: const Key('truing-apply'),
+        label: 'Doğrulanmış hızı profile uygula',
+        icon: Icons.save_alt,
+        onPressed: () => _apply(r, metric),
+      ),
     ];
   }
 }

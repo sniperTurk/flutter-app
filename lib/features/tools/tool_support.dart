@@ -37,15 +37,6 @@ abstract final class ToolProfileUpdate {
         (base.pressureBar != null
             ? WeaponPlatform.pcp
             : WeaponPlatform.firearm);
-    // A PCP with En düşük / En yüksek namlu çıkış hızı calculates with
-    // their mean (owner, 2026-10-16); one written velocity would change
-    // nothing there, so a tool does not write it.
-    if (muzzleVelocityMps != null && base.hasPcpVelocityRange) {
-      throw const FormatException(
-        'PCP\'de hesap, Profil > Mühimmat\'taki en düşük ve en yüksek '
-        'hızın ortalamasıyla yapılıyor; buradan tek bir hız yazılmaz.',
-      );
-    }
     final input = ProfileInput.validate(
       name: base.name,
       muzzleVelocityText: (muzzleVelocityMps ?? base.muzzleVelocityMps)

@@ -156,8 +156,8 @@ void main() {
     expect(updated.pressureVelocityTable, _pcp.pressureVelocityTable);
   });
 
-  test('a PCP with En düşük / En yüksek: a tool never writes one velocity; '
-      'other updates keep both', () {
+  test('a PCP with En düşük / En yüksek: a tool writes the Namlu çıkış '
+      'hızı (owner, 2026-10-17); every update keeps both', () {
     const p = RifleProfile(
       id: 'p2',
       name: 'P2',
@@ -170,10 +170,10 @@ void main() {
       zeroRangeM: 30,
       sightHeightMm: 60,
     );
-    expect(
-      () => ToolProfileUpdate.apply(p, muzzleVelocityMps: 272),
-      throwsFormatException,
-    );
+    final trued = ToolProfileUpdate.apply(p, muzzleVelocityMps: 272);
+    expect(trued.muzzleVelocityMps, closeTo(272, 1e-9));
+    expect(trued.pcpMinVelocityMps, 260);
+    expect(trued.pcpMaxVelocityMps, 270);
     final updated = ToolProfileUpdate.apply(p, sightHeightMm: 55);
     expect(updated.sightHeightMm, 55);
     expect(updated.pcpMinVelocityMps, 260);

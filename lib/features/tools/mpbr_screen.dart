@@ -83,8 +83,7 @@ class _MpbrScreenState extends State<MpbrScreen> {
       final ammo = res.ammunition;
       r = Mpbr.solve(
         build: (zeroM, ranges) => BallisticInput(
-          // PCP with En düşük | En yüksek: their mean (owner, 2026-10-16).
-          muzzleVelocityMps: p.velocityMps,
+          muzzleVelocityMps: p.muzzleVelocityMps,
           grain: ammo.grain,
           zeroRangeM: zeroM,
           sightHeightMm: p.sightHeightMm,

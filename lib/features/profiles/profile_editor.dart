@@ -856,28 +856,16 @@ class _ProfileDialogState extends State<_ProfileDialog> {
 
   // ---- PCP namlu çıkış hızları (owner, 2026-10-16) ----------------------
 
-  /// Optional pair (owner, 2026-10-16), like Barut sıcaklığı: both empty
-  /// is fine (the Tüfek card's Namlu çıkış hızı is used); one alone is an
-  /// error on the empty box and blocks saving. Same plausible range as
-  /// Namlu çıkış hızı (100–4900 fps).
-  static const pcpVelocityPairError =
-      'En düşük ve en yüksek hızın ikisini de girin.';
+  /// Both optional, each on its own (owner, 2026-10-17): any combination
+  /// saves, and the calculation uses the Tüfek card's Namlu çıkış hızı.
+  /// A typed value has Namlu çıkış hızı's plausible range (100–4900 fps).
+  String? _pcpVelocityBoxError(TextEditingController box) =>
+      box.text.trim().isEmpty ? null : _rangeError(box, 100, 4900);
 
-  String? _pcpVelocityBoxError(
-    TextEditingController box,
-    TextEditingController other,
-  ) {
-    if (box.text.trim().isEmpty) {
-      return other.text.trim().isEmpty ? null : pcpVelocityPairError;
-    }
-    return _rangeError(box, 100, 4900);
-  }
-
-  String? get _pcpMinVelocityError =>
-      _pcpVelocityBoxError(pcpMinVelocity, pcpMaxVelocity);
+  String? get _pcpMinVelocityError => _pcpVelocityBoxError(pcpMinVelocity);
 
   String? get _pcpMaxVelocityError {
-    final e = _pcpVelocityBoxError(pcpMaxVelocity, pcpMinVelocity);
+    final e = _pcpVelocityBoxError(pcpMaxVelocity);
     if (e != null) return e;
     final lo = _parse(pcpMinVelocity), hi = _parse(pcpMaxVelocity);
     if (_pcpMinVelocityError == null && lo != null && hi != null && lo > hi) {
@@ -886,8 +874,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     return null;
   }
 
-  /// The pair's errors show as soon as either box holds text, so the empty
-  /// one says what is missing right away.
+  /// A typed box's error shows as soon as either box holds text.
   String? _shownPcpVelocity(String? error) =>
       (_showErrors ||
           pcpMinVelocity.text.isNotEmpty ||

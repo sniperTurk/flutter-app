@@ -135,9 +135,10 @@ class ProfileCodec {
       table.sort((a, b) => a.bar.compareTo(b.bar));
     }
     // PCP En düşük / En yüksek namlu çıkış hızı (owner, 2026-10-16) are
-    // optional and absent in older profiles: none (those calculate with
-    // their Namlu çıkış hızı as before). Present, they come as a pair with
-    // min <= max, as ProfileInput saves them; anything else is corruption.
+    // optional, each on its own, and absent in older profiles: none. They
+    // are saved only; every calculation uses Namlu çıkış hızı (owner,
+    // 2026-10-17). Both present come lowest first, as ProfileInput saves
+    // them; anything else is corruption.
     double? optionalVelocity(String key) {
       final value = j[key];
       if (value == null) return null;
@@ -149,8 +150,7 @@ class ProfileCodec {
     }
     final pcpMin = optionalVelocity('pcpMinVelocityMps');
     final pcpMax = optionalVelocity('pcpMaxVelocityMps');
-    if ((pcpMin == null) != (pcpMax == null) ||
-        (pcpMin != null && pcpMin > pcpMax!)) {
+    if (pcpMin != null && pcpMax != null && pcpMin > pcpMax) {
       throw const FormatException('Invalid profile field: pcpVelocity');
     }
     // mountCantMoa is absent in profiles saved before the field existed:
