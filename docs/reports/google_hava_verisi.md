@@ -141,16 +141,39 @@ Dal: `feat/google-hava-verisi` · Taslak PR · Sahip kararları 2026-10-17
   başlığı, yuvarlanmış konum); `tools/test_m1_tools_scope_contract.py` izinli
   ağ adaptörlerine eklendi. AIza… anahtar testi yerinde.
 - Yerel: `python3 tools/offline_dart_lint.py` → PASS (441 dosya, 0 sorun);
-  `python3 -m unittest discover -s tools -p 'test_*.py'` → sonuç aşağıda.
+  `python3 -m unittest discover -s tools -p 'test_*.py'` → 915 test; ilk
+  çalıştırmada 2 güvenlik testi yeni adaptörü tanımadığı için kırmızıydı,
+  testler genişletildi, sonra o iki dosya (33 test) yeşil.
 
 ## Ekran görüntüleri
 
 `integration_test/google_hava_notu_screens_test.dart` (sahte sağlayıcı:
-Google 390 pt, Google 320 pt, MET 390 pt). Sonuç aşağıda.
+Google 390 pt, Google 320 pt, MET 390 pt). **Henüz çalıştırılmadı:**
+Simulator kuyruğu başka işlerle dolu (ana oturum yönetiyor); kuyruk
+boşalınca `sim-screens.yml` ref=`feat/google-hava-verisi`,
+test=`integration_test/google_hava_notu_screens_test.dart` ile
+çalıştırılacak. Ekran görüntüsü yokken "geçti" denmez.
 
 ## CI bağlantıları
 
-Aşağıda (çalışmalar bitince güncellenir).
+- Tam test paketi (`test-diag`, files=test): **başarılı** —
+  https://github.com/sniperTurk/flutter-app/actions/runs/39057728667
+  (commit 8e30e634; sonraki commit yalnız eşitlik testini sıkılaştırdı)
+- Yeni testler (ilk çalıştırma, 1 test düzeltildi):
+  https://github.com/sniperTurk/flutter-app/actions/runs/39057531272
+- `analyze-diag`: **başarılı** —
+  https://github.com/sniperTurk/flutter-app/actions/runs/39057532974
+- `dart format` (format-fix, iki kez, CI commit'i):
+  https://github.com/sniperTurk/flutter-app/actions/runs/39057529183
+- PR iOS CI (run 39058518300): `dart-checks` **başarılı**,
+  `wind-acceptance` **başarılı**, `verify` **sürüyor** (bitmeden yeşil
+  denmez): https://github.com/sniperTurk/flutter-app/actions/runs/39058518300
+- Code Review + Security review (alt ajan, statik): anahtar sızıntısı
+  bulunmadı. Bulunan küçük noktalar: eşitlik testi ikinci kaynağı gerçekten
+  çekmiyordu → düzeltildi (6e800f1b); Google 10 sn zaman aşımı + MET 12 sn →
+  en kötü durumda ~22 sn bekleme; başarısız çekişte eski rüzgâr notu
+  kalıyor (bilinçli, kutudaki değerlerle birlikte); Araçlar > Hava
+  metni "Google ya da MET Norway (CC BY 4.0)" oldu.
 
 ## Cihazda kontrol gerekli
 
