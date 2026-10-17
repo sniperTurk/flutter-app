@@ -110,7 +110,7 @@ void main() {
         .widget<Text>(find.byKey(const Key('shot-wind-zone-shares')))
         .data!;
     final m = RegExp(
-      r'^Rüzgâr etkisi: yakın %(\d+) · orta %(\d+) · uzak %(\d+)$',
+      r'^Yana kayma: yakın %(\d+) · orta %(\d+) · uzak %(\d+)$',
     ).firstMatch(line);
     expect(m, isNotNull, reason: line);
     final p = [for (var i = 1; i <= 3; i++) int.parse(m!.group(i)!)];
