@@ -467,8 +467,11 @@ void main() {
         'Rüzgâr kulesi 1 klik sola',
       ]) {
         final r = tester.getRect(find.byTooltip(tip));
-        expect(r.width, greaterThanOrEqualTo(44), reason: tip);
-        expect(r.height, greaterThanOrEqualTo(44), reason: tip);
+        // The box's own size: bottom − top of a rect far down the page
+        // loses a little in floating point (43,99999999999994 for 44).
+        final size = tester.getSize(find.byTooltip(tip));
+        expect(size.width, greaterThanOrEqualTo(44), reason: tip);
+        expect(size.height, greaterThanOrEqualTo(44), reason: tip);
         expect(
           r.overlaps(toggle),
           isFalse,

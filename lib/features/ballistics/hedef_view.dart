@@ -151,13 +151,14 @@ extension _HedefView on _BallisticsScreenState {
           );
         },
       ),
-      // Sonuç en üstte (owner, 2026-10-15 12:50): the required turret
-      // solution, big, right under the slider and above the reticle card.
-      // Same numbers as "Kuleleri kur" (the scope view's requiredUp /
-      // requiredRight); nothing is computed here.
+      // Sonuç en üstte (owner, 2026-10-15 12:50), one compact line since
+      // 2026-10-16 (design PR #366): the required turret solution right
+      // under the slider and above the reticle card. Same numbers as
+      // "Kuleleri kur" (the scope view's requiredUp / requiredRight);
+      // nothing is computed here.
       if (dial is ScopeDialView && dial.requiredUp != null)
         Padding(
-          padding: const EdgeInsets.only(top: MenzilSpace.xs),
+          padding: const EdgeInsets.only(top: 2),
           child: TurretSolutionRow(
             requiredUp: dial.requiredUp!,
             requiredRight: dial.requiredRight,

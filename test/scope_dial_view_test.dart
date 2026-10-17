@@ -69,7 +69,13 @@ void main() {
     final drum = tester.getRect(find.byKey(ScopeDialKeys.windageDrum));
     // Its zero is on the reticle's horizontal line, at the right edge.
     expect(drum.center.dy, closeTo(reticle.center.dy, 0.5));
-    expect(drum.right, closeTo(reticle.right, 0.5));
+    // Since 2026-10-16 (yan kule konum) the column's empty 4·k pt margin
+    // reaches past the reticle; the drum box ends on the reticle's edge.
+    expect(drum.right, closeTo(reticle.right + 4 * reticle.width / 334, 0.5));
+    expect(
+      tester.getRect(find.byKey(ScopeDialKeys.windageDrumBox)).right,
+      closeTo(reticle.right, 0.5),
+    );
     expect(drum.left, greaterThan(reticle.center.dx));
     // "L-R" again hides it.
     await tester.tap(find.byKey(ScopeDialKeys.turretToggle));
@@ -153,7 +159,15 @@ void main() {
     await tester.drag(drum, const Offset(60, 0));
     await tester.pumpAndSettle();
     expect(find.textContaining('Kule: 0 klik'), findsNothing);
-    expect(find.textContaining('klik yukarı'), findsOneWidget);
+    // The "Kule:" line under the scope (the Hedef click line above the
+    // scope, since 2026-10-16, shows the required solution, not the drum).
+    expect(
+      find.descendant(
+        of: find.byType(ScopeDialView),
+        matching: find.textContaining('klik yukarı'),
+      ),
+      findsOneWidget,
+    );
   });
 
   testWidgets('the scope works as soon as Atış opens, without Hesapla', (

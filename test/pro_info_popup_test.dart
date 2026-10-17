@@ -145,6 +145,8 @@ Map<String, Map<String, String>> _fields({required bool pcp}) => {
     'Yukarı + / aşağı −': EnvironmentFieldInfo.zeroUp,
     'Sağ + / sol −': EnvironmentFieldInfo.zeroRight,
     'Mermi uzunluğu': EnvironmentFieldInfo.bulletLength,
+    // In this box since 2026-10-16 (owner, design PR #366), firearm only.
+    if (!pcp) 'Mühimmat sıcaklığı': EnvironmentFieldInfo.ammoTemperature,
   },
 };
 

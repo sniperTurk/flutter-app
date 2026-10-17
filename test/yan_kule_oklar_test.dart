@@ -1,9 +1,11 @@
 // Yan kule okları yerinde kalır (owner, 2026-10-15 12:52: "sağ kuleyi biraz
 // küçültsek oklar yine aynı yerinde kalsa"). The side turret's ↑ / ↓ step
 // arrows are measured against main's geometry: chevrons whose
-// centres sit 37 pt left of the reticle's right edge and 133 pt above /
-// below its centre on the 334 pt reticle of a 390 pt phone, scaling with the
-// reticle. Since HDF-2 the tap areas are 74 × 44 pt (chevrons unmoved).
+// centres sat 37 pt left of the reticle's right edge (33 pt since the
+// whole turret moved 4 pt right, docs/reports/yan_kule_konum.md) and
+// 133 pt above / below its centre on the 334 pt reticle of a 390 pt phone,
+// scaling with the reticle. Since HDF-2 the tap areas are 74 × 44 pt
+// (chevrons unmoved).
 // Report: docs/reports/yan_kule_kucuk.md.
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -90,12 +92,13 @@ void main() {
       ]) {
         expect(arrow.width, moreOrLessEquals(74 * k, epsilon: 0.5));
         expect(arrow.height, moreOrLessEquals(44, epsilon: 0.5));
-        // Chevron centre unchanged: 37 pt in from the right edge, ±133 pt
-        // from the reticle's horizontal line.
+        // Chevron centre: 33 pt in from the right edge since the turret
+        // moved 4 pt right (yan kule konum, owner 2026-10-16 21:08; it was
+        // 37 pt), ±133 pt from the reticle's horizontal line.
         final glyph = tester.getRect(find.byKey(ValueKey(glyphKey)));
         expect(
           glyph.center.dx,
-          moreOrLessEquals(reticle.right - 37 * k, epsilon: 0.5),
+          moreOrLessEquals(reticle.right - 33 * k, epsilon: 0.5),
         );
         expect(
           glyph.center.dy,

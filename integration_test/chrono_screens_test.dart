@@ -174,13 +174,20 @@ void main() {
       await tester.pageBack();
       await settle();
     });
-    await step('hava_durumu_atesli', () async {
-      await openTab('Hava Durumu');
-      await wait(6);
+    // Mühimmat sıcaklığı is on Pro > Tüfek düzeltmeleri since 2026-10-16.
+    await step('pro_muhimmat_sicakligi', () async {
+      await openTab('Pro');
+      await wait(2);
+      final header = find.byKey(const Key('pro-section-rifle'));
+      await tester.ensureVisible(header);
+      await settle();
+      final h = tester.getSize(header).height;
+      await tester.tapAt(tester.getTopLeft(header) + Offset(12, h / 2));
+      await settle();
       await type('env-ammo-temp', '32');
       FocusManager.instance.primaryFocus?.unfocus();
       await settle();
-      await page('hava_durumu_atesli');
+      await page('pro_muhimmat_sicakligi');
     });
 
     debugPrint('SIMSCREEN_DONE failures=${failures.length}');
