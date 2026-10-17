@@ -29,18 +29,24 @@ Downloading packages...
 Got dependencies!
 26 packages have newer versions incompatible with dependency constraints.
 Try `flutter pub outdated` for more information.
-00:00 +0: loading /Users/runner/work/flutter-app/flutter-app/integration_test/hedef_klik_satiri_screens_test.dart
+00:00 +0: loading /Users/runner/work/flutter-app/flutter-app/integration_test/ruzgar_satirlari_screens_test.dart
 The following plugins do not support Swift Package Manager for ios:
   - flutter_compass
   - google_maps_flutter_ios
 This will become an error in a future version of Flutter. Please contact the plugin maintainers to request Swift Package Manager adoption.
 Running Xcode build...                                          
-Xcode build done.                                           127.2s
-00:00 +0: Hedef click line at 390 pt
-SIMTEXT:[<'hedef-turret-solution'>]: Üst kule 39 klik yukarı | Yan kule 24 klik sol | 14.0,229.0,376.0,251.0
-SIMTEXT:[<'hedef-solution-elevation'>]: Üst kule 39 klik yukarı | 14.0,229.0,189.0,251.0
-SIMTEXT:[<'hedef-solution-windage'>]: Yan kule 24 klik sol | 201.0,229.0,376.0,251.0
-SIMSCREEN:01_hedef_klik_satiri_390
+Xcode build done.                                           132.8s
+00:00 +0: Hedef wind lines at 390 and 320 pt
+SIMTEXT:hedef_ruzgar_390 impact: Vuruş noktası: 38,6 cm aşağı · 24,3 cm sağ | 28.0,198.6,362.0,218.6
+SIMTEXT:hedef_ruzgar_390 bracket: Rüzgâr 6,2 m/s: 24 klik sol · 9,3 m/s: 37 klik sol | 28.0,330.6,362.0,349.7
+SIMTEXT:hedef_ruzgar_390 shares: Yana kayma: yakın %56 · orta %33 · uzak %11 | 28.0,355.7,362.0,375.2
+SIMTEXT:hedef_ruzgar_390 workings: InkWell | 28.0,385.2,362.0,441.2
+SIMSCREEN:01_hedef_ruzgar_390
+SIMTEXT:hedef_ruzgar_320 impact: Vuruş noktası: 38,6 cm aşağı · 24,3 cm sağ | 63.0,292.2,327.0,332.2
+SIMTEXT:hedef_ruzgar_320 bracket: Rüzgâr 6,2 m/s: 24 klik sol · 9,3 m/s: 37 klik sol | 63.0,461.2,327.0,476.3
+SIMTEXT:hedef_ruzgar_320 shares: Yana kayma: yakın %56 · orta %33 · uzak %11 | 63.0,482.3,327.0,497.7
+SIMTEXT:hedef_ruzgar_320 workings: InkWell | 63.0,507.7,327.0,563.7
+SIMSCREEN:02_hedef_ruzgar_320
 SIMSCREEN_DONE failures=0
-00:51 +1: (tearDownAll)
-01:01 +1: All tests passed!
+01:09 +1: (tearDownAll)
+01:15 +1: All tests passed!
