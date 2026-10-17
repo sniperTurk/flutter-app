@@ -44,6 +44,12 @@ Sahip uzun menzil mermilerinin tam boyunu bilmiyor; 150 mm bilinen uzun mermiler
 - Yerel: `python3 tools/offline_dart_lint.py` PASS (434 dosya, 0 sorun); `python3 -m unittest discover -s tools -p 'test_*.py'` 915 test OK (1 skip, önceden de vardı). Flutter SDK bu ortamda yok; Flutter testleri yalnız CI'da çalışır.
 
 ## CI linkleri
-PR yorumlarında / açıklamasında güncellenir.
+Commit d20e027 üzerinde:
+- iOS CI (`verify` success, `dart-checks` success, `wind-acceptance` success; `ios-simulator` atlandı, otomatik değil): https://github.com/sniperTurk/flutter-app/actions/runs/39044292355
+- Test diag (`flutter test test`, tümü): success — https://github.com/sniperTurk/flutter-app/actions/runs/39044297219
+- Analyze diag: success — https://github.com/sniperTurk/flutter-app/actions/runs/39044299432
+- Dart format fix: success, biçim değişikliği gerekmedi — https://github.com/sniperTurk/flutter-app/actions/runs/39044295374
+
+Bu commit yalnız raporu günceller (CI linkleri); kodu değiştirmez.
 
 🤖 Generated with [Claude Code](https://claude.com/claude-code)
