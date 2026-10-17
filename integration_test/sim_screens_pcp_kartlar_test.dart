@@ -18,6 +18,7 @@ import 'package:integration_test/integration_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sniper_turk/main.dart';
 import 'package:sniper_turk/services/turret_click_sound.dart';
+import 'package:sniper_turk/ui/menzil_widgets.dart';
 
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
@@ -286,23 +287,34 @@ void main() {
       await choose('ammo-type', 'Pellet');
       await choose('ammo-brand-select', 'H&N');
       await choose('ammo-model-select', 'Baracuda Match .22 cal. · 21.14 gr');
-      // Only one: the warning on the empty box.
+      await choose('scope-brand-select', 'Element Optics');
+      await choose('scope-model-select', 'Titan 5-25x56 FFP MOA');
+      await choose('scope-reticle', 'APR-2D MOA');
+      await choose('scope-mount', 'Normal (0 MOA)');
+      // Only En düşük (owner, 2026-10-17): no warning, Kaydet enabled.
       await type('profile-pcp-velocity-min', '830');
       await card(
         'profile-ammo-form',
         'profile-pcp-velocity-max',
         'pcp_muhimmat_tek_hiz_390',
       );
+      expect(find.textContaining('ikisini de girin'), findsNothing);
+      FocusManager.instance.primaryFocus?.unfocus();
+      await settle();
+      await tester.ensureVisible(find.text('Kaydet').last);
+      await settle();
+      final kaydet = find.ancestor(
+        of: find.text('Kaydet').last,
+        matching: find.byType(MenzilPrimaryButton),
+      );
+      expect(tester.widget<MenzilPrimaryButton>(kaydet).onPressed, isNotNull);
+      await shot('pcp_tek_hiz_kaydet_390');
       await type('profile-pcp-velocity-max', '860');
       await card(
         'profile-ammo-form',
         'profile-pcp-velocity-max',
         'pcp_muhimmat_390',
       );
-      await choose('scope-brand-select', 'Element Optics');
-      await choose('scope-model-select', 'Titan 5-25x56 FFP MOA');
-      await choose('scope-reticle', 'APR-2D MOA');
-      await choose('scope-mount', 'Normal (0 MOA)');
       await tester.ensureVisible(find.text('Kaydet').last);
       await settle();
       await tester.tap(find.text('Kaydet').last);
