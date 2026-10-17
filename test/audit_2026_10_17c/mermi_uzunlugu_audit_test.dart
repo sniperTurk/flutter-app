@@ -123,6 +123,6 @@ void main() {
       expect(both.note, tf112.note);
       expect(both.right, tf112.right);
     },
-    skip: true, // DEN17C-1 (ORTA, open)
+
   );
 }
