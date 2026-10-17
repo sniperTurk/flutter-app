@@ -9,7 +9,7 @@ import 'package:sniper_turk/models/domain.dart';
 import 'package:sniper_turk/ui/menzil_theme.dart';
 
 /// Phone width → reticle side on the Hedef card (28 pt each side).
-const _phones = {390.0: 334.0, 320.0: 264.0};
+const _phones = [(390.0, 334.0), (320.0, 264.0)];
 
 Future<ValueNotifier<(int, int)>> _pump(
   WidgetTester tester, {
@@ -81,7 +81,7 @@ void main() {
   testWidgets('the shipped turret is unchanged by the design switch', (
     tester,
   ) async {
-    for (final phone in _phones.keys) {
+    for (final (phone, _) in _phones) {
       await _pump(tester, phone: phone);
       await _openSide(tester);
       final top = tester.getRect(find.byKey(ScopeDialKeys.elevationDrum));
@@ -98,7 +98,7 @@ void main() {
 
   for (final style in TurretStyle.values.skip(1)) {
     final design = style.design!;
-    for (final MapEntry(key: phone, value: side) in _phones.entries) {
+    for (final (phone, side) in _phones) {
       testWidgets(
         'seçenek ${design.number} at ${phone.toInt()} pt keeps the rules',
         (tester) async {
