@@ -5,8 +5,10 @@ Dal: `feat/google-hava-verisi` · Taslak PR · Sahip kararları 2026-10-17
 
 ## Ne
 
-- Hava Durumu'ndaki **sıcaklık, nem, basınç ve rüzgâr hızı** artık önce
-  **Google Weather API**'den alınıyor. Google cevap vermezse (anahtar yok, ağ
+- Hava Durumu'nun hava verisi (sıcaklık, nem, basınç, rüzgâr hızı ve yönü)
+  artık önce **Google Weather API**'den alınıyor; sayfa bunlardan bugünkü
+  gibi **sıcaklık, nem ve rüzgâr hızı** kutularını doldurur (basınç kutusu
+  için bkz. "Bilerek yapılmayan"). Google cevap vermezse (anahtar yok, ağ
   yok, zaman aşımı, 200 dışı yanıt, okunamayan/akla yatkın olmayan veri) veri
   **bugünkü gibi MET Norway**'den alınıyor.
 - Hava kartı notu: Google kaynaksa
