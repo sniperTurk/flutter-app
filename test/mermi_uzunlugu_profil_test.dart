@@ -160,7 +160,9 @@ void _expectPair(WidgetTester tester) {
   final length = tester.getRect(find.byKey(const Key('ammo-length')));
   expect(length.top, moreOrLessEquals(model.top, epsilon: 0.5));
   expect(model.right, lessThan(length.left));
-  final input = tester.widget<MenzilInput>(find.byKey(const Key('ammo-length')));
+  final input = tester.widget<MenzilInput>(
+    find.byKey(const Key('ammo-length')),
+  );
   expect(input.label, 'Mermi uzunluğu');
   expect(input.unit, 'mm');
   expect(input.info, _info);
@@ -191,9 +193,7 @@ void main() {
     expect(ProfileFieldInfo.ammoLength, _info);
   });
 
-  testWidgets('firearm: BC modeli | Mermi uzunluğu on one row', (
-    tester,
-  ) async {
+  testWidgets('firearm: BC modeli | Mermi uzunluğu on one row', (tester) async {
     await _openEdit(tester);
     await tester.ensureVisible(find.byKey(const Key('ammo-length')));
     await tester.pumpAndSettle();
@@ -247,8 +247,10 @@ void main() {
     await tester.pumpAndSettle();
     await tester.tap(find.text(_profile.name).first);
     await tester.pumpAndSettle();
-    expect(tester.widget<TextField>(_field('ammo-length')).controller!.text,
-        '31.2');
+    expect(
+      tester.widget<TextField>(_field('ammo-length')).controller!.text,
+      '31.2',
+    );
 
     // Emptied (optional): saved without a length.
     await enterRifleField(tester, 'ammo-length', '');
@@ -345,10 +347,7 @@ void main() {
       CatalogRepository.installUserCatalog(
         UserCatalog.fromManualEntries([
           rifle,
-          {
-            ...ammo,
-            if (profileLength != null) 'lengthMm': profileLength,
-          },
+          {...ammo, if (profileLength != null) 'lengthMm': profileLength},
         ]),
       );
       await tester.pumpWidget(const SizedBox());

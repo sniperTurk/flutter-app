@@ -952,61 +952,64 @@ extension _AmmoSection on _ProfileDialogState {
             key: const Key('ammo-bc-model-length-row'),
             child: MenzilFieldGrid(
               children: [
-          KeyedSubtree(
-            key: const Key('ammo-bc-model'),
-            child: MenzilSelect<String>(
-              key: ValueKey(
-                'ammo-bc-model-${_customCurve ? _customKey : ammoBcModel?.name}',
-              ),
-              info: platform == WeaponPlatform.firearm
-                  ? ProfileFieldInfo.bcModelWithCustom
-                  : ProfileFieldInfo.bcModel,
-              label: 'BC modeli',
-              hint: 'Seçiniz',
-              // PCP starts on G1 (owner, 2026-10-14: "G1 seçili
-              // kalsın"); a firearm starts on "Seçiniz" as before.
-              initialValue: _customCurve
-                  ? _customKey
-                  : platform == WeaponPlatform.pcp
-                  ? _bcModelForSave!.name
-                  : ammoBcModel?.name,
-              items: _typedFirearmAmmo
-                  ? _typedBcModelItems
-                  : [
-                      for (final (m, text) in _bcModelChoices)
-                        DropdownMenuItem(value: m.name, child: Text(text)),
-                      if (platform == WeaponPlatform.firearm)
-                        const DropdownMenuItem(
-                          value: _customKey,
-                          child: Text('Özel eğri (Mach–Cd)'),
-                        )
-                      else if (_customCurve)
-                        const DropdownMenuItem(
-                          value: _customKey,
-                          child: Text('Özel eğri (kayıtlı)'),
-                        ),
-                    ],
-              onChanged: (v) => _update(() {
-                _customCurve = v == _customKey;
-                if (!_customCurve) {
-                  final was = ammoBcModel;
-                  ammoBcModel = BallisticModel.values
-                      .where((m) => m.name == v)
-                      .firstOrNull;
-                  if (ammoBcModel != was) _factoryBcForModel();
-                }
-              }),
-            ),
-          ),
-          MenzilInput(
-            key: const Key('ammo-length'),
-            controller: ammoLength,
-            label: 'Mermi uzunluğu',
-            unit: 'mm',
-            info: ProfileFieldInfo.ammoLength,
-            onChanged: (_) => _update(() {}),
-            errorText: _shown(_lengthError, ammoLength),
-          ),
+                KeyedSubtree(
+                  key: const Key('ammo-bc-model'),
+                  child: MenzilSelect<String>(
+                    key: ValueKey(
+                      'ammo-bc-model-${_customCurve ? _customKey : ammoBcModel?.name}',
+                    ),
+                    info: platform == WeaponPlatform.firearm
+                        ? ProfileFieldInfo.bcModelWithCustom
+                        : ProfileFieldInfo.bcModel,
+                    label: 'BC modeli',
+                    hint: 'Seçiniz',
+                    // PCP starts on G1 (owner, 2026-10-14: "G1 seçili
+                    // kalsın"); a firearm starts on "Seçiniz" as before.
+                    initialValue: _customCurve
+                        ? _customKey
+                        : platform == WeaponPlatform.pcp
+                        ? _bcModelForSave!.name
+                        : ammoBcModel?.name,
+                    items: _typedFirearmAmmo
+                        ? _typedBcModelItems
+                        : [
+                            for (final (m, text) in _bcModelChoices)
+                              DropdownMenuItem(
+                                value: m.name,
+                                child: Text(text),
+                              ),
+                            if (platform == WeaponPlatform.firearm)
+                              const DropdownMenuItem(
+                                value: _customKey,
+                                child: Text('Özel eğri (Mach–Cd)'),
+                              )
+                            else if (_customCurve)
+                              const DropdownMenuItem(
+                                value: _customKey,
+                                child: Text('Özel eğri (kayıtlı)'),
+                              ),
+                          ],
+                    onChanged: (v) => _update(() {
+                      _customCurve = v == _customKey;
+                      if (!_customCurve) {
+                        final was = ammoBcModel;
+                        ammoBcModel = BallisticModel.values
+                            .where((m) => m.name == v)
+                            .firstOrNull;
+                        if (ammoBcModel != was) _factoryBcForModel();
+                      }
+                    }),
+                  ),
+                ),
+                MenzilInput(
+                  key: const Key('ammo-length'),
+                  controller: ammoLength,
+                  label: 'Mermi uzunluğu',
+                  unit: 'mm',
+                  info: ProfileFieldInfo.ammoLength,
+                  onChanged: (_) => _update(() {}),
+                  errorText: _shown(_lengthError, ammoLength),
+                ),
               ],
             ),
           ),

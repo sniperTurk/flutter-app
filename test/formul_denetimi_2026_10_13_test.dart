@@ -23,7 +23,6 @@ import 'package:sniper_turk/models/domain.dart';
 import 'package:sniper_turk/services/shot_settings_store.dart';
 import 'package:sniper_turk/ui/menzil_theme.dart';
 
-
 const _fps = 0.3048;
 const _tenMph = 10 * 0.44704;
 

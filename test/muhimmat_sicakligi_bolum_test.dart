@@ -171,7 +171,10 @@ void main() {
     final section = find.byKey(const Key('pro-box-ammo-temp'));
     expect(find.descendant(of: section, matching: box), findsOneWidget);
     expect(
-      find.descendant(of: find.byKey(const Key('pro-box-rifle')), matching: box),
+      find.descendant(
+        of: find.byKey(const Key('pro-box-rifle')),
+        matching: box,
+      ),
       findsNothing,
     );
     // Directly after Tüfek düzeltmeleri.

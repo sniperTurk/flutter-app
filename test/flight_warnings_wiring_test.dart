@@ -81,10 +81,7 @@ void main() {
     CatalogRepository.installUserCatalog(
       UserCatalog.fromManualEntries([
         _rifle,
-        {
-          ..._ammo,
-          if (lengthMm != null) 'lengthMm': double.parse(lengthMm),
-        },
+        {..._ammo, if (lengthMm != null) 'lengthMm': double.parse(lengthMm)},
       ]),
     );
     // A fresh screen, so the profile and its saved settings load again.

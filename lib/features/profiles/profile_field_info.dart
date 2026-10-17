@@ -52,6 +52,7 @@ abstract final class ProfileFieldInfo {
   static const grain =
       'Bir saçmanın veya merminin ağırlığı, grain olarak (1 grain = 0,0648 g). '
       'Kutunun üstünde yazar. Örnek: 25,39 gr pellet, 33,95 gr slug.';
+
   /// Mermi uzunluğu, firearm and PCP (owner, 2026-10-17).
   static const ammoLength =
       'Merminin ucundan dibine boyu, milimetre olarak. Üreticinin sitesinde '
