@@ -3,7 +3,8 @@
 //
 //   Tüfek, PCP:     Kalibre | Namlu çıkış hızı · Yiv oranı | Namlu yiv yönü ·
 //                   Tüp basıncı | Regülatör basıncı · Sıfırlama mesafesi |
-//                   Mesafe birimi · Sight height (alone, last).
+//                   Mesafe birimi · Sight height (alone, last; half width, owner
+//                   2026-10-17).
 //   Tüfek, Ateşli:  the same without Tüp basıncı | Regülatör basıncı.
 //   Mühimmat, PCP:  Tip | Marka · Model · "Aradığın mühimmat listede yok
 //                   mu?" · Ağırlık | BC · BC modeli | Mermi uzunluğu
@@ -214,13 +215,14 @@ const _pcpAmmoRows = [
   ['profile-pcp-velocity-min', 'profile-pcp-velocity-max'],
 ];
 
-/// Sight height is the last box of the Tüfek card, as wide as the card's
-/// rows (full width).
+/// Sight height is the last box of the Tüfek card, a half box in the left
+/// column, as wide as Sıfırlama mesafesi (owner, 2026-10-17 17:57; it was
+/// full width before).
 void _sightLast(WidgetTester tester) {
   final sight = _rect(tester, 'scope-sight-height');
-  final model = _rect(tester, 'rifle-model-select');
-  expect((sight.left - model.left).abs(), lessThan(1));
-  expect((sight.width - model.width).abs(), lessThan(1));
+  final zero = _rect(tester, 'profile-zero');
+  expect((sight.left - zero.left).abs(), lessThan(1));
+  expect((sight.width - zero.width).abs(), lessThan(1));
   for (final k in const [
     'rifle-caliber',
     'profile-velocity-fps',

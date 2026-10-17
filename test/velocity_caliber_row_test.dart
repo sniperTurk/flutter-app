@@ -3,18 +3,18 @@
 // link is Kalibre | Namlu çıkış hızı, PCP and Ateşli Tüfek alike (Namlu
 // çıkış hızı stays on the Tüfek card for a PCP). This supersedes the
 // 2026-10-14 18:56–18:58 layout (Kalibre alone, Sıfırlama mesafesi | Namlu
-// çıkış hızı last), which this file pinned before. A long caliber keeps its
-// size and wraps inside its box, which grows (like the Model boxes, #308),
-// at every width and text size.
+// çıkış hızı last), which this file pinned before. A long caliber stays on
+// ONE line in its box at the normal size, cut with "…" when it does not
+// fit, and the box keeps the height of Namlu çıkış hızı (owner, 2026-10-17
+// 17:54–18:05; it wrapped and grew before).
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:sniper_turk/features/profiles/profiles_screen.dart';
 import 'package:sniper_turk/services/profile_store.dart';
 import 'package:sniper_turk/ui/menzil_theme.dart';
-import 'package:sniper_turk/ui/menzil_widgets.dart';
 
 import 'support/rifle_form.dart';
+import 'support/select_one_line.dart';
 
 /// Screen widths: a large phone, iPhone SE (2nd/3rd gen) and the 320 pt
 /// first-generation SE.
@@ -82,26 +82,16 @@ void _expectLayout(WidgetTester tester) {
   expect(twist.top, greaterThanOrEqualTo(v.bottom - 0.5));
 }
 
-/// The closed Kalibre box shows [text] whole, at the normal size, wrapped
-/// onto as many lines as it needs, inside the box.
-void _expectWraps(WidgetTester tester, String text) {
-  final shown = _in(
+/// The closed Kalibre box shows [text] on ONE line at the normal size, cut
+/// with "…" when it does not fit, inside the box, which is as tall as Namlu
+/// çıkış hızı (owner, 2026-10-17).
+void _expectOneLine(WidgetTester tester, String text) {
+  expectClosedOneLine(
+    tester,
     'rifle-caliber',
-    find.byKey(const Key('menzil-select-wrapped')),
+    text,
+    standardHeight: selectBox(tester, 'profile-velocity-fps').height,
   );
-  expect(shown, findsOneWidget);
-  final t = tester.widget<Text>(shown);
-  expect(t.data, text);
-  expect(t.style?.fontSize, 15);
-  expect(_in('rifle-caliber', find.byType(MenzilFitText)), findsNothing);
-  final p = tester.renderObject<RenderParagraph>(shown);
-  expect(p.didExceedMaxLines, isFalse);
-  final rect = tester.getRect(shown);
-  final box = tester.getRect(_in('rifle-caliber', find.byType(InputDecorator)));
-  expect(rect.left, greaterThanOrEqualTo(box.left));
-  expect(rect.right, lessThanOrEqualTo(box.right));
-  expect(rect.top, greaterThanOrEqualTo(box.top));
-  expect(rect.bottom, lessThanOrEqualTo(box.bottom));
 }
 
 /// Picks [label] in the open Kalibre list. The list is as wide as the box
@@ -173,13 +163,13 @@ void main() {
         if (firearm) {
           // The longest cartridge name of the list.
           await _pickInLongList(tester, '.338-378 Weatherby Mag');
-          _expectWraps(tester, '.338-378 Weatherby Mag');
+          _expectOneLine(tester, '.338-378 Weatherby Mag');
         } else {
           // The owner's screenshot: Hatsan Hercules.
           await chooseInSelect(tester, 'rifle-brand-select', 'Hatsan');
           await chooseInSelect(tester, 'rifle-model-select', 'Hercules');
           await chooseInSelect(tester, 'rifle-caliber', '11.43 mm (.45)');
-          _expectWraps(tester, '11.43 mm (.45)');
+          _expectOneLine(tester, '11.43 mm (.45)');
         }
         _expectLayout(tester);
         // A velocity error stays in its own box; the layout holds.
@@ -218,7 +208,7 @@ void main() {
         // The last item of the long list.
         await _pickInLongList(tester, 'Fişeğim listede yok');
         _expectLayout(tester);
-        _expectWraps(tester, 'Fişeğim listede yok');
+        _expectOneLine(tester, 'Fişeğim listede yok');
         final c = tester.getRect(_key('rifle-caliber'));
         final v = tester.getRect(_key('profile-velocity-fps'));
         final model = tester.getRect(_key('rifle-model-select'));
@@ -237,7 +227,7 @@ void main() {
           '.308 in · 7,82 mm',
         );
         _expectLayout(tester);
-        _expectWraps(tester, 'Fişeğim listede yok');
+        _expectOneLine(tester, 'Fişeğim listede yok');
         expect(tester.takeException(), isNull);
       },
     );

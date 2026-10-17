@@ -483,10 +483,8 @@ extension _ScopeSection on _ProfileDialogState {
             hint: 'Seçiniz',
             initialValue: model,
             // Model and its data, no brand (owner, 2026-10-13). A long line
-            // keeps its size and wraps, in the list (two lines) and in the
-            // box, which grows (owner, 2026-10-14: like Mühimmat Model;
-            // never smaller).
-            wrapSelected: true,
+            // wraps in the list (two lines); the closed box shows one line
+            // cut with "…" (owner, 2026-10-17 18:05).
             items: [
               const DropdownMenuItem<String>(child: Text('Seçiniz')),
               for (final m in models)
