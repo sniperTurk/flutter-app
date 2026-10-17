@@ -584,7 +584,8 @@ void main() {
     // only explanation now that the box has no ⓘ).
     await _openInfo(tester, 'rifle');
     final last = _entries(tester).length - 1;
-    expect(_entries(tester)[last].field.label, 'Mermi uzunluğu');
+    // Mermi uzunluğu moved to Profil > Mühimmat (owner, 2026-10-17).
+    expect(_entries(tester)[last].field.label, 'Sağ + / sol −');
     final lastEntry = _inSheet(find.byKey(ValueKey('pro-info-field-$last')));
     await tester.ensureVisible(lastEntry);
     await tester.pumpAndSettle();
