@@ -73,7 +73,10 @@ void main() {
     test('wind speed km/h → m/s exactly (÷ 3,6)', () {
       expect(_parse(googleFixture()).windSpeedMps, 8 / 3.6);
       final j = googleFixture();
-      (j['wind'] as Map)['speed'] = {'value': 36, 'unit': 'KILOMETERS_PER_HOUR'};
+      (j['wind'] as Map)['speed'] = {
+        'value': 36,
+        'unit': 'KILOMETERS_PER_HOUR',
+      };
       expect(_parse(j).windSpeedMps, 10.0);
       (j['wind'] as Map)['speed'] = {'value': 0, 'unit': 'KILOMETERS_PER_HOUR'};
       expect(_parse(j).windSpeedMps, 0.0);
@@ -108,10 +111,8 @@ void main() {
           j['airPressure'] = {'meanSeaLevelMillibars': 500},
       'pressure 1200 hPa': (j) =>
           j['airPressure'] = {'meanSeaLevelMillibars': 1200},
-      'mph wind': (j) => (j['wind'] as Map)['speed'] = {
-        'value': 5,
-        'unit': 'MILES_PER_HOUR',
-      },
+      'mph wind': (j) =>
+          (j['wind'] as Map)['speed'] = {'value': 5, 'unit': 'MILES_PER_HOUR'},
       'negative wind': (j) => (j['wind'] as Map)['speed'] = {
         'value': -1,
         'unit': 'KILOMETERS_PER_HOUR',
@@ -162,35 +163,38 @@ void main() {
       expect(calls, 0);
     });
 
-    test('request: endpoint, rounded location, METRIC, bundle header', () async {
-      late http.Request seen;
-      final p = GoogleWeatherProvider(
-        apiKey: _key,
-        clock: TestClock(_fetchedAt),
-        client: MockClient((r) async {
-          seen = r;
-          return http.Response.bytes(
-            utf8.encode(jsonEncode(googleFixture())),
-            200,
-          );
-        }),
-      );
-      final o = await p.fetch(39.91234, 32.85678);
-      expect(o.source, WeatherSource.google);
-      expect(o.fetchedAt, _fetchedAt);
-      expect(seen.method, 'GET');
-      expect(seen.url.scheme, 'https');
-      expect(seen.url.host, 'weather.googleapis.com');
-      expect(seen.url.path, '/v1/currentConditions:lookup');
-      expect(seen.url.queryParameters['location.latitude'], '39.91');
-      expect(seen.url.queryParameters['location.longitude'], '32.86');
-      expect(seen.url.queryParameters['unitsSystem'], 'METRIC');
-      expect(seen.url.queryParameters['key'], _key);
-      expect(
-        seen.headers['X-Ios-Bundle-Identifier'],
-        'com.sniperturk.sniperTurk',
-      );
-    });
+    test(
+      'request: endpoint, rounded location, METRIC, bundle header',
+      () async {
+        late http.Request seen;
+        final p = GoogleWeatherProvider(
+          apiKey: _key,
+          clock: TestClock(_fetchedAt),
+          client: MockClient((r) async {
+            seen = r;
+            return http.Response.bytes(
+              utf8.encode(jsonEncode(googleFixture())),
+              200,
+            );
+          }),
+        );
+        final o = await p.fetch(39.91234, 32.85678);
+        expect(o.source, WeatherSource.google);
+        expect(o.fetchedAt, _fetchedAt);
+        expect(seen.method, 'GET');
+        expect(seen.url.scheme, 'https');
+        expect(seen.url.host, 'weather.googleapis.com');
+        expect(seen.url.path, '/v1/currentConditions:lookup');
+        expect(seen.url.queryParameters['location.latitude'], '39.91');
+        expect(seen.url.queryParameters['location.longitude'], '32.86');
+        expect(seen.url.queryParameters['unitsSystem'], 'METRIC');
+        expect(seen.url.queryParameters['key'], _key);
+        expect(
+          seen.headers['X-Ios-Bundle-Identifier'],
+          'com.sniperturk.sniperTurk',
+        );
+      },
+    );
 
     final codes = <int, WeatherFailureKind>{
       400: WeatherFailureKind.server,
@@ -228,22 +232,25 @@ void main() {
       );
     });
 
-    test('client error carrying the URL → offline, key not in message', () async {
-      final p = GoogleWeatherProvider(
-        apiKey: _key,
-        client: MockClient(
-          (r) async => throw http.ClientException('failed', r.url),
-        ),
-      );
-      await expectLater(
-        p.fetch(39.9, 32.8),
-        throwsA(
-          isA<WeatherFailure>()
-              .having((f) => f.kind, 'kind', WeatherFailureKind.offline)
-              .having((f) => f.toString(), 'text', isNot(contains(_key))),
-        ),
-      );
-    });
+    test(
+      'client error carrying the URL → offline, key not in message',
+      () async {
+        final p = GoogleWeatherProvider(
+          apiKey: _key,
+          client: MockClient(
+            (r) async => throw http.ClientException('failed', r.url),
+          ),
+        );
+        await expectLater(
+          p.fetch(39.9, 32.8),
+          throwsA(
+            isA<WeatherFailure>()
+                .having((f) => f.kind, 'kind', WeatherFailureKind.offline)
+                .having((f) => f.toString(), 'text', isNot(contains(_key))),
+          ),
+        );
+      },
+    );
 
     test('a hanging connection → timeout', () async {
       final p = GoogleWeatherProvider(

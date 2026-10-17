@@ -14,7 +14,8 @@ class FallbackWeatherProvider implements WeatherProvider {
   const FallbackWeatherProvider(this.primary, this.secondary);
 
   @override
-  String get sourceName => '${primary.sourceName} ya da ${secondary.sourceName}';
+  String get sourceName =>
+      '${primary.sourceName} ya da ${secondary.sourceName}';
 
   @override
   Future<WeatherObservation> fetch(double latitude, double longitude) async {

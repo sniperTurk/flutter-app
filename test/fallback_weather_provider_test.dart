@@ -140,7 +140,11 @@ void main() {
       throwsA(
         isA<WeatherFailure>()
             .having((f) => f.kind, 'kind', WeatherFailureKind.server)
-            .having((f) => f.message, 'message', 'Hava servisi hata verdi (503).'),
+            .having(
+              (f) => f.message,
+              'message',
+              'Hava servisi hata verdi (503).',
+            ),
       ),
     );
   });
