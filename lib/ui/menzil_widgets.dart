@@ -1031,44 +1031,66 @@ class _LabelWithInfo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final text = info;
-    // ⓘ sits on the right, vertically centred on the label text (owner,
-    // 2026-10-09).
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Expanded(child: label),
-        // Without an ⓘ an invisible one of the same size keeps the label row
-        // as tall as its neighbour's, so side-by-side fields line up (owner,
-        // 2026-10-09: "Dürbün markası" sat lower than "Odak düzlemi").
-        // The label keeps a small gap under its text; the same gap under the
-        // ⓘ makes their centres meet.
-        Padding(
-          padding: const EdgeInsets.only(bottom: MenzilSpace.xxs + 1),
-          child: text != null
-              ? MenzilInfoButton(title: title, text: text)
-              // Same size as MenzilInfoButton (constraints, density, icon),
-              // but invisible, untappable and silent for VoiceOver.
-              : const ExcludeSemantics(
-                  child: IgnorePointer(
-                    child: Opacity(
-                      opacity: 0,
-                      child: IconButton(
-                        constraints: BoxConstraints(
-                          minWidth: 44,
-                          minHeight: 44,
-                        ),
-                        padding: EdgeInsets.zero,
-                        visualDensity: VisualDensity.standard,
-                        icon: Icon(Icons.circle, size: 18),
-                        onPressed: null,
-                      ),
-                    ),
+    // Without an ⓘ an invisible one of the same size keeps the label row
+    // as tall as its neighbour's, so side-by-side fields line up (owner,
+    // 2026-10-09: "Dürbün markası" sat lower than "Odak düzlemi").
+    // The label keeps a small gap under its text; the same gap under the
+    // ⓘ makes their centres meet.
+    final button = Padding(
+      padding: const EdgeInsets.only(bottom: MenzilSpace.xxs + 1),
+      child: text != null
+          ? MenzilInfoButton(title: title, text: text)
+          // Same size as MenzilInfoButton (constraints, density, icon),
+          // but invisible, untappable and silent for VoiceOver.
+          : const ExcludeSemantics(
+              child: IgnorePointer(
+                child: Opacity(
+                  opacity: 0,
+                  child: IconButton(
+                    constraints: BoxConstraints(minWidth: 44, minHeight: 44),
+                    padding: EdgeInsets.zero,
+                    visualDensity: VisualDensity.standard,
+                    icon: Icon(Icons.circle, size: 18),
+                    onPressed: null,
                   ),
                 ),
+              ),
+            ),
+    );
+    // ⓘ sits on the right, vertically centred on the label text (owner,
+    // 2026-10-09). Its touch area stays where it was, but the label
+    // may run under the empty left part of it: only the icon and the
+    // space right of it are kept free ([_reserve]), so a half-width label
+    // such as "Maksimum büyütme" stays on one line at 390 pt (owner,
+    // 2026-10-16, no renaming).
+    return Stack(
+      alignment: AlignmentDirectional.centerStart,
+      children: [
+        Padding(
+          padding: const EdgeInsetsDirectional.only(end: _reserve),
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(
+              minHeight: 44 + MenzilSpace.xxs + 1,
+            ),
+            child: Align(
+              alignment: AlignmentDirectional.centerStart,
+              child: label,
+            ),
+          ),
+        ),
+        PositionedDirectional(
+          end: 0,
+          top: 0,
+          bottom: 0,
+          child: Center(child: button),
         ),
       ],
     );
   }
+
+  /// Width kept free for the ⓘ: half of its 48 pt tap target, half of
+  /// the 18 pt icon and a 4 pt gap before the icon.
+  static const double _reserve = 48 / 2 + 18 / 2 + 4;
 }
 
 /// Text that drops its bold weight when it needs a second line (owner,
@@ -1443,9 +1465,18 @@ class MenzilSelect<T> extends StatefulWidget {
   /// Space between the box and its open list (owner, 2026-10-15).
   static const double menuGap = 4;
 
-  /// Highest the open list gets (owner, 2026-10-11: "menüler çok büyük
-  /// açılıyor"); a longer list scrolls.
-  static const double menuMaxHeight = 300;
+  /// Rows an open list shows at most (owner, 2026-10-16 22:25–22:28:
+  /// "Select belli standartta açılsın, içine kayma ekle … 8 ya da 10
+  /// yap"). Every list in the app opens at the same height: 8 rows of
+  /// [itemHeight] (Flutter's 48 when it is null) and the list padding; a
+  /// longer list scrolls inside, a shorter one is only as tall as its rows.
+  /// Where 8 rows do not fit between the box and the screen or keyboard
+  /// edge, as many whole rows as fit are shown.
+  static const int menuRows = 8;
+
+  /// Height of an open list of [rows] entries [rowHeight] high.
+  static double menuHeightFor(int rows, double rowHeight) =>
+      rows * rowHeight + _DropdownMenu.listPadding * 2;
 
   @override
   State<MenzilSelect<T>> createState() => MenzilSelectState<T>();
@@ -1516,10 +1547,14 @@ class MenzilSelectState<T> extends State<MenzilSelect<T>>
       _opening = false;
     }
     if (!mounted) return;
+    final current = w.items.indexWhere((i) => i.value == _value);
     final pending = _menu.show(
       context,
       box: () => _boxKey.currentContext?.findRenderObject(),
       items: w.items,
+      // The picked entry ("Seçiniz" when nothing is picked) is scrolled
+      // into view when the list opens.
+      selectedIndex: current < 0 ? null : current,
       itemHeight: w.itemHeight,
     );
     if (pending == null) return;
@@ -1674,7 +1709,13 @@ class MenzilSelectState<T> extends State<MenzilSelect<T>>
                           value: null,
                           // Every list box says "Seçiniz" until something is
                           // picked (owner, 2026-10-11).
-                          hint: wrapped != null
+                          // A list with its own "Seçiniz" entry shows it
+                          // through that entry's slot below, so the text is
+                          // in the box once.
+                          hint:
+                              wrapped != null ||
+                                  (selectedIndex == null &&
+                                      items.any((i) => i.value == null))
                               ? const SizedBox.shrink()
                               : selectedIndex == null
                               ? (w.fitSelected
@@ -1740,7 +1781,15 @@ class MenzilSelectState<T> extends State<MenzilSelect<T>>
                                         style: TextStyle(color: c.ink2),
                                       );
                                     }
-                                    return _closed(k, items);
+                                    // The choice in ink like the hint path
+                                    // (Flutter greys it: onChanged is null
+                                    // here); a closed box stays grey.
+                                    return w.onChanged == null
+                                        ? _closed(k, items)
+                                        : DefaultTextStyle.merge(
+                                            style: TextStyle(color: c.ink),
+                                            child: _closed(k, items),
+                                          );
                                   }(),
                                 ),
                               ),
@@ -1851,11 +1900,14 @@ class MenzilSelectMenu<T> {
   /// null when the list cannot open (already open, nothing to show);
   /// otherwise a future with null when closed without a pick, or the
   /// picked value.
+  /// At most [MenzilSelect.menuRows] rows show; a longer list scrolls
+  /// inside. [selectedIndex] is the entry scrolled into view on opening.
   Future<({T? value})?>? show(
     BuildContext context, {
     required RenderObject? Function() box,
     required List<DropdownMenuItem<T>> items,
     double? itemHeight = kMinInteractiveDimension,
+    int? selectedIndex,
   }) {
     if (items.isEmpty || _route != null) return null;
     final navigator = Navigator.of(context);
@@ -1872,9 +1924,9 @@ class MenzilSelectMenu<T> {
         math.max(mq.padding.bottom, mq.viewInsets.bottom) -
         MenzilSpace.sm;
     final itemH = itemHeight ?? kMinInteractiveDimension;
-    final want = math.min(
-      MenzilSelect.menuMaxHeight,
-      items.length * itemH + _DropdownMenu.listPadding * 2,
+    final want = MenzilSelect.menuHeightFor(
+      math.min(MenzilSelect.menuRows, items.length),
+      itemH,
     );
     var room = bottom - rect.bottom - MenzilSelect.menuGap;
     if (room < want) {
@@ -1894,13 +1946,25 @@ class MenzilSelectMenu<T> {
         }
       }
     }
+    // Whole rows only: on a small screen the list shows as many rows as
+    // fit (at least one), never a row cut by the screen edge.
+    final fit = ((room - _DropdownMenu.listPadding * 2) / itemH).floor().clamp(
+      1,
+      MenzilSelect.menuRows,
+    );
+    // Rows that grow with their text ([itemHeight] null, e.g. a wrapped
+    // profile name) are at least 48 pt: the cap is 8 such rows, and the
+    // list (shrink-wrapped) is only as tall as its rows when they are
+    // fewer, so a short list of tall rows is never cut.
+    final cap = itemHeight == null
+        ? MenzilSelect.menuHeightFor(MenzilSelect.menuRows, itemH)
+        : want;
+    final maxHeight = math.min(cap, MenzilSelect.menuHeightFor(fit, itemH));
     final c = MenzilColors.of(context);
     final menu = _MenzilMenuRoute<T>(
       anchor: rect,
-      maxHeight: room.clamp(
-        kMinInteractiveDimension,
-        MenzilSelect.menuMaxHeight,
-      ),
+      maxHeight: maxHeight,
+      selectedIndex: selectedIndex,
       items: [
         for (final it in items)
           DropdownMenuItem<T>(
@@ -1948,6 +2012,7 @@ class _MenzilMenuRoute<T> extends PopupRoute<_MenzilMenuResult<T>> {
   _MenzilMenuRoute({
     required this.anchor,
     required this.maxHeight,
+    this.selectedIndex,
     required this.items,
     required this.itemHeight,
     required this.style,
@@ -1960,6 +2025,9 @@ class _MenzilMenuRoute<T> extends PopupRoute<_MenzilMenuResult<T>> {
   /// The closed box, in the navigator's coordinates.
   final Rect anchor;
   final double maxHeight;
+
+  /// The entry picked when the list opened; it is scrolled into view.
+  final int? selectedIndex;
   final List<DropdownMenuItem<T>> items;
   final double? itemHeight;
   final TextStyle style;
@@ -2044,7 +2112,40 @@ class _DropdownMenu<T> extends StatefulWidget {
 }
 
 class _DropdownMenuState<T> extends State<_DropdownMenu<T>> {
-  final ScrollController _scroll = ScrollController();
+  /// Starts with the picked entry in view: it stands as the fourth visible
+  /// row (or as low as the list allows). Entries of one height are placed
+  /// exactly; growing entries ([MenzilSelect.itemHeight] null) are brought
+  /// fully into view after the first frame.
+  late final ScrollController _scroll = ScrollController(
+    initialScrollOffset: _initialOffset(),
+  );
+
+  /// The picked entry's own key, for [Scrollable.ensureVisible].
+  final GlobalKey _selectedKey = GlobalKey();
+
+  double _initialOffset() {
+    final route = widget.route;
+    final i = route.selectedIndex;
+    if (i == null) return 0;
+    final rowH = route.itemHeight ?? kMinInteractiveDimension;
+    final total = MenzilSelect.menuHeightFor(route.items.length, rowH);
+    final maxOffset = math.max(0.0, total - route.maxHeight);
+    final bottom = _DropdownMenu.listPadding + (i + 1) * rowH;
+    if (bottom <= route.maxHeight) return 0;
+    return math.min(maxOffset, _DropdownMenu.listPadding + (i - 3) * rowH);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.route.selectedIndex != null && widget.route.itemHeight == null) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        final ctx = _selectedKey.currentContext;
+        if (!mounted || ctx == null) return;
+        Scrollable.ensureVisible(ctx, alignment: 0.4);
+      });
+    }
+  }
 
   @override
   void dispose() {
@@ -2072,8 +2173,11 @@ class _DropdownMenuState<T> extends State<_DropdownMenu<T>> {
             namesRoute: true,
             explicitChildNodes: true,
             label: MaterialLocalizations.of(context).popupMenuLabel,
+            // The scroll bar stays visible while a longer list can scroll
+            // (owner, 2026-10-16: "içine kayma ekle").
             child: Scrollbar(
               controller: _scroll,
+              thumbVisibility: true,
               child: ListView(
                 controller: _scroll,
                 padding: const EdgeInsets.symmetric(
@@ -2082,7 +2186,11 @@ class _DropdownMenuState<T> extends State<_DropdownMenu<T>> {
                 shrinkWrap: true,
                 children: [
                   for (var i = 0; i < route.items.length; i++)
-                    _DropdownMenuItemButton<T>(route: route, index: i),
+                    _DropdownMenuItemButton<T>(
+                      key: i == route.selectedIndex ? _selectedKey : null,
+                      route: route,
+                      index: i,
+                    ),
                 ],
               ),
             ),
@@ -2098,7 +2206,11 @@ class _DropdownMenuItemButton<T> extends StatelessWidget {
   final _MenzilMenuRoute<T> route;
   final int index;
 
-  const _DropdownMenuItemButton({required this.route, required this.index});
+  const _DropdownMenuItemButton({
+    super.key,
+    required this.route,
+    required this.index,
+  });
 
   @override
   Widget build(BuildContext context) {

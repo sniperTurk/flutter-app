@@ -216,8 +216,20 @@ void main() {
       'Dürbün birimi',
       'Klik değeri',
     ];
+    // The Odak düzlemi filter (approved design, owner 2026-10-16) has its
+    // own ⓘ; the hidden value box must not.
+    final filters = find.byWidgetPredicate(
+      (w) =>
+          w.key is ValueKey<String> &&
+          (w.key! as ValueKey<String>).value.startsWith('scope-filter-'),
+    );
     for (final label in scopeLabels) {
-      expect(find.byTooltip('Bilgi: $label'), findsNothing, reason: label);
+      final all = find.byTooltip('Bilgi: $label').evaluate().length;
+      final inFilters = find
+          .descendant(of: filters, matching: find.byTooltip('Bilgi: $label'))
+          .evaluate()
+          .length;
+      expect(all - inFilters, 0, reason: label);
     }
     final bcInfo = find.byTooltip('Bilgi: BC');
     await tester.ensureVisible(bcInfo);

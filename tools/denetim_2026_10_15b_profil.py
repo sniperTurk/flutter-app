@@ -53,7 +53,7 @@ RAD_PER_SMOA = M_PER_IN / (100 * M_PER_YD)
 RAD_PER_MRAD = 0.001
 
 LIBRARY = 'lib/features/profiles/profiles_screen.dart'
-IDENTITY_LABELS = {'Marka', 'Model', 'Dürbün markası', 'Profil adı'}
+IDENTITY_LABELS = {'Marka', 'Model', 'Dürbün markası', 'Dürbün modeli', 'Profil adı'}
 
 
 # ---- Hand calculations ------------------------------------------------------

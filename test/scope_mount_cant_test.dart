@@ -19,6 +19,8 @@ import 'package:sniper_turk/services/profile_codec.dart';
 import 'package:sniper_turk/services/profile_store.dart';
 import 'package:sniper_turk/ui/menzil_theme.dart';
 
+import 'support/rifle_form.dart';
+
 // Gazi Sniper 6–36×56 FFP: 0.1 mrad clicks, 26 mrad elevation travel.
 const _profile = RifleProfile(
   id: 'p1',
@@ -130,15 +132,21 @@ void main() {
 
   group('profile value', () {
     test('only the listed mounts are accepted', () {
-      // 10 and 40 MOA added on the owner's request (2026-10-08).
+      // 10 and 40 MOA added on the owner's request (2026-10-08); 0–60 in
+      // 5 MOA steps plus 90 (owner, 2026-10-16: 5, 25, 35, 50, 55 added).
       expect(ProductionLimits.mountCantOptionsMoa, [
         0,
+        5,
         10,
         15,
         20,
+        25,
         30,
+        35,
         40,
         45,
+        50,
+        55,
         60,
         90,
       ]);
@@ -154,7 +162,10 @@ void main() {
       expect(input(60).mountCantMoa, 60);
       expect(input(10).mountCantMoa, 10);
       expect(input(40).mountCantMoa, 40);
-      for (final bad in const [-1.0, 25.0, 120.0, double.nan]) {
+      expect(input(25).mountCantMoa, 25);
+      expect(input(55).mountCantMoa, 55);
+      // 27 is between two choices: not a listed mount.
+      for (final bad in const [-1.0, 27.0, 120.0, double.nan]) {
         expect(() => input(bad), throwsFormatException, reason: '$bad');
       }
     });
@@ -168,7 +179,7 @@ void main() {
       final legacy = Map<String, dynamic>.of(json)..remove('mountCantMoa');
       expect(codec.decode(legacy).mountCantMoa, 0);
 
-      for (final bad in <Object>[-5, 25, 500, 'sixty', double.nan]) {
+      for (final bad in <Object>[-5, 27, 500, 'sixty', double.nan]) {
         expect(
           () => codec.decode(Map.of(json)..['mountCantMoa'] = bad),
           throwsFormatException,
@@ -327,8 +338,14 @@ void main() {
 
       await tester.tap(find.byTooltip('Yeni profil'));
       await tester.pumpAndSettle();
+      // A new profile has no Klik değeri until one is picked (owner,
+      // 2026-10-16: every box starts on "Seçiniz"); a typed 0.1 mrad scope
+      // gives the choices their click gain.
+      await openScopeManual(tester);
+      await chooseInSelect(tester, 'scope-unit', 'MRAD');
+      await chooseInSelect(tester, 'scope-click', '0,1 MRAD');
       final field = find.byKey(
-        const ValueKey('scope-mount-cant-mrad-0.1'),
+        const ValueKey('scope-mount-cant-mrad-0,1'),
         skipOffstage: false,
       );
       expect(field, findsOneWidget);
@@ -345,7 +362,7 @@ void main() {
         findsNothing,
       );
 
-      // Each choice already shows its click gain for the 0.1 mrad default.
+      // Each choice already shows its click gain for the 0.1 mrad click.
       await tester.tap(
         find.descendant(of: field, matching: find.text('Seçiniz')),
       );

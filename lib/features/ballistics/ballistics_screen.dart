@@ -3058,6 +3058,7 @@ class _BallisticsScreenState extends State<BallisticsScreen>
         brand: scope?.brand,
         model: scope?.model,
         source: scope?.sourceDocument,
+        typed: scope?.userEntered ?? false,
       ),
       unit: unit,
       clickValue: click,

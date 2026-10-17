@@ -210,10 +210,6 @@ class _ProfileDialogState extends State<_ProfileDialog> {
   /// Profili Düzenle opens it in the lists, else the picked list record.
   ScopeOptic? _scopeOwn;
 
-  /// Profili Düzenle of a catalog scope: Birim / Odak / Tüp / Büyütme stay
-  /// hidden until Marka changes (owner, 2026-10-13).
-  bool _scopeFiltersHidden = false;
-
   /// The chosen model: the catalog model without its reticle name.
   String? _scopeModelKey;
 
@@ -265,25 +261,110 @@ class _ProfileDialogState extends State<_ProfileDialog> {
   }
 
   // ---- Dürbün values from lists (owner, 2026-10-11: select over typing).
-  // Standard values of real scopes; a stored value outside the list is
-  // added to it so an older profile still shows what it saved.
+  // Standard values of real scopes, completed with every value of the
+  // app's manufacturer-sourced scope catalog (owner, 2026-10-16: "Bu
+  // listeye eksik olan her şeyi ekle"): one source, so a scope added to
+  // the catalog is offered here too. A saved value outside the list opens
+  // as "Seçiniz" and is picked again (owner, 2026-10-16 22:24: "eski
+  // kayıtlar boş açılsın, sorun yok").
 
-  /// Minimum büyütme: 1-6, 1.5-6, 2.5-15, 3-9, 4-16, 5-25, 6-24 …
-  static const _minMagOptions = <double>[
+  /// Minimum büyütme offered before 2026-10-16: 1-6, 1.5-6, 2.5-15 …
+  static const _minMagBase = <double>[
     1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5, 5.5, 6, 7, 8, 10, 12, //
   ];
 
-  /// Maksimum büyütme (a fixed-power scope has min = max).
-  static const _maxMagOptions = <double>[
+  /// Maksimum büyütme offered before 2026-10-16 (a fixed-power scope has
+  /// min = max).
+  static const _maxMagBase = <double>[
     4, 5, 6, 7, 8, 9, 10, 12, 14, 15, 16, 18, 20, 21, 24, 25, 27, 28, //
     30, 32, 35, 36, 40, 42, 45, 48, 50, 56, 60, //
   ];
 
-  /// Mercek çapı, mm.
-  static const _objectiveOptions = <double>[
+  /// Mercek çapı (mm) offered before 2026-10-16.
+  static const _objectiveBase = <double>[
     20, 24, 28, 30, 32, 33, 36, 40, 42, 44, 45, 50, 52, 54, 56, 58, 60, //
     62, 64, 72, //
   ];
+
+  /// [base] and every value [of] gives for a catalog scope, sorted, each
+  /// once.
+  static List<double> _withCatalog(
+    List<double> base,
+    double? Function(ScopeOptic) of,
+  ) => List.unmodifiable(
+    {
+      ...base,
+      for (final s in _scopeLib)
+        if (of(s) case final v? when v.isFinite && v > 0) v,
+    }.toList()..sort(),
+  );
+
+  /// Minimum büyütme: [_minMagBase] and every catalog minimum.
+  static final List<double> _minMagOptions = _withCatalog(
+    _minMagBase,
+    (s) => s.minMagnification,
+  );
+
+  /// Maksimum büyütme: [_maxMagBase] and every catalog maximum.
+  static final List<double> _maxMagOptions = _withCatalog(
+    _maxMagBase,
+    (s) => s.maxMagnification,
+  );
+
+  /// Mercek çapı, mm: [_objectiveBase] and every catalog objective.
+  static final List<double> _objectiveOptions = _withCatalog(
+    _objectiveBase,
+    (s) => s.objectiveDiameterMm,
+  );
+
+  /// Retikül names of the catalog for the typed scope (owner, 2026-10-16:
+  /// every reticle name of the catalog, each once, A–Z) with the unit the
+  /// name or its scopes make known ('mil', 'moa'; null when unknown).
+  /// The plain patterns ([Reticles.genericNames]) are listed separately.
+  static final Map<String, String?> _catalogReticles = () {
+    final spelling = <String, String>{};
+    final turrets = <String, Set<String>>{};
+    final generic = {for (final g in Reticles.genericNames) g.toLowerCase()};
+    for (final s in _scopeLib) {
+      for (final r in _reticlesOf(s)) {
+        final k = r.toLowerCase();
+        if (generic.contains(k)) continue;
+        final name = spelling.putIfAbsent(k, () => r);
+        (turrets[name] ??= {}).add(s.clickUnit.moaFamily ? 'moa' : 'mil');
+      }
+    }
+    final names = spelling.values.toList()..sort(_byName);
+    return {
+      for (final n in names)
+        n:
+            ReticleCatalog.nameKey(n).unit ??
+            (turrets[n]!.length == 1 ? turrets[n]!.single : null),
+    };
+  }();
+
+  /// The typed scope's Retikül list: the plain patterns that fit the
+  /// Dürbün birimi, then every catalog name whose unit is the chosen one or
+  /// unknown. Before a Dürbün birimi is chosen ([unitSet] false) all are
+  /// offered. The chosen reticle [keep] stays listed whatever the unit
+  /// (owner, 2026-10-14: a chosen reticle is never cleared by the unit).
+  static List<String> _typedReticleNames(
+    AngularUnit unit, {
+    required bool unitSet,
+    String? keep,
+  }) {
+    final moa = unit.moaFamily;
+    final out = [
+      for (final n in Reticles.genericNames)
+        if (!unitSet ||
+            n == keep ||
+            n == Reticles.duplex ||
+            (n == Reticles.hashMoa ? moa : !moa))
+          n,
+      for (final MapEntry(key: n, value: u) in _catalogReticles.entries)
+        if (!unitSet || n == keep || u == null || (u == 'moa') == moa) n,
+    ];
+    return [if (keep != null && !out.contains(keep)) keep, ...out];
+  }
 
   /// Klik değeri of the turret, by unit: 0,1 / 0,05 mrad; 1/4, 1/8, 1/2 MOA.
   static List<(double, String)> _clickOptions(AngularUnit u) {
@@ -306,6 +387,15 @@ class _ProfileDialogState extends State<_ProfileDialog> {
 
   /// The scope is typed in too; stored as a personal scope record.
   late final TextEditingController scopeBrand;
+
+  /// Dürbün modeli of a typed scope (owner, 2026-10-16); saved before the
+  /// designation in the record's model, empty for older typed records.
+  late final TextEditingController scopeModel;
+
+  /// Profili Düzenle of a typed scope saved before Dürbün modeli existed
+  /// (before 2026-10-16): it still saves with the box left empty, so an old
+  /// profile updates as before; a new typed entry needs its model.
+  bool _scopeLegacyNoModel = false;
   late final TextEditingController scopeMinMag;
   late final TextEditingController scopeMaxMag;
   late final TextEditingController scopeObjective;
@@ -490,7 +580,12 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     final s0 = scope;
     // A catalog scope comes back in the lists; a typed one in the typed box.
     if (s0 != null) {
-      ScopeOptic? hit = s0.userEntered
+      // A typed scope saved with its Dürbün modeli (2026-10-16) stays typed:
+      // matched to a list record it would lose the model on the next save.
+      final typedModel = s0.userEntered && _typedScopeModelOf(s0).isNotEmpty;
+      ScopeOptic? hit = typedModel
+          ? null
+          : s0.userEntered
           ? _scopeLib
                 .where(
                   (r) =>
@@ -509,7 +604,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
       // naming (owner, 2026-10-14): matched tolerantly by Marka + series,
       // then büyütme / mercek çapı / odak / birim. The exact rule above
       // still goes first.
-      if (hit == null && s0.userEntered) {
+      if (hit == null && s0.userEntered && !typedModel) {
         hit = ProfileCatalogMatch.scope(s0, _scopeLib, _scopeModelOf);
         if (hit != null) _scopeTolerant = true;
       }
@@ -520,9 +615,6 @@ class _ProfileDialogState extends State<_ProfileDialog> {
         _scopeModelKey = _scopeModelOf(hit);
         _scopeRecord = hit;
         _scopeOwn = s0;
-        // Profili Düzenle of a catalog scope: no filter boxes (owner,
-        // 2026-10-13); they come back when Marka changes.
-        _scopeFiltersHidden = true;
       }
     }
     angularUnit = p?.angularUnit ?? s0?.clickUnit ?? AngularUnit.mrad;
@@ -536,6 +628,12 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     scopeBrand = TextEditingController(
       text: series.isEmpty ? (s0?.brand ?? '') : '${rec!.brand} $series',
     );
+    // Typed: "listede yok" or no list at all (as _scopeFromList).
+    final typedScope = _scopeManual || _scopeLib.isEmpty;
+    scopeModel = TextEditingController(
+      text: s0 != null && typedScope ? _typedScopeModelOf(s0) : '',
+    );
+    _scopeLegacyNoModel = s0 != null && typedScope && scopeModel.text.isEmpty;
     // A tolerant match keeps every saved value; only a value the saved
     // record lacks is taken from the list record (nothing is overwritten).
     final fill = _scopeTolerant ? rec : null;
@@ -552,8 +650,13 @@ class _ProfileDialogState extends State<_ProfileDialog> {
             : s0?.objectiveDiameterMm,
       ),
     );
+    // A new profile picks its Klik değeri too: nothing is pre-chosen
+    // (owner, 2026-10-16 22:26: "Kutuların hepsi önce Seçiniz ile
+    // başlasın").
     scopeClick = TextEditingController(
-      text: s0 != null && s0.clickUnit == angularUnit
+      text: s0 == null
+          ? ''
+          : s0.clickUnit == angularUnit
           ? num(s0.clickValue)
           : num(_defaultClick(angularUnit)),
     );
@@ -572,6 +675,28 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     scopeTravelElevation = TextEditingController(
       text: travel(s0?.elevationRangeMrad),
     );
+    // A typed scope whose saved value is no longer a list entry opens with
+    // that box on "Seçiniz"; it is required, so the edited profile cannot be
+    // saved until it is picked again (owner, 2026-10-16 22:24: "eski
+    // kayıtlar boş açılsın, sorun yok"). The saved profile itself is not
+    // changed until then.
+    if (s0 != null && typedScope) {
+      void keepListed(TextEditingController c, List<double> options) {
+        final v = _parse(c);
+        if (v != null && !options.contains(v)) c.clear();
+      }
+
+      keepListed(scopeMinMag, _minMagOptions);
+      keepListed(scopeMaxMag, _maxMagOptions);
+      keepListed(scopeObjective, _objectiveOptions);
+      final clickBefore = scopeClick.text;
+      keepListed(scopeClick, [
+        for (final (v, _) in _clickOptions(angularUnit)) v,
+      ]);
+      // Üst kule klik sayısı was counted in the old click: with that click
+      // gone it would mean another travel, so it is asked again too.
+      if (scopeClick.text != clickBefore) scopeTravelElevation.clear();
+    }
     // An ammunition of the other rifle type (a PCP slug saved with a
     // firearm) is not shown; the user picks a bullet again.
     if (ammo != null && ammo!.platform != platform) ammo = null;
@@ -860,15 +985,19 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     section('Dürbün', [
       (_scopeBrandError == null, 'Marka'),
       if (listScope) (_scopeModelKey != null, 'Model'),
+      if (!listScope) (_scopeModelError == null, 'Dürbün modeli'),
+      // The card's order (owner, 2026-10-16): Dürbün birimi | Odak
+      // düzlemi, Minimum | Maksimum büyütme, Mercek çapı | Klik değeri,
+      // Üst kule klik sayısı | Dürbün ayağı.
+      if (_scopeUnitShown) (_angularUnitSet, 'Dürbün birimi'),
+      if (_scopeFocalShown) (firstFocalPlane != null, 'Odak düzlemi'),
       if (_scopeMinMagShown) (_minMagError == null, 'Min. büyütme'),
       if (_scopeMaxMagShown) (_maxMagError == null, 'Maks. büyütme'),
       if (_scopeObjectiveShown) (_objectiveError == null, 'Mercek çapı'),
-      if (_scopeFocalShown) (firstFocalPlane != null, 'Odak düzlemi'),
-      if (_scopeUnitShown) (_angularUnitSet, 'Dürbün birimi'),
-      (_mountCantSet, 'Dürbün ayağı'),
       // Asked for a typed scope; a catalog scope brings its own.
       if (!listScope) (_clickError == null, 'Klik değeri'),
       (_travelError(scopeTravelElevation) == null, 'Üst kule klik sayısı'),
+      (_mountCantSet, 'Dürbün ayağı'),
     ]);
     section('Mühimmat', [
       if (platform == WeaponPlatform.firearm) (_ammoSourceSet, 'Mühimmat türü'),
@@ -905,6 +1034,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     _grainFocus.dispose();
     rifleTwist.dispose();
     scopeBrand.dispose();
+    scopeModel.dispose();
     scopeMinMag.dispose();
     scopeMaxMag.dispose();
     scopeObjective.dispose();
@@ -989,7 +1119,31 @@ class _ProfileDialogState extends State<_ProfileDialog> {
       _pcpPressureValid;
 
   String? get _scopeBrandError => _textError(scopeBrand);
-  String? get _minMagError => _rangeError(scopeMinMag, 1, 60);
+
+  /// Longest Dürbün modeli: the record's model also carries the designation
+  /// ("5-25x56 FFP") and is limited to 100 characters.
+  static const _scopeModelMaxLength = 80;
+
+  /// Dürbün modeli is asked (and required) only for a typed scope.
+  String? get _scopeModelError {
+    if (_scopeFromList) return null;
+    final t = scopeModel.text.trim();
+    if (t.isEmpty) return _scopeLegacyNoModel ? null : 'Gerekli.';
+    // The saved model ("X5 Pro 5-25x56 FFP") must fit the 100 characters
+    // the store accepts.
+    if (t.length > _scopeModelMaxLength ||
+        t.length + 1 + _scopeDesignation.length > 100) {
+      return 'En fazla $_scopeModelMaxLength karakter.';
+    }
+    return null;
+  }
+
+  /// From the smallest list value (0,75x in the catalog, 2026-10-16).
+  String? get _minMagError => _rangeError(
+    scopeMinMag,
+    _minMagOptions.first < 1 ? _minMagOptions.first : 1,
+    60,
+  );
   String? get _maxMagError {
     final e = _rangeError(scopeMaxMag, 1, 100);
     if (e != null) return e;
@@ -1019,6 +1173,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
   bool get _scopeValid =>
       _travelError(scopeTravelElevation) == null &&
       _scopeBrandError == null &&
+      _scopeModelError == null &&
       _minMagError == null &&
       _maxMagError == null &&
       _objectiveError == null &&
@@ -1303,7 +1458,12 @@ class _ProfileDialogState extends State<_ProfileDialog> {
       'kind': 'scope',
       'platform': platform.name,
       'brand': scopeBrand.text.trim(),
-      'model': _scopeDesignation,
+      // A typed scope keeps its Dürbün modeli before the designation
+      // ("X5 5-25x56 FFP"); a list scope only the designation, as before.
+      'model': [
+        if (!_scopeFromList) scopeModel.text.trim(),
+        _scopeDesignation,
+      ].where((x) => x.isNotEmpty).join(' '),
       'objectiveMm': _parse(scopeObjective),
       'click': own?.clickValue ?? _parse(scopeClick),
       'clickUnit': (own?.clickUnit ?? angularUnit).name,

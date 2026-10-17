@@ -78,8 +78,6 @@ Future<void> chooseInSelect(
   await tester.tap(select);
   await tester.pumpAndSettle();
   // Long lists ("Listede yok" is the last item): scroll the open menu.
-  // The menu opens at the selected item, so the wanted one may be above it
-  // (a smaller büyütme) or below it: try down first, then up.
   final item = find.text(label);
   // The open menu's own item, not the closed field that shows the same text
   // under the menu (a new first brand, Aguila, sat on top of it).
@@ -89,8 +87,15 @@ Future<void> chooseInSelect(
     ),
     matching: item,
   );
+  // The menu opens with the picked entry in view (2026-10-16): a wanted
+  // entry far above it is reached from the top of the list.
+  if (inMenu.evaluate().isEmpty) {
+    final menu = find.byType(Scrollable).last;
+    tester.state<ScrollableState>(menu).position.jumpTo(0);
+    await tester.pumpAndSettle();
+  }
   for (final dy in const [-300.0, 300.0]) {
-    for (var i = 0; i < 20 && inMenu.evaluate().isEmpty; i++) {
+    for (var i = 0; i < 60 && inMenu.evaluate().isEmpty; i++) {
       await tester.drag(find.byType(Scrollable).last, Offset(0, dy));
       await tester.pumpAndSettle();
     }
@@ -201,6 +206,7 @@ Future<void> openScopeManual(WidgetTester tester) async {
 Future<void> fillScopeForm(
   WidgetTester tester, {
   String brand = 'Test Optik',
+  String model = 'X1',
   String minMag = '6',
   String maxMag = '24',
   String objective = '56',
@@ -212,6 +218,8 @@ Future<void> fillScopeForm(
     await openScopeManual(tester);
   }
   await enterRifleField(tester, 'scope-brand', brand);
+  // Dürbün markası | Dürbün modeli, both required (owner, 2026-10-16).
+  await enterRifleField(tester, 'scope-model', model);
   // Büyütme and Mercek çapı are picked from lists (owner, 2026-10-11).
   await chooseInSelect(tester, 'scope-min-mag', '${minMag}x');
   await chooseInSelect(tester, 'scope-max-mag', '${maxMag}x');
