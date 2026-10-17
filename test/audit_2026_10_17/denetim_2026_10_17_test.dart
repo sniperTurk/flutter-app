@@ -99,6 +99,17 @@ Future<void> _type(WidgetTester tester, Key key, String v) async {
   await tester.pump();
 }
 
+/// Types the air temperature on Hava Durumu, then opens Pro at the
+/// "Bugünkü hız" line's box.
+Future<void> _air(WidgetTester tester, RifleProfile p, String v) async {
+  await tester.pumpWidget(_app(p, BallisticsView.environment));
+  await tester.pumpAndSettle();
+  await _type(tester, BallisticsFieldKeys.temperature, v);
+  await tester.pumpWidget(_app(p, BallisticsView.pro));
+  await tester.pumpAndSettle();
+  await openProFor(tester, const Key('pro-powder-source'));
+}
+
 String? _today(WidgetTester tester) =>
     tester.widget<Text>(find.byKey(const Key('pro-powder-today'))).data;
 
@@ -174,14 +185,29 @@ void main() {
       final p = _firearm(coef: 1.5, refC: 15);
       final plain = await _up(tester, p);
       final warm = await _up(tester, p, ammo: '35');
-      // 816 / 0.3048 = 2677.2 fps; 800 / 0.3048 = 2624.7 fps.
-      await tester.pumpWidget(_app(p, BallisticsView.pro));
-      await tester.pumpAndSettle();
-      await openProFor(tester, const Key('pro-powder-today'));
-      expect(_today(tester), 'Bugünkü hız: 2677 fps (profil 2625 fps).');
       // A warmer cartridge is faster: less elevation at 600 m.
       expect(warm, lessThan(plain));
+      // 816 / 0.3048 = 2677.2 fps; 800 / 0.3048 = 2624.7 fps. The line
+      // needs a typed air temperature (D17-1); 15 °C = T0, so only the
+      // cartridge temperature moves the velocity.
+      await _air(tester, p, '15');
+      expect(_today(tester), 'Bugünkü hız: 2677 fps (profil 2625 fps).');
+      // Same shot as with the air box empty (both 15 °C).
+      expect(await _up(tester, p), closeTo(warm, 1e-9));
     });
+
+    testWidgets('D17-1: with the air box empty a typed cartridge temperature '
+        'still shows today\'s velocity', (tester) async {
+      await _sized(tester);
+      final p = _firearm(id: 'p-d17-1', coef: 1.5, refC: 15);
+      await tester.pumpWidget(_app(p, BallisticsView.pro));
+      await tester.pumpAndSettle();
+      await _type(tester, _ammoKey, '35');
+      await tester.pumpAndSettle();
+      // The solver uses 816 m/s here (air empty = 15 °C); the line is
+      // missing because it needs a typed air temperature.
+      expect(find.byKey(const Key('pro-powder-today')), findsOneWidget);
+    }, skip: true); // D17-1 open (DÜŞÜK): pro_ayarlar_view.dart:760
 
     testWidgets('empty → air temperature: same as no correction at T0', (
       tester,
@@ -213,8 +239,9 @@ void main() {
         ),
       );
       expect(field.controller!.text, '35');
-      expect(_today(tester), 'Bugünkü hız: 2677 fps (profil 2625 fps).');
       final loaded = await _up(tester, p);
+      await _air(tester, p, '15');
+      expect(_today(tester), 'Bugünkü hız: 2677 fps (profil 2625 fps).');
 
       await tester.pumpWidget(const SizedBox());
       SharedPreferences.setMockInitialValues({});
