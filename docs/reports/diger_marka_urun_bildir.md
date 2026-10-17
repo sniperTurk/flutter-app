@@ -242,7 +242,9 @@ Uygulama kodu f28c354e; sonraki commit yalnız bu rapor (docs, CI tetiklenmez).
 - Önceki kırmızılar: main'deki #389 + #395 birleşimi `profile_editor_rifle.dart`'ta
   2 analyzer hatası bırakmıştı (bu PR'ın değil; PR'a en küçük düzeltme
   taşındı, PR'da yorum var).
-- Code Review: bulgular (Diğer marka'dan listeye dönünce eski sayılar,
+- Code Review: Code Review eklentisi taslak PR'ları incelemediği için aynı
+  inceleme (hata + güvenlik) ayrı bir inceleme ajanıyla diff üzerinde yapıldı;
+  ana oturum birleştirmeden önce eklentiyi yeniden çalıştırabilir. Bulgular (Diğer marka'dan listeye dönünce eski sayılar,
   pencerenin gönderirken kapanabilmesi, kutuda ⓘ yok) düzeltildi. Security
   review: HTTPS, 10 sn zaman aşımı, yalnız yazılan metin + tüfek türü +
   kalibre + sürüm gönderiliyor, kişisel veri/konum/cihaz kimliği yok, metin
