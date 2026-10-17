@@ -105,7 +105,7 @@ Dal: `feat/google-hava-verisi` · Taslak PR · Sahip kararları 2026-10-17
 
 - Rüzgâr yönü otomatik ayarlanmıyor, saat dönüşümü ve azimut hesabı yok.
 - Yeni alan yok, başka sayfa yok, aralık/yerleşim değişikliği yok
-  (`fix/hava-aralik-tarih` dalının alanlarına dokunulmadı).
+  (`fix/hava-aralik-tarih` dalının alanlarına dokunulmadı; dal, o değişikliği içeren main @ 53100e05 üzerine yeniden kuruldu, çakışma çıkmadı).
 - **Basınç kutusu bu çekişte de doldurulmuyor.** Google'ın basıncı gözleme
   okunuyor (MET gibi `seaLevel`), ama sayfanın 2026-10-12 kuralı ("her kutu
   kendi düğmesiyle", basınç yalnız "Basınç al") ve görevdeki not metni
@@ -168,8 +168,7 @@ test=`integration_test/google_hava_notu_screens_test.dart` ile
 - `dart format` (format-fix, iki kez, CI commit'i):
   https://github.com/sniperTurk/flutter-app/actions/runs/39057529183
 - PR iOS CI (run 39058518300): `dart-checks` **başarılı**,
-  `wind-acceptance` **başarılı**, `verify` **sürüyor** (bitmeden yeşil
-  denmez): https://github.com/sniperTurk/flutter-app/actions/runs/39058518300
+  `wind-acceptance` **başarılı**, `verify` 6e800f1b'de App Store arşivi adımında **iptal edildi** (bizim dışımızda); main üzerine yeniden kurulan dalda PR CI yeniden çalışıyor, bitmeden yeşil denmez: https://github.com/sniperTurk/flutter-app/actions/runs/39058518300
 - Code Review + Security review (alt ajan, statik): anahtar sızıntısı
   bulunmadı. Bulunan küçük noktalar: eşitlik testi ikinci kaynağı gerçekten
   çekmiyordu → düzeltildi (6e800f1b); Google 10 sn zaman aşımı + MET 12 sn →
