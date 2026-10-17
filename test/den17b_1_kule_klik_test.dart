@@ -263,6 +263,9 @@ void main() {
       expect(selectedValue<double>(tester, 'scope-click'), 0.125);
       expect(_travelText(tester), '400');
       expect(selectedValue<double>(tester, 'scope-mount'), 25);
+      // The same click picked again on the opened profile keeps the count.
+      await chooseInSelect(tester, 'scope-click', '1/8 MOA');
+      expect(_travelText(tester), '400');
       // Opening saves nothing.
       _expectSame(first, (await store.all()).single);
       await _press(tester, 'Güncelle');
@@ -416,6 +419,8 @@ void main() {
     await _press(tester, 'Kaydet');
     final a = (await direct.all()).single;
 
+    // A fresh screen with its own store.
+    await tester.pumpWidget(const SizedBox());
     final edited = await _openNew(tester);
     await _fillTyped(tester);
     await chooseInSelect(tester, 'scope-click', '0,05 MRAD');
