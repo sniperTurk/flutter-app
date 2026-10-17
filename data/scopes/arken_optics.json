@@ -426,10 +426,10 @@
 "reticle": "KLBOX",
 "parallax_min_m": null,
 "length_mm": 269.2,
-"weight_g": null,
+"weight_g": 572.7,
 "zero_stop": false,
 "source_url": "https://www.arkenopticsusa.com/products/lh-6-1-6x24-sfp-lpvo-illum-klbox-30mm-tube",
 "accessed": "2026-10-17",
-"notes": "Yalnız MOA ('KLB-MOA'). 2026-10-17 yeniden okundu: arkenopticsusa.com 'Turret Adj. 0.25 MOA', 'Adj. Per Revolution 25 MOA', 'Elevation/Windage Adj. Range 180 MOA', 'Zero Stop: No', 'Length 10.6 in'; kılavuz (documents.arkenopticsusa.com/view/426599322) '1/4 MOA', '25 MOA' tur, '180 MOA', 10.64 in (uyumlu). arkenoptics.com sayfası 'Turret Adjustment 0.1 MIL / 0.25 MOA' diyor, ama yalnız tek varyant (KL BOX) var ve kılavuz yalnız MOA veriyor: MIL kaydı eklenmedi. weight_g null: üç kaynak çelişiyor (arkenopticsusa.com 20.2 oz, arkenoptics.com 20.6 oz, kılavuz 20.16 oz). Kılavuzun ilk satırı 'LH-4 Product Manual' diyor (yazım hatası; başlık ve tablo LH-6). Montaj (ARP-30Z) paketiyle satılıyor. Paralaks sabit 100 yd. Uzunluk 10.6 in x 25.4. SKU sayfada yok."
+"notes": "Yalnız MOA ('KLB-MOA'). 2026-10-17 yeniden okundu: arkenopticsusa.com 'Turret Adj. 0.25 MOA', 'Adj. Per Revolution 25 MOA', 'Elevation/Windage Adj. Range 180 MOA', 'Zero Stop: No', 'Length 10.6 in'; kılavuz (documents.arkenopticsusa.com/view/426599322) '1/4 MOA', '25 MOA' tur, '180 MOA', 10.64 in (uyumlu). arkenoptics.com sayfası 'Turret Adjustment 0.1 MIL / 0.25 MOA' diyor, ama yalnız tek varyant (KL BOX) var ve kılavuz yalnız MOA veriyor: MIL kaydı eklenmedi. Ağırlık: arkenopticsusa.com 20.2 oz (kayıttaki değer), kılavuz 20.16 oz (uyumlu); arkenoptics.com 20.6 oz diyor (tek aykırı değer, not edildi). Kılavuzun ilk satırı 'LH-4 Product Manual' diyor (yazım hatası; başlık ve tablo LH-6). Montaj (ARP-30Z) paketiyle satılıyor. Paralaks sabit 100 yd. Uzunluk 10.6 in x 25.4, ağırlık 20.2 oz x 28.35. SKU sayfada yok."
 }
 ]

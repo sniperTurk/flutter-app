@@ -12,15 +12,14 @@ Sahip, 2026-10-17 17:59–18:01 (İstanbul): Dürbün → Arken Optics → MRAD 
 
 Son TestFlight (main 2101b3f) de bunları içeriyor. Uygulamada Arken Optics → **MOA** → SFP seçilince listede görünmeleri gerekir; MRAD seçilince görünmemeleri doğrudur (üçü de yalnız MOA). İkinci bir kopya eklemedim, çünkü aynı dürbün listede iki kez çıkardı. Bunun yerine şunları yaptım:
 
-1. Her değeri bugün üretici sayfalarından ve kılavuzdan yeniden okudum.
+1. Her değeri bugün üretici sayfalarından ve kılavuzdan yeniden okudum; hepsi kayıttakiyle aynı çıktı.
 2. Okuma tarihini 2026-10-17 yaptım.
-3. Çelişen tek değeri (LH-6 ağırlığı) boş bıraktım.
-4. Listenin bu üç modeli gerçekten verdiğini test ve simülatör görüntüsüyle kanıtlıyorum.
+3. Listenin bu üç modeli gerçekten verdiğini test ve simülatör görüntüsüyle kanıtlıyorum.
 
 ## Ne değişti
 
-- `data/scopes/arken_optics.json`: üç kayıtta `accessed` 2026-10-17 oldu, notlar güncellendi ve LH-6'da `weight_g` null yapıldı.
-- `lib/data/scope_library.dart`: yalnız bu üç satır değişti. Değerler aynı kaldı; `sourceDocument` "… official manufacturer page, read 2026-10-17" oldu ve LH-6'da `weightG` kaldırıldı (null). Üretici betiğini (`tools/data_gen/generate_scope_library.py`) bütün dosya için çalıştırmadım. Betik başka markalarda da yaklaşık 150 satırı değiştiriyordu (retikül adları vb.), bu iş kapsam dışı. Bu yüzden betiğin bu üç kayıt için ürettiği satırları birebir aldım.
+- `data/scopes/arken_optics.json`: üç kayıtta `accessed` 2026-10-17 oldu ve notlar güncellendi. Hiçbir sayı değişmedi.
+- `lib/data/scope_library.dart`: yalnız bu üç satır değişti. Değerler aynı kaldı; yalnız `sourceDocument` "… official manufacturer page, read 2026-10-17" oldu. Üretici betiğini (`tools/data_gen/generate_scope_library.py`) bütün dosya için çalıştırmadım. Betik bu ağaçta zaten dosyayla uyuşmuyor (Athlon'da 74 satır, ör. retikül adları); tamamını üretmek kapsam dışı değişiklik getirirdi. Bu yüzden betiğin bu üç kayıt için ürettiği satırları birebir aldım.
 - `lib/data/reticle_library.dart`: **değişmedi.** FDR, DLR ve KLBOX bağlantıları zaten çalışıyor: `ReticleCatalog.find` OUTRIDER'larda `arken-fdr-moa` / `arken-dlr-moa`, LH-6'da `arken-klbox-moa` kaydını buluyor. Bunu yeni test ve mevcut `test/reticle_scope_match_test.dart` doğruluyor. KLBOX kaydının `scopes` listesinde "LH-6 1-6x24 SFP LPVO" yazıyor; eşleşme ad ve birim üzerinden yapıldığı için ad düzeltmesi gerekmedi.
 - Hiçbir arayüz ya da hesap kodu değişmedi. Başka marka da yok.
 
@@ -83,24 +82,23 @@ Kaynaklar:
 | Yükseliş | 52,36 mrad | "Elevation Adj. Range: 180 MOA"; kılavuz "180 MOA" |
 | Yan | 52,36 mrad | "Windage Adj. Range: 180 MOA"; kılavuz "180 MOA" |
 | Uzunluk | 269,2 mm | "Length: 10.6 in"; kılavuz 10.64'' (uyumlu) |
-| Ağırlık | **null** | çelişiyor, aşağıya bakın |
+| Ağırlık | 572,7 g | "Weight: 20.2 oz"; kılavuz "20.16 oz." (uyumlu) |
 | Zero stop | false | "Zero Stop: No" (arkenoptics.com ve kılavuz bundan söz etmiyor) |
 | Retikül | KLBOX | kılavuz "BDC Style - KLBOX"; arkenoptics.com "BDC (Bullet Drop Compensator) - KLBOX" |
 
 **Sayfalar arasındaki tutarsızlıklar:**
 - **Klik birimi:** arkenoptics.com "Turret Adjustment: 0.1 MIL / 0.25 MOA" diyor. Ama sayfada tek varyant var ("KL BOX"). arkenopticsusa.com "0.25 MOA" ve "KLB-MOA", kılavuz "1/4 MOA" ve "25 MOA" tur diyor. Üretici açıkça bir MIL sürümü sunmadığı için **MIL LH-6 eklenmedi.**
-- **Ağırlık:** arkenopticsusa.com "20.2 oz", arkenoptics.com "20.6 oz", kılavuz "20.16 oz" diyor. Mevcut kural (LH-4 zero stop örneğindeki gibi) çelişen değeri boş bırakmak, bu yüzden `weightG` null oldu. Ağırlık hesapta kullanılmıyor.
+- **Ağırlık:** arkenopticsusa.com "20.2 oz" ve kılavuz "20.16 oz." uyumlu; yalnız arkenoptics.com "20.6 oz" diyor. Kayıttaki 20.2 oz (572,7 g) korundu, aykırı değer notta. Ağırlık hesapta kullanılmıyor.
 - Kılavuzun ilk satırı "Welcome to the ARKEN OPTICS LH-4 Product Manual." diyor; başlık ve tablo LH-6. Bu bir yazım hatası.
 
 ## Boş bırakılan alanlar
 
-- LH-6 `weightG`: üç üretici kaynağı çelişiyor.
-- Paralaks (kayıtta alan yok / `parallax_min_m`): OUTRIDER 2-12x42 ve LH-6 sabit 100 yd. Mevcut kurala göre null. OUTRIDER 3-18x50 notta 10 yd.
+- Yeni boş alan yok. Uygulamanın dürbün kaydında paralaks alanı yok; veri dosyasında `parallax_min_m`, sabit paralakslı OUTRIDER 2-12x42 ve LH-6'da (100 yd) mevcut kurala göre null.
 
 ## Testler
 
 - Yeni `test/arken_sfp_katalog_test.dart`:
-  - Katalog: Arken SFP kayıtları tam olarak bu üç model. Büyütme, objektif, tüp, 0,25 MOA klik, MOA→mrad aralıklar, zero stop, retikül listesi (FDR, DLR / KLBOX) ve 2026-10-17 kaynağı doğru. Her retikül adı Arken MOA çizim kaydını buluyor. LH-6 ağırlığı boş. Arken'de MRAD SFP kaydı yok.
+  - Katalog: Arken SFP kayıtları tam olarak bu üç model. Büyütme, objektif, tüp, 0,25 MOA klik, MOA→mrad aralıklar, zero stop, retikül listesi (FDR, DLR / KLBOX) ve 2026-10-17 kaynağı doğru. Her retikül adı Arken MOA çizim kaydını buluyor. LH-6 ağırlığı 572,7 g. Arken'de MRAD SFP kaydı yok.
   - Gerçek Profil ekranında Marka Arken Optics → Birim MOA → Odak SFP:
     - Tüp listesi [30 mm].
     - Büyütme listesi [1-6x, 2-12x, 3-18x].
@@ -110,7 +108,7 @@ Kaynaklar:
 - Yerel:
   - `python3 tools/offline_dart_lint.py`: PASS, 435 dosya, 0 sorun.
   - `python3 -m unittest discover -s tools -p 'test_*.py'`: 915 test OK (1 skip). Veri ve kaynak denetimleri de bunun içinde.
-- Bu ortamda Flutter SDK motoru indirilemiyor (storage.googleapis.com engelli). Bu yüzden Dart testleri yalnız CI'da çalıştı; sonuçlar aşağıda.
+- Bu ortamda Flutter SDK motoru indirilemiyor (storage.googleapis.com engelli). Bu yüzden Dart testleri ve biçim denetimi yalnız CI'da çalışır; sonuçlar "CI" bölümünde.
 
 ## Ekran görüntüsü
 

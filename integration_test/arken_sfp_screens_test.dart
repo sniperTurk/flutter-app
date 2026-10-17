@@ -195,7 +195,8 @@ void main() {
       await closeList();
     });
     await step('arken_mrad', () async {
-      await choose('scope-filter-unit-$brand-MOA', 'MRAD');
+      // The filter key carries the picked enum (AngularUnit.moa).
+      await choose('scope-filter-unit-$brand-AngularUnit.moa', 'MRAD');
       await openList('scope-filter-ffp-', prefix: true);
       await shot('arken_mrad_odak_listesi');
       await closeList();

@@ -118,8 +118,8 @@ void main() {
         expect(hit?.id, 'arken-${r.toLowerCase()}-moa', reason: s.model);
       }
     }
-    // LH-6: the three maker sources give three weights; left empty.
-    expect(sfp.singleWhere((s) => s.model.startsWith('LH-6')).weightG, isNull);
+    // LH-6: 20.2 oz on its source page (manual 20.16 oz).
+    expect(sfp.singleWhere((s) => s.model.startsWith('LH-6')).weightG, 572.7);
     // No MRAD SFP Arken scope: the maker lists none.
     expect(
       _arken.where(
