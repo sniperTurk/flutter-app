@@ -34,8 +34,8 @@ const _ammo = <String, dynamic>{
   'id': 'manual_ammo_sim',
   'kind': 'ammo',
   'platform': 'firearm',
-  'brand': 'Test 175',
-  'model': '',
+  'brand': 'Test',
+  'model': '175 gr',
   'caliberMm': 7.62,
   'grain': 175,
   'ammoType': 'bullet',
@@ -143,8 +143,10 @@ void main() {
       await settle();
       counter++;
       debugPrint('SIMSCREEN:${counter.toString().padLeft(2, '0')}_$name');
+      // Long enough for the runner to see the marker in the log and take
+      // the picture before the next step changes the screen.
       await tester.runAsync(
-        () => Future<void>.delayed(const Duration(seconds: 10)),
+        () => Future<void>.delayed(const Duration(seconds: 25)),
       );
     }
 
