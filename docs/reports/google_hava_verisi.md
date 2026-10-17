@@ -167,8 +167,8 @@ test=`integration_test/google_hava_notu_screens_test.dart` ile
   https://github.com/sniperTurk/flutter-app/actions/runs/39057532974
 - `dart format` (format-fix, iki kez, CI commit'i):
   https://github.com/sniperTurk/flutter-app/actions/runs/39057529183
-- PR iOS CI (run 39058518300): `dart-checks` **başarılı**,
-  `wind-acceptance` **başarılı**, `verify` 6e800f1b'de App Store arşivi adımında **iptal edildi** (bizim dışımızda); main üzerine yeniden kurulan dalda PR CI yeniden çalışıyor, bitmeden yeşil denmez: https://github.com/sniperTurk/flutter-app/actions/runs/39058518300
+- PR iOS CI, head 44103635 (main @ 4333f27e #404 birleştirildikten sonra): `dart-checks` **başarılı**, `wind-acceptance` **başarılı**, `verify` **başarılı** — https://github.com/sniperTurk/flutter-app/actions/runs/39072356352
+  (Önce: 6e800f1b'de `verify` arşiv adımında dışarıdan iptal edildi; ef04fb3e'de main @ 53100e05'in kendi derleme hatası (#389 + #395) nedeniyle `dart-checks` kırmızıydı, #404 ile giderildi.)
 - Code Review + Security review (alt ajan, statik): anahtar sızıntısı
   bulunmadı. Bulunan küçük noktalar: eşitlik testi ikinci kaynağı gerçekten
   çekmiyordu → düzeltildi (6e800f1b); Google 10 sn zaman aşımı + MET 12 sn →
