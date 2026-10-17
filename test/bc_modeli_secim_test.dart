@@ -275,9 +275,8 @@ void main() {
   });
 
   group('PCP BC modeli box', () {
-    testWidgets('shown, G1 selected, every table listed, BC | BC modeli', (
-      tester,
-    ) async {
+    testWidgets('shown, G1 selected, every table listed, BC, then BC '
+        'modeli | Mermi uzunluğu', (tester) async {
       await _openNew(tester);
       expect(find.byKey(const Key('ammo-bc-model')), findsOneWidget);
       expect(selectedValue<String>(tester, 'ammo-bc-model'), 'g1');
@@ -285,8 +284,14 @@ void main() {
       // No custom curve on PCP.
       expect(_values(tester, 'ammo-bc-model'), isNot(contains('custom')));
       Rect r(String k) => tester.getRect(find.byKey(Key(k)));
-      expect((r('ammo-bc').top - r('ammo-bc-model').top).abs(), lessThan(1));
-      expect(r('ammo-bc').right, lessThan(r('ammo-bc-model').left));
+      // Owner, 2026-10-17 11:34: BC modeli | Mermi uzunluğu share a row
+      // (BC modeli left) under BC.
+      expect(r('ammo-bc').bottom, lessThanOrEqualTo(r('ammo-bc-model').top));
+      expect(
+        (r('ammo-length').top - r('ammo-bc-model').top).abs(),
+        lessThan(1),
+      );
+      expect(r('ammo-bc-model').right, lessThan(r('ammo-length').left));
       // Tip | Ağırlık on the row above.
       expect((r('ammo-type').top - r('ammo-grain').top).abs(), lessThan(1));
       expect(r('ammo-grain').bottom, lessThanOrEqualTo(r('ammo-bc').top));
