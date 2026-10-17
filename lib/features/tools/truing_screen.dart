@@ -263,7 +263,6 @@ class _TruingScreenState extends State<TruingScreen> {
     final BallisticInput base;
     try {
       base = BallisticInput(
-        // The Tüfek card's Namlu çıkış hızı, PCP too (owner, 2026-10-17).
         // The velocity Hedef uses (RifleProfile.velocityMps): a PCP with En
         // düşük | En yüksek solves every mode with their mean.
         muzzleVelocityMps: p.velocityMps * f,
@@ -610,6 +609,15 @@ class _TruingScreenState extends State<TruingScreen> {
   Future<void> _apply(TruingResult r, bool metric) async {
     final p = _profile;
     if (p == null) return;
+    // Validated before the confirmation, so a refused write (a PCP with En
+    // düşük | En yüksek: the mean is the velocity) never asks "Uygula" first.
+    final RifleProfile updated;
+    try {
+      updated = ToolProfileUpdate.apply(p, muzzleVelocityMps: r.truedMps);
+    } on FormatException catch (e) {
+      _snack(e.message);
+      return;
+    }
     final ok = await showDialog<bool>(
       context: context,
       builder: (ctx) => AlertDialog(
@@ -633,13 +641,6 @@ class _TruingScreenState extends State<TruingScreen> {
       ),
     );
     if (ok != true || !mounted) return;
-    final RifleProfile updated;
-    try {
-      updated = ToolProfileUpdate.apply(p, muzzleVelocityMps: r.truedMps);
-    } on FormatException catch (e) {
-      _snack(e.message);
-      return;
-    }
     try {
       await _profiles.save(updated);
       if (!mounted) return;

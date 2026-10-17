@@ -554,8 +554,7 @@ void main() {
       expect(tester.widget<MenzilSecondaryButton>(apply).onPressed, isNotNull);
       await tester.tap(apply);
       await tester.pumpAndSettle();
-      await tester.tap(find.byKey(const Key('truing-confirm')));
-      await tester.pumpAndSettle();
+      // Refused before the confirmation dialog.
       expect(find.byKey(const Key('truing-confirm')), findsNothing);
       expect(find.text('Doğrulanmış hız profile uygulandı.'), findsNothing);
       final saved = (await store.all()).single;

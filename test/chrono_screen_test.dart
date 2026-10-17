@@ -233,6 +233,37 @@ void main() {
     expect(find.byKey(const Key('chrono-fit')), findsNothing);
   });
 
+  testWidgets('PCP with En düşük | En yüksek: the mean is refused before '
+      'the confirmation, nothing is written (feat/pcp-ortalama-hiz)', (
+    tester,
+  ) async {
+    const pair = RifleProfile(
+      id: 'p-pcp',
+      name: 'PCP',
+      rifleId: 'hatsan-hercules-635',
+      ammunitionId: 'gmaz-51',
+      scopeId: 'gazi-6-36',
+      muzzleVelocityMps: 270,
+      pcpMinVelocityMps: 250,
+      pcpMaxVelocityMps: 260,
+      zeroRangeM: 25,
+      sightHeightMm: 60,
+    );
+    final store = await _pump(tester, pair);
+    await chooseInSelect(tester, 'chrono-unit', 'm/s');
+    await _type(tester, 'chrono-velocities', '280 279 278 277 276');
+    await tester.ensureVisible(find.byKey(const Key('chrono-apply-velocity')));
+    await tester.pumpAndSettle();
+    await tester.tap(find.byKey(const Key('chrono-apply-velocity')));
+    await tester.pumpAndSettle();
+    expect(find.byKey(const Key('chrono-confirm')), findsNothing);
+    expect(find.textContaining('buradan tek bir hız yazılmaz'), findsOneWidget);
+    final saved = (await store.all()).single;
+    expect(saved.muzzleVelocityMps, 270);
+    expect(saved.pcpMinVelocityMps, 250);
+    expect(saved.pcpMaxVelocityMps, 260);
+  });
+
   testWidgets('series at two temperatures give the powder coefficient', (
     tester,
   ) async {

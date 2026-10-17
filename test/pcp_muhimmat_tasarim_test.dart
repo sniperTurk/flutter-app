@@ -903,7 +903,8 @@ void main() {
       // ToolProfileUpdate, with its message, and nothing is saved.
       expect(canApply, isTrue);
       await _tapKey(tester, 'truing-apply');
-      await _tapKey(tester, 'truing-confirm');
+      // Refused before the confirmation dialog.
+      expect(_key('truing-confirm'), findsNothing);
       expect(
         find.textContaining('buradan tek bir hız yazılmaz'),
         findsOneWidget,
