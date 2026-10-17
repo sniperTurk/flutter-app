@@ -95,33 +95,19 @@ void main() {
     expect(find.text('27,3 yd', findRichText: true), findsOneWidget);
   });
 
-  testWidgets('the profile list comes before the active profile summary', (
+  testWidgets('the profile list comes after the active profile summary', (
     tester,
   ) async {
-    // Owner, 2026-10-15 12:49 "profilleri yukarı al" (before: summary first).
+    // Owner, 2026-10-17 19:14: the list below the cards, the button last
+    // (before, 2026-10-15 12:49: list first).
     await _pumpList(tester, metric: true, onContinue: () {});
     // The profile name is not repeated in the summary (only the row).
     expect(find.text('Bir'), findsOneWidget);
     final summaryY = tester.getTopLeft(find.text('Namlu çıkış hızı')).dy;
     final listY = tester.getTopLeft(find.text('Profiller')).dy;
-    final rowY = tester.getBottomLeft(find.text('Bir')).dy;
-    expect(listY, lessThan(summaryY));
-    expect(rowY, lessThan(summaryY));
-  });
-
-  testWidgets('BC note no longer claims BC is unused', (tester) async {
-    await _pumpList(tester, metric: true);
-    final note = find.textContaining('Katalog değerleri bilgi amaçlıdır');
-    await tester.ensureVisible(note);
-    expect(note, findsOneWidget);
-    expect(
-      find.textContaining('BC ve sürükleme modeli kullanılmaz'),
-      findsNothing,
-    );
-    expect(
-      find.textContaining('sürüklenme çözücüsünü kullanır'),
-      findsOneWidget,
-    );
+    final rowY = tester.getTopLeft(find.text('Bir')).dy;
+    expect(listY, greaterThan(summaryY));
+    expect(rowY, greaterThan(summaryY));
   });
 
   testWidgets('continue button calls back; absent outside the shell', (

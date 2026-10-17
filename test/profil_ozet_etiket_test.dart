@@ -134,13 +134,21 @@ void main() {
         );
       }
 
-      // Cards in order with the same gap (MenzilSpace.lg) between them.
-      Rect at(String key) => tester.getRect(find.byKey(Key(key)));
+      // Cards in order, 20 pt apart as drawn (owner, 2026-10-17 19:14;
+      // the grid's own bottom padding included).
+      Rect at(String key) => tester.getRect(
+        find
+            .descendant(
+              of: find.byKey(Key(key)),
+              matching: find.byType(DecoratedBox),
+            )
+            .first,
+      );
       final rifle = at('profile-summary-rifle');
       final scope = at('profile-summary-scope');
       final ammo = at('profile-summary-ammo');
-      expect(scope.top - rifle.bottom, moreOrLessEquals(MenzilSpace.lg));
-      expect(ammo.top - scope.bottom, moreOrLessEquals(MenzilSpace.lg));
+      expect(scope.top - rifle.bottom, moreOrLessEquals(MenzilSpace.xl));
+      expect(ammo.top - scope.bottom, moreOrLessEquals(MenzilSpace.xl));
     });
   }
 }
