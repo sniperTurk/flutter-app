@@ -250,7 +250,7 @@ Görüntüler, `ci/sim-screens` dalının a96550a commit'inde kalıcı olarak du
 
 main ilerlediği için PR çakışıyordu. main'deki yeni iki commit (#371 yan kule, #370 Düzeltmeler 16.10) bu dala birleştirildi (merge commit 7569163; geçmiş yeniden yazılmadı, zorla gönderim yok). #369, #372 ve #373 zaten dalın tabanındaydı.
 
-Sonra #367 (Dürbün girişi: liste sırası, 8 satırlık açılır liste, Dürbün modeli zorunlu) main'e girdi (2231591). O da birleştirildi (merge commit 9412125); çakışma çıkmadı. Ortak dosyalarda (`menzil_widgets.dart`, `profile_editor.dart`, test yardımcıları) iki tarafın değişikliği de duruyor.
+Sonra #367 (Dürbün girişi: liste sırası, 8 satırlık açılır liste, Dürbün modeli zorunlu) main'e girdi (2231591). O da birleştirildi (merge commit 9412125); çakışma çıkmadı. Ortak dosyalarda (`menzil_widgets.dart`, `profile_editor.dart`, test yardımcıları) iki tarafın değişikliği de duruyor. En son #377 (Profil özeti etiketleri, 8cc3aab) geldi; o da çakışmasız birleştirildi (a96bb9b).
 
 - **Tek çakışma `pro_ayarlar_view.dart`'ta.** main (#370) Mühimmat sıcaklığı kutusunu Hava Durumu'ndan Pro → Tüfek düzeltmeleri'ne taşıdı; bu PR aynı yerdeki "Kalan tüp basıncı" kutusunu siliyordu. İkisi birden tutuldu: Mühimmat sıcaklığı kutusu, sayımı ("N ayar açık") ve başlık ⓘ'sindeki metni main'deki gibi duruyor; Kalan tüp basıncı silinmiş olarak kaldı.
 - **main'in kararları korundu.** Mühimmat sıcaklığı Pro'da, ateşli silahta; kutunun içinde ⓘ yok (#373 kuralı), metni bölüm başlığının ⓘ'sinde. Hedef tıklama satırı, Profil ekle eni, üst çubuktaki profil seçici main'deki gibi.
@@ -263,23 +263,49 @@ Sonra #367 (Dürbün girişi: liste sırası, 8 satırlık açılır liste, Dür
 - `python3 tools/offline_dart_lint.py`: 415 dosya, 0 sorun.
 - `python3 -m unittest discover -s tools -p 'test_*.py'`: 915 test, başarılı (1 atlanan: PRE-1 denetim bulgusu, main'de de atlanıyor, bu PR'la ilgisi yok).
 
-### CI (7569163)
+### CI (son kod commit'i a96bb9b: main 8cc3aab + bu PR)
 
 | İş | Sonuç | Bağlantı |
 |---|---|---|
-| iOS CI / verify | başarılı | https://github.com/sniperTurk/flutter-app/actions/runs/38996922629/job/117297372178 |
-| iOS CI / dart-checks | başarılı | https://github.com/sniperTurk/flutter-app/actions/runs/38996922629/job/117294174809 |
-| iOS CI / wind-acceptance | başarılı | https://github.com/sniperTurk/flutter-app/actions/runs/38996922629/job/117294174986 |
+| iOS CI / verify | başarılı | https://github.com/sniperTurk/flutter-app/actions/runs/39005415703/job/117319991658 |
+| iOS CI / dart-checks | başarılı | https://github.com/sniperTurk/flutter-app/actions/runs/39005415703/job/117316819692 |
+| iOS CI / wind-acceptance | başarılı | https://github.com/sniperTurk/flutter-app/actions/runs/39005415703/job/117316819551 |
 | iOS CI / ios-simulator | atlandı (iş akışı bu olayda çalıştırmıyor) | aynı koşu |
-| test-diag (`files=test`) | başarılı | https://github.com/sniperTurk/flutter-app/actions/runs/38996980913 |
-| analyze-diag | başarılı | https://github.com/sniperTurk/flutter-app/actions/runs/38996982761 |
-| format-fix (375209577) | başarılı, değişiklik yok | https://github.com/sniperTurk/flutter-app/actions/runs/38996979480 |
+| test-diag (`files=test`, bütün testler) | başarılı | https://github.com/sniperTurk/flutter-app/actions/runs/39005414044 |
+| analyze-diag | başarılı | https://github.com/sniperTurk/flutter-app/actions/runs/39005415413 |
+| format-fix (375209577) | başarılı, değişiklik yok | https://github.com/sniperTurk/flutter-app/actions/runs/39005412570 |
+
+Ara koşular: 7569163'te (yalnız #370/#371 birleştirilmiş) verify, dart-checks, wind-acceptance, test-diag ve analyze-diag başarılıydı (iOS CI 38996922629, test-diag 38996980913). 9e646fd'de (#367 sonrası) test-diag 39002317054 ve dart-checks bir testte düştü; neden ve düzeltme "Rebase'te düzeltilen test"te. Düzeltmeden sonra 8d4bffc'de test-diag başarılı (39004823160).
 
 İlk iOS CI koşusu 03:04'te (UTC) main'de başlayan TestFlight tarafından iptal edildi (TestFlight macOS koşularını boşaltıyor); aynı koşu yeniden çalıştırıldı ve yukarıdaki sonuçlar o yeniden koşunun. İki simülatör turu da başka görevlerin tur istekleriyle sıradan düştü; yeniden istendi.
 
 ### Ekran görüntüleri (rebase sonrası)
 
-SIM_PLACEHOLDER
+İki simülatör turu (iPhone 17 Pro, sim-screens iş akışı). İkisinde de flutter test çıkış kodu 0.
+
+- **PCP kartları:** `integration_test/sim_screens_pcp_kartlar_test.dart`, koşu https://github.com/sniperTurk/flutter-app/actions/runs/39002763951 (04:44 UTC'de başladı; dal o an 9e646fd'deydi, yani #367 birleştirilmiş hâli). 27 görüntü, `ci/sim-screens` 3c3e6a9. (README'de "@ 2231591" yazıyor: iş akışı, elle başlatılan koşuda main'in commit'ini yazıyor; çekilen dal fix/pcp-muhimmat-tasarim.)
+- **Pro → Tüfek düzeltmeleri (Mühimmat sıcaklığı):** main'deki `integration_test/duzeltmeler_16_10_screens_test.dart`, koşu https://github.com/sniperTurk/flutter-app/actions/runs/39000252045 (dal 7569163'teyken, #367 ve #377'den önce). 20 görüntü, `ci/sim-screens` 05f63d8. #367 ve #377 bu kutuya dokunmuyor; bu tur yeniden çekilmedi.
+
+| Ekran | 390 pt | 320 pt |
+|---|---|---|
+| PCP Tüfek kartı | [01_pcp_tufek_390](https://raw.githubusercontent.com/sniperTurk/flutter-app/3c3e6a90a585275d2c3c59508e9b67bcf6113e27/latest/01_pcp_tufek_390.png), [02_pcp_tufek_390_alt](https://raw.githubusercontent.com/sniperTurk/flutter-app/3c3e6a90a585275d2c3c59508e9b67bcf6113e27/latest/02_pcp_tufek_390_alt.png) | [17_pcp_tufek_320](https://raw.githubusercontent.com/sniperTurk/flutter-app/3c3e6a90a585275d2c3c59508e9b67bcf6113e27/latest/17_pcp_tufek_320.png), [18_pcp_tufek_320_alt](https://raw.githubusercontent.com/sniperTurk/flutter-app/3c3e6a90a585275d2c3c59508e9b67bcf6113e27/latest/18_pcp_tufek_320_alt.png) |
+| PCP Mühimmat kartı | [05_pcp_muhimmat_390](https://raw.githubusercontent.com/sniperTurk/flutter-app/3c3e6a90a585275d2c3c59508e9b67bcf6113e27/latest/05_pcp_muhimmat_390.png), [06_pcp_muhimmat_390_alt](https://raw.githubusercontent.com/sniperTurk/flutter-app/3c3e6a90a585275d2c3c59508e9b67bcf6113e27/latest/06_pcp_muhimmat_390_alt.png) | [19_pcp_muhimmat_320](https://raw.githubusercontent.com/sniperTurk/flutter-app/3c3e6a90a585275d2c3c59508e9b67bcf6113e27/latest/19_pcp_muhimmat_320.png), [20_pcp_muhimmat_320_alt](https://raw.githubusercontent.com/sniperTurk/flutter-app/3c3e6a90a585275d2c3c59508e9b67bcf6113e27/latest/20_pcp_muhimmat_320_alt.png) |
+| PCP Mühimmat, yalnız En düşük girili | [03_pcp_muhimmat_tek_hiz_390](https://raw.githubusercontent.com/sniperTurk/flutter-app/3c3e6a90a585275d2c3c59508e9b67bcf6113e27/latest/03_pcp_muhimmat_tek_hiz_390.png), [04_pcp_muhimmat_tek_hiz_390_alt](https://raw.githubusercontent.com/sniperTurk/flutter-app/3c3e6a90a585275d2c3c59508e9b67bcf6113e27/latest/04_pcp_muhimmat_tek_hiz_390_alt.png) | |
+| Ateşli Tüfek kartı | [07_atesli_tufek_390](https://raw.githubusercontent.com/sniperTurk/flutter-app/3c3e6a90a585275d2c3c59508e9b67bcf6113e27/latest/07_atesli_tufek_390.png), [08_atesli_tufek_390_alt](https://raw.githubusercontent.com/sniperTurk/flutter-app/3c3e6a90a585275d2c3c59508e9b67bcf6113e27/latest/08_atesli_tufek_390_alt.png) | [21_atesli_tufek_320](https://raw.githubusercontent.com/sniperTurk/flutter-app/3c3e6a90a585275d2c3c59508e9b67bcf6113e27/latest/21_atesli_tufek_320.png), [22_atesli_tufek_320_alt](https://raw.githubusercontent.com/sniperTurk/flutter-app/3c3e6a90a585275d2c3c59508e9b67bcf6113e27/latest/22_atesli_tufek_320_alt.png) |
+| Pro → Tüfek düzeltmeleri, Mühimmat sıcaklığı | [07_pro_390](https://raw.githubusercontent.com/sniperTurk/flutter-app/05f63d8852b093635f40c34c0f8a353a15fbd3cc/latest/07_pro_390.png), ⓘ sayfası [08_pro_bilgi_390](https://raw.githubusercontent.com/sniperTurk/flutter-app/05f63d8852b093635f40c34c0f8a353a15fbd3cc/latest/08_pro_bilgi_390.png) | [17_pro_320](https://raw.githubusercontent.com/sniperTurk/flutter-app/05f63d8852b093635f40c34c0f8a353a15fbd3cc/latest/17_pro_320.png), ⓘ sayfası [18_pro_bilgi_320](https://raw.githubusercontent.com/sniperTurk/flutter-app/05f63d8852b093635f40c34c0f8a353a15fbd3cc/latest/18_pro_bilgi_320.png) |
+
+Görülen (onaylı çizimle karşılaştırma):
+
+- PCP Tüfek: Kalibre | Namlu çıkış hızı · Yiv oranı | Namlu yiv yönü · Tüp basıncı | Regülatör basıncı · Sıfırlama mesafesi | Mesafe birimi · Sight height. Birimler (fps, inç, bar, m, mm) kutunun içinde sağda. Etiketler 390 pt'de tek satır.
+- PCP Mühimmat: En düşük | En yüksek namlu çıkış hızı yan yana, "fps" kutunun içinde. "Basınca göre hız" yok.
+- Pro → Tüfek düzeltmeleri: Mühimmat sıcaklığı kutusu solda, "°C" kutunun içinde sağda, kutuda ⓘ yok, sağında "isteğe bağlı". Metni bölüm başlığının ⓘ sayfasında. Kalan tüp basıncı yok.
+- Farklar, önceki bölümdekiyle aynı ve dürüstçe: 320 pt'de satırlar tek kutuya iniyor (ortak `MenzilFieldGrid` kuralı; Pro'da Yukarı / Sağ da alt alta); 390 pt'de Kalibre "5.50 mm (.22)" iki satır; Mühimmat kartında ⓘ kutunun içinde, Tüfek kartında etiket satırında; 320 pt'de Model ve "Aradığın mühimmat listede yok mu?" kısalıyor / iki satır; Profil Oluştur'da virgül, Düzenle'de nokta; ekranın sağı siyah (dar genişlik yöntemi).
+
+### Rebase'te düzeltilen test
+
+`test/pcp_muhimmat_tasarim_test.dart` "labels fit on one line at 390 pt" #367'den sonra düştü (test-diag 39002317054, dart-checks da). Neden: test yazı tipinde her harf 12,5 pt geniş; bu etiketler orada hiç tek satıra sığmıyor. Test, etiketleri "Yiv oranı" ile karşılaştırıyordu ve eskiden dördü de iki satır olduğu için geçiyordu (geçici dallarda ölçüldü: önce 114 pt genişlik, dördü 32 pt yükseklik; #367'den sonra 125 pt, Yiv oranı 16 pt, ötekiler 32 pt). Yani test tek satırı hiç ölçmüyordu. Düzeltme: test, `durbun_listeleri_test.dart`'taki gibi uygulamanın Inter yazı tipini yüklüyor ve her etiketin (Yiv oranı dahil) tek satır olduğunu doğrudan ölçüyor. Test gevşetilmedi; önceki hâlinden sıkı. Uygulama kodu değişmedi. Simülatörde de dördü tek satır (02_pcp_tufek_390_alt).
+
+Ölçüm için açılan geçici dallar (`diag/pcp-label-1017`, `diag/pcp-label-old`) bu oturumdan silinemedi (vekil sunucu dal silmeye izin vermiyor); birleştirilmeyecekler, silinebilirler.
 
 ## CI
 
