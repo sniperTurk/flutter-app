@@ -77,7 +77,7 @@ void main() {
     //   0,05 MRAD: MOA × 5.817764 → floor
     //   1/4 MOA  : MOA × 4; 1/8 MOA: MOA × 8
     //   1/4 SMOA : MOA × 1.047198 / 0.25 = MOA × 4.188790 → floor
-    const table = <double, List<int>>{
+    const table = <int, List<int>>{
       // mount: [0,1 MRAD, 0,05 MRAD, 1/4 MOA, 1/8 MOA, 1/4 SMOA]
       5: [14, 29, 20, 40, 20],
       10: [29, 58, 40, 80, 41],
@@ -94,25 +94,26 @@ void main() {
       90: [261, 523, 360, 720, 376],
     };
     for (final MapEntry(key: moa, value: want) in table.entries) {
+      final m = moa.toDouble();
       test('$moa MOA', () {
         expect(
-          ScopeDialMath.mountCantClicks(moa, 0.1, AngularUnit.mrad),
+          ScopeDialMath.mountCantClicks(m, 0.1, AngularUnit.mrad),
           want[0],
         );
         expect(
-          ScopeDialMath.mountCantClicks(moa, 0.05, AngularUnit.mrad),
+          ScopeDialMath.mountCantClicks(m, 0.05, AngularUnit.mrad),
           want[1],
         );
         expect(
-          ScopeDialMath.mountCantClicks(moa, 0.25, AngularUnit.moa),
+          ScopeDialMath.mountCantClicks(m, 0.25, AngularUnit.moa),
           want[2],
         );
         expect(
-          ScopeDialMath.mountCantClicks(moa, 0.125, AngularUnit.moa),
+          ScopeDialMath.mountCantClicks(m, 0.125, AngularUnit.moa),
           want[3],
         );
         expect(
-          ScopeDialMath.mountCantClicks(moa, 0.25, AngularUnit.smoa),
+          ScopeDialMath.mountCantClicks(m, 0.25, AngularUnit.smoa),
           want[4],
         );
       });
@@ -136,11 +137,11 @@ void main() {
       for (final moa in ProductionLimits.mountCantOptionsMoa) {
         final mrad = moa * mradPerMoa;
         expect(
-          ScopeDialMath.mountCantClicks(moa, 0.1, AngularUnit.mrad),
+          ScopeDialMath.mountCantClicks(m, 0.1, AngularUnit.mrad),
           (mrad / 0.1 + 1e-9).floor(),
         );
         expect(
-          ScopeDialMath.mountCantClicks(moa, 0.25, AngularUnit.smoa),
+          ScopeDialMath.mountCantClicks(m, 0.25, AngularUnit.smoa),
           (mrad / (1000 / 3600) / 0.25 + 1e-9).floor(),
         );
       }
