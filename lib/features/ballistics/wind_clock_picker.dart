@@ -14,10 +14,14 @@ class WindClockPicker extends StatelessWidget {
   final int? hour;
   final ValueChanged<int> onChanged;
 
-  /// Right of the line under the dial: when the direction was set
-  /// ("14.10.2026 14:55"), or today's date before any direction (owner,
-  /// 2026-10-14). Null shows nothing there.
+  /// The second line under the dial, under "Saat N yönünde": when the
+  /// direction was set ("14.10.2026 14:55"), or today's date before any
+  /// direction (owner, 2026-10-14). Null shows nothing there.
   final String? dateText;
+
+  /// Space between "Saat N yönünde" and the date under it (owner,
+  /// 2026-10-17).
+  static const double dateGap = 3;
 
   const WindClockPicker({
     super.key,
@@ -121,29 +125,22 @@ class WindClockPicker extends StatelessWidget {
             ),
           ),
         ),
-        // ONE line: "Saat 3 yönünde" left, the time it was set right; both
-        // stay on one line (they shrink instead of wrapping).
+        // TWO lines, both left (owner, 2026-10-17 19:23, option B): "Saat 3
+        // yönünde" on line 1, the time it was set directly under it on
+        // line 2; each stays on one line (it shrinks instead of wrapping).
         const SizedBox(height: MenzilSpace.xs),
-        Row(
-          children: [
-            Expanded(
-              child: _OneLine(
-                h == null ? '' : hourText(h),
-                textKey: const ValueKey('wind-clock-label'),
-                color: c.ink,
-                alignment: AlignmentDirectional.centerStart,
-              ),
-            ),
-            const SizedBox(width: MenzilSpace.md),
-            Expanded(
-              child: _OneLine(
-                dateText ?? '',
-                textKey: const ValueKey('wind-clock-date'),
-                color: c.ink2,
-                alignment: AlignmentDirectional.centerEnd,
-              ),
-            ),
-          ],
+        _OneLine(
+          h == null ? '' : hourText(h),
+          textKey: const ValueKey('wind-clock-label'),
+          color: c.ink,
+          alignment: AlignmentDirectional.centerStart,
+        ),
+        const SizedBox(height: dateGap),
+        _OneLine(
+          dateText ?? '',
+          textKey: const ValueKey('wind-clock-date'),
+          color: c.ink2,
+          alignment: AlignmentDirectional.centerStart,
         ),
       ],
     );
