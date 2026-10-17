@@ -37,8 +37,10 @@ taraflara gönderilmez. Uygulamayı silmek bu verileri siler.
 Tek istisna: listede olmayan bir dürbünü elle girip profili kaydettiğinizde,
 o dürbünün teknik değerleri (marka, model, birim, odak düzlemi, büyütme,
 mercek çapı, klik değeri, üst kule klik sayısı, retikül) ürün kataloğunu
-geliştirmek için bizim Cloudflare servisimize bir kez gönderilir ve saklanır.
-Profil adı, konum, cihaz kimliği veya kişisel veri gönderilmez. Elle girilen
+geliştirmek için bizim Cloudflare servisimize gönderilir ve saklanır (bir kez;
+değerleri değiştirirseniz yeniden). Profil adı, konum, cihaz kimliği veya
+kişisel veri gönderilmez; her internet isteğinde olduğu gibi Cloudflare
+bağlantının IP adresini görür; IP adresi ürün kaydına yazılmaz. Elle girilen
 dürbün uygulamada yalnızca sizin profilinizde görünür.
 
 ## 2. Konum
@@ -154,9 +156,11 @@ parties. Deleting the app deletes it.
 One exception: when you type in a scope that is not in the list and save the
 profile, that scope's technical values (brand, model, unit, focal plane,
 magnification, objective diameter, click value, turret clicks, reticle) are
-sent once to our Cloudflare service and stored to improve the product
-catalog. No profile name, location, device identifier or personal data is
-sent. In the app, a typed scope appears only in your own profile.
+sent to our Cloudflare service and stored to improve the product catalog
+(once; again if you change the values). No profile name, location, device
+identifier or personal data is sent; as with any internet request,
+Cloudflare sees the connection's IP address; it is not written to the
+product record. In the app, a typed scope appears only in your own profile.
 
 ## 2. Location
 

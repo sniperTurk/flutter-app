@@ -69,9 +69,29 @@ Hesap ve arayüz: hesap koduna dokunulmadı; dürbün sayfasının widget'ları 
 
 Yerel: `python3 tools/offline_dart_lint.py` → PASS (0 sorun); `python3 -m unittest discover -s tools -p 'test_*.py'` → 915 test OK (1 atlanan, önceden de atlanıyordu). Bu ortamda Flutter SDK indirilemediği için (`storage.googleapis.com` engelli) `flutter test` yerelde çalışmadı; testler CI'da çalıştı.
 
+## Kod ve güvenlik incelemesi
+
+Ayrı bir inceleme ajanı farkı okudu (kod + güvenlik/gizlilik). Yüksek ya da orta bulgu yok. Düşük bulgular:
+
+- İstek, profil depoya yazılmadan hemen önce gider; depo yazımı sonradan başarısız olursa dürbün yine bildirilmiş olur (zararsız, "Uç durumlar"da yazılı).
+- Özet ve kimlik listesi yalnız büyür (silinen profillerin özeti kalır); boyut çok küçük.
+- `marka`, `model`, `retikul` serbest metin; kullanıcı buraya kişisel bir şey yazarsa o da gider. Cloudflare her istekte olduğu gibi IP adresini görür → gizlilik metnine "IP adresi ürün kaydına yazılmaz" ve "değerleri değiştirirseniz yeniden" eklendi.
+- Uç nokta kimlik doğrulamasız ve adresi uygulamada; çöp gönderimini sınırlamak ve dosyaya yazarken kaçış yapmak worker'ın işi (bu görevde worker'a dokunulmadı; sahip bilgisine).
+- Testlerden, CI'dan ya da simülatörden gerçek uç noktaya giden yol bulunmadı.
+
 ## CI bağlantıları
 
-CI_LINKS
+**Durum: YEŞİL DEĞİL.** Sebep bu PR değil, main:
+
+- iOS CI (PR #401, `66382830`): https://github.com/sniperTurk/flutter-app/actions/runs/39063698374
+  - `wind-acceptance`: **başarılı**
+  - `dart-checks`: **başarısız**. Biçim (format) kontrolü geçti: 455 dosya, 0 değişiklik. Python sınama paketi ve G1/G7 kapısı da geçti. `flutter analyze` ise iki **main** hatasında durdu: `lib/features/profiles/profile_editor_rifle.dart:87` (`_shortCartridge` tanımsız) ve `:118` (`short:` parametresi yok). Bu PR o dosyaya dokunmuyor. Hatanın kaynağı: #395, `_shortCartridge`'ı ve `short:` parametresini sildi; ardından birleşen #389 ikisini hâlâ kullanıyor. Bu yüzden `origin/main` (`53100e05`) tek başına da derlenmiyor. Önerilen düzeltme PR yorumunda: https://github.com/sniperTurk/flutter-app/pull/401#issuecomment-6239973846
+  - `verify`: atlandı (dart-checks kırmızı olduğu için).
+- Main'e geçmeden önce, yalnızca bu PR'ın testleri çalıştırıldı: `durbun_urun_bildir_test.dart`, `den17b_1_kule_klik_test.dart`, `durbun_girisi_tasarim_test.dart`. Hepsi **geçti** (çıkış kodu 0): https://github.com/sniperTurk/flutter-app/actions/runs/39063207395
+- Biçim düzeltme (375209577, `format-fix`): değişiklik yok. İlk çalıştırma bir biçim commit'i ekledi.
+- Tüm test klasörü (test-diag `files=test`): https://github.com/sniperTurk/flutter-app/actions/runs/39063702246. Main derlenmediği için profil testleri bu çalıştırmada da kırılacak.
+
+Main düzelince bu dal main ile birleştirilip `verify`, `dart-checks` ve `wind-acceptance` yeniden çalıştırılacak. Hepsi geçmeden "yeşil" denmeyecek.
 
 ---
 🤖 Generated with [Claude Code](https://claude.com/claude-code)
