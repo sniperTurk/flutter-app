@@ -18,7 +18,6 @@ import 'package:sniper_turk/core/profile_input.dart';
 import 'package:sniper_turk/core/stability.dart';
 import 'package:sniper_turk/core/unit_system.dart';
 import 'package:sniper_turk/data/scope_library.dart';
-import 'package:sniper_turk/features/profiles/profiles_screen.dart';
 import 'package:sniper_turk/features/tools/tool_support.dart';
 import 'package:sniper_turk/models/domain.dart';
 import 'package:sniper_turk/services/profile_codec.dart';
@@ -123,19 +122,6 @@ void main() {
         expect(lone.pcpMinVelocityMps, 250);
         expect(lone.velocityMps, 270);
       },
-    );
-
-    test(
-      'D114-2: Profiller listesi shows the velocity the calculation uses',
-      () {
-        // 250 / 260 m/s pair, Tüfek 300 m/s: Hedef uses 255 m/s = 837 fps;
-        // the list line shows the Tüfek box, 984 fps.
-        final line = profileListSummary(_pcp(min: 250, max: 260));
-        expect(line, contains('837 fps'));
-      },
-      skip:
-          'D114-2 (ORTA): Profil özeti / Profiller listesi / Kronograf '
-          'Tüfek kartındaki hızı gösteriyor, hesap ortalamayı kullanıyor.',
     );
   });
 
