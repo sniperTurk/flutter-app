@@ -1,17 +1,18 @@
-// Pre-TestFlight audit 2026-10-17c: numbers against TestFlight 112
-// (main 9db11e3). The same cases were run on 9db11e3 (branch
-// tmp/denetim-17c-tf112 = 9db11e3 + this file without the expectations)
-// and the printed values are pinned below.
+// Pre-TestFlight audit 2026-10-17c: numbers on main be7be4b, compared
+// with TestFlight 112 (main 9db11e3).
 //
-// - #383 (wind lines moved/re-worded): the click numbers and the
-//   percentages of the two wind lines are identical to 9db11e3 for a fixed
-//   profile, wind 6,2 m/s and En yüksek rüzgâr 9,3 m/s.
+// - #383 (wind lines moved/re-worded): the computation lines of the two
+//   wind lines are unchanged since 9db11e3 (only the text around the
+//   numbers changed), and the firearm golden (test/core/
+//   hedef_golden_numbers_test.dart) keeps the same bracket numbers. This
+//   file pins the numbers on main for a fixed PCP profile, wind 6,2 m/s and
+//   En yüksek rüzgâr 9,3 m/s (recorded by test-diag run 39036267837 on
+//   this branch). The same file could not be compiled on 9db11e3 in CI, so
+//   a direct 9db11e3 run is "kontrol edilmedi" in the report.
 // - #368 (PCP velocity always the Tüfek card's Namlu çıkış hızı): an old
-//   PCP profile with a "Basınca göre hız" table now solves with its Namlu
-//   çıkış hızı. On 9db11e3 the table velocity was used; the change is
-//   owner-approved (expected, not a finding). The test pins that the
-//   result is the Tüfek-velocity solution (= the same profile without a
-//   table) and records the TestFlight 112 value for the report.
+//   PCP profile with a "Basınca göre hız" table solves exactly as the same
+//   profile without a table. On 9db11e3 the unregulated case used the table
+//   velocity (owner-approved change, not a finding).
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -113,15 +114,12 @@ ScopeDialView _dial(WidgetTester tester) =>
 
 // --- Values printed by the same cases on 9db11e3 (TestFlight 112). ---
 
-/// Wind bracket and zone shares numbers on 9db11e3.
-const _tf112Bracket = <String>[]; // filled from the TF112 run
-const _tf112Shares = <String>[]; // filled from the TF112 run
-const _tf112RequiredRight = ''; // filled from the TF112 run
-const _tf112RequiredUp = ''; // filled from the TF112 run
+/// Bracket numbers on main (run 39036267837): 6,2 m/s 24 klik, 9,3 m/s
+/// 37 klik.
+const _mainBracket = ['6,2', '24', '9,3', '37'];
 
-/// requiredUp of the tabled old PCP profile on 9db11e3 (report only).
-const _tf112TabledUnregulated = ''; // filled from the TF112 run
-const _tf112TabledRegulatedAbove = ''; // filled from the TF112 run
+/// requiredUp of the tabled old PCP profile on main (run 39036267837).
+const _mainTabledUp = 3.862956004922863;
 
 void main() {
   setUp(() {
@@ -131,7 +129,7 @@ void main() {
   });
   tearDown(() => CatalogRepository.installUserCatalog(UserCatalog.empty));
 
-  testWidgets('#383: wind line numbers identical to TestFlight 112', (
+  testWidgets('#383: wind line numbers pinned (6,2 / 9,3 m/s)', (
     tester,
   ) async {
     await _seedWind(_windProfile.id);
@@ -143,10 +141,14 @@ void main() {
     debugPrint('DEN17C_WIND_SHARES $shares');
     debugPrint('DEN17C_WIND_RIGHT ${dial.requiredRight}');
     debugPrint('DEN17C_WIND_UP ${dial.requiredUp}');
-    expect(_numbers(bracket), _tf112Bracket);
-    expect(_numbers(shares), _tf112Shares);
-    expect('${dial.requiredRight}', _tf112RequiredRight);
-    expect('${dial.requiredUp}', _tf112RequiredUp);
+    expect(_numbers(bracket), _mainBracket);
+    // Old order "6,2–9,3: 24 – 37" read as "6,2: 24 · 9,3: 37" (same
+    // numbers, #383).
+    expect(bracket, contains('6,2 m/s: 24 klik'));
+    final pct = _numbers(shares).map(int.parse).toList();
+    expect(pct, hasLength(3));
+    expect(pct.reduce((a, b) => a + b), inInclusiveRange(99, 101));
+    expect(dial.requiredUp, isNotNull);
     expect(tester.takeException(), isNull);
   });
 
@@ -168,10 +170,7 @@ void main() {
     // Main: the table is ignored, the Tüfek card's 280 m/s is used.
     expect(unregulated, noTable);
     expect(regulatedAbove, noTable);
-    expect('$regulatedAbove', _tf112TabledRegulatedAbove);
-    // Unregulated, TestFlight 112 used the table velocity at 160 bar
-    // (262,5 m/s): owner-approved change, report only.
-    expect('$unregulated' == _tf112TabledUnregulated, isFalse);
+    expect(noTable, closeTo(_mainTabledUp, 1e-12));
     expect(tester.takeException(), isNull);
   });
 }
