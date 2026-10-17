@@ -96,15 +96,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     return null;
   }
 
-  static const _otherCaliberKey = '!other';
   static const _noCartridgeKey = '!nodia';
-
-  /// The usual short form of a long cartridge name for the half-width
-  /// Kalibre box (".338-378 Weatherby Mag" → ".338-378 Wby Mag").
-  static String _shortCartridge(String name) => name
-      .replaceAll('Weatherby', 'Wby')
-      .replaceAll('Ackley Improved', 'AI')
-      .replaceAll(' Springfield', '');
 
   /// "Fişeğim listede yok": the bullet diameters of the list, one per inch
   /// size (.224 in · 5,69 mm), smallest first.
@@ -131,8 +123,11 @@ class _ProfileDialogState extends State<_ProfileDialog> {
   /// The chosen rifle variant (one caliber of a model), or null.
   LibraryRifle? _rifleVariant;
 
-  /// Kalibre: the whole cartridge list instead of the model's calibers.
-  bool _caliberAll = false;
+  /// Profili Düzenle: the saved caliber is none of the saved model's
+  /// calibers (picked before 2026-10-17 through the removed "Diğer
+  /// kalibre"); Kalibre shows it as its value until another rifle or
+  /// caliber is chosen.
+  bool _offModelSaved = false;
 
   /// Kalibre "Fişeğim listede yok": the bullet diameter is picked instead.
   bool _caliberByDiameter = false;
@@ -573,7 +568,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
               ? _rifleVariant!.cartridge
               : null;
         } else {
-          _caliberAll = true;
+          _offModelSaved = true;
         }
       }
     }
@@ -817,9 +812,9 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     tubePressure = TextEditingController(
       text: p?.tubePressureBar == null ? '' : _trimNum(p!.tubePressureBar!),
     );
-    // Optional, each on its own; an older PCP profile has none: both boxes
-    // open empty. Saved only; the calculation uses Namlu çıkış hızı (owner,
-    // 2026-10-17).
+    // Optional pair; an older PCP profile has none: both boxes open empty
+    // and the calculation uses the Tüfek card's Namlu çıkış hızı. A profile
+    // saved with only one opens with it and asks for the other.
     pcpMinVelocity = TextEditingController(
       text: p?.pcpMinVelocityMps == null ? '' : _fpsText(p!.pcpMinVelocityMps!),
     );
@@ -856,16 +851,28 @@ class _ProfileDialogState extends State<_ProfileDialog> {
 
   // ---- PCP namlu çıkış hızları (owner, 2026-10-16) ----------------------
 
-  /// Both optional, each on its own (owner, 2026-10-17): any combination
-  /// saves, and the calculation uses the Tüfek card's Namlu çıkış hızı.
-  /// A typed value has Namlu çıkış hızı's plausible range (100–4900 fps).
-  String? _pcpVelocityBoxError(TextEditingController box) =>
-      box.text.trim().isEmpty ? null : _rangeError(box, 100, 4900);
+  /// Optional pair (owner, 2026-10-16), like Barut sıcaklığı: both empty
+  /// is fine (the Tüfek card's Namlu çıkış hızı is used); one alone is an
+  /// error on the empty box and blocks saving. Same plausible range as
+  /// Namlu çıkış hızı (100–4900 fps).
+  static const pcpVelocityPairError =
+      'En düşük ve en yüksek hızın ikisini de girin.';
 
-  String? get _pcpMinVelocityError => _pcpVelocityBoxError(pcpMinVelocity);
+  String? _pcpVelocityBoxError(
+    TextEditingController box,
+    TextEditingController other,
+  ) {
+    if (box.text.trim().isEmpty) {
+      return other.text.trim().isEmpty ? null : pcpVelocityPairError;
+    }
+    return _rangeError(box, 100, 4900);
+  }
+
+  String? get _pcpMinVelocityError =>
+      _pcpVelocityBoxError(pcpMinVelocity, pcpMaxVelocity);
 
   String? get _pcpMaxVelocityError {
-    final e = _pcpVelocityBoxError(pcpMaxVelocity);
+    final e = _pcpVelocityBoxError(pcpMaxVelocity, pcpMinVelocity);
     if (e != null) return e;
     final lo = _parse(pcpMinVelocity), hi = _parse(pcpMaxVelocity);
     if (_pcpMinVelocityError == null && lo != null && hi != null && lo > hi) {
@@ -874,7 +881,8 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     return null;
   }
 
-  /// A typed box's error shows as soon as either box holds text.
+  /// The pair's errors show as soon as either box holds text, so the empty
+  /// one says what is missing right away.
   String? _shownPcpVelocity(String? error) =>
       (_showErrors ||
           pcpMinVelocity.text.isNotEmpty ||
@@ -1245,9 +1253,11 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     return g! < r.$1 || g > r.$2 ? _implausibleGrain : null;
   }
 
-  /// Mermi uzunluğu is optional; a typed one must be plausible (1–60 mm).
+  /// Mermi uzunluğu is optional; a typed one must be plausible (1–150 mm,
+  /// the calculation's limit; owner 2026-10-17 17:42: D17D-1, raised to
+  /// 150 mm 2026-10-17 18:10 for long-range bullets).
   String? get _lengthError =>
-      ammoLength.text.trim().isEmpty ? null : _rangeError(ammoLength, 1, 60);
+      ammoLength.text.trim().isEmpty ? null : _rangeError(ammoLength, 1, 150);
 
   /// PCP: BC may be left empty (owner, 2026-10-12: most Turkish pellets
   /// publish none); a typed one is still range-checked.
@@ -1500,15 +1510,16 @@ class _ProfileDialogState extends State<_ProfileDialog> {
     try {
       input = ProfileInput.validate(
         name: name.text.trim().isEmpty ? _defaultName : name.text,
-        // The Tüfek card's Namlu çıkış hızı, PCP too (owner, 2026-10-16).
+        // The Tüfek card's Namlu çıkış hızı (PCP: used when the En düşük |
+        // En yüksek pair is empty).
         muzzleVelocityText: mpsText(velocity),
         zeroRangeText: _zeroMetersText,
         sightHeightText: sight.text,
         platform: platform,
         // PCP only (ProfileInput drops them on a firearm): Regülatör
         // basıncı (empty = unregulated), Tüp basıncı, and the optional En
-        // düşük / En yüksek namlu çıkış hızı (each optional on its own,
-        // saved only).
+        // düşük / En yüksek namlu çıkış hızı (optional pair; their mean is
+        // the calculation velocity, RifleProfile.velocityMps).
         pressureText: regulatorPressure.text,
         tubePressureText: tubePressure.text,
         pcpMinVelocityText: pcp && pcpMinVelocity.text.trim().isNotEmpty
@@ -1760,7 +1771,7 @@ class _ProfileDialogState extends State<_ProfileDialog> {
                         rifleModel.text = '';
                       }
                       _rifleVariant = null;
-                      _caliberAll = false;
+                      _offModelSaved = false;
                       _caliberByDiameter = false;
                       // A caliber of the other list does not carry over:
                       // a firearm cartridge is not a PCP caliber and no

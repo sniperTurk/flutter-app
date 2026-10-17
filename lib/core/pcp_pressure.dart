@@ -1,6 +1,6 @@
 /// PCP "Basınca göre hız" (owner, 2026-10-12) was DELETED on 2026-10-16
 /// (owner: removed features are deleted, not hidden). The PCP velocity is
-/// the Tüfek card's Namlu çıkış hızı (owner, 2026-10-17).
+/// now the mean of the profile's En düşük and En yüksek namlu çıkış hızı.
 ///
 /// Only the stored point type is left: profiles saved before 2026-10-16
 /// may hold a `pressureVelocity` table. It is still decoded and written back

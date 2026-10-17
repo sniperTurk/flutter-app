@@ -263,9 +263,10 @@ class _TruingScreenState extends State<TruingScreen> {
     final BallisticInput base;
     try {
       base = BallisticInput(
-        // The Tüfek card's Namlu çıkış hızı, PCP too (owner, 2026-10-17).
-        muzzleVelocityMps: p.muzzleVelocityMps * f,
-        zeroMuzzleVelocityMps: f == 1 ? null : p.muzzleVelocityMps,
+        // The velocity Hedef uses (RifleProfile.velocityMps): a PCP with En
+        // düşük | En yüksek solves every mode with their mean.
+        muzzleVelocityMps: p.velocityMps * f,
+        zeroMuzzleVelocityMps: f == 1 ? null : p.velocityMps,
         grain: ammo.grain,
         zeroRangeM: p.zeroRangeM,
         sightHeightMm: p.sightHeightMm,
@@ -321,7 +322,7 @@ class _TruingScreenState extends State<TruingScreen> {
         final result = f == 1
             ? today
             : TruingResult(
-                baseMps: p.muzzleVelocityMps,
+                baseMps: p.velocityMps,
                 truedMps: double.parse((today.truedMps / f).toStringAsFixed(1)),
                 rangeM: today.rangeM,
                 predictedMrad: today.predictedMrad,
@@ -608,6 +609,15 @@ class _TruingScreenState extends State<TruingScreen> {
   Future<void> _apply(TruingResult r, bool metric) async {
     final p = _profile;
     if (p == null) return;
+    // Validated before the confirmation, so a refused write (a PCP with En
+    // düşük | En yüksek: the mean is the velocity) never asks "Uygula" first.
+    final RifleProfile updated;
+    try {
+      updated = ToolProfileUpdate.apply(p, muzzleVelocityMps: r.truedMps);
+    } on FormatException catch (e) {
+      _snack(e.message);
+      return;
+    }
     final ok = await showDialog<bool>(
       context: context,
       builder: (ctx) => AlertDialog(
@@ -631,13 +641,6 @@ class _TruingScreenState extends State<TruingScreen> {
       ),
     );
     if (ok != true || !mounted) return;
-    final RifleProfile updated;
-    try {
-      updated = ToolProfileUpdate.apply(p, muzzleVelocityMps: r.truedMps);
-    } on FormatException catch (e) {
-      _snack(e.message);
-      return;
-    }
     try {
       await _profiles.save(updated);
       if (!mounted) return;
@@ -700,7 +703,7 @@ class _TruingScreenState extends State<TruingScreen> {
               child: Text(
                 '${p.name}\n'
                 '${res.ammunition.displayName}\n'
-                'Namlu çıkış hızı: ${_fps(p.muzzleVelocityMps)}'
+                'Namlu çıkış hızı: ${_fps(p.velocityMps)}'
                 ' · Sıfır: ${ToolFormat.dec(p.distanceUnit.fromMeters(p.zeroRangeM), 0)} ${p.distanceUnit.symbol}',
                 style: MenzilType.body(c.ink),
               ),

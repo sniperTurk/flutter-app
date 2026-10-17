@@ -72,11 +72,14 @@ Future<Map<String, Rect>> _profileRects(WidgetTester tester) async {
     // Titles stay left-aligned at the gutter, inside the fixed slot.
     final slot = tester.getRect(find.byKey(_titleSlot));
     expect(slot.left, MenzilSpace.gutter, reason: tab);
+    // On Profil the logo starts the slot and the brand text ends inside it.
+    final firstKey = tab == 'Profil' ? 'top-bar-brand-logo' : 'top-bar-title';
+    final first = tester.getRect(find.byKey(Key(firstKey)));
+    expect(first.left, moreOrLessEquals(slot.left), reason: tab);
     final shown = find.byKey(
       Key(tab == 'Profil' ? 'top-bar-brand' : 'top-bar-title'),
     );
     final text = tester.getRect(shown);
-    expect(text.left, moreOrLessEquals(slot.left), reason: tab);
     expect(text.right, lessThanOrEqualTo(slot.right + 0.01), reason: tab);
   }
   return rects;
@@ -152,7 +155,8 @@ void main() {
 
     final widest = [
       for (final t in titles) measure(t, titleStyle),
-      measure('Sniper Türk', brandStyle),
+      // The brand is the 44 pt logo, a 4 pt gap and the text.
+      measure('Sniper Türk', brandStyle) + 44 + 4,
     ].reduce((a, b) => a > b ? a : b);
 
     final wide = MenzilTopBar.titleSlotWidth(
@@ -186,4 +190,52 @@ void main() {
     );
     expect(capped, 100 * MenzilTopBar.titleSlotMaxFraction);
   });
+
+  test('marka ölçümü logo + boşluğu içerir, logo yazı ölçeğiyle büyümez', () {
+    final brandStyle = MenzilBrand.style(Colors.black);
+    final titleStyle = MenzilType.heading(
+      Colors.black,
+      size: MenzilTopBar.titleSize,
+    );
+    const scaler = TextScaler.linear(1.25);
+    final p = TextPainter(
+      text: TextSpan(text: 'Sniper Türk', style: brandStyle),
+      textDirection: TextDirection.ltr,
+      textScaler: scaler,
+    )..layout();
+    final textWidth = p.width;
+    p.dispose();
+    final slot = MenzilTopBar.titleSlotWidth(
+      barWidth: 2000,
+      titles: const [],
+      includeBrand: true,
+      titleStyle: titleStyle,
+      brandStyle: brandStyle,
+      textScaler: scaler,
+    );
+    expect(slot, (textWidth + 48).ceilToDouble());
+    expect(MenzilBrand.logoSize, 44);
+    expect(MenzilBrand.logoGap, 4);
+  });
+
+  // The test font draws every letter 1 em wide, so on phone widths the
+  // brand row hits the slot cap and scales down; logo and text then shrink
+  // by the same factor (square logo, gap 4 pt × scale).
+  for (final width in const [390.0, 375.0, 320.0]) {
+    testWidgets('$width pt: logo ve yazı birlikte küçülür, slotta kalır', (
+      tester,
+    ) async {
+      await _pumpHome(tester, width: width);
+      expect(tester.takeException(), isNull);
+      final slot = tester.getRect(find.byKey(_titleSlot));
+      final logo = tester.getRect(find.byKey(const Key('top-bar-brand-logo')));
+      final text = tester.getRect(find.byKey(const Key('top-bar-brand')));
+      final scale = logo.width / 44;
+      expect(scale, lessThanOrEqualTo(1 + 1e-6));
+      expect(logo.height, moreOrLessEquals(logo.width));
+      expect(text.left - logo.right, moreOrLessEquals(4 * scale));
+      expect(logo.left, moreOrLessEquals(slot.left));
+      expect(text.right, lessThanOrEqualTo(slot.right + 0.01));
+    });
+  }
 }

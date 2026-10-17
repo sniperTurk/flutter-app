@@ -546,7 +546,9 @@ class _ProfilesScreenState extends State<ProfilesScreen> {
       children: [
         // The Profiller list is the top of the page (owner, 2026-10-15
         // 12:49 "profilleri yukarı al"): "Profiller" left, Profil ekle right
-        // (amber, text only: no icon, no "+"); no "N kayıtlı profil" line.
+        // (amber); no "N kayıtlı profil" line. Owner, 2026-10-17 18:42
+        // "önerini yap": "Profiller" 20 pt (other headers stay 22) and a
+        // smaller "+ Profil ekle" (34 pt visible, 44+ pt tap target).
         Padding(
           key: const Key('profiles-list-header'),
           padding: const EdgeInsets.only(bottom: MenzilSpace.sm),
@@ -556,13 +558,14 @@ class _ProfilesScreenState extends State<ProfilesScreen> {
                 const Expanded(
                   child: MenzilSectionHeader(
                     'Profiller',
+                    size: 20,
                     padding: EdgeInsets.zero,
                   ),
                 ),
                 const SizedBox(width: MenzilSpace.sm),
-                // Only as wide as its text plus the theme's 16 pt on each
-                // side (owner, 2026-10-16, design PR #366): no empty amber
-                // space beside the label. Same height, colour and place.
+                // Only as wide as "+ Profil ekle" plus 12 pt on each side
+                // (owner, 2026-10-16, design PR #366; size 2026-10-17): no
+                // empty amber space beside the label. Same colour and place.
                 // At very large iOS text sizes it takes at most half of
                 // the row and the label is set smaller (oneLine), so it
                 // never pushes "Profiller" off the row.
@@ -576,6 +579,8 @@ class _ProfilesScreenState extends State<ProfilesScreen> {
                     amber: true,
                     oneLine: true,
                     expand: false,
+                    compact: true,
+                    leadingGlyph: '+',
                     onPressed: _add,
                   ),
                 ),

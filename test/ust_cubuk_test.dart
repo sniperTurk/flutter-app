@@ -41,6 +41,7 @@ Finder _inButton(Finder matching) =>
 
 Future<void> _pumpHome(
   WidgetTester tester, {
+  ThemeData? theme,
   List<RifleProfile> profiles = const [],
   String? activeId,
   double width = 390,
@@ -57,7 +58,7 @@ Future<void> _pumpHome(
   }
   await tester.pumpWidget(
     MaterialApp(
-      theme: MenzilTheme.dark(),
+      theme: theme ?? MenzilTheme.dark(),
       home: HomeScreen(
         profileStore: store,
         activeProfileStore: MemoryActiveProfileStore()..value = activeId,
@@ -221,4 +222,77 @@ void main() {
       expect(prefs.getBool('theme.dark'), isFalse);
     },
   );
+
+  // Owner, 2026-10-17 18:37: "logo 44 pt + Sniper Türk yazısı biraz ince".
+  for (final (name, theme, asset) in [
+    ('koyu', MenzilTheme.dark(), 'assets/branding/logo_line_dark.png'),
+    ('açık', MenzilTheme.light(), 'assets/branding/logo_line.png'),
+  ]) {
+    testWidgets('$name tema: logo markanın solunda, 44 pt, doğru görsel', (
+      tester,
+    ) async {
+      // Wide enough that the slot cap is not hit even with the 1 em wide
+      // test font, so the brand is drawn 1:1.
+      await _pumpHome(tester, theme: theme, width: 800);
+      final logoFinder = find.byKey(const Key('top-bar-brand-logo'));
+      expect(logoFinder, findsOneWidget);
+      final image = tester.widget<Image>(logoFinder);
+      expect((image.image as AssetImage).assetName, asset);
+      expect(image.width, 44);
+      expect(image.height, 44);
+
+      final logo = tester.getRect(logoFinder);
+      final text = tester.getRect(find.byKey(const Key('top-bar-brand')));
+      expect(logo.width, moreOrLessEquals(44));
+      expect(logo.height, moreOrLessEquals(44));
+      expect(text.left - logo.right, moreOrLessEquals(4));
+      expect(logo.center.dy, moreOrLessEquals(text.center.dy, epsilon: 0.5));
+      expect(tester.takeException(), isNull);
+    });
+  }
+
+  testWidgets('marka yazısı w600, 20 pt; sayfa başlıkları w700 kalır', (
+    tester,
+  ) async {
+    await _pumpHome(tester);
+    final brand = tester.widget<Text>(find.byKey(const Key('top-bar-brand')));
+    expect(brand.style?.fontWeight, FontWeight.w600);
+    expect(brand.style?.fontSize, 20);
+    expect(MenzilType.heading(Colors.black).fontWeight, FontWeight.w700);
+
+    await tester.tap(_tab('Hava Durumu'));
+    await tester.pumpAndSettle();
+    final title = tester.widget<Text>(find.byKey(const Key('top-bar-title')));
+    expect(title.style?.fontWeight, FontWeight.w700);
+  });
+
+  testWidgets('logo dekoratif: ekran okuyucu yalnız "Sniper Türk" duyar', (
+    tester,
+  ) async {
+    final handle = tester.ensureSemantics();
+    await _pumpHome(tester);
+    expect(find.bySemanticsLabel('Sniper Türk'), findsOneWidget);
+    expect(
+      find.bySemanticsLabel(RegExp('logo', caseSensitive: false)),
+      findsNothing,
+    );
+    final node = tester.getSemantics(find.bySemanticsLabel('Sniper Türk'));
+    expect(node.label, 'Sniper Türk');
+    handle.dispose();
+  });
+
+  for (final scale in const [1.0, 1.25]) {
+    testWidgets('320 pt, yazı ${scale}x: logo + marka taşmaz, slotta kalır', (
+      tester,
+    ) async {
+      await _pumpHome(tester, width: 320, textScale: scale);
+      expect(tester.takeException(), isNull);
+      final slot = tester.getRect(find.byKey(const Key('top-bar-title-slot')));
+      final logo = tester.getRect(find.byKey(const Key('top-bar-brand-logo')));
+      final text = tester.getRect(find.byKey(const Key('top-bar-brand')));
+      expect(logo.left, moreOrLessEquals(slot.left));
+      expect(text.right, lessThanOrEqualTo(slot.right + 0.01));
+      expect(logo.right, lessThanOrEqualTo(text.left + 0.01));
+    });
+  }
 }

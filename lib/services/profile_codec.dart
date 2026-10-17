@@ -135,10 +135,11 @@ class ProfileCodec {
       table.sort((a, b) => a.bar.compareTo(b.bar));
     }
     // PCP En düşük / En yüksek namlu çıkış hızı (owner, 2026-10-16) are
-    // optional, each on its own, and absent in older profiles: none. They
-    // are saved only; every calculation uses Namlu çıkış hızı (owner,
-    // 2026-10-17). Both present come lowest first, as ProfileInput saves
-    // them; anything else is corruption.
+    // optional and absent in older profiles: none. A lone value (saved on
+    // 2026-10-17, before the pair rule came back) still loads; the
+    // calculation then uses Namlu çıkış hızı (RifleProfile.velocityMps).
+    // Both present come lowest first, as ProfileInput saves them; a
+    // reversed pair is corruption.
     double? optionalVelocity(String key) {
       final value = j[key];
       if (value == null) return null;

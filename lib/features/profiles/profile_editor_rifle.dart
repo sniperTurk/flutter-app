@@ -16,15 +16,18 @@ extension _RifleSection on _ProfileDialogState {
   static const _firearmCartridges = _ProfileDialogState._firearmCartridges;
   static const _manualKey = _ProfileDialogState._manualKey;
   static const _noCartridgeKey = _ProfileDialogState._noCartridgeKey;
-  static const _otherCaliberKey = _ProfileDialogState._otherCaliberKey;
   static const _parse = _ProfileDialogState._parse;
   static const _pcpCalibers = _ProfileDialogState._pcpCalibers;
   static const _popularCount = _ProfileDialogState._popularCount;
   static const _round1 = _ProfileDialogState._round1;
-  static const _shortCartridge = _ProfileDialogState._shortCartridge;
   static const _showRifleListedeYok = _ProfileDialogState._showRifleListedeYok;
   static const _trimDot = _ProfileDialogState._trimDot;
   static const _variantLabel = _ProfileDialogState._variantLabel;
+
+  /// Kalibre key of a saved caliber that is not one of the chosen model's
+  /// calibers (picked before 2026-10-17 through the removed "Diğer
+  /// kalibre"): it stays the box's value, never changed silently.
+  static const _savedCaliberKey = '!saved';
 
   double? _caliberItem(double mm) {
     final list = platform == WeaponPlatform.firearm
@@ -44,7 +47,8 @@ extension _RifleSection on _ProfileDialogState {
         : const <LibraryRifle>[];
     if (variants.isNotEmpty) {
       final i = _rifleVariant == null ? -1 : variants.indexOf(_rifleVariant!);
-      return i < 0 ? null : 'v:$i';
+      if (i >= 0) return 'v:$i';
+      return _savedOffModelCaliber == null ? null : _savedCaliberKey;
     }
     if (platform == WeaponPlatform.firearm && _caliberByDiameter) {
       return _noCartridgeKey;
@@ -61,42 +65,59 @@ extension _RifleSection on _ProfileDialogState {
     return 'mm:${_trimDot(_caliberItem(cal) ?? cal)}';
   }
 
-  /// Kalibre shows the chosen model's calibers (owner, 2026-10-11) until
-  /// "Diğer kalibre" opens the whole list.
-  bool get _caliberFromModel =>
-      !_rifleManual && !_caliberAll && _rifleVariants.isNotEmpty;
+  /// Kalibre shows only the chosen model's calibers (owner, 2026-10-11;
+  /// "Diğer kalibre" removed, owner 2026-10-17).
+  bool get _caliberFromModel => !_rifleManual && _rifleVariants.isNotEmpty;
 
-  /// Kalibre entries with the text of the closed box: [full] when it fits
-  /// the half-width box, [short] when it would have to shrink too much
-  /// (owner, 2026-10-13: Namlu çıkış hızı | Kalibre on one row).
-  List<({DropdownMenuItem<String> item, String full, String short})>
-  get _caliberChoices {
+  /// A saved caliber that is none of the model's calibers, as the box
+  /// showed it before (cartridge name, or "<mm> mm (kayıtlı)"); null when
+  /// the profile did not open with one, a model caliber is chosen or
+  /// Kalibre is empty.
+  ({String full, String short})? get _savedOffModelCaliber {
+    if (!_offModelSaved || _rifleVariant != null) return null;
     final cal = _parse(rifleCaliber);
-    final out =
-        <({DropdownMenuItem<String> item, String full, String short})>[];
-    void add(
-      String value,
-      Widget child,
-      String full, {
-      String? short,
-      bool enabled = true,
-    }) => out.add((
-      item: DropdownMenuItem(value: value, enabled: enabled, child: child),
-      full: full,
-      short: short ?? full,
-    ));
+    if (cal == null) return null;
+    final mm = _trimDot(cal);
+    final saved = (full: '$mm mm (kayıtlı)', short: '$mm mm');
+    if (platform == WeaponPlatform.firearm) {
+      final c = _cartridge;
+      final name = c != null && _firearmCartridges.any((e) => e.$1 == c)
+          ? c
+          : _cartridgeFor(cal);
+      return name == null ? saved : (full: name, short: _shortCartridge(name));
+    }
+    final item = _caliberItem(cal);
+    if (item == null) return saved;
+    final name = _pcpCalibers.firstWhere((e) => e.$1 == item).$2;
+    return (full: name, short: name);
+  }
+
+  /// Kalibre entries with the text of the closed box: [full], on one line
+  /// and cut with "…" when it does not fit the half-width box (owner,
+  /// 2026-10-17 18:05).
+  List<({DropdownMenuItem<String> item, String full})> get _caliberChoices {
+    final cal = _parse(rifleCaliber);
+    final out = <({DropdownMenuItem<String> item, String full})>[];
+    void add(String value, Widget child, String full, {bool enabled = true}) =>
+        out.add((
+          item: DropdownMenuItem(value: value, enabled: enabled, child: child),
+          full: full,
+        ));
     if (_caliberFromModel) {
       final variants = _rifleVariants;
       for (final (i, r) in variants.indexed) {
         final label = _variantLabel(r, variants);
+        add('v:$i', Text(label, maxLines: 2), label);
+      }
+      final saved = _savedOffModelCaliber;
+      if (saved != null) {
         add(
-          'v:$i',
-          Text(label, maxLines: 2),
-          label,
-          short: _shortCartridge(r.cartridge),
+          _savedCaliberKey,
+          Text(saved.full, maxLines: 2),
+          saved.full,
+          short: saved.short,
         );
       }
-      add(_otherCaliberKey, const Text('Diğer kalibre'), 'Diğer kalibre');
       return out;
     }
     if (platform == WeaponPlatform.firearm) {
@@ -132,23 +153,16 @@ extension _RifleSection on _ProfileDialogState {
             ),
           ),
           name,
-          short: _shortCartridge(name),
         );
       }
       if (cal != null && !_caliberByDiameter && _cartridgeFor(cal) == null) {
         final mm = _trimDot(cal);
-        add(
-          'mm:$mm',
-          Text('$mm mm (kayıtlı)'),
-          '$mm mm (kayıtlı)',
-          short: '$mm mm',
-        );
+        add('mm:$mm', Text('$mm mm (kayıtlı)'), '$mm mm (kayıtlı)');
       }
       add(
         _noCartridgeKey,
         const Text('Fişeğim listede yok'),
         'Fişeğim listede yok',
-        short: 'Listede yok',
       );
       return out;
     }
@@ -157,23 +171,15 @@ extension _RifleSection on _ProfileDialogState {
     }
     if (cal != null && _caliberItem(cal) == null) {
       final mm = _trimDot(cal);
-      add(
-        'mm:$mm',
-        Text('$mm mm (kayıtlı)'),
-        '$mm mm (kayıtlı)',
-        short: '$mm mm',
-      );
+      add('mm:$mm', Text('$mm mm (kayıtlı)'), '$mm mm (kayıtlı)');
     }
     return out;
   }
 
   void _onCaliberKey(String? key) {
     if (key == null || key.startsWith('#')) return;
-    if (key == _otherCaliberKey) {
-      _caliberAll = true;
-      _rifleVariant = null;
-      return;
-    }
+    // The saved caliber stays as it is.
+    if (key == _savedCaliberKey) return;
     if (key.startsWith('v:')) {
       _applyRifleVariant(_rifleVariants[int.parse(key.substring(2))]);
       return;
@@ -221,7 +227,7 @@ extension _RifleSection on _ProfileDialogState {
 
   void _applyRifleVariant(LibraryRifle r) {
     _rifleVariant = r;
-    _caliberAll = false;
+    _offModelSaved = false;
     _caliberByDiameter = false;
     rifleCaliber.text = _trimDot(r.diameterMm);
     _cartridge = r.platform == WeaponPlatform.firearm ? r.cartridge : null;
@@ -262,7 +268,7 @@ extension _RifleSection on _ProfileDialogState {
   /// Empties the rifle part chosen from the lists.
   void _clearRifleChoice() {
     _rifleVariant = null;
-    _caliberAll = false;
+    _offModelSaved = false;
     _caliberByDiameter = false;
     _cartridge = null;
     rifleCaliber.text = '';
@@ -284,8 +290,9 @@ extension _RifleSection on _ProfileDialogState {
   );
 
   /// Namlu çıkış hızı, required, Ateşli and PCP: a half box beside Kalibre
-  /// on the first Tüfek row (owner, 2026-10-16 20:49–21:04). Every
-  /// calculation uses it, PCP too (owner, 2026-10-17).
+  /// on the first Tüfek row (owner, 2026-10-16 20:49–21:04). The
+  /// calculation velocity, except a PCP with both En düşük | En yüksek
+  /// namlu çıkış hızı (their mean, RifleProfile.velocityMps).
   Widget _velocityField() => MenzilInput(
     key: const Key('profile-velocity-fps'),
     controller: velocity,
@@ -325,9 +332,11 @@ extension _RifleSection on _ProfileDialogState {
   ];
 
   /// Kalibre, a half box with Namlu çıkış hızı beside it (owner, 2026-10-16
-  /// 20:49–21:04: "Kalibre | Namlu çıkış hızı"). A long choice keeps its
-  /// size and wraps inside the box; the box grows (like the Model boxes,
-  /// #308).
+  /// 20:49–21:04: "Kalibre | Namlu çıkış hızı"). The closed box shows the
+  /// chosen name on ONE line at the normal size, cut with "…" when it does
+  /// not fit, so the box is as tall as Namlu çıkış hızı (owner, 2026-10-17
+  /// 17:54–18:05: one rule for every select box). The open list keeps the
+  /// full names.
   Widget _caliberField() {
     final choices = _caliberChoices;
     return KeyedSubtree(
@@ -336,7 +345,7 @@ extension _RifleSection on _ProfileDialogState {
         key: ValueKey(
           'rifle-caliber-${platform.name}-${rifleCaliber.text}-'
           '$_cartridge-${rifleBrand.text}-${rifleModel.text}-'
-          '$_caliberAll-$_caliberByDiameter',
+          '$_offModelSaved-$_caliberByDiameter',
         ),
         info: platform == WeaponPlatform.firearm
             ? ProfileFieldInfo.caliberFirearm
@@ -345,16 +354,15 @@ extension _RifleSection on _ProfileDialogState {
         hint: 'Seçiniz',
         initialValue: _caliberKey,
         items: [for (final c in choices) c.item],
-        wrapSelected: true,
         // The open list is as wide as the box, never wider (owner,
         // 2026-10-13: "kutudan dışarı çıkmasın"), so a long cartridge may
         // wrap there: its entry grows with it instead of keeping 48 pt and
         // spilling over the next one (a tap on its lower half chose
         // nothing).
         itemHeight: null,
+        // The chosen name itself, on one line, cut with "…" when it does
+        // not fit (owner, 2026-10-17 18:05).
         selectedLabels: [for (final c in choices) c.full],
-        // Kept for the box's short form; unused while the text wraps.
-        shortSelectedLabels: [for (final c in choices) c.short],
         onChanged: (v) => _update(() {
           final before = (rifleCaliber.text, _cartridge);
           _onCaliberKey(v);
@@ -435,9 +443,6 @@ extension _RifleSection on _ProfileDialogState {
             label: 'Marka',
             hint: 'Seçiniz',
             initialValue: brand,
-            // A long brand keeps its size and wraps; the box grows (owner,
-            // 2026-10-14 18:58, like Model).
-            wrapSelected: true,
             items: [
               for (final b in brands)
                 DropdownMenuItem(value: b, child: Text(b)),
@@ -469,9 +474,6 @@ extension _RifleSection on _ProfileDialogState {
             label: 'Model',
             hint: 'Seçiniz',
             initialValue: model,
-            // A long model keeps its size and wraps; the box grows (owner,
-            // 2026-10-14: like Mühimmat Model).
-            wrapSelected: true,
             items: [
               for (final m in models)
                 DropdownMenuItem(value: m, child: Text(m, maxLines: 2)),
@@ -523,7 +525,8 @@ extension _RifleSection on _ProfileDialogState {
           // Model and "Aradığın tüfek listede yok mu?" as before; then
           // Kalibre | Namlu çıkış hızı; Yiv oranı | Namlu yiv yönü; PCP only
           // Tüp basıncı | Regülatör basıncı; Sıfırlama mesafesi | Mesafe
-          // birimi; Sight height alone on the last row.
+          // birimi; Sight height alone on the last row, half width in the
+          // left column (owner, 2026-10-17 17:57: "Tabiki A").
           ..._rifleNameFields(),
           _caliberField(),
           _velocityField(),
@@ -622,20 +625,18 @@ extension _RifleSection on _ProfileDialogState {
               distanceUnit = next;
             }),
           ),
-          MenzilFullWidth(
-            child: MenzilInput(
-              key: const Key('scope-sight-height'),
-              info: platform == WeaponPlatform.firearm
-                  ? ProfileFieldInfo.sightHeightFirearm
-                  : ProfileFieldInfo.sightHeight,
-              controller: sight,
-              label: 'Sight height',
-              unit: 'mm',
-              onChanged: (_) => _update(() {}),
-              errorText: sight.text.isNotEmpty && !_validSight
-                  ? '0–300 mm arasında geçerli bir değer girin.'
-                  : null,
-            ),
+          MenzilInput(
+            key: const Key('scope-sight-height'),
+            info: platform == WeaponPlatform.firearm
+                ? ProfileFieldInfo.sightHeightFirearm
+                : ProfileFieldInfo.sightHeight,
+            controller: sight,
+            label: 'Sight height',
+            unit: 'mm',
+            onChanged: (_) => _update(() {}),
+            errorText: sight.text.isNotEmpty && !_validSight
+                ? '0–300 mm arasında geçerli bir değer girin.'
+                : null,
           ),
         ],
       ),

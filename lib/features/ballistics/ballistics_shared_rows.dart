@@ -95,16 +95,40 @@ extension _BallisticsSharedRows on _BallisticsScreenState {
 
   /// A card title (size 18, like the Profil summary headers) with ONE ⓘ
   /// right after it (owner, 2026-10-14: Basınç Ölçer and İrtifa only).
-  Widget _headerWithInfo(String title, String info, {required Key infoKey}) =>
-      MenzilSectionHeader(
-        title,
-        size: 18,
-        padding: const EdgeInsets.only(
-          top: MenzilSpace.xxs,
-          bottom: MenzilSpace.sm,
-        ),
-        titleTrailing: MenzilInfoButton(key: infoKey, title: title, text: info),
-      );
+  ///
+  /// With [gapAbove] (Hava Durumu, owner 2026-10-17): the title text sits
+  /// exactly [gapAbove] under the previous item and 8 pt over its card.
+  Widget _headerWithInfo(
+    String title,
+    String info, {
+    required Key infoKey,
+    double? gapAbove,
+  }) => gapAbove == null
+      ? MenzilSectionHeader(
+          title,
+          size: 18,
+          padding: const EdgeInsets.only(
+            top: MenzilSpace.xxs,
+            bottom: MenzilSpace.sm,
+          ),
+          titleTrailing: MenzilInfoButton(
+            key: infoKey,
+            title: title,
+            text: info,
+          ),
+        )
+      : MenzilSectionHeader(
+          title,
+          size: 18,
+          textGapAbove: gapAbove,
+          titleInfo: (alignment, padding) => MenzilInfoButton(
+            key: infoKey,
+            title: title,
+            text: info,
+            alignment: alignment,
+            padding: padding,
+          ),
+        );
 
   String _pressureText(double hpa) => metric
       ? hpa.toStringAsFixed(1)
