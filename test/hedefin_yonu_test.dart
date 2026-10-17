@@ -84,22 +84,6 @@ Widget _app({double textScale = 1}) => MaterialApp(
   ),
 );
 
-Future<_FakeGarmin> _pump(
-  WidgetTester tester, {
-  required double width,
-  double textScale = 1,
-}) async {
-  tester.view.physicalSize = Size(width, 3200) * 3;
-  tester.view.devicePixelRatio = 3;
-  addTearDown(tester.view.reset);
-  final garmin = _FakeGarmin();
-  GarminLink.instance = garmin;
-  addTearDown(() => GarminLink.instance = GarminLink());
-  await tester.pumpWidget(_app(textScale: textScale));
-  await tester.pumpAndSettle();
-  return garmin;
-}
-
 /// The test font draws every glyph a full em wide, so a 17-letter title
 /// can never fit. SF cannot be bundled; like ekran_boyutu_test.dart, Inter
 /// stands in for the iOS system faces so the widths are close to a phone.
@@ -160,8 +144,8 @@ void main() {
   tearDown(() => CatalogRepository.installUserCatalog(UserCatalog.empty));
 
   for (final (width, scale) in [(390.0, 1.0), (320.0, 1.0), (320.0, 1.3)]) {
-    testWidgets('$width pt, text ×$scale: "Hedefin yönü" on one line, same '
-        'row as Hedef hızı, no overflow', (tester) async {
+    testWidgets('$width pt, text ×$scale: "Hedefin yönü" on one line, beside or '
+        'under Hedef hızı, no overflow', (tester) async {
       await _openTarget(tester, width: width, textScale: scale);
       expect(tester.takeException(), isNull);
       expect(_direction, findsOneWidget);
@@ -180,19 +164,32 @@ void main() {
         of: speed,
         matching: find.text('Hedef hızı'),
       );
-      // Same row: the two boxes and their labels share one top edge.
-      expect(
-        tester.getRect(_direction).top,
-        closeTo(tester.getRect(speed).top, 0.5),
-      );
-      expect(
-        tester.getRect(label).top,
-        closeTo(tester.getRect(speedLabel).top, 0.5),
-      );
-      expect(
-        tester.getRect(label).left,
-        greaterThan(tester.getRect(speed).right),
-      );
+      if (width == 390 && scale == 1) {
+        // Same row: the two boxes and their labels share one top edge.
+        expect(
+          tester.getRect(_direction).top,
+          closeTo(tester.getRect(speed).top, 0.5),
+        );
+        expect(
+          tester.getRect(label).top,
+          closeTo(tester.getRect(speedLabel).top, 0.5),
+        );
+        expect(
+          tester.getRect(label).left,
+          greaterThan(tester.getRect(speed).right),
+        );
+      } else {
+        // Narrower than MenzilFieldGrid's two-column width (existing rule
+        // for every Pro grid): the box sits right under Hedef hızı.
+        expect(
+          tester.getRect(_direction).top,
+          greaterThan(tester.getRect(speed).bottom - 0.5),
+        );
+        expect(
+          tester.getRect(_direction).left,
+          closeTo(tester.getRect(speed).left, 0.5),
+        );
+      }
       // One line: as tall as the one-line Hedef hızı label.
       expect(
         tester.getRect(label).height,
@@ -200,7 +197,11 @@ void main() {
       );
       // Shown whole, not cut with "…".
       expect(
-        tester.renderObject<RenderParagraph>(label).didExceedMaxLines,
+        tester
+            .renderObject<RenderParagraph>(
+              find.descendant(of: label, matching: find.byType(RichText)),
+            )
+            .didExceedMaxLines,
         isFalse,
       );
       // Options unchanged.
